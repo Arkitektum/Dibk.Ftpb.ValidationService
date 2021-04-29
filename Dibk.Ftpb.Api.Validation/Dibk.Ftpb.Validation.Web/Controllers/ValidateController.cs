@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Dibk.Ftpb.Validation.Web.Controllers
 {
     [ApiController]
@@ -34,9 +32,9 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
                 return BadRequest();
             }
 
-            // er det innhold ... send det videre!
+            var messages = _validationService.Validate(input.FormData);
 
-            return Ok();
+            return Ok(messages);
 
         }
 
