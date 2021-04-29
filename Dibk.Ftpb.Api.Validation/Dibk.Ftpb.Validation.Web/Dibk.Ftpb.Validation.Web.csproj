@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Dibk.Ftpb.Validation.Application\Dibk.Ftpb.Validation.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
