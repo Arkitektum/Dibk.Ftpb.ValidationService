@@ -5,8 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="XSD\" />
+    <None Remove="Schema\XSD\arbeidstilsynetsSamtykke2.xsd" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Schema\XSD\arbeidstilsynetsSamtykke2.xsd" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Arkitektum.XmlSchemaValidator" Version="0.1.2" />
   </ItemGroup>
 
 </Project>
