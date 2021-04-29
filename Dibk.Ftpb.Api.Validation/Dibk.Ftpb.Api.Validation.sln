@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31105.61
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dibk.Ftpb.Validation.Web", "Dibk.Ftpb.Api.Validation\Dibk.Ftpb.Validation.Web.csproj", "{08B9359B-5184-427F-B1D0-C3B56BE7518F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dibk.Ftpb.Validation.Application", "Dibk.Ftpb.Validation.Application\Dibk.Ftpb.Validation.Application.csproj", "{0975D9C8-9157-403A-86C0-BAAB212630DD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{08B9359B-5184-427F-B1D0-C3B56BE7518F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08B9359B-5184-427F-B1D0-C3B56BE7518F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08B9359B-5184-427F-B1D0-C3B56BE7518F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08B9359B-5184-427F-B1D0-C3B56BE7518F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0975D9C8-9157-403A-86C0-BAAB212630DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0975D9C8-9157-403A-86C0-BAAB212630DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0975D9C8-9157-403A-86C0-BAAB212630DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0975D9C8-9157-403A-86C0-BAAB212630DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6C5BACCE-CF23-4891-8F5A-D9B358A172C6}
+	EndGlobalSection
+EndGlobal
