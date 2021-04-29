@@ -1,19 +1,29 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Schema\XSD\arbeidstilsynetsSamtykke2.xsd" />
+    <Compile Remove="XSD\**" />
+    <EmbeddedResource Remove="XSD\**" />
+    <None Remove="XSD\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Schema\XSD\arbeidstilsynetsSamtykke2.xsd" />
+    <None Remove="Models\DataModels\ArbeidstilsynetsSamtykke2\arbeidstilsynetsSamtykke2.xsd" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Models\DataModels\ArbeidstilsynetsSamtykke2\arbeidstilsynetsSamtykke2.xsd" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Arkitektum.XmlSchemaValidator" Version="0.1.2" />
+    <Folder Include="Logic\EntityValidators\" />
+    <Folder Include="Logic\Xsd\" />
+    <Folder Include="Validators\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

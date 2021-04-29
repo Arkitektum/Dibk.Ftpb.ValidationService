@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dibk.Ftpb.Validation.Web", "Dibk.Ftpb.Validation.Web\Dibk.Ftpb.Validation.Web.csproj", "{08B9359B-5184-427F-B1D0-C3B56BE7518F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dibk.Ftpb.Validation.Web", "Dibk.Ftpb.Validation.Web\Dibk.Ftpb.Validation.Web.csproj", "{08B9359B-5184-427F-B1D0-C3B56BE7518F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dibk.Ftpb.Validation.Application", "Dibk.Ftpb.Validation.Application\Dibk.Ftpb.Validation.Application.csproj", "{0975D9C8-9157-403A-86C0-BAAB212630DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dibk.Ftpb.Validation.Application", "Dibk.Ftpb.Validation.Application\Dibk.Ftpb.Validation.Application.csproj", "{0975D9C8-9157-403A-86C0-BAAB212630DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
