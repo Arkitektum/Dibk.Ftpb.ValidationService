@@ -10,12 +10,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace Dibk.Ftpb.Validation.Web.Controllers
 {
-    //[Route("api/[controller]")]
     [ApiController]
     public class ValidateController : ControllerBase
     {
 
-        // POST api/<ValidateController>
         [Route("api/validate")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(object))]  // TODO!
