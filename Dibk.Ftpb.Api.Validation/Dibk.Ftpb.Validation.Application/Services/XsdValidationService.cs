@@ -22,8 +22,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
             var messages = _xmlSchemaValidator.Validate(inputData.Config.DataType.ToString(), inputData.Data);
 
             inputData.IsValid = !messages.Any();
-            inputData.Data.Seek(0, SeekOrigin.Begin);
-
+            
             return messages;
         }
     }

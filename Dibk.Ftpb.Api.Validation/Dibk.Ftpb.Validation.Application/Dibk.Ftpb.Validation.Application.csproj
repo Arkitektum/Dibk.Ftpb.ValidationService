@@ -19,11 +19,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Arkitektum.XmlSchemaValidator" Version="0.1.2" />
     <Folder Include="Logic\EntityValidators\" />
     <Folder Include="Logic\Xsd\" />
     <Folder Include="Validators\" />
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Arkitektum.XmlSchemaValidator" Version="0.1.2" />
   </ItemGroup>
 
 </Project>
