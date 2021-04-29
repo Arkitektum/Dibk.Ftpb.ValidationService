@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="DataSources\" />
+    <Folder Include="Validators\" />
     <Folder Include="Services\" />
     <Folder Include="XSD\" />
   </ItemGroup>
