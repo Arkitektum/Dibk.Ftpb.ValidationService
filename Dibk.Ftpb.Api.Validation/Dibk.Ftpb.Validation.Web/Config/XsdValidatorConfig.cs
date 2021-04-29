@@ -18,7 +18,7 @@ namespace Dibk.Ftpb.Validation.Web.Config
                     GetXsdResourceStream("arbeidstilsynetsSamtykke2.xsd")
                 );
 
-                options.CacheFiles = false;
+                options.CacheDurationDays = 30;
             });
         }
 

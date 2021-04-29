@@ -18,7 +18,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
 
         public List<string> Validate(string xmlString)
         {
-            using var inputData = _inputDataService.GetInputData(xmlString);
+            var inputData = _inputDataService.GetInputData(xmlString);
             var messages = _xsdValidationService.Validate(inputData);
 
             return messages;
@@ -26,7 +26,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
 
         public List<string> Validate(IFormFile xmlFile)
         {
-            using var inputData = _inputDataService.GetInputData(xmlFile.OpenReadStream());
+            using var inputData = _inputDataService.GetInputData(xmlFile);
             var messages = _xsdValidationService.Validate(inputData);
 
             return messages;

@@ -18,11 +18,11 @@ namespace Dibk.Ftpb.Validation.Application.Services
 
         public List<string> Validate(InputData inputData)
         {
+            inputData.Data.Seek(0, SeekOrigin.Begin);
             var messages = _xmlSchemaValidator.Validate(inputData.Config.DataType.ToString(), inputData.Data);
 
             inputData.IsValid = !messages.Any();
-            inputData.Data.Seek(0, SeekOrigin.Begin);
-
+            
             return messages;
         }
     }
