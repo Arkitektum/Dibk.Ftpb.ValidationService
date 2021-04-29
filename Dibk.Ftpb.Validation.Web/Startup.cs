@@ -42,9 +42,10 @@ namespace Dibk.Ftpb.Validation
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "Dibk.Ftpb.Api.Validation v1"));
+                app.UseSwagger();                
             }
+
+            app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "Dibk.Ftpb.Api.Validation v1"));
 
             app.UseXmlSchemaValidator();
 
