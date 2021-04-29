@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Metadata
 {
-    class AltinnConstraints
+    class AltinnConstraintsValidator
     {
     }
 }
