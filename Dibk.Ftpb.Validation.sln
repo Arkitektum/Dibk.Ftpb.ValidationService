@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dibk.Ftpb.Validation.Web", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dibk.Ftpb.Validation.Application", "Dibk.Ftpb.Validation.Application\Dibk.Ftpb.Validation.Application.csproj", "{0975D9C8-9157-403A-86C0-BAAB212630DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dibk.Ftpb.Validation.Application.Tests", "TestProject1\Dibk.Ftpb.Validation.Application.Tests.csproj", "{3C3D5175-94C1-49D2-AC40-E494388C03A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0975D9C8-9157-403A-86C0-BAAB212630DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0975D9C8-9157-403A-86C0-BAAB212630DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0975D9C8-9157-403A-86C0-BAAB212630DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C3D5175-94C1-49D2-AC40-E494388C03A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C3D5175-94C1-49D2-AC40-E494388C03A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C3D5175-94C1-49D2-AC40-E494388C03A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C3D5175-94C1-49D2-AC40-E494388C03A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
