@@ -48,9 +48,7 @@ namespace Dibk.Ftpb.Validation.Application.Process
             {
                 //Resolves an instance of the class
                 var formType = types.FirstOrDefault();
-                //TODO way ??
-                //formLogicInstance = _services.GetService(formType);
-                formLogicInstance = formType;
+                formLogicInstance = _services.GetService(formType);
             }
 
             return formLogicInstance as IFormValidator;

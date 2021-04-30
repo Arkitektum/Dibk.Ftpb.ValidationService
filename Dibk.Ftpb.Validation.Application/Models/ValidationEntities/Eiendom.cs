@@ -14,7 +14,7 @@ namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 
         private string Bygningsnummer { get; set; }
 
-        private string Bolignummer { get; set; }
+        private string bolignummer { get; set; }
 
         private string Kommunenavn { get; set; }
     }
