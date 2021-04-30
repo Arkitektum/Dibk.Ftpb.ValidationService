@@ -1,16 +1,11 @@
 ﻿using Dibk.Ftpb.Validation.Application.Logic.FormValidators.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.DataSources;
-using Dibk.Ftpb.Validation.Application.DataSources.ApiServices;
 using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
+using Dibk.Ftpb.Validation.Application.Logic.Mappers;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
@@ -40,12 +35,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         private ArbeidstilsynetsSamtykke2Form_45957 MapDataModelToFormEntity(ArbeidstilsynetsSamtykkeType dataModel)
         {
-            return new ArbeidstilsynetsSamtykke2Form_45957();
+            var formEntity = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataModel);
+
+            return formEntity;
         }
 
         public List<ValidationMessage> Validate(string context, ArbeidstilsynetsSamtykke2Form_45957 form)
         {
-
             return new List<ValidationMessage>();
         }
     }

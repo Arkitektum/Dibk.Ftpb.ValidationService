@@ -34,6 +34,7 @@
     <PackageReference Include="SerilogWeb.Classic" Version="5.1.66" />
     <PackageReference Include="SerilogWeb.Classic.Mvc" Version="2.1.25" />
     <PackageReference Include="SerilogWeb.Classic.WebApi" Version="4.0.5" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
   </ItemGroup>
 
 </Project>
