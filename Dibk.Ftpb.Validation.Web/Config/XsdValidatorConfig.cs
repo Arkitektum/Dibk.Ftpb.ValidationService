@@ -9,25 +9,26 @@ namespace Dibk.Ftpb.Validation.Web.Config
 {
     public static class XsdValidatorConfig
     {
+        private static readonly Assembly _assembly = Assembly.Load("Dibk.Ftpb.Validation.Application");
+
         public static void AddXmlSchemaValidator(this IServiceCollection services)
         {
             services.AddXmlSchemaValidator(options =>
             {
                 options.AddSchema(
-                    DataType.ArbeidstilsynetsSamtykke.ToString(),
+                    DataType.ArbeidstilsynetsSamtykke,
                     GetXsdResourceStream("arbeidstilsynetsSamtykke2.xsd")
                 );
 
-                options.CacheDurationDays = 30;
+                options.CacheFiles = false;
             });
         }
 
         private static Stream GetXsdResourceStream(string fileName)
         {
-            var assembly = Assembly.Load("Dibk.Ftpb.Validation.Application");
-            var name = assembly.GetManifestResourceNames().SingleOrDefault(name => name.EndsWith(fileName));
+            var name = _assembly.GetManifestResourceNames().SingleOrDefault(name => name.EndsWith(fileName));
 
-            return name != null ? assembly.GetManifestResourceStream(name) : null;
+            return name != null ? _assembly.GetManifestResourceStream(name) : null;
         }
     }
 }

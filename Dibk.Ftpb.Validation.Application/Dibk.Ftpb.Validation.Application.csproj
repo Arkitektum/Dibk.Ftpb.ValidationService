@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Arkitektum.XmlSchemaValidator" Version="0.1.2" />
+    <PackageReference Include="Arkitektum.XmlSchemaValidator" Version="0.1.3" />
   </ItemGroup>
 
 </Project>
