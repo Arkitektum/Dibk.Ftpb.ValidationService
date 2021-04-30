@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.Reporter;
 
 namespace Dibk.Ftpb.Validation.Application.Process
@@ -23,15 +24,16 @@ namespace Dibk.Ftpb.Validation.Application.Process
             _services = services;
         }
 
-        public void Execute(string xmlData, string dataFormatVersion)
+        public async Task ExecuteAsync(string xmlData, string dataFormatVersion)
         {
             IFormValidator formValidator = GetValidator(dataFormatVersion); //45957
             formValidator.Execute(xmlData);
-            
+
+            //return Task.CompletedTask;
         }
 
 
-        private IFormValidator GetValidator(string dataFormatVersion)
+        public IFormValidator GetValidator(string dataFormatVersion)
         {
             //Retrieves classes implementing IForm, having FormDataFormatAttribute and filtering by its DataFormatId
             var type = typeof(IFormValidator);
@@ -46,7 +48,9 @@ namespace Dibk.Ftpb.Validation.Application.Process
             {
                 //Resolves an instance of the class
                 var formType = types.FirstOrDefault();
-                formLogicInstance = _services.GetService(formType);
+                //TODO way ??
+                //formLogicInstance = _services.GetService(formType);
+                formLogicInstance = formType;
             }
 
             return formLogicInstance as IFormValidator;
