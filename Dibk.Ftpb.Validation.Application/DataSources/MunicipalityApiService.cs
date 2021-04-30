@@ -7,7 +7,11 @@ using Dibk.Ftpb.Validation.Application.DataSources.Models;
 
 namespace Dibk.Ftpb.Validation.Application.DataSources
 {
-    public class MunicipalityApiService
+    public interface IMunicipalityApiService
+    {
+        MunicipalityViewModel GetMunicipality(string municipalityCode);
+    }
+    public class MunicipalityApiService: IMunicipalityApiService
     {
         public MunicipalityViewModel GetMunicipality(string municipalityCode)
         {

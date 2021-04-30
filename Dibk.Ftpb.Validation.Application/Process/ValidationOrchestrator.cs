@@ -4,8 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using Dibk.Ftpb.Validation.Application.Reporter;
 
 namespace Dibk.Ftpb.Validation.Application.Process
 {
@@ -17,16 +16,18 @@ namespace Dibk.Ftpb.Validation.Application.Process
     public class ValidationOrchestrator
     {
         private readonly IServiceProvider _services;
+        public List<ValidationMessage> Messages { get; set; }
 
         public ValidationOrchestrator(IServiceProvider services)
         {
             _services = services;
         }
 
-        public void Execute(string xmlData)
+        public void Execute(string xmlData, string dataFormatVersion)
         {
-            IFormValidator formValidator = GetValidator("45957");
-            formValidator.DeserializeToDatamodel(xmlData);
+            IFormValidator formValidator = GetValidator(dataFormatVersion); //45957
+            formValidator.Execute(xmlData);
+            
         }
 
 

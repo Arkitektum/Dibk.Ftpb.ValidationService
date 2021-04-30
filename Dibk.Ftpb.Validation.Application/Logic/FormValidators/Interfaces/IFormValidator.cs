@@ -8,6 +8,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Interfaces
 {
     public interface IFormValidator
     {
-        void DeserializeToDatamodel(string xmlData);
+        void Execute(string xmlData);
+        //void MapDataModelToFormEntity(dataModel);
+    }
+
+    public interface IDataModelMapper<T, U>
+    {
+        T MapDataModelToFormEntity(U dataModel);
+    }
+
+    public class DataModelMapper
+    {
+
     }
 }
