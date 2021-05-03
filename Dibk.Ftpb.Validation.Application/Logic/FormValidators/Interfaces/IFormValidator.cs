@@ -9,7 +9,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Interfaces
 {
     public interface IFormValidator
     {
-        List<ValidationMessage> StartValidation(string xmlData);
+        List<ValidationRule> StartValidation(string xmlData);
     }
 
     public interface IDataModelMapper<T, U>

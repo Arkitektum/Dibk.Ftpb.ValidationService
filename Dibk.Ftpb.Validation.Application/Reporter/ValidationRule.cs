@@ -7,13 +7,12 @@ using Dibk.Ftpb.Validation.Application.Enums;
 
 namespace Dibk.Ftpb.Validation.Application.Reporter
 {
-    public class ValidationMessage
+    public class ValidationRule
     {
 
         public string id;
         public string xpath;
-        public ValidationMessageTypeEnum messagetype;
-
+        public ValidationResultEnum messagetype;
 
         public string message;
         public string preCondition;

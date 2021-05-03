@@ -14,14 +14,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             
         }
-        public List<ValidationMessage> Validate(string context, IEnumerable<Eiendom> eiendoms)
+        public List<ValidationRule> Validate(string context, IEnumerable<Eiendom> eiendoms)
         {
-            return new List<ValidationMessage>();
+            var entityRules = EntityRules();
+
+            return new List<ValidationRule>();
         }
 
-        public List<ValidationMessage> EntityRules()
+        public List<ValidationRule> EntityRules()
         {
-            return new List<ValidationMessage>();
+            return new List<ValidationRule>();
         }
     }
 }

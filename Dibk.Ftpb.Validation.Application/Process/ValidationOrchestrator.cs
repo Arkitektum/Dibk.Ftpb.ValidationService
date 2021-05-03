@@ -17,17 +17,27 @@ namespace Dibk.Ftpb.Validation.Application.Process
     public class ValidationOrchestrator
     {
         private readonly IServiceProvider _services;
-        public List<ValidationMessage> Messages { get; set; }
+        public List<ValidationRule> Messages { get; set; }
 
         public ValidationOrchestrator(IServiceProvider services)
         {
             _services = services;
         }
 
-        public async Task ExecuteAsync(string xmlData, string dataFormatVersion)
+        public async Task ExecuteAsync(string xmlData)
         {
+            Messages = new List<ValidationRule>();
+
+            //TODO Validate Xml structure 
+            List<ValidationRule> validationXmlMessages = new List<ValidationRule>();
+            Messages.Concat(validationXmlMessages);
+            
+            //TODO Get dataFormatVersion
+            string dataFormatVersion = "45957";
+
             IFormValidator formValidator = GetValidator(dataFormatVersion); //45957
-            formValidator.StartValidation(xmlData);
+            
+            var validationMessages = Messages.Concat(formValidator.StartValidation(xmlData));
 
             //return Task.CompletedTask;
         }
