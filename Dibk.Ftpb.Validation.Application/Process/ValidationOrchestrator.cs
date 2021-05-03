@@ -27,7 +27,7 @@ namespace Dibk.Ftpb.Validation.Application.Process
         public async Task ExecuteAsync(string xmlData, string dataFormatVersion)
         {
             IFormValidator formValidator = GetValidator(dataFormatVersion); //45957
-            formValidator.Execute(xmlData);
+            formValidator.StartValidation(xmlData);
 
             //return Task.CompletedTask;
         }

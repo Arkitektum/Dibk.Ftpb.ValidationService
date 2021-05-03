@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dibk.Ftpb.Validation.Application.Reporter;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Interfaces
 {
     public interface IFormValidator
     {
-        void Execute(string xmlData);
+        List<ValidationMessage> StartValidation(string xmlData);
     }
 
     public interface IDataModelMapper<T, U>

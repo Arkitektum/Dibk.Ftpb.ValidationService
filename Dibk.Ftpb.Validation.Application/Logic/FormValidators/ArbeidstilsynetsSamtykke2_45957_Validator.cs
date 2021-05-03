@@ -6,6 +6,7 @@ using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 using Dibk.Ftpb.Validation.Application.Logic.Mappers;
+using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
@@ -22,11 +23,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _municipalityApiService = municipalityApiService;
         }
 
-        public void Execute(string xmlData)
+        public List<ValidationMessage> StartValidation(string xmlData)
         {
             _form = DeserializeDataForm(xmlData);
             ArbeidstilsynetsSamtykke2Form45957 = MapDataModelToFormEntity(_form);
-            Validate("ArbeidstilsynetsSamtykkeType", ArbeidstilsynetsSamtykke2Form45957);
+            return Validate("ArbeidstilsynetsSamtykkeType", ArbeidstilsynetsSamtykke2Form45957);
         }
         public ArbeidstilsynetsSamtykkeType DeserializeDataForm(string xmlData)
         {
@@ -44,5 +45,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         {
             return new List<ValidationMessage>();
         }
+
+
     }
 }
