@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.Enums
 {
-    public enum ValidationMessageTypeEnum
+    public enum ValidationResultEnum
     {
+        Ok,
         Error,
-        Warning
+        Warning,
+        UnUsed
     }
 }
