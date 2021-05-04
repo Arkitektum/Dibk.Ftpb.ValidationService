@@ -39,11 +39,13 @@ namespace Dibk.Ftpb.Validation
             services.AddTransient<IValidationService, ValidationService>();
             services.AddTransient<IInputDataService, InputDataService>();
             services.AddTransient<IXsdValidationService, XsdValidationService>();
+            services.AddAzureAppConfiguration();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -71,10 +73,12 @@ namespace Dibk.Ftpb.Validation
         private void ConfigureLogging()
         {
             var logLevel = LogEventLevel.Debug;
-            var elasticSearchUrl = Configuration["Serilog:ConnectionUrl"];
-            var elasticUsername = Configuration["Serilog:Username"];
-            var elasticPassword = Configuration["Serilog:Password"];
+            var elasticSearchUrl = ConfigurationManager.AppSettings["Serilog:ConnectionUrl"] ?? Configuration["Serilog:ConnectionUrl"];
+            var elasticUsername = ConfigurationManager.AppSettings["Serilog:Username"] ?? Configuration["Serilog:Username"];
+            var elasticPassword = ConfigurationManager.AppSettings["Serilog:Password"] ?? Configuration["Serilog:Password"];
             var elasticIndexFormat = Configuration["Serilog:IndexFormat"];
+
+
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Is(logLevel)
