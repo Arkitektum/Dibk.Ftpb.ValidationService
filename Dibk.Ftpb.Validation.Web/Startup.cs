@@ -73,9 +73,9 @@ namespace Dibk.Ftpb.Validation
         private void ConfigureLogging()
         {
             var logLevel = LogEventLevel.Debug;
-            var elasticSearchUrl = ConfigurationManager.AppSettings["Serilog:ConnectionUrl"] ?? Configuration["Serilog:ConnectionUrl"];
-            var elasticUsername = ConfigurationManager.AppSettings["Serilog:Username"] ?? Configuration["Serilog:Username"];
-            var elasticPassword = ConfigurationManager.AppSettings["Serilog:Password"] ?? Configuration["Serilog:Password"];
+            var elasticSearchUrl = Configuration["Serilog:ConnectionUrl"];
+            var elasticUsername =  Configuration["Serilog:Username"];
+            var elasticPassword =  Configuration["Serilog:Password"];
             var elasticIndexFormat = Configuration["Serilog:IndexFormat"];
 
 
