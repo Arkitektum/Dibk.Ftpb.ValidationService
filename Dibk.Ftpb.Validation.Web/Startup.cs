@@ -98,6 +98,11 @@ namespace Dibk.Ftpb.Validation
                     IndexFormat = elasticIndexFormat
                 })
                 .CreateLogger();
+                
+                for ( int i = 0; i < 100; ++i)
+            {
+                Log.Warning("init logging");
+            }
         }
     }
 }
