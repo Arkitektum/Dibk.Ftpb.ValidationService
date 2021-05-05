@@ -1,14 +1,12 @@
-﻿using Dibk.Ftpb.Validation.Application.Logic.FormValidators.Interfaces;
+﻿using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using System.Collections.Generic;
-using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 using Dibk.Ftpb.Validation.Application.Logic.Mappers;
-using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {

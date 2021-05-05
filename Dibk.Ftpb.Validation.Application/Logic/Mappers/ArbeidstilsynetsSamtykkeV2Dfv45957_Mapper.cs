@@ -12,8 +12,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers
             var formMapper = FormMapperConfiguration();
             var arbeidstilsynetsSamtykke2Form45957 = new ArbeidstilsynetsSamtykke2Form_45957();
             var eiendom = formMapper.Map<Eiendom>(dataModel.eiendomByggested);
+            var matrikkel = formMapper.Map<Matrikkel>(dataModel.eiendomByggested.eiendomsidentifikasjon);
+            
             arbeidstilsynetsSamtykke2Form45957.Eiendom = eiendom;
-         
+
             return arbeidstilsynetsSamtykke2Form45957;
         }
         public IMapper FormMapperConfiguration()
@@ -24,7 +26,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers
 
                 cfg.CreateMap<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.EiendomType, Models.ValidationEntities.Eiendom>()
                 .ForMember(dest => dest.Adresse, opt => opt.MapFrom(src => src.adresse))
-                .ForMember(dest => dest.Eiendomsidentifikasjon, opt => opt.MapFrom(src => src.eiendomsidentifikasjon))
+                .ForMember(dest => dest.Matrikkel, opt => opt.MapFrom(src => src.eiendomsidentifikasjon))
                 .ForMember(dest => dest.Bygningsnummer, opt => opt.MapFrom(src => src.bygningsnummer))
                 .ForMember(dest => dest.Bolignummer, opt => opt.MapFrom(src => src.bolignummer))
                 .ForMember(dest => dest.Kommunenavn, opt => opt.MapFrom(src => src.kommunenavn));
@@ -44,7 +46,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers
                 .ForMember(dest => dest.Gaardsnummer, opt => opt.MapFrom(src => src.gaardsnummer))
                 .ForMember(dest => dest.Bruksnummer, opt => opt.MapFrom(src => src.bruksnummer))
                 .ForMember(dest => dest.Seksjonsnummer, opt => opt.MapFrom(src => src.seksjonsnummer))
-                .ForMember(dest => dest.Kommunenummer, opt => opt.MapFrom(src => src.kommunenummer));
+                .ForMember(dest => dest.Kommunenummer, opt => opt.MapFrom(src => src.kommunenummer))
+                .ForMember(dest => dest.Festenummer, opt => opt.MapFrom(src => src.festenummer));
 
                 //cfg.CreateMap<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.MetadataType, Models.ValidationEntities.Metadata>();
             });

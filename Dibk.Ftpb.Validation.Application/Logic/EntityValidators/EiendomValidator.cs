@@ -12,24 +12,43 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public class EiendomValidator : EntityValidatorBase
     {
         private EiendomsAdresseValidator _eiendomsAdresseValidator;
+        private MatrikkelValidator _matrikkelValidator;
         public EiendomValidator() : base()
         {
             _eiendomsAdresseValidator = new EiendomsAdresseValidator();
+            _matrikkelValidator = new MatrikkelValidator();
         }
         public List<ValidationRule> Validate(string context, Eiendom eiendom)
         {
             string newContext = $"{context}/Eiendom";
             InitializeValidationRules(newContext);
-            LocalValidate(newContext, eiendom);
-            
-            var eiendomsAdresseValidationRules = _eiendomsAdresseValidator.Validate(newContext, eiendom.Adresse).ToList();
+            ValidateEntityFields(eiendom);
+
+            var eiendomsAdresseValidationRules = _eiendomsAdresseValidator.Validate(newContext, eiendom.Adresse);
             ValidationRules.AddRange(eiendomsAdresseValidationRules);
+
+            var matrikkelValidationRules = _matrikkelValidator.Validate(newContext, eiendom.Matrikkel);
+            ValidationRules.AddRange(matrikkelValidationRules);
 
             return ValidationRules;
         }
 
-        private void LocalValidate(string context, Eiendom eiendom)
+        private void ValidateComplexData(object entityData)
         {
+
+        }
+
+
+        public override void InitializeValidationRules(string context)
+        {
+            ValidationRules.Add(new ValidationRule() { id = "bygningsnummer_utfylt", xpath = $"{context}/Bygningsnummer", validationResult = ValidationResultEnum.Unused });
+            ValidationRules.Add(new ValidationRule() { id = "bolignummer_utfylt", xpath = $"{context}/Bolignummer", validationResult = ValidationResultEnum.Unused });
+            ValidationRules.Add(new ValidationRule() { id = "kommunenavn_utfylt", xpath = $"{context}/Kommunenavn", validationResult = ValidationResultEnum.Unused });
+        }
+
+        public override void ValidateEntityFields(object entityData)
+        {
+            Eiendom eiendom = (Eiendom)entityData;
             ValidationRules.Where(crit => crit.id.Equals("bygningsnummer_utfylt")).FirstOrDefault().validationResult
                 = (string.IsNullOrEmpty(eiendom.Bygningsnummer)) ? ValidationResultEnum.ValidationFailed : ValidationResultEnum.ValidationOk;
 
@@ -38,13 +57,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             ValidationRules.Where(crit => crit.id.Equals("kommunenavn_utfylt")).FirstOrDefault().validationResult
                 = (string.IsNullOrEmpty(eiendom.Kommunenavn)) ? ValidationResultEnum.ValidationFailed : ValidationResultEnum.ValidationOk;
-        }
 
-        private void InitializeValidationRules(string context)
-        {
-            ValidationRules.Add(new ValidationRule() { id = "bygningsnummer_utfylt", xpath = $"{context}/Bygningsnummer", validationResult = ValidationResultEnum.Unused });
-            ValidationRules.Add(new ValidationRule() { id = "bolignummer_utfylt", xpath = $"{context}/Bolignummer", validationResult = ValidationResultEnum.Unused });
-            ValidationRules.Add(new ValidationRule() { id = "kommunenavn_utfylt", xpath = $"{context}/Kommunenavn", validationResult = ValidationResultEnum.Unused });
         }
     }
 }

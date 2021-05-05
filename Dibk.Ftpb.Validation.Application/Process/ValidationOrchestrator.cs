@@ -1,5 +1,5 @@
 ﻿using Dibk.Ftpb.Validation.Application.Logic;
-using Dibk.Ftpb.Validation.Application.Logic.FormValidators.Interfaces;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
