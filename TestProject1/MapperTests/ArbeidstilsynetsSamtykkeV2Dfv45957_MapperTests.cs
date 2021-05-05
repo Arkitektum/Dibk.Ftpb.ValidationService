@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dibk.Ftpb.Validation.Application.Enums;
-using Dibk.Ftpb.Validation.Application.Logic.FormValidators;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers;
-using Dibk.Ftpb.Validation.Application.Tests.Utils;
+﻿using Dibk.Ftpb.Validation.Application.Logic.Mappers;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 using Xunit;
 using FluentAssertions;

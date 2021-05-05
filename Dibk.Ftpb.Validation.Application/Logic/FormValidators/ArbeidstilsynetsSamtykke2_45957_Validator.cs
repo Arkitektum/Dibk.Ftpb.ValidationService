@@ -7,6 +7,7 @@ using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 using Dibk.Ftpb.Validation.Application.Logic.Mappers;
+using Dibk.Ftpb.Validation.Application.Logic.Deserializers;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
@@ -33,7 +34,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             validationMessages.AddRange(xsdValidationMesagges);
 
             //Get Arbeidstilsynets Samtykke v2 Dfv45957 class
-            _form = DeserializeDataForm(xmlData);
+            //_form = DeserializeDataForm(xmlData);
+            _form = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(xmlData);
 
             // map to arbeidstilsynet formEntity 
             ArbeidstilsynetsSamtykke2Form45957 = MapDataModelToFormEntity(_form);

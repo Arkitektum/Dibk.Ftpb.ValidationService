@@ -34,6 +34,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             ValidationRules.Add(new ValidationRule() { id = "eiendomsAdresse_gatenavn_utfylt", xpath = $"{context}/Gatenavn", validationResult = ValidationResultEnum.Unused });
             ValidationRules.Add(new ValidationRule() { id = "eiendomsAdresse_husnr_utfylt", xpath = $"{context}/Husnr", validationResult = ValidationResultEnum.Unused });
             ValidationRules.Add(new ValidationRule() { id = "eiendomsAdresse_bokstav_utfylt", xpath = $"{context}/Bokstav", validationResult = ValidationResultEnum.Unused });
+            ValidationRules.Add(new ValidationRule() { id = "eiendomsAdresse_postnr_4siffer", xpath = $"{context}/Postnr", validationResult = ValidationResultEnum.Unused });
         }
 
         public override void ValidateEntityFields(object entityData)
@@ -67,6 +68,25 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             ValidationRules.Where(crit => crit.id.Equals("eiendomsAdresse_bokstav_utfylt")).FirstOrDefault().validationResult
                 = string.IsNullOrEmpty(eiendomsAdresse.Bokstav) ? ValidationResultEnum.ValidationFailed : ValidationResultEnum.ValidationOk;
 
+
+            ValidationRules.Where(crit => crit.id.Equals("eiendomsAdresse_postnr_4siffer")).FirstOrDefault().validationResult
+                =!StringIs4digitNumber(eiendomsAdresse.Postnr) ? ValidationResultEnum.ValidationFailed : ValidationResultEnum.ValidationOk;
+
+
+        }
+
+        private bool StringIs4digitNumber(string input)
+        {
+            try
+            {
+                int number = int.Parse(input);
+
+                return (number >= 0 && number <= 9999);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
