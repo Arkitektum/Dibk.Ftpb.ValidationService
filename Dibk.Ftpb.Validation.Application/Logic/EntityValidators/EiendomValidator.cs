@@ -39,6 +39,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             ValidationRules.Where(crit => crit.id.Equals("tillatte_postnr_i_kommune")).FirstOrDefault().validationResult
                 = !TillattPostnrIKommune(eiendom.Kommunenavn, eiendom.Adresse.Postnr) ? ValidationResultEnum.ValidationFailed : ValidationResultEnum.ValidationOk;
+            ValidationRules.Where(crit => crit.id.Equals("tillatte_postnr_i_kommune")).FirstOrDefault().messageParameters
+                = new List<string>() { eiendom.Adresse.Postnr, eiendom.Kommunenavn  };
         }
 
 

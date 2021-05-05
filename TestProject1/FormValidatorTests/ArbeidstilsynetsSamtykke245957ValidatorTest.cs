@@ -11,6 +11,7 @@ using Dibk.Ftpb.Validation.Application.Logic.Mappers;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using System.Linq;
 using FluentAssertions;
+using Dibk.Ftpb.Validation.Application.Reporter;
 
 namespace Dibk.Ftpb.Validation.Application.Tests
 {
@@ -33,7 +34,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
 
         [Fact]
-        public void ValidateArbeidstilsynetsSamtykke2()
+        public void ValidateArbeidstilsynetsSamtykke2_hele_skjemaet()
         {
             string xmlData = @"<?xml version='1.0' encoding='utf-8'?><ArbeidstilsynetsSamtykke xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' dataFormatProvider='SERES' dataFormatId='6821' dataFormatVersion='45957' xmlns='http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0'><eiendomByggested><adresse><adresselinje1>Bøgata 1</adresselinje1><adresselinje2 xsi:nil='true' /><adresselinje3 xsi:nil='true' /><postnr>3800</postnr><poststed>Bø i Telemark</poststed><landkode>NO</landkode><gatenavn xsi:nil='true' /><husnr xsi:nil='true' /><bokstav xsi:nil='true' /></adresse><eiendomsidentifikasjon><kommunenummer>3817</kommunenummer><gaardsnummer>917</gaardsnummer><bruksnummer>135</bruksnummer><festenummer>0</festenummer><seksjonsnummer>0</seksjonsnummer></eiendomsidentifikasjon><bygningsnummer>80466985</bygningsnummer><bolignummer>H0102</bolignummer><kommunenavn>Midt Telemark</kommunenavn></eiendomByggested></ArbeidstilsynetsSamtykke>";
 
@@ -55,10 +56,13 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             validationRule.validationResult.Should().Be(ValidationResultEnum.ValidationFailed);
 
 
+            var validationComposer = new ValidationMessageComposer();
+            var newValidationReport = validationComposer.ComposeValidationReport(validationResults, "NO");
+
             if (WriteValidationResultsToJsonFile)
             {
                 var jsonString = JsonConvert.SerializeObject(validationResults);
-                File.WriteAllText(_rootDirTestResults + @"\validationResults_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
+                File.WriteAllText(_rootDirTestResults + @"\validationResultsHeleSkjemaet_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
             }
         }
 
@@ -87,10 +91,13 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             var dataModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(xmlData);
             var formEntity = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataModel);
-            var validationResultForEiendom = new EiendomValidator().Validate("Test/eiendom", formEntity.Eiendom);
+            var validationResultForEiendom = new EiendomValidator().Validate("ArbeidstilsynetsSamtykke", formEntity.Eiendom);
 
             var validationRule = validationResultForEiendom.Where(x => x.id.Equals("tillatte_postnr_i_kommune")).FirstOrDefault();
             validationRule.validationResult.Should().Be(ValidationResultEnum.ValidationFailed);
+
+            var validationComposer = new ValidationMessageComposer();
+            var newValidationReport = validationComposer.ComposeValidationReport(validationResultForEiendom, "NO");
 
             if (WriteValidationResultsToJsonFile)
             {
@@ -98,8 +105,5 @@ namespace Dibk.Ftpb.Validation.Application.Tests
                 File.WriteAllText(_rootDirTestResults + @"\validationResultsForEiendom_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
             }
         }
-
-
-
     }
 }
