@@ -8,14 +8,10 @@ namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
     public class Eiendom
     {
-        private EiendommensAdresse Adresse { get; set; }
-
-        private Matrikkel Eiendomsidentifikasjon { get; set; }
-
-        private string Bygningsnummer { get; set; }
-
-        private string bolignummer { get; set; }
-
-        private string Kommunenavn { get; set; }
+        public EiendomsAdresse Adresse { get; set; }
+        public Matrikkel Eiendomsidentifikasjon { get; set; }
+        public string Bygningsnummer { get; set; }
+        public string Bolignummer { get; set; }
+        public string Kommunenavn { get; set; }
     }
 }

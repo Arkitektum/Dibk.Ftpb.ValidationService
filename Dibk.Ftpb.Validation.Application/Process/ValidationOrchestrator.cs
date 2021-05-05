@@ -24,7 +24,7 @@ namespace Dibk.Ftpb.Validation.Application.Process
             _services = services;
         }
 
-        public async Task ExecuteAsync(string xmlData)
+        public async Task ExecuteAsync(string dataFormatVersion, string xmlData)
         {
             Messages = new List<ValidationRule>();
 
@@ -33,7 +33,7 @@ namespace Dibk.Ftpb.Validation.Application.Process
             Messages.Concat(validationXmlMessages);
             
             //TODO Get dataFormatVersion
-            string dataFormatVersion = "45957";
+            dataFormatVersion = "45957";
 
             IFormValidator formValidator = GetValidator(dataFormatVersion); //45957
             

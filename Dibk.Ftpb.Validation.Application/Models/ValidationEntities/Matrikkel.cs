@@ -2,14 +2,10 @@
 {
     public class Matrikkel
     {
-        public string KommunenummerField { get; set; }
-
-        public string GaardsnummerField { get; set; }
-
-        public string BruksnummerField { get; set; }
-
-        public string FestenummerField { get; set; }
-
-        public string SeksjonsnummerField { get; set; }
+        public string Kommunenummer { get; set; }
+        public string Gaardsnummer { get; set; }
+        public string Bruksnummer { get; set; }
+        public string Festenummer { get; set; }
+        public string Seksjonsnummer { get; set; }
     }
 }

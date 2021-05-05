@@ -19,7 +19,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private readonly IMunicipalityValidator _municipalityApiService;
         public ArbeidstilsynetsSamtykke2Form_45957 ArbeidstilsynetsSamtykke2Form45957 { get; set; }
         public ArbeidstilsynetsSamtykkeType _form { get; set; }
-        
 
         private readonly string context = "ArbeidstilsynetsSamtykke";
         public ArbeidstilsynetsSamtykke2_45957_Validator(IMunicipalityValidator municipalityApiService)
@@ -33,17 +32,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             
             //TODO xsd validering
             var xsdValidationMesagges = new List<ValidationRule>();
-            validationMessages.Concat(xsdValidationMesagges);
+            validationMessages.AddRange(xsdValidationMesagges);
 
             //Get Arbeidstilsynets Samtykke v2 Dfv45957 class
             _form = DeserializeDataForm(xmlData);
 
             // map to arbeidstilsynet formEntity 
             ArbeidstilsynetsSamtykke2Form45957 = MapDataModelToFormEntity(_form);
-
             var validationMessagesResult = Validate(context, ArbeidstilsynetsSamtykke2Form45957);
-            validationMessages.Concat(validationMessagesResult);
-            
+            validationMessages.AddRange(validationMessagesResult);
+
             return validationMessages;
         }
         public ArbeidstilsynetsSamtykkeType DeserializeDataForm(string xmlData)
@@ -60,12 +58,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         public List<ValidationRule> Validate(string context, ArbeidstilsynetsSamtykke2Form_45957 form)
         {
+            var validationResultForEiendom = new EiendomValidator().Validate(context, ArbeidstilsynetsSamtykke2Form45957.Eiendom );
 
-            var validationMAssegeForEindom = new EiendomValidator().Validate(context, new List<Eiendom>() { ArbeidstilsynetsSamtykke2Form45957.Eiendom });
-
-            return new List<ValidationRule>();
+            return validationResultForEiendom;
         }
-
-
     }
 }

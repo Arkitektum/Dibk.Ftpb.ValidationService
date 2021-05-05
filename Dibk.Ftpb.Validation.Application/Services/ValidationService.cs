@@ -19,6 +19,10 @@ namespace Dibk.Ftpb.Validation.Application.Services
         public List<string> Validate(string xmlString)
         {
             var inputData = _inputDataService.GetInputData(xmlString);
+            //inputData.Config.DataFormatVersion
+            //inputData.Data
+            //inputData.IsValid
+
             var messages = _xsdValidationService.Validate(inputData);
 
             return messages;
