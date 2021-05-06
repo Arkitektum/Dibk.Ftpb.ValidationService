@@ -7,16 +7,29 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers
 {
     public class ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper
     {
+        private IMapper _fomMapper;
+
+        public ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper()
+        {
+            _fomMapper = FormMapperConfiguration();
+        }
         public ArbeidstilsynetsSamtykke2Form_45957 GetFormEntity(ArbeidstilsynetsSamtykkeType dataModel)
         {
             var formMapper = FormMapperConfiguration();
             var arbeidstilsynetsSamtykke2Form45957 = new ArbeidstilsynetsSamtykke2Form_45957();
             var eiendom = formMapper.Map<Eiendom>(dataModel.eiendomByggested);
             var matrikkel = formMapper.Map<Matrikkel>(dataModel.eiendomByggested.eiendomsidentifikasjon);
-            
+            var arbeidsplasser = 
+
             arbeidstilsynetsSamtykke2Form45957.Eiendom = eiendom;
 
             return arbeidstilsynetsSamtykke2Form45957;
+        }
+
+        public Arbeidsplasser MapArbeidsplasser(ArbeidsplasserType arbeidsplasserType)
+        {
+            var arbeidspalsser = _fomMapper.Map<Arbeidsplasser>(arbeidsplasserType);
+            return arbeidspalsser;
         }
         public IMapper FormMapperConfiguration()
         {
@@ -49,6 +62,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers
                 .ForMember(dest => dest.Kommunenummer, opt => opt.MapFrom(src => src.kommunenummer))
                 .ForMember(dest => dest.Festenummer, opt => opt.MapFrom(src => src.festenummer));
 
+                cfg.CreateMap<ArbeidsplasserType, Arbeidsplasser>();
                 //cfg.CreateMap<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.MetadataType, Models.ValidationEntities.Metadata>();
             });
 
