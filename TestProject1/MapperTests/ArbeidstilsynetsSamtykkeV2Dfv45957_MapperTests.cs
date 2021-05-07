@@ -30,5 +30,33 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             dataFomr.Eiendom.Should().NotBeNull();
         }
+        [Fact]
+        public void ArbeidsplasserTest()
+        {
+            var dataForm = new ArbeidstilsynetsSamtykkeType()
+            {
+                arbeidsplasser = new ArbeidsplasserType()
+                {
+                    framtidige = false,
+                    framtidigeSpecified = true,
+                    faste = true,
+                    fasteSpecified = true,
+                    midlertidige = true,
+                    midlertidigeSpecified = true,
+
+                    antallAnsatte = "5",
+                    antallVirksomheter = "2",
+                    eksisterende = true,
+                    eksisterendeSpecified = true,
+                    beskrivelse = "noko rar kommer har",
+                    
+                    utleieBygg = null,
+                    utleieByggSpecified = false
+                }
+            };
+            var arbeidsplasser = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().MapArbeidsplasser(dataForm.arbeidsplasser);
+
+            arbeidsplasser.Should().NotBeNull();
+        }
     }
 }
