@@ -39,21 +39,21 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var rule = this.RuleToValidate("arbeidsplasser_utfylt");
             if (Helpers.ObjectIsNullOrEmpty(arbeidsplasser))
             {
-                rule.validationResult = ValidationResultEnum.ValidationFailed;
+                rule.ValidationResult = ValidationResultEnum.ValidationFailed;
             }
             else
             {
                 rule = RuleToValidate("framtidige_Eller_eksisterende_Utfylt");
                 if (!arbeidsplasser.Eksisterende.GetValueOrDefault(false) && !arbeidsplasser.Framtidige.GetValueOrDefault(false))
                 {
-                    rule.validationResult = ValidationResultEnum.ValidationFailed;
+                    rule.ValidationResult = ValidationResultEnum.ValidationFailed;
                 }
                 else
                 {
                     rule = RuleToValidate("type_Arbeid_Utfylt");
                     if (!arbeidsplasser.Faste.GetValueOrDefault(false) && !arbeidsplasser.Midlertidige.GetValueOrDefault(false))
                     {
-                        rule.validationResult = ValidationResultEnum.ValidationFailed;
+                        rule.ValidationResult = ValidationResultEnum.ValidationFailed;
                     }
                 }
 

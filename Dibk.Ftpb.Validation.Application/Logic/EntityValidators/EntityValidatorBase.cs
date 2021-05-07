@@ -29,21 +29,21 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             ValidationRules.Add(new ValidationRule()
             {
-                id = id,
-                xpath = xPath,
-                validationResult = ValidationResultEnum.Unused
+                Id = id,
+                Xpath = xPath,
+                ValidationResult = ValidationResultEnum.Unused
             });
         }
 
         public ValidationRule RuleToValidate(string id)
         {
-            var validationRule = ValidationRules.FirstOrDefault(r => r.id.Equals(id)) ?? new ValidationRule()
+            var validationRule = ValidationRules.FirstOrDefault(r => r.Id.Equals(id)) ?? new ValidationRule()
             {
-                id = id,
-                message = $"Can't finde rule with id:'{id}'.-"
+                Id = id,
+                Message = $"Can't finde rule with id:'{id}'.-"
             };
 
-            validationRule.validationResult = ValidationResultEnum.ValidationOk;
+            validationRule.ValidationResult = ValidationResultEnum.ValidationOk;
 
             return validationRule;
         }
