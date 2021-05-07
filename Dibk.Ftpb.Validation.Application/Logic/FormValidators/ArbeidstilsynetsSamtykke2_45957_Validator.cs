@@ -28,7 +28,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         public List<ValidationRule> StartValidation(string xmlData)
         {
             var validationMessages = new List<ValidationRule>();
-            
+
             //TODO xsd validering
             var xsdValidationMesagges = new List<ValidationRule>();
             validationMessages.AddRange(xsdValidationMesagges);
@@ -58,7 +58,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         public List<ValidationRule> Validate(string context, ArbeidstilsynetsSamtykke2Form_45957 form)
         {
-            var validationResultForEiendom = new EiendomValidator().Validate(context, ArbeidstilsynetsSamtykke2Form45957.Eiendom );
+            var validationResultForEiendom = new EiendomValidator().Validate(context, ArbeidstilsynetsSamtykke2Form45957.Eiendom);
 
             return validationResultForEiendom;
         }

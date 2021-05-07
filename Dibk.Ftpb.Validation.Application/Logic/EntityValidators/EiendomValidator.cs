@@ -20,7 +20,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         public List<ValidationRule> Validate(string context, Eiendom eiendom)
         {
-            string newContext = $"{context}/Eiendom";
+            string newContext = $"{context}/eiendomByggested";
             InitializeValidationRules(newContext);
             ValidateEntityFields(eiendom);
 
@@ -37,32 +37,32 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         private void ValidateDataRelations(Eiendom eiendom)
         {
-            ValidationRules.Where(crit => crit.id.Equals("tillatte_postnr_i_kommune")).FirstOrDefault().validationResult
+            ValidationRules.Where(crit => crit.Id.Equals("tillatte_postnr_i_kommune")).FirstOrDefault().ValidationResult
                 = !TillattPostnrIKommune(eiendom.Kommunenavn, eiendom.Adresse.Postnr) ? ValidationResultEnum.ValidationFailed : ValidationResultEnum.ValidationOk;
-            ValidationRules.Where(crit => crit.id.Equals("tillatte_postnr_i_kommune")).FirstOrDefault().messageParameters
+            ValidationRules.Where(crit => crit.Id.Equals("tillatte_postnr_i_kommune")).FirstOrDefault().MessageParameters
                 = new List<string>() { eiendom.Adresse.Postnr, eiendom.Kommunenavn  };
         }
 
 
         public override void InitializeValidationRules(string context)
         {
-            ValidationRules.Add(new ValidationRule() { id = "bygningsnummer_utfylt", xpath = $"{context}/Bygningsnummer", validationResult = ValidationResultEnum.Unused });
-            ValidationRules.Add(new ValidationRule() { id = "bolignummer_utfylt", xpath = $"{context}/Bolignummer", validationResult = ValidationResultEnum.Unused });
-            ValidationRules.Add(new ValidationRule() { id = "kommunenavn_utfylt", xpath = $"{context}/Kommunenavn", validationResult = ValidationResultEnum.Unused });
+            ValidationRules.Add(new ValidationRule() { Id = "bygningsnummer_utfylt", Xpath = $"{context}/Bygningsnummer", ValidationResult = ValidationResultEnum.Unused });
+            ValidationRules.Add(new ValidationRule() { Id = "bolignummer_utfylt", Xpath = $"{context}/Bolignummer", ValidationResult = ValidationResultEnum.Unused });
+            ValidationRules.Add(new ValidationRule() { Id = "kommunenavn_utfylt", Xpath = $"{context}/Kommunenavn", ValidationResult = ValidationResultEnum.Unused });
 
-            ValidationRules.Add(new ValidationRule() { id = "tillatte_postnr_i_kommune", xpath = $"{context}", validationResult = ValidationResultEnum.Unused });
+            ValidationRules.Add(new ValidationRule() { Id = "tillatte_postnr_i_kommune", Xpath = $"{context}", ValidationResult = ValidationResultEnum.Unused });
         }
 
         public override void ValidateEntityFields(object entityData)
         {
             Eiendom eiendom = (Eiendom)entityData;
-            ValidationRules.Where(crit => crit.id.Equals("bygningsnummer_utfylt")).FirstOrDefault().validationResult
+            ValidationRules.Where(crit => crit.Id.Equals("bygningsnummer_utfylt")).FirstOrDefault().ValidationResult
                 = (string.IsNullOrEmpty(eiendom.Bygningsnummer)) ? ValidationResultEnum.ValidationFailed : ValidationResultEnum.ValidationOk;
 
-            ValidationRules.Where(crit => crit.id.Equals("bolignummer_utfylt")).FirstOrDefault().validationResult
+            ValidationRules.Where(crit => crit.Id.Equals("bolignummer_utfylt")).FirstOrDefault().ValidationResult
                 = (string.IsNullOrEmpty(eiendom.Bolignummer)) ? ValidationResultEnum.ValidationFailed : ValidationResultEnum.ValidationOk;
 
-            ValidationRules.Where(crit => crit.id.Equals("kommunenavn_utfylt")).FirstOrDefault().validationResult
+            ValidationRules.Where(crit => crit.Id.Equals("kommunenavn_utfylt")).FirstOrDefault().ValidationResult
                 = (string.IsNullOrEmpty(eiendom.Kommunenavn)) ? ValidationResultEnum.ValidationFailed : ValidationResultEnum.ValidationOk;
         }
 

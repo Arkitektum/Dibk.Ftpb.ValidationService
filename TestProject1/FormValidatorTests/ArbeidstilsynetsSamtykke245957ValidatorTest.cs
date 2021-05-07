@@ -40,20 +40,20 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             var validationResults = _formValidator.StartValidation(xmlData);
 
-            var validationRule = validationResults.Where(x => x.id.Equals("eiendomsAdresse_adresselinje2_utfylt")).FirstOrDefault();
-            validationRule.validationResult.Should().Be(ValidationResultEnum.ValidationFailed);
+            var validationRule = validationResults.Where(x => x.Id.Equals("eiendomsAdresse_adresselinje2_utfylt")).FirstOrDefault();
+            validationRule.ValidationResult.Should().Be(ValidationResultEnum.ValidationFailed);
 
-            validationRule = validationResults.Where(x => x.id.Equals("eiendomsAdresse_adresselinje3_utfylt")).FirstOrDefault();
-            validationRule.validationResult.Should().Be(ValidationResultEnum.ValidationFailed);
+            validationRule = validationResults.Where(x => x.Id.Equals("eiendomsAdresse_adresselinje3_utfylt")).FirstOrDefault();
+            validationRule.ValidationResult.Should().Be(ValidationResultEnum.ValidationFailed);
 
-            validationRule = validationResults.Where(x => x.id.Equals("eiendomsAdresse_gatenavn_utfylt")).FirstOrDefault();
-            validationRule.validationResult.Should().Be(ValidationResultEnum.ValidationFailed);
+            validationRule = validationResults.Where(x => x.Id.Equals("eiendomsAdresse_gatenavn_utfylt")).FirstOrDefault();
+            validationRule.ValidationResult.Should().Be(ValidationResultEnum.ValidationFailed);
 
-            validationRule = validationResults.Where(x => x.id.Equals("eiendomsAdresse_husnr_utfylt")).FirstOrDefault();
-            validationRule.validationResult.Should().Be(ValidationResultEnum.ValidationFailed);
+            validationRule = validationResults.Where(x => x.Id.Equals("eiendomsAdresse_husnr_utfylt")).FirstOrDefault();
+            validationRule.ValidationResult.Should().Be(ValidationResultEnum.ValidationFailed);
 
-            validationRule = validationResults.Where(x => x.id.Equals("eiendomsAdresse_bokstav_utfylt")).FirstOrDefault();
-            validationRule.validationResult.Should().Be(ValidationResultEnum.ValidationFailed);
+            validationRule = validationResults.Where(x => x.Id.Equals("eiendomsAdresse_bokstav_utfylt")).FirstOrDefault();
+            validationRule.ValidationResult.Should().Be(ValidationResultEnum.ValidationFailed);
 
 
             var validationComposer = new ValidationMessageComposer();
@@ -75,8 +75,8 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             var formEntity = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataModel);
             var validationResultForEiendomsAdresse = new EiendomsAdresseValidator().Validate("Test/eiendom", formEntity.Eiendom.Adresse);
 
-            var validationRule = validationResultForEiendomsAdresse.Where(x => x.id.Equals("eiendomsAdresse_postnr_4siffer")).FirstOrDefault();
-            validationRule.validationResult.Should().Be(ValidationResultEnum.ValidationFailed);
+            var validationRule = validationResultForEiendomsAdresse.Where(x => x.Id.Equals("eiendomsAdresse_postnr_4siffer")).FirstOrDefault();
+            validationRule.ValidationResult.Should().Be(ValidationResultEnum.ValidationFailed);
 
             if (WriteValidationResultsToJsonFile)
             {
@@ -93,8 +93,8 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             var formEntity = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataModel);
             var validationResultForEiendom = new EiendomValidator().Validate("ArbeidstilsynetsSamtykke", formEntity.Eiendom);
 
-            var validationRule = validationResultForEiendom.Where(x => x.id.Equals("tillatte_postnr_i_kommune")).FirstOrDefault();
-            validationRule.validationResult.Should().Be(ValidationResultEnum.ValidationFailed);
+            var validationRule = validationResultForEiendom.Where(x => x.Id.Equals("tillatte_postnr_i_kommune")).FirstOrDefault();
+            validationRule.ValidationResult.Should().Be(ValidationResultEnum.ValidationFailed);
 
             var validationComposer = new ValidationMessageComposer();
             var newValidationReport = validationComposer.ComposeValidationReport(validationResultForEiendom, "NO");

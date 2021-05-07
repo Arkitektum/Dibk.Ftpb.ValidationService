@@ -10,7 +10,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
 {
     public class InputDataService : IInputDataService
     {
-        private static readonly Regex _dataFormatRegex = new(@"^(?=.*dataFormatId=""(?<dataFormatId>\d+)"")(?=.*dataFormatVersion=""(?<dataFormatVersion>\d+)"").*$", RegexOptions.Compiled | RegexOptions.Multiline);
+        private static readonly Regex _dataFormatRegex = new(@"^(?=.*dataFormatId=\W(?<dataFormatId>\d+)\W)(?=.*dataFormatVersion=\W(?<dataFormatVersion>\d+)\W).*$", RegexOptions.Compiled | RegexOptions.Multiline);
 
         public InputData GetInputData(string xmlString)
         {

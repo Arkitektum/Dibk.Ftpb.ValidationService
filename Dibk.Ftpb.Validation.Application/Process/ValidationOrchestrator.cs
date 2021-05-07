@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.Reporter;
+using Dibk.Ftpb.Validation.Application.Enums;
 
 namespace Dibk.Ftpb.Validation.Application.Process
 {
@@ -14,7 +15,7 @@ namespace Dibk.Ftpb.Validation.Application.Process
     ///…VerifyInputData(….)
     ///….ValidateFormEntity(….)
     ///…CompileValidationReport(….)    /// </summary>
-    public class ValidationOrchestrator
+    public class ValidationOrchestrator : IValidationOrchestrator
     {
         private readonly IServiceProvider _services;
         public List<ValidationRule> Messages { get; set; }
@@ -24,41 +25,47 @@ namespace Dibk.Ftpb.Validation.Application.Process
             _services = services;
         }
 
-        public async Task ExecuteAsync(string dataFormatVersion, string xmlData)
+        public async Task<List<ValidationRule>> ExecuteAsync(string dataFormatVersion, string xmlData, List<string> errorMessages)
         {
             Messages = new List<ValidationRule>();
+
+            if (errorMessages.Count > 0)
+            {
+                foreach (var message in errorMessages)
+                {
+                    Messages.Add(new ValidationRule() { Id = "generic", Message = message, ValidationResult = ValidationResultEnum.ValidationFailed });
+                }
+            }
 
             //TODO Validate Xml structure 
             List<ValidationRule> validationXmlMessages = new List<ValidationRule>();
             Messages.Concat(validationXmlMessages);
-            
-            //TODO Get dataFormatVersion
-            dataFormatVersion = "45957";
 
             IFormValidator formValidator = GetValidator(dataFormatVersion); //45957
-            
+
             var validationMessages = Messages.Concat(formValidator.StartValidation(xmlData));
 
-            //return Task.CompletedTask;
+            return validationMessages.ToList();
         }
-
 
         public IFormValidator GetValidator(string dataFormatVersion)
         {
             //Retrieves classes implementing IForm, having FormDataFormatAttribute and filtering by its DataFormatId
-            var type = typeof(IFormValidator);
-            var types = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(s => s.GetTypes())
-                //.Where(p => type.IsAssignableFrom(p))
-                .Where(t => t.IsDefined(typeof(FormDataAttribute), true))
-                .Where(t => t.GetCustomAttribute<FormDataAttribute>().DataFormatVersion == dataFormatVersion);
-
             object formLogicInstance = null;
-            if (types.Count() > 0)
+            
+            try
             {
-                //Resolves an instance of the class
-                var formType = types.FirstOrDefault();
-                formLogicInstance = _services.GetService(formType);
+                var type = Assembly.GetExecutingAssembly()
+                    .GetTypes()
+                    .Where(t => t.IsDefined(typeof(FormDataAttribute), true))
+                    .Where(t => t.GetCustomAttribute<FormDataAttribute>().DataFormatVersion == dataFormatVersion)
+                    .SingleOrDefault();
+
+                formLogicInstance = _services.GetService(type);
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
 
             return formLogicInstance as IFormValidator;

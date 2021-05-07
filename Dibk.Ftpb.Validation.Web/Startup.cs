@@ -1,4 +1,7 @@
 using Arkitektum.XmlSchemaValidator.Config;
+using Dibk.Ftpb.Validation.Application.DataSources;
+using Dibk.Ftpb.Validation.Application.Logic.FormValidators;
+using Dibk.Ftpb.Validation.Application.Process;
 using Dibk.Ftpb.Validation.Application.Services;
 using Dibk.Ftpb.Validation.Web.Config;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +15,7 @@ using Serilog.Events;
 using Serilog.Sinks.Elasticsearch;
 using System;
 using System.Configuration;
+using System.Text.Json.Serialization;
 
 namespace Dibk.Ftpb.Validation
 {
@@ -36,20 +40,31 @@ namespace Dibk.Ftpb.Validation
 
             services.AddXmlSchemaValidator();
 
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+                //options.JsonSerializerOptions.IgnoreNullValues = true;
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
+
             services.AddTransient<IValidationService, ValidationService>();
             services.AddTransient<IInputDataService, InputDataService>();
             services.AddTransient<IXsdValidationService, XsdValidationService>();
+            services.AddTransient<IValidationOrchestrator, ValidationOrchestrator>();
+            services.AddTransient<IMunicipalityValidator, MunicipalityValidator>();
+            services.AddScoped<ArbeidstilsynetsSamtykke2_45957_Validator>();
+
             services.AddAzureAppConfiguration();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                     
+
             }
 
             ConfigureLogging();
@@ -74,8 +89,8 @@ namespace Dibk.Ftpb.Validation
         {
             var logLevel = LogEventLevel.Debug;
             var elasticSearchUrl = Configuration["Serilog:ConnectionUrl"];
-            var elasticUsername =  Configuration["Serilog:Username"];
-            var elasticPassword =  Configuration["Serilog:Password"];
+            var elasticUsername = Configuration["Serilog:Username"];
+            var elasticPassword = Configuration["Serilog:Password"];
             var elasticIndexFormat = Configuration["Serilog:IndexFormat"];
 
 
@@ -102,8 +117,8 @@ namespace Dibk.Ftpb.Validation
                     IndexFormat = elasticIndexFormat
                 })
                 .CreateLogger();
-                
-                for ( int i = 0; i < 100; ++i)
+
+            for (int i = 0; i < 100; ++i)
             {
                 Log.Warning("init logging");
             }

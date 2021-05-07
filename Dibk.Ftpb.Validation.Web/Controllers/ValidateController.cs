@@ -1,9 +1,12 @@
-﻿using Dibk.Ftpb.Validation.Application.Services;
+﻿using Dibk.Ftpb.Validation.Application.Reporter;
+using Dibk.Ftpb.Validation.Application.Services;
 using Dibk.Ftpb.Validation.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Dibk.Ftpb.Validation.Web.Controllers
 {
@@ -21,11 +24,11 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
 
         [Route("api/validate")]
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(object))]  // TODO!
-        public IActionResult ValidateForm([FromBody] ValidationInput input)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<IEnumerable<ValidationRule>> ValidateForm([FromBody] ValidationInput input)
         {
-
-            // Authentication?
+            //// Authentication?
 
             if (!VerifyInput(input))
             {
@@ -35,7 +38,6 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
             var messages = _validationService.Validate(input.FormData);
 
             return Ok(messages);
-
         }
 
         [Route("api/validate/file")]
