@@ -1,4 +1,5 @@
 ﻿using Dibk.Ftpb.Validation.Application.Logic.Mappers;
+using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 using Xunit;
 using FluentAssertions;
@@ -54,7 +55,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
                     utleieByggSpecified = false
                 }
             };
-            var arbeidsplasser = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().MapArbeidsplasser(dataForm.arbeidsplasser);
+            Arbeidsplasser arbeidsplasser = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().MapArbeidsplasser(dataForm.arbeidsplasser);
 
             arbeidsplasser.Should().NotBeNull();
         }

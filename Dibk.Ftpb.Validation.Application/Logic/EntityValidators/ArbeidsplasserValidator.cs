@@ -15,19 +15,24 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         private const string _entityName = "arbeidsplasser";
         private static string _context;
+        private List<string> _attachemntList;
 
         public override void InitializeValidationRules(string context)
         {
-            this.AddValidationRule("", "Context");
+            this.AddValidationRule("arbeidsplasser_utfylt", "Context");
+            this.AddValidationRule("framtidige_Eller_eksisterende_Utfylt", "Context");
+            this.AddValidationRule("type_Arbeid_Utfylt", "Context");
+            this.AddValidationRule("UtleieBygg", "Context");
+            this.AddValidationRule("arbeidsplasser_Beskrivelse", "Context");
         }
 
-        public List<ValidationRule> Validate(string parentContext, Arbeidsplasser arbeidsplasser)
+        public List<ValidationRule> Validate(string parentContext, Arbeidsplasser arbeidsplasser, List<string> attachemnts = null)
         {
             _context = $"{parentContext}/{_entityName}";
+            _attachemntList = attachemnts;
 
             InitializeValidationRules(_context);
             ValidateEntityFields(arbeidsplasser);
-
 
             return this.ValidationRules;
         }
@@ -39,24 +44,41 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var rule = this.RuleToValidate("arbeidsplasser_utfylt");
             if (Helpers.ObjectIsNullOrEmpty(arbeidsplasser))
             {
-                rule.ValidationResult = ValidationResultEnum.ValidationFailed;
+                UpdateValidationResult2Failed(rule);
             }
             else
             {
                 rule = RuleToValidate("framtidige_Eller_eksisterende_Utfylt");
                 if (!arbeidsplasser.Eksisterende.GetValueOrDefault(false) && !arbeidsplasser.Framtidige.GetValueOrDefault(false))
                 {
-                    rule.ValidationResult = ValidationResultEnum.ValidationFailed;
+                    UpdateValidationResult2Failed(rule);
                 }
                 else
                 {
                     rule = RuleToValidate("type_Arbeid_Utfylt");
                     if (!arbeidsplasser.Faste.GetValueOrDefault(false) && !arbeidsplasser.Midlertidige.GetValueOrDefault(false))
                     {
-                        rule.ValidationResult = ValidationResultEnum.ValidationFailed;
+                        UpdateValidationResult2Failed(rule);
+                    }
+
+                    rule = RuleToValidate("UtleieBygg");
+                    if (arbeidsplasser.UtleieBygg.GetValueOrDefault(false))
+                    {
+                        int antallVirksomheter;
+                        int.TryParse(arbeidsplasser.AntallVirksomheter, out antallVirksomheter);
+                        if (antallVirksomheter <= 0)
+                            UpdateValidationResult2Failed(rule);
+                    }
+
+                    rule = RuleToValidate("arbeidsplasser_Beskrivelse");
+                    if (string.IsNullOrEmpty(arbeidsplasser.Beskrivelse))
+                    {
+                        if (_attachemntList == null || !_attachemntList.Contains("BeskrivelseTypeArbeidProsess"))
+                        {
+                            UpdateValidationResult2Failed(rule);
+                        }
                     }
                 }
-
             }
         }
     }

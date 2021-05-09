@@ -14,6 +14,33 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             _storageEntry = new List<ValidationMessageStorageEntry>();
             InitiateMessageRepository();
         }
+        public bool GetValidationMessageStorageEntry(ValidationRule validationRule, string languageCode, out string result)
+        {
+            var theStorageEntry = _storageEntry.FirstOrDefault(x => x.Id.Equals(validationRule.Id) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.Xpath));
+
+            if (theStorageEntry == null)
+            {
+                result = $"could not find rule with Id: '{validationRule.Id}', xpath: '{validationRule.Xpath}' and languageCode:'{languageCode}'.-";
+                return false;
+            }
+
+            if (validationRule.MessageParameters != null)
+            {
+                try
+                {
+                    result = String.Format(theStorageEntry.Message, validationRule.MessageParameters.ToArray());
+                    return true;
+                }
+                catch (FormatException)
+                {
+                    result = $"{theStorageEntry.Message} . **'Illegal number og validation parameters'";
+                    return false;
+                    throw new ArgumentOutOfRangeException("Illegal number og validation parameters");
+                }
+            }
+            result = theStorageEntry.Message;
+            return true;
+        }
 
         public string GetValidationMessageStorageEntry(ValidationRule validationRule, string languageCode)
         {
@@ -198,6 +225,14 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
                 LanguageCode = "NO",
                 XPath = "ArbeidstilsynetsSamtykke/Eiendom/Matrikkel/Seksjonsnummer",
                 Message = "Eiendommens SNR i Matrikkelen må være utfyllt"
+            });;
+
+            _storageEntry.Add(new ValidationMessageStorageEntry()
+            {
+                Id = "Parameter_Test",
+                LanguageCode = "NO",
+                XPath = "Unit/Test/Parameter",
+                Message = "Parameter 1 kommer har '{0}' og parameter 2 kommer har ({1})"
             });
         }
     }

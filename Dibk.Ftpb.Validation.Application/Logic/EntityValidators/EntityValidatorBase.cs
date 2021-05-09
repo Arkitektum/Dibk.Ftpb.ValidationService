@@ -1,4 +1,4 @@
-﻿using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using System;
 using System.Collections.Generic;
@@ -40,12 +40,25 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var validationRule = ValidationRules.FirstOrDefault(r => r.Id.Equals(id)) ?? new ValidationRule()
             {
                 Id = id,
-                Message = $"Can't finde rule with id:'{id}'.-"
+                Message = $"Can't find rule with id:'{id}'.-"
             };
 
             validationRule.ValidationResult = ValidationResultEnum.ValidationOk;
 
             return validationRule;
+        }
+
+        public void UpdateValidationResult2Failed(ValidationRule rule, string[] ruleMessagesParameters = null)
+        {
+            if (ValidationRules.Any(r => r.Id.Equals(rule.Id)))
+            {
+                ValidationRules.First(r => r.Id == rule.Id).ValidationResult = ValidationResultEnum.ValidationFailed;
+                if (ruleMessagesParameters != null)
+                {
+                    //TODO check change MessageParameters in rule to array to us string.format to change all parameters 
+                    ValidationRules.First(r => r.Id == rule.Id).MessageParameters = ruleMessagesParameters.ToList();
+                }
+            }
         }
     }
 }
