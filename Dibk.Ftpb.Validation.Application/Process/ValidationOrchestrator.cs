@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Enums;
+using Microsoft.Extensions.Logging;
 
 namespace Dibk.Ftpb.Validation.Application.Process
 {
@@ -18,12 +19,15 @@ namespace Dibk.Ftpb.Validation.Application.Process
     public class ValidationOrchestrator : IValidationOrchestrator
     {
         private readonly IServiceProvider _services;
+        private readonly ILogger<ValidationOrchestrator> _logger;
+
         //public List<ValidationRule> ValidationRules { get; set; }
         public ValidationResult ValidationResponse { get; set; }
 
-        public ValidationOrchestrator(IServiceProvider services)
+        public ValidationOrchestrator(IServiceProvider services, ILogger<ValidationOrchestrator> logger)
         {
             _services = services;
+            _logger = logger;
         }
 
         public async Task<ValidationResult> ExecuteAsync(string dataFormatVersion, string xmlData, List<string> errorMessages)
@@ -69,6 +73,7 @@ namespace Dibk.Ftpb.Validation.Application.Process
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error occurred when attempting to find validator for {DataFormatVersion}", dataFormatVersion);
                 throw;
             }
 
