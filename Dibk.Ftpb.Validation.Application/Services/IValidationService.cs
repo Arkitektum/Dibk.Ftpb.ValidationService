@@ -6,7 +6,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
 {
     public interface IValidationService
     {
-        List<ValidationRule> Validate(string xmlString);
+        ValidationResult Validate(string xmlString);
         List<string> Validate(IFormFile xmlFile);
     }
 }

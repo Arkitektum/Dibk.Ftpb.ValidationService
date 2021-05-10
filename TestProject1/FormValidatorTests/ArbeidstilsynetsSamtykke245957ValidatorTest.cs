@@ -12,6 +12,8 @@ using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using System.Linq;
 using FluentAssertions;
 using Dibk.Ftpb.Validation.Application.Reporter;
+using System.Collections.Generic;
+using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 
 namespace Dibk.Ftpb.Validation.Application.Tests
 {
@@ -20,7 +22,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
         IMunicipalityValidator _municipalityValidator;
         ArbeidstilsynetsSamtykke2_45957_Validator _formValidator;
         private readonly string _rootDirTestResults = @"C:\ATIL_testresults";
-        private readonly bool WriteValidationResultsToJsonFile = false;
+        private readonly bool WriteValidationResultsToJsonFile = true;
         public ArbeidstilsynetsSamtykke245957ValidatorTest()
         {
             _municipalityValidator = MockDataSource.MunicipalityValidatorResult(MunicipalityValidationEnum.Ok);
@@ -37,31 +39,29 @@ namespace Dibk.Ftpb.Validation.Application.Tests
         public void ValidateArbeidstilsynetsSamtykke2_hele_skjemaet()
         {
             string xmlData = @"<?xml version='1.0' encoding='utf-8'?><ArbeidstilsynetsSamtykke xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' dataFormatProvider='SERES' dataFormatId='6821' dataFormatVersion='45957' xmlns='http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0'><eiendomByggested><adresse><adresselinje1>Bøgata 1</adresselinje1><adresselinje2 xsi:nil='true' /><adresselinje3 xsi:nil='true' /><postnr>3800</postnr><poststed>Bø i Telemark</poststed><landkode>NO</landkode><gatenavn xsi:nil='true' /><husnr xsi:nil='true' /><bokstav xsi:nil='true' /></adresse><eiendomsidentifikasjon><kommunenummer>3817</kommunenummer><gaardsnummer>917</gaardsnummer><bruksnummer>135</bruksnummer><festenummer>0</festenummer><seksjonsnummer>0</seksjonsnummer></eiendomsidentifikasjon><bygningsnummer>80466985</bygningsnummer><bolignummer>H0102</bolignummer><kommunenavn>Midt Telemark</kommunenavn></eiendomByggested></ArbeidstilsynetsSamtykke>";
+            var validationResult = _formValidator.StartValidation(xmlData);
 
-            var validationResults = _formValidator.StartValidation(xmlData);
+            var validationMessage = validationResult.ValidationMessages.Where(x => x.Reference.Equals("eiendomsAdresse_adresselinje2_utfylt")).FirstOrDefault();
+            validationMessage.Reference.Should().NotBe(null);
 
-            var validationRule = validationResults.Where(x => x.Id.Equals("eiendomsAdresse_adresselinje2_utfylt")).FirstOrDefault();
-            validationRule.ValidationResult.Should().Be(ValidationResultEnum.ValidationFailed);
+            validationMessage = validationResult.ValidationMessages.Where(x => x.Reference.Equals("eiendomsAdresse_adresselinje3_utfylt")).FirstOrDefault();
+            validationMessage.Reference.Should().NotBe(null);
 
-            validationRule = validationResults.Where(x => x.Id.Equals("eiendomsAdresse_adresselinje3_utfylt")).FirstOrDefault();
-            validationRule.ValidationResult.Should().Be(ValidationResultEnum.ValidationFailed);
+            validationMessage = validationResult.ValidationMessages.Where(x => x.Reference.Equals("eiendomsAdresse_gatenavn_utfylt")).FirstOrDefault();
+            validationMessage.Reference.Should().NotBe(null);
 
-            validationRule = validationResults.Where(x => x.Id.Equals("eiendomsAdresse_gatenavn_utfylt")).FirstOrDefault();
-            validationRule.ValidationResult.Should().Be(ValidationResultEnum.ValidationFailed);
-
-            validationRule = validationResults.Where(x => x.Id.Equals("eiendomsAdresse_husnr_utfylt")).FirstOrDefault();
-            validationRule.ValidationResult.Should().Be(ValidationResultEnum.ValidationFailed);
-
-            validationRule = validationResults.Where(x => x.Id.Equals("eiendomsAdresse_bokstav_utfylt")).FirstOrDefault();
-            validationRule.ValidationResult.Should().Be(ValidationResultEnum.ValidationFailed);
-
+            validationMessage = validationResult.ValidationMessages.Where(x => x.Reference.Equals("eiendomsAdresse_husnr_utfylt")).FirstOrDefault();
+            validationMessage.Reference.Should().NotBe(null);
+            
+            validationMessage = validationResult.ValidationMessages.Where(x => x.Reference.Equals("eiendomsAdresse_bokstav_utfylt")).FirstOrDefault();
+            validationMessage.Reference.Should().NotBe(null);
 
             var validationComposer = new ValidationMessageComposer();
-            var newValidationReport = validationComposer.ComposeValidationReport(validationResults, "NO");
+            var newValidationReport = validationComposer.ComposeValidationReport(validationResult, "NO");
 
             if (WriteValidationResultsToJsonFile)
             {
-                var jsonString = JsonConvert.SerializeObject(validationResults);
+                var jsonString = JsonConvert.SerializeObject(validationResult);
                 File.WriteAllText(_rootDirTestResults + @"\validationResultsHeleSkjemaet_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
             }
         }
@@ -75,8 +75,8 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             var formEntity = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataModel);
             var validationResultForEiendomsAdresse = new EiendomsAdresseValidator().Validate("Test/eiendom", formEntity.Eiendom.Adresse);
 
-            var validationRule = validationResultForEiendomsAdresse.Where(x => x.Id.Equals("eiendomsAdresse_postnr_4siffer")).FirstOrDefault();
-            validationRule.ValidationResult.Should().Be(ValidationResultEnum.ValidationFailed);
+            var validationMessage = validationResultForEiendomsAdresse.ValidationMessages.Where(x => x.Reference.Equals("eiendomsAdresse_postnr_4siffer")).FirstOrDefault();
+            validationMessage.Reference.Should().NotBe(null);
 
             if (WriteValidationResultsToJsonFile)
             {
@@ -91,10 +91,10 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             var dataModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(xmlData);
             var formEntity = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataModel);
-            var validationResultForEiendom = new EiendomValidator().Validate("ArbeidstilsynetsSamtykke", formEntity.Eiendom);
+            var validationResultForEiendom = new EiendomValidator().Validate("ArbeidstilsynetsSamtykke", new List<Eiendom>() { formEntity.Eiendom });
 
-            var validationRule = validationResultForEiendom.Where(x => x.Id.Equals("tillatte_postnr_i_kommune")).FirstOrDefault();
-            validationRule.ValidationResult.Should().Be(ValidationResultEnum.ValidationFailed);
+            var validationMessage = validationResultForEiendom.ValidationMessages.Where(x => x.Reference.Equals("tillatte_postnr_i_kommune")).FirstOrDefault();
+            validationMessage.Reference.Should().NotBe(null);
 
             var validationComposer = new ValidationMessageComposer();
             var newValidationReport = validationComposer.ComposeValidationReport(validationResultForEiendom, "NO");

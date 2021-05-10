@@ -8,6 +8,6 @@ namespace Dibk.Ftpb.Validation.Application.Process
     public interface IValidationOrchestrator
     {
         //IFormValidator GetValidator(string dataFormatVersion);
-        Task<List<ValidationRule>> ExecuteAsync(string dataFormatVersion, string xmlData, List<string> errorMessages);
+        Task<ValidationResult> ExecuteAsync(string dataFormatVersion, string xmlData, List<string> errorMessages);
     }
 }

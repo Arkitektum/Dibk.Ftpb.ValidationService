@@ -11,14 +11,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public abstract class EntityValidatorBase : IEntityValidator
     {
-        protected List<ValidationRule> ValidationRules;
+        protected ValidationResult ValidationResponse;
         public EntityValidatorBase()
         {
-            ValidationRules = new List<ValidationRule>();
+            ValidationResponse = new();
+            ValidationResponse.ValidationRules = new List<ValidationRule>();
+            ValidationResponse.ValidationMessages = new List<ValidationMessage>();
         }
 
         public abstract void InitializeValidationRules(string context);
-        public abstract void ValidateEntityFields(object data);
+        //protected abstract void ValidateEntityFields<T>(List<T> validationEntities);
+        //public abstract ValidationResponse Validate<T>(string context, List<T> validationEntities);
 
         //void ValidateEntityFields(object entityData)
         //{
@@ -27,38 +30,72 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public void AddValidationRule(string id, string xPath)
         {
-            ValidationRules.Add(new ValidationRule()
+            ValidationResponse.ValidationRules.Add(new ValidationRule()
             {
                 Id = id,
-                Xpath = xPath,
-                ValidationResult = ValidationResultEnum.Unused
+                Xpath = xPath
+                //ValidationResult = ValidationResultEnum.Unused
             });
         }
 
-        public ValidationRule RuleToValidate(string id)
+
+        public ValidationRule RuleToValidate(string id, string context)
         {
-            var validationRule = ValidationRules.FirstOrDefault(r => r.Id.Equals(id)) ?? new ValidationRule()
+            var validationRule = ValidationResponse.ValidationRules.FirstOrDefault(r => r.Id.Equals(id) && r.Xpath.Equals(context)) ?? new ValidationRule()
             {
                 Id = id,
                 Message = $"Can't find rule with id:'{id}'.-"
             };
 
-            validationRule.ValidationResult = ValidationResultEnum.ValidationOk;
+            //ValidationResponse.validationRule.ValidationResult = ValidationResultEnum.ValidationOk;
 
             return validationRule;
         }
 
-        public void UpdateValidationResult2Failed(ValidationRule rule, string[] ruleMessagesParameters = null)
+        //public void UpdateValidationResult2Failed(ValidationRule rule, string[] ruleMessagesParameters = null)
+        //{
+        //    if (ValidationRules.Any(r => r.Id.Equals(rule.Id)))
+        //    {
+        //        ValidationRules.First(r => r.Id == rule.Id).ValidationResult = ValidationResultEnum.ValidationFailed;
+        //        if (ruleMessagesParameters != null)
+        //        {
+        //            //TODO check change MessageParameters in rule to array to us string.format to change all parameters 
+        //            ValidationRules.First(r => r.Id == rule.Id).MessageParameters = ruleMessagesParameters.ToList();
+        //        }
+        //    }
+        //}
+
+        //public void AddMessageFromRule(string id, string xPath, List<string> messageParameters)
+        public void AddMessageFromRule(string id, string xPath, Nullable<int> elementNumber, List<string> messageParameters)
         {
-            if (ValidationRules.Any(r => r.Id.Equals(rule.Id)))
+            var rule = RuleToValidate(id, xPath);
+            if (elementNumber != null)
             {
-                ValidationRules.First(r => r.Id == rule.Id).ValidationResult = ValidationResultEnum.ValidationFailed;
-                if (ruleMessagesParameters != null)
-                {
-                    //TODO check change MessageParameters in rule to array to us string.format to change all parameters 
-                    ValidationRules.First(r => r.Id == rule.Id).MessageParameters = ruleMessagesParameters.ToList();
-                }
+                //ArbeidstilsynetsSamtykke/eiendomByggested/Bygningsnummer  ==>  ArbeidstilsynetsSamtykke/eiendomByggested[0]/Bygningsnummer
+                //ArbeidstilsynetsSamtykke/eiendomByggested  ==>  ArbeidstilsynetsSamtykke/eiendomByggested[2]
+                //Pos:41
+
+                int lastSlash = xPath.LastIndexOf('/');
+                string beforeSlash = xPath.Substring(0, lastSlash);
+                string afterSlash = xPath.Substring(lastSlash + 1);
+                xPath = beforeSlash + "[" + elementNumber.ToString() + "]/" + afterSlash;
             }
+            ValidationResponse.ValidationMessages.Add(new ValidationMessage() { Reference = id, 
+                                                                                Xpath = xPath, 
+                                                                                //Message = rule.Message, 
+                                                                                MessageParameters = messageParameters });
+        }
+        public void AddMessageFromRule(string id, string context, Nullable<int> elementNumber)
+        {
+            AddMessageFromRule(id, context, elementNumber, null);
+        }
+        public void AddMessageFromRule(string id, string context, List<string> messageParameters)
+        {
+            AddMessageFromRule(id, context, null, messageParameters);
+        }
+        public void AddMessageFromRule(string id, string context)
+        {
+            AddMessageFromRule(id, context, null, null);
         }
     }
 }

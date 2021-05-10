@@ -10,10 +10,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums
 {
     public enum ValidationResultEnum
     {
-        Unused,
-        ValidationOk,
-        ValidationFailed
-        //Error,
-        //Warning,
+        Error,
+        Warning
     }
 }

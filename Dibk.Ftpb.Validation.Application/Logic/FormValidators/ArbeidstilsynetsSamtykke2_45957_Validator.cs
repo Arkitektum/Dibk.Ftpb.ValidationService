@@ -8,6 +8,7 @@ using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 using Dibk.Ftpb.Validation.Application.Logic.Mappers;
 using Dibk.Ftpb.Validation.Application.Logic.Deserializers;
+using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
@@ -25,13 +26,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _municipalityApiService = municipalityApiService;
         }
 
-        public List<ValidationRule> StartValidation(string xmlData)
+        public ValidationResult StartValidation(string xmlData)
         {
-            var validationMessages = new List<ValidationRule>();
+            ValidationResult validationResponse = new();
+
+            validationResponse.ValidationRules = new List<ValidationRule>();
+            validationResponse.ValidationMessages = new List<ValidationMessage>();
 
             //TODO xsd validering
-            var xsdValidationMesagges = new List<ValidationRule>();
-            validationMessages.AddRange(xsdValidationMesagges);
+            var xsdValidationMesagges = new List<ValidationMessage>();
+            validationResponse.ValidationMessages.AddRange(xsdValidationMesagges);
 
             //Get Arbeidstilsynets Samtykke v2 Dfv45957 class
             //_form = DeserializeDataForm(xmlData);
@@ -39,10 +43,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             // map to arbeidstilsynet formEntity 
             ArbeidstilsynetsSamtykke2Form45957 = MapDataModelToFormEntity(_form);
-            var validationMessagesResult = Validate(context, ArbeidstilsynetsSamtykke2Form45957);
-            validationMessages.AddRange(validationMessagesResult);
+            validationResponse = Validate(context, ArbeidstilsynetsSamtykke2Form45957);
+            //            validationMessages.AddRange(validationMessagesResult);
 
-            return validationMessages;
+            return validationResponse;
         }
         public ArbeidstilsynetsSamtykkeType DeserializeDataForm(string xmlData)
         {
@@ -56,9 +60,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             return formEntity;
         }
 
-        public List<ValidationRule> Validate(string context, ArbeidstilsynetsSamtykke2Form_45957 form)
+        public ValidationResult Validate(string context, ArbeidstilsynetsSamtykke2Form_45957 form)
         {
-            var validationResultForEiendom = new EiendomValidator().Validate(context, ArbeidstilsynetsSamtykke2Form45957.Eiendom);
+            List<Eiendom> eiendommer = new List<Eiendom>();
+            eiendommer.Add(ArbeidstilsynetsSamtykke2Form45957.Eiendom);
+            var validationResultForEiendom = new EiendomValidator().Validate(context, eiendommer);
 
             return validationResultForEiendom;
         }

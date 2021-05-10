@@ -15,17 +15,17 @@ namespace Dibk.Ftpb.Validation.Application.Tests.ReporterTests
         [Fact]
         public void TestGetValidationMessageStorageEntry()
         {
-            ValidationRule validationRule = new ValidationRule()
+            ValidationMessage validationMessage = new ValidationMessage()
             {
-                Id = "Parameter_Test",
+                Reference = "Parameter_Test",
                 ChecklistReference = "1.1",
-                MessageParameters = new List<string>() { "jeg er først", "ege andre plass"},
-                PreCondition = "..?..",
-                ValidationResult = ValidationResultEnum.Unused,
+                MessageParameters = new List<string>() { "jeg er først"},
+                //PreCondition = "..?..",
+                //ValidationResult = ValidationResultEnum.Unused,
                 Xpath = "Unit/Test/Parameter",
             };
             //string result;
-            var noko = new ValidationMessageRepository().GetValidationMessageStorageEntry(validationRule, "NO", out string result);
+            var noko = new ValidationMessageRepository().GetValidationMessageStorageEntry(validationMessage, "NO", out string result);
 
             if (noko)
             {
