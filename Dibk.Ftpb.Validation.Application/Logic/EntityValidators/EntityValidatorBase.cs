@@ -71,7 +71,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var rule = RuleToValidate(id, xPath);
             if (elementNumber != null)
             {
-                //ArbeidstilsynetsSamtykke/eiendomByggested/Bygningsnummer  ==>  ArbeidstilsynetsSamtykke/eiendomByggested{0}/Bygningsnummer
+                //ArbeidstilsynetsSamtykke/eiendomByggested/Bygningsnummer  ==>  ArbeidstilsynetsSamtykke/eiendomByggested[0]/Bygningsnummer
                 //ArbeidstilsynetsSamtykke/eiendomByggested  ==>  ArbeidstilsynetsSamtykke/eiendomByggested[2]
                 //Pos:41
 
@@ -82,7 +82,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             ValidationResponse.ValidationMessages.Add(new ValidationMessage() { Reference = id, 
                                                                                 Xpath = xPath, 
-                                                                                Message = rule.Message, 
+                                                                                //Message = rule.Message, 
                                                                                 MessageParameters = messageParameters });
         }
         public void AddMessageFromRule(string id, string context, Nullable<int> elementNumber)
