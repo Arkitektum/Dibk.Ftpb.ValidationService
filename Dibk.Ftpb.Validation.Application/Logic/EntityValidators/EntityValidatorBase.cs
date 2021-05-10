@@ -39,9 +39,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
 
 
-        public ValidationRule RuleToValidate(string id, string context)
+        public ValidationRule RuleToValidate(string id)
         {
-            var validationRule = ValidationResponse.ValidationRules.FirstOrDefault(r => r.Id.Equals(id) && r.Xpath.Equals(context)) ?? new ValidationRule()
+            var validationRule = ValidationResponse.ValidationRules.FirstOrDefault(r => r.Id.Equals(id)) ?? new ValidationRule()
             {
                 Id = id,
                 Message = $"Can't find rule with id:'{id}'.-"
@@ -66,36 +66,44 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         //}
 
         //public void AddMessageFromRule(string id, string xPath, List<string> messageParameters)
-        public void AddMessageFromRule(string id, string xPath, Nullable<int> elementNumber, List<string> messageParameters)
+        public void AddMessageFromRule(string id, int? elementNumber, List<string> messageParameters)
         {
-            var rule = RuleToValidate(id, xPath);
+            var rule = RuleToValidate(id);
+            var xPath = rule.Xpath;
             if (elementNumber != null)
             {
-                //ArbeidstilsynetsSamtykke/eiendomByggested/Bygningsnummer  ==>  ArbeidstilsynetsSamtykke/eiendomByggested[0]/Bygningsnummer
+                //ArbeidstilsynetsSamtykke/eiendomByggested/Bygningsnummer  ==>  ArbeidstilsynetsSamtykke/eiendomByggested[0]/Bygningsnummer/
                 //ArbeidstilsynetsSamtykke/eiendomByggested  ==>  ArbeidstilsynetsSamtykke/eiendomByggested[2]
                 //Pos:41
-
-                int lastSlash = xPath.LastIndexOf('/');
-                string beforeSlash = xPath.Substring(0, lastSlash);
-                string afterSlash = xPath.Substring(lastSlash + 1);
-                xPath = beforeSlash + "[" + elementNumber.ToString() + "]/" + afterSlash;
+                try
+                {
+                    xPath = String.Format(rule.Xpath, $"[{elementNumber}]");
+                }
+                catch (FormatException)
+                {
+                    xPath = $"{rule.Xpath} . **'Illegal number og validation parameters'";
+                }
             }
-            ValidationResponse.ValidationMessages.Add(new ValidationMessage() { Reference = id, 
-                                                                                Xpath = xPath, 
-                                                                                //Message = rule.Message, 
-                                                                                MessageParameters = messageParameters });
+            ValidationResponse.ValidationMessages.Add(new ValidationMessage()
+            {
+                Reference = id,
+                Xpath = xPath,
+                //Message = rule.Message, 
+                MessageParameters = messageParameters
+            });
         }
-        public void AddMessageFromRule(string id, string context, Nullable<int> elementNumber)
+
+        public void AddMessageFromRule(string id, List<string> messageParameters)
         {
-            AddMessageFromRule(id, context, elementNumber, null);
+            AddMessageFromRule(id, null, messageParameters);
         }
-        public void AddMessageFromRule(string id, string context, List<string> messageParameters)
+        public void AddMessageFromRule(string id, int xpathElemntNumber)
         {
-            AddMessageFromRule(id, context, null, messageParameters);
+            AddMessageFromRule(id, xpathElemntNumber, null);
         }
-        public void AddMessageFromRule(string id, string context)
+        public void AddMessageFromRule(string id)
         {
-            AddMessageFromRule(id, context, null, null);
+            AddMessageFromRule(id, null, null);
         }
     }
 }

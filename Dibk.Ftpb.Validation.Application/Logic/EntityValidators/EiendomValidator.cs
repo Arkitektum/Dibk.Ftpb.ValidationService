@@ -22,18 +22,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult Validate(string parentContext, List<Eiendom> eiendommer)
         {
-            string context = $"{parentContext}/eiendomByggested";
-            InitializeValidationRules(context);
-            
-            ValidateEntityFields(eiendommer, context);
+            string xPath = string.Concat(parentContext, "/eiendomByggested{0}");
+            InitializeValidationRules(xPath);
+
+            ValidateEntityFields(eiendommer);
             foreach (var eiendom in eiendommer)
             {
-                var eiendomsAdresseValidationResponse = _eiendomsAdresseValidator.Validate(context, eiendom.Adresse);
+                var eiendomsAdresseValidationResponse = _eiendomsAdresseValidator.Validate(xPath, eiendom.Adresse);
 
                 ValidationResponse.ValidationRules.AddRange(eiendomsAdresseValidationResponse.ValidationRules);
                 ValidationResponse.ValidationMessages.AddRange(eiendomsAdresseValidationResponse.ValidationMessages);
 
-                var matrikkelValidationRules = _matrikkelValidator.Validate(context, eiendom.Matrikkel);
+                var matrikkelValidationRules = _matrikkelValidator.Validate(xPath, eiendom.Matrikkel);
 
                 ValidationResponse.ValidationRules.AddRange(matrikkelValidationRules.ValidationRules);
                 ValidationResponse.ValidationMessages.AddRange(matrikkelValidationRules.ValidationMessages);
@@ -41,20 +41,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
 
             }
-            ValidateDataRelations(eiendommer, context);
+            ValidateDataRelations(eiendommer);
 
             return ValidationResponse;
         }
 
-        private void ValidateDataRelations(List<Eiendom> eiendommer, string context)
+        private void ValidateDataRelations(List<Eiendom> eiendommer)
         {
-            Nullable<int> index = 0;
-            context = context + "/";
+            int index = 0;
             foreach (var eiendom in eiendommer)
             {
                 if (!TillattPostnrIKommune(eiendom.Kommunenavn, eiendom.Adresse.Postnr))
                 {
-                    AddMessageFromRule("tillatte_postnr_i_kommune", context, index, new List<string>() { eiendom.Adresse.Postnr, eiendom.Kommunenavn });
+                    AddMessageFromRule("tillatte_postnr_i_kommune", index, new List<string>() { eiendom.Adresse.Postnr, eiendom.Kommunenavn });
                 }
             }
         }
@@ -68,33 +67,21 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "tillatte_postnr_i_kommune", Xpath = $"{xPath}/" });
         }
 
-        protected void ValidateEntityFields(List<Eiendom> eiendommer, string xPath)
+        protected void ValidateEntityFields(List<Eiendom> eiendommer)
         {
-            Nullable<int> index = 0;
-            //for (int i = 0; i < eiendommer.Count; i++)
-            //{
-            //    if (Helpers.ObjectIsNullOrEmpty(eiendommer[i].Bygningsnummer))
-            //        AddMessageFromRule("bygningsnummer_utfylt", xPath);
+            int index = 0;
 
-            //    if (Helpers.ObjectIsNullOrEmpty(eiendommer[i].Bolignummer))
-            //        AddMessageFromRule("bolignummer_utfylt", xPath);
-
-            //    if (Helpers.ObjectIsNullOrEmpty(eiendommer[i].Kommunenavn))
-            //        AddMessageFromRule("kommunenavn_utfylt", xPath);
-            //}
-            
-            
             foreach (var eiendom in eiendommer)
             {
                 if (Helpers.ObjectIsNullOrEmpty(eiendom.Bygningsnummer))
-                    AddMessageFromRule("bygningsnummer_utfylt", $"{xPath}/bygningsnummer", index );
-                
+                    AddMessageFromRule("bygningsnummer_utfylt",index);
+
                 if (Helpers.ObjectIsNullOrEmpty(eiendom.Bolignummer))
-                    AddMessageFromRule("bolignummer_utfylt", $"{xPath}/bolignummer", index);
-                
+                    AddMessageFromRule("bolignummer_utfylt",index);
+
                 if (Helpers.ObjectIsNullOrEmpty(eiendom.Kommunenavn))
-                    AddMessageFromRule("kommunenavn_utfylt", $"{xPath}/kommunenavn", index);
-                
+                    AddMessageFromRule("kommunenavn_utfylt", index);
+
                 index++;
             }
         }

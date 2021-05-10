@@ -13,7 +13,9 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             ValidationMessageRepository repo = new ValidationMessageRepository();
             foreach (var valMessage in validationResult.ValidationMessages)
             {
-                valMessage.Message = repo.GetValidationMessageStorageEntry(valMessage, languageCode);
+                var canReplacParameters = repo.GetValidationMessageStorageEntry(valMessage, languageCode, out string message);
+                //if (canReplacParameters)
+                valMessage.Message = message;
             }
 
             return validationResult;

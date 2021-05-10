@@ -57,7 +57,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             if (Helpers.ObjectIsNullOrEmpty(arbeidsplasser))
             {
                 //UpdateValidationResult2Failed(rule);
-                AddMessageFromRule("arbeidsplasser_utfylt", xPath);
+                AddMessageFromRule("arbeidsplasser_utfylt");
 
             }
             else
@@ -65,14 +65,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 if (!arbeidsplasser.Eksisterende.GetValueOrDefault(false) && !arbeidsplasser.Framtidige.GetValueOrDefault(false))
                 {
                     //UpdateValidationResult2Failed(rule);
-                    AddMessageFromRule("framtidige_Eller_eksisterende_Utfylt", xPath);
+                    AddMessageFromRule("framtidige_Eller_eksisterende_Utfylt");
                 }
                 else
                 {
                     if (!arbeidsplasser.Faste.GetValueOrDefault(false) && !arbeidsplasser.Midlertidige.GetValueOrDefault(false))
                     {
                         //UpdateValidationResult2Failed(rule);
-                        AddMessageFromRule("faste_eller_midlertidige_utfylt", xPath);
+                        AddMessageFromRule("faste_eller_midlertidige_utfylt");
                     }
 
                     //rule = RuleToValidate("UtleieBygg");
@@ -83,7 +83,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         if (antallVirksomheter <= 0)
                         {
                             //UpdateValidationResult2Failed(rule);
-                            AddMessageFromRule("utleieBygg", xPath);
+                            AddMessageFromRule("utleieBygg");
                         }
                     }
 
@@ -93,7 +93,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         if (_attachmentList == null || !_attachmentList.Contains("BeskrivelseTypeArbeidProsess"))
                         {
                             //UpdateValidationResult2Failed(rule);
-                            AddMessageFromRule("arbeidsplasser_beskrivelse", xPath);
+                            AddMessageFromRule("arbeidsplasser_beskrivelse");
                         }
                     }
                 }

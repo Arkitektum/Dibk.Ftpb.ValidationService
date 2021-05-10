@@ -19,7 +19,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             string context = $"{parentContext}/eiendomsidentifikasjon";
             InitializeValidationRules(context);
-            ValidateEntityFields(matrikkel, context);
+            ValidateEntityFields(matrikkel);
 
             return ValidationResponse;
         }
@@ -33,22 +33,22 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "seksjonsnummer_utfylt", Xpath =   $"{context}/Seksjonsnummer" });
         }
 
-        public void ValidateEntityFields(Matrikkel matrikkel, string context)
+        public void ValidateEntityFields(Matrikkel matrikkel)
         {
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.Kommunenummer))
-                AddMessageFromRule("kommunenummer_utfylt", context);
+                AddMessageFromRule("kommunenummer_utfylt");
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.Gaardsnummer))
-                AddMessageFromRule("gaardsnummer_utfylt", context);
+                AddMessageFromRule("gaardsnummer_utfylt");
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.Bruksnummer))
-                AddMessageFromRule("bruksnummer_utfylt", context);
+                AddMessageFromRule("bruksnummer_utfylt");
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.Festenummer))
-                AddMessageFromRule("festenummer_utfylt", context);
+                AddMessageFromRule("festenummer_utfylt");
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.Seksjonsnummer))
-                AddMessageFromRule("seksjonsnummer_utfylt", context);
+                AddMessageFromRule("seksjonsnummer_utfylt");
         }
     }
 }

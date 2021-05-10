@@ -42,34 +42,34 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public void ValidateEntityFields(EiendomsAdresse eiendomsAdresse, string context)
         {
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Adresselinje1))
-                AddMessageFromRule("eiendomsAdresse_adresselinje1_utfylt", $"{context}/adresselinje1");
+                AddMessageFromRule("eiendomsAdresse_adresselinje1_utfylt" );
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Adresselinje2))
-                AddMessageFromRule("eiendomsAdresse_adresselinje2_utfylt", $"{context}/adresselinje2");
+                AddMessageFromRule("eiendomsAdresse_adresselinje2_utfylt");
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Adresselinje3))
-                AddMessageFromRule("eiendomsAdresse_adresselinje3_utfylt", $"{context}/adresselinje3");
+                AddMessageFromRule("eiendomsAdresse_adresselinje3_utfylt");
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Landkode))
-                AddMessageFromRule("eiendomsAdresse_landkode_utfylt", $"{context}/landkode");
+                AddMessageFromRule("eiendomsAdresse_landkode_utfylt");
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Postnr))
-                AddMessageFromRule("eiendomsAdresse_postnr_utfylt", $"{context}/postnr");
+                AddMessageFromRule("eiendomsAdresse_postnr_utfylt");
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Postnr))
-                AddMessageFromRule("eiendomsAdresse_poststed_utfylt", $"{context}/poststed");
+                AddMessageFromRule("eiendomsAdresse_poststed_utfylt");
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Gatenavn))
-                AddMessageFromRule("eiendomsAdresse_gatenavn_utfylt", $"{context}/gatenavn");
+                AddMessageFromRule("eiendomsAdresse_gatenavn_utfylt");
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Husnr))
-                AddMessageFromRule("eiendomsAdresse_husnr_utfylt", $"{context}/husnr");
+                AddMessageFromRule("eiendomsAdresse_husnr_utfylt");
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Bokstav))
-                AddMessageFromRule("eiendomsAdresse_bokstav_utfylt", $"{context}/bokstav");
+                AddMessageFromRule("eiendomsAdresse_bokstav_utfylt");
 
             if (!StringIs4digitNumber(eiendomsAdresse.Postnr))
-                AddMessageFromRule("eiendomsAdresse_postnr_4siffer", $"{context}");
+                AddMessageFromRule("eiendomsAdresse_postnr_4siffer");
         }
 
         private bool StringIs4digitNumber(string input)
