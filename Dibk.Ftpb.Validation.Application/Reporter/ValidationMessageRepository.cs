@@ -7,28 +7,28 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
 {
     public class ValidationMessageRepository
     {
-        private List<ValidationMessageStorageEntry> _storageEntry;
+        private List<ValidationMessageStorageEntry> _validationMessageStorageEntry;
 
         public ValidationMessageRepository()
         {
-            _storageEntry = new List<ValidationMessageStorageEntry>();
+            _validationMessageStorageEntry = new List<ValidationMessageStorageEntry>();
             InitiateMessageRepository();
         }
-        public bool GetValidationMessageStorageEntry(ValidationRule validationRule, string languageCode, out string result)
+        public bool GetValidationMessageStorageEntry(ValidationMessage validationMessage, string languageCode, out string result)
         {
-            var theStorageEntry = _storageEntry.FirstOrDefault(x => x.Id.Equals(validationRule.Id) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.Xpath));
+            var theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.Id.Equals(validationMessage.Reference) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationMessage.Xpath));
 
             if (theStorageEntry == null)
             {
-                result = $"could not find rule with Id: '{validationRule.Id}', xpath: '{validationRule.Xpath}' and languageCode:'{languageCode}'.-";
+                result = $"Could not find validation message with reference: '{validationMessage.Reference}', xpath: '{validationMessage.Xpath}' and languageCode:'{languageCode}'.-";
                 return false;
             }
 
-            if (validationRule.MessageParameters != null)
+            if (validationMessage.MessageParameters != null)
             {
                 try
                 {
-                    result = String.Format(theStorageEntry.Message, validationRule.MessageParameters.ToArray());
+                    result = String.Format(theStorageEntry.Message, validationMessage.MessageParameters.ToArray());
                     return true;
                 }
                 catch (FormatException)
@@ -42,11 +42,11 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             return true;
         }
 
-        public string GetValidationMessageStorageEntry(ValidationRule validationRule, string languageCode)
+        public string GetValidationMessageStorageEntry(ValidationMessage validationMessage, string languageCode)
         {
-            var theStorageEntry = _storageEntry.Where(x => x.Id.Equals(validationRule.Id) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.Xpath)).FirstOrDefault();
+            var theStorageEntry = _validationMessageStorageEntry.Where(x => x.Id.Equals(validationMessage.Reference) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationMessage.Xpath)).FirstOrDefault();
             int numberOfParametersInMessageText = theStorageEntry.Message.Where(x => (x == '{')).Count();
-            int numberOfParametersInValidation = (validationRule.MessageParameters == null ? 0 : validationRule.MessageParameters.Count());
+            int numberOfParametersInValidation = (validationMessage.MessageParameters == null ? 0 : validationMessage.MessageParameters.Count());
 
             if (numberOfParametersInMessageText != numberOfParametersInValidation)
             {
@@ -56,7 +56,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             var newText = theStorageEntry.Message;
             if (numberOfParametersInValidation > 0)
             {
-                foreach (var parameter in validationRule.MessageParameters)
+                foreach (var parameter in validationMessage.MessageParameters)
                 {
                     var regex = new Regex(Regex.Escape("{}"));
                     newText = regex.Replace(newText, "'" + parameter + "'", 1);
@@ -67,167 +67,167 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         }
         private void InitiateMessageRepository()
         {
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "bygningsnummer_utfylt",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom/Bygningsnummer",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested/bygningsnummer",
                 Message = "Bygningsnr må være utfyllt"
             });
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "bolignummer_utfylt",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom/Bolignummer",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested/bolignummer",
                 Message = "Bolignummer må være utfyllt"
             });
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "kommunenavn_utfylt",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom/Kommunenavn",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested/kommunenavn",
                 Message = "Kommunenavn må være utfyllt"
             });
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
-            {
-                Id = "kommunenavn_utfylt",
-                LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom/Kommunenavn",
-                Message = "Kommunenavn må være utfyllt"
-            });
+            //_validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
+            //{
+            //    Id = "kommunenavn_utfylt",
+            //    LanguageCode = "NO",
+            //    XPath = "ArbeidstilsynetsSamtykke/eiendomByggested/Kommunenavn",
+            //    Message = "Kommunenavn må være utfyllt"
+            //});
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "tillatte_postnr_i_kommune",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested",
                 Message = "Postnr {} ligger ikke i {} kommune"
             });
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "eiendomsAdresse_adresselinje1_utfylt",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom/EiendomsAdresse/Adresselinje1",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested/adresse/adresselinje1",
                 Message = "Eiendommens adresselinje1 må være utfyllt"
             });
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "eiendomsAdresse_adresselinje2_utfylt",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom/EiendomsAdresse/Adresselinje2",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested/adresse/adresselinje2",
                 Message = "Eiendommens adresselinje2 må være utfyllt"
             });
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "eiendomsAdresse_adresselinje3_utfylt",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom/EiendomsAdresse/Adresselinje3",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested/adresse/adresselinje3",
                 Message = "Eiendommens adresselinje3 må være utfyllt"
             });
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "eiendomsAdresse_landkode_utfylt",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom/EiendomsAdresse/Landkode",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested/adresse/landkode",
                 Message = "Eiendommens landkode må være utfyllt"
             });
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "eiendomsAdresse_postnr_utfylt",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom/EiendomsAdresse/Postnr",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested/adresse/postnr",
                 Message = "Eiendommens postnr må være utfyllt"
             });
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "eiendomsAdresse_poststed_utfylt",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom/EiendomsAdresse/Poststed",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested/adresse/poststed",
                 Message = "Eiendommens poststed må være utfyllt"
             });
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "eiendomsAdresse_gatenavn_utfylt",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom/EiendomsAdresse/Gatenavn",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested/adresse/gatenavn",
                 Message = "Eiendommens gatenavn må være utfyllt"
             });
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "eiendomsAdresse_husnr_utfylt",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom/EiendomsAdresse/Husnr",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested/adresse/husnr",
                 Message = "Eiendommens husnr må være utfyllt"
             });
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "eiendomsAdresse_bokstav_utfylt",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom/EiendomsAdresse/Bokstav",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested/adresse/bokstav",
                 Message = "Eiendommens bokstav må være utfyllt"
             });
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "eiendomsAdresse_postnr_4siffer",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom/EiendomsAdresse/Postnr",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested/adresse/postnr",
                 Message = "Eiendommens postnr må bestå av 4 siffer"
             });
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "kommunenummer_utfylt",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom/Matrikkel/Kommunenummer",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested/eiendomsidentifikasjon/kommunenummer",
                 Message = "Eiendommens kommunenr i Matrikkelen må være utfyllt"
             });
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "gaardsnummer_utfylt",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom/Matrikkel/Gaardsnummer",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested/eiendomsidentifikasjon/gaardsnummer",
                 Message = "Eiendommens GNR i Matrikkelen må være utfyllt"
             });
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "bruksnummer_utfylt",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom/Matrikkel/Bruksnummer",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested/eiendomsidentifikasjon/bruksnummer",
                 Message = "Eiendommens BNR i Matrikkelen må være utfyllt"
             });
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "festenummer_utfylt",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom/Matrikkel/Festenummer",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested/eiendomsidentifikasjon/festenummer",
                 Message = "Eiendommens FNR i Matrikkelen må være utfyllt"
             });
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "seksjonsnummer_utfylt",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/Eiendom/Matrikkel/Seksjonsnummer",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested/eiendomsidentifikasjon/seksjonsnummer",
                 Message = "Eiendommens SNR i Matrikkelen må være utfyllt"
             });;
 
-            _storageEntry.Add(new ValidationMessageStorageEntry()
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
                 Id = "Parameter_Test",
                 LanguageCode = "NO",

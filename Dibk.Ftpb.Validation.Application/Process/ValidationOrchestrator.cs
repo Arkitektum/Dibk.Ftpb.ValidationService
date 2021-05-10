@@ -18,34 +18,38 @@ namespace Dibk.Ftpb.Validation.Application.Process
     public class ValidationOrchestrator : IValidationOrchestrator
     {
         private readonly IServiceProvider _services;
-        public List<ValidationRule> Messages { get; set; }
+        //public List<ValidationRule> ValidationRules { get; set; }
+        public ValidationResult ValidationResponse { get; set; }
 
         public ValidationOrchestrator(IServiceProvider services)
         {
             _services = services;
         }
 
-        public async Task<List<ValidationRule>> ExecuteAsync(string dataFormatVersion, string xmlData, List<string> errorMessages)
+        public async Task<ValidationResult> ExecuteAsync(string dataFormatVersion, string xmlData, List<string> errorMessages)
         {
-            Messages = new List<ValidationRule>();
+            ValidationResponse = new ValidationResult();
+            ValidationResponse.ValidationRules = new();
+            ValidationResponse.ValidationMessages = new();
 
             if (errorMessages.Count > 0)
             {
                 foreach (var message in errorMessages)
                 {
-                    Messages.Add(new ValidationRule() { Id = "generic", Message = message, ValidationResult = ValidationResultEnum.ValidationFailed });
+                    ValidationResponse.ValidationMessages.Add(new ValidationMessage() { Reference = "XsdValidationErrors", Message = message });
                 }
             }
 
             //TODO Validate Xml structure 
             List<ValidationRule> validationXmlMessages = new List<ValidationRule>();
-            Messages.Concat(validationXmlMessages);
+            ValidationResponse.ValidationRules.Concat(validationXmlMessages);
 
             IFormValidator formValidator = GetValidator(dataFormatVersion); //45957
 
-            var validationMessages = Messages.Concat(formValidator.StartValidation(xmlData));
+            ValidationResponse.ValidationRules.Concat(formValidator.StartValidation(xmlData).ValidationRules);
+            ValidationResponse.ValidationMessages.Concat(formValidator.StartValidation(xmlData).ValidationMessages);
 
-            return validationMessages.ToList();
+            return ValidationResponse;
         }
 
         public IFormValidator GetValidator(string dataFormatVersion)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
+using Dibk.Ftpb.Validation.Application.Utils;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -14,43 +15,40 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public MatrikkelValidator() : base()
         {
         }
-        public List<ValidationRule> Validate(string context, Matrikkel matrikkel)
+        public ValidationResult Validate(string parentContext, Matrikkel matrikkel)
         {
-            string newContext = $"{context}/eiendomsidentifikasjon";
-            InitializeValidationRules(newContext);
-            ValidateEntityFields(matrikkel);
+            string context = $"{parentContext}/eiendomsidentifikasjon";
+            InitializeValidationRules(context);
+            ValidateEntityFields(matrikkel, context);
 
-            return ValidationRules;
+            return ValidationResponse;
         }
 
         public override void InitializeValidationRules(string context)
         {
-            ValidationRules.Add(new ValidationRule() { Id = "kommunenummer_utfylt", Xpath = $"{context}/Kommunenummer", ValidationResult = ValidationResultEnum.Unused });
-            ValidationRules.Add(new ValidationRule() { Id = "gaardsnummer_utfylt", Xpath = $"{context}/Gaardsnummer", ValidationResult = ValidationResultEnum.Unused });
-            ValidationRules.Add(new ValidationRule() { Id = "bruksnummer_utfylt", Xpath = $"{context}/Bruksnummer", ValidationResult = ValidationResultEnum.Unused });
-            ValidationRules.Add(new ValidationRule() { Id = "festenummer_utfylt", Xpath = $"{context}/Festenummer", ValidationResult = ValidationResultEnum.Unused, ChecklistReference = "13.1" });
-            ValidationRules.Add(new ValidationRule() { Id = "seksjonsnummer_utfylt", Xpath =   $"{context}/Seksjonsnummer", ValidationResult = ValidationResultEnum.Unused });
+            ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "kommunenummer_utfylt", Xpath = $"{context}/Kommunenummer" });
+            ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "gaardsnummer_utfylt", Xpath = $"{context}/Gaardsnummer" });
+            ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "bruksnummer_utfylt", Xpath = $"{context}/Bruksnummer" });
+            ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "festenummer_utfylt", Xpath = $"{context}/Festenummer", ChecklistReference = "13.1" });
+            ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "seksjonsnummer_utfylt", Xpath =   $"{context}/Seksjonsnummer" });
         }
 
-        public override void ValidateEntityFields(object entityData)
+        public void ValidateEntityFields(Matrikkel matrikkel, string context)
         {
-            Matrikkel matrikkel = (Matrikkel)entityData;
+            if (Helpers.ObjectIsNullOrEmpty(matrikkel.Kommunenummer))
+                AddMessageFromRule("kommunenummer_utfylt", context);
 
-            ValidationRules.Where(crit => crit.Id.Equals("kommunenummer_utfylt")).FirstOrDefault().ValidationResult
-                = (string.IsNullOrEmpty(matrikkel.Kommunenummer)) ? ValidationResultEnum.ValidationFailed : ValidationResultEnum.ValidationOk;
+            if (Helpers.ObjectIsNullOrEmpty(matrikkel.Gaardsnummer))
+                AddMessageFromRule("gaardsnummer_utfylt", context);
 
-            ValidationRules.Where(crit => crit.Id.Equals("gaardsnummer_utfylt")).FirstOrDefault().ValidationResult
-                = (string.IsNullOrEmpty(matrikkel.Gaardsnummer)) ? ValidationResultEnum.ValidationFailed : ValidationResultEnum.ValidationOk;
+            if (Helpers.ObjectIsNullOrEmpty(matrikkel.Bruksnummer))
+                AddMessageFromRule("bruksnummer_utfylt", context);
 
-            ValidationRules.Where(crit => crit.Id.Equals("bruksnummer_utfylt")).FirstOrDefault().ValidationResult
-                = (string.IsNullOrEmpty(matrikkel.Bruksnummer)) ? ValidationResultEnum.ValidationFailed : ValidationResultEnum.ValidationOk;
+            if (Helpers.ObjectIsNullOrEmpty(matrikkel.Festenummer))
+                AddMessageFromRule("festenummer_utfylt", context);
 
-            ValidationRules.Where(crit => crit.Id.Equals("festenummer_utfylt")).FirstOrDefault().ValidationResult
-                = (string.IsNullOrEmpty(matrikkel.Festenummer)) ? ValidationResultEnum.ValidationFailed : ValidationResultEnum.ValidationOk;
-
-            ValidationRules.Where(crit => crit.Id.Equals("seksjonsnummer_utfylt")).FirstOrDefault().ValidationResult
-                = (string.IsNullOrEmpty(matrikkel.Seksjonsnummer)) ? ValidationResultEnum.ValidationFailed : ValidationResultEnum.ValidationOk;
-
+            if (Helpers.ObjectIsNullOrEmpty(matrikkel.Seksjonsnummer))
+                AddMessageFromRule("seksjonsnummer_utfylt", context);
         }
     }
 }

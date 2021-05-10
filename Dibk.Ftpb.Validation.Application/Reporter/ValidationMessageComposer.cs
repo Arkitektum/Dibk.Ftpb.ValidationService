@@ -8,20 +8,20 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         {
         }
 
-        public List<ValidationRule> ComposeValidationReport(List<ValidationRule> validationRules, string languageCode)
+        public ValidationResult ComposeValidationReport(ValidationResult validationResult, string languageCode)
         {
             ValidationMessageRepository repo = new ValidationMessageRepository();
-            foreach (var valRule in validationRules)
+            foreach (var valMessage in validationResult.ValidationMessages)
             {
-                valRule.Message = repo.GetValidationMessageStorageEntry(valRule, languageCode);
+                valMessage.Message = repo.GetValidationMessageStorageEntry(valMessage, languageCode);
             }
 
-            return validationRules;
+            return validationResult;
         }
     }
 
     public interface IValidationMessageComposer
     {
-        List<ValidationRule> ComposeValidationReport(List<ValidationRule> validationRules, string languageCode);
+        ValidationResult ComposeValidationReport(ValidationResult validationResult, string languageCode);
     }
 }

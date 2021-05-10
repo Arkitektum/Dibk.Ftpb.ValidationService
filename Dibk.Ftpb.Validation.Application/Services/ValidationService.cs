@@ -21,7 +21,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
             _validationOrchestrator = validationOrchestrator;
         }
 
-        public List<ValidationRule> Validate(string xmlString)
+        public ValidationResult Validate(string xmlString)
         {
             var inputData = _inputDataService.GetInputData(xmlString);
             //inputData.Config.DataFormatVersion
@@ -29,8 +29,8 @@ namespace Dibk.Ftpb.Validation.Application.Services
             //inputData.IsValid
 
             var errorMessages = _xsdValidationService.Validate(inputData);
-            var validationRules = _validationOrchestrator.ExecuteAsync(inputData.Config.DataFormatVersion, xmlString, errorMessages);
-            return validationRules.Result;
+            var validationResult = _validationOrchestrator.ExecuteAsync(inputData.Config.DataFormatVersion, xmlString, errorMessages);
+            return validationResult.Result;
         }
 
         public List<string> Validate(IFormFile xmlFile)
