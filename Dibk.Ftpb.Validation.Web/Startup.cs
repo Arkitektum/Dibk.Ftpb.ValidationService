@@ -14,7 +14,6 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.Elasticsearch;
 using System;
-using System.Configuration;
 using System.Text.Json.Serialization;
 
 namespace Dibk.Ftpb.Validation
@@ -66,6 +65,7 @@ namespace Dibk.Ftpb.Validation
                 app.UseDeveloperExceptionPage();
 
             }
+            app.UseSerilogRequestLogging();
 
             ConfigureLogging();
 
@@ -99,13 +99,11 @@ namespace Dibk.Ftpb.Validation
                 .MinimumLevel.Is(logLevel)
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
-                .Enrich.WithWebApiControllerName()
-                .Enrich.WithWebApiActionName()
-                .Enrich.WithMvcControllerName()
-                .Enrich.WithMvcActionName()
                 .Enrich.WithMachineName()
-                /*.Enrich.WithBasicAuthUserName()*/
-                .Enrich.WithHttpRequestClientHostIP()
+                /* Berre tilgjengeleg for .net framewok via Serilog.Classic pakkene :grubble-fjes: */
+                //.Enrich.WithWebApiControllerName()
+                //.Enrich.WithWebApiActionName()
+                //.Enrich.WithHttpRequestClientHostIP()
                 /*.Enrich.WithCorrelationIdHeader()*/
                 .WriteTo.Trace(outputTemplate: "{Timestamp:HH:mm:ss.fff} {SourceContext} [{Level}] {ArchiveReference} {Message}{NewLine}{Exception}")
                 .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticSearchUrl))
@@ -116,12 +114,7 @@ namespace Dibk.Ftpb.Validation
                     ModifyConnectionSettings = x => x.BasicAuthentication(elasticUsername, elasticPassword),
                     IndexFormat = elasticIndexFormat
                 })
-                .CreateLogger();
-
-            for (int i = 0; i < 100; ++i)
-            {
-                Log.Warning("init logging");
-            }
+                .CreateLogger();          
         }
     }
 }
