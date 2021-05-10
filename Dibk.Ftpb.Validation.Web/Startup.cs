@@ -1,5 +1,6 @@
 using Arkitektum.XmlSchemaValidator.Config;
 using Dibk.Ftpb.Validation.Application.DataSources;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Municipality;
 using Dibk.Ftpb.Validation.Application.Logic.FormValidators;
 using Dibk.Ftpb.Validation.Application.Process;
 using Dibk.Ftpb.Validation.Application.Services;
@@ -45,6 +46,13 @@ namespace Dibk.Ftpb.Validation
                 //options.JsonSerializerOptions.IgnoreNullValues = true;
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
+
+            services.AddMemoryCache();
+            services.AddOptions();
+
+            services.AddHttpClient<MunicipalityApiHttpClient>();
+            services.AddTransient<IMunicipalityApiService, MunicipalityApiService>();
+            services.Configure<MunicipalityApiSettings>(Configuration.GetSection("MunicipalityApi"));
 
             services.AddTransient<IValidationService, ValidationService>();
             services.AddTransient<IInputDataService, InputDataService>();

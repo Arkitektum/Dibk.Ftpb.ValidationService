@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace Dibk.Ftpb.Validation.Web.Controllers
 {
@@ -15,9 +14,8 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
     {
         private readonly IValidationService _validationService;
 
-        public ValidateController(
-            IValidationService validationService,
-            ILogger<ValidateController> logger) : base(logger)
+        public ValidateController(IValidationService validationService, ILogger<ValidateController> logger) 
+            : base(logger)
         {
             _validationService = validationService;
         }

@@ -16,7 +16,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
         {
 
             var municipalityValidator = new Mock<IMunicipalityValidator>();
-            municipalityValidator.Setup(s => s.Validate_kommunenummerStatus(It.IsAny<string>())).Returns(new MunisipalituValidationResult() { Status = validationStatus, Message = $"kommunenumer er : '{validationStatus.ToString()}'." });
+            municipalityValidator.Setup(s => s.Validate_kommunenummerStatus(It.IsAny<string>())).Returns(new MunicipalityValidationResult() { Status = validationStatus, Message = $"kommunenumer er : '{validationStatus.ToString()}'." });
             return municipalityValidator.Object;
             
         }

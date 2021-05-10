@@ -1,29 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dibk.Ftpb.Validation.Application.DataSources.ApiServices;
+﻿using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Municipality;
 using Dibk.Ftpb.Validation.Application.Enums;
+using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.DataSources
 {
     public interface IMunicipalityValidator
     {
-        MunisipalituValidationResult Validate_kommunenummerStatus(string kommunenummer);
+        MunicipalityValidationResult Validate_kommunenummerStatus(string kommunenummer);
     }
-    public class MunisipalituValidationResult
+    public class MunicipalityValidationResult
     {
         public MunicipalityValidationEnum Status { get; set; }
         public string Message { get; set; }
     }
+
     public class MunicipalityValidator: IMunicipalityValidator
     {
-        public MunisipalituValidationResult Validate_kommunenummerStatus(string kommunenummer)
+        private readonly IMunicipalityApiService _municipalityApiService;
+
+        public MunicipalityValidator(IMunicipalityApiService municipalityApiService)
         {
-            var municipality = new MunicipalityApiService().GetMunicipality(kommunenummer);
+            _municipalityApiService = municipalityApiService;
+        }
+        public MunicipalityValidationResult Validate_kommunenummerStatus(string kommunenummer)
+        {
+            var municipality = Task.Run(() => _municipalityApiService.GetMunicipality(kommunenummer)).Result;
             
-            return new MunisipalituValidationResult();
+            return new MunicipalityValidationResult();
         }
     }
 }
