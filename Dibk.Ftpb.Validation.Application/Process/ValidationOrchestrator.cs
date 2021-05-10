@@ -11,23 +11,20 @@ using Microsoft.Extensions.Logging;
 
 namespace Dibk.Ftpb.Validation.Application.Process
 {
-    /// <summary>
-    ///…InstantiateValidationMessageContainer(……)
-    ///…VerifyInputData(….)
-    ///….ValidateFormEntity(….)
-    ///…CompileValidationReport(….)    /// </summary>
     public class ValidationOrchestrator : IValidationOrchestrator
     {
         private readonly IServiceProvider _services;
         private readonly ILogger<ValidationOrchestrator> _logger;
+        private readonly IValidationMessageComposer _validationMessageComposer;
 
         //public List<ValidationRule> ValidationRules { get; set; }
         public ValidationResult ValidationResult { get; set; }
 
-        public ValidationOrchestrator(IServiceProvider services, ILogger<ValidationOrchestrator> logger)
+        public ValidationOrchestrator(IServiceProvider services, ILogger<ValidationOrchestrator> logger, IValidationMessageComposer validationMessageComposer)
         {
             _services = services;
             _logger = logger;
+            _validationMessageComposer = validationMessageComposer;
         }
 
         public async Task<ValidationResult> ExecuteAsync(string dataFormatVersion, string xmlData, List<string> errorMessages)
@@ -49,11 +46,14 @@ namespace Dibk.Ftpb.Validation.Application.Process
             ValidationResult.ValidationRules.AddRange(validationXmlMessages);
 
             IFormValidator formValidator = GetValidator(dataFormatVersion); //45957
+            ValidationResult valResult = formValidator.StartValidation(xmlData);
 
-            ValidationResult.ValidationRules.AddRange(formValidator.StartValidation(xmlData).ValidationRules);
-            ValidationResult.ValidationMessages.AddRange(formValidator.StartValidation(xmlData).ValidationMessages);
+            ValidationResult.ValidationRules.AddRange(valResult.ValidationRules);
+            ValidationResult.ValidationMessages.AddRange(valResult.ValidationMessages);
 
-            return ValidationResult;
+            var composedValidationReport = _validationMessageComposer.ComposeValidationReport(ValidationResult, "NO");
+
+            return composedValidationReport;
         }
 
         public IFormValidator GetValidator(string dataFormatVersion)

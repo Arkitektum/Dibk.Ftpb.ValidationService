@@ -36,7 +36,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             InitializeValidationRules(_context);
             ValidateEntityFields(arbeidsplasser, _context);
 
-            return ValidationResponse;
+            return ValidationResult;
         }
 
         public override void InitializeValidationRules(string xPath)
@@ -53,46 +53,37 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public void ValidateEntityFields(Arbeidsplasser arbeidsplasser, string xPath)
         {
 
-            //var rule = this.RuleToValidate("arbeidsplasser_utfylt");
             if (Helpers.ObjectIsNullOrEmpty(arbeidsplasser))
             {
-                //UpdateValidationResult2Failed(rule);
                 AddMessageFromRule("arbeidsplasser_utfylt");
-
             }
             else
             {
                 if (!arbeidsplasser.Eksisterende.GetValueOrDefault(false) && !arbeidsplasser.Framtidige.GetValueOrDefault(false))
                 {
-                    //UpdateValidationResult2Failed(rule);
                     AddMessageFromRule("framtidige_Eller_eksisterende_Utfylt");
                 }
                 else
                 {
                     if (!arbeidsplasser.Faste.GetValueOrDefault(false) && !arbeidsplasser.Midlertidige.GetValueOrDefault(false))
                     {
-                        //UpdateValidationResult2Failed(rule);
                         AddMessageFromRule("faste_eller_midlertidige_utfylt");
                     }
 
-                    //rule = RuleToValidate("UtleieBygg");
                     if (arbeidsplasser.UtleieBygg.GetValueOrDefault(false))
                     {
                         int antallVirksomheter;
                         int.TryParse(arbeidsplasser.AntallVirksomheter, out antallVirksomheter);
                         if (antallVirksomheter <= 0)
                         {
-                            //UpdateValidationResult2Failed(rule);
                             AddMessageFromRule("utleieBygg");
                         }
                     }
 
-                    //rule = RuleToValidate("arbeidsplasser_Beskrivelse");
                     if (string.IsNullOrEmpty(arbeidsplasser.Beskrivelse))
                     {
                         if (_attachmentList == null || !_attachmentList.Contains("BeskrivelseTypeArbeidProsess"))
                         {
-                            //UpdateValidationResult2Failed(rule);
                             AddMessageFromRule("arbeidsplasser_beskrivelse");
                         }
                     }

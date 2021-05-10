@@ -7,17 +7,10 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
 {
     public class ValidationRule
     {
-        public ValidationRule()
-        {
-
-        }
         public string Id { get; set; }
-        public string Xpath { get; set; }
-        //[JsonConverter(typeof(StringEnumConverter))]
-        //public ValidationResultEnum ValidationResult { get; set; }
         public string Message { get; set; }
+        public string Xpath { get; set; }
         public string PreCondition { get; set; }
         public string ChecklistReference { get; set; }
-        //public List<string> MessageParameters { get; set; }
     }
 }

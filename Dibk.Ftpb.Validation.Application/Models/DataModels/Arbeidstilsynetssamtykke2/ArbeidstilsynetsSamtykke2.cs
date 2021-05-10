@@ -21,1089 +21,10 @@ namespace no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2 {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
-    [System.Xml.Serialization.XmlRootAttribute("Kode", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
-    public partial class KodeType {
-        
-        private string kodeverdiField;
-        
-        private string kodebeskrivelseField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string kodeverdi {
-            get {
-                return this.kodeverdiField;
-            }
-            set {
-                this.kodeverdiField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string kodebeskrivelse {
-            get {
-                return this.kodebeskrivelseField;
-            }
-            set {
-                this.kodebeskrivelseField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
-    [System.Xml.Serialization.XmlRootAttribute("Arbeidsplasser", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
-    public partial class ArbeidsplasserType {
-        
-        private System.Nullable<bool> framtidigeField;
-        
-        private bool framtidigeFieldSpecified;
-        
-        private System.Nullable<bool> fasteField;
-        
-        private bool fasteFieldSpecified;
-        
-        private System.Nullable<bool> midlertidigeField;
-        
-        private bool midlertidigeFieldSpecified;
-        
-        private string antallAnsatteField;
-        
-        private System.Nullable<bool> eksisterendeField;
-        
-        private bool eksisterendeFieldSpecified;
-        
-        private System.Nullable<bool> utleieByggField;
-        
-        private bool utleieByggFieldSpecified;
-        
-        private string antallVirksomheterField;
-        
-        private string beskrivelseField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<bool> framtidige {
-            get {
-                return this.framtidigeField;
-            }
-            set {
-                this.framtidigeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool framtidigeSpecified {
-            get {
-                return this.framtidigeFieldSpecified;
-            }
-            set {
-                this.framtidigeFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<bool> faste {
-            get {
-                return this.fasteField;
-            }
-            set {
-                this.fasteField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool fasteSpecified {
-            get {
-                return this.fasteFieldSpecified;
-            }
-            set {
-                this.fasteFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<bool> midlertidige {
-            get {
-                return this.midlertidigeField;
-            }
-            set {
-                this.midlertidigeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool midlertidigeSpecified {
-            get {
-                return this.midlertidigeFieldSpecified;
-            }
-            set {
-                this.midlertidigeFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string antallAnsatte {
-            get {
-                return this.antallAnsatteField;
-            }
-            set {
-                this.antallAnsatteField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<bool> eksisterende {
-            get {
-                return this.eksisterendeField;
-            }
-            set {
-                this.eksisterendeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool eksisterendeSpecified {
-            get {
-                return this.eksisterendeFieldSpecified;
-            }
-            set {
-                this.eksisterendeFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<bool> utleieBygg {
-            get {
-                return this.utleieByggField;
-            }
-            set {
-                this.utleieByggField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool utleieByggSpecified {
-            get {
-                return this.utleieByggFieldSpecified;
-            }
-            set {
-                this.utleieByggFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string antallVirksomheter {
-            get {
-                return this.antallVirksomheterField;
-            }
-            set {
-                this.antallVirksomheterField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string beskrivelse {
-            get {
-                return this.beskrivelseField;
-            }
-            set {
-                this.beskrivelseField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
-    [System.Xml.Serialization.XmlRootAttribute("Betaling", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
-    public partial class BetalingType {
-        
-        private string beskrivelseField;
-        
-        private string ordreIdField;
-        
-        private string sumField;
-        
-        private string transIdField;
-        
-        private string betalingslogikkField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string beskrivelse {
-            get {
-                return this.beskrivelseField;
-            }
-            set {
-                this.beskrivelseField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string ordreId {
-            get {
-                return this.ordreIdField;
-            }
-            set {
-                this.ordreIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string sum {
-            get {
-                return this.sumField;
-            }
-            set {
-                this.sumField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string transId {
-            get {
-                return this.transIdField;
-            }
-            set {
-                this.transIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string betalingslogikk {
-            get {
-                return this.betalingslogikkField;
-            }
-            set {
-                this.betalingslogikkField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
-    [System.Xml.Serialization.XmlRootAttribute("Dispensasjon", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
-    public partial class DispensasjonType {
-        
-        private KodeType dispensasjonstypeField;
-        
-        private string begrunnelseField;
-        
-        private string beskrivelseField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public KodeType dispensasjonstype {
-            get {
-                return this.dispensasjonstypeField;
-            }
-            set {
-                this.dispensasjonstypeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string begrunnelse {
-            get {
-                return this.begrunnelseField;
-            }
-            set {
-                this.begrunnelseField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string beskrivelse {
-            get {
-                return this.beskrivelseField;
-            }
-            set {
-                this.beskrivelseField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
-    [System.Xml.Serialization.XmlRootAttribute("EiendommensAdresse", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
-    public partial class EiendommensAdresseType {
-        
-        private string adresselinje1Field;
-        
-        private string adresselinje2Field;
-        
-        private string adresselinje3Field;
-        
-        private string postnrField;
-        
-        private string poststedField;
-        
-        private string landkodeField;
-        
-        private string gatenavnField;
-        
-        private string husnrField;
-        
-        private string bokstavField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string adresselinje1 {
-            get {
-                return this.adresselinje1Field;
-            }
-            set {
-                this.adresselinje1Field = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string adresselinje2 {
-            get {
-                return this.adresselinje2Field;
-            }
-            set {
-                this.adresselinje2Field = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string adresselinje3 {
-            get {
-                return this.adresselinje3Field;
-            }
-            set {
-                this.adresselinje3Field = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string postnr {
-            get {
-                return this.postnrField;
-            }
-            set {
-                this.postnrField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string poststed {
-            get {
-                return this.poststedField;
-            }
-            set {
-                this.poststedField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string landkode {
-            get {
-                return this.landkodeField;
-            }
-            set {
-                this.landkodeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string gatenavn {
-            get {
-                return this.gatenavnField;
-            }
-            set {
-                this.gatenavnField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string husnr {
-            get {
-                return this.husnrField;
-            }
-            set {
-                this.husnrField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string bokstav {
-            get {
-                return this.bokstavField;
-            }
-            set {
-                this.bokstavField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
-    [System.Xml.Serialization.XmlRootAttribute("Fakturamottaker", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
-    public partial class FakturamottakerType {
-        
-        private string organisasjonsnummerField;
-        
-        private string bestillerReferanseField;
-        
-        private string fakturareferanserField;
-        
-        private string navnField;
-        
-        private string prosjektnummerField;
-        
-        private System.Nullable<bool> ehfFakturaField;
-        
-        private bool ehfFakturaFieldSpecified;
-        
-        private System.Nullable<bool> fakturaPapirField;
-        
-        private bool fakturaPapirFieldSpecified;
-        
-        private EnkelAdresseType adresseField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string organisasjonsnummer {
-            get {
-                return this.organisasjonsnummerField;
-            }
-            set {
-                this.organisasjonsnummerField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string bestillerReferanse {
-            get {
-                return this.bestillerReferanseField;
-            }
-            set {
-                this.bestillerReferanseField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string fakturareferanser {
-            get {
-                return this.fakturareferanserField;
-            }
-            set {
-                this.fakturareferanserField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string navn {
-            get {
-                return this.navnField;
-            }
-            set {
-                this.navnField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string prosjektnummer {
-            get {
-                return this.prosjektnummerField;
-            }
-            set {
-                this.prosjektnummerField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<bool> ehfFaktura {
-            get {
-                return this.ehfFakturaField;
-            }
-            set {
-                this.ehfFakturaField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool ehfFakturaSpecified {
-            get {
-                return this.ehfFakturaFieldSpecified;
-            }
-            set {
-                this.ehfFakturaFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<bool> fakturaPapir {
-            get {
-                return this.fakturaPapirField;
-            }
-            set {
-                this.fakturaPapirField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool fakturaPapirSpecified {
-            get {
-                return this.fakturaPapirFieldSpecified;
-            }
-            set {
-                this.fakturaPapirFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public EnkelAdresseType adresse {
-            get {
-                return this.adresseField;
-            }
-            set {
-                this.adresseField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
-    [System.Xml.Serialization.XmlRootAttribute("EnkelAdresse", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
-    public partial class EnkelAdresseType {
-        
-        private string adresselinje1Field;
-        
-        private string adresselinje2Field;
-        
-        private string adresselinje3Field;
-        
-        private string postnrField;
-        
-        private string poststedField;
-        
-        private string landkodeField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string adresselinje1 {
-            get {
-                return this.adresselinje1Field;
-            }
-            set {
-                this.adresselinje1Field = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string adresselinje2 {
-            get {
-                return this.adresselinje2Field;
-            }
-            set {
-                this.adresselinje2Field = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string adresselinje3 {
-            get {
-                return this.adresselinje3Field;
-            }
-            set {
-                this.adresselinje3Field = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string postnr {
-            get {
-                return this.postnrField;
-            }
-            set {
-                this.postnrField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string poststed {
-            get {
-                return this.poststedField;
-            }
-            set {
-                this.poststedField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string landkode {
-            get {
-                return this.landkodeField;
-            }
-            set {
-                this.landkodeField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
-    [System.Xml.Serialization.XmlRootAttribute("Formaal", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
-    public partial class FormaalType {
-        
-        private KodeType anleggstypeField;
-        
-        private KodeType naeringsgruppeField;
-        
-        private KodeType bygningstypeField;
-        
-        private KodeType[] tiltaksformaalField;
-        
-        private string beskrivPlanlagtFormaalField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public KodeType anleggstype {
-            get {
-                return this.anleggstypeField;
-            }
-            set {
-                this.anleggstypeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public KodeType naeringsgruppe {
-            get {
-                return this.naeringsgruppeField;
-            }
-            set {
-                this.naeringsgruppeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public KodeType bygningstype {
-            get {
-                return this.bygningstypeField;
-            }
-            set {
-                this.bygningstypeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("tiltaksformaal", IsNullable=true)]
-        public KodeType[] tiltaksformaal {
-            get {
-                return this.tiltaksformaalField;
-            }
-            set {
-                this.tiltaksformaalField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string beskrivPlanlagtFormaal {
-            get {
-                return this.beskrivPlanlagtFormaalField;
-            }
-            set {
-                this.beskrivPlanlagtFormaalField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
-    [System.Xml.Serialization.XmlRootAttribute("Kontaktperson", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
-    public partial class KontaktpersonType {
-        
-        private string navnField;
-        
-        private string telefonnummerField;
-        
-        private string mobilnummerField;
-        
-        private string epostField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string navn {
-            get {
-                return this.navnField;
-            }
-            set {
-                this.navnField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string telefonnummer {
-            get {
-                return this.telefonnummerField;
-            }
-            set {
-                this.telefonnummerField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string mobilnummer {
-            get {
-                return this.mobilnummerField;
-            }
-            set {
-                this.mobilnummerField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string epost {
-            get {
-                return this.epostField;
-            }
-            set {
-                this.epostField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
-    [System.Xml.Serialization.XmlRootAttribute("Krav", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
-    public partial class KravType {
-        
-        private System.Nullable<bool> erKravVurdertField;
-        
-        private bool erKravVurdertFieldSpecified;
-        
-        private KodeType kravField;
-        
-        private string dokumentasjonField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<bool> erKravVurdert {
-            get {
-                return this.erKravVurdertField;
-            }
-            set {
-                this.erKravVurdertField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool erKravVurdertSpecified {
-            get {
-                return this.erKravVurdertFieldSpecified;
-            }
-            set {
-                this.erKravVurdertFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public KodeType krav {
-            get {
-                return this.kravField;
-            }
-            set {
-                this.kravField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string dokumentasjon {
-            get {
-                return this.dokumentasjonField;
-            }
-            set {
-                this.dokumentasjonField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
-    [System.Xml.Serialization.XmlRootAttribute("Metadata", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
-    public partial class MetadataType {
-        
-        private string fraSluttbrukersystemField;
-        
-        private string ftbIdField;
-        
-        private string prosjektnavnField;
-        
-        private string sluttbrukersystemUrlField;
-        
-        private string hovedinnsendingsnummerField;
-        
-        private System.Nullable<bool> klartForSigneringFraSluttbrukersystemField;
-        
-        private bool klartForSigneringFraSluttbrukersystemFieldSpecified;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string fraSluttbrukersystem {
-            get {
-                return this.fraSluttbrukersystemField;
-            }
-            set {
-                this.fraSluttbrukersystemField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string ftbId {
-            get {
-                return this.ftbIdField;
-            }
-            set {
-                this.ftbIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string prosjektnavn {
-            get {
-                return this.prosjektnavnField;
-            }
-            set {
-                this.prosjektnavnField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string sluttbrukersystemUrl {
-            get {
-                return this.sluttbrukersystemUrlField;
-            }
-            set {
-                this.sluttbrukersystemUrlField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string hovedinnsendingsnummer {
-            get {
-                return this.hovedinnsendingsnummerField;
-            }
-            set {
-                this.hovedinnsendingsnummerField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<bool> klartForSigneringFraSluttbrukersystem {
-            get {
-                return this.klartForSigneringFraSluttbrukersystemField;
-            }
-            set {
-                this.klartForSigneringFraSluttbrukersystemField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool klartForSigneringFraSluttbrukersystemSpecified {
-            get {
-                return this.klartForSigneringFraSluttbrukersystemFieldSpecified;
-            }
-            set {
-                this.klartForSigneringFraSluttbrukersystemFieldSpecified = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
-    [System.Xml.Serialization.XmlRootAttribute("Saksnummer", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
-    public partial class SaksnummerType {
-        
-        private string saksaarField;
-        
-        private string sakssekvensnummerField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="integer", IsNullable=true)]
-        public string saksaar {
-            get {
-                return this.saksaarField;
-            }
-            set {
-                this.saksaarField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="integer", IsNullable=true)]
-        public string sakssekvensnummer {
-            get {
-                return this.sakssekvensnummerField;
-            }
-            set {
-                this.sakssekvensnummerField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
-    [System.Xml.Serialization.XmlRootAttribute("Tiltak", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
-    public partial class TiltakType {
-        
-        private FormaalType brukField;
-        
-        private string bRAField;
-        
-        private KodeType[] typeField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public FormaalType bruk {
-            get {
-                return this.brukField;
-            }
-            set {
-                this.brukField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string BRA {
-            get {
-                return this.bRAField;
-            }
-            set {
-                this.bRAField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("type", IsNullable=true)]
-        public KodeType[] type {
-            get {
-                return this.typeField;
-            }
-            set {
-                this.typeField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
     [System.Xml.Serialization.XmlRootAttribute("ArbeidstilsynetsSamtykke", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
     public partial class ArbeidstilsynetsSamtykkeType {
         
-        private EiendomType eiendomByggestedField;
+        private EiendomType[] eiendomByggestedField;
         
         private PartType tiltakshaverField;
         
@@ -1119,7 +40,7 @@ namespace no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2 {
         
         private DispensasjonType[] dispensasjonField;
         
-        private KravType[] kravField;
+        private SjekklisteKravType[] kravField;
         
         private TiltakType beskrivelseAvTiltakField;
         
@@ -1142,8 +63,9 @@ namespace no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2 {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public EiendomType eiendomByggested {
+        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("eiendom", IsNullable=false)]
+        public EiendomType[] eiendomByggested {
             get {
                 return this.eiendomByggestedField;
             }
@@ -1232,8 +154,8 @@ namespace no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2 {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("krav", IsNullable=false)]
-        public KravType[] krav {
+        [System.Xml.Serialization.XmlArrayItemAttribute("sjekklistekrav", IsNullable=false)]
+        public SjekklisteKravType[] krav {
             get {
                 return this.kravField;
             }
@@ -1391,6 +313,133 @@ namespace no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2 {
             }
             set {
                 this.kommunenavnField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
+    [System.Xml.Serialization.XmlRootAttribute("EiendommensAdresse", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
+    public partial class EiendommensAdresseType {
+        
+        private string adresselinje1Field;
+        
+        private string adresselinje2Field;
+        
+        private string adresselinje3Field;
+        
+        private string postnrField;
+        
+        private string poststedField;
+        
+        private string landkodeField;
+        
+        private string gatenavnField;
+        
+        private string husnrField;
+        
+        private string bokstavField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string adresselinje1 {
+            get {
+                return this.adresselinje1Field;
+            }
+            set {
+                this.adresselinje1Field = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string adresselinje2 {
+            get {
+                return this.adresselinje2Field;
+            }
+            set {
+                this.adresselinje2Field = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string adresselinje3 {
+            get {
+                return this.adresselinje3Field;
+            }
+            set {
+                this.adresselinje3Field = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string postnr {
+            get {
+                return this.postnrField;
+            }
+            set {
+                this.postnrField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string poststed {
+            get {
+                return this.poststedField;
+            }
+            set {
+                this.poststedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string landkode {
+            get {
+                return this.landkodeField;
+            }
+            set {
+                this.landkodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string gatenavn {
+            get {
+                return this.gatenavnField;
+            }
+            set {
+                this.gatenavnField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string husnr {
+            get {
+                return this.husnrField;
+            }
+            set {
+                this.husnrField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string bokstav {
+            get {
+                return this.bokstavField;
+            }
+            set {
+                this.bokstavField = value;
             }
         }
     }
@@ -1603,6 +652,537 @@ namespace no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2 {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
+    [System.Xml.Serialization.XmlRootAttribute("Kode", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
+    public partial class KodeType {
+        
+        private string kodeverdiField;
+        
+        private string kodebeskrivelseField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string kodeverdi {
+            get {
+                return this.kodeverdiField;
+            }
+            set {
+                this.kodeverdiField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string kodebeskrivelse {
+            get {
+                return this.kodebeskrivelseField;
+            }
+            set {
+                this.kodebeskrivelseField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
+    [System.Xml.Serialization.XmlRootAttribute("EnkelAdresse", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
+    public partial class EnkelAdresseType {
+        
+        private string adresselinje1Field;
+        
+        private string adresselinje2Field;
+        
+        private string adresselinje3Field;
+        
+        private string postnrField;
+        
+        private string poststedField;
+        
+        private string landkodeField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string adresselinje1 {
+            get {
+                return this.adresselinje1Field;
+            }
+            set {
+                this.adresselinje1Field = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string adresselinje2 {
+            get {
+                return this.adresselinje2Field;
+            }
+            set {
+                this.adresselinje2Field = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string adresselinje3 {
+            get {
+                return this.adresselinje3Field;
+            }
+            set {
+                this.adresselinje3Field = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string postnr {
+            get {
+                return this.postnrField;
+            }
+            set {
+                this.postnrField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string poststed {
+            get {
+                return this.poststedField;
+            }
+            set {
+                this.poststedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string landkode {
+            get {
+                return this.landkodeField;
+            }
+            set {
+                this.landkodeField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
+    [System.Xml.Serialization.XmlRootAttribute("Kontaktperson", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
+    public partial class KontaktpersonType {
+        
+        private string navnField;
+        
+        private string telefonnummerField;
+        
+        private string mobilnummerField;
+        
+        private string epostField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string navn {
+            get {
+                return this.navnField;
+            }
+            set {
+                this.navnField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string telefonnummer {
+            get {
+                return this.telefonnummerField;
+            }
+            set {
+                this.telefonnummerField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string mobilnummer {
+            get {
+                return this.mobilnummerField;
+            }
+            set {
+                this.mobilnummerField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string epost {
+            get {
+                return this.epostField;
+            }
+            set {
+                this.epostField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
+    [System.Xml.Serialization.XmlRootAttribute("Arbeidsplasser", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
+    public partial class ArbeidsplasserType {
+        
+        private System.Nullable<bool> framtidigeField;
+        
+        private bool framtidigeFieldSpecified;
+        
+        private System.Nullable<bool> fasteField;
+        
+        private bool fasteFieldSpecified;
+        
+        private System.Nullable<bool> midlertidigeField;
+        
+        private bool midlertidigeFieldSpecified;
+        
+        private string antallAnsatteField;
+        
+        private System.Nullable<bool> eksisterendeField;
+        
+        private bool eksisterendeFieldSpecified;
+        
+        private System.Nullable<bool> utleieByggField;
+        
+        private bool utleieByggFieldSpecified;
+        
+        private string antallVirksomheterField;
+        
+        private string beskrivelseField;
+        
+        private System.Nullable<bool> veiledningField;
+        
+        private bool veiledningFieldSpecified;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<bool> framtidige {
+            get {
+                return this.framtidigeField;
+            }
+            set {
+                this.framtidigeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool framtidigeSpecified {
+            get {
+                return this.framtidigeFieldSpecified;
+            }
+            set {
+                this.framtidigeFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<bool> faste {
+            get {
+                return this.fasteField;
+            }
+            set {
+                this.fasteField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool fasteSpecified {
+            get {
+                return this.fasteFieldSpecified;
+            }
+            set {
+                this.fasteFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<bool> midlertidige {
+            get {
+                return this.midlertidigeField;
+            }
+            set {
+                this.midlertidigeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool midlertidigeSpecified {
+            get {
+                return this.midlertidigeFieldSpecified;
+            }
+            set {
+                this.midlertidigeFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string antallAnsatte {
+            get {
+                return this.antallAnsatteField;
+            }
+            set {
+                this.antallAnsatteField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<bool> eksisterende {
+            get {
+                return this.eksisterendeField;
+            }
+            set {
+                this.eksisterendeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool eksisterendeSpecified {
+            get {
+                return this.eksisterendeFieldSpecified;
+            }
+            set {
+                this.eksisterendeFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<bool> utleieBygg {
+            get {
+                return this.utleieByggField;
+            }
+            set {
+                this.utleieByggField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool utleieByggSpecified {
+            get {
+                return this.utleieByggFieldSpecified;
+            }
+            set {
+                this.utleieByggFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string antallVirksomheter {
+            get {
+                return this.antallVirksomheterField;
+            }
+            set {
+                this.antallVirksomheterField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string beskrivelse {
+            get {
+                return this.beskrivelseField;
+            }
+            set {
+                this.beskrivelseField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<bool> veiledning {
+            get {
+                return this.veiledningField;
+            }
+            set {
+                this.veiledningField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool veiledningSpecified {
+            get {
+                return this.veiledningFieldSpecified;
+            }
+            set {
+                this.veiledningFieldSpecified = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
+    [System.Xml.Serialization.XmlRootAttribute("Fakturamottaker", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
+    public partial class FakturamottakerType {
+        
+        private string organisasjonsnummerField;
+        
+        private string bestillerReferanseField;
+        
+        private string fakturareferanserField;
+        
+        private string navnField;
+        
+        private string prosjektnummerField;
+        
+        private System.Nullable<bool> ehfFakturaField;
+        
+        private bool ehfFakturaFieldSpecified;
+        
+        private System.Nullable<bool> fakturaPapirField;
+        
+        private bool fakturaPapirFieldSpecified;
+        
+        private EnkelAdresseType adresseField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string organisasjonsnummer {
+            get {
+                return this.organisasjonsnummerField;
+            }
+            set {
+                this.organisasjonsnummerField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string bestillerReferanse {
+            get {
+                return this.bestillerReferanseField;
+            }
+            set {
+                this.bestillerReferanseField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string fakturareferanser {
+            get {
+                return this.fakturareferanserField;
+            }
+            set {
+                this.fakturareferanserField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string navn {
+            get {
+                return this.navnField;
+            }
+            set {
+                this.navnField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string prosjektnummer {
+            get {
+                return this.prosjektnummerField;
+            }
+            set {
+                this.prosjektnummerField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<bool> ehfFaktura {
+            get {
+                return this.ehfFakturaField;
+            }
+            set {
+                this.ehfFakturaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool ehfFakturaSpecified {
+            get {
+                return this.ehfFakturaFieldSpecified;
+            }
+            set {
+                this.ehfFakturaFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<bool> fakturaPapir {
+            get {
+                return this.fakturaPapirField;
+            }
+            set {
+                this.fakturaPapirField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool fakturaPapirSpecified {
+            get {
+                return this.fakturaPapirFieldSpecified;
+            }
+            set {
+                this.fakturaPapirFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public EnkelAdresseType adresse {
+            get {
+                return this.adresseField;
+            }
+            set {
+                this.adresseField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
     [System.Xml.Serialization.XmlRootAttribute("Signatur", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
     public partial class SignaturType {
         
@@ -1655,6 +1235,505 @@ namespace no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2 {
             }
             set {
                 this.signertPaaVegneAvField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
+    [System.Xml.Serialization.XmlRootAttribute("Betaling", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
+    public partial class BetalingType {
+        
+        private string beskrivelseField;
+        
+        private string ordreIdField;
+        
+        private string sumField;
+        
+        private string transIdField;
+        
+        private string betalingslogikkField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string beskrivelse {
+            get {
+                return this.beskrivelseField;
+            }
+            set {
+                this.beskrivelseField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string ordreId {
+            get {
+                return this.ordreIdField;
+            }
+            set {
+                this.ordreIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string sum {
+            get {
+                return this.sumField;
+            }
+            set {
+                this.sumField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string transId {
+            get {
+                return this.transIdField;
+            }
+            set {
+                this.transIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string betalingslogikk {
+            get {
+                return this.betalingslogikkField;
+            }
+            set {
+                this.betalingslogikkField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
+    [System.Xml.Serialization.XmlRootAttribute("Dispensasjon", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
+    public partial class DispensasjonType {
+        
+        private KodeType dispensasjonstypeField;
+        
+        private string begrunnelseField;
+        
+        private string beskrivelseField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public KodeType dispensasjonstype {
+            get {
+                return this.dispensasjonstypeField;
+            }
+            set {
+                this.dispensasjonstypeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string begrunnelse {
+            get {
+                return this.begrunnelseField;
+            }
+            set {
+                this.begrunnelseField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string beskrivelse {
+            get {
+                return this.beskrivelseField;
+            }
+            set {
+                this.beskrivelseField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
+    [System.Xml.Serialization.XmlRootAttribute("SjekklisteKrav", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
+    public partial class SjekklisteKravType {
+        
+        private System.Nullable<bool> erKravOppfyltField;
+        
+        private bool erKravOppfyltFieldSpecified;
+        
+        private KodeType sjekklisteKravField;
+        
+        private string dokumentasjonField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<bool> erKravOppfylt {
+            get {
+                return this.erKravOppfyltField;
+            }
+            set {
+                this.erKravOppfyltField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool erKravOppfyltSpecified {
+            get {
+                return this.erKravOppfyltFieldSpecified;
+            }
+            set {
+                this.erKravOppfyltFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public KodeType sjekklisteKrav {
+            get {
+                return this.sjekklisteKravField;
+            }
+            set {
+                this.sjekklisteKravField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string dokumentasjon {
+            get {
+                return this.dokumentasjonField;
+            }
+            set {
+                this.dokumentasjonField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
+    [System.Xml.Serialization.XmlRootAttribute("Tiltak", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
+    public partial class TiltakType {
+        
+        private FormaalType brukField;
+        
+        private string bRAField;
+        
+        private KodeType[] typeField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public FormaalType bruk {
+            get {
+                return this.brukField;
+            }
+            set {
+                this.brukField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string BRA {
+            get {
+                return this.bRAField;
+            }
+            set {
+                this.bRAField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("type", IsNullable=true)]
+        public KodeType[] type {
+            get {
+                return this.typeField;
+            }
+            set {
+                this.typeField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
+    [System.Xml.Serialization.XmlRootAttribute("Formaal", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
+    public partial class FormaalType {
+        
+        private KodeType anleggstypeField;
+        
+        private KodeType naeringsgruppeField;
+        
+        private KodeType bygningstypeField;
+        
+        private KodeType[] tiltaksformaalField;
+        
+        private string beskrivPlanlagtFormaalField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public KodeType anleggstype {
+            get {
+                return this.anleggstypeField;
+            }
+            set {
+                this.anleggstypeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public KodeType naeringsgruppe {
+            get {
+                return this.naeringsgruppeField;
+            }
+            set {
+                this.naeringsgruppeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public KodeType bygningstype {
+            get {
+                return this.bygningstypeField;
+            }
+            set {
+                this.bygningstypeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("tiltaksformaal", IsNullable=true)]
+        public KodeType[] tiltaksformaal {
+            get {
+                return this.tiltaksformaalField;
+            }
+            set {
+                this.tiltaksformaalField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string beskrivPlanlagtFormaal {
+            get {
+                return this.beskrivPlanlagtFormaalField;
+            }
+            set {
+                this.beskrivPlanlagtFormaalField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
+    [System.Xml.Serialization.XmlRootAttribute("Saksnummer", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
+    public partial class SaksnummerType {
+        
+        private string saksaarField;
+        
+        private string sakssekvensnummerField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(DataType="integer", IsNullable=true)]
+        public string saksaar {
+            get {
+                return this.saksaarField;
+            }
+            set {
+                this.saksaarField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(DataType="integer", IsNullable=true)]
+        public string sakssekvensnummer {
+            get {
+                return this.sakssekvensnummerField;
+            }
+            set {
+                this.sakssekvensnummerField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
+    [System.Xml.Serialization.XmlRootAttribute("Metadata", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
+    public partial class MetadataType {
+        
+        private string fraSluttbrukersystemField;
+        
+        private string ftbIdField;
+        
+        private string prosjektnavnField;
+        
+        private string sluttbrukersystemUrlField;
+        
+        private string hovedinnsendingsnummerField;
+        
+        private System.Nullable<bool> erNorskSvenskDanskField;
+        
+        private bool erNorskSvenskDanskFieldSpecified;
+        
+        private System.Nullable<bool> klartForSigneringFraSluttbrukersystemField;
+        
+        private bool klartForSigneringFraSluttbrukersystemFieldSpecified;
+        
+        private System.Nullable<bool> unntattOffentlighetField;
+        
+        private bool unntattOffentlighetFieldSpecified;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string fraSluttbrukersystem {
+            get {
+                return this.fraSluttbrukersystemField;
+            }
+            set {
+                this.fraSluttbrukersystemField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string ftbId {
+            get {
+                return this.ftbIdField;
+            }
+            set {
+                this.ftbIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string prosjektnavn {
+            get {
+                return this.prosjektnavnField;
+            }
+            set {
+                this.prosjektnavnField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string sluttbrukersystemUrl {
+            get {
+                return this.sluttbrukersystemUrlField;
+            }
+            set {
+                this.sluttbrukersystemUrlField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string hovedinnsendingsnummer {
+            get {
+                return this.hovedinnsendingsnummerField;
+            }
+            set {
+                this.hovedinnsendingsnummerField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<bool> erNorskSvenskDansk {
+            get {
+                return this.erNorskSvenskDanskField;
+            }
+            set {
+                this.erNorskSvenskDanskField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool erNorskSvenskDanskSpecified {
+            get {
+                return this.erNorskSvenskDanskFieldSpecified;
+            }
+            set {
+                this.erNorskSvenskDanskFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<bool> klartForSigneringFraSluttbrukersystem {
+            get {
+                return this.klartForSigneringFraSluttbrukersystemField;
+            }
+            set {
+                this.klartForSigneringFraSluttbrukersystemField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool klartForSigneringFraSluttbrukersystemSpecified {
+            get {
+                return this.klartForSigneringFraSluttbrukersystemFieldSpecified;
+            }
+            set {
+                this.klartForSigneringFraSluttbrukersystemFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<bool> unntattOffentlighet {
+            get {
+                return this.unntattOffentlighetField;
+            }
+            set {
+                this.unntattOffentlighetField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool unntattOffentlighetSpecified {
+            get {
+                return this.unntattOffentlighetFieldSpecified;
+            }
+            set {
+                this.unntattOffentlighetFieldSpecified = value;
             }
         }
     }
