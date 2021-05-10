@@ -9,6 +9,6 @@ namespace Dibk.Ftpb.Validation.Application.Models.FormEntities
 {
     public class ArbeidstilsynetsSamtykke2Form_45957
     {
-        public Eiendom Eiendom { get; set; }
+        public List<Eiendom> Eiendommer { get; set; }
     }
 }

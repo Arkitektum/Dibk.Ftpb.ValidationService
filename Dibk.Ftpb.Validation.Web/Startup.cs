@@ -3,6 +3,7 @@ using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Municipality;
 using Dibk.Ftpb.Validation.Application.Logic.FormValidators;
 using Dibk.Ftpb.Validation.Application.Process;
+using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Services;
 using Dibk.Ftpb.Validation.Web.Config;
 using Microsoft.AspNetCore.Builder;
@@ -58,6 +59,8 @@ namespace Dibk.Ftpb.Validation
             services.AddTransient<IInputDataService, InputDataService>();
             services.AddTransient<IXsdValidationService, XsdValidationService>();
             services.AddTransient<IValidationOrchestrator, ValidationOrchestrator>();
+            services.AddTransient<IValidationMessageComposer, ValidationMessageComposer>();
+            
             services.AddTransient<IMunicipalityValidator, MunicipalityValidator>();
             services.AddScoped<ArbeidstilsynetsSamtykke2_45957_Validator>();
 

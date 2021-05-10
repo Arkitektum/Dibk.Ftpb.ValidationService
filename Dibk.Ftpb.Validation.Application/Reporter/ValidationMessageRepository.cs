@@ -15,20 +15,35 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             _validationMessageStorageEntry = new List<ValidationMessageStorageEntry>();
             InitiateMessageRepository();
         }
-        public bool GetValidationMessageStorageEntry(ValidationMessage validationMessage, string languageCode, out string result)
+        public bool GetValidationRuleMessage(ValidationRule validationRule, string languageCode, out string validationRuleMessage)
         {
-           var index = validationMessage.Xpath.IndexOf("[");
-          string xPath = validationMessage.Xpath;
-           if (index>0)
-           {
-               xPath = validationMessage.Xpath.Substring(0, index)+"{0}"+validationMessage.Xpath.Substring(index+3);
-           }
+            var theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.Id.Equals(validationRule.Id) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.Xpath));
+
+            if (theStorageEntry == null)
+            {
+                validationRuleMessage = $"Could not find validation message with reference: '{validationRule.Id}', xpath: '{validationRule.Xpath}' and languageCode:'{languageCode}'.-";
+                return false;
+            }
+
+            validationRuleMessage = theStorageEntry.Message;
             
+            return true;
+        }
+
+        public bool GetValidationMessageStorageEntry(ValidationMessage validationMessage, string languageCode, out string composedValidationMessage)
+        {
+            var index = validationMessage.Xpath.IndexOf("[");
+            string xPath = validationMessage.Xpath;
+            if (index > 0)
+            {
+                xPath = validationMessage.Xpath.Substring(0, index) + "{0}" + validationMessage.Xpath.Substring(index + 3);
+            }
+
             var theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.Id.Equals(validationMessage.Reference) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath));
 
             if (theStorageEntry == null)
             {
-                result = $"Could not find validation message with reference: '{validationMessage.Reference}', xpath: '{validationMessage.Xpath}' and languageCode:'{languageCode}'.-";
+                composedValidationMessage = $"Could not find validation message with reference: '{validationMessage.Reference}', xpath: '{validationMessage.Xpath}' and languageCode:'{languageCode}'.-";
                 return false;
             }
 
@@ -36,44 +51,21 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             {
                 try
                 {
-                    result = String.Format(theStorageEntry.Message, validationMessage.MessageParameters.ToArray());
+                    composedValidationMessage = String.Format(theStorageEntry.Message, validationMessage.MessageParameters.ToArray());
+
                     return true;
                 }
                 catch (FormatException)
                 {
-                    result = $"{theStorageEntry.Message} . **'Illegal number og validation parameters'";
+                    composedValidationMessage = $"{theStorageEntry.Message} . **'Illegal number of validation parameters'";
                     return false;
                 }
             }
-            result = theStorageEntry.Message;
+            composedValidationMessage = theStorageEntry.Message;
+
             return true;
         }
 
-        
-
-        public string GetValidationMessageStorageEntry(ValidationMessage validationMessage, string languageCode)
-        {
-            var theStorageEntry = _validationMessageStorageEntry.Where(x => x.Id.Equals(validationMessage.Reference) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationMessage.Xpath)).FirstOrDefault();
-            int numberOfParametersInMessageText = theStorageEntry.Message.Where(x => (x == '{')).Count();
-            int numberOfParametersInValidation = (validationMessage.MessageParameters == null ? 0 : validationMessage.MessageParameters.Count());
-
-            if (numberOfParametersInMessageText != numberOfParametersInValidation)
-            {
-                throw new ArgumentOutOfRangeException("Illegal number og validation parameters");
-            }
-
-            var newText = theStorageEntry.Message;
-            if (numberOfParametersInValidation > 0)
-            {
-                foreach (var parameter in validationMessage.MessageParameters)
-                {
-                    var regex = new Regex(Regex.Escape("{}"));
-                    newText = regex.Replace(newText, "'" + parameter + "'", 1);
-                }
-            }
-
-            return newText;
-        }
         private void InitiateMessageRepository()
         {
             _validationMessageStorageEntry = new ArbeidstilsyneDB().InitiateMessageRepository();

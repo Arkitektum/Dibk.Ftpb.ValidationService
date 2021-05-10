@@ -8,29 +8,29 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 {
     public class ArbeidstilsynetsSamtykkeV2Dfv45957_MapperTests
     {
-        [Fact]
-        public void Test1()
-        {
-            var dataForm = new ArbeidstilsynetsSamtykkeType()
-            {
-                eiendomByggested = new EiendomType()
-                {
-                    adresse = new EiendommensAdresseType()
-                    {
-                        adresselinje1 = "Bø gate 31A",
-                        bokstav = "A",
-                        husnr = "31",
-                        gatenavn = "Bø gate"
+        //[Fact]
+        //public void Test1()
+        //{
+        //    var dataForm = new ArbeidstilsynetsSamtykkeType()
+        //    {
+        //        eiendomByggested = new EiendomType()
+        //        {
+        //            adresse = new EiendommensAdresseType()
+        //            {
+        //                adresselinje1 = "Bø gate 31A",
+        //                bokstav = "A",
+        //                husnr = "31",
+        //                gatenavn = "Bø gate"
 
-                    },
-                    bolignummer = "12345",
-                    kommunenavn = "Bø i Telemark"
-                }
-            };
-            var dataFomr = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataForm);
-
-            dataFomr.Eiendom.Should().NotBeNull();
-        }
+        //            },
+        //            bolignummer = "12345",
+        //            kommunenavn = "Bø i Telemark"
+        //        }
+        //};
+        //    var dataFomr = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataForm);
+        //    //string[] array = list.ToArray();
+        //    dataFomr.Eiendom.Should().NotBeNull();
+        //}
         [Fact]
         public void ArbeidsplasserTest()
         {

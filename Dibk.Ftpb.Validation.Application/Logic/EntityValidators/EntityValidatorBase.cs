@@ -11,84 +11,31 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public abstract class EntityValidatorBase : IEntityValidator
     {
-        protected ValidationResult ValidationResponse;
+        public ValidationResult ValidationResult;
         public EntityValidatorBase()
         {
-            ValidationResponse = new();
-            ValidationResponse.ValidationRules = new List<ValidationRule>();
-            ValidationResponse.ValidationMessages = new List<ValidationMessage>();
+            ValidationResult = new();
+            ValidationResult.ValidationRules = new List<ValidationRule>();
+            ValidationResult.ValidationMessages = new List<ValidationMessage>();
         }
 
         public abstract void InitializeValidationRules(string context);
-        //protected abstract void ValidateEntityFields<T>(List<T> validationEntities);
-        //public abstract ValidationResponse Validate<T>(string context, List<T> validationEntities);
-
-        //void ValidateEntityFields(object entityData)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         public void AddValidationRule(string id, string xPath)
         {
-            ValidationResponse.ValidationRules.Add(new ValidationRule()
+            ValidationResult.ValidationRules.Add(new ValidationRule()
             {
                 Id = id,
                 Xpath = xPath
-                //ValidationResult = ValidationResultEnum.Unused
             });
         }
 
-
-        public ValidationRule RuleToValidate(string id)
+        public void AddMessageFromRule(string id, string xPath, List<string> messageParameters)
         {
-            var validationRule = ValidationResponse.ValidationRules.FirstOrDefault(r => r.Id.Equals(id)) ?? new ValidationRule()
-            {
-                Id = id,
-                Message = $"Can't find rule with id:'{id}'.-"
-            };
-
-            //ValidationResponse.validationRule.ValidationResult = ValidationResultEnum.ValidationOk;
-
-            return validationRule;
-        }
-
-        //public void UpdateValidationResult2Failed(ValidationRule rule, string[] ruleMessagesParameters = null)
-        //{
-        //    if (ValidationRules.Any(r => r.Id.Equals(rule.Id)))
-        //    {
-        //        ValidationRules.First(r => r.Id == rule.Id).ValidationResult = ValidationResultEnum.ValidationFailed;
-        //        if (ruleMessagesParameters != null)
-        //        {
-        //            //TODO check change MessageParameters in rule to array to us string.format to change all parameters 
-        //            ValidationRules.First(r => r.Id == rule.Id).MessageParameters = ruleMessagesParameters.ToList();
-        //        }
-        //    }
-        //}
-
-        //public void AddMessageFromRule(string id, string xPath, List<string> messageParameters)
-        public void AddMessageFromRule(string id, int? elementNumber, List<string> messageParameters)
-        {
-            var rule = RuleToValidate(id);
-            var xPath = rule.Xpath;
-            if (elementNumber != null)
-            {
-                //ArbeidstilsynetsSamtykke/eiendomByggested/Bygningsnummer  ==>  ArbeidstilsynetsSamtykke/eiendomByggested[0]/Bygningsnummer/
-                //ArbeidstilsynetsSamtykke/eiendomByggested  ==>  ArbeidstilsynetsSamtykke/eiendomByggested[2]
-                //Pos:41
-                try
-                {
-                    xPath = String.Format(rule.Xpath, $"[{elementNumber}]");
-                }
-                catch (FormatException)
-                {
-                    xPath = $"{rule.Xpath} . **'Illegal number og validation parameters'";
-                }
-            }
-            ValidationResponse.ValidationMessages.Add(new ValidationMessage()
+            ValidationResult.ValidationMessages.Add(new ValidationMessage()
             {
                 Reference = id,
                 Xpath = xPath,
-                //Message = rule.Message, 
                 MessageParameters = messageParameters
             });
         }
@@ -97,9 +44,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             AddMessageFromRule(id, null, messageParameters);
         }
-        public void AddMessageFromRule(string id, int xpathElemntNumber)
+        public void AddMessageFromRule(string id, string xPath)
         {
-            AddMessageFromRule(id, xpathElemntNumber, null);
+            AddMessageFromRule(id, xPath, null);
         }
         public void AddMessageFromRule(string id)
         {

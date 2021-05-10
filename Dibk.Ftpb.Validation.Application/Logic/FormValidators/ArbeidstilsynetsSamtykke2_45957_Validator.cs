@@ -20,7 +20,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         public ArbeidstilsynetsSamtykke2Form_45957 ArbeidstilsynetsSamtykke2Form45957 { get; set; }
         public ArbeidstilsynetsSamtykkeType _form { get; set; }
 
-        private readonly string context = "ArbeidstilsynetsSamtykke";
+        private readonly string _xPath = "ArbeidstilsynetsSamtykke";
         public ArbeidstilsynetsSamtykke2_45957_Validator(IMunicipalityValidator municipalityApiService)
         {
             _municipalityApiService = municipalityApiService;
@@ -43,7 +43,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             // map to arbeidstilsynet formEntity 
             ArbeidstilsynetsSamtykke2Form45957 = MapDataModelToFormEntity(_form);
-            validationResponse = Validate(context, ArbeidstilsynetsSamtykke2Form45957);
+            validationResponse = Validate(_xPath, ArbeidstilsynetsSamtykke2Form45957);
             //            validationMessages.AddRange(validationMessagesResult);
 
             return validationResponse;
@@ -60,13 +60,21 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             return formEntity;
         }
 
-        public ValidationResult Validate(string context, ArbeidstilsynetsSamtykke2Form_45957 form)
+        public ValidationResult Validate(string xPath, ArbeidstilsynetsSamtykke2Form_45957 form)
         {
             List<Eiendom> eiendommer = new List<Eiendom>();
-            eiendommer.Add(ArbeidstilsynetsSamtykke2Form45957.Eiendom);
-            var validationResultForEiendom = new EiendomValidator().Validate(context, eiendommer);
+            var eiendomValidator = new EiendomValidator($"{xPath}/eiendomByggested{{0}}");
+            ValidationResult validationResult = new();
+            int index = 0;
+            foreach (var eiendom in form.Eiendommer)
+            {
+                var eiendomValidationResult = eiendomValidator.Validate($"{xPath}/eiendomByggested[{index}]", eiendom);
+                validationResult.ValidationRules = eiendomValidationResult.ValidationRules;
+                validationResult.ValidationMessages = eiendomValidationResult.ValidationMessages;
+                index++;
+            }
 
-            return validationResultForEiendom;
+            return validationResult;
         }
     }
 }

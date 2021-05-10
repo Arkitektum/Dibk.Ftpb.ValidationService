@@ -12,64 +12,62 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class EiendomsAdresseValidator : EntityValidatorBase
     {
-        public EiendomsAdresseValidator() : base()
+        public EiendomsAdresseValidator(string templateXPath) : base()
         {
+            InitializeValidationRules(templateXPath);
         }
-        public ValidationResult Validate(string parentContext, EiendomsAdresse eiendomsAdresse)
+        public ValidationResult Validate(string xPath, EiendomsAdresse eiendomsAdresse)
         {
-            string context = $"{parentContext}/adresse";
-            InitializeValidationRules(context);
-            ValidateEntityFields(eiendomsAdresse, context);
+            ValidateEntityFields(xPath, eiendomsAdresse);
 
-            return ValidationResponse;
-        }
-
-        public override void InitializeValidationRules(string context)
-        {
-            //ArbeidstilsynetsSamtykke/eiendomByggested/adresse/adresselinje1  ==>  ArbeidstilsynetsSamtykke/eiendomByggested[0]/adresse/adresselinje1
-            ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_adresselinje1_utfylt", Xpath = $"{context}/adresselinje1" });
-            ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_adresselinje2_utfylt", Xpath = $"{context}/adresselinje2" });
-            ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_adresselinje3_utfylt", Xpath = $"{context}/adresselinje3" });
-            ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_landkode_utfylt", Xpath = $"{context}/landkode", ChecklistReference = "13.1" });
-            ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_postnr_utfylt", Xpath = $"{context}/postnr" });
-            ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_poststed_utfylt", Xpath = $"{context}/poststed" });
-            ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_gatenavn_utfylt", Xpath = $"{context}/gatenavn" });
-            ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_husnr_utfylt", Xpath = $"{context}/husnr" });
-            ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_bokstav_utfylt", Xpath = $"{context}/bokstav" });
-            ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_postnr_4siffer", Xpath = $"{context}/postnr" });
+            return ValidationResult;
         }
 
-        public void ValidateEntityFields(EiendomsAdresse eiendomsAdresse, string context)
+        public override void InitializeValidationRules(string xPath)
+        {
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_adresselinje1_utfylt", Xpath = $"{xPath}/adresselinje1" });
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_adresselinje2_utfylt", Xpath = $"{xPath}/adresselinje2" });
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_adresselinje3_utfylt", Xpath = $"{xPath}/adresselinje3" });
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_landkode_utfylt", Xpath = $"{xPath}/landkode", ChecklistReference = "13.1" });
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_postnr_utfylt", Xpath = $"{xPath}/postnr" });
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_poststed_utfylt", Xpath = $"{xPath}/poststed" });
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_gatenavn_utfylt", Xpath = $"{xPath}/gatenavn" });
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_husnr_utfylt", Xpath = $"{xPath}/husnr" });
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_bokstav_utfylt", Xpath = $"{xPath}/bokstav" });
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "eiendomsAdresse_postnr_4siffer", Xpath = $"{xPath}/postnr" });
+        }
+
+        public void ValidateEntityFields(string xPath, EiendomsAdresse eiendomsAdresse)
         {
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Adresselinje1))
-                AddMessageFromRule("eiendomsAdresse_adresselinje1_utfylt" );
+                AddMessageFromRule("eiendomsAdresse_adresselinje1_utfylt", $"{xPath}/adresselinje1");
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Adresselinje2))
-                AddMessageFromRule("eiendomsAdresse_adresselinje2_utfylt");
+                AddMessageFromRule("eiendomsAdresse_adresselinje2_utfylt", $"{xPath}/adresselinje2");
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Adresselinje3))
-                AddMessageFromRule("eiendomsAdresse_adresselinje3_utfylt");
+                AddMessageFromRule("eiendomsAdresse_adresselinje3_utfylt", $"{xPath}/adresselinje3");
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Landkode))
-                AddMessageFromRule("eiendomsAdresse_landkode_utfylt");
+                AddMessageFromRule("eiendomsAdresse_landkode_utfylt", $"{xPath}/landkode");
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Postnr))
-                AddMessageFromRule("eiendomsAdresse_postnr_utfylt");
+                AddMessageFromRule("eiendomsAdresse_postnr_utfylt", $"{xPath}/postnr");
 
-            if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Postnr))
-                AddMessageFromRule("eiendomsAdresse_poststed_utfylt");
+            if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Poststed))
+                AddMessageFromRule("eiendomsAdresse_poststed_utfylt", $"{xPath}/poststed");
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Gatenavn))
-                AddMessageFromRule("eiendomsAdresse_gatenavn_utfylt");
+                AddMessageFromRule("eiendomsAdresse_gatenavn_utfylt", $"{xPath}/gatenavn");
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Husnr))
-                AddMessageFromRule("eiendomsAdresse_husnr_utfylt");
+                AddMessageFromRule("eiendomsAdresse_husnr_utfylt", $"{xPath}/husnr");
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Bokstav))
-                AddMessageFromRule("eiendomsAdresse_bokstav_utfylt");
+                AddMessageFromRule("eiendomsAdresse_bokstav_utfylt", $"{xPath}/bokstav");
 
             if (!StringIs4digitNumber(eiendomsAdresse.Postnr))
-                AddMessageFromRule("eiendomsAdresse_postnr_4siffer");
+                AddMessageFromRule("eiendomsAdresse_postnr_4siffer", $"{xPath}/postnr");
         }
 
         private bool StringIs4digitNumber(string input)
