@@ -8,7 +8,9 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
 {
     public class ValidationResult
     {
-        public List<ValidationRule> ValidationRules { get; set; }
+        public ValidationResult()
+        { }
         public List<ValidationMessage> ValidationMessages { get; set; }
+        public List<ValidationRule> ValidationRules { get; set; }
     }
 }

@@ -11,9 +11,13 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
 {
     public class ValidationMessage
     {
+        public ValidationMessage()
+        {
+
+        }
         public string Reference { get; set; }
         public string Xpath { get; set; }
-        [JsonConverter(typeof(StringEnumConverter))]
+        //[JsonConverter(typeof(StringEnumConverter))]
         public ValidationResultEnum ValidationResult { get; set; }
         public string Message { get; set; }
         //public string PreCondition { get; set; }

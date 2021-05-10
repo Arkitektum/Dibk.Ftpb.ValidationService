@@ -94,7 +94,8 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             var validationResultForEiendom = new EiendomValidator().Validate("ArbeidstilsynetsSamtykke", new List<Eiendom>() { formEntity.Eiendom });
 
             var validationMessage = validationResultForEiendom.ValidationMessages.Where(x => x.Reference.Equals("tillatte_postnr_i_kommune")).FirstOrDefault();
-            validationMessage.Reference.Should().NotBe(null);
+            //validationMessage.Reference.Should().NotBe(null);
+            validationMessage.Should().Be(null);
 
             var validationComposer = new ValidationMessageComposer();
             var newValidationReport = validationComposer.ComposeValidationReport(validationResultForEiendom, "NO");

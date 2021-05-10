@@ -64,7 +64,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "bolignummer_utfylt", Xpath = $"{xPath}/bolignummer" });
             ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "kommunenavn_utfylt", Xpath = $"{xPath}/kommunenavn" });
 
-            ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "tillatte_postnr_i_kommune", Xpath = $"{xPath}/" });
+            //ValidationResponse.ValidationRules.Add(new ValidationRule() { Id = "tillatte_postnr_i_kommune", Xpath = $"{xPath}/" });
         }
 
         protected void ValidateEntityFields(List<Eiendom> eiendommer)

@@ -24,7 +24,7 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<IEnumerable<ValidationRule>> ValidateForm([FromBody] ValidationInput input)
+        public ActionResult<ValidationResult> ValidateForm([FromBody] ValidationInput input)
         {
             //// Authentication?
 
