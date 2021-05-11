@@ -25,18 +25,18 @@ namespace Dibk.Ftpb.Validation.Application.Tests.ReporterTests
                 Xpath = "Unit/Test/Parameter",
             };
             //string result;
-            var noko = new ValidationMessageRepository().GetValidationMessageStorageEntry(validationMessage, "NO", out string result);
+            var noko = new ValidationMessageRepository().GetComposedValidationMessage(validationMessage, "NO");
 
-            if (noko)
-            {
-                //
-            }
-            else
-            {
-                //  
-            }
+            //if (noko)
+            //{
+            //    //
+            //}
+            //else
+            //{
+            //    //  
+            //}
 
-            result.Should().NotBeEmpty();
+            //noko.Should().NotBeEmpty();
         }
     }
 }

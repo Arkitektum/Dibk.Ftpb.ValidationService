@@ -11,20 +11,19 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         public ValidationResult ComposeValidationReport(ValidationResult validationResult, string languageCode)
         {
             ValidationMessageRepository repo = new ValidationMessageRepository();
-            foreach (var valMessage in validationResult.ValidationMessages)
+            foreach (var validationMessage in validationResult.ValidationMessages)
             {
-                var canReplacParameters = repo.GetValidationMessageStorageEntry(valMessage, languageCode, out string composedValidationMessage);
-                //if (canReplacParameters)
-                valMessage.Message = composedValidationMessage;
+                var composedValidationMessage = repo.GetComposedValidationMessage(validationMessage, languageCode);
+                validationMessage.Message = composedValidationMessage.Message;
+                validationMessage.ChecklistReference = composedValidationMessage.ChecklistReference;
             }
 
-            foreach (var valRule in validationResult.ValidationRules)
+            foreach (var validationRule in validationResult.ValidationRules)
             {
-                var canReplacParameters = repo.GetValidationRuleMessage(valRule, languageCode, out string validationRuleMessage);
-                //if (canReplacParameters)
-                valRule.Message = validationRuleMessage;
+                var validationRuleFromRepo = repo.GetValidationRuleMessage(validationRule, languageCode);
+                validationRule.Message = validationRuleFromRepo.Message;
+                validationRule.ChecklistReference = validationRuleFromRepo.ChecklistReference;
             }
-
 
             return validationResult;
         }

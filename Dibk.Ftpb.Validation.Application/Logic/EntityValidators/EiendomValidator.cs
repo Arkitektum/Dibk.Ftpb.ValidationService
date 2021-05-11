@@ -31,10 +31,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public override void InitializeValidationRules(string xPath)
         {
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "bygningsnummer_utfylt", Xpath = xPath, XmlElement = "/bygningsnummer" });
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "bolignummer_utfylt", Xpath = xPath, XmlElement = "/bolignummer" });
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "kommunenavn_utfylt", Xpath = xPath, XmlElement = "/kommunenavn" });
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "tillatte_postnr_i_kommune", Xpath = xPath, XmlElement = "/" });
+            AddValidationRule("bygningsnummer_utfylt", xPath, "bygningsnummer");
+            AddValidationRule("bolignummer_utfylt", xPath, "bolignummer");
+            AddValidationRule("kommunenavn_utfylt", xPath, "kommunenavn");
+            AddValidationRule("tillatte_postnr_i_kommune", xPath, "postnr");
         }
 
         public ValidationResult Validate(string xPath, Eiendom eiendom)

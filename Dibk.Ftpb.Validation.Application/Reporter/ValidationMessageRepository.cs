@@ -15,23 +15,26 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             _validationMessageStorageEntry = new List<ValidationMessageStorageEntry>();
             InitiateMessageRepository();
         }
-        public bool GetValidationRuleMessage(ValidationRule validationRule, string languageCode, out string validationRuleMessage)
+        public ValidationRule GetValidationRuleMessage(ValidationRule validationRule, string languageCode)
         {
             var theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.Id.Equals(validationRule.Id) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.Xpath));
 
             if (theStorageEntry == null)
             {
-                validationRuleMessage = $"Could not find validation message with reference: '{validationRule.Id}', xpath: '{validationRule.Xpath}' and languageCode:'{languageCode}'.-";
-                return false;
+                validationRule.Message = $"Could not find validation message with reference: '{validationRule.Id}', xpath: '{validationRule.Xpath}' and languageCode:'{languageCode}'.-";
+            }
+            else
+            {
+                validationRule.Message = theStorageEntry.Message;
+                validationRule.ChecklistReference = theStorageEntry.ChecklistReference;
             }
 
-            validationRuleMessage = theStorageEntry.Message;
-            
-            return true;
+            return validationRule;
         }
 
-        public bool GetValidationMessageStorageEntry(ValidationMessage validationMessage, string languageCode, out string composedValidationMessage)
+        public ValidationMessage GetComposedValidationMessage(ValidationMessage validationMessage, string languageCode)
         {
+
             var index = validationMessage.Xpath.IndexOf("[");
             string xPath = validationMessage.Xpath;
             if (index > 0)
@@ -43,27 +46,28 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
 
             if (theStorageEntry == null)
             {
-                composedValidationMessage = $"Could not find validation message with reference: '{validationMessage.Reference}', xpath: '{validationMessage.Xpath}' and languageCode:'{languageCode}'.-";
-                return false;
+                validationMessage.Message = $"Could not find validation message with reference: '{validationMessage.Reference}', xpath: '{validationMessage.Xpath}' and languageCode:'{languageCode}'.-";
             }
-
-            if (validationMessage.MessageParameters != null)
+            else
             {
-                try
+                if (validationMessage.MessageParameters != null)
                 {
-                    composedValidationMessage = String.Format(theStorageEntry.Message, validationMessage.MessageParameters.ToArray());
-
-                    return true;
+                    try
+                    {
+                        validationMessage.Message = String.Format(theStorageEntry.Message, validationMessage.MessageParameters.ToArray());
+                    }
+                    catch (FormatException)
+                    {
+                        validationMessage.Message = $"{theStorageEntry.Message} . **'Illegal number of validation parameters'";
+                    }
                 }
-                catch (FormatException)
+                else
                 {
-                    composedValidationMessage = $"{theStorageEntry.Message} . **'Illegal number of validation parameters'";
-                    return false;
+                    validationMessage.Message = theStorageEntry.Message;
                 }
+                validationMessage.ChecklistReference = theStorageEntry.ChecklistReference;
             }
-            composedValidationMessage = theStorageEntry.Message;
-
-            return true;
+            return validationMessage;
         }
 
         private void InitiateMessageRepository()

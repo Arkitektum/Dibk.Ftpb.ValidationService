@@ -64,14 +64,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         {
             List<Eiendom> eiendommer = new List<Eiendom>();
             var eiendomValidator = new EiendomValidator($"{xPath}/eiendomByggested{{0}}", _municipalityApiService);
+            
             ValidationResult validationResult = new();
-            int index = 0;
             foreach (var eiendom in form.Eiendommer)
             {
+                int index = form.Eiendommer.IndexOf(eiendom);
                 var eiendomValidationResult = eiendomValidator.Validate($"{xPath}/eiendomByggested[{index}]", eiendom);
                 validationResult.ValidationRules = eiendomValidationResult.ValidationRules;
                 validationResult.ValidationMessages = eiendomValidationResult.ValidationMessages;
-                index++;
             }
 
             return validationResult;

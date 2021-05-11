@@ -25,11 +25,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public override void InitializeValidationRules(string xPath)
         {
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "kommunenummer_utfylt", Xpath = xPath, XmlElement = "/kommunenummer" });
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "gaardsnummer_utfylt", Xpath = xPath, XmlElement = "/gaardsnummer" });
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "bruksnummer_utfylt", Xpath = xPath, XmlElement = "/bruksnummer" });
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "festenummer_utfylt", Xpath = xPath, XmlElement = "/festenummer", ChecklistReference = "13.1" });
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "seksjonsnummer_utfylt", Xpath = xPath, XmlElement = "/seksjonsnummer" });
+            AddValidationRule("kommunenummer_utfylt", xPath, "kommunenummer");
+            AddValidationRule("gaardsnummer_utfylt", xPath, "gaardsnummer");
+            AddValidationRule("bruksnummer_utfylt", xPath, "bruksnummer");
+            AddValidationRule("festenummer_utfylt", xPath, "festenummer");
+            AddValidationRule("seksjonsnummer_utfylt", xPath, "seksjonsnummer");
         }
 
         public void ValidateEntityFields(string xPath, Matrikkel matrikkel)

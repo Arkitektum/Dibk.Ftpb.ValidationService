@@ -36,19 +36,14 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
                 Message = "Kommunenavn må være utfyllt"
             });
 
-            //_validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
-            //{
-            //    Id = "kommunenavn_utfylt",
-            //    LanguageCode = "NO",
-            //    XPath = "ArbeidstilsynetsSamtykke/eiendomByggested{0}/Kommunenavn",
-            //    Message = "Kommunenavn må være utfyllt"
-            //});
-
             _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
             {
+                DataForm = "ArbeidstilsynetsSamtykkeV2",
+                DataFormatVersion = "45957",
+                ChecklistReference = "2.31",
                 Id = "tillatte_postnr_i_kommune",
                 LanguageCode = "NO",
-                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested{0}/",
+                XPath = "ArbeidstilsynetsSamtykke/eiendomByggested{0}/postnr",
                 Message = "Postnr {0} ligger ikke i {1} kommune"
             });
 

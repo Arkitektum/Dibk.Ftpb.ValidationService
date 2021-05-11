@@ -9,6 +9,9 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         public string LanguageCode { get; set; }
         public string Message { get; set; }
         public string ChecklistReference { get; set; }
+        public string DataFormatVersion { get; set; }
+        public string DataForm { get; set; }
+        
         public ValidationResultSeverityEnum ValidationResultSeverity { get; set; }
     }
 }

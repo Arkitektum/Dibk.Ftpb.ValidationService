@@ -38,17 +38,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 Message = $"Can't find rule with id:'{id}'.-"
             };
 
-            //ValidationResponse.validationRule.ValidationResult = ValidationResultEnum.ValidationOk;
-
             return validationRule;
         }
 
-
+        public void AddValidationRule(string id, string xPath, string xmlElement)
+        {
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = id, Xpath = $"{xPath}/{xmlElement}", XmlElement = xmlElement });
+        }
 
         public void AddMessageFromRule(string id, string xPath, List<string> messageParameters)
         {
             var rule = RuleToValidate(id);
-            var XmlElement = rule.XmlElement;
+            var XmlElement = String.IsNullOrEmpty(rule.XmlElement) ? null : $"/{rule.XmlElement}";
             ValidationResult.ValidationMessages.Add(new ValidationMessage()
             {
                 Reference = id,
