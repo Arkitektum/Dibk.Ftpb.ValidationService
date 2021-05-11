@@ -1,11 +1,13 @@
 ﻿using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Services;
-using Dibk.Ftpb.Validation.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Dibk.Ftpb.Validation.Application.Models.Web;
+using Dibk.Ftpb.Validation.Application.Utils;
 
 namespace Dibk.Ftpb.Validation.Web.Controllers
 {
@@ -14,7 +16,7 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
     {
         private readonly IValidationService _validationService;
 
-        public ValidateController(IValidationService validationService, ILogger<ValidateController> logger) 
+        public ValidateController(IValidationService validationService, ILogger<ValidateController> logger)
             : base(logger)
         {
             _validationService = validationService;
@@ -27,13 +29,12 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
         public ActionResult<ValidationResult> ValidateForm([FromBody] ValidationInput input)
         {
             //// Authentication?
-
             if (!VerifyInput(input))
             {
                 return BadRequest();
             }
 
-            var messages = _validationService.Validate(input.FormData);
+            var messages = _validationService.Validate(input);
 
             return Ok(messages);
         }
