@@ -15,9 +15,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     {
         private EiendomsAdresseValidator _eiendomsAdresseValidator;
         private MatrikkelValidator _matrikkelValidator;
-        private readonly IMunicipalityValidator _municipalityApiService;
+        private readonly IMunicipalityValidator _municipalityValidator;
 
-        public EiendomValidator(string templateXPath, IMunicipalityValidator municipalityApiService) : base()
+        public EiendomValidator(string templateXPath, IMunicipalityValidator municipalityValidator) : base()
         {
             InitializeValidationRules(templateXPath);
             
@@ -26,7 +26,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             _matrikkelValidator = new MatrikkelValidator($"{templateXPath}/eiendomsidentifikasjon");
             ValidationResult.ValidationRules.AddRange(_matrikkelValidator.ValidationResult.ValidationRules);
-            this._municipalityApiService = municipalityApiService;
+            this._municipalityValidator = municipalityValidator;
         }
 
         public override void InitializeValidationRules(string xPath)
