@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Reporter;
@@ -15,28 +16,21 @@ namespace Dibk.Ftpb.Validation.Application.Tests.ReporterTests
         [Fact]
         public void TestGetValidationMessageStorageEntry()
         {
+        
             ValidationMessage validationMessage = new ValidationMessage()
             {
                 Reference = "Parameter_Test",
                 ChecklistReference = "1.1",
-                MessageParameters = new List<string>() { "jeg er først"},
+                //MessageParameters = new List<string>() { "jeg er først"},
                 //PreCondition = "..?..",
                 //ValidationResult = ValidationResultEnum.Unused,
                 Xpath = "Unit/Test/Parameter",
             };
             //string result;
             var noko = new ValidationMessageRepository().GetComposedValidationMessage(validationMessage, "NO");
+         
 
-            //if (noko)
-            //{
-            //    //
-            //}
-            //else
-            //{
-            //    //  
-            //}
-
-            //noko.Should().NotBeEmpty();
+            //noko.Should().NotBeNull();
         }
     }
 }

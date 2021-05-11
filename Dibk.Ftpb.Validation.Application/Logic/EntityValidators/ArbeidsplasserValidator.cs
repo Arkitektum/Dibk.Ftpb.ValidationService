@@ -17,17 +17,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private static string _context;
         private List<string> _attachmentList;
 
-        //public ValidationResponse Validate(string parentContext, Arbeidsplasser arbeidsplasser)
-        //{
-        //    this.AddValidationRule("arbeidsplasser_utfylt", "Context");
-        //    this.AddValidationRule("framtidige_Eller_eksisterende_Utfylt", "Context");
-        //    this.AddValidationRule("type_Arbeid_Utfylt", "Context");
-        //    this.AddValidationRule("UtleieBygg", "Context");
-        //    this.AddValidationRule("arbeidsplasser_Beskrivelse", "Context");
-
-        //    return ValidationResponse;
-        //}
-
         public ValidationResult Validate(string parentContext, Arbeidsplasser arbeidsplasser, List<string> attachments = null)
         {
             _context = $"{parentContext}/{_entityName}";
@@ -41,12 +30,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public override void InitializeValidationRules(string xPath)
         {
-            this.AddValidationRule("arbeidsplasser_utfylt", $"{xPath}");
-            this.AddValidationRule("framtidige_eller_eksisterende_utfylt", $"{xPath}");
-            this.AddValidationRule("faste_eller_midlertidige_utfylt", $"{xPath}");
-            this.AddValidationRule("type_arbeid_utfylt", "Context");
-            this.AddValidationRule("utleieBygg", "Context");
-            this.AddValidationRule("arbeidsplasser_beskrivelse", "Context");
+            this.AddValidationRule("arbeidsplasser_utfylt", xPath);
+            this.AddValidationRule("framtidige_eller_eksisterende_utfylt", xPath);
+            this.AddValidationRule("faste_eller_midlertidige_utfylt", xPath);
+            this.AddValidationRule("type_arbeid_utfylt", xPath);
+            this.AddValidationRule("utleieBygg", xPath);
+            this.AddValidationRule("arbeidsplasser_beskrivelse", xPath, "beskrivelse");
         }
 
 

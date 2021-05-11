@@ -50,16 +50,21 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             var rule = RuleToValidate(id);
             var XmlElement = String.IsNullOrEmpty(rule.XmlElement) ? null : $"/{rule.XmlElement}";
-            ValidationResult.ValidationMessages.Add(new ValidationMessage()
+            var validationMessage = new ValidationMessage()
             {
                 Reference = id,
-                Xpath = $"{xPath}{XmlElement}",
+                Xpath = $"{xPath}{XmlElement}", 
                 MessageParameters = messageParameters
-            });
+            };
+
+
+            ValidationResult.ValidationMessages.Add(validationMessage);
+
         }
 
         public void AddMessageFromRule(string id, List<string> messageParameters)
         {
+            string xPath = GetXpathFromValidationRule(id);
             AddMessageFromRule(id, null, messageParameters);
         }
         public void AddMessageFromRule(string id, string xPath)
@@ -68,7 +73,20 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         public void AddMessageFromRule(string id)
         {
-            AddMessageFromRule(id, null, null);
+            string xPath = GetXpathFromValidationRule(id);
+            AddMessageFromRule(id, xPath, null);
         }
+
+        internal string GetXpathFromValidationRule(string id)
+        {
+            var validationRule = ValidationResult.ValidationRules.FirstOrDefault(r => r.Id == id);
+            var xPath = String.Empty;
+
+            if (validationRule != null)
+                xPath = validationRule.Xpath;
+
+            return xPath;
+        }
+
     }
 }
