@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Dibk.Ftpb.Validation.Web.Models
+namespace Dibk.Ftpb.Validation.Application.Models.Web
 {
     public class SubFormInfo
     {
