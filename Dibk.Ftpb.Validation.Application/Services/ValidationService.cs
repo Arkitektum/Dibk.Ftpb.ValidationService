@@ -2,6 +2,8 @@
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using Dibk.Ftpb.Validation.Application.Models.Web;
+using Dibk.Ftpb.Validation.Application.Utils;
 
 namespace Dibk.Ftpb.Validation.Application.Services
 {
@@ -21,16 +23,28 @@ namespace Dibk.Ftpb.Validation.Application.Services
             _validationOrchestrator = validationOrchestrator;
         }
 
-        public ValidationResult Validate(string xmlString)
+        public ValidationResult Validate(ValidationInput validationInput)
         {
-            var inputData = _inputDataService.GetInputData(xmlString);
+            var inputData = _inputDataService.GetInputData(validationInput.FormData);
             //inputData.Config.DataFormatVersion
             //inputData.Data
             //inputData.IsValid
-
             var errorMessages = _xsdValidationService.Validate(inputData);
-            var validationResult = _validationOrchestrator.ExecuteAsync(inputData.Config.DataFormatVersion, xmlString, errorMessages);
-            return validationResult.Result;
+            
+            if (!Helpers.ObjectIsNullOrEmpty(inputData?.Config?.DataFormatVersion))
+            {
+                var validationResult = _validationOrchestrator.ExecuteAsync(inputData?.Config?.DataFormatVersion, errorMessages, validationInput);
+                return validationResult.Result;
+            }
+            else
+            {
+                var validationResult = new ValidationResult();
+                validationResult.ValidationMessages = new List<ValidationMessage>
+                {
+                    new() {Message = "Can't Get DataFormatId"}
+                };
+                return null;
+            }
         }
 
         public List<string> Validate(IFormFile xmlFile)

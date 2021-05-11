@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Models.Web;
 using Microsoft.Extensions.Logging;
 
 namespace Dibk.Ftpb.Validation.Application.Process
@@ -27,8 +28,9 @@ namespace Dibk.Ftpb.Validation.Application.Process
             _validationMessageComposer = validationMessageComposer;
         }
 
-        public async Task<ValidationResult> ExecuteAsync(string dataFormatVersion, string xmlData, List<string> errorMessages)
+        public async Task<ValidationResult> ExecuteAsync(string dataFormatVersion, List<string> errorMessages, ValidationInput validationInput)
         {
+            ValidationResult = new ValidationResult();
             ValidationResult = new ValidationResult();
             ValidationResult.ValidationRules = new();
             ValidationResult.ValidationMessages = new();
@@ -45,22 +47,27 @@ namespace Dibk.Ftpb.Validation.Application.Process
             List<ValidationRule> validationXmlMessages = new List<ValidationRule>();
             ValidationResult.ValidationRules.AddRange(validationXmlMessages);
 
-            IFormValidator formValidator = GetValidator(dataFormatVersion); //45957
-            ValidationResult valResult = formValidator.StartValidation(xmlData);
-
-            ValidationResult.ValidationRules.AddRange(valResult.ValidationRules);
-            ValidationResult.ValidationMessages.AddRange(valResult.ValidationMessages);
+            ValidateMainForm(dataFormatVersion, validationInput);
 
             var composedValidationReport = _validationMessageComposer.ComposeValidationReport(ValidationResult, "NO");
 
             return composedValidationReport;
         }
 
+        private void ValidateMainForm(string dataFormatVersion, ValidationInput validationInput)
+        {
+            IFormValidator formValidator = GetValidator(dataFormatVersion); //45957
+            ValidationResult valResult = formValidator.StartValidation(validationInput);
+
+            ValidationResult.ValidationRules.AddRange(valResult.ValidationRules);
+            ValidationResult.ValidationMessages.AddRange(valResult.ValidationMessages);
+        }
+
         public IFormValidator GetValidator(string dataFormatVersion)
         {
             //Retrieves classes implementing IForm, having FormDataFormatAttribute and filtering by its DataFormatId
             object formLogicInstance = null;
-            
+
             try
             {
                 var type = Assembly.GetExecutingAssembly()
