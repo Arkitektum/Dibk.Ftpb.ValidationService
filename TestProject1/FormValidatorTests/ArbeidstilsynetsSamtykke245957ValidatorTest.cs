@@ -94,7 +94,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             var dataModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(xmlData);
             var formEntity = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataModel);
-            var validationResultForEiendom = new EiendomValidator("ArbeidstilsynetsSamtykke/eiendomByggested{0}").Validate("ArbeidstilsynetsSamtykke/eiendomByggested[0]", formEntity.Eiendommer[0]);
+            var validationResultForEiendom = new EiendomValidator("ArbeidstilsynetsSamtykke/eiendomByggested{0}", _municipalityValidator).Validate("ArbeidstilsynetsSamtykke/eiendomByggested[0]", formEntity.Eiendommer[0]);
 
             var validationMessage = validationResultForEiendom.ValidationMessages.Where(x => x.Reference.Equals("tillatte_postnr_i_kommune")).FirstOrDefault();
             //validationMessage.Reference.Should().NotBe(null);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
@@ -14,8 +15,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     {
         private EiendomsAdresseValidator _eiendomsAdresseValidator;
         private MatrikkelValidator _matrikkelValidator;
-        
-        public EiendomValidator(string templateXPath) : base()
+        private readonly IMunicipalityValidator _municipalityApiService;
+
+        public EiendomValidator(string templateXPath, IMunicipalityValidator municipalityApiService) : base()
         {
             InitializeValidationRules(templateXPath);
             
@@ -24,6 +26,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             _matrikkelValidator = new MatrikkelValidator($"{templateXPath}/eiendomsidentifikasjon");
             ValidationResult.ValidationRules.AddRange(_matrikkelValidator.ValidationResult.ValidationRules);
+            this._municipalityApiService = municipalityApiService;
         }
 
         public override void InitializeValidationRules(string xPath)

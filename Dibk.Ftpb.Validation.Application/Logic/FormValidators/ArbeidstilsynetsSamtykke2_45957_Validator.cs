@@ -63,7 +63,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         public ValidationResult Validate(string xPath, ArbeidstilsynetsSamtykke2Form_45957 form)
         {
             List<Eiendom> eiendommer = new List<Eiendom>();
-            var eiendomValidator = new EiendomValidator($"{xPath}/eiendomByggested{{0}}");
+            var eiendomValidator = new EiendomValidator($"{xPath}/eiendomByggested{{0}}", _municipalityApiService);
             ValidationResult validationResult = new();
             int index = 0;
             foreach (var eiendom in form.Eiendommer)
