@@ -72,16 +72,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         private bool StringIs4digitNumber(string input)
         {
-            try
-            {
-                int number = int.Parse(input);
-
+            if(int.TryParse(input, out var number))
                 return (number >= 0 && number <= 9999);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+
+            return false;
         }
     }
 }
