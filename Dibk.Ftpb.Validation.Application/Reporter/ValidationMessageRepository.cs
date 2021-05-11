@@ -35,12 +35,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         public ValidationMessage GetComposedValidationMessage(ValidationMessage validationMessage, string languageCode)
         {
 
-            var index = validationMessage.Xpath.IndexOf("[");
-            string xPath = validationMessage.Xpath;
-            if (index > 0)
-            {
-                xPath = validationMessage.Xpath.Substring(0, index) + "{0}" + validationMessage.Xpath.Substring(index + 3);
-            }
+            string xPath = Regex.Replace(validationMessage.Xpath, @"\[([0-9]*)\]", "{0}"); ;
 
             var theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.Id.Equals(validationMessage.Reference) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath));
 
