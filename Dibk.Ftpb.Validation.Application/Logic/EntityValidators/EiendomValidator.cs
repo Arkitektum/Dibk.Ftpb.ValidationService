@@ -28,10 +28,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public override void InitializeValidationRules(string xPath)
         {
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "bygningsnummer_utfylt", Xpath = $"{xPath}/bygningsnummer" });
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "bolignummer_utfylt", Xpath = $"{xPath}/bolignummer" });
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "kommunenavn_utfylt", Xpath = $"{xPath}/kommunenavn" });
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "tillatte_postnr_i_kommune", Xpath = $"{xPath}/" });
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "bygningsnummer_utfylt", Xpath = xPath, XmlElement = "/bygningsnummer" });
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "bolignummer_utfylt", Xpath = xPath, XmlElement = "/bolignummer" });
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "kommunenavn_utfylt", Xpath = xPath, XmlElement = "/kommunenavn" });
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "tillatte_postnr_i_kommune", Xpath = xPath, XmlElement = "/" });
         }
 
         public ValidationResult Validate(string xPath, Eiendom eiendom)
@@ -53,20 +53,20 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             if (!TillattPostnrIKommune(eiendom.Kommunenavn, eiendom.Adresse.Postnr))
             {
-                AddMessageFromRule("tillatte_postnr_i_kommune", $"{xPath}/", new List<string>() { eiendom.Adresse.Postnr, eiendom.Kommunenavn });
+                AddMessageFromRule("tillatte_postnr_i_kommune", xPath, new List<string>() { eiendom.Adresse.Postnr, eiendom.Kommunenavn });
             }
         }
 
         protected void ValidateEntityFields(string xPath, Eiendom eiendom)
         {
             if (Helpers.ObjectIsNullOrEmpty(eiendom.Bygningsnummer))
-                AddMessageFromRule("bygningsnummer_utfylt", $"{xPath}/bygningsnummer");
+                AddMessageFromRule("bygningsnummer_utfylt", xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(eiendom.Bolignummer))
-                AddMessageFromRule("bolignummer_utfylt", $"{xPath}/bolignummer");
+                AddMessageFromRule("bolignummer_utfylt", xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(eiendom.Kommunenavn))
-                AddMessageFromRule("kommunenavn_utfylt", $"{xPath}/kommunenavn");
+                AddMessageFromRule("kommunenavn_utfylt", xPath);
         }
 
         private bool TillattPostnrIKommune(string kommunenavn, string postnr)

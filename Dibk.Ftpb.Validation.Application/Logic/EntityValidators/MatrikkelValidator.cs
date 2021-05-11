@@ -25,29 +25,29 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public override void InitializeValidationRules(string xPath)
         {
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "kommunenummer_utfylt", Xpath = $"{xPath}/kommunenummer" });
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "gaardsnummer_utfylt", Xpath = $"{xPath}/gaardsnummer" });
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "bruksnummer_utfylt", Xpath = $"{xPath}/bruksnummer" });
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "festenummer_utfylt", Xpath = $"{xPath}/festenummer", ChecklistReference = "13.1" });
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "seksjonsnummer_utfylt", Xpath =   $"{xPath}/seksjonsnummer" });
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "kommunenummer_utfylt", Xpath = xPath, XmlElement = "/kommunenummer" });
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "gaardsnummer_utfylt", Xpath = xPath, XmlElement = "/gaardsnummer" });
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "bruksnummer_utfylt", Xpath = xPath, XmlElement = "/bruksnummer" });
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "festenummer_utfylt", Xpath = xPath, XmlElement = "/festenummer", ChecklistReference = "13.1" });
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = "seksjonsnummer_utfylt", Xpath = xPath, XmlElement = "/seksjonsnummer" });
         }
 
         public void ValidateEntityFields(string xPath, Matrikkel matrikkel)
         {
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.Kommunenummer))
-                AddMessageFromRule("kommunenummer_utfylt", $"{xPath}/kommunenummer");
+                AddMessageFromRule("kommunenummer_utfylt", xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.Gaardsnummer))
-                AddMessageFromRule("gaardsnummer_utfylt", $"{xPath}/gaardsnummer");
+                AddMessageFromRule("gaardsnummer_utfylt", xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.Bruksnummer))
-                AddMessageFromRule("bruksnummer_utfylt", $"{xPath}/bruksnummer");
+                AddMessageFromRule("bruksnummer_utfylt", xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.Festenummer))
-                AddMessageFromRule("festenummer_utfylt", $"{xPath}/festenummer");
+                AddMessageFromRule("festenummer_utfylt", xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.Seksjonsnummer))
-                AddMessageFromRule("seksjonsnummer_utfylt", $"{xPath}/seksjonsnummer");
+                AddMessageFromRule("seksjonsnummer_utfylt", xPath);
         }
     }
 }

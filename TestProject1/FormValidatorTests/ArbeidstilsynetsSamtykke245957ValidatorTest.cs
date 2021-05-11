@@ -61,7 +61,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             if (WriteValidationResultsToJsonFile)
             {
-                var jsonString = JsonConvert.SerializeObject(validationResult);
+                var jsonString = JsonConvert.SerializeObject(newValidationReport);
                 File.WriteAllText(_rootDirTestResults + @"\validationResultsHeleSkjemaet_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
             }
         }
@@ -78,9 +78,12 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             var validationMessage = validationResultForEiendomsAdresse.ValidationMessages.Where(x => x.Reference.Equals("eiendomsAdresse_postnr_4siffer")).FirstOrDefault();
             validationMessage.Reference.Should().NotBe(null);
 
+            var validationComposer = new ValidationMessageComposer();
+            var newValidationReport = validationComposer.ComposeValidationReport(validationResultForEiendomsAdresse, "NO");
+
             if (WriteValidationResultsToJsonFile)
             {
-                var jsonString = JsonConvert.SerializeObject(validationResultForEiendomsAdresse);
+                var jsonString = JsonConvert.SerializeObject(newValidationReport);
                 File.WriteAllText(_rootDirTestResults + @"\validationResultsForEiendomsAdresse_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
             }
         }
@@ -102,7 +105,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             if (WriteValidationResultsToJsonFile)
             {
-                var jsonString = JsonConvert.SerializeObject(validationResultForEiendom);
+                var jsonString = JsonConvert.SerializeObject(newValidationReport);
                 File.WriteAllText(_rootDirTestResults + @"\validationResultsForEiendom_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
             }
         }

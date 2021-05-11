@@ -30,12 +30,29 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             });
         }
 
+        public ValidationRule RuleToValidate(string id)
+        {
+            var validationRule = ValidationResult.ValidationRules.FirstOrDefault(r => r.Id.Equals(id)) ?? new ValidationRule()
+            {
+                Id = id,
+                Message = $"Can't find rule with id:'{id}'.-"
+            };
+
+            //ValidationResponse.validationRule.ValidationResult = ValidationResultEnum.ValidationOk;
+
+            return validationRule;
+        }
+
+
+
         public void AddMessageFromRule(string id, string xPath, List<string> messageParameters)
         {
+            var rule = RuleToValidate(id);
+            var XmlElement = rule.XmlElement;
             ValidationResult.ValidationMessages.Add(new ValidationMessage()
             {
                 Reference = id,
-                Xpath = xPath,
+                Xpath = $"{xPath}{XmlElement}",
                 MessageParameters = messageParameters
             });
         }
