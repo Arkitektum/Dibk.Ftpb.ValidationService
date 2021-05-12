@@ -18,6 +18,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         public ValidationResult Validate(string xPath, EiendomsAdresse eiendomsAdresse)
         {
+            base.ResetValidationMessages();
             ValidateEntityFields(xPath, eiendomsAdresse);
 
             return ValidationResult;

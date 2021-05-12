@@ -18,6 +18,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             ValidationResult.ValidationRules = new List<ValidationRule>();
             ValidationResult.ValidationMessages = new List<ValidationMessage>();
         }
+        public ValidationResult ResetValidationMessages()
+        {
+            ValidationResult.ValidationMessages = new();
+            return ValidationResult;
+        }
 
         public abstract void InitializeValidationRules(string context);
 
@@ -59,7 +64,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
 
             ValidationResult.ValidationMessages.Add(validationMessage);
-
         }
 
         public void AddMessageFromRule(string id, List<string> messageParameters)
@@ -87,6 +91,5 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             return xPath;
         }
-
     }
 }
