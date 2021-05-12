@@ -1,4 +1,4 @@
-﻿using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using System.Collections.Generic;
@@ -15,7 +15,6 @@ using Dibk.Ftpb.Validation.Application.Models.Web;
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
     [FormData(DataFormatVersion = "45957")]
-
     public class ArbeidstilsynetsSamtykke2_45957_Validator : IFormValidator
     {
         private readonly IMunicipalityValidator _municipalityApiService;
@@ -32,19 +31,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         public ValidationResult StartValidation(ValidationInput validationInput)
         {
-            ValidationResult validationResponse = new();
-
-            validationResponse.ValidationRules = new List<ValidationRule>();
-            validationResponse.ValidationMessages = new List<ValidationMessage>();
-
             //Get Arbeidstilsynets Samtykke v2 Dfv45957 class
             _form = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(validationInput.FormData);
 
             // map to arbeidstilsynet formEntity 
             ArbeidstilsynetsSamtykke2Form45957 = MapDataModelToFormEntity(_form);
-            validationResponse = Validate(_xPath, ArbeidstilsynetsSamtykke2Form45957,validationInput);
+            Validate(_xPath, ArbeidstilsynetsSamtykke2Form45957,validationInput);
 
-            return validationResponse;
+            return _validationResult;
         }
         public ArbeidstilsynetsSamtykkeType DeserializeDataForm(string xmlData)
         {
@@ -87,7 +81,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _validationResult.ValidationRules ??= new List<ValidationRule>();
             _validationResult.ValidationMessages ??= new List<ValidationMessage>();
 
-            _validationResult.ValidationRules.Concat(validationResult.ValidationRules);
+            _validationResult.ValidationRules.AddRange(validationResult.ValidationRules);
             _validationResult.ValidationMessages.AddRange(validationResult.ValidationMessages);
         }
     }

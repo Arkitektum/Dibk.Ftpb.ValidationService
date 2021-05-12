@@ -30,21 +30,16 @@ namespace Dibk.Ftpb.Validation.Application.Services
             //inputData.Data
             //inputData.IsValid
             var errorMessages = _xsdValidationService.Validate(inputData);
-            
+            var validationResult = new ValidationResult();
+
             if (!Helpers.ObjectIsNullOrEmpty(inputData?.Config?.DataFormatVersion))
             {
-                var validationResult = _validationOrchestrator.ExecuteAsync(inputData?.Config?.DataFormatVersion, errorMessages, validationInput);
-                return validationResult.Result;
+                var taskValidationResult = _validationOrchestrator.ExecuteAsync(inputData?.Config?.DataFormatVersion, errorMessages, validationInput);
+                return taskValidationResult.Result;
             }
-            else
-            {
-                var validationResult = new ValidationResult();
-                validationResult.ValidationMessages = new List<ValidationMessage>
-                {
-                    new() {Message = "Can't Get DataFormatId"}
-                };
-                return null;
-            }
+            
+            validationResult.ValidationMessages = new List<ValidationMessage> { new() { Message = "Can't Get DataFormatId" } };
+            return validationResult;
         }
 
         public List<string> Validate(IFormFile xmlFile)

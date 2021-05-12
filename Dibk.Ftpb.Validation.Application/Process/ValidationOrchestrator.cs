@@ -31,7 +31,6 @@ namespace Dibk.Ftpb.Validation.Application.Process
         public async Task<ValidationResult> ExecuteAsync(string dataFormatVersion, List<string> errorMessages, ValidationInput validationInput)
         {
             ValidationResult = new ValidationResult();
-            ValidationResult = new ValidationResult();
             ValidationResult.ValidationRules = new();
             ValidationResult.ValidationMessages = new();
 
@@ -42,16 +41,17 @@ namespace Dibk.Ftpb.Validation.Application.Process
                     ValidationResult.ValidationMessages.Add(new ValidationMessage() { Reference = "XsdValidationErrors", Message = message });
                 }
             }
+            else
+            {
+                //TODO Validate Xml structure 
+                List<ValidationRule> validationXmlMessages = new List<ValidationRule>();
+                ValidationResult.ValidationRules.AddRange(validationXmlMessages);
 
-            //TODO Validate Xml structure 
-            List<ValidationRule> validationXmlMessages = new List<ValidationRule>();
-            ValidationResult.ValidationRules.AddRange(validationXmlMessages);
+                ValidateMainForm(dataFormatVersion, validationInput);
 
-            ValidateMainForm(dataFormatVersion, validationInput);
-
-            var composedValidationReport = _validationMessageComposer.ComposeValidationReport(ValidationResult, "NO");
-
-            return composedValidationReport;
+                ValidationResult = _validationMessageComposer.ComposeValidationReport(ValidationResult, "NO");
+            }
+            return ValidationResult;
         }
 
         private void ValidateMainForm(string dataFormatVersion, ValidationInput validationInput)
