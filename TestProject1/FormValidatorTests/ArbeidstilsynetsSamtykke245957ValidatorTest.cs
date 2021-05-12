@@ -1,4 +1,4 @@
-using Dibk.Ftpb.Validation.Application.DataSources;
+ï»¿using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.FormValidators;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
@@ -37,10 +37,10 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
 
         [Fact]
-        public void ValidateArbeidstilsynetsSamtykke2_hele_skjemaet()
+        public void ValidatortestHeleSkjemaet()
         {
             ValidationInput validationInput = new ValidationInput();
-            validationInput.FormData = @"<?xml version='1.0' encoding='utf-8'?><ArbeidstilsynetsSamtykke xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' dataFormatProvider='SERES' dataFormatId='6821' dataFormatVersion='45957' xmlns='http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0'><eiendomByggested><eiendom><adresse><adresselinje1>Bøgata 1</adresselinje1><adresselinje2 xsi:nil='true' /><adresselinje3 xsi:nil='true' /><postnr>3800</postnr><poststed>Bø i Telemark</poststed><landkode>NO</landkode><gatenavn xsi:nil='true' /><husnr xsi:nil='true' /><bokstav xsi:nil='true' /></adresse><eiendomsidentifikasjon><kommunenummer>3817</kommunenummer><gaardsnummer>148</gaardsnummer><bruksnummer>283</bruksnummer><festenummer>0</festenummer><seksjonsnummer>0</seksjonsnummer></eiendomsidentifikasjon><bygningsnummer>80466985</bygningsnummer><bolignummer>H0102</bolignummer><kommunenavn>Midt Telemark</kommunenavn></eiendom></eiendomByggested></ArbeidstilsynetsSamtykke>";
+            validationInput.FormData = @"<?xml version='1.0' encoding='utf-8'?><ArbeidstilsynetsSamtykke xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' dataFormatProvider='SERES' dataFormatId='6821' dataFormatVersion='45957' xmlns='http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0'><eiendomByggested><eiendom><adresse><adresselinje1>BÃ¸gata 1</adresselinje1><adresselinje2 xsi:nil='true' /><adresselinje3 xsi:nil='true' /><postnr>3800</postnr><poststed>BÃ¸ i Telemark</poststed><landkode>NO</landkode><gatenavn xsi:nil='true' /><husnr xsi:nil='true' /><bokstav xsi:nil='true' /></adresse><eiendomsidentifikasjon><kommunenummer>3817</kommunenummer><gaardsnummer>148</gaardsnummer><bruksnummer>283</bruksnummer><festenummer>0</festenummer><seksjonsnummer>0</seksjonsnummer></eiendomsidentifikasjon><bygningsnummer>80466985</bygningsnummer><bolignummer>H0102</bolignummer><kommunenavn>Midt Telemark</kommunenavn></eiendom></eiendomByggested></ArbeidstilsynetsSamtykke>";
            
             var validationResult = _formValidator.StartValidation(validationInput);
 
@@ -65,14 +65,14 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             if (WriteValidationResultsToJsonFile)
             {
                 var jsonString = JsonConvert.SerializeObject(newValidationReport);
-                File.WriteAllText(_rootDirTestResults + @"\validationResultsHeleSkjemaet_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
+                File.WriteAllText(_rootDirTestResults + @"\validatortest_hele_skjemaet_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
             }
         }
 
         [Fact]
-        public void ValidateArbeidstilsynetsSamtykke2_ikke_4_siffer_i_postnr()
+        public void EiendomsValidatorIkke4SifferIPostnr()
         {
-            string xmlData = @"<?xml version='1.0' encoding='utf-8'?><ArbeidstilsynetsSamtykke xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' dataFormatProvider='SERES' dataFormatId='6821' dataFormatVersion='45957' xmlns='http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0'><eiendomByggested><eiendom><adresse><adresselinje1>Bøgata 1</adresselinje1><adresselinje2 xsi:nil='true' /><adresselinje3 xsi:nil='true' /><postnr>xxx3800</postnr><poststed>Bø i Telemark</poststed><landkode>NO</landkode><gatenavn xsi:nil='true' /><husnr xsi:nil='true' /><bokstav xsi:nil='true' /></adresse><eiendomsidentifikasjon><kommunenummer>3817</kommunenummer><gaardsnummer>148</gaardsnummer><bruksnummer>283</bruksnummer><festenummer>0</festenummer><seksjonsnummer>0</seksjonsnummer></eiendomsidentifikasjon><bygningsnummer>80466985</bygningsnummer><bolignummer>H0102</bolignummer><kommunenavn>Midt Telemark</kommunenavn></eiendom></eiendomByggested></ArbeidstilsynetsSamtykke>";
+            string xmlData = @"<?xml version='1.0' encoding='utf-8'?><ArbeidstilsynetsSamtykke xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' dataFormatProvider='SERES' dataFormatId='6821' dataFormatVersion='45957' xmlns='http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0'><eiendomByggested><eiendom><adresse><adresselinje1>BÃ¸gata 1</adresselinje1><adresselinje2 xsi:nil='true' /><adresselinje3 xsi:nil='true' /><postnr>xxx3800</postnr><poststed>BÃ¸ i Telemark</poststed><landkode>NO</landkode><gatenavn xsi:nil='true' /><husnr xsi:nil='true' /><bokstav xsi:nil='true' /></adresse><eiendomsidentifikasjon><kommunenummer>3817</kommunenummer><gaardsnummer>148</gaardsnummer><bruksnummer>283</bruksnummer><festenummer>0</festenummer><seksjonsnummer>0</seksjonsnummer></eiendomsidentifikasjon><bygningsnummer>80466985</bygningsnummer><bolignummer>H0102</bolignummer><kommunenavn>Midt Telemark</kommunenavn></eiendom></eiendomByggested></ArbeidstilsynetsSamtykke>";
 
             var dataModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(xmlData);
             var formEntity = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataModel);
@@ -87,13 +87,13 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             if (WriteValidationResultsToJsonFile)
             {
                 var jsonString = JsonConvert.SerializeObject(newValidationReport);
-                File.WriteAllText(_rootDirTestResults + @"\validationResultsForEiendomsAdresse_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
+                File.WriteAllText(_rootDirTestResults + @"\eiendomValidator_ikke_4_siffer_i_postnr_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
             }
         }
         [Fact]
-        public void ValidateArbeidstilsynetsSamtykke2_med_ugyldig_postnr_i_kommune()
+        public void EiendomsValidatorMedUgyldigPostnrIKommune()
         {
-            string xmlData = @"<?xml version='1.0' encoding='utf-8'?><ArbeidstilsynetsSamtykke xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' dataFormatProvider='SERES' dataFormatId='6821' dataFormatVersion='45957' xmlns='http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0'><eiendomByggested><eiendom><adresse><adresselinje1>Bøgata 1</adresselinje1><adresselinje2 xsi:nil='true' /><adresselinje3 xsi:nil='true' /><postnr>3810</postnr><poststed>Bø i Telemark</poststed><landkode>NO</landkode><gatenavn xsi:nil='true' /><husnr xsi:nil='true' /><bokstav xsi:nil='true' /></adresse><eiendomsidentifikasjon><kommunenummer>3817</kommunenummer><gaardsnummer>148</gaardsnummer><bruksnummer>283</bruksnummer><festenummer>0</festenummer><seksjonsnummer>0</seksjonsnummer></eiendomsidentifikasjon><bygningsnummer>80466985</bygningsnummer><bolignummer>H0102</bolignummer><kommunenavn>Midt Telemark</kommunenavn></eiendom></eiendomByggested></ArbeidstilsynetsSamtykke>";
+            string xmlData = @"<?xml version='1.0' encoding='utf-8'?><ArbeidstilsynetsSamtykke xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' dataFormatProvider='SERES' dataFormatId='6821' dataFormatVersion='45957' xmlns='http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0'><eiendomByggested><eiendom><adresse><adresselinje1>BÃ¸gata 1</adresselinje1><adresselinje2 xsi:nil='true' /><adresselinje3 xsi:nil='true' /><postnr>3810</postnr><poststed>BÃ¸ i Telemark</poststed><landkode>NO</landkode><gatenavn xsi:nil='true' /><husnr xsi:nil='true' /><bokstav xsi:nil='true' /></adresse><eiendomsidentifikasjon><kommunenummer>3817</kommunenummer><gaardsnummer>148</gaardsnummer><bruksnummer>283</bruksnummer><festenummer>0</festenummer><seksjonsnummer>0</seksjonsnummer></eiendomsidentifikasjon><bygningsnummer>80466985</bygningsnummer><bolignummer>H0102</bolignummer><kommunenavn>Midt Telemark</kommunenavn></eiendom></eiendomByggested></ArbeidstilsynetsSamtykke>";
 
             var dataModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(xmlData);
             var formEntity = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataModel);
@@ -109,7 +109,49 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             if (WriteValidationResultsToJsonFile)
             {
                 var jsonString = JsonConvert.SerializeObject(newValidationReport);
-                File.WriteAllText(_rootDirTestResults + @"\validationResultsForEiendom_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
+                File.WriteAllText(_rootDirTestResults + @"\eiendomValidator_med_ugyldig_postnr_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
+            }
+        }
+
+        [Fact]
+        public void EiendomsValidatorFor2Eiendommer()
+        {
+            string xmlData = @"<?xml version='1.0' encoding='utf-8'?><ArbeidstilsynetsSamtykke xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' dataFormatProvider='SERES' dataFormatId='6821' dataFormatVersion='45957' xmlns='http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0'><eiendomByggested><eiendom><adresse><adresselinje1>Bï¿½gata 1</adresselinje1><adresselinje2 xsi:nil='true' /><adresselinje3 xsi:nil='true' /><postnr>3810</postnr><poststed>Bï¿½ i Telemark</poststed><landkode>NO</landkode><gatenavn xsi:nil='true' /><husnr xsi:nil='true' /><bokstav xsi:nil='true' /></adresse><eiendomsidentifikasjon><kommunenummer>3817</kommunenummer><gaardsnummer>148</gaardsnummer><bruksnummer>283</bruksnummer><festenummer>0</festenummer><seksjonsnummer>0</seksjonsnummer></eiendomsidentifikasjon><bygningsnummer>80466985</bygningsnummer><bolignummer>H0102</bolignummer><kommunenavn>Midt Telemark</kommunenavn></eiendom><eiendom><adresse><adresselinje1>Bï¿½gata 2</adresselinje1><adresselinje2 xsi:nil='true' /><adresselinje3 xsi:nil='true' /><postnr>3809</postnr><poststed>Bï¿½ i Telemark</poststed><landkode>NO</landkode><gatenavn xsi:nil='true' /><husnr xsi:nil='true' /><bokstav xsi:nil='true' /></adresse><eiendomsidentifikasjon><kommunenummer>3817</kommunenummer><gaardsnummer>248</gaardsnummer><bruksnummer>283</bruksnummer><festenummer>0</festenummer><seksjonsnummer>0</seksjonsnummer></eiendomsidentifikasjon><bygningsnummer>80466985</bygningsnummer><bolignummer>H0102</bolignummer><kommunenavn>Midt Telemark</kommunenavn></eiendom></eiendomByggested></ArbeidstilsynetsSamtykke>";
+
+            var dataModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(xmlData);
+            var formEntity = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataModel);
+            var validationResultForEiendom = new EiendomValidator("ArbeidstilsynetsSamtykke/eiendomByggested{0}", _municipalityValidator).Validate("ArbeidstilsynetsSamtykke/eiendomByggested[0]", formEntity.Eiendommer[0]);
+
+            var validationMessage = validationResultForEiendom.ValidationMessages.Where(x => x.Reference.Equals("tillatte_postnr_i_kommune")).FirstOrDefault();
+            //validationMessage.Reference.Should().NotBe(null);
+            validationMessage.Should().NotBe(null);
+
+            var validationComposer = new ValidationMessageComposer();
+            var newValidationReport = validationComposer.ComposeValidationReport(validationResultForEiendom, "NO");
+
+            if (WriteValidationResultsToJsonFile)
+            {
+                var jsonString = JsonConvert.SerializeObject(newValidationReport);
+                File.WriteAllText(_rootDirTestResults + @"\eiendomValidator_for_2_eiendommer_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
+            }
+        }
+
+        [Fact]
+        public void ValidatortestFor2Eiendommer()
+        {
+            string xmlData = @"<?xml version='1.0' encoding='utf-8'?><ArbeidstilsynetsSamtykke xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' dataFormatProvider='SERES' dataFormatId='6821' dataFormatVersion='45957' xmlns='http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0'><eiendomByggested><eiendom><adresse><adresselinje1>Bï¿½gata 1</adresselinje1><adresselinje2 xsi:nil='true' /><adresselinje3 xsi:nil='true' /><postnr>3810</postnr><poststed>Bï¿½ i Telemark</poststed><landkode>NO</landkode><gatenavn xsi:nil='true' /><husnr xsi:nil='true' /><bokstav xsi:nil='true' /></adresse><eiendomsidentifikasjon><kommunenummer>3817</kommunenummer><gaardsnummer>148</gaardsnummer><bruksnummer>283</bruksnummer><festenummer>0</festenummer><seksjonsnummer>0</seksjonsnummer></eiendomsidentifikasjon><bygningsnummer>80466985</bygningsnummer><bolignummer>H0102</bolignummer><kommunenavn>Midt Telemark</kommunenavn></eiendom><eiendom><adresse><adresselinje1>Bï¿½gata 2</adresselinje1><adresselinje2 xsi:nil='true' /><adresselinje3 xsi:nil='true' /><postnr>3809</postnr><poststed>Bï¿½ i Telemark</poststed><landkode>NO</landkode><gatenavn xsi:nil='true' /><husnr xsi:nil='true' /><bokstav xsi:nil='true' /></adresse><eiendomsidentifikasjon><kommunenummer>3817</kommunenummer><gaardsnummer>248</gaardsnummer><bruksnummer>283</bruksnummer><festenummer>0</festenummer><seksjonsnummer>0</seksjonsnummer></eiendomsidentifikasjon><bygningsnummer>80466985</bygningsnummer><bolignummer>H0102</bolignummer><kommunenavn>Midt Telemark</kommunenavn></eiendom></eiendomByggested></ArbeidstilsynetsSamtykke>";
+
+            ValidationInput validationInput = new();
+            validationInput.FormData = xmlData;
+            var result = _formValidator.StartValidation(validationInput);
+
+            var validationComposer = new ValidationMessageComposer();
+            var newValidationReport = validationComposer.ComposeValidationReport(result, "NO");
+
+            if (WriteValidationResultsToJsonFile)
+            {
+                var jsonString = JsonConvert.SerializeObject(newValidationReport);
+                File.WriteAllText(_rootDirTestResults + @"\validatortest_for_eiendom_2_eiendommer_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
             }
         }
     }

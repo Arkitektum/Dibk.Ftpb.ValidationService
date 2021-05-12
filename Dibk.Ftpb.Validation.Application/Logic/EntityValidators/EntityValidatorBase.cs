@@ -30,6 +30,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             });
         }
 
+        protected ValidationResult ReturnValidationResult(ValidationResult validationResult)
+        {
+            ValidationResult returnInstance = new();
+            returnInstance.ValidationRules = validationResult.ValidationRules;
+            returnInstance.ValidationMessages = validationResult.ValidationMessages;
+
+            //Empty messages to avoid duplicates when next call to Validate is done
+            ValidationResult.ValidationMessages = new List<ValidationMessage>();
+
+            return returnInstance;
+        }
         public ValidationRule RuleToValidate(string id)
         {
             var validationRule = ValidationResult.ValidationRules.FirstOrDefault(r => r.Id.Equals(id)) ?? new ValidationRule()

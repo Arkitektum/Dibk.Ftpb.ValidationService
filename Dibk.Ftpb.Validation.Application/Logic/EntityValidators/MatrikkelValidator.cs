@@ -20,7 +20,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             ValidateEntityFields(xPath, matrikkel);
 
-            return ValidationResult;
+            return ReturnValidationResult(ValidationResult);
         }
 
         public override void InitializeValidationRules(string xPath)

@@ -18,16 +18,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
     public class ArbeidstilsynetsSamtykke2_45957_Validator : IFormValidator
     {
-        private readonly IMunicipalityValidator _municipalityApiService;
+        private readonly IMunicipalityValidator _municipalityValidator;
         public ArbeidstilsynetsSamtykke2Form_45957 ArbeidstilsynetsSamtykke2Form45957 { get; set; }
         public ArbeidstilsynetsSamtykkeType _form { get; set; }
 
-        private ValidationResult _validationResult;
+        private ValidationResult FormValidationResult;
 
         private readonly string _xPath = "ArbeidstilsynetsSamtykke";
-        public ArbeidstilsynetsSamtykke2_45957_Validator(IMunicipalityValidator municipalityApiService)
+        public ArbeidstilsynetsSamtykke2_45957_Validator(IMunicipalityValidator municipalityValidator)
         {
-            _municipalityApiService = municipalityApiService;
+            _municipalityValidator = municipalityValidator;
         }
 
         public ValidationResult StartValidation(ValidationInput validationInput)
@@ -61,9 +61,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         public ValidationResult Validate(string xPath, ArbeidstilsynetsSamtykke2Form_45957 form, ValidationInput validationInput)
         {
             List<Eiendom> eiendommer = new List<Eiendom>();
-            var eiendomValidator = new EiendomValidator($"{xPath}/eiendomByggested{{0}}", _municipalityApiService);
+            var eiendomValidator = new EiendomValidator($"{xPath}/eiendomByggested{{0}}", _municipalityValidator);
 
-            ValidationResult validationResult = new();
+            //ValidationResult validationResult = new();
             foreach (var eiendom in form.Eiendommer)
             {
                 int index = form.Eiendommer.IndexOf(eiendom);
@@ -78,17 +78,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
            var arbeidsplasserValidator= arbeidsplasser.Validate(_xPath, form.Arbeidsplasser, attachments);
            UpdateValidationResult(arbeidsplasserValidator);
 
-            return _validationResult;
+            return FormValidationResult;
         }
 
         internal void UpdateValidationResult(ValidationResult validationResult)
         {
-            _validationResult ??= new ValidationResult();
-            _validationResult.ValidationRules ??= new List<ValidationRule>();
-            _validationResult.ValidationMessages ??= new List<ValidationMessage>();
+            FormValidationResult ??= new ValidationResult();
+            FormValidationResult.ValidationRules ??= new List<ValidationRule>();
+            FormValidationResult.ValidationMessages ??= new List<ValidationMessage>();
 
-            _validationResult.ValidationRules.Concat(validationResult.ValidationRules);
-            _validationResult.ValidationMessages.AddRange(validationResult.ValidationMessages);
+            var whereNotAlreadyExists = validationResult.ValidationRules.Where(x => FormValidationResult.ValidationRules.All(y => y.Xpath != x.Xpath));
+            FormValidationResult.ValidationRules.AddRange(whereNotAlreadyExists);
+            FormValidationResult.ValidationMessages.AddRange(validationResult.ValidationMessages);
         }
     }
 }

@@ -49,7 +49,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             ValidateDataRelations(xPath, eiendom);
 
-            return ValidationResult;
+            return ReturnValidationResult(ValidationResult);
         }
 
         private void ValidateDataRelations(string xPath, Eiendom eiendom)
