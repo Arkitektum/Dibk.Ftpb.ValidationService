@@ -63,12 +63,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             List<Eiendom> eiendommer = new List<Eiendom>();
             var eiendomValidator = new EiendomValidator($"{xPath}/eiendomByggested{{0}}", _municipalityValidator);
 
-            //ValidationResult validationResult = new();
+            var valMessage = new List<List<ValidationMessage>>();
             foreach (var eiendom in form.Eiendommer)
             {
                 int index = form.Eiendommer.IndexOf(eiendom);
                 var eiendomValidationResult = eiendomValidator.Validate($"{xPath}/eiendomByggested[{index}]", eiendom);
-                UpdateValidationResult(eiendomValidationResult);
+                valMessage.Add(eiendomValidationResult.ValidationMessages);
+
+                //UpdateValidationResult(eiendomValidationResult);
             }
 
             var arbeidsplasser = new ArbeidsplasserValidator();
