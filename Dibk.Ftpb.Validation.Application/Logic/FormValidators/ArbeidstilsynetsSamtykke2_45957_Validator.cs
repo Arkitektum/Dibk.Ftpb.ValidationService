@@ -1,4 +1,4 @@
-﻿using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using System.Collections.Generic;
@@ -15,14 +15,13 @@ using Dibk.Ftpb.Validation.Application.Models.Web;
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
     [FormData(DataFormatVersion = "45957")]
-
     public class ArbeidstilsynetsSamtykke2_45957_Validator : IFormValidator
     {
         private readonly IMunicipalityValidator _municipalityValidator;
         public ArbeidstilsynetsSamtykke2Form_45957 ArbeidstilsynetsSamtykke2Form45957 { get; set; }
         public ArbeidstilsynetsSamtykkeType _form { get; set; }
 
-        private ValidationResult FormValidationResult;
+        private ValidationResult _validationResult;
 
         private readonly string _xPath = "ArbeidstilsynetsSamtykke";
         public ArbeidstilsynetsSamtykke2_45957_Validator(IMunicipalityValidator municipalityValidator)
@@ -32,19 +31,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         public ValidationResult StartValidation(ValidationInput validationInput)
         {
-            ValidationResult validationResponse = new();
-
-            validationResponse.ValidationRules = new List<ValidationRule>();
-            validationResponse.ValidationMessages = new List<ValidationMessage>();
-
             //Get Arbeidstilsynets Samtykke v2 Dfv45957 class
             _form = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(validationInput.FormData);
 
             // map to arbeidstilsynet formEntity 
             ArbeidstilsynetsSamtykke2Form45957 = MapDataModelToFormEntity(_form);
-            validationResponse = Validate(_xPath, ArbeidstilsynetsSamtykke2Form45957,validationInput);
+            Validate(_xPath, ArbeidstilsynetsSamtykke2Form45957,validationInput);
 
-            return validationResponse;
+            return _validationResult;
         }
         public ArbeidstilsynetsSamtykkeType DeserializeDataForm(string xmlData)
         {
@@ -76,18 +70,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
            var arbeidsplasserValidator= arbeidsplasser.Validate(_xPath, form.Arbeidsplasser, attachments);
            UpdateValidationResult(arbeidsplasserValidator);
 
-            return FormValidationResult;
+            return _validationResult;
         }
 
         internal void UpdateValidationResult(ValidationResult validationResult)
         {
-            FormValidationResult ??= new ValidationResult();
-            FormValidationResult.ValidationRules ??= new List<ValidationRule>();
-            FormValidationResult.ValidationMessages ??= new List<ValidationMessage>();
+            _validationResult ??= new ValidationResult();
+            _validationResult.ValidationRules ??= new List<ValidationRule>();
+            _validationResult.ValidationMessages ??= new List<ValidationMessage>();
 
-            var whereNotAlreadyExists = validationResult.ValidationRules.Where(x => FormValidationResult.ValidationRules.All(y => y.Xpath != x.Xpath));
-            FormValidationResult.ValidationRules.AddRange(whereNotAlreadyExists);
-            FormValidationResult.ValidationMessages.AddRange(validationResult.ValidationMessages);
+            var whereNotAlreadyExists = validationResult.ValidationRules.Where(x => _validationResult.ValidationRules.All(y => y.Xpath != x.Xpath));
+            _validationResult.ValidationRules.AddRange(whereNotAlreadyExists);
+            _validationResult.ValidationMessages.AddRange(validationResult.ValidationMessages);
         }
     }
 }
