@@ -39,7 +39,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult Validate(string xPath, Eiendom eiendom)
         {
-            ValidateEntityFields(xPath, eiendom);
+            base.ResetValidationMessages();
+
+            ValidateEntityFields(xPath, (Eiendom)eiendom);
 
             var eiendomsAdresseValidationResponse = _eiendomsAdresseValidator.Validate($"{xPath}/adresse", eiendom.Adresse);
             ValidationResult.ValidationMessages.AddRange(eiendomsAdresseValidationResponse.ValidationMessages);
@@ -49,7 +51,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             ValidateDataRelations(xPath, eiendom);
 
-            return ReturnValidationResult(ValidationResult);
+            return ValidationResult;
         }
 
         private void ValidateDataRelations(string xPath, Eiendom eiendom)

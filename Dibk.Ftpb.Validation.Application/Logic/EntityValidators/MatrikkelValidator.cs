@@ -18,9 +18,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         public ValidationResult Validate(string xPath, Matrikkel matrikkel)
         {
+            base.ResetValidationMessages();
             ValidateEntityFields(xPath, matrikkel);
 
-            return ReturnValidationResult(ValidationResult);
+            return ValidationResult;
         }
 
         public override void InitializeValidationRules(string xPath)
