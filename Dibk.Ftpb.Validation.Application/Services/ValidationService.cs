@@ -32,6 +32,35 @@ namespace Dibk.Ftpb.Validation.Application.Services
             var errorMessages = _xsdValidationService.Validate(inputData);
             var validationResult = new ValidationResult();
 
+            //Verify stuff - functionality as it is in Alpha
+            //**************         START             *************************************************************************************
+
+            //_logger.Debug($"{archiveReference} is being validated for structure issues");
+            ////Validate structure
+            //string formDataAsXml = archivedForm.Forms.First().FormData;
+            //string mainDataFormatID = archivedForm.Forms.First().DataFormatID;
+            //string mainDataFormatVersionID = archivedForm.Forms.First().DataFormatVersionID.ToString();
+
+            //ftbId = XmlUtil.GetElementValue(formDataAsXml, "ftbid");
+
+
+            //FormValidationService val = new FormValidationService();
+            //if (!val.IsKnownForm(mainDataFormatID, mainDataFormatVersionID))
+            //{
+            //    _logger.Debug($"{archiveReference} form is not supported");
+            //    _logEntryService.Save(new LogEntry(archiveReference, Resources.TextStrings.ShippingErrorDownloadAndDeserialize + " skjema (" + archivedForm.ServiceCode + "/" + archivedForm.ServiceEditionCode + ") støttes ikke", "Error"));
+
+            //    string title = String.Format(Resources.TextStrings.ShippingErrorTitle, archivedForm.ArchiveReference);
+            //    string summary = Resources.TextStrings.ShippingErrorSummary;
+            //    string body = String.Format(Resources.TextStrings.ShippingErrorBody, archivedForm.ArchiveReference) + Environment.NewLine + Resources.TextStrings.ShippingErrorDownloadAndDeserialize + " skjema (" + archivedForm.ServiceCode + "/" + archivedForm.ServiceEditionCode + ") støttes ikke";
+            //    _correspondenceHelper.SendSimpleNotificaitonToReportee(archivedForm.Reportee, title, summary, body, archivedForm.ArchiveReference);
+            //    _formMetadataService.UpdateValidationResultToFormMetadata(archiveReference, "Feil", 1, 0);
+
+            //**************         END             *************************************************************************************
+
+
+
+
             if (!Helpers.ObjectIsNullOrEmpty(inputData?.Config?.DataFormatVersion))
             {
                 var taskValidationResult = _validationOrchestrator.ExecuteAsync(inputData?.Config?.DataFormatVersion, errorMessages, validationInput);
