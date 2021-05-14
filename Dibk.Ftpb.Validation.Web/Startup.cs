@@ -17,6 +17,7 @@ using Serilog.Events;
 using Serilog.Sinks.Elasticsearch;
 using System;
 using System.Text.Json.Serialization;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 
 namespace Dibk.Ftpb.Validation
 {
@@ -54,6 +55,11 @@ namespace Dibk.Ftpb.Validation
             services.AddHttpClient<MunicipalityApiHttpClient>();
             services.AddTransient<IMunicipalityApiService, MunicipalityApiService>();
             services.Configure<MunicipalityApiSettings>(Configuration.GetSection("MunicipalityApi"));
+
+            services.AddHttpClient<CodelistApiHttpClient>();
+            services.AddTransient<ICodeListService, CodeListService>();
+            services.Configure<CodelistApiSettings>(Configuration.GetSection("CodeListApi"));
+
 
             services.AddTransient<IValidationService, ValidationService>();
             services.AddTransient<IInputDataService, InputDataService>();

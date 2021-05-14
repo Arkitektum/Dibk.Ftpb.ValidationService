@@ -1,13 +1,11 @@
-﻿using Dibk.Ftpb.Validation.Application.Reporter;
+using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Models.Web;
-using Dibk.Ftpb.Validation.Application.Utils;
 
 namespace Dibk.Ftpb.Validation.Web.Controllers
 {
@@ -15,11 +13,13 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
     public class ValidateController : BaseController
     {
         private readonly IValidationService _validationService;
+        private readonly ICodeListService _codeListService;
 
-        public ValidateController(IValidationService validationService, ILogger<ValidateController> logger)
+        public ValidateController(IValidationService validationService, ILogger<ValidateController> logger, ICodeListService codeListService)
             : base(logger)
         {
             _validationService = validationService;
+            _codeListService = codeListService;
         }
 
         [Route("api/validate")]
