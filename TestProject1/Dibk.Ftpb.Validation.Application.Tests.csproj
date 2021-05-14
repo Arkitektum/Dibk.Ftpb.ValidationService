@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\ArbeidstilsynetsSamtykke2.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\ArbeidstilsynetsSamtykke2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="Moq.EntityFrameworkCore" Version="5.0.0.2" />

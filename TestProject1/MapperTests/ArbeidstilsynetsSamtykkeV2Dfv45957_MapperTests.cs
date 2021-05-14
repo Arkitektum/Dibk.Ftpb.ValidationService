@@ -1,5 +1,8 @@
-﻿using Dibk.Ftpb.Validation.Application.Logic.Mappers;
+﻿using System.IO;
+using Dibk.Ftpb.Validation.Application.Logic.Mappers;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
+using Dibk.Ftpb.Validation.Application.Tests.Utils;
+using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 using Xunit;
 using FluentAssertions;
@@ -8,29 +11,6 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 {
     public class ArbeidstilsynetsSamtykkeV2Dfv45957_MapperTests
     {
-        //[Fact]
-        //public void Test1()
-        //{
-        //    var dataForm = new ArbeidstilsynetsSamtykkeType()
-        //    {
-        //        eiendomByggested = new EiendomType()
-        //        {
-        //            adresse = new EiendommensAdresseType()
-        //            {
-        //                adresselinje1 = "Bø gate 31A",
-        //                bokstav = "A",
-        //                husnr = "31",
-        //                gatenavn = "Bø gate"
-
-        //            },
-        //            bolignummer = "12345",
-        //            kommunenavn = "Bø i Telemark"
-        //        }
-        //};
-        //    var dataFomr = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataForm);
-        //    //string[] array = list.ToArray();
-        //    dataFomr.Eiendom.Should().NotBeNull();
-        //}
         [Fact]
         public void ArbeidsplasserTest()
         {
@@ -58,6 +38,19 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             Arbeidsplasser arbeidsplasser = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().MapArbeidsplasser(dataForm.arbeidsplasser);
 
             arbeidsplasser.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void TiltakshaverMapTest()
+        {
+            var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke2.xml");
+            var form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
+            var postmanXml = TestHelper.GetXmlWithoutSpaces(xmlData);
+           
+            var tiltakshaver = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().MapTiltakshaver(form.tiltakshaver);
+
+            tiltakshaver.Should().NotBeNull();
+
         }
     }
 }

@@ -26,6 +26,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers
             }
 
             arbeidstilsynetsSamtykke2Form45957.Eiendommer = eiendommer;
+            arbeidstilsynetsSamtykke2Form45957.Arbeidsplasser = MapArbeidsplasser(dataModel.arbeidsplasser);
+            arbeidstilsynetsSamtykke2Form45957.Tiltakshaver = MapTiltakshaver(dataModel.tiltakshaver);
 
             return arbeidstilsynetsSamtykke2Form45957;
         }
@@ -34,6 +36,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers
         {
             var arbeidspalsser = _fomMapper.Map<Arbeidsplasser>(arbeidsplasserType);
             return arbeidspalsser;
+        }
+
+        public Aktoer MapTiltakshaver(PartType partType)
+        {
+            var tiltakstype = _fomMapper.Map<Aktoer>(partType);
+            return tiltakstype;
         }
         public IMapper FormMapperConfiguration()
         {
@@ -65,9 +73,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers
                 .ForMember(dest => dest.Seksjonsnummer, opt => opt.MapFrom(src => src.seksjonsnummer))
                 .ForMember(dest => dest.Kommunenummer, opt => opt.MapFrom(src => src.kommunenummer))
                 .ForMember(dest => dest.Festenummer, opt => opt.MapFrom(src => src.festenummer));
-
+                //Arbeidsplasser
                 cfg.CreateMap<ArbeidsplasserType, Arbeidsplasser>();
-                //cfg.CreateMap<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.MetadataType, Models.ValidationEntities.Metadata>();
+                
+                //Aktoer - (Tltakshaver/AnsvarligSæker)
+                cfg.CreateMap<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.PartType, Aktoer>();
+                cfg.CreateMap<EnkelAdresseType, EnkelAdresse>();
+                cfg.CreateMap<KodeType, Dibk.Ftpb.Validation.Application.Models.ValidationEntities.PartstypeCode>();
+                cfg.CreateMap<KontaktpersonType,Kontaktperson>();
+
             });
 
             return config.CreateMapper();

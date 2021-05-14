@@ -35,7 +35,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _form = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(validationInput.FormData);
 
             // map to arbeidstilsynet formEntity 
-            ArbeidstilsynetsSamtykke2Form45957 = MapDataModelToFormEntity(_form);
+            ArbeidstilsynetsSamtykke2Form45957 = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(_form);
             Validate(_xPath, ArbeidstilsynetsSamtykke2Form45957,validationInput);
 
             return _validationResult;
@@ -44,12 +44,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         {
             //TODO add error massages if.... :thinkingFace
             return SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
-        }
-
-        private ArbeidstilsynetsSamtykke2Form_45957 MapDataModelToFormEntity(ArbeidstilsynetsSamtykkeType dataModel)
-        {
-            var formEntity = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataModel);
-            return formEntity;
         }
 
         public ValidationResult Validate(string xPath, ArbeidstilsynetsSamtykke2Form_45957 form, ValidationInput validationInput)
@@ -66,9 +60,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var arbeidsplasser = new ArbeidsplasserValidator();
 
             var attachments = Helpers.ObjectIsNullOrEmpty(validationInput.Attachments) ? null : validationInput.Attachments.Select(a => a.AttachmentTypeName).ToList();
-            
            var arbeidsplasserValidator= arbeidsplasser.Validate(_xPath, form.Arbeidsplasser, attachments);
            UpdateValidationResult(arbeidsplasserValidator);
+
+            var tiltakshaverResult = new TiltakshaverValidator(_xPath).Validate(null, form.Tiltakshaver);
+            UpdateValidationResult(tiltakshaverResult);
 
             return _validationResult;
         }
