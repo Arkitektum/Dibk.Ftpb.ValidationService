@@ -48,6 +48,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 var partstypeValidatinResults = new PartstypeValidator(_xPath).Validate(null, tiltakshaver.Partstype);
                 UpdateValidationResultWithSubValidations(partstypeValidatinResults);
                 //TODO diskutere hvordan man bruke svaret
+                //if validation message have any with tiltakshaver.Partstype.Kodeverdi
                 if (!partstypeValidatinResults.ValidationMessages.Any())
                 {
                     ValidateEntityFields(tiltakshaver);
@@ -92,7 +93,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     case OrganisasjonsnummerValidation.Invalid:
                         AddMessageFromRule("tiltakshaver_organisasjonsnummer_ugyldig");
                         break;
-
                 }
 
                 var enkeladressResult = new EnkelAdresseValidator(_xPath).Validate(null, tiltakshaver.Adresse);
@@ -114,7 +114,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
         }
 
-        internal void UpdateValidationResultWithSubValidations(ValidationResult newValudationResult)
+        private void UpdateValidationResultWithSubValidations(ValidationResult newValudationResult)
         {
             ValidationResult.ValidationRules.AddRange(newValudationResult.ValidationRules);
             ValidationResult.ValidationMessages.AddRange(newValudationResult.ValidationMessages);

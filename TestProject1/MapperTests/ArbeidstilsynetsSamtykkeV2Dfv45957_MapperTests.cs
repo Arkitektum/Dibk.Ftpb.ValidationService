@@ -30,7 +30,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
                     eksisterende = true,
                     eksisterendeSpecified = true,
                     beskrivelse = "noko rar kommer har",
-                    
+
                     utleieBygg = null,
                     utleieByggSpecified = false
                 }
@@ -46,11 +46,21 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke2.xml");
             var form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
             var postmanXml = TestHelper.GetXmlWithoutSpaces(xmlData);
-           
+
             var tiltakshaver = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().MapTiltakshaver(form.tiltakshaver);
 
             tiltakshaver.Should().NotBeNull();
 
+        }
+        [Fact]
+        public void FakturamottakerMapTest()
+        {
+            var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke2.xml");
+            var form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
+
+            var fakturamottaker = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().MapFakturamottaker(form.fakturamottaker);
+
+            fakturamottaker.Should().NotBeNull();
         }
     }
 }

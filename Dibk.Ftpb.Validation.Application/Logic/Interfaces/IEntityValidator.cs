@@ -5,7 +5,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
 {
     public interface IEntityValidator
     {
-        void InitializeValidationRules(string context);
+        void InitializeValidationRules(string xPath);
         ValidationResult ResetValidationMessages();
      }
 }

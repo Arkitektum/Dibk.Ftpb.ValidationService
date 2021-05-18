@@ -46,7 +46,7 @@ namespace Dibk.Ftpb.Validation.Application.Utils
             return true;
         }
 
-        internal static bool IsSimple(Type type)
+        private static bool IsSimple(Type type)
         {
             // https://stackoverflow.com/questions/863881/how-do-i-tell-if-a-type-is-a-simple-type-i-e-holds-a-single-value
             if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))

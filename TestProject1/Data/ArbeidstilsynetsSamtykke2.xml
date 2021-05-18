@@ -74,4 +74,21 @@
       <epost>epost@test.no</epost>
     </kontaktperson>
   </tiltakshaver>
+  <fakturamottaker>
+    <organisasjonsnummer>123456789</organisasjonsnummer>
+    <bestillerReferanse>12345</bestillerReferanse>
+    <fakturareferanser>ref123</fakturareferanser>
+    <navn>Joni</navn>
+    <prosjektnummer>N58</prosjektnummer>
+    <ehfFaktura>true</ehfFaktura>
+    <fakturaPapir>false</fakturaPapir>
+    <adresse>
+      <adresselinje1>bøgate 123</adresselinje1>
+      <adresselinje2>adress 2</adresselinje2>
+      <adresselinje3>adress 3</adresselinje3>
+      <postnr>3801</postnr>
+      <poststed>Bø i telemark</poststed>
+      <landkode>NO</landkode>
+    </adresse>
+  </fakturamottaker>
 </ArbeidstilsynetsSamtykke>

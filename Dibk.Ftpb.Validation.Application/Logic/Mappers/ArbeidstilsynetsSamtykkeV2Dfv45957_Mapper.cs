@@ -28,6 +28,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers
             arbeidstilsynetsSamtykke2Form45957.Eiendommer = eiendommer;
             arbeidstilsynetsSamtykke2Form45957.Arbeidsplasser = MapArbeidsplasser(dataModel.arbeidsplasser);
             arbeidstilsynetsSamtykke2Form45957.Tiltakshaver = MapTiltakshaver(dataModel.tiltakshaver);
+            arbeidstilsynetsSamtykke2Form45957.Fakturamottaker = MapFakturamottaker(dataModel.fakturamottaker);
 
             return arbeidstilsynetsSamtykke2Form45957;
         }
@@ -43,6 +44,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers
             var tiltakstype = _fomMapper.Map<Aktoer>(partType);
             return tiltakstype;
         }
+
+        public Fakturamottaker MapFakturamottaker(FakturamottakerType fakturamottakerType)
+        {
+            var fakturamottaker = _fomMapper.Map<Fakturamottaker>(fakturamottakerType);
+            return fakturamottaker;
+        }
+
         public IMapper FormMapperConfiguration()
         {
             var config = new MapperConfiguration(cfg =>
@@ -81,6 +89,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers
                 cfg.CreateMap<EnkelAdresseType, EnkelAdresse>();
                 cfg.CreateMap<KodeType, Dibk.Ftpb.Validation.Application.Models.ValidationEntities.PartstypeCode>();
                 cfg.CreateMap<KontaktpersonType,Kontaktperson>();
+                //Fakturamottaker
+                cfg.CreateMap<FakturamottakerType, Fakturamottaker>();
 
             });
 

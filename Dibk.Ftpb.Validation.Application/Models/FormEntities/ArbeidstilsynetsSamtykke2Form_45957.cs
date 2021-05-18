@@ -12,5 +12,6 @@ namespace Dibk.Ftpb.Validation.Application.Models.FormEntities
         public List<Eiendom> Eiendommer { get; set; }
         public Arbeidsplasser Arbeidsplasser { get; set; }
         public Aktoer Tiltakshaver { get; set; }
+        public Fakturamottaker Fakturamottaker { get; set; }
     }
 }

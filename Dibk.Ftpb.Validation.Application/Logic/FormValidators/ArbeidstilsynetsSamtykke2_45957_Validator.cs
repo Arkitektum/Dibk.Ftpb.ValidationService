@@ -66,6 +66,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var tiltakshaverResult = new TiltakshaverValidator(_xPath).Validate(null, form.Tiltakshaver);
             UpdateValidationResult(tiltakshaverResult);
 
+            var fakturamottakerResult = new FakturamottakerValidator(_xPath).Validate(null, form.Fakturamottaker);
+            UpdateValidationResult(fakturamottakerResult);
+
             return _validationResult;
         }
 
