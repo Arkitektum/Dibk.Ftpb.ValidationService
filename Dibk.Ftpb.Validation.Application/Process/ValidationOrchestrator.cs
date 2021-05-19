@@ -51,6 +51,35 @@ namespace Dibk.Ftpb.Validation.Application.Process
 
                 ValidationResult = _validationMessageComposer.ComposeValidationReport(ValidationResult, "NO");
             }
+
+            // Todo: On ERRORS
+            //_logger.Debug($"{archiveReference} failed validation for structure issues");
+            //// Send notificaiton to Altinn user 
+            //string title = String.Format(Resources.TextStrings.ShippingErrorTitle, archivedForm.ArchiveReference);
+            //string summary = Resources.TextStrings.ShippingErrorSummary;
+            //string body = String.Format(Resources.TextStrings.ShippingErrorBody, archivedForm.ArchiveReference) + Environment.NewLine + Resources.TextStrings.ShippingErrorStructure + valResultStruct.ToString();
+
+            //_logEntryService.Save(new LogEntry(archiveReference, Resources.TextStrings.ShippingErrorStructure + valResultStruct.ToString(), "Error"));
+            //_formMetadataService.UpdateValidationResultToFormMetadata(archiveReference, "Feil - strukturvalidering", valResultStruct.Errors, valResultStruct.Warnings);
+            //_correspondenceHelper.SendSimpleNotificaitonToReportee(archivedForm.Reportee, title, summary, body, archivedForm.ArchiveReference);
+
+
+            // Todo: On WARNINGS
+            //validationWarnings = valResultData.Warnings;
+            ////Logge advarsler
+            //_logEntryService.Save(new LogEntry(archiveReference, "Valideringsresultat: " + valResultData.ToString(), "Info"));
+
+
+
+
+            //Todo
+            //Logge metadata om innsending    
+            //_formMetadataService.SaveFormDataToFormMetadataLog(formData);
+            //_formMetadataService.UpdateValidationResultToFormMetadata(archiveReference, "Under behandling", 0, validationWarnings);
+                
+            //_formMetadataService.UpdateValidationResultToFormMetadata(archiveReference, "Ok", 0, validationWarnings);
+
+
             return ValidationResult;
         }
 
