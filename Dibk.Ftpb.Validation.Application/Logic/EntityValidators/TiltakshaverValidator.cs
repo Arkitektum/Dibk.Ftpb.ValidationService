@@ -5,39 +5,38 @@ using System.Text;
 using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.GeneralValidations;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class TiltakshaverValidator : EntityValidatorBase
+    public sealed class TiltakshaverValidator : EntityValidatorBase
     {
 
-        private string _xPath;
-        private const string _entityName = "tiltakshaver";
+        private EnkelAdresseValidator _enkelAdresseValidator;
 
-        public TiltakshaverValidator(string parentxPath)
+        public TiltakshaverValidator(string parentXPath) : base(parentXPath, "tiltakshaver")
         {
-            _xPath = $"{parentxPath}/{_entityName}";
+            _enkelAdresseValidator = new EnkelAdresseValidator(EntityXPath);
             InitializeValidationRules();
         }
-        public override void InitializeValidationRules(string parentContext = null)
+        public override void InitializeValidationRules()
         {
-            AddValidationRule("tiltakshaver_utfylt", _xPath, "bygningsnummer");
-            AddValidationRule("tiltakshaver_foedselnummer_utfylt", _xPath, "foedselsnummer");
-            AddValidationRule("tiltakshaver_foedselnummer_Dekryptering", _xPath, "foedselsnummer");
-            AddValidationRule("tiltakshaver_foedselnummer_kontrollsiffer", _xPath, "foedselsnummer");
-            AddValidationRule("tiltakshaver_foedselnummer_ugyldig", _xPath, "foedselsnummer");
-            AddValidationRule("tiltakshaver_organisasjonsnummer_utfyltg", _xPath, "organisasjonsnummer");
-            AddValidationRule("tiltakshaver_organisasjonsnummer_kontrollsiffer", _xPath, "organisasjonsnummer");
-            AddValidationRule("tiltakshaver_organisasjonsnummer_ugyldig", _xPath, "organisasjonsnummer");
-            AddValidationRule("tiltakshaver_TelMob_Utfylt", _xPath);
-            AddValidationRule("tiltakshaver_epost_Utfylt", _xPath, "epost");
-            AddValidationRule("tiltakshaver_Navn_Utfylt", _xPath, "navn");
+            AddValidationRule("tiltakshaver_utfylt", EntityXPath);
+            AddValidationRule("tiltakshaver_foedselnummer_utfylt", EntityXPath, "foedselsnummer");
+            AddValidationRule("tiltakshaver_foedselnummer_Dekryptering", EntityXPath, "foedselsnummer");
+            AddValidationRule("tiltakshaver_foedselnummer_kontrollsiffer", EntityXPath, "foedselsnummer");
+            AddValidationRule("tiltakshaver_foedselnummer_ugyldig", EntityXPath, "foedselsnummer");
+            AddValidationRule("tiltakshaver_organisasjonsnummer_utfylt", EntityXPath, "organisasjonsnummer");
+            AddValidationRule("tiltakshaver_organisasjonsnummer_kontrollsiffer", EntityXPath, "organisasjonsnummer");
+            AddValidationRule("tiltakshaver_organisasjonsnummer_ugyldig", EntityXPath, "organisasjonsnummer");
+            AddValidationRule("tiltakshaver_TelMob_Utfylt", EntityXPath);
+            AddValidationRule("tiltakshaver_epost_Utfylt", EntityXPath, "epost");
+            AddValidationRule("tiltakshaver_Navn_Utfylt", EntityXPath, "navn");
         }
-
-        public ValidationResult Validate(string xPath = null, Aktoer tiltakshaver = null)
+        public ValidationResult Validate(Aktoer tiltakshaver = null)
         {
             if (Helpers.ObjectIsNullOrEmpty(tiltakshaver))
             {
@@ -45,16 +44,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             else
             {
-                var partstypeValidatinResults = new PartstypeValidator(_xPath).Validate(null, tiltakshaver.Partstype);
+                var partstypeValidatinResults = new PartstypeValidator(EntityXPath).Validate(null, tiltakshaver.Partstype);
                 UpdateValidationResultWithSubValidations(partstypeValidatinResults);
-                //TODO diskutere hvordan man bruke svaret
-                //if validation message have any with tiltakshaver.Partstype.Kodeverdi
+                //TODO diskutere hvordan man bruke svaret 
+                //if validation message have any with tiltakshaver.Partstype.Kodeverdi (ok)
                 if (!partstypeValidatinResults.ValidationMessages.Any())
                 {
                     ValidateEntityFields(tiltakshaver);
                 }
             }
-
             return ValidationResult;
         }
 
@@ -95,10 +93,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         break;
                 }
 
-                var enkeladressResult = new EnkelAdresseValidator(_xPath).Validate(null, tiltakshaver.Adresse);
+                var enkeladressResult = _enkelAdresseValidator.Validate(tiltakshaver.Adresse);
                 UpdateValidationResultWithSubValidations(enkeladressResult);
 
-                var kontaktpersonResult = new KontaktpersonValidator(_xPath).Validate(null, tiltakshaver.Kontaktperson);
+                var kontaktpersonResult = new KontaktpersonValidator(EntityXPath).Validate(null, tiltakshaver.Kontaktperson);
                 UpdateValidationResultWithSubValidations(kontaktpersonResult);
 
                 if (string.IsNullOrEmpty(tiltakshaver.Mobilnummer) && string.IsNullOrEmpty(tiltakshaver.Telefonnummer))

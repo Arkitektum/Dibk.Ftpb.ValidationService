@@ -13,33 +13,34 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public class ArbeidsplasserValidator : EntityValidatorBase
     {
 
-        private const string _entityName = "arbeidsplasser";
-        private static string _context;
         private List<string> _attachmentList;
 
-        public ValidationResult Validate(string parentContext, Arbeidsplasser arbeidsplasser, List<string> attachments = null)
+        public ArbeidsplasserValidator(string parentXPath) : base(parentXPath, "arbeidsplasser")
         {
-            _context = $"{parentContext}/{_entityName}";
+            InitializeValidationRules();
+        }
+        public ValidationResult Validate(Arbeidsplasser arbeidsplasser, List<string> attachments = null)
+        {
+
             _attachmentList = attachments;
 
-            InitializeValidationRules(_context);
-            ValidateEntityFields(arbeidsplasser, _context);
+            ValidateEntityFields(arbeidsplasser);
 
             return ValidationResult;
         }
 
-        public override void InitializeValidationRules(string xPath)
+        public sealed override void InitializeValidationRules()
         {
-            this.AddValidationRule("arbeidsplasser_utfylt", xPath);
-            this.AddValidationRule("framtidige_eller_eksisterende_utfylt", xPath);
-            this.AddValidationRule("faste_eller_midlertidige_utfylt", xPath);
-            this.AddValidationRule("type_arbeid_utfylt", xPath);
-            this.AddValidationRule("utleieBygg", xPath);
-            this.AddValidationRule("arbeidsplasser_beskrivelse", xPath, "beskrivelse");
+            this.AddValidationRule("arbeidsplasser_utfylt", EntityXPath);
+            this.AddValidationRule("framtidige_eller_eksisterende_utfylt", EntityXPath);
+            this.AddValidationRule("faste_eller_midlertidige_utfylt", EntityXPath);
+            this.AddValidationRule("type_arbeid_utfylt", EntityXPath);
+            this.AddValidationRule("utleieBygg", EntityXPath);
+            this.AddValidationRule("arbeidsplasser_beskrivelse", EntityXPath, "beskrivelse");
         }
 
 
-        public void ValidateEntityFields(Arbeidsplasser arbeidsplasser, string xPath)
+        public void ValidateEntityFields(Arbeidsplasser arbeidsplasser)
         {
 
             if (Helpers.ObjectIsNullOrEmpty(arbeidsplasser))

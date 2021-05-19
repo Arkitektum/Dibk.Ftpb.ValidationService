@@ -12,37 +12,32 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public class FakturamottakerValidator : EntityValidatorBase
     {
 
-        private string _xPath;
-        private const string _entityName = "fakturamottaker";
-
-        public FakturamottakerValidator(string parentxPath)
+        private EnkelAdresseValidator _enkelAdresseValidator;
+        public FakturamottakerValidator(string parentxPath) : base(parentxPath, "fakturamottaker")
         {
-            _xPath = $"{parentxPath}/{_entityName}";
+            _enkelAdresseValidator = new EnkelAdresseValidator(EntityXPath);
             InitializeValidationRules();
         }
-        public override void InitializeValidationRules(string parentContext = null)
+        public sealed override void InitializeValidationRules()
         {
-            AddValidationRule("fakturamottaker_utfylt", _xPath);
+            AddValidationRule("fakturamottaker_utfylt", EntityXPath);
         }
 
-        public ValidationResult Validate(string xPath = null, Fakturamottaker fakturamottaker = null)
+        public ValidationResult Validate(Fakturamottaker fakturamottaker = null)
         {
+            var enkelAdressValidator = new EnkelAdresseValidator(EntityXPath);
+
             if (Helpers.ObjectIsNullOrEmpty(fakturamottaker))
             {
                 AddMessageFromRule("fakturamottaker_utfylt");
             }
             else
             {
-                var enkelAdress = new EnkelAdresseValidator(_xPath).Validate(null, fakturamottaker.adresse);
-                UpdateValidationResultWithSubValidations(enkelAdress);
+                _enkelAdresseValidator.Validate(fakturamottaker.adresse);
             }
-            
+            UpdateValidationResultWithSubValidations(enkelAdressValidator.ValidationResult);
+
             return ValidationResult;
-        }
-        private void UpdateValidationResultWithSubValidations(ValidationResult newValudationResult)
-        {
-            ValidationResult.ValidationRules.AddRange(newValudationResult.ValidationRules);
-            ValidationResult.ValidationMessages.AddRange(newValudationResult.ValidationMessages);
         }
     }
 }

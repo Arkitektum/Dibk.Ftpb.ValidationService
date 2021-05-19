@@ -11,19 +11,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class PartstypeValidator : EntityValidatorBase
     {
-        private string _xPath;
-        private const string _entityName = "tiltakshaver";
-
-        public PartstypeValidator(string parentXPath)
+        public PartstypeValidator(string parentXPath):base(parentXPath, "partstype")
         {
-            _xPath = $"{parentXPath}/{_entityName}";
             InitializeValidationRules();
         }
 
-        public override void InitializeValidationRules(string parentXPath = null)
+        public sealed override void InitializeValidationRules()
         {
-            AddValidationRule("Kodeverdien_utfylt", _xPath, "Kodeverdi");
-            AddValidationRule("Kodeverdien_Ugyldig", _xPath, "Kodeverdi");
+            AddValidationRule("partstype_utfylt", EntityXPath, "Kodeverdi");
+            AddValidationRule("Kodeverdien_Ugyldig", EntityXPath, "Kodeverdi");
         }
 
         public ValidationResult Validate(string xPath, PartstypeCode partstype)
@@ -31,7 +27,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             if (Helpers.ObjectIsNullOrEmpty(partstype?.Kodeverdi))
             {
-                AddMessageFromRule("Kodeverdien_utfylt");
+                AddMessageFromRule("partstype_utfylt");
 
             }
             else
@@ -44,7 +40,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                 if (!gyldigPartsType.Any(p => p.Equals(partstype.Kodeverdi)))
                 {
-                    AddMessageFromRule("Kodeverdien_ugyldig");
+                    AddMessageFromRule("partstype_ugyldig"); //error
+                }
+                else
+                {
+                    //if(isLableValid)
+                    //    AddMessageFromRule("partstype_lable_ugyldig"); // Warning
                 }
             }
 

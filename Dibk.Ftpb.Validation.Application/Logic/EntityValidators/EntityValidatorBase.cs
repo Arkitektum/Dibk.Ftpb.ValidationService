@@ -12,21 +12,34 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public abstract class EntityValidatorBase : IEntityValidator
     {
         public ValidationResult ValidationResult;
-        public EntityValidatorBase()
+        protected string EntityName;
+        protected string EntityXPath;
+
+        public EntityValidatorBase(string xPath)
         {
+            EntityXPath = xPath;
             ValidationResult = new();
             ValidationResult.ValidationRules = new List<ValidationRule>();
             ValidationResult.ValidationMessages = new List<ValidationMessage>();
         }
+
+        public EntityValidatorBase(string xPath, string enityName) : this($"{xPath}/{enityName}")
+        {}
+        
+        public abstract void InitializeValidationRules();
+
         public ValidationResult ResetValidationMessages()
         {
             ValidationResult.ValidationMessages = new();
             return ValidationResult;
         }
+        protected void UpdateValidationResultWithSubValidations(ValidationResult newValudationResult)
+        {
+            ValidationResult.ValidationRules.AddRange(newValudationResult.ValidationRules);
+            ValidationResult.ValidationMessages.AddRange(newValudationResult.ValidationMessages);
+        }
 
-        public abstract void InitializeValidationRules(string parentContext=null);
-
-        public void AddValidationRule(string id, string xPath)
+        protected void AddValidationRule(string id, string xPath)
         {
             ValidationResult.ValidationRules.Add(new ValidationRule()
             {
@@ -46,23 +59,23 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             return validationRule;
         }
 
-        public void AddValidationRule(string id, string xPath, string xmlElement)
+        protected void AddValidationRule(string id, string xPath, string xmlElement)
         {
             ValidationResult.ValidationRules.Add(new ValidationRule() { Id = id, Xpath = $"{xPath}/{xmlElement}", XmlElement = xmlElement });
         }
 
-        public void AddMessageFromRule(string id, string xPath, List<string> messageParameters)
+        protected void AddMessageFromRule(string id, string xPath, List<string> messageParameters)
         {
             var rule = RuleToValidate(id);
             var XmlElement = String.IsNullOrEmpty(rule.XmlElement) ? null : $"/{rule.XmlElement}";
-            
+
             string newXPath;
-            newXPath = string.IsNullOrEmpty(xPath) ? rule.Xpath : $"{xPath}{XmlElement}";
-            
+            newXPath = string.IsNullOrEmpty(xPath) ? rule.Xpath : $"{xPath}{XmlElement}"; // debug XmlElement in rule.Xpath!?
+
             var validationMessage = new ValidationMessage()
             {
                 Reference = id,
-                Xpath = newXPath, 
+                Xpath = newXPath,
                 MessageParameters = messageParameters
             };
 

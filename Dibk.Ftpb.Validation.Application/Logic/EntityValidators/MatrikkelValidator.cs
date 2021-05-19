@@ -12,9 +12,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class MatrikkelValidator : EntityValidatorBase
     {
-        public MatrikkelValidator(string templateXPath) : base()
+        public MatrikkelValidator(string templateXPath) : base(templateXPath)
         {
-            InitializeValidationRules(templateXPath);
+            InitializeValidationRules();
         }
         public ValidationResult Validate(string xPath, Matrikkel matrikkel)
         {
@@ -24,13 +24,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             return ValidationResult;
         }
 
-        public override void InitializeValidationRules(string xPath)
+        public sealed override void InitializeValidationRules()
         {
-            AddValidationRule("kommunenummer_utfylt", xPath, "kommunenummer");
-            AddValidationRule("gaardsnummer_utfylt", xPath, "gaardsnummer");
-            AddValidationRule("bruksnummer_utfylt", xPath, "bruksnummer");
-            AddValidationRule("festenummer_utfylt", xPath, "festenummer");
-            AddValidationRule("seksjonsnummer_utfylt", xPath, "seksjonsnummer");
+            AddValidationRule("kommunenummer_utfylt", EntityXPath, "kommunenummer");
+            AddValidationRule("gaardsnummer_utfylt", EntityXPath, "gaardsnummer");
+            AddValidationRule("bruksnummer_utfylt", EntityXPath, "bruksnummer");
+            AddValidationRule("festenummer_utfylt", EntityXPath, "festenummer");
+            AddValidationRule("seksjonsnummer_utfylt", EntityXPath, "seksjonsnummer");
         }
 
         public void ValidateEntityFields(string xPath, Matrikkel matrikkel)

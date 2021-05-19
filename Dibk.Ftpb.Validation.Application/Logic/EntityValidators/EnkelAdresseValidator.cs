@@ -11,27 +11,24 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class EnkelAdresseValidator : EntityValidatorBase
     {
-        private string _xPath;
-        private const string _entityName = "adresse";
 
-        public EnkelAdresseValidator(string parentContext)
+        public EnkelAdresseValidator(string parentContext):base(parentContext,"adresse")
         {
-            _xPath = $"{parentContext}/{_entityName}";
             InitializeValidationRules();
         }
-        public override void InitializeValidationRules(string context = null)
+        public sealed override void InitializeValidationRules()
         {
-            AddValidationRule("adresse_utfylt", _xPath);
-            AddValidationRule("EnkelAdress_adresseLinje1_Utfylt", _xPath, "adresselinje1");
-            AddValidationRule("enkelAdress_landkode_utfylt", _xPath, "landkode");
-            AddValidationRule("enkelAdress_postnr_utfylt", _xPath, "postnr");
-            AddValidationRule("enkelAdress_postnr_kontrollSiffer", _xPath, "postnr");
-            AddValidationRule("enkelAdress_postnr_ugyldig", _xPath, "postnr");
-            AddValidationRule("enkelAdress_postnr_stemmerIkke", _xPath, "postnr");
-            AddValidationRule("enkelAdress_postnr_ikkeValidert", _xPath, "postnr");
+            AddValidationRule("adresse_utfylt", EntityXPath);
+            AddValidationRule("enkelAdress_adresseLinje1_Utfylt", EntityXPath, "adresselinje1");
+            AddValidationRule("enkelAdress_landkode_utfylt", EntityXPath, "landkode");
+            AddValidationRule("enkelAdress_postnr_utfylt", EntityXPath, "postnr");
+            AddValidationRule("enkelAdress_postnr_kontrollSiffer", EntityXPath, "postnr");
+            AddValidationRule("enkelAdress_postnr_ugyldig", EntityXPath, "postnr");
+            AddValidationRule("enkelAdress_postnr_stemmerIkke", EntityXPath, "postnr");
+            AddValidationRule("enkelAdress_postnr_ikkeValidert", EntityXPath, "postnr");
         }
 
-        public ValidationResult Validate(string xPath = null, EnkelAdresse enkelAdresse = null)
+        public ValidationResult Validate(EnkelAdresse enkelAdresse = null)
         {
             if (Helpers.ObjectIsNullOrEmpty(enkelAdresse))
             {

@@ -17,24 +17,24 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private MatrikkelValidator _matrikkelValidator;
         private readonly IMunicipalityValidator _municipalityValidator;
 
-        public EiendomValidator(string templateXPath, IMunicipalityValidator municipalityValidator) : base()
+        public EiendomValidator(string templateEntityXPath, IMunicipalityValidator municipalityValidator) : base(templateEntityXPath)
         {
-            InitializeValidationRules(templateXPath);
+            InitializeValidationRules();
             
-            _eiendomsAdresseValidator = new EiendomsAdresseValidator($"{templateXPath}/adresse");
+            _eiendomsAdresseValidator = new EiendomsAdresseValidator($"{templateEntityXPath}/adresse");
             ValidationResult.ValidationRules.AddRange(_eiendomsAdresseValidator.ValidationResult.ValidationRules);
 
-            _matrikkelValidator = new MatrikkelValidator($"{templateXPath}/eiendomsidentifikasjon");
+            _matrikkelValidator = new MatrikkelValidator($"{templateEntityXPath}/eiendomsidentifikasjon");
             ValidationResult.ValidationRules.AddRange(_matrikkelValidator.ValidationResult.ValidationRules);
             this._municipalityValidator = municipalityValidator;
         }
 
-        public override void InitializeValidationRules(string xPath)
+        public sealed override void InitializeValidationRules()
         {
-            AddValidationRule("bygningsnummer_utfylt", xPath, "bygningsnummer");
-            AddValidationRule("bolignummer_utfylt", xPath, "bolignummer");
-            AddValidationRule("kommunenavn_utfylt", xPath, "kommunenavn");
-            AddValidationRule("tillatte_postnr_i_kommune", xPath, "postnr");
+            AddValidationRule("bygningsnummer_utfylt", EntityXPath, "bygningsnummer");
+            AddValidationRule("bolignummer_utfylt", EntityXPath, "bolignummer");
+            AddValidationRule("kommunenavn_utfylt", EntityXPath, "kommunenavn");
+            AddValidationRule("tillatte_postnr_i_kommune", EntityXPath, "postnr");
         }
 
         public ValidationResult Validate(string xPath, Eiendom eiendom)

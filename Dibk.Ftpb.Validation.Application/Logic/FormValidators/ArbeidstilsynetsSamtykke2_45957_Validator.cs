@@ -36,7 +36,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             // map to arbeidstilsynet formEntity 
             ArbeidstilsynetsSamtykke2Form45957 = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(_form);
-            Validate(_xPath, ArbeidstilsynetsSamtykke2Form45957,validationInput);
+            Validate(_xPath, ArbeidstilsynetsSamtykke2Form45957, validationInput);
 
             return _validationResult;
         }
@@ -57,16 +57,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 UpdateValidationResult(eiendomValidationResult);
             }
 
-            var arbeidsplasser = new ArbeidsplasserValidator();
+            var arbeidsplasser = new ArbeidsplasserValidator(_xPath);
 
             var attachments = Helpers.ObjectIsNullOrEmpty(validationInput.Attachments) ? null : validationInput.Attachments.Select(a => a.AttachmentTypeName).ToList();
-           var arbeidsplasserValidator= arbeidsplasser.Validate(_xPath, form.Arbeidsplasser, attachments);
-           UpdateValidationResult(arbeidsplasserValidator);
+            var arbeidsplasserValidator = arbeidsplasser.Validate(form.Arbeidsplasser, attachments);
+            UpdateValidationResult(arbeidsplasserValidator);
 
-            var tiltakshaverResult = new TiltakshaverValidator(_xPath).Validate(null, form.Tiltakshaver);
+            var tiltakshaverResult = new TiltakshaverValidator(_xPath).Validate(form.Tiltakshaver);
             UpdateValidationResult(tiltakshaverResult);
 
-            var fakturamottakerResult = new FakturamottakerValidator(_xPath).Validate(null, form.Fakturamottaker);
+            var fakturamottakerResult = new FakturamottakerValidator(_xPath).Validate(form.Fakturamottaker);
             UpdateValidationResult(fakturamottakerResult);
 
             return _validationResult;

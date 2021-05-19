@@ -52,7 +52,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         {
             var tiltakshaverValidator = new TiltakshaverValidator("unitest");
             _tiltakshaver.Foedselsnummer = "54554";
-            var tiltakshaverResult = tiltakshaverValidator.Validate(null, _tiltakshaver);
+            var tiltakshaverResult = tiltakshaverValidator.Validate(_tiltakshaver);
 
             tiltakshaverResult.Should().NotBeNull();
         }

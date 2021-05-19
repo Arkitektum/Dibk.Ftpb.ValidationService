@@ -36,10 +36,10 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         [Fact]
         public void ArbeidsplasserTest()
         {
-            var arbeidsplasser = new ArbeidsplasserValidator();
+            var arbeidsplasser = new ArbeidsplasserValidator("UnitTest");
             _arbeidsplasser.Beskrivelse = null;
             _attachemntList.Remove("BeskrivelseTypeArbeidProsess");
-            var validationsResult = arbeidsplasser.Validate("UnitTest",_arbeidsplasser,_attachemntList);
+            var validationsResult = arbeidsplasser.Validate(_arbeidsplasser,_attachemntList);
 
             //validationsResult.Any(r => r.ValidationResult == ValidationResultEnum.ValidationFailed).Should().BeFalse();
             //validationsResult.Should().NotBeEmpty();
