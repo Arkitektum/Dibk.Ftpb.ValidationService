@@ -20,7 +20,33 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList
             _memoryCache = memoryCache;
         }
 
-        public async Task<Dictionary<string, CodelistFormat>> GetCodeList(string cocelistName, RegistryType registryType = RegistryType.Arbeidstilsynet)
+        public async Task<Dictionary<string, CodelistFormat>> GetCodeList(ArbeidstilsynetCodeListNames codeListName, RegistryType registryType = RegistryType.Arbeidstilsynet)
+        {
+            return await GetCodeList(codeListName.ToString(), registryType);
+        }
+        public async Task<Dictionary<string, CodelistFormat>> GetCodeList(FtbCodeListNames codeListName, RegistryType registryType = RegistryType.Arbeidstilsynet)
+        {
+            return await GetCodeList(codeListName.ToString(), registryType);
+        }
+
+        public bool IsCodelistValid(ArbeidstilsynetCodeListNames codeListName, string codeValue)
+        {
+            if (String.IsNullOrEmpty(codeValue)) return false;
+            Dictionary<string, CodelistFormat> codelist = GetCodeList(codeListName, RegistryType.Arbeidstilsynet).Result;
+            return codelist.ContainsKey(codeValue);
+        }
+
+        public bool IsCodelistValid(FtbCodeListNames codeListName, string codeValue)
+        {
+            if (String.IsNullOrEmpty(codeValue)) return false;
+            Dictionary<string, CodelistFormat> codelist = GetCodeList(codeListName, RegistryType.Byggesoknad).Result;
+            return codelist.ContainsKey(codeValue);
+        }
+
+
+
+
+        private async Task<Dictionary<string, CodelistFormat>> GetCodeList(string cocelistName, RegistryType registryType = RegistryType.Arbeidstilsynet)
         {
             //Get from cache
             if (_memoryCache.TryGetValue<Dictionary<string, CodelistFormat>>(cocelistName, out var codeList))
@@ -28,39 +54,44 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList
 
             //Get from API
             var jsonResponce = await _codelistApiHttpClient.GetCodeList(cocelistName, registryType);
-            var codeListFromApi = ParseCodeList(jsonResponce);
+            codeList = ParseCodeList(jsonResponce);
 
             //Add to cache if found
             if (jsonResponce != null)
             {
-                _memoryCache.Set(cocelistName, codeListFromApi, new MemoryCacheEntryOptions()
+                _memoryCache.Set(cocelistName, codeList, new MemoryCacheEntryOptions()
                 {
                     SlidingExpiration = new TimeSpan(6, 0, 0)
                 });
             }
             return codeList;
         }
-
         private Dictionary<string, CodelistFormat> ParseCodeList(string jsonString)
         {
-            var codeList = new Dictionary<string, CodelistFormat>(StringComparer.CurrentCultureIgnoreCase);
-
-            var response = JObject.Parse(jsonString);
-
-            foreach (var code in response["containeditems"])
+            try
             {
-                string codevalue = code["codevalue"].ToString();
-                string codename = code["label"].ToString();
-                string codestatus = code["status"].ToString();
-                string codeDescription = code["description"]?.ToString();
+                var codeList = new Dictionary<string, CodelistFormat>(StringComparer.CurrentCultureIgnoreCase);
 
-                if (!string.IsNullOrWhiteSpace(codevalue) && !codeList.ContainsKey(codevalue))
+                var response = JObject.Parse(jsonString);
+
+                foreach (var code in response["containeditems"])
                 {
-                    codeList.Add(codevalue, new CodelistFormat(codename, codeDescription, codestatus));
-                }
-            }
+                    string codevalue = code["codevalue"].ToString();
+                    string codename = code["label"].ToString();
+                    string codestatus = code["status"].ToString();
+                    string codeDescription = code["description"]?.ToString();
 
-            return codeList;
+                    if (!string.IsNullOrWhiteSpace(codevalue) && !codeList.ContainsKey(codevalue))
+                    {
+                        codeList.Add(codevalue, new CodelistFormat(codename, codeDescription, codestatus));
+                    }
+                }
+                return codeList;
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException($"Can not parse jsonResponse :'{jsonString}'");
+            }
         }
         private List<string> GetCodeListNames(string data)
         {

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
+using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using FluentAssertions;
 using Xunit;
 
@@ -15,8 +17,10 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         [Fact]
         public void TestPartstype()
         {
+            var codeListService = MockDataSource.IsCodeListValid(ArbeidstilsynetCodeListNames.arbeidstilsynets_krav, true);
+
             var partsType = new PartstypeCode() {Kodeverdi = "*Privatperson"};
-            var result = new PartstypeValidator("unitTEst").Validate(null, partsType);
+            var result = new PartstypeValidator("unitTEst", codeListService).Validate(null, partsType);
             result.Should().NotBeNull();
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.GeneralValidations;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
@@ -14,11 +15,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public sealed class TiltakshaverValidator : EntityValidatorBase
     {
+        private readonly ICodeListService _codeListService;
 
         private EnkelAdresseValidator _enkelAdresseValidator;
 
-        public TiltakshaverValidator(string parentXPath) : base(parentXPath, "tiltakshaver")
+        public TiltakshaverValidator(string parentXPath, ICodeListService codeListService) : base(parentXPath, "tiltakshaver")
         {
+            _codeListService = codeListService;
             _enkelAdresseValidator = new EnkelAdresseValidator(EntityXPath);
             InitializeValidationRules();
         }
@@ -44,7 +47,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             else
             {
-                var partstypeValidatinResults = new PartstypeValidator(EntityXPath).Validate(null, tiltakshaver.Partstype);
+                var partstypeValidatinResults = new PartstypeValidator(EntityXPath, _codeListService).Validate(null, tiltakshaver.Partstype);
                 UpdateValidationResultWithSubValidations(partstypeValidatinResults);
                 //TODO diskutere hvordan man bruke svaret 
                 //if validation message have any with tiltakshaver.Partstype.Kodeverdi (ok)

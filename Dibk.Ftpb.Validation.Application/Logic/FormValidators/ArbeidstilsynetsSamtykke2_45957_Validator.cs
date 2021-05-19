@@ -4,6 +4,7 @@ using Dibk.Ftpb.Validation.Application.Reporter;
 using System.Collections.Generic;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
@@ -18,15 +19,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
     public class ArbeidstilsynetsSamtykke2_45957_Validator : IFormValidator
     {
         private readonly IMunicipalityValidator _municipalityValidator;
+        private readonly ICodeListService _codeListService;
         public ArbeidstilsynetsSamtykke2Form_45957 ArbeidstilsynetsSamtykke2Form45957 { get; set; }
         public ArbeidstilsynetsSamtykkeType _form { get; set; }
 
         private ValidationResult _validationResult;
 
         private readonly string _xPath = "ArbeidstilsynetsSamtykke";
-        public ArbeidstilsynetsSamtykke2_45957_Validator(IMunicipalityValidator municipalityValidator)
+        public ArbeidstilsynetsSamtykke2_45957_Validator(IMunicipalityValidator municipalityValidator, ICodeListService codeListService)
         {
             _municipalityValidator = municipalityValidator;
+            _codeListService = codeListService;
         }
 
         public ValidationResult StartValidation(ValidationInput validationInput)
@@ -63,7 +66,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var arbeidsplasserValidator = arbeidsplasser.Validate(form.Arbeidsplasser, attachments);
             UpdateValidationResult(arbeidsplasserValidator);
 
-            var tiltakshaverResult = new TiltakshaverValidator(_xPath).Validate(form.Tiltakshaver);
+            var tiltakshaverResult = new TiltakshaverValidator(_xPath, _codeListService).Validate(form.Tiltakshaver);
             UpdateValidationResult(tiltakshaverResult);
 
             var fakturamottakerResult = new FakturamottakerValidator(_xPath).Validate(form.Fakturamottaker);

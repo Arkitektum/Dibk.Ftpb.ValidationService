@@ -13,6 +13,7 @@ using System.Linq;
 using FluentAssertions;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using System.Collections.Generic;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 
@@ -21,13 +22,16 @@ namespace Dibk.Ftpb.Validation.Application.Tests
     public class ArbeidstilsynetsSamtykke245957ValidatorTest
     {
         IMunicipalityValidator _municipalityValidator;
+        private ICodeListService _codeListService;
         ArbeidstilsynetsSamtykke2_45957_Validator _formValidator;
         private readonly string _rootDirTestResults = @"C:\ATIL_testresults";
         private readonly bool WriteValidationResultsToJsonFile = true;
         public ArbeidstilsynetsSamtykke245957ValidatorTest()
         {
             _municipalityValidator = MockDataSource.MunicipalityValidatorResult(MunicipalityValidationEnum.Ok);
-            _formValidator = new ArbeidstilsynetsSamtykke2_45957_Validator(_municipalityValidator);
+            _codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, true);
+
+            _formValidator = new ArbeidstilsynetsSamtykke2_45957_Validator(_municipalityValidator,_codeListService);
 
             if (WriteValidationResultsToJsonFile && !Directory.Exists(_rootDirTestResults))
             {

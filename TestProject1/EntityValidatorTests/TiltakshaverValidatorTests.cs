@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
+using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using FluentAssertions;
 using Xunit;
 
@@ -50,7 +52,9 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         [Fact]
         public void TestTilashaver()
         {
-            var tiltakshaverValidator = new TiltakshaverValidator("unitest");
+            var codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, true);
+
+            var tiltakshaverValidator = new TiltakshaverValidator("unitest", codeListService);
             _tiltakshaver.Foedselsnummer = "54554";
             var tiltakshaverResult = tiltakshaverValidator.Validate(_tiltakshaver);
 
