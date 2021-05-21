@@ -35,13 +35,13 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         public ValidationMessage GetComposedValidationMessage(ValidationMessage validationMessage, string languageCode)
         {
 
-            string xPath = Regex.Replace(validationMessage.Xpath, @"\[([0-9]*)\]", "{0}"); ;
+            string xPath = Regex.Replace(validationMessage.XpathField, @"\[([0-9]*)\]", "{0}"); ;
 
             var theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.Id.Equals(validationMessage.Reference) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath));
 
             if (theStorageEntry == null)
             {
-                validationMessage.Message = $"Could not find validation message with reference: '{validationMessage.Reference}', xpath: '{validationMessage.Xpath}' and languageCode:'{languageCode}'.-";
+                validationMessage.Message = $"Could not find validation message with reference: '{validationMessage.Reference}', xpath: '{validationMessage.XpathField}' and languageCode:'{languageCode}'.-";
             }
             else
             {
@@ -61,6 +61,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
                     validationMessage.Message = theStorageEntry.Message;
                 }
                 validationMessage.ChecklistReference = theStorageEntry.ChecklistReference;
+                validationMessage.Messagetype = theStorageEntry.ValidationResultSeverity;
             }
             return validationMessage;
         }

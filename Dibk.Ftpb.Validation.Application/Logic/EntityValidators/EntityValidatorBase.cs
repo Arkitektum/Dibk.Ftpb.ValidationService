@@ -75,7 +75,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var validationMessage = new ValidationMessage()
             {
                 Reference = id,
-                Xpath = newXPath,
+                XpathField = newXPath,
                 MessageParameters = messageParameters
             };
 

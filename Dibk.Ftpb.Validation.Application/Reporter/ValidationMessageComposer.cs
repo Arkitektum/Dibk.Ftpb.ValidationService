@@ -16,6 +16,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
                 var composedValidationMessage = repo.GetComposedValidationMessage(validationMessage, languageCode);
                 validationMessage.Message = composedValidationMessage.Message;
                 validationMessage.ChecklistReference = composedValidationMessage.ChecklistReference;
+                validationMessage.Messagetype = composedValidationMessage.Messagetype;
             }
 
             foreach (var validationRule in validationResult.ValidationRules)

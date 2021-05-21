@@ -44,6 +44,7 @@ namespace Dibk.Ftpb.Validation
 
             services.AddMvc().AddJsonOptions(options =>
             {
+                //options.JsonSerializerOptions.PropertyNamingPolicy = null;
                 options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
                 //options.JsonSerializerOptions.IgnoreNullValues = true;
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());

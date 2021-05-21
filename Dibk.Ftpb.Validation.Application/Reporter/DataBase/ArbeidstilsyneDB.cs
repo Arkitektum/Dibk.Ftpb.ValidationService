@@ -15,7 +15,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             _validationMessageStorageEntry = new List<ValidationMessageStorageEntry>();
         }
 
-        public void AddRuleTOValidationMessageStorageEntry(string id, string xPath, string message, ValidationResultSeverityEnum validationResultSeverity = ValidationResultSeverityEnum.Warning, string languageCode = null, string checklistReference = null, string dataForm = null, string dataFormatVersion = null)
+        public void AddRuleTOValidationMessageStorageEntry(string id, string xPath, string message, ValidationResultSeverityEnum validationResultSeverity = ValidationResultSeverityEnum.WARNING, string languageCode = null, string checklistReference = null, string dataForm = null, string dataFormatVersion = null)
         {
             var validationMessageStorageEntry = new ValidationMessageStorageEntry()
             {
@@ -37,9 +37,9 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleTOValidationMessageStorageEntry("bygningsnummer_utfylt", "ArbeidstilsynetsSamtykke/eiendomByggested{0}/bygningsnummer", "Bygningsnr må være utfyllt");
             AddRuleTOValidationMessageStorageEntry("bolignummer_utfylt", "ArbeidstilsynetsSamtykke/eiendomByggested{0}/bolignummer", "Bolignummer må være utfyllt");
             AddRuleTOValidationMessageStorageEntry("kommunenavn_utfylt", "ArbeidstilsynetsSamtykke/eiendomByggested{0}/kommunenavn", "Kommunenavn må være utfyllt");
-            AddRuleTOValidationMessageStorageEntry("tillatte_postnr_i_kommune", "ArbeidstilsynetsSamtykke/eiendomByggested{0}/postnr", "Postnr {0} ligger ikke i {1} kommune", ValidationResultSeverityEnum.Error,null, "2.3");
+            AddRuleTOValidationMessageStorageEntry("tillatte_postnr_i_kommune", "ArbeidstilsynetsSamtykke/eiendomByggested{0}/postnr", "Postnr {0} ligger ikke i {1} kommune", ValidationResultSeverityEnum.ERROR,null, "2.3");
             AddRuleTOValidationMessageStorageEntry("eiendomsAdresse_adresselinje1_utfylt", "ArbeidstilsynetsSamtykke/eiendomByggested{0}/adresse/adresselinje1", "Eiendommens adresselinje1 må være utfyllt");
-            AddRuleTOValidationMessageStorageEntry("eiendomsAdresse_adresselinje2_utfylt", "ArbeidstilsynetsSamtykke/eiendomByggested{0}/adresse/adresselinje2", "Eiendommens adresselinje2 må være utfyllt");
+            AddRuleTOValidationMessageStorageEntry("eiendomsAdresse_adresselinje2_utfylt", "ArbeidstilsynetsSamtykke/eiendomByggested{0}/adresse/adresselinje2", "Eiendommens adresselinje2 må være utfyllt", ValidationResultSeverityEnum.WARNING);
             AddRuleTOValidationMessageStorageEntry("eiendomsAdresse_adresselinje3_utfylt", "ArbeidstilsynetsSamtykke/eiendomByggested{0}/adresse/adresselinje3", "Eiendommens adresselinje3 må være utfyllt");
             AddRuleTOValidationMessageStorageEntry("eiendomsAdresse_landkode_utfylt", "ArbeidstilsynetsSamtykke/eiendomByggested{0}/adresse/landkode", "Eiendommens landkode må være utfyllt");
             AddRuleTOValidationMessageStorageEntry("eiendomsAdresse_postnr_utfylt", "ArbeidstilsynetsSamtykke/eiendomByggested{0}/adresse/postnr", "Eiendommens postnr må være utfyllt");
@@ -93,24 +93,24 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
 
 
             //arbeidsplasser
-            AddRuleTOValidationMessageStorageEntry("arbeidsplasser_utfylt", "ArbeidstilsynetsSamtykke/arbeidsplasser", "Arbeidsplasser må fylles ut");
+            AddRuleTOValidationMessageStorageEntry("arbeidsplasser_utfylt", "ArbeidstilsynetsSamtykke/arbeidsplasser", "Arbeidsplasser må fylles ut", ValidationResultSeverityEnum.ERROR);
             AddRuleTOValidationMessageStorageEntry("framtidige_eller_eksisterende_utfylt", "ArbeidstilsynetsSamtykke/arbeidsplasser", "Det må velges enten 'eksisterende' eller 'fremtidige' eller begge deler.");
             AddRuleTOValidationMessageStorageEntry("faste_eller_midlertidige_utfylt", "ArbeidstilsynetsSamtykke/arbeidsplasser", "Det må velges enten 'faste' eller 'midlertidige' eller begge deler");
             AddRuleTOValidationMessageStorageEntry("type_arbeid_utfylt", "ArbeidstilsynetsSamtykke/arbeidsplasser", "Er tiltaket knyttet til utleiebygg så skal antall virksomheter angis.");
             AddRuleTOValidationMessageStorageEntry("utleieBygg", "ArbeidstilsynetsSamtykke/arbeidsplasser", "Det skal angis hvormange ansatte som bygget dimensjoneres for.");
             AddRuleTOValidationMessageStorageEntry("arbeidsplasser_beskrivelse", "ArbeidstilsynetsSamtykke/arbeidsplasser/beskrivelse", "Enten skal arbeidsplasser beskrives i søknaden eller det skal være lagt ved vedlegg 2: 'Beskrivelse av type arbeid / prosesser'.");
             //Tiltakshaver
-            AddRuleTOValidationMessageStorageEntry("tiltakshaver_utfylt", "ArbeidstilsynetsSamtykke/tiltakshaver", "Informasjon om tiltakshaver må fylles ut.",ValidationResultSeverityEnum.Error);
+            AddRuleTOValidationMessageStorageEntry("tiltakshaver_utfylt", "ArbeidstilsynetsSamtykke/tiltakshaver", "Informasjon om tiltakshaver må fylles ut.",ValidationResultSeverityEnum.ERROR);
             AddRuleTOValidationMessageStorageEntry("tiltakshaver_TelMob_Utfylt", "ArbeidstilsynetsSamtykke/tiltakshaver", "Mobilnummer eller telefonnummer for tiltakshaver bør fylles ut.");
             AddRuleTOValidationMessageStorageEntry("tiltakshaver_epost_Utfylt", "ArbeidstilsynetsSamtykke/tiltakshaver/epost", "Mobilnummer eller telefonnummer for tiltakshaver bør fylles ut.");
-            AddRuleTOValidationMessageStorageEntry("tiltakshaver_Navn_Utfylt", "ArbeidstilsynetsSamtykke/tiltakshaver/navn", "Navnet til tiltakshaver må fylles ut.",ValidationResultSeverityEnum.Error);
-            AddRuleTOValidationMessageStorageEntry("tiltakshaver_foedselnummer_utfylt", "ArbeidstilsynetsSamtykke/tiltakshaver/foedselsnummer", "Fødselsnummer må angis når tiltakshaver er privatperson.", ValidationResultSeverityEnum.Error);
-            AddRuleTOValidationMessageStorageEntry("tiltakshaver_foedselnummer_Dekryptering", "ArbeidstilsynetsSamtykke/tiltakshaver/foedselsnummer", "Tiltakshaver Fødselsnummer kan ikke dekrypteres", ValidationResultSeverityEnum.Error);
-            AddRuleTOValidationMessageStorageEntry("tiltakshaver_foedselnummer_ugyldig", "ArbeidstilsynetsSamtykke/tiltakshaver/foedselsnummer", "Tiltakshaver Fødselsnummeret er ikke gyldig.", ValidationResultSeverityEnum.Error);
-            AddRuleTOValidationMessageStorageEntry("tiltakshaver_foedselnummer_kontrollsiffer", "ArbeidstilsynetsSamtykke/tiltakshaver/foedselsnummer", "Tiltakshaver Fødselsnummeret har ikke gyldig kontrollsiffer.", ValidationResultSeverityEnum.Error);
-            AddRuleTOValidationMessageStorageEntry("tiltakshaver_organisasjonsnummer_utfylt", "ArbeidstilsynetsSamtykke/tiltakshaver/organisasjonsnummer", "Organisasjonsnummer for tiltakshaver må fylles ut.", ValidationResultSeverityEnum.Error);
-            AddRuleTOValidationMessageStorageEntry("tiltakshaver_organisasjonsnummer_kontrollsiffer", "ArbeidstilsynetsSamtykke/tiltakshaver/organisasjonsnummer", "Organisasjonsnummeret ('{0}') for tiltakshaver har ikke gyldig kontrollsiffer.", ValidationResultSeverityEnum.Error);
-            AddRuleTOValidationMessageStorageEntry("tiltakshaver_organisasjonsnummer_ugyldig", "ArbeidstilsynetsSamtykke/tiltakshaver/organisasjonsnummer", "Organisasjonsnummeret ('{0}') for tiltakshaver er ikke gyldig.", ValidationResultSeverityEnum.Error);
+            AddRuleTOValidationMessageStorageEntry("tiltakshaver_Navn_Utfylt", "ArbeidstilsynetsSamtykke/tiltakshaver/navn", "Navnet til tiltakshaver må fylles ut.",ValidationResultSeverityEnum.ERROR);
+            AddRuleTOValidationMessageStorageEntry("tiltakshaver_foedselnummer_utfylt", "ArbeidstilsynetsSamtykke/tiltakshaver/foedselsnummer", "Fødselsnummer må angis når tiltakshaver er privatperson.", ValidationResultSeverityEnum.ERROR);
+            AddRuleTOValidationMessageStorageEntry("tiltakshaver_foedselnummer_Dekryptering", "ArbeidstilsynetsSamtykke/tiltakshaver/foedselsnummer", "Tiltakshaver Fødselsnummer kan ikke dekrypteres", ValidationResultSeverityEnum.ERROR);
+            AddRuleTOValidationMessageStorageEntry("tiltakshaver_foedselnummer_ugyldig", "ArbeidstilsynetsSamtykke/tiltakshaver/foedselsnummer", "Tiltakshaver Fødselsnummeret er ikke gyldig.", ValidationResultSeverityEnum.ERROR);
+            AddRuleTOValidationMessageStorageEntry("tiltakshaver_foedselnummer_kontrollsiffer", "ArbeidstilsynetsSamtykke/tiltakshaver/foedselsnummer", "Tiltakshaver Fødselsnummeret har ikke gyldig kontrollsiffer.", ValidationResultSeverityEnum.ERROR);
+            AddRuleTOValidationMessageStorageEntry("tiltakshaver_organisasjonsnummer_utfylt", "ArbeidstilsynetsSamtykke/tiltakshaver/organisasjonsnummer", "Organisasjonsnummer for tiltakshaver må fylles ut.", ValidationResultSeverityEnum.ERROR);
+            AddRuleTOValidationMessageStorageEntry("tiltakshaver_organisasjonsnummer_kontrollsiffer", "ArbeidstilsynetsSamtykke/tiltakshaver/organisasjonsnummer", "Organisasjonsnummeret ('{0}') for tiltakshaver har ikke gyldig kontrollsiffer.", ValidationResultSeverityEnum.ERROR);
+            AddRuleTOValidationMessageStorageEntry("tiltakshaver_organisasjonsnummer_ugyldig", "ArbeidstilsynetsSamtykke/tiltakshaver/organisasjonsnummer", "Organisasjonsnummeret ('{0}') for tiltakshaver er ikke gyldig.", ValidationResultSeverityEnum.ERROR);
 
             //EnkelAdress
             AddRuleTOValidationMessageStorageEntry("adresse_utfylt", "ArbeidstilsynetsSamtykke/tiltakshaver/adresse", "Adresse bør fylles ut for tiltakshaver.");
@@ -128,11 +128,11 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleTOValidationMessageStorageEntry("kontaktpersonNavn_utfylt", "ArbeidstilsynetsSamtykke/tiltakshaver/kontaktperson/navn", "Navnet til kontaktperson for tiltakshaver bør fylles ut.");
 
             //fakturamottaker
-            AddRuleTOValidationMessageStorageEntry("fakturamottaker_utfylt", "/ArbeidstilsynetsSamtykke/fakturamottaker", "Fakturainformasjon må fylles ut.",ValidationResultSeverityEnum.Error);
+            AddRuleTOValidationMessageStorageEntry("fakturamottaker_utfylt", "/ArbeidstilsynetsSamtykke/fakturamottaker", "Fakturainformasjon må fylles ut.",ValidationResultSeverityEnum.ERROR);
 
             //EnkelAdress
             AddRuleTOValidationMessageStorageEntry("adresse_utfylt", "ArbeidstilsynetsSamtykke/fakturamottaker/adresse", "Adresse bør fylles ut for tiltakshaver.");
-            AddRuleTOValidationMessageStorageEntry("enkelAdress_adresseLinje1_Utfylt", "ArbeidstilsynetsSamtykke/fakturamottaker/adresse", "Adresselinje 1 skal fylles ut for fakturamottaker.", ValidationResultSeverityEnum.Error);
+            AddRuleTOValidationMessageStorageEntry("enkelAdress_adresseLinje1_Utfylt", "ArbeidstilsynetsSamtykke/fakturamottaker/adresse", "Adresselinje 1 skal fylles ut for fakturamottaker.", ValidationResultSeverityEnum.ERROR);
             //AddRuleTOValidationMessageStorageEntry("enkelAdress_adresseLinje1_Utfylt", "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/adresselinje1", "Adresselinje 1 bør fylles ut for tiltakshaver.");
             AddRuleTOValidationMessageStorageEntry("enkelAdress_landkode_utfylt", "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/landkode", "Ugyldig landkode for fakturamottaker.");
             //AddRuleTOValidationMessageStorageEntry("enkelAdress_postnr_utfylt", "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/postnr", "Postnummer for tiltakshaver bør angis.");

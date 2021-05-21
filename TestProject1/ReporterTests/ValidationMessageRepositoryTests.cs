@@ -24,7 +24,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.ReporterTests
                 //MessageParameters = new List<string>() { "jeg er først"},
                 //PreCondition = "..?..",
                 //ValidationResult = ValidationResultEnum.Unused,
-                Xpath = "Unit/Test/Parameter",
+                XpathField = "Unit/Test/Parameter",
             };
             //string result;
             var noko = new ValidationMessageRepository().GetComposedValidationMessage(validationMessage, "NO");

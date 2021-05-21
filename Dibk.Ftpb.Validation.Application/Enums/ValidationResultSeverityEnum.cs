@@ -2,7 +2,7 @@
 {
     public enum ValidationResultSeverityEnum
     {
-        Error,
-        Warning
+        ERROR,
+        WARNING
     }
 }
