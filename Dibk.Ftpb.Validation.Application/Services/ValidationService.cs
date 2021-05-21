@@ -58,16 +58,21 @@ namespace Dibk.Ftpb.Validation.Application.Services
 
             //**************         END             *************************************************************************************
 
-
-
-
             if (!Helpers.ObjectIsNullOrEmpty(inputData?.Config?.DataFormatVersion))
             {
-                var taskValidationResult = _validationOrchestrator.ExecuteAsync(inputData?.Config?.DataFormatVersion, errorMessages, validationInput);
-                return taskValidationResult.Result;
+                validationResult = _validationOrchestrator.ExecuteAsync(inputData?.Config?.DataFormatVersion, errorMessages, validationInput).Result;
+                //return taskValidationResult.Result;
+            }
+            else
+            {
+                validationResult.ValidationMessages = new List<ValidationMessage> { new() { Message = "Can't Get DataFormatId" } };
             }
             
-            validationResult.ValidationMessages = new List<ValidationMessage> { new() { Message = "Can't Get DataFormatId" } };
+            validationResult.Errors = 0;
+            validationResult.Warnings = validationResult.ValidationMessages.Count;
+            validationResult.messages = validationResult.ValidationMessages;
+            validationResult.rulesChecked = validationResult.ValidationRules;
+
             return validationResult;
         }
 
