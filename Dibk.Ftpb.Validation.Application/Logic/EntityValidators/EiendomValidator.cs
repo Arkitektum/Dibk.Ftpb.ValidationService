@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dibk.Ftpb.Validation.Application.DataSources;
-using Dibk.Ftpb.Validation.Application.Enums;
+﻿using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -41,29 +37,31 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             base.ResetValidationMessages();
 
-            ValidateEntityFields(xPath, (Eiendom)eiendom);
+            ValidateEntityFields((Eiendom)eiendom);
 
-            var eiendomsAdresseValidationResponse = _eiendomsAdresseValidator.Validate($"{xPath}/adresse", eiendom.Adresse);
+            //var eiendomsAdresseValidationResponse = _eiendomsAdresseValidator.Validate($"{xPath}/adresse", eiendom.Adresse);
+            var eiendomsAdresseValidationResponse = _eiendomsAdresseValidator.Validate(eiendom.Adresse);
             ValidationResult.ValidationMessages.AddRange(eiendomsAdresseValidationResponse.ValidationMessages);
 
-            var matrikkelValidationRules = _matrikkelValidator.Validate($"{xPath}/eiendomsidentifikasjon", eiendom.Matrikkel);
+            var matrikkelValidationRules = _matrikkelValidator.Validate(eiendom.Matrikkel);
             ValidationResult.ValidationMessages.AddRange(matrikkelValidationRules.ValidationMessages);
 
-            ValidateDataRelations(xPath, eiendom);
+            ValidateDataRelations(eiendom);
 
             return ValidationResult;
         }
 
-        private void ValidateDataRelations(string xPath, Eiendom eiendom)
+        private void ValidateDataRelations(Eiendom eiendom)
         {
             if (!TillattPostnrIKommune(eiendom.Kommunenavn, eiendom.Adresse.Postnr))
             {
-                AddMessageFromRule("tillatte_postnr_i_kommune", xPath, new List<string>() { eiendom.Adresse.Postnr, eiendom.Kommunenavn });
+                AddMessageFromRule("tillatte_postnr_i_kommune", eiendom.GetXpathForEntity(), new List<string>() { eiendom.Adresse.Postnr, eiendom.Kommunenavn });
             }
         }
 
-        protected void ValidateEntityFields(string xPath, Eiendom eiendom)
+        protected void ValidateEntityFields(Eiendom eiendom)
         {
+            var xPath = eiendom.GetXpathForEntity();
             if (Helpers.ObjectIsNullOrEmpty(eiendom.Bygningsnummer))
                 AddMessageFromRule("bygningsnummer_utfylt", xPath);
 

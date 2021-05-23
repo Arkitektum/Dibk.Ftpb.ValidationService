@@ -12,6 +12,7 @@ using Dibk.Ftpb.Validation.Application.Logic.Mappers;
 using Dibk.Ftpb.Validation.Application.Logic.Deserializers;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Models.Web;
+using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
@@ -55,7 +56,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             foreach (var eiendom in form.Eiendommer)
             {
-                int index = form.Eiendommer.IndexOf(eiendom);
+                int index = form.Eiendommer.ToList().IndexOf(eiendom);
                 var eiendomValidationResult = eiendomValidator.Validate($"{xPath}/eiendomByggested[{index}]", eiendom);
                 UpdateValidationResult(eiendomValidationResult);
             }

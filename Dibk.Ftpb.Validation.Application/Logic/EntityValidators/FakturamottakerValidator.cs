@@ -33,7 +33,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             else
             {
-                _enkelAdresseValidator.Validate(fakturamottaker.adresse);
+                _enkelAdresseValidator.Validate(fakturamottaker.Adresse);
             }
             UpdateValidationResultWithSubValidations(enkelAdressValidator.ValidationResult);
 

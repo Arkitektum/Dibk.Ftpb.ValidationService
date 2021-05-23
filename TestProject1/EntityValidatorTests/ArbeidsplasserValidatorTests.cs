@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dibk.Ftpb.Validation.Application.Enums;
-using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
+﻿using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
-using FluentAssertions;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
@@ -19,7 +13,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
         public ArbeidsplasserValidatorTests()
         {
-            _arbeidsplasser = new Arbeidsplasser()
+            _arbeidsplasser = new Arbeidsplasser("Arbeidsplasser", null)
             {
                 AntallAnsatte = "3",
                 AntallVirksomheter = "2",
@@ -39,7 +33,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             var arbeidsplasser = new ArbeidsplasserValidator("UnitTest");
             _arbeidsplasser.Beskrivelse = null;
             _attachemntList.Remove("BeskrivelseTypeArbeidProsess");
-            var validationsResult = arbeidsplasser.Validate(_arbeidsplasser,_attachemntList);
+            var validationsResult = arbeidsplasser.Validate(_arbeidsplasser, _attachemntList);
 
             //validationsResult.Any(r => r.ValidationResult == ValidationResultEnum.ValidationFailed).Should().BeFalse();
             //validationsResult.Should().NotBeEmpty();

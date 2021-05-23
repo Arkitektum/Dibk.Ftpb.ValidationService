@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
+﻿namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class Arbeidsplasser
+    public class Arbeidsplasser : ValidationEntityBase
     {
+        public Arbeidsplasser(string xmlElementName, ValidationEntityBase parentEntity = null) : base(xmlElementName, parentEntity)
+        {}
+
         public bool? Framtidige { get; set; }
         public bool? Faste { get; set; }
         public bool? Midlertidige { get; set; }

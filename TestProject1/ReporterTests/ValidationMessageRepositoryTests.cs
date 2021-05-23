@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Dibk.Ftpb.Validation.Application.Enums;
-using Dibk.Ftpb.Validation.Application.Reporter;
-using FluentAssertions;
+﻿using Dibk.Ftpb.Validation.Application.Reporter;
 using Xunit;
 
 namespace Dibk.Ftpb.Validation.Application.Tests.ReporterTests

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
+﻿namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class Kontaktperson
+    public class Kontaktperson : ValidationEntityBase
     {
+        public Kontaktperson(string xmlElementName, ValidationEntityBase parentEntity = null) : base(xmlElementName, parentEntity)
+        {}
+
         public string Navn { get; set; }
 
         public string Telefonnummer { get; set; }

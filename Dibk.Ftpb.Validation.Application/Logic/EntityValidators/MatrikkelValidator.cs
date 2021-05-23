@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dibk.Ftpb.Validation.Application.Enums;
-using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
+﻿using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 
@@ -16,10 +10,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             InitializeValidationRules();
         }
-        public ValidationResult Validate(string xPath, Matrikkel matrikkel)
+        public ValidationResult Validate(Matrikkel matrikkel)
         {
             base.ResetValidationMessages();
-            ValidateEntityFields(xPath, matrikkel);
+            ValidateEntityFields(matrikkel);
 
             return ValidationResult;
         }
@@ -33,8 +27,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule("seksjonsnummer_utfylt", EntityXPath, "seksjonsnummer");
         }
 
-        public void ValidateEntityFields(string xPath, Matrikkel matrikkel)
+        public void ValidateEntityFields(Matrikkel matrikkel)
         {
+            var xPath = matrikkel.GetXpathForEntity();
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.Kommunenummer))
                 AddMessageFromRule("kommunenummer_utfylt", xPath);
 

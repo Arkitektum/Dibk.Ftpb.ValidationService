@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dibk.Ftpb.Validation.Application.Enums;
-using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
+﻿using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 
@@ -16,10 +10,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             InitializeValidationRules();
         }
-        public ValidationResult Validate(string xPath, EiendomsAdresse eiendomsAdresse)
+        public ValidationResult Validate(EiendomsAdresse eiendomsAdresse)
         {
             base.ResetValidationMessages();
-            ValidateEntityFields(xPath, eiendomsAdresse);
+            ValidateEntityFields(eiendomsAdresse);
 
             return ValidationResult;
         }
@@ -38,8 +32,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule("eiendomsAdresse_postnr_4siffer", EntityXPath, "postnr");
         }
 
-        public void ValidateEntityFields(string xPath, EiendomsAdresse eiendomsAdresse)
+        public void ValidateEntityFields(EiendomsAdresse eiendomsAdresse)
         {
+            var xPath = eiendomsAdresse.GetXpathForEntity();
+
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresse.Adresselinje1))
                 AddMessageFromRule("eiendomsAdresse_adresselinje1_utfylt", xPath);
 

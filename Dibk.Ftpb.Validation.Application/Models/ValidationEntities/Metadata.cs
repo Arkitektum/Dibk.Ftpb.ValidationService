@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
+﻿namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class Metadata
+    public class Metadata : ValidationEntityBase
     {
+        public Metadata(string xmlElementName, ValidationEntityBase parentEntity = null) : base(xmlElementName, parentEntity)
+        {}
+
         public string FraSluttbrukersystem { get; set; }
         public string Prosjektnavn { get; set; }
     }

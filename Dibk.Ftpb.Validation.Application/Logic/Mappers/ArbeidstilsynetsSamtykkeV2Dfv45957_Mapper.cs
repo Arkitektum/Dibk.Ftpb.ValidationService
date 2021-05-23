@@ -6,17 +6,17 @@ using System.Collections.Generic;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers
 {
-    public class ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper
+    public class ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper_Old
     {
         private IMapper _fomMapper;
 
-        public ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper()
+        public ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper_Old()
         {
             _fomMapper = FormMapperConfiguration();
         }
         public ArbeidstilsynetsSamtykke2Form_45957 GetFormEntity(ArbeidstilsynetsSamtykkeType dataModel)
         {
-            var arbeidstilsynetsSamtykke2Form45957 = new ArbeidstilsynetsSamtykke2Form_45957();
+            var arbeidstilsynetsSamtykke2Form45957 = new ArbeidstilsynetsSamtykke2Form_45957(null);
             var formMapper = FormMapperConfiguration();
 
             List<Eiendom> eiendommer = new();
@@ -82,15 +82,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers
                 .ForMember(dest => dest.Kommunenummer, opt => opt.MapFrom(src => src.kommunenummer))
                 .ForMember(dest => dest.Festenummer, opt => opt.MapFrom(src => src.festenummer));
                 //Arbeidsplasser
-                cfg.CreateMap<ArbeidsplasserType, Arbeidsplasser>();
+                cfg.CreateMap<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.ArbeidsplasserType, Arbeidsplasser>();
                 
                 //Aktoer - (Tltakshaver/AnsvarligSæker)
                 cfg.CreateMap<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.PartType, Aktoer>();
-                cfg.CreateMap<EnkelAdresseType, EnkelAdresse>();
-                cfg.CreateMap<KodeType, Dibk.Ftpb.Validation.Application.Models.ValidationEntities.PartstypeCode>();
-                cfg.CreateMap<KontaktpersonType,Kontaktperson>();
+                cfg.CreateMap<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.EnkelAdresseType, EnkelAdresse>();
+                cfg.CreateMap<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.KodeType, PartstypeCode>();
+                cfg.CreateMap<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.KontaktpersonType,Kontaktperson>();
                 //Fakturamottaker
-                cfg.CreateMap<FakturamottakerType, Fakturamottaker>();
+                cfg.CreateMap<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.FakturamottakerType, Fakturamottaker>();
 
             });
 
