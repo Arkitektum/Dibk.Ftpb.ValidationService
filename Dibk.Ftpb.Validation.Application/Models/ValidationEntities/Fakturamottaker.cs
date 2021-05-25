@@ -1,10 +1,13 @@
 ﻿namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class Fakturamottaker : ValidationEntityBase
+    public class FakturamottakerValidationEntity : ValidationEntityBase<Fakturamottaker>
     {
-        public Fakturamottaker(string xmlElementName, ValidationEntityBase parentEntity = null) : base(xmlElementName, parentEntity)
+        public FakturamottakerValidationEntity(Fakturamottaker modelData, string xmlElementName, string parentEntityDataModelXpath = null) 
+            : base(modelData, xmlElementName, parentEntityDataModelXpath)
         {}
-
+    }
+    public class Fakturamottaker
+    { 
         public string Organisasjonsnummer { get; set; }
 
         public string BestillerReferanse { get; set; }
@@ -19,6 +22,6 @@
 
         public bool? FakturaPapir { get; set; }
 
-        public EnkelAdresse Adresse { get; set; }
+        public EnkelAdresseValidationEntity Adresse { get; set; }
     }
 }

@@ -1,18 +1,14 @@
 ﻿namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public abstract class ValidationEntityBase
+    public abstract class ValidationEntityBase<T>
     {
-        public ValidationEntityBase(string xmlElementName, ValidationEntityBase parentEntity = null)
-        {
-            XmlElementName = xmlElementName;
-            ParentEntity = parentEntity;
-        }
+        public T ModelData { get; set; }
+        public string DataModelXpath { get; set; }
 
-        private ValidationEntityBase ParentEntity { get; set; }
-        private string XmlElementName { get; set; }
-        public string GetXpathForEntity()
-        {             
-            return ParentEntity != null ? $"{ParentEntity.GetXpathForEntity()}/{XmlElementName}" : $"{XmlElementName}";                
+        public ValidationEntityBase(T modelData, string xmlElementName, string parentEntityDataModelXpath = null)
+        {
+            ModelData = modelData;
+            DataModelXpath = parentEntityDataModelXpath != null ? $"{parentEntityDataModelXpath}/{xmlElementName}" : $"{xmlElementName}";
         }
     }
 }

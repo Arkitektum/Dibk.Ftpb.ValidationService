@@ -1,18 +1,16 @@
-using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
-using Dibk.Ftpb.Validation.Application.Models.FormEntities;
-using Dibk.Ftpb.Validation.Application.Reporter;
-using System.Collections.Generic;
-using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
+using Dibk.Ftpb.Validation.Application.Logic.Deserializers;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
+using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke;
+using Dibk.Ftpb.Validation.Application.Models.FormEntities;
+using Dibk.Ftpb.Validation.Application.Models.Web;
+using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers;
-using Dibk.Ftpb.Validation.Application.Logic.Deserializers;
-using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
-using Dibk.Ftpb.Validation.Application.Models.Web;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
@@ -21,12 +19,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
     {
         private readonly IMunicipalityValidator _municipalityValidator;
         private readonly ICodeListService _codeListService;
-        public ArbeidstilsynetsSamtykke2Form_45957 ArbeidstilsynetsSamtykke2Form45957 { get; set; }
+        public ArbeidstilsynetsSamtykke2Form_45957_ValidationEntity ArbeidstilsynetsSamtykke2Form45957 { get; set; }
         public ArbeidstilsynetsSamtykkeType _form { get; set; }
 
         private ValidationResult _validationResult;
 
-        private readonly string _xPath = "ArbeidstilsynetsSamtykke";
+        //private readonly string _xPath = "ArbeidstilsynetsSamtykke";
         public ArbeidstilsynetsSamtykke2_45957_Validator(IMunicipalityValidator municipalityValidator, ICodeListService codeListService)
         {
             _municipalityValidator = municipalityValidator;
@@ -40,7 +38,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             // map to arbeidstilsynet formEntity 
             ArbeidstilsynetsSamtykke2Form45957 = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(_form);
-            Validate(_xPath, ArbeidstilsynetsSamtykke2Form45957, validationInput);
+            Validate(ArbeidstilsynetsSamtykke2Form45957, validationInput);
 
             return _validationResult;
         }
@@ -50,27 +48,27 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             return SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
         }
 
-        public ValidationResult Validate(string xPath, ArbeidstilsynetsSamtykke2Form_45957 form, ValidationInput validationInput)
+        public ValidationResult Validate(ArbeidstilsynetsSamtykke2Form_45957_ValidationEntity form, ValidationInput validationInput)
         {
-            var eiendomValidator = new EiendomValidator($"{xPath}/eiendomByggested{{0}}", _municipalityValidator);
+            var eiendomValidator = new EiendomValidator(_municipalityValidator);
 
-            foreach (var eiendom in form.Eiendommer)
+            foreach (var eiendom in form.ModelData.Eiendommer)
             {
-                int index = form.Eiendommer.ToList().IndexOf(eiendom);
-                var eiendomValidationResult = eiendomValidator.Validate($"{xPath}/eiendomByggested[{index}]", eiendom);
+                int index = form.ModelData.Eiendommer.ToList().IndexOf(eiendom);
+                var eiendomValidationResult = eiendomValidator.Validate(eiendom);
                 UpdateValidationResult(eiendomValidationResult);
             }
 
-            var arbeidsplasser = new ArbeidsplasserValidator(_xPath);
+            var arbeidsplasser = new ArbeidsplasserValidator();
 
             var attachments = Helpers.ObjectIsNullOrEmpty(validationInput.Attachments) ? null : validationInput.Attachments.Select(a => a.AttachmentTypeName).ToList();
-            var arbeidsplasserValidator = arbeidsplasser.Validate(form.Arbeidsplasser, attachments);
+            var arbeidsplasserValidator = arbeidsplasser.Validate(form.ModelData.Arbeidsplasser, attachments);
             UpdateValidationResult(arbeidsplasserValidator);
 
-            var tiltakshaverResult = new TiltakshaverValidator(_xPath, _codeListService).Validate(form.Tiltakshaver);
+            var tiltakshaverResult = new TiltakshaverValidator(_codeListService).Validate(form.ModelData.Tiltakshaver);
             UpdateValidationResult(tiltakshaverResult);
 
-            var fakturamottakerResult = new FakturamottakerValidator(_xPath).Validate(form.Fakturamottaker);
+            var fakturamottakerResult = new FakturamottakerValidator().Validate(form.ModelData.Fakturamottaker);
             UpdateValidationResult(fakturamottakerResult);
 
             return _validationResult;

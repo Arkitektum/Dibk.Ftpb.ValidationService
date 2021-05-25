@@ -3,52 +3,61 @@ using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke
 {
-    public partial class TiltakshaverMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.PartType, Aktoer>
+    public class TiltakshaverMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.PartType, AktoerValidationEntity>
     {
-        public override Aktoer Map(PartType mapFrom, ValidationEntityBase parentEntity = null)
+        public override AktoerValidationEntity Map(PartType mapFrom, string parentElementXpath = null)
         {
-            if (mapFrom == null) return null;
-            var tiltakshaver = new Aktoer("Tiltakshaver", parentEntity)
+            Aktoer tiltakshaver = null;
+            if (mapFrom != null)
+            {
+                tiltakshaver = new Aktoer()
             {
                 Epost = mapFrom.epost,
                 Foedselsnummer = mapFrom.foedselsnummer,
                 Mobilnummer = mapFrom.mobilnummer,
                 Navn = mapFrom.navn,
                 Organisasjonsnummer = mapFrom.organisasjonsnummer
-            };
+            };  
 
-            tiltakshaver.Adresse = new EnkelAdresseMapper().Map(mapFrom.adresse, tiltakshaver);
-            tiltakshaver.Kontaktperson = new KontaktpersonMapper().Map(mapFrom.kontaktperson, tiltakshaver);
-            tiltakshaver.Partstype = new PartstypeCodeMapper().Map(mapFrom.partstype, tiltakshaver);            
+            tiltakshaver.Adresse = new EnkelAdresseMapper().Map(mapFrom.adresse, $"{parentElementXpath}/Tiltakshaver");
+                tiltakshaver.Kontaktperson = new KontaktpersonMapper().Map(mapFrom.kontaktperson, $"{parentElementXpath}/Tiltakshaver");
+                tiltakshaver.Partstype = new PartstypeCodeMapper().Map(mapFrom.partstype, $"{parentElementXpath}/Tiltakshaver");
+            }
 
-            return tiltakshaver;
+            return  new AktoerValidationEntity(tiltakshaver, "Tiltakshaver", parentElementXpath);
         }
 
-        private class KontaktpersonMapper : ModelToValidationEntityMapper<KontaktpersonType, Kontaktperson>
+        private class KontaktpersonMapper : ModelToValidationEntityMapper<KontaktpersonType, KontaktpersonValidationEntity>
         {
-            public override Kontaktperson Map(KontaktpersonType mapFrom, ValidationEntityBase parentEntity = null)
+            public override KontaktpersonValidationEntity Map(KontaktpersonType mapFrom, string parentElementXpath = null)
             {
-                if (mapFrom == null) return null;
-                return new Kontaktperson("Kontaktperson", parentEntity)
+                Kontaktperson kontaktperson = null;
+                if (mapFrom != null)
+                    kontaktperson =  new Kontaktperson()
                 {
                     Epost = mapFrom.epost,
                     Mobilnummer = mapFrom.mobilnummer,
                     Navn = mapFrom.navn,
                     Telefonnummer = mapFrom.telefonnummer
                 };
+
+                return new KontaktpersonValidationEntity(kontaktperson, "Kontaktperson", parentElementXpath);
             }
         }
 
-        private class PartstypeCodeMapper : ModelToValidationEntityMapper<KodeType, PartstypeCode>
+        private class PartstypeCodeMapper : ModelToValidationEntityMapper<KodeType, ParttypeCodeValidationEntity>
         {
-            public override PartstypeCode Map(KodeType mapFrom, ValidationEntityBase parentEntity = null)
+            public override ParttypeCodeValidationEntity Map(KodeType mapFrom, string parentElementXpath = null)
             {
-                if (mapFrom == null) return null;
-                return new PartstypeCode("PartsType", parentEntity)
+                PartstypeCode partstypeCode = null;
+                if (mapFrom != null)
+                    partstypeCode= new PartstypeCode()
                 {
                     Kodebeskrivelse = mapFrom.kodebeskrivelse,
                     Kodeverdi = mapFrom.kodeverdi
                 };
+
+                return new ParttypeCodeValidationEntity(partstypeCode, "PartsType", parentElementXpath);
             }
         }
     }

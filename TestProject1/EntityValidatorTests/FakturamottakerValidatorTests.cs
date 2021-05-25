@@ -19,7 +19,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             var fakturamottaker = new FakturamottakerMapper().Map(form.fakturamottaker, null);
             //var fakturamottaker = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().MapFakturamottaker(form.fakturamottaker);
 
-            var fakturaResul = new FakturamottakerValidator("unitTest").Validate(fakturamottaker);
+            var fakturaResul = new FakturamottakerValidator().Validate(fakturamottaker);
 
             fakturaResul.Should().NotBeNull();
 

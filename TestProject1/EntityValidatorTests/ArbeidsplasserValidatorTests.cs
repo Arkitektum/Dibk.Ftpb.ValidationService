@@ -7,13 +7,13 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 {
     public class ArbeidsplasserValidatorTests
     {
-        private Arbeidsplasser _arbeidsplasser;
+        private ArbeidsplasserValidationEntity _arbeidsplasser;
         private List<string> _attachemntList;
 
 
         public ArbeidsplasserValidatorTests()
         {
-            _arbeidsplasser = new Arbeidsplasser("Arbeidsplasser", null)
+            var arbeidsplasser = new Arbeidsplasser()
             {
                 AntallAnsatte = "3",
                 AntallVirksomheter = "2",
@@ -24,14 +24,17 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
                 Midlertidige = false,
                 UtleieBygg = null
             };
+
+            _arbeidsplasser = new ArbeidsplasserValidationEntity(arbeidsplasser, "Arbeidsplasser");
+
             _attachemntList = new List<string>() { "BeskrivelseTypeArbeidProsess" };
         }
 
         [Fact]
         public void ArbeidsplasserTest()
         {
-            var arbeidsplasser = new ArbeidsplasserValidator("UnitTest");
-            _arbeidsplasser.Beskrivelse = null;
+            var arbeidsplasser = new ArbeidsplasserValidator();
+            _arbeidsplasser.ModelData.Beskrivelse = null;
             _attachemntList.Remove("BeskrivelseTypeArbeidProsess");
             var validationsResult = arbeidsplasser.Validate(_arbeidsplasser, _attachemntList);
 

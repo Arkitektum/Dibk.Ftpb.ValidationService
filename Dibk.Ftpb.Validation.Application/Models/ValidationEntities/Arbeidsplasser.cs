@@ -1,9 +1,12 @@
 ﻿namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class Arbeidsplasser : ValidationEntityBase
+    public class ArbeidsplasserValidationEntity : ValidationEntityBase<Arbeidsplasser>
     {
-        public Arbeidsplasser(string xmlElementName, ValidationEntityBase parentEntity = null) : base(xmlElementName, parentEntity)
+        public ArbeidsplasserValidationEntity(Arbeidsplasser modelData, string xmlElementName, string parentEntityDataModelXpath = null) : base(modelData, xmlElementName, parentEntityDataModelXpath)
         {}
+    }
+    public class Arbeidsplasser
+    {
 
         public bool? Framtidige { get; set; }
         public bool? Faste { get; set; }

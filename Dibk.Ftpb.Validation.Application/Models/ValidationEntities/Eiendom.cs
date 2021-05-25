@@ -1,12 +1,14 @@
 ﻿namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class Eiendom : ValidationEntityBase
+    public class EiendomValidationEntity : ValidationEntityBase<Eiendom>
     {
-        public Eiendom(string xmlElementName, ValidationEntityBase parentEntity = null) : base(xmlElementName, parentEntity)
+        public EiendomValidationEntity(Eiendom modelData, string xmlElementName, string parentEntityDataModelXpath = null) : base(modelData, xmlElementName, parentEntityDataModelXpath)
         {}
-
-        public EiendomsAdresse Adresse { get; set; }
-        public Matrikkel Matrikkel { get; set; }
+    }
+    public class Eiendom
+    {
+        public EiendomsAdresseValidationEntity Adresse { get; set; }
+        public MatrikkelValidationEntity Matrikkel { get; set; }
         public string Bygningsnummer { get; set; }
         public string Bolignummer { get; set; }
         public string Kommunenavn { get; set; }

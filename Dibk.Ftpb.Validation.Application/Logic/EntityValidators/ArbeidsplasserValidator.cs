@@ -1,48 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dibk.Ftpb.Validation.Application.Enums;
-using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
+﻿using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
+using System.Collections.Generic;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class ArbeidsplasserValidator : EntityValidatorBase
     {
-
         private List<string> _attachmentList;
 
-        public ArbeidsplasserValidator(string parentXPath) : base(parentXPath, "arbeidsplasser")
-        {
-            InitializeValidationRules();
+        public ArbeidsplasserValidator() : base()
+        {   
         }
-        public ValidationResult Validate(Arbeidsplasser arbeidsplasser, List<string> attachments = null)
+        public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, List<string> attachments = null)
         {
+            InitializeValidationRules(arbeidsplasser.DataModelXpath);
 
             _attachmentList = attachments;
 
             ValidateEntityFields(arbeidsplasser);
 
-            return ValidationResult;
+            return _validationResult;
         }
 
-        public sealed override void InitializeValidationRules()
+        protected override void InitializeValidationRules(string xPathForEntity)
         {
-            this.AddValidationRule("arbeidsplasser_utfylt", EntityXPath);
-            this.AddValidationRule("framtidige_eller_eksisterende_utfylt", EntityXPath);
-            this.AddValidationRule("faste_eller_midlertidige_utfylt", EntityXPath);
-            this.AddValidationRule("type_arbeid_utfylt", EntityXPath);
-            this.AddValidationRule("utleieBygg", EntityXPath);
-            this.AddValidationRule("arbeidsplasser_beskrivelse", EntityXPath, "beskrivelse");
+            this.AddValidationRule("arbeidsplasser_utfylt", xPathForEntity);
+            this.AddValidationRule("framtidige_eller_eksisterende_utfylt", xPathForEntity);
+            this.AddValidationRule("faste_eller_midlertidige_utfylt", xPathForEntity);
+            this.AddValidationRule("type_arbeid_utfylt", xPathForEntity);
+            this.AddValidationRule("utleieBygg", xPathForEntity);
+            this.AddValidationRule("arbeidsplasser_beskrivelse", xPathForEntity, "beskrivelse");
         }
 
 
-        public void ValidateEntityFields(Arbeidsplasser arbeidsplasser)
+        public void ValidateEntityFields(ArbeidsplasserValidationEntity arbeidsplasserValEntity)
         {
-
+            var arbeidsplasser = arbeidsplasserValEntity.ModelData;
             if (Helpers.ObjectIsNullOrEmpty(arbeidsplasser))
             {
                 AddMessageFromRule("arbeidsplasser_utfylt");

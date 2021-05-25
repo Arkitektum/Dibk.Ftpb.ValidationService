@@ -3,24 +3,28 @@ using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke
 {
-    public class FakturamottakerMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.FakturamottakerType, Fakturamottaker>
+    public class FakturamottakerMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.FakturamottakerType, FakturamottakerValidationEntity>
     {
-        public override Fakturamottaker Map(FakturamottakerType mapFrom, ValidationEntityBase parentEntity = null)
+        public override FakturamottakerValidationEntity Map(FakturamottakerType mapFrom, string parentElementXpath = null)
         {
-            if (mapFrom == null) return null;
-            var fakturaMottaker = new Fakturamottaker("Fakturamottaker", parentEntity)
+            Fakturamottaker fakturamottaker = null;
+            if (mapFrom != null)
             {
-                BestillerReferanse = mapFrom.bestillerReferanse,
-                EhfFaktura = mapFrom.ehfFaktura,
-                FakturaPapir = mapFrom.fakturaPapir,
-                Fakturareferanser = mapFrom.fakturareferanser,
-                Navn = mapFrom.navn,
-                Organisasjonsnummer = mapFrom.organisasjonsnummer,
-                Prosjektnummer = mapFrom.prosjektnummer
-            };
-            fakturaMottaker.Adresse = new EnkelAdresseMapper().Map(mapFrom.adresse, parentEntity);
+                fakturamottaker = new Fakturamottaker()
+                {
+                    BestillerReferanse = mapFrom.bestillerReferanse,
+                    EhfFaktura = mapFrom.ehfFaktura,
+                    FakturaPapir = mapFrom.fakturaPapir,
+                    Fakturareferanser = mapFrom.fakturareferanser,
+                    Navn = mapFrom.navn,
+                    Organisasjonsnummer = mapFrom.organisasjonsnummer,
+                    Prosjektnummer = mapFrom.prosjektnummer
+                };
+                
+                fakturamottaker.Adresse = new EnkelAdresseMapper().Map(mapFrom.adresse, $"{parentElementXpath}/Fakturamottaker");
+            }
 
-            return fakturaMottaker;
+            return new FakturamottakerValidationEntity(fakturamottaker, "Fakturamottaker", parentElementXpath);
         }
     }
 }

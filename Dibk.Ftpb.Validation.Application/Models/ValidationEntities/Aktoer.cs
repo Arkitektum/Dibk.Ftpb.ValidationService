@@ -1,11 +1,14 @@
 ﻿namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class Aktoer : ValidationEntityBase
+    public class AktoerValidationEntity : ValidationEntityBase<Aktoer>
     {
-        public Aktoer(string xmlElementName, ValidationEntityBase parentEntity = null) : base(xmlElementName, parentEntity)
+        public AktoerValidationEntity(Aktoer modelData, string xmlElementName, string parentEntityDataModelXpath = null) 
+            : base(modelData, xmlElementName, parentEntityDataModelXpath)
         {}
-
-        public PartstypeCode Partstype { get; set; }
+    }
+    public class Aktoer 
+    {
+        public ParttypeCodeValidationEntity Partstype { get; set; }
 
         public string Foedselsnummer { get; set; }
 
@@ -13,7 +16,7 @@
 
         public string Navn { get; set; }
 
-        public EnkelAdresse Adresse { get; set; }
+        public EnkelAdresseValidationEntity Adresse { get; set; }
 
         public string Telefonnummer { get; set; }
 
@@ -21,6 +24,6 @@
 
         public string Epost { get; set; }
 
-        public Kontaktperson Kontaktperson { get; set; }
+        public KontaktpersonValidationEntity Kontaktperson { get; set; }
     }
 }

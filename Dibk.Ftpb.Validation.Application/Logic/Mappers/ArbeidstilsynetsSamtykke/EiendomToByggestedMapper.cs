@@ -4,27 +4,29 @@ using System.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke
 {
-    public class EiendomToByggestedMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.EiendomType[], IEnumerable<Eiendom>>
+    public class EiendomToByggestedMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.EiendomType[], IEnumerable<EiendomValidationEntity>>
     {
-        public override IEnumerable<Eiendom> Map(no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.EiendomType[] eiendomByggesteder, ValidationEntityBase parentEntity = null)
+        public override IEnumerable<EiendomValidationEntity> Map(no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.EiendomType[] eiendomByggesteder, string parentElementXpath = null)
         {
             if (eiendomByggesteder == null) return null;
-            var retVal = new List<Eiendom>();
+            var retVal = new List<EiendomValidationEntity>();
 
             for (int i = 0; i < eiendomByggesteder.Count(); i++)
             {
                 var eiendomByggested = eiendomByggesteder[i];
-
-                var eiendom = new Eiendom($"EiendomByggested[{i}]", parentEntity)
+                
+                var eiendom = new Eiendom()
                 {
                     Bolignummer = eiendomByggested.bolignummer,
                     Bygningsnummer = eiendomByggested.bygningsnummer,
                     Kommunenavn = eiendomByggested.kommunenavn
                 };
 
-                eiendom.Matrikkel = new MatrikkelToByggestedMapper().Map(eiendomByggested.eiendomsidentifikasjon, eiendom);
-                eiendom.Adresse = new AdresseMapper().Map(eiendomByggested.adresse, eiendom);
-                retVal.Add(eiendom);
+                var eiendomValEntity = new EiendomValidationEntity(eiendom, $"EiendomByggested[{i}]", parentElementXpath);
+
+                eiendom.Matrikkel = new MatrikkelToByggestedMapper().Map(eiendomByggested.eiendomsidentifikasjon, eiendomValEntity.DataModelXpath);
+                eiendom.Adresse = new AdresseMapper().Map(eiendomByggested.adresse, eiendomValEntity.DataModelXpath);
+                retVal.Add(eiendomValEntity);
             }
 
             return retVal;

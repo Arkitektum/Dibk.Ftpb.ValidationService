@@ -3,12 +3,13 @@ using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke
 {
-    public class ArbeidsplasserMapper : ModelToValidationEntityMapper<ArbeidsplasserType, Arbeidsplasser>
+    public class ArbeidsplasserMapper : ModelToValidationEntityMapper<ArbeidsplasserType, ArbeidsplasserValidationEntity>
     {
-        public override Arbeidsplasser Map(ArbeidsplasserType mapFrom, ValidationEntityBase parentEntity = null)
+        public override ArbeidsplasserValidationEntity Map(ArbeidsplasserType mapFrom, string parentElementXpath = null)
         {
-            if (mapFrom == null) return null;
-            return new Arbeidsplasser("Arbeidsplasser", parentEntity)
+            Arbeidsplasser arbeidsplasser = null;
+            if (mapFrom != null)
+            arbeidsplasser =  new Arbeidsplasser()
             {
                 AntallAnsatte = mapFrom.antallAnsatte,
                 AntallVirksomheter = mapFrom.antallVirksomheter,
@@ -19,6 +20,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                 Midlertidige = mapFrom.midlertidige,
                 UtleieBygg = mapFrom.utleieBygg
             };
+
+            return new ArbeidsplasserValidationEntity(arbeidsplasser, "Arbeidsplasser", parentElementXpath);
         }
     }
 }

@@ -11,22 +11,21 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public class KontaktpersonValidator : EntityValidatorBase
     {
  
-        public KontaktpersonValidator(string parentxPath): base(parentxPath, "kontaktperson")
+        public KontaktpersonValidator(): base()
+        {}
+        protected override void InitializeValidationRules(string xPathForEntity)
         {
-            InitializeValidationRules();
-        }
-        public sealed override void InitializeValidationRules()
-        {
-            AddValidationRule("kontaktpersonNavn_utfylt", EntityXPath, "navn");
+            AddValidationRule("kontaktpersonNavn_utfylt", xPathForEntity, "navn");
         }
 
-        public ValidationResult Validate(string parentXpath = null, Kontaktperson kontaktperson = null)
+        public ValidationResult Validate(KontaktpersonValidationEntity kontaktperson = null)
         {
-            if (string.IsNullOrEmpty(kontaktperson?.Navn))
+
+            if (string.IsNullOrEmpty(kontaktperson.ModelData?.Navn))
                 //TODO fill upp {0} parent Node/class/context... in message
                 AddMessageFromRule("kontaktpersonNavn_utfylt");
 
-            return ValidationResult;
+            return _validationResult;
         }
     }
 }

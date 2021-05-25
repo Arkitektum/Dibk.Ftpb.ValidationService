@@ -1,10 +1,13 @@
 ﻿namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class Kontaktperson : ValidationEntityBase
+    public class KontaktpersonValidationEntity : ValidationEntityBase<Kontaktperson>
     {
-        public Kontaktperson(string xmlElementName, ValidationEntityBase parentEntity = null) : base(xmlElementName, parentEntity)
+        public KontaktpersonValidationEntity(Kontaktperson modelData, string xmlElementName, string parentEntityDataModelXpath = null) 
+            : base(modelData, xmlElementName, parentEntityDataModelXpath)
         {}
-
+    }
+    public class Kontaktperson
+    { 
         public string Navn { get; set; }
 
         public string Telefonnummer { get; set; }

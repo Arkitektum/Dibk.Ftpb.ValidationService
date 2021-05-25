@@ -6,43 +6,43 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class MatrikkelValidator : EntityValidatorBase
     {
-        public MatrikkelValidator(string templateXPath) : base(templateXPath)
-        {
-            InitializeValidationRules();
-        }
-        public ValidationResult Validate(Matrikkel matrikkel)
+        public MatrikkelValidator() : base()
+        {}
+        public ValidationResult Validate(MatrikkelValidationEntity matrikkel)
         {
             base.ResetValidationMessages();
+            InitializeValidationRules(matrikkel.DataModelXpath);
+
             ValidateEntityFields(matrikkel);
 
-            return ValidationResult;
+            return _validationResult;
         }
 
-        public sealed override void InitializeValidationRules()
+        protected override void InitializeValidationRules(string xPathForEntity)
         {
-            AddValidationRule("kommunenummer_utfylt", EntityXPath, "kommunenummer");
-            AddValidationRule("gaardsnummer_utfylt", EntityXPath, "gaardsnummer");
-            AddValidationRule("bruksnummer_utfylt", EntityXPath, "bruksnummer");
-            AddValidationRule("festenummer_utfylt", EntityXPath, "festenummer");
-            AddValidationRule("seksjonsnummer_utfylt", EntityXPath, "seksjonsnummer");
+            AddValidationRule("kommunenummer_utfylt", xPathForEntity, "kommunenummer");
+            AddValidationRule("gaardsnummer_utfylt", xPathForEntity, "gaardsnummer");
+            AddValidationRule("bruksnummer_utfylt", xPathForEntity, "bruksnummer");
+            AddValidationRule("festenummer_utfylt", xPathForEntity, "festenummer");
+            AddValidationRule("seksjonsnummer_utfylt", xPathForEntity, "seksjonsnummer");
         }
 
-        public void ValidateEntityFields(Matrikkel matrikkel)
+        public void ValidateEntityFields(MatrikkelValidationEntity matrikkel)
         {
-            var xPath = matrikkel.GetXpathForEntity();
-            if (Helpers.ObjectIsNullOrEmpty(matrikkel.Kommunenummer))
+            var xPath = matrikkel.DataModelXpath;
+            if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Kommunenummer))
                 AddMessageFromRule("kommunenummer_utfylt", xPath);
 
-            if (Helpers.ObjectIsNullOrEmpty(matrikkel.Gaardsnummer))
+            if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Gaardsnummer))
                 AddMessageFromRule("gaardsnummer_utfylt", xPath);
 
-            if (Helpers.ObjectIsNullOrEmpty(matrikkel.Bruksnummer))
+            if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Bruksnummer))
                 AddMessageFromRule("bruksnummer_utfylt", xPath);
 
-            if (Helpers.ObjectIsNullOrEmpty(matrikkel.Festenummer))
+            if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Festenummer))
                 AddMessageFromRule("festenummer_utfylt", xPath);
 
-            if (Helpers.ObjectIsNullOrEmpty(matrikkel.Seksjonsnummer))
+            if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Seksjonsnummer))
                 AddMessageFromRule("seksjonsnummer_utfylt", xPath);
         }
     }

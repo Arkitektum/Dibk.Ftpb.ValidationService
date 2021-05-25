@@ -35,7 +35,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
                     utleieByggSpecified = false
                 }
             };
-            Arbeidsplasser arbeidsplasser = new ArbeidsplasserMapper().Map(dataForm.arbeidsplasser);
+            ArbeidsplasserValidationEntity arbeidsplasser = new ArbeidsplasserMapper().Map(dataForm.arbeidsplasser);
 
             arbeidsplasser.Should().NotBeNull();
         }

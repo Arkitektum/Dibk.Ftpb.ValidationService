@@ -6,7 +6,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
 {
     public abstract class ModelToValidationEntityMapper<T, U>
     {
-        public abstract U Map(T mapFrom, ValidationEntityBase parentEntity = null);
+        public abstract U Map(T mapFrom, string parentElementXpath = null);
 
         //protected static string GetXmlElementName(object xmlElement)
         //{

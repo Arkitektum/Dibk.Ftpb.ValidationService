@@ -1,10 +1,14 @@
 ﻿namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class Matrikkel : ValidationEntityBase
+    public class MatrikkelValidationEntity : ValidationEntityBase<Matrikkel>
     {
-        public Matrikkel(string xmlElementName, ValidationEntityBase parentEntity = null) : base(xmlElementName, parentEntity)
+        public MatrikkelValidationEntity(Matrikkel modelData, string xmlElementName, string parentEntityDataModelXpath = null) 
+            : base(modelData, xmlElementName, parentEntityDataModelXpath)
         {}
+    }
 
+    public class Matrikkel
+    {
         public string Kommunenummer { get; set; }
         public string Gaardsnummer { get; set; }
         public string Bruksnummer { get; set; }
