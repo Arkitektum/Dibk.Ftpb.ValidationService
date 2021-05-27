@@ -7,6 +7,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
     {
         public ValidationRuleEnum Id { get; set; }
         public string Message { get; set; }
+        public ValidationResultSeverityEnum? Messagetype { get; set; }
         public string Xpath { get; set; }
         [JsonIgnore] 
         public string XmlElement { get; set; }

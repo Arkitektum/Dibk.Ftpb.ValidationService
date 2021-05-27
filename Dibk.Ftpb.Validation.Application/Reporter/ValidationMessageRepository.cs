@@ -26,6 +26,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             else
             {
                 validationRule.Message = theStorageEntry.Message;
+                validationRule.Messagetype = theStorageEntry.Messagetype;
                 validationRule.ChecklistReference = theStorageEntry.ChecklistReference;
             }
 
@@ -61,7 +62,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
                     validationMessage.Message = theStorageEntry.Message;
                 }
                 validationMessage.ChecklistReference = theStorageEntry.ChecklistReference;
-                validationMessage.Messagetype = theStorageEntry.ValidationResultSeverity;
+                validationMessage.Messagetype = theStorageEntry.Messagetype;
             }
             return validationMessage;
         }

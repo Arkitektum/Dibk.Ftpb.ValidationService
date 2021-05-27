@@ -23,7 +23,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
                 XPath = xPath,
                 Message = message,
                 ChecklistReference = checklistReference,
-                ValidationResultSeverity = validationResultSeverity
+                Messagetype = validationResultSeverity
             };
             validationMessageStorageEntry.LanguageCode = string.IsNullOrEmpty(languageCode) ? "NO" : languageCode;
             validationMessageStorageEntry.DataForm = string.IsNullOrEmpty(dataForm) ? "ArbeidstilsynetsSamtykkeV2" : dataForm;
