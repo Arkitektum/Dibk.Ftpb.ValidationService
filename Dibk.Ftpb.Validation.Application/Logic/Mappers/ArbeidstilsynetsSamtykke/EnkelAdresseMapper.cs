@@ -19,7 +19,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                     Poststed = mapFrom.poststed
                 };
 
-            return new EnkelAdresseValidationEntity(enkelAdresse, "Adresse", parentElementXpath);
+            return new EnkelAdresseValidationEntity(enkelAdresse, "adresse", parentElementXpath);
         }
     }
 }

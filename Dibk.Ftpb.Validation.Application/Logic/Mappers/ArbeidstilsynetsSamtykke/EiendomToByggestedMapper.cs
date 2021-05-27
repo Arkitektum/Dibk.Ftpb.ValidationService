@@ -22,10 +22,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                     Kommunenavn = eiendomByggested.kommunenavn
                 };
 
-                var eiendomValEntity = new EiendomValidationEntity(eiendom, $"EiendomByggested[{i}]", parentElementXpath);
+                var eiendomValEntity = new EiendomValidationEntity(eiendom, $"eiendomByggested[{i}]", parentElementXpath);
 
                 eiendom.Matrikkel = new MatrikkelToByggestedMapper().Map(eiendomByggested.eiendomsidentifikasjon, eiendomValEntity.DataModelXpath);
-                eiendom.Adresse = new AdresseMapper().Map(eiendomByggested.adresse, eiendomValEntity.DataModelXpath);
+                eiendom.Adresse = new EiendomAdresseMapper().Map(eiendomByggested.adresse, eiendomValEntity.DataModelXpath);
                 retVal.Add(eiendomValEntity);
             }
 

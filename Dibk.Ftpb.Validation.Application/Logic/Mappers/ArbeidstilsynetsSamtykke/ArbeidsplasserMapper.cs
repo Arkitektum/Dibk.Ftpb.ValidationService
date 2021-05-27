@@ -21,7 +21,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                 UtleieBygg = mapFrom.utleieBygg
             };
 
-            return new ArbeidsplasserValidationEntity(arbeidsplasser, "Arbeidsplasser", parentElementXpath);
+            return new ArbeidsplasserValidationEntity(arbeidsplasser, "arbeidsplasser", parentElementXpath);
         }
     }
 }

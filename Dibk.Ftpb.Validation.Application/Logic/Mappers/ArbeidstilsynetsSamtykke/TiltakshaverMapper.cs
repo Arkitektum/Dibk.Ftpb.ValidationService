@@ -19,12 +19,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                 Organisasjonsnummer = mapFrom.organisasjonsnummer
             };  
 
-            tiltakshaver.Adresse = new EnkelAdresseMapper().Map(mapFrom.adresse, $"{parentElementXpath}/Tiltakshaver");
-                tiltakshaver.Kontaktperson = new KontaktpersonMapper().Map(mapFrom.kontaktperson, $"{parentElementXpath}/Tiltakshaver");
-                tiltakshaver.Partstype = new PartstypeCodeMapper().Map(mapFrom.partstype, $"{parentElementXpath}/Tiltakshaver");
+            tiltakshaver.Adresse = new EnkelAdresseMapper().Map(mapFrom.adresse, $"{parentElementXpath}/tiltakshaver");
+                tiltakshaver.Kontaktperson = new KontaktpersonMapper().Map(mapFrom.kontaktperson, $"{parentElementXpath}/tiltakshaver");
+                tiltakshaver.Partstype = new PartstypeCodeMapper().Map(mapFrom.partstype, $"{parentElementXpath}/tiltakshaver");
             }
 
-            return  new AktoerValidationEntity(tiltakshaver, "Tiltakshaver", parentElementXpath);
+            return  new AktoerValidationEntity(tiltakshaver, "tiltakshaver", parentElementXpath);
         }
 
         private class KontaktpersonMapper : ModelToValidationEntityMapper<KontaktpersonType, KontaktpersonValidationEntity>

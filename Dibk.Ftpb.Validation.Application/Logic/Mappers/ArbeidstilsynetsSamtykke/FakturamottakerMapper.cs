@@ -21,10 +21,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                     Prosjektnummer = mapFrom.prosjektnummer
                 };
                 
-                fakturamottaker.Adresse = new EnkelAdresseMapper().Map(mapFrom.adresse, $"{parentElementXpath}/Fakturamottaker");
+                fakturamottaker.Adresse = new EnkelAdresseMapper().Map(mapFrom.adresse, $"{parentElementXpath}/fakturamottaker");
             }
 
-            return new FakturamottakerValidationEntity(fakturamottaker, "Fakturamottaker", parentElementXpath);
+            return new FakturamottakerValidationEntity(fakturamottaker, "fakturamottaker", parentElementXpath);
         }
     }
 }

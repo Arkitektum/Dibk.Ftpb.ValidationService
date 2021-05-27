@@ -1,4 +1,5 @@
-﻿using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
+﻿using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 
@@ -15,7 +16,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         protected override void InitializeValidationRules(string xPathForEntity)
         {
-            AddValidationRule("fakturamottaker_utfylt", xPathForEntity);
+            AddValidationRule(ValidationRuleEnum.fakturamottaker_utfylt, xPathForEntity);
         }
 
         public ValidationResult Validate(FakturamottakerValidationEntity fakturamottaker = null)
@@ -24,7 +25,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             if (Helpers.ObjectIsNullOrEmpty(fakturamottaker.ModelData))
             {
-                AddMessageFromRule("fakturamottaker_utfylt");
+                AddMessageFromRule(ValidationRuleEnum.fakturamottaker_utfylt);
             }
             else
             {

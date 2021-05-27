@@ -78,7 +78,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             var dataModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(xmlData);
             var formEntity = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataModel);
-            var validationResultForEiendomsAdresse = new EiendomsAdresseValidator().Validate(formEntity.ModelData.Eiendommer.ToList()[0].ModelData.Adresse);
+            var validationResultForEiendomsAdresse = new EiendomsAdresseValidator().Validate(formEntity.ModelData.EiendomValidationEntities.ToList()[0].ModelData.Adresse);
 
             var validationMessage = validationResultForEiendomsAdresse.ValidationMessages.Where(x => x.Reference.Equals("eiendomsAdresse_postnr_4siffer")).FirstOrDefault();
             validationMessage.Reference.Should().NotBe(null);
@@ -99,7 +99,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             var dataModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(xmlData);
             var formEntity = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataModel);
-            var validationResultForEiendom = new EiendomValidator(_municipalityValidator).Validate(formEntity.ModelData.Eiendommer.ToList()[0]);
+            var validationResultForEiendom = new EiendomValidator(_municipalityValidator).Validate(formEntity.ModelData.EiendomValidationEntities.ToList()[0]);
 
             var validationMessage = validationResultForEiendom.ValidationMessages.Where(x => x.Reference.Equals("tillatte_postnr_i_kommune")).FirstOrDefault();
             //validationMessage.Reference.Should().NotBe(null);
@@ -122,7 +122,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             var dataModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(xmlData);
             var formEntity = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataModel);
-            var validationResultForEiendom = new EiendomValidator(_municipalityValidator).Validate(formEntity.ModelData.Eiendommer.ToList()[0]);
+            var validationResultForEiendom = new EiendomValidator(_municipalityValidator).Validate(formEntity.ModelData.EiendomValidationEntities.ToList()[0]);
 
             var validationMessage = validationResultForEiendom.ValidationMessages.Where(x => x.Reference.Equals("tillatte_postnr_i_kommune")).FirstOrDefault();
             //validationMessage.Reference.Should().NotBe(null);

@@ -22,8 +22,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules(string xPathForEntity)
         {
-            AddValidationRule("partstype_utfylt", xPathForEntity, "Kodeverdi");
-            AddValidationRule("Kodeverdien_Ugyldig", xPathForEntity, "Kodeverdi");
+            AddValidationRule(ValidationRuleEnum.partstype_utfylt, xPathForEntity, "Kodeverdi");
+            AddValidationRule(ValidationRuleEnum.Kodeverdien_ugyldig, xPathForEntity, "Kodeverdi");
         }
 
         public ValidationResult Validate(ParttypeCodeValidationEntity partstype)
@@ -31,20 +31,22 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             InitializeValidationRules(partstype.DataModelXpath);
             if (Helpers.ObjectIsNullOrEmpty(partstype.ModelData?.Kodeverdi))
             {
-                AddMessageFromRule("partstype_utfylt");
+                AddMessageFromRule(ValidationRuleEnum.partstype_utfylt);
             }
             else
             {
-                if (!_codeListService.IsCodelistValid(FtbCodeListNames.Partstype, partstype.ModelData?.Kodeverdi))
-                {
-                    AddMessageFromRule("partstypeKodeverdi_ugyldig");
-                }
-                var gyldigPartsType = new List<string>() { "Foretak", "Offentlig myndighet", "Organisasjon", "Privatperson" };
+                //TODO Sjekk hva "partstypeKodeverdi_ugyldig" er. Den er ikke initialisert....
 
-                if (!gyldigPartsType.Any(p => p.Equals(partstype.ModelData?.Kodeverdi)))
-                {
-                    AddMessageFromRule("partstype_ugyldig");
-                }
+                //if (!_codeListService.IsCodelistValid(FtbCodeListNames.Partstype, partstype.ModelData?.Kodeverdi))
+                //{
+                //    AddMessageFromRule("partstypeKodeverdi_ugyldig");
+                //}
+                //var gyldigPartsType = new List<string>() { "Foretak", "Offentlig myndighet", "Organisasjon", "Privatperson" };
+
+                //if (!gyldigPartsType.Any(p => p.Equals(partstype.ModelData?.Kodeverdi)))
+                //{
+                //    AddMessageFromRule(ValidationRuleEnum.partstype_utfylt);
+                //}
             }
 
             return _validationResult;

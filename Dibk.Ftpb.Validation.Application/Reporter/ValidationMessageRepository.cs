@@ -37,7 +37,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
 
             string xPath = Regex.Replace(validationMessage.XpathField, @"\[([0-9]*)\]", "{0}"); ;
 
-            var theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.Id.Equals(validationMessage.Reference, StringComparison.OrdinalIgnoreCase) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath, StringComparison.OrdinalIgnoreCase));
+            var theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.Id == validationMessage.Reference && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath, StringComparison.OrdinalIgnoreCase));
 
             if (theStorageEntry == null)
             {

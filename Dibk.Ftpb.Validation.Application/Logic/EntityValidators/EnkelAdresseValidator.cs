@@ -1,4 +1,5 @@
-﻿using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
+﻿using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 
@@ -11,14 +12,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {}
         protected override void InitializeValidationRules(string xPathForEntity)
         {
-            AddValidationRule("adresse_utfylt", xPathForEntity);
-            AddValidationRule("enkelAdress_adresseLinje1_Utfylt", xPathForEntity, "adresselinje1");
-            AddValidationRule("enkelAdress_landkode_utfylt", xPathForEntity, "landkode");
-            AddValidationRule("enkelAdress_postnr_utfylt", xPathForEntity, "postnr");
-            AddValidationRule("enkelAdress_postnr_kontrollSiffer", xPathForEntity, "postnr");
-            AddValidationRule("enkelAdress_postnr_ugyldig", xPathForEntity, "postnr");
-            AddValidationRule("enkelAdress_postnr_stemmerIkke", xPathForEntity, "postnr");
-            AddValidationRule("enkelAdress_postnr_ikkeValidert", xPathForEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_utfylt, xPathForEntity);
+            AddValidationRule(ValidationRuleEnum.adresse_adresselinje1_utfylt, xPathForEntity, "adresselinje1");
+            AddValidationRule(ValidationRuleEnum.adresse_landkode_utfylt, xPathForEntity, "landkode");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_utfylt, xPathForEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_kontrollSiffer, xPathForEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_ugyldig, xPathForEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_stemmerIkke, xPathForEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_ikkeValidert, xPathForEntity, "postnr");
         }
 
         public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null)
@@ -26,7 +27,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             InitializeValidationRules(enkelAdresse.DataModelXpath);
             if (Helpers.ObjectIsNullOrEmpty(enkelAdresse))
             {
-                AddMessageFromRule("adresse_Utfylt");
+                AddMessageFromRule(ValidationRuleEnum.adresse_utfylt);
             }
             else
             {

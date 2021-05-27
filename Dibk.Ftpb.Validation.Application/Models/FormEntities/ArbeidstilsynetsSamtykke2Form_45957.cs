@@ -11,9 +11,9 @@ namespace Dibk.Ftpb.Validation.Application.Models.FormEntities
     public class ArbeidstilsynetsSamtykke2Form_45957
     {
 
-        public IEnumerable<EiendomValidationEntity> Eiendommer { get; set; }
-        public ArbeidsplasserValidationEntity Arbeidsplasser { get; set; }
-        public AktoerValidationEntity Tiltakshaver { get; set; }
-        public FakturamottakerValidationEntity Fakturamottaker { get; set; }
+        public IEnumerable<EiendomValidationEntity> EiendomValidationEntities { get; set; }
+        public ArbeidsplasserValidationEntity ArbeidsplasserValidationEntity { get; set; }
+        public AktoerValidationEntity TiltakshaverValidationEntity { get; set; }
+        public FakturamottakerValidationEntity FakturamottakerValidationEntity { get; set; }
     }
 }
