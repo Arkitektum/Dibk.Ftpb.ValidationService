@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
@@ -13,31 +9,30 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     {
 
         private EnkelAdresseValidator _enkelAdresseValidator;
-        public FakturamottakerValidator(string parentxPath) : base(parentxPath, "fakturamottaker")
+        public FakturamottakerValidator() : base()
         {
-            _enkelAdresseValidator = new EnkelAdresseValidator(EntityXPath);
-            InitializeValidationRules();
+            _enkelAdresseValidator = new EnkelAdresseValidator();
+            
         }
-        public sealed override void InitializeValidationRules()
+        protected override void InitializeValidationRules(string xPathForEntity)
         {
-            AddValidationRule("fakturamottaker_utfylt", EntityXPath);
+            AddValidationRule(ValidationRuleEnum.fakturamottaker_utfylt, xPathForEntity);
         }
 
-        public ValidationResult Validate(Fakturamottaker fakturamottaker = null)
+        public ValidationResult Validate(FakturamottakerValidationEntity fakturamottaker = null)
         {
-            var enkelAdressValidator = new EnkelAdresseValidator(EntityXPath);
+            InitializeValidationRules(fakturamottaker.DataModelXpath);            
 
-            if (Helpers.ObjectIsNullOrEmpty(fakturamottaker))
+            if (Helpers.ObjectIsNullOrEmpty(fakturamottaker.ModelData))
             {
-                AddMessageFromRule("fakturamottaker_utfylt");
+                AddMessageFromRule(ValidationRuleEnum.fakturamottaker_utfylt);
             }
             else
             {
-                _enkelAdresseValidator.Validate(fakturamottaker.adresse);
+                var adresseValidationResult =  _enkelAdresseValidator.Validate(fakturamottaker.ModelData.Adresse);
+                UpdateValidationResultWithSubValidations(adresseValidationResult);
             }
-            UpdateValidationResultWithSubValidations(enkelAdressValidator.ValidationResult);
-
-            return ValidationResult;
+            return _validationResult;
         }
     }
 }

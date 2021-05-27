@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
+﻿namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class Aktoer
+    public class AktoerValidationEntity : ValidationEntityBase<Aktoer>
     {
-        public PartstypeCode Partstype { get; set; }
+        public AktoerValidationEntity(Aktoer modelData, string xmlElementName, string parentEntityDataModelXpath = null) 
+            : base(modelData, xmlElementName, parentEntityDataModelXpath)
+        {}
+    }
+    public class Aktoer 
+    {
+        public ParttypeCodeValidationEntity Partstype { get; set; }
 
         public string Foedselsnummer { get; set; }
 
@@ -16,7 +16,7 @@ namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 
         public string Navn { get; set; }
 
-        public EnkelAdresse Adresse { get; set; }
+        public EnkelAdresseValidationEntity Adresse { get; set; }
 
         public string Telefonnummer { get; set; }
 
@@ -24,6 +24,6 @@ namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 
         public string Epost { get; set; }
 
-        public Kontaktperson Kontaktperson { get; set; }
+        public KontaktpersonValidationEntity Kontaktperson { get; set; }
     }
 }

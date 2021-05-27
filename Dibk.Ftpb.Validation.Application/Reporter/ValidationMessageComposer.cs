@@ -24,6 +24,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
                 var validationRuleFromRepo = repo.GetValidationRuleMessage(validationRule, languageCode);
                 validationRule.Message = validationRuleFromRepo.Message;
                 validationRule.ChecklistReference = validationRuleFromRepo.ChecklistReference;
+                validationRule.Messagetype = validationRuleFromRepo.Messagetype;
             }
 
             return validationResult;

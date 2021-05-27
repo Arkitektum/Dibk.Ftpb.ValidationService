@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dibk.Ftpb.Validation.Application.DataSources;
+﻿using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -17,61 +14,61 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private MatrikkelValidator _matrikkelValidator;
         private readonly IMunicipalityValidator _municipalityValidator;
 
-        public EiendomValidator(string templateEntityXPath, IMunicipalityValidator municipalityValidator) : base(templateEntityXPath)
+        public EiendomValidator(IMunicipalityValidator municipalityValidator) : base()
         {
-            InitializeValidationRules();
-            
-            _eiendomsAdresseValidator = new EiendomsAdresseValidator($"{templateEntityXPath}/adresse");
-            ValidationResult.ValidationRules.AddRange(_eiendomsAdresseValidator.ValidationResult.ValidationRules);
-
-            _matrikkelValidator = new MatrikkelValidator($"{templateEntityXPath}/eiendomsidentifikasjon");
-            ValidationResult.ValidationRules.AddRange(_matrikkelValidator.ValidationResult.ValidationRules);
-            this._municipalityValidator = municipalityValidator;
+            _municipalityValidator = municipalityValidator;
+            _eiendomsAdresseValidator = new EiendomsAdresseValidator();
+            _matrikkelValidator = new MatrikkelValidator();
         }
 
-        public sealed override void InitializeValidationRules()
+        protected override void InitializeValidationRules(string xPathForEntity)
         {
-            AddValidationRule("bygningsnummer_utfylt", EntityXPath, "bygningsnummer");
-            AddValidationRule("bolignummer_utfylt", EntityXPath, "bolignummer");
-            AddValidationRule("kommunenavn_utfylt", EntityXPath, "kommunenavn");
-            AddValidationRule("tillatte_postnr_i_kommune", EntityXPath, "postnr");
+            AddValidationRule(ValidationRuleEnum.eiendomsadresse_bygningsnummer_utfylt, xPathForEntity, "bygningsnummer");
+            AddValidationRule(ValidationRuleEnum.eiendomsadresse_bolignummer_utfylt, xPathForEntity, "bolignummer");
+            AddValidationRule(ValidationRuleEnum.eiendomsadresse_kommunenavn_utfylt, xPathForEntity, "kommunenavn");
+            AddValidationRule(ValidationRuleEnum.eiendomsadresse_tillatte_postnr_i_kommune, xPathForEntity, "postnr");
         }
 
-        public ValidationResult Validate(string xPath, Eiendom eiendom)
+        public ValidationResult Validate(EiendomValidationEntity eiendomValidationEntity)
         {
             base.ResetValidationMessages();
+            InitializeValidationRules(eiendomValidationEntity.DataModelXpath);
+            
 
-            ValidateEntityFields(xPath, (Eiendom)eiendom);
+            ValidateEntityFields(eiendomValidationEntity);
+                        
+            var eiendomsAdresseValidationResult = _eiendomsAdresseValidator.Validate(eiendomValidationEntity.ModelData.Adresse);
+            _validationResult.ValidationMessages.AddRange(eiendomsAdresseValidationResult.ValidationMessages);
+            _validationResult.ValidationRules.AddRange(eiendomsAdresseValidationResult.ValidationRules);
 
-            var eiendomsAdresseValidationResponse = _eiendomsAdresseValidator.Validate($"{xPath}/adresse", eiendom.Adresse);
-            ValidationResult.ValidationMessages.AddRange(eiendomsAdresseValidationResponse.ValidationMessages);
+            var matrikkelValidationResult = _matrikkelValidator.Validate(eiendomValidationEntity.ModelData.Matrikkel);
+            _validationResult.ValidationMessages.AddRange(matrikkelValidationResult.ValidationMessages);
+            _validationResult.ValidationRules.AddRange(matrikkelValidationResult.ValidationRules);
 
-            var matrikkelValidationRules = _matrikkelValidator.Validate($"{xPath}/eiendomsidentifikasjon", eiendom.Matrikkel);
-            ValidationResult.ValidationMessages.AddRange(matrikkelValidationRules.ValidationMessages);
+            ValidateDataRelations(eiendomValidationEntity);
 
-            ValidateDataRelations(xPath, eiendom);
-
-            return ValidationResult;
+            return _validationResult;
         }
 
-        private void ValidateDataRelations(string xPath, Eiendom eiendom)
+        private void ValidateDataRelations(EiendomValidationEntity eiendomValidationEntity)
         {
-            if (!TillattPostnrIKommune(eiendom.Kommunenavn, eiendom.Adresse.Postnr))
+            if (!TillattPostnrIKommune(eiendomValidationEntity.ModelData.Kommunenavn, eiendomValidationEntity.ModelData.Adresse.ModelData?.Postnr))
             {
-                AddMessageFromRule("tillatte_postnr_i_kommune", xPath, new List<string>() { eiendom.Adresse.Postnr, eiendom.Kommunenavn });
+                AddMessageFromRule(ValidationRuleEnum.eiendomsadresse_tillatte_postnr_i_kommune, eiendomValidationEntity.DataModelXpath, new List<string>() { eiendomValidationEntity.ModelData.Adresse.ModelData?.Postnr, eiendomValidationEntity.ModelData.Kommunenavn });
             }
         }
 
-        protected void ValidateEntityFields(string xPath, Eiendom eiendom)
+        protected void ValidateEntityFields(EiendomValidationEntity eiendomValidationEntity)
         {
-            if (Helpers.ObjectIsNullOrEmpty(eiendom.Bygningsnummer))
-                AddMessageFromRule("bygningsnummer_utfylt", xPath);
+            var xPath = eiendomValidationEntity.DataModelXpath;
+            if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntity.ModelData?.Bygningsnummer))
+                AddMessageFromRule(ValidationRuleEnum.eiendomsadresse_bygningsnummer_utfylt, xPath);
 
-            if (Helpers.ObjectIsNullOrEmpty(eiendom.Bolignummer))
-                AddMessageFromRule("bolignummer_utfylt", xPath);
+            if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntity.ModelData?.Bolignummer))
+                AddMessageFromRule(ValidationRuleEnum.eiendomsadresse_bolignummer_utfylt, xPath);
 
-            if (Helpers.ObjectIsNullOrEmpty(eiendom.Kommunenavn))
-                AddMessageFromRule("kommunenavn_utfylt", xPath);
+            if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntity.ModelData?.Kommunenavn))
+                AddMessageFromRule(ValidationRuleEnum.eiendomsadresse_kommunenavn_utfylt, xPath);
         }
 
         private bool TillattPostnrIKommune(string kommunenavn, string postnr)

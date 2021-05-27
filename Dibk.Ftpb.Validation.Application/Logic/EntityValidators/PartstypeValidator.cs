@@ -15,40 +15,41 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     {
         private readonly ICodeListService _codeListService;
 
-        public PartstypeValidator(string parentXPath,ICodeListService codeListService):base(parentXPath, "partstype")
+        public PartstypeValidator(ICodeListService codeListService):base()
         {
             _codeListService = codeListService;
-            InitializeValidationRules();
         }
 
-        public sealed override void InitializeValidationRules()
+        protected override void InitializeValidationRules(string xPathForEntity)
         {
-            AddValidationRule("partstype_utfylt", EntityXPath, "Kodeverdi");
-            AddValidationRule("Kodeverdien_Ugyldig", EntityXPath, "Kodeverdi");
+            AddValidationRule(ValidationRuleEnum.partstype_utfylt, xPathForEntity, "Kodeverdi");
+            AddValidationRule(ValidationRuleEnum.kodeverdi_ugyldig, xPathForEntity, "Kodeverdi");
         }
 
-        public ValidationResult Validate(string xPath, PartstypeCode partstype)
+        public ValidationResult Validate(ParttypeCodeValidationEntity partstype)
         {
-
-            if (Helpers.ObjectIsNullOrEmpty(partstype?.Kodeverdi))
+            InitializeValidationRules(partstype.DataModelXpath);
+            if (Helpers.ObjectIsNullOrEmpty(partstype.ModelData?.Kodeverdi))
             {
-                AddMessageFromRule("partstype_utfylt");
+                AddMessageFromRule(ValidationRuleEnum.partstype_utfylt);
             }
             else
             {
-                if (!_codeListService.IsCodelistValid(FtbCodeListNames.Partstype, partstype?.Kodeverdi))
-                {
-                    AddMessageFromRule("partstypeKodeverdi_ugyldig");
-                }
-                var gyldigPartsType = new List<string>() { "Foretak", "Offentlig myndighet", "Organisasjon", "Privatperson" };
+                //TODO Sjekk hva "partstypeKodeverdi_ugyldig" er. Den er ikke initialisert....
 
-                if (!gyldigPartsType.Any(p => p.Equals(partstype?.Kodeverdi)))
-                {
-                    AddMessageFromRule("partstype_ugyldig");
-                }
+                //if (!_codeListService.IsCodelistValid(FtbCodeListNames.Partstype, partstype.ModelData?.Kodeverdi))
+                //{
+                //    AddMessageFromRule("partstypeKodeverdi_ugyldig");
+                //}
+                //var gyldigPartsType = new List<string>() { "Foretak", "Offentlig myndighet", "Organisasjon", "Privatperson" };
+
+                //if (!gyldigPartsType.Any(p => p.Equals(partstype.ModelData?.Kodeverdi)))
+                //{
+                //    AddMessageFromRule(ValidationRuleEnum.partstype_utfylt);
+                //}
             }
 
-            return ValidationResult;
+            return _validationResult;
         }
     }
 }

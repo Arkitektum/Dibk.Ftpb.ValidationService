@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dibk.Ftpb.Validation.Application.Enums;
+﻿using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
@@ -12,43 +7,44 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class MatrikkelValidator : EntityValidatorBase
     {
-        public MatrikkelValidator(string templateXPath) : base(templateXPath)
-        {
-            InitializeValidationRules();
-        }
-        public ValidationResult Validate(string xPath, Matrikkel matrikkel)
+        public MatrikkelValidator() : base()
+        {}
+        public ValidationResult Validate(MatrikkelValidationEntity matrikkel)
         {
             base.ResetValidationMessages();
-            ValidateEntityFields(xPath, matrikkel);
+            InitializeValidationRules(matrikkel.DataModelXpath);
 
-            return ValidationResult;
+            ValidateEntityFields(matrikkel);
+
+            return _validationResult;
         }
 
-        public sealed override void InitializeValidationRules()
+        protected override void InitializeValidationRules(string xPathForEntity)
         {
-            AddValidationRule("kommunenummer_utfylt", EntityXPath, "kommunenummer");
-            AddValidationRule("gaardsnummer_utfylt", EntityXPath, "gaardsnummer");
-            AddValidationRule("bruksnummer_utfylt", EntityXPath, "bruksnummer");
-            AddValidationRule("festenummer_utfylt", EntityXPath, "festenummer");
-            AddValidationRule("seksjonsnummer_utfylt", EntityXPath, "seksjonsnummer");
+            AddValidationRule(ValidationRuleEnum.kommunenummer_utfylt, xPathForEntity, "kommunenummer");
+            AddValidationRule(ValidationRuleEnum.gaardsnummer_utfylt, xPathForEntity, "gaardsnummer");
+            AddValidationRule(ValidationRuleEnum.bruksnummer_utfylt, xPathForEntity, "bruksnummer");
+            AddValidationRule(ValidationRuleEnum.festenummer_utfylt, xPathForEntity, "festenummer");
+            AddValidationRule(ValidationRuleEnum.seksjonsnummer_utfylt, xPathForEntity, "seksjonsnummer");
         }
 
-        public void ValidateEntityFields(string xPath, Matrikkel matrikkel)
+        public void ValidateEntityFields(MatrikkelValidationEntity matrikkel)
         {
-            if (Helpers.ObjectIsNullOrEmpty(matrikkel.Kommunenummer))
-                AddMessageFromRule("kommunenummer_utfylt", xPath);
+            var xPath = matrikkel.DataModelXpath;
+            if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Kommunenummer))
+                AddMessageFromRule(ValidationRuleEnum.kommunenummer_utfylt, xPath);
 
-            if (Helpers.ObjectIsNullOrEmpty(matrikkel.Gaardsnummer))
-                AddMessageFromRule("gaardsnummer_utfylt", xPath);
+            if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Gaardsnummer))
+                AddMessageFromRule(ValidationRuleEnum.gaardsnummer_utfylt, xPath);
 
-            if (Helpers.ObjectIsNullOrEmpty(matrikkel.Bruksnummer))
-                AddMessageFromRule("bruksnummer_utfylt", xPath);
+            if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Bruksnummer))
+                AddMessageFromRule(ValidationRuleEnum.bruksnummer_utfylt, xPath);
 
-            if (Helpers.ObjectIsNullOrEmpty(matrikkel.Festenummer))
-                AddMessageFromRule("festenummer_utfylt", xPath);
+            if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Festenummer))
+                AddMessageFromRule(ValidationRuleEnum.festenummer_utfylt, xPath);
 
-            if (Helpers.ObjectIsNullOrEmpty(matrikkel.Seksjonsnummer))
-                AddMessageFromRule("seksjonsnummer_utfylt", xPath);
+            if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Seksjonsnummer))
+                AddMessageFromRule(ValidationRuleEnum.seksjonsnummer_utfylt, xPath);
         }
     }
 }

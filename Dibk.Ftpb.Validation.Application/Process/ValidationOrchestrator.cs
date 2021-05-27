@@ -38,7 +38,7 @@ namespace Dibk.Ftpb.Validation.Application.Process
             {
                 foreach (var message in errorMessages)
                 {
-                    ValidationResult.ValidationMessages.Add(new ValidationMessage() { Reference = "XsdValidationErrors", Message = message });
+                    ValidationResult.ValidationMessages.Add(new ValidationMessage() { Reference = ValidationRuleEnum.XsdValidationErrors, Message = message });
                 }
             }
             else

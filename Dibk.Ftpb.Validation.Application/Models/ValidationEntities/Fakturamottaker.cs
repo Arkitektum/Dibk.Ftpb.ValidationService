@@ -1,27 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
+﻿namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class Fakturamottaker
+    public class FakturamottakerValidationEntity : ValidationEntityBase<Fakturamottaker>
     {
-        public string organisasjonsnummer { get; set; }
+        public FakturamottakerValidationEntity(Fakturamottaker modelData, string xmlElementName, string parentEntityDataModelXpath = null) 
+            : base(modelData, xmlElementName, parentEntityDataModelXpath)
+        {}
+    }
+    public class Fakturamottaker
+    { 
+        public string Organisasjonsnummer { get; set; }
 
-        public string bestillerReferanse { get; set; }
+        public string BestillerReferanse { get; set; }
 
-        public string fakturareferanser { get; set; }
+        public string Fakturareferanser { get; set; }
 
-        public string navn { get; set; }
+        public string Navn { get; set; }
 
-        public string prosjektnummer { get; set; }
+        public string Prosjektnummer { get; set; }
 
-        public bool? ehfFaktura { get; set; }
+        public bool? EhfFaktura { get; set; }
 
-        public bool? fakturaPapir { get; set; }
+        public bool? FakturaPapir { get; set; }
 
-        public EnkelAdresse adresse { get; set; }
+        public EnkelAdresseValidationEntity Adresse { get; set; }
     }
 }

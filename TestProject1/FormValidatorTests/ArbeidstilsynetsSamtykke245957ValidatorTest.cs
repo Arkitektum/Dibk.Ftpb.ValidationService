@@ -1,21 +1,19 @@
 ﻿using Dibk.Ftpb.Validation.Application.DataSources;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Logic.Deserializers;
+using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Logic.FormValidators;
+using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke;
+using Dibk.Ftpb.Validation.Application.Models.Web;
+using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
-using Xunit;
+using FluentAssertions;
 using Newtonsoft.Json;
 using System;
 using System.IO;
-using Dibk.Ftpb.Validation.Application.Logic.Deserializers;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers;
-using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using System.Linq;
-using FluentAssertions;
-using Dibk.Ftpb.Validation.Application.Reporter;
-using System.Collections.Generic;
-using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
-using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
-using Dibk.Ftpb.Validation.Application.Models.Web;
+using Xunit;
 
 namespace Dibk.Ftpb.Validation.Application.Tests
 {
@@ -80,7 +78,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             var dataModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(xmlData);
             var formEntity = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataModel);
-            var validationResultForEiendomsAdresse = new EiendomsAdresseValidator("ArbeidstilsynetsSamtykke/eiendomByggested{0}/adresse").Validate("ArbeidstilsynetsSamtykke/eiendomByggested[0]/adresse", formEntity.Eiendommer[0].Adresse);
+            var validationResultForEiendomsAdresse = new EiendomsAdresseValidator().Validate(formEntity.ModelData.EiendomValidationEntities.ToList()[0].ModelData.Adresse);
 
             var validationMessage = validationResultForEiendomsAdresse.ValidationMessages.Where(x => x.Reference.Equals("eiendomsAdresse_postnr_4siffer")).FirstOrDefault();
             validationMessage.Reference.Should().NotBe(null);
@@ -101,7 +99,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             var dataModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(xmlData);
             var formEntity = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataModel);
-            var validationResultForEiendom = new EiendomValidator("ArbeidstilsynetsSamtykke/eiendomByggested{0}", _municipalityValidator).Validate("ArbeidstilsynetsSamtykke/eiendomByggested[0]", formEntity.Eiendommer[0]);
+            var validationResultForEiendom = new EiendomValidator(_municipalityValidator).Validate(formEntity.ModelData.EiendomValidationEntities.ToList()[0]);
 
             var validationMessage = validationResultForEiendom.ValidationMessages.Where(x => x.Reference.Equals("tillatte_postnr_i_kommune")).FirstOrDefault();
             //validationMessage.Reference.Should().NotBe(null);
@@ -124,7 +122,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             var dataModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(xmlData);
             var formEntity = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(dataModel);
-            var validationResultForEiendom = new EiendomValidator("ArbeidstilsynetsSamtykke/eiendomByggested{0}", _municipalityValidator).Validate("ArbeidstilsynetsSamtykke/eiendomByggested[0]", formEntity.Eiendommer[0]);
+            var validationResultForEiendom = new EiendomValidator(_municipalityValidator).Validate(formEntity.ModelData.EiendomValidationEntities.ToList()[0]);
 
             var validationMessage = validationResultForEiendom.ValidationMessages.Where(x => x.Reference.Equals("tillatte_postnr_i_kommune")).FirstOrDefault();
             //validationMessage.Reference.Should().NotBe(null);

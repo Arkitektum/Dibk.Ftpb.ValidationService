@@ -1,11 +1,11 @@
-﻿using System.IO;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers;
+﻿using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using Dibk.Ftpb.Validation.Application.Utils;
-using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
-using Xunit;
 using FluentAssertions;
+using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
+using System.IO;
+using Xunit;
 
 namespace Dibk.Ftpb.Validation.Application.Tests
 {
@@ -35,7 +35,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
                     utleieByggSpecified = false
                 }
             };
-            Arbeidsplasser arbeidsplasser = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().MapArbeidsplasser(dataForm.arbeidsplasser);
+            ArbeidsplasserValidationEntity arbeidsplasser = new ArbeidsplasserMapper().Map(dataForm.arbeidsplasser);
 
             arbeidsplasser.Should().NotBeNull();
         }
@@ -47,7 +47,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             var form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
             var postmanXml = TestHelper.GetXmlWithoutSpaces(xmlData);
 
-            var tiltakshaver = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().MapTiltakshaver(form.tiltakshaver);
+            var tiltakshaver = new TiltakshaverMapper().Map(form.tiltakshaver);
 
             tiltakshaver.Should().NotBeNull();
 
@@ -58,7 +58,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke2.xml");
             var form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
 
-            var fakturamottaker = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().MapFakturamottaker(form.fakturamottaker);
+            var fakturamottaker = new FakturamottakerMapper().Map(form.fakturamottaker);
 
             fakturamottaker.Should().NotBeNull();
         }

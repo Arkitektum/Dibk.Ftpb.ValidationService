@@ -1,31 +1,29 @@
-using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
-using Dibk.Ftpb.Validation.Application.Models.FormEntities;
-using Dibk.Ftpb.Validation.Application.Reporter;
-using System.Collections.Generic;
-using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
+using Dibk.Ftpb.Validation.Application.Logic.Deserializers;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
+using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke;
+using Dibk.Ftpb.Validation.Application.Models.FormEntities;
+using Dibk.Ftpb.Validation.Application.Models.Web;
+using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers;
-using Dibk.Ftpb.Validation.Application.Logic.Deserializers;
-using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
-using Dibk.Ftpb.Validation.Application.Models.Web;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
     [FormData(DataFormatVersion = "45957")]
-    public class ArbeidstilsynetsSamtykke2_45957_Validator : IFormValidator
+    public class ArbeidstilsynetsSamtykke2_45957_Validator : FormValidatorBase, IFormValidator
     {
         private readonly IMunicipalityValidator _municipalityValidator;
         private readonly ICodeListService _codeListService;
-        public ArbeidstilsynetsSamtykke2Form_45957 ArbeidstilsynetsSamtykke2Form45957 { get; set; }
+        public ArbeidstilsynetsSamtykke2Form_45957_ValidationEntity ArbeidstilsynetsSamtykke2Form45957 { get; set; }
         public ArbeidstilsynetsSamtykkeType _form { get; set; }
 
-        private ValidationResult _validationResult;
 
-        private readonly string _xPath = "ArbeidstilsynetsSamtykke";
+        //private readonly string _xPath = "ArbeidstilsynetsSamtykke";
         public ArbeidstilsynetsSamtykke2_45957_Validator(IMunicipalityValidator municipalityValidator, ICodeListService codeListService)
         {
             _municipalityValidator = municipalityValidator;
@@ -39,9 +37,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             // map to arbeidstilsynet formEntity 
             ArbeidstilsynetsSamtykke2Form45957 = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(_form);
-            Validate(_xPath, ArbeidstilsynetsSamtykke2Form45957, validationInput);
+            Validate(ArbeidstilsynetsSamtykke2Form45957, validationInput);
 
-            return _validationResult;
+            return ValidationResult;
         }
         public ArbeidstilsynetsSamtykkeType DeserializeDataForm(string xmlData)
         {
@@ -49,41 +47,30 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             return SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
         }
 
-        public ValidationResult Validate(string xPath, ArbeidstilsynetsSamtykke2Form_45957 form, ValidationInput validationInput)
+        public ValidationResult Validate(ArbeidstilsynetsSamtykke2Form_45957_ValidationEntity form, ValidationInput validationInput)
         {
-            var eiendomValidator = new EiendomValidator($"{xPath}/eiendomByggested{{0}}", _municipalityValidator);
+            var eiendomValidator = new EiendomValidator(_municipalityValidator);
 
-            foreach (var eiendom in form.Eiendommer)
+            foreach (var eiendomValidationEntity in form.ModelData.EiendomValidationEntities)
             {
-                int index = form.Eiendommer.IndexOf(eiendom);
-                var eiendomValidationResult = eiendomValidator.Validate($"{xPath}/eiendomByggested[{index}]", eiendom);
+                int index = form.ModelData.EiendomValidationEntities.ToList().IndexOf(eiendomValidationEntity);
+                var eiendomValidationResult = eiendomValidator.Validate(eiendomValidationEntity);
                 UpdateValidationResult(eiendomValidationResult);
             }
 
-            var arbeidsplasser = new ArbeidsplasserValidator(_xPath);
+            var arbeidsplasser = new ArbeidsplasserValidator();
 
             var attachments = Helpers.ObjectIsNullOrEmpty(validationInput.Attachments) ? null : validationInput.Attachments.Select(a => a.AttachmentTypeName).ToList();
-            var arbeidsplasserValidator = arbeidsplasser.Validate(form.Arbeidsplasser, attachments);
+            var arbeidsplasserValidator = arbeidsplasser.Validate(form.ModelData.ArbeidsplasserValidationEntity, attachments);
             UpdateValidationResult(arbeidsplasserValidator);
 
-            var tiltakshaverResult = new TiltakshaverValidator(_xPath, _codeListService).Validate(form.Tiltakshaver);
+            var tiltakshaverResult = new TiltakshaverValidator(_codeListService).Validate(form.ModelData.TiltakshaverValidationEntity);
             UpdateValidationResult(tiltakshaverResult);
 
-            var fakturamottakerResult = new FakturamottakerValidator(_xPath).Validate(form.Fakturamottaker);
+            var fakturamottakerResult = new FakturamottakerValidator().Validate(form.ModelData.FakturamottakerValidationEntity);
             UpdateValidationResult(fakturamottakerResult);
 
-            return _validationResult;
-        }
-
-        internal void UpdateValidationResult(ValidationResult validationResult)
-        {
-            _validationResult ??= new ValidationResult();
-            _validationResult.ValidationRules ??= new List<ValidationRule>();
-            _validationResult.ValidationMessages ??= new List<ValidationMessage>();
-
-            var whereNotAlreadyExists = validationResult.ValidationRules.Where(x => _validationResult.ValidationRules.All(y => y.Xpath != x.Xpath));
-            _validationResult.ValidationRules.AddRange(whereNotAlreadyExists);
-            _validationResult.ValidationMessages.AddRange(validationResult.ValidationMessages);
+            return ValidationResult;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 
@@ -11,22 +12,21 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public class KontaktpersonValidator : EntityValidatorBase
     {
  
-        public KontaktpersonValidator(string parentxPath): base(parentxPath, "kontaktperson")
+        public KontaktpersonValidator(): base()
+        {}
+        protected override void InitializeValidationRules(string xPathForEntity)
         {
-            InitializeValidationRules();
-        }
-        public sealed override void InitializeValidationRules()
-        {
-            AddValidationRule("kontaktpersonNavn_utfylt", EntityXPath, "navn");
+            AddValidationRule(ValidationRuleEnum.kontaktperson_navn_utfylt, xPathForEntity, "navn");
         }
 
-        public ValidationResult Validate(string parentXpath = null, Kontaktperson kontaktperson = null)
+        public ValidationResult Validate(KontaktpersonValidationEntity kontaktperson = null)
         {
-            if (string.IsNullOrEmpty(kontaktperson?.Navn))
+
+            if (string.IsNullOrEmpty(kontaktperson.ModelData?.Navn))
                 //TODO fill upp {0} parent Node/class/context... in message
-                AddMessageFromRule("kontaktpersonNavn_utfylt");
+                AddMessageFromRule(ValidationRuleEnum.kontaktperson_navn_utfylt);
 
-            return ValidationResult;
+            return _validationResult;
         }
     }
 }
