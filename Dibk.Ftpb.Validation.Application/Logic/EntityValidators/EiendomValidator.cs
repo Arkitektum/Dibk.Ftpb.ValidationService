@@ -23,6 +23,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules(string xPathForEntity)
         {
+            AddValidationRule(ValidationRuleEnum.eiendom_utfylt, xPathForEntity);
             AddValidationRule(ValidationRuleEnum.eiendomsadresse_bygningsnummer_utfylt, xPathForEntity, "bygningsnummer");
             AddValidationRule(ValidationRuleEnum.eiendomsadresse_bolignummer_utfylt, xPathForEntity, "bolignummer");
             AddValidationRule(ValidationRuleEnum.eiendomsadresse_kommunenavn_utfylt, xPathForEntity, "kommunenavn");
@@ -33,23 +34,38 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             base.ResetValidationMessages();
             InitializeValidationRules(eiendomValidationEntity.DataModelXpath);
-            
 
-            ValidateEntityFields(eiendomValidationEntity);
+            if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntity.ModelData))
+            {
+                AddMessageFromRule(ValidationRuleEnum.eiendom_utfylt);
+            }
+            else
+            { 
+                ValidateEntityFields(eiendomValidationEntity);
                         
-            var eiendomsAdresseValidationResult = _eiendomsAdresseValidator.Validate(eiendomValidationEntity.ModelData.Adresse);
-            _validationResult.ValidationMessages.AddRange(eiendomsAdresseValidationResult.ValidationMessages);
-            _validationResult.ValidationRules.AddRange(eiendomsAdresseValidationResult.ValidationRules);
+                var eiendomsAdresseValidationResult = _eiendomsAdresseValidator.Validate(eiendomValidationEntity.ModelData.Adresse);
+                _validationResult.ValidationMessages.AddRange(eiendomsAdresseValidationResult.ValidationMessages);
+                _validationResult.ValidationRules.AddRange(eiendomsAdresseValidationResult.ValidationRules);
 
-            var matrikkelValidationResult = _matrikkelValidator.Validate(eiendomValidationEntity.ModelData.Matrikkel);
-            _validationResult.ValidationMessages.AddRange(matrikkelValidationResult.ValidationMessages);
-            _validationResult.ValidationRules.AddRange(matrikkelValidationResult.ValidationRules);
+                var matrikkelValidationResult = _matrikkelValidator.Validate(eiendomValidationEntity.ModelData.Matrikkel);
+                _validationResult.ValidationMessages.AddRange(matrikkelValidationResult.ValidationMessages);
+                _validationResult.ValidationRules.AddRange(matrikkelValidationResult.ValidationRules);
 
-            ValidateDataRelations(eiendomValidationEntity);
+                ValidateDataRelations(eiendomValidationEntity);
+            }
 
             return _validationResult;
         }
-
+        //private bool ValidateModelExists(EiendomValidationEntity modelEntity)
+        //{
+        //    var xPath = modelEntity.DataModelXpath;
+        //    if (Helpers.ObjectIsNullOrEmpty(modelEntity.ModelData))
+        //    {
+        //        AddMessageFromRule(ValidationRuleEnum.eiendom_utfylt, xPath);
+        //        return false;
+        //    }
+        //    return true;
+        //}
         private void ValidateDataRelations(EiendomValidationEntity eiendomValidationEntity)
         {
             if (!TillattPostnrIKommune(eiendomValidationEntity.ModelData.Kommunenavn, eiendomValidationEntity.ModelData.Adresse.ModelData?.Postnr))

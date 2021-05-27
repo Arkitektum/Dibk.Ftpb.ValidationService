@@ -8,6 +8,13 @@ using System.Text.RegularExpressions;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
+    /// <summary>
+    /// Må huskes på:
+    /// - Ved opprettelse av ny validering for et skjema eller valideringsentitet; husk å initialiser reglen i metode InitializeValidationRules()
+    ///   
+    /// </summary>
+    //TODO: automatisk sjekk på at ingen regler blir validert uten at de først er initialisert.
+
     public abstract class EntityValidatorBase : IEntityValidator
     {
         protected ValidationResult _validationResult;

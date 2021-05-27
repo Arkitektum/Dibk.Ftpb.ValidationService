@@ -36,10 +36,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(ValidationRuleEnum.eiendomsadresse_bokstav_utfylt, xPathForEntity, "bokstav");
             AddValidationRule(ValidationRuleEnum.eiendomsadresse_postnr_4siffer, xPathForEntity, "postnr");
         }
-        private bool ValidateModelExists(EiendomsAdresseValidationEntity eiendomsAdresseValidationEntity)
+        private bool ValidateModelExists(EiendomsAdresseValidationEntity modelEntity)
         {
-            var xPath = eiendomsAdresseValidationEntity.DataModelXpath;
-            if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData))
+            var xPath = modelEntity.DataModelXpath;
+            if (Helpers.ObjectIsNullOrEmpty(modelEntity.ModelData))
             {
                 AddMessageFromRule(ValidationRuleEnum.eiendomsadresse_utfylt, xPath);
                 return false;

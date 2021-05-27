@@ -8,6 +8,9 @@ namespace Dibk.Ftpb.Validation.Application.Enums
 {
     public enum ValidationRuleEnum
     {
+        //eiendom
+        eiendom_utfylt,
+
         //eiendomadresse
         eiendomsadresse_utfylt,
         eiendomsadresse_adresselinje1_utfylt,
@@ -46,13 +49,14 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         adresse_postnr_stemmerIkke,
         adresse_postnr_ikkeValidert,
 
-        kommunenummer_utfylt,
+        eiendomsIdentifikasjon_kommunenummer_utfylt,
 
         //Matrikkel
-        gaardsnummer_utfylt,
-        bruksnummer_utfylt,
-        festenummer_utfylt,
-        seksjonsnummer_utfylt,
+        eiendomsIdentifikasjon_utfylt,
+        eiendomsIdentifikasjon_gaardsnummer_utfylt,
+        eiendomsIdentifikasjon_bruksnummer_utfylt,
+        eiendomsIdentifikasjon_festenummer_utfylt,
+        eiendomsIdentifikasjon_seksjonsnummer_utfylt,
         
         //Kun for testing
         Parameter_Test,

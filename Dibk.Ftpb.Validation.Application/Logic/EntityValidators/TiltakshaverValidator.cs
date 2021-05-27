@@ -38,6 +38,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(ValidationRuleEnum.tiltakshaver_epost_utfylt, xPathForEntity, "epost");
             AddValidationRule(ValidationRuleEnum.tiltakshaver_navn_utfylt, xPathForEntity, "navn");
         }
+
+
         public ValidationResult Validate(AktoerValidationEntity tiltakshaver = null)
         {
             InitializeValidationRules(tiltakshaver.DataModelXpath);
