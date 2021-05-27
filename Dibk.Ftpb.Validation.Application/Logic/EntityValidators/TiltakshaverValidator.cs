@@ -27,16 +27,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected override void InitializeValidationRules(string xPathForEntity)
         {
             AddValidationRule(ValidationRuleEnum.tiltakshaver_utfylt, xPathForEntity);
-            AddValidationRule(ValidationRuleEnum.foedselnummer_utfylt, xPathForEntity, "foedselsnummer");
-            AddValidationRule(ValidationRuleEnum.foedselnummer_Dekryptering, xPathForEntity, "foedselsnummer");
-            AddValidationRule(ValidationRuleEnum.foedselnummer_kontrollsiffer, xPathForEntity, "foedselsnummer");
-            AddValidationRule(ValidationRuleEnum.foedselnummer_ugyldig, xPathForEntity, "foedselsnummer");
-            AddValidationRule(ValidationRuleEnum.organisasjonsnummer_utfylt, xPathForEntity, "organisasjonsnummer");
-            AddValidationRule(ValidationRuleEnum.organisasjonsnummer_kontrollsiffer, xPathForEntity, "organisasjonsnummer");
-            AddValidationRule(ValidationRuleEnum.organisasjonsnummer_ugyldig, xPathForEntity, "organisasjonsnummer");
-            AddValidationRule(ValidationRuleEnum.TelMob_Utfylt, xPathForEntity);
-            AddValidationRule(ValidationRuleEnum.epost_Utfylt, xPathForEntity, "epost");
-            AddValidationRule(ValidationRuleEnum.Navn_Utfylt, xPathForEntity, "navn");
+            AddValidationRule(ValidationRuleEnum.tiltakshaver_foedselnummer_utfylt, xPathForEntity, "foedselsnummer");
+            AddValidationRule(ValidationRuleEnum.tiltakshaver_foedselnummer_dekryptering, xPathForEntity, "foedselsnummer");
+            AddValidationRule(ValidationRuleEnum.tiltakshaver_foedselnummer_kontrollsiffer, xPathForEntity, "foedselsnummer");
+            AddValidationRule(ValidationRuleEnum.tiltakshaver_foedselnummer_ugyldig, xPathForEntity, "foedselsnummer");
+            AddValidationRule(ValidationRuleEnum.tiltakshaver_organisasjonsnummer_utfylt, xPathForEntity, "organisasjonsnummer");
+            AddValidationRule(ValidationRuleEnum.tiltakshaver_organisasjonsnummer_kontrollsiffer, xPathForEntity, "organisasjonsnummer");
+            AddValidationRule(ValidationRuleEnum.tiltakshaver_organisasjonsnummer_ugyldig, xPathForEntity, "organisasjonsnummer");
+            AddValidationRule(ValidationRuleEnum.tiltakshaver_telmob_utfylt, xPathForEntity);
+            AddValidationRule(ValidationRuleEnum.tiltakshaver_epost_utfylt, xPathForEntity, "epost");
+            AddValidationRule(ValidationRuleEnum.tiltakshaver_navn_utfylt, xPathForEntity, "navn");
         }
         public ValidationResult Validate(AktoerValidationEntity tiltakshaver = null)
         {
@@ -68,16 +68,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 switch (foedselsnummerValidation)
                 {
                     case FoedselnumerValidation.Empty:
-                        AddMessageFromRule(ValidationRuleEnum.foedselnummer_utfylt);
+                        AddMessageFromRule(ValidationRuleEnum.tiltakshaver_foedselnummer_utfylt);
                         break;
                     case FoedselnumerValidation.InvalidEncryption:
-                        AddMessageFromRule(ValidationRuleEnum.foedselnummer_Dekryptering);
+                        AddMessageFromRule(ValidationRuleEnum.tiltakshaver_foedselnummer_dekryptering);
                         break;
                     case FoedselnumerValidation.InvalidDigitsControl:
-                        AddMessageFromRule(ValidationRuleEnum.foedselnummer_kontrollsiffer);
+                        AddMessageFromRule(ValidationRuleEnum.tiltakshaver_foedselnummer_kontrollsiffer);
                         break;
                     case FoedselnumerValidation.Invalid:
-                        AddMessageFromRule(ValidationRuleEnum.foedselnummer_ugyldig);
+                        AddMessageFromRule(ValidationRuleEnum.tiltakshaver_foedselnummer_ugyldig);
                         break;
                 }
             }
@@ -87,13 +87,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 switch (organisasjonsnummerValidation)
                 {
                     case OrganisasjonsnummerValidation.Empty:
-                        AddMessageFromRule(ValidationRuleEnum.organisasjonsnummer_utfylt);
+                        AddMessageFromRule(ValidationRuleEnum.tiltakshaver_organisasjonsnummer_utfylt);
                         break;
                     case OrganisasjonsnummerValidation.InvalidDigitsControl:
-                        AddMessageFromRule(ValidationRuleEnum.organisasjonsnummer_kontrollsiffer);
+                        AddMessageFromRule(ValidationRuleEnum.tiltakshaver_organisasjonsnummer_kontrollsiffer);
                         break;
                     case OrganisasjonsnummerValidation.Invalid:
-                        AddMessageFromRule(ValidationRuleEnum.organisasjonsnummer_ugyldig);
+                        AddMessageFromRule(ValidationRuleEnum.tiltakshaver_organisasjonsnummer_ugyldig);
                         break;
                 }
 
@@ -104,14 +104,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 UpdateValidationResultWithSubValidations(kontaktpersonResult);
 
                 if (string.IsNullOrEmpty(tiltakshaver.Mobilnummer) && string.IsNullOrEmpty(tiltakshaver.Telefonnummer))
-                    AddMessageFromRule(ValidationRuleEnum.TelMob_Utfylt);
+                    AddMessageFromRule(ValidationRuleEnum.tiltakshaver_telmob_utfylt);
 
 
                 if (string.IsNullOrEmpty(tiltakshaver.Epost))
-                    AddMessageFromRule(ValidationRuleEnum.epost_Utfylt);
+                    AddMessageFromRule(ValidationRuleEnum.tiltakshaver_epost_utfylt);
 
                 if (string.IsNullOrEmpty(tiltakshaver.Navn))
-                    AddMessageFromRule(ValidationRuleEnum.Navn_Utfylt);
+                    AddMessageFromRule(ValidationRuleEnum.tiltakshaver_navn_utfylt);
 
             }
         }

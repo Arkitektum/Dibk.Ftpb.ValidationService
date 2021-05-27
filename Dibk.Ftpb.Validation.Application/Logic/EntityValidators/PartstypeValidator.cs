@@ -23,7 +23,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected override void InitializeValidationRules(string xPathForEntity)
         {
             AddValidationRule(ValidationRuleEnum.partstype_utfylt, xPathForEntity, "Kodeverdi");
-            AddValidationRule(ValidationRuleEnum.Kodeverdien_ugyldig, xPathForEntity, "Kodeverdi");
+            AddValidationRule(ValidationRuleEnum.kodeverdi_ugyldig, xPathForEntity, "Kodeverdi");
         }
 
         public ValidationResult Validate(ParttypeCodeValidationEntity partstype)

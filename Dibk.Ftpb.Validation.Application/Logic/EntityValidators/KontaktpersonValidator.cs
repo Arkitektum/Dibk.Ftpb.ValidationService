@@ -16,7 +16,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {}
         protected override void InitializeValidationRules(string xPathForEntity)
         {
-            AddValidationRule(ValidationRuleEnum.kontaktpersonNavn_utfylt, xPathForEntity, "navn");
+            AddValidationRule(ValidationRuleEnum.kontaktperson_navn_utfylt, xPathForEntity, "navn");
         }
 
         public ValidationResult Validate(KontaktpersonValidationEntity kontaktperson = null)
@@ -24,7 +24,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             if (string.IsNullOrEmpty(kontaktperson.ModelData?.Navn))
                 //TODO fill upp {0} parent Node/class/context... in message
-                AddMessageFromRule(ValidationRuleEnum.kontaktpersonNavn_utfylt);
+                AddMessageFromRule(ValidationRuleEnum.kontaktperson_navn_utfylt);
 
             return _validationResult;
         }
