@@ -57,7 +57,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                     Kodeverdi = mapFrom.kodeverdi
                 };
 
-                return new ParttypeCodeValidationEntity(partstypeCode, "PartsType", parentElementXpath);
+                return new ParttypeCodeValidationEntity(partstypeCode, "partstype", parentElementXpath);
             }
         }
     }

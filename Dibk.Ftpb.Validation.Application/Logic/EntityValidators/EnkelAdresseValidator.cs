@@ -16,10 +16,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(ValidationRuleEnum.adresse_adresselinje1_utfylt, xPathForEntity, "adresselinje1");
             AddValidationRule(ValidationRuleEnum.adresse_landkode_utfylt, xPathForEntity, "landkode");
             AddValidationRule(ValidationRuleEnum.adresse_postnr_utfylt, xPathForEntity, "postnr");
-            AddValidationRule(ValidationRuleEnum.adresse_postnr_kontrollSiffer, xPathForEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_kontrollsiffer, xPathForEntity, "postnr");
             AddValidationRule(ValidationRuleEnum.adresse_postnr_ugyldig, xPathForEntity, "postnr");
             AddValidationRule(ValidationRuleEnum.adresse_postnr_stemmerIkke, xPathForEntity, "postnr");
-            AddValidationRule(ValidationRuleEnum.adresse_postnr_ikkeValidert, xPathForEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_ikke_validert, xPathForEntity, "postnr");
         }
 
         public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null)

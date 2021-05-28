@@ -44,10 +44,10 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         adresse_husnr_utfylt,
         adresse_bokstav_utfylt,
         adresse_postnr_4siffer,
-        adresse_postnr_kontrollSiffer,
+        adresse_postnr_kontrollsiffer,
         adresse_postnr_ugyldig,
         adresse_postnr_stemmerIkke,
-        adresse_postnr_ikkeValidert,
+        adresse_postnr_ikke_validert,
 
         eiendomsIdentifikasjon_kommunenummer_utfylt,
 
@@ -71,20 +71,9 @@ namespace Dibk.Ftpb.Validation.Application.Enums
 
         //Tiltakshaver
         tiltakshaver_utfylt,
+        tiltakshaver_partstype_utfylt,
         tiltakshaver_adresse_utfylt,
-        tiltakshaver_adresselinje1_utfylt,
-        tiltakshaver_adresselinje2_utfylt,
-        tiltakshaver_adresselinje3_utfylt,
-        tiltakshaver_landkode_utfylt,
-        tiltakshaver_postnr_utfylt,
-        tiltakshaver_poststed_utfylt,
-        tiltakshaver_postnr_4siffer,
-        tiltakshaver_postnr_kontrollSiffer,
-        tiltakshaver_postnr_ugyldig,
-        tiltakshaver_postnr_stemmerIkke,
-        tiltakshaver_postnr_ikkeValidert,
-        tiltakshaver_kommunenavn_utfylt,
-
+        tiltakshaver_kontaktperson_utfylt,
         tiltakshaver_navn_utfylt,
         tiltakshaver_telmob_utfylt,
         tiltakshaver_epost_utfylt,
