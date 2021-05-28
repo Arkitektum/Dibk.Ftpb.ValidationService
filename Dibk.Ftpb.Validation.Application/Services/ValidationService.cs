@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Dibk.Ftpb.Validation.Application.Utils;
+using System.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.Services
 {
@@ -68,8 +69,8 @@ namespace Dibk.Ftpb.Validation.Application.Services
                 validationResult.ValidationMessages = new List<ValidationMessage> { new() { Message = "Can't Get DataFormatId" } };
             }
             
-            validationResult.Errors = 0;
-            validationResult.Warnings = validationResult.ValidationMessages.Count;
+            validationResult.Errors = validationResult.ValidationMessages.Where(x => x.Messagetype == Enums.ValidationResultSeverityEnum.ERROR).Count(); 
+            validationResult.Warnings = validationResult.ValidationMessages.Where(x => x.Messagetype == Enums.ValidationResultSeverityEnum.WARNING).Count();
             validationResult.messages = validationResult.ValidationMessages;
             validationResult.rulesChecked = validationResult.ValidationRules;
 
