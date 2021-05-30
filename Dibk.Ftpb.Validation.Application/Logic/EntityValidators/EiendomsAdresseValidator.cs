@@ -7,9 +7,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class EiendomsAdresseValidator : EntityValidatorBase
     {
-        public EiendomsAdresseValidator(string xPath) : base()
+        public override string ruleXmlElement { get { return "/adresse"; } }
+        public EiendomsAdresseValidator(string parentXPath) : base(parentXPath)
         {
-            InitializeValidationRules(xPath);
+            InitializeValidationRules(EntityXPath);
         }
 
         public ValidationResult Validate(EiendomsAdresseValidationEntity eiendomsAdresseValidationEntity)

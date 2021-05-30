@@ -14,10 +14,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public class PartstypeValidator : EntityValidatorBase
     {
         private readonly ICodeListService _codeListService;
+        public override string ruleXmlElement { get { return "/partstype"; } }
 
-        public PartstypeValidator(ICodeListService codeListService):base()
+        public PartstypeValidator(string parentXPath, ICodeListService codeListService):base(parentXPath)
         {
             _codeListService = codeListService;
+            InitializeValidationRules(EntityXPath);
         }
 
         protected override void InitializeValidationRules(string xPathForEntity)
@@ -28,7 +30,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult Validate(ParttypeCodeValidationEntity partstype)
         {
-            InitializeValidationRules(partstype.DataModelXpath);
             if (Helpers.ObjectIsNullOrEmpty(partstype.ModelData?.Kodeverdi))
             {
                 AddMessageFromRule(ValidationRuleEnum.partstype_utfylt);

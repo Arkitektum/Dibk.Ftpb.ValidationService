@@ -7,11 +7,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class FakturamottakerValidator : EntityValidatorBase
     {
+        public override string ruleXmlElement { get { return "/fakturamottaker"; } }
         private EnkelAdresseValidator _enkelAdresseValidator;
-        public FakturamottakerValidator(string xPath) : base()
+        public FakturamottakerValidator(string parentXPath) : base(parentXPath)
         {
-            InitializeValidationRules(xPath);            
-            _enkelAdresseValidator = new EnkelAdresseValidator($"{xPath}/adresse");
+            
+            InitializeValidationRules(EntityXPath);            
+            _enkelAdresseValidator = new EnkelAdresseValidator(EntityXPath);
             
             //TODO: Automize this?
             this.ValidationResult.ValidationRules.AddRange(_enkelAdresseValidator.ValidationResult.ValidationRules);

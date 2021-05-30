@@ -7,15 +7,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class MatrikkelValidator : EntityValidatorBase
     {
-        public MatrikkelValidator(string xPath) : base()
+        public override string ruleXmlElement { get { return "/eiendomsidentifikasjon"; } }
+
+        public MatrikkelValidator(string parentXPath) : base(parentXPath)
         {
-            InitializeValidationRules(xPath);
+            InitializeValidationRules(EntityXPath);
         }
 
         public ValidationResult Validate(MatrikkelValidationEntity matrikkel)
         {
             base.ResetValidationMessages();
-            InitializeValidationRules(matrikkel.DataModelXpath);
+            //InitializeValidationRules(matrikkel.DataModelXpath);
 
             if (ValidateModelExists(matrikkel))
             {

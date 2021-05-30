@@ -13,16 +13,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private EiendomsAdresseValidator _eiendomsAdresseValidator;
         private MatrikkelValidator _matrikkelValidator;
         private readonly IMunicipalityValidator _municipalityValidator;
+        public override string ruleXmlElement { get { return "/eiendomByggested{0}"; } }
 
-        public EiendomValidator(string xPath, IMunicipalityValidator municipalityValidator) : base()
+        public EiendomValidator(string parentXPath, IMunicipalityValidator municipalityValidator) : base(parentXPath)
         {
             _municipalityValidator = municipalityValidator;
-            InitializeValidationRules(xPath);
+            InitializeValidationRules(EntityXPath);
 
-            _eiendomsAdresseValidator = new EiendomsAdresseValidator($"{xPath}/adresse");
+            _eiendomsAdresseValidator = new EiendomsAdresseValidator(EntityXPath);
             this.ValidationResult.ValidationRules.AddRange(_eiendomsAdresseValidator.ValidationResult.ValidationRules);
 
-            _matrikkelValidator = new MatrikkelValidator($"{xPath}/eiendomsidentifikasjon");
+            _matrikkelValidator = new MatrikkelValidator(EntityXPath);
             this.ValidationResult.ValidationRules.AddRange(_matrikkelValidator.ValidationResult.ValidationRules);
         }
 

@@ -7,10 +7,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class EnkelAdresseValidator : EntityValidatorBase
     {
+        public override string ruleXmlElement { get { return "/adresse"; } }
 
-        public EnkelAdresseValidator(string xPath):base()
+        public EnkelAdresseValidator(string parentXPath):base(parentXPath)
         {
-            InitializeValidationRules(xPath);
+            InitializeValidationRules(EntityXPath);
         }
         protected override void InitializeValidationRules(string xPathForEntity)
         {

@@ -74,8 +74,8 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.arbeidsplasser_utfylt, "ArbeidstilsynetsSamtykke/arbeidsplasser", "Arbeidsplasser må fylles ut", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.arbeidsplasser_framtidige_eller_eksisterende_utfylt, "ArbeidstilsynetsSamtykke/arbeidsplasser", "Det må velges enten 'eksisterende' eller 'fremtidige' eller begge deler.");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.arbeidsplasser_faste_eller_midlertidige_utfylt, "ArbeidstilsynetsSamtykke/arbeidsplasser", "Det må velges enten 'faste' eller 'midlertidige' eller begge deler");
-            AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.arbeidsplasser_type_arbeid_utfylt, "ArbeidstilsynetsSamtykke/arbeidsplasser", "Er tiltaket knyttet til utleiebygg så skal antall virksomheter angis.");
-            AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.arbeidsplasser_utleieBygg, "ArbeidstilsynetsSamtykke/arbeidsplasser", "Det skal angis hvormange ansatte som bygget dimensjoneres for.");
+            AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.arbeidsplasser_type_arbeid_utfylt, "ArbeidstilsynetsSamtykke/arbeidsplasser/antallVirksomheter", "Er tiltaket knyttet til utleiebygg så skal antall virksomheter angis.");
+            AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.arbeidsplasser_utleieBygg, "ArbeidstilsynetsSamtykke/arbeidsplasser/utleieBygg", "Det skal angis hvormange ansatte som bygget dimensjoneres for.");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.arbeidsplasser_beskrivelse, "ArbeidstilsynetsSamtykke/arbeidsplasser/beskrivelse", "Enten skal arbeidsplasser beskrives i søknaden eller det skal være lagt ved vedlegg 2: 'Beskrivelse av type arbeid / prosesser'.");
             
             //Tiltakshaver

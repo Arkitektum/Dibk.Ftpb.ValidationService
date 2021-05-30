@@ -18,14 +18,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public abstract class EntityValidatorBase : IEntityValidator
     {
         public ValidationResult ValidationResult;
-        protected string EntityName;        
+        protected string EntityName;
+        protected string EntityXPath;
+        public abstract string ruleXmlElement { get; }
 
-        public EntityValidatorBase()
+        public EntityValidatorBase(string parentXPath)
         {
             //EntityXPath = xPath;
             ValidationResult = new();
             ValidationResult.ValidationRules = new List<ValidationRule>();
             ValidationResult.ValidationMessages = new List<ValidationMessage>();
+            EntityXPath = $"{parentXPath}{ruleXmlElement}";
         }
 
         //public EntityValidatorBase(string xPath, string enityName) : this($"{xPath}/{enityName}")

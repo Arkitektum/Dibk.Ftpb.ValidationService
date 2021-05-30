@@ -15,15 +15,22 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public sealed class TiltakshaverValidator : EntityValidatorBase
     {
+        public override string ruleXmlElement { get { return "/tiltakshaver"; } }
+
         private readonly ICodeListService _codeListService;
 
         private EnkelAdresseValidator _enkelAdresseValidator;
+        private KontaktpersonValidator _kontaktpersonValidator;
+        private PartstypeValidator _partstypeValidator;
 
-        public TiltakshaverValidator(string xPath, ICodeListService codeListService) : base()
+        public TiltakshaverValidator(string parentXPath, ICodeListService codeListService) : base(parentXPath)
         {
             _codeListService = codeListService;
-            InitializeValidationRules(xPath);
-            _enkelAdresseValidator = new EnkelAdresseValidator($"{xPath}/adresse");
+            InitializeValidationRules(EntityXPath);
+            _enkelAdresseValidator = new EnkelAdresseValidator(EntityXPath);
+            _kontaktpersonValidator = new KontaktpersonValidator(EntityXPath);
+            _partstypeValidator = new PartstypeValidator(EntityXPath, _codeListService);
+
         }
         protected override void InitializeValidationRules(string xPathForEntity)
         {
@@ -50,8 +57,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             else
             {
-                var partstypeValidatinResults = new PartstypeValidator(_codeListService).Validate(tiltakshaver.ModelData.Partstype);
+                //var partstypeValidatinResults = new PartstypeValidator(_codeListService).Validate(tiltakshaver.ModelData.Partstype);
+                var partstypeValidatinResults = _partstypeValidator.Validate(tiltakshaver.ModelData.Partstype);
+                
                 UpdateValidationResultWithSubValidations(partstypeValidatinResults);
+                
                 //TODO diskutere hvordan man bruke svaret 
                 //if validation message have any with tiltakshaver.Partstype.Kodeverdi (ok)
                 if (!partstypeValidatinResults.ValidationMessages.Any())
@@ -102,8 +112,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 var enkeladressResult = _enkelAdresseValidator.Validate(tiltakshaver.Adresse);
                 UpdateValidationResultWithSubValidations(enkeladressResult);
 
-                var kontaktpersonResult = new KontaktpersonValidator().Validate(tiltakshaver.Kontaktperson);
-                UpdateValidationResultWithSubValidations(kontaktpersonResult);
+                //var kontaktpersonResult = new KontaktpersonValidator().Validate(tiltakshaver.Kontaktperson);
+                var kontaktpersonValidationResult = _kontaktpersonValidator.Validate(tiltakshaver.Kontaktperson);
+                UpdateValidationResultWithSubValidations(kontaktpersonValidationResult);
 
                 if (string.IsNullOrEmpty(tiltakshaver.Mobilnummer) && string.IsNullOrEmpty(tiltakshaver.Telefonnummer))
                     AddMessageFromRule(ValidationRuleEnum.tiltakshaver_telmob_utfylt);

@@ -52,25 +52,25 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //Parent xml element have the info to decide if sub element is an array or not
             //TODO: How to configure what version of and sub validator to use?
 
-            var eiendomValidator = new EiendomValidator($"{form.DataModelXpath}/eiendomByggested{{0}}", _municipalityValidator);
+            var eiendomValidator = new EiendomValidator(form.DataModelXpath, _municipalityValidator);
             AccumulateValidationRules(eiendomValidator.ValidationResult.ValidationRules);
 
             var eiendomValidationResult = eiendomValidator.Validate(form.ModelData.EiendomValidationEntities);
             AccumulateValidationMessages(eiendomValidationResult.ValidationMessages);
 
-            var arbeidsplasserValidator = new ArbeidsplasserValidator($"{form.DataModelXpath}/arbeidsplasser");
+            var arbeidsplasserValidator = new ArbeidsplasserValidator(form.DataModelXpath);
             AccumulateValidationRules(arbeidsplasserValidator.ValidationResult.ValidationRules);
             var attachments = Helpers.ObjectIsNullOrEmpty(validationInput.Attachments) ? null : validationInput.Attachments.Select(a => a.AttachmentTypeName).ToList();
             var arbeidsplasserValidationResult = arbeidsplasserValidator.Validate(form.ModelData.ArbeidsplasserValidationEntity, attachments);
             AccumulateValidationMessages(arbeidsplasserValidationResult.ValidationMessages);
 
-            var tiltakshaverValidator = new TiltakshaverValidator($"{form.DataModelXpath}/tiltakshaver", _codeListService);
+            var tiltakshaverValidator = new TiltakshaverValidator(form.DataModelXpath, _codeListService);
             AccumulateValidationRules(tiltakshaverValidator.ValidationResult.ValidationRules);
             var tiltakshaverValidationResult = tiltakshaverValidator.Validate(form.ModelData.TiltakshaverValidationEntity);
             AccumulateValidationMessages(tiltakshaverValidationResult.ValidationMessages);
 
 
-            var fakturamottakerValidator = new FakturamottakerValidator($"{form.DataModelXpath}/fakturamottaker");
+            var fakturamottakerValidator = new FakturamottakerValidator(form.DataModelXpath);
             AccumulateValidationRules(fakturamottakerValidator.ValidationResult.ValidationRules);
             var fakturamottakerValidationResult = fakturamottakerValidator.Validate(form.ModelData.FakturamottakerValidationEntity);
             AccumulateValidationMessages(fakturamottakerValidationResult.ValidationMessages);
