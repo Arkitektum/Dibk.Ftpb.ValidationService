@@ -19,10 +19,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         private EnkelAdresseValidator _enkelAdresseValidator;
 
-        public TiltakshaverValidator(ICodeListService codeListService) : base()
+        public TiltakshaverValidator(string xPath, ICodeListService codeListService) : base()
         {
             _codeListService = codeListService;
-            _enkelAdresseValidator = new EnkelAdresseValidator();
+            InitializeValidationRules(xPath);
+            _enkelAdresseValidator = new EnkelAdresseValidator($"{xPath}/adresse");
         }
         protected override void InitializeValidationRules(string xPathForEntity)
         {
@@ -42,7 +43,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult Validate(AktoerValidationEntity tiltakshaver = null)
         {
-            InitializeValidationRules(tiltakshaver.DataModelXpath);
 
             if (Helpers.ObjectIsNullOrEmpty(tiltakshaver.ModelData))
             {
@@ -59,7 +59,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     ValidateEntityFields(tiltakshaver.ModelData);
                 }
             }
-            return _validationResult;
+            return ValidationResult;
         }
 
         private void ValidateEntityFields(Aktoer tiltakshaver)
@@ -120,8 +120,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         private void UpdateValidationResultWithSubValidations(ValidationResult newValudationResult)
         {
-            _validationResult.ValidationRules.AddRange(newValudationResult.ValidationRules);
-            _validationResult.ValidationMessages.AddRange(newValudationResult.ValidationMessages);
+            ValidationResult.ValidationRules.AddRange(newValudationResult.ValidationRules);
+            ValidationResult.ValidationMessages.AddRange(newValudationResult.ValidationMessages);
         }
     }
 }

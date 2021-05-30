@@ -49,26 +49,31 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         public ValidationResult Validate(ArbeidstilsynetsSamtykke2Form_45957_ValidationEntity form, ValidationInput validationInput)
         {
-            var eiendomValidator = new EiendomValidator(_municipalityValidator);
+            //Parent xml element have the info to decide if sub element is an array or not
+            //TODO: How to configure what version of and sub validator to use?
 
-            foreach (var eiendomValidationEntity in form.ModelData.EiendomValidationEntities)
-            {
-                int index = form.ModelData.EiendomValidationEntities.ToList().IndexOf(eiendomValidationEntity);
-                var eiendomValidationResult = eiendomValidator.Validate(eiendomValidationEntity);
-                UpdateValidationResult(eiendomValidationResult);
-            }
+            var eiendomValidator = new EiendomValidator($"{form.DataModelXpath}/eiendomByggested{{0}}", _municipalityValidator);
+            AccumulateValidationRules(eiendomValidator.ValidationResult.ValidationRules);
 
-            var arbeidsplasser = new ArbeidsplasserValidator();
+            var eiendomValidationResult = eiendomValidator.Validate(form.ModelData.EiendomValidationEntities);
+            AccumulateValidationMessages(eiendomValidationResult.ValidationMessages);
 
+            var arbeidsplasserValidator = new ArbeidsplasserValidator($"{form.DataModelXpath}/arbeidsplasser");
+            AccumulateValidationRules(arbeidsplasserValidator.ValidationResult.ValidationRules);
             var attachments = Helpers.ObjectIsNullOrEmpty(validationInput.Attachments) ? null : validationInput.Attachments.Select(a => a.AttachmentTypeName).ToList();
-            var arbeidsplasserValidator = arbeidsplasser.Validate(form.ModelData.ArbeidsplasserValidationEntity, attachments);
-            UpdateValidationResult(arbeidsplasserValidator);
+            var arbeidsplasserValidationResult = arbeidsplasserValidator.Validate(form.ModelData.ArbeidsplasserValidationEntity, attachments);
+            AccumulateValidationMessages(arbeidsplasserValidationResult.ValidationMessages);
 
-            var tiltakshaverResult = new TiltakshaverValidator(_codeListService).Validate(form.ModelData.TiltakshaverValidationEntity);
-            UpdateValidationResult(tiltakshaverResult);
+            var tiltakshaverValidator = new TiltakshaverValidator($"{form.DataModelXpath}/tiltakshaver", _codeListService);
+            AccumulateValidationRules(tiltakshaverValidator.ValidationResult.ValidationRules);
+            var tiltakshaverValidationResult = tiltakshaverValidator.Validate(form.ModelData.TiltakshaverValidationEntity);
+            AccumulateValidationMessages(tiltakshaverValidationResult.ValidationMessages);
 
-            var fakturamottakerResult = new FakturamottakerValidator().Validate(form.ModelData.FakturamottakerValidationEntity);
-            UpdateValidationResult(fakturamottakerResult);
+
+            var fakturamottakerValidator = new FakturamottakerValidator($"{form.DataModelXpath}/fakturamottaker");
+            AccumulateValidationRules(fakturamottakerValidator.ValidationResult.ValidationRules);
+            var fakturamottakerValidationResult = fakturamottakerValidator.Validate(form.ModelData.FakturamottakerValidationEntity);
+            AccumulateValidationMessages(fakturamottakerValidationResult.ValidationMessages);
 
             return ValidationResult;
         }

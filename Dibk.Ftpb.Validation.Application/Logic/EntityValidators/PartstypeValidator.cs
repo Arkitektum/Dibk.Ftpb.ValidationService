@@ -49,7 +49,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 //}
             }
 
-            return _validationResult;
+            return ValidationResult;
         }
     }
 }

@@ -7,29 +7,32 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class MatrikkelValidator : EntityValidatorBase
     {
-        public MatrikkelValidator() : base()
-        {}
+        public MatrikkelValidator(string xPath) : base()
+        {
+            InitializeValidationRules(xPath);
+        }
+
         public ValidationResult Validate(MatrikkelValidationEntity matrikkel)
         {
             base.ResetValidationMessages();
             InitializeValidationRules(matrikkel.DataModelXpath);
-            
+
             if (ValidateModelExists(matrikkel))
             {
                 ValidateEntityFields(matrikkel);
             }
 
-            return _validationResult;
+            return ValidationResult;
         }
 
         protected override void InitializeValidationRules(string xPathForEntity)
         {
-            AddValidationRule(ValidationRuleEnum.eiendomsIdentifikasjon_utfylt, xPathForEntity);
-            AddValidationRule(ValidationRuleEnum.eiendomsIdentifikasjon_kommunenummer_utfylt, xPathForEntity, "kommunenummer");
-            AddValidationRule(ValidationRuleEnum.eiendomsIdentifikasjon_gaardsnummer_utfylt, xPathForEntity, "gaardsnummer");
-            AddValidationRule(ValidationRuleEnum.eiendomsIdentifikasjon_bruksnummer_utfylt, xPathForEntity, "bruksnummer");
-            AddValidationRule(ValidationRuleEnum.eiendomsIdentifikasjon_festenummer_utfylt, xPathForEntity, "festenummer");
-            AddValidationRule(ValidationRuleEnum.eiendomsIdentifikasjon_seksjonsnummer_utfylt, xPathForEntity, "seksjonsnummer");
+            AddValidationRule(ValidationRuleEnum.eiendomsidentifikasjon_utfylt, xPathForEntity);
+            AddValidationRule(ValidationRuleEnum.eiendomsidentifikasjon_kommunenummer_utfylt, xPathForEntity, "kommunenummer");
+            AddValidationRule(ValidationRuleEnum.eiendomsidentifikasjon_gaardsnummer_utfylt, xPathForEntity, "gaardsnummer");
+            AddValidationRule(ValidationRuleEnum.eiendomsidentifikasjon_bruksnummer_utfylt, xPathForEntity, "bruksnummer");
+            AddValidationRule(ValidationRuleEnum.eiendomsidentifikasjon_festenummer_utfylt, xPathForEntity, "festenummer");
+            AddValidationRule(ValidationRuleEnum.eiendomsidentifikasjon_seksjonsnummer_utfylt, xPathForEntity, "seksjonsnummer");
         }
 
         private bool ValidateModelExists(MatrikkelValidationEntity modelEntity)
@@ -37,7 +40,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var xPath = modelEntity.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(modelEntity.ModelData))
             {
-                AddMessageFromRule(ValidationRuleEnum.eiendomsIdentifikasjon_utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.eiendomsidentifikasjon_utfylt, xPath);
                 return false;
             }
             return true;
@@ -47,19 +50,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             var xPath = matrikkel.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Kommunenummer))
-                AddMessageFromRule(ValidationRuleEnum.eiendomsIdentifikasjon_kommunenummer_utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.eiendomsidentifikasjon_kommunenummer_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Gaardsnummer))
-                AddMessageFromRule(ValidationRuleEnum.eiendomsIdentifikasjon_gaardsnummer_utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.eiendomsidentifikasjon_gaardsnummer_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Bruksnummer))
-                AddMessageFromRule(ValidationRuleEnum.eiendomsIdentifikasjon_bruksnummer_utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.eiendomsidentifikasjon_bruksnummer_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Festenummer))
-                AddMessageFromRule(ValidationRuleEnum.eiendomsIdentifikasjon_festenummer_utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.eiendomsidentifikasjon_festenummer_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Seksjonsnummer))
-                AddMessageFromRule(ValidationRuleEnum.eiendomsIdentifikasjon_seksjonsnummer_utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.eiendomsidentifikasjon_seksjonsnummer_utfylt, xPath);
         }
     }
 }

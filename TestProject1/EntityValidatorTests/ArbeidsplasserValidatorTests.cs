@@ -33,7 +33,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         [Fact]
         public void ArbeidsplasserTest()
         {
-            var arbeidsplasser = new ArbeidsplasserValidator();
+            var arbeidsplasser = new ArbeidsplasserValidator("Test");
             _arbeidsplasser.ModelData.Beskrivelse = null;
             _attachemntList.Remove("BeskrivelseTypeArbeidProsess");
             var validationsResult = arbeidsplasser.Validate(_arbeidsplasser, _attachemntList);

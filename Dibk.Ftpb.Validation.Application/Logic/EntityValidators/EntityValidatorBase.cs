@@ -17,15 +17,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
     public abstract class EntityValidatorBase : IEntityValidator
     {
-        protected ValidationResult _validationResult;
+        public ValidationResult ValidationResult;
         protected string EntityName;        
 
         public EntityValidatorBase()
         {
             //EntityXPath = xPath;
-            _validationResult = new();
-            _validationResult.ValidationRules = new List<ValidationRule>();
-            _validationResult.ValidationMessages = new List<ValidationMessage>();
+            ValidationResult = new();
+            ValidationResult.ValidationRules = new List<ValidationRule>();
+            ValidationResult.ValidationMessages = new List<ValidationMessage>();
         }
 
         //public EntityValidatorBase(string xPath, string enityName) : this($"{xPath}/{enityName}")
@@ -35,18 +35,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult ResetValidationMessages()
         {
-            _validationResult.ValidationMessages = new();
-            return _validationResult;
+            ValidationResult.ValidationMessages = new();
+            return ValidationResult;
         }
         protected void UpdateValidationResultWithSubValidations(ValidationResult newValudationResult)
         {
-            _validationResult.ValidationRules.AddRange(newValudationResult.ValidationRules);
-            _validationResult.ValidationMessages.AddRange(newValudationResult.ValidationMessages);
+            ValidationResult.ValidationRules.AddRange(newValudationResult.ValidationRules);
+            ValidationResult.ValidationMessages.AddRange(newValudationResult.ValidationMessages);
         }
 
         public ValidationRule RuleToValidate(ValidationRuleEnum id)
         {
-            var validationRule = _validationResult.ValidationRules.FirstOrDefault(r => r.Id.Equals(id)) ?? new ValidationRule()
+            var validationRule = ValidationResult.ValidationRules.FirstOrDefault(r => r.Id.Equals(id)) ?? new ValidationRule()
             {
                 Id = id,
                 Message = $"Can't find rule with id:'{id}'.-"
@@ -70,7 +70,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             string bartePath = $"{xPath}{separator}{xmlElement}";
             bartePath = Regex.Replace(bartePath, @"\[([0-9]*)\]", "{0}");
-            _validationResult.ValidationRules.Add(new ValidationRule() { Id = id, Xpath = bartePath, XmlElement = xmlElement });
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Id = id, Xpath = bartePath, XmlElement = xmlElement });
         }
 
 
@@ -89,7 +89,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 MessageParameters = messageParameters
             };
 
-            _validationResult.ValidationMessages.Add(validationMessage);
+            ValidationResult.ValidationMessages.Add(validationMessage);
         }
 
         public void AddMessageFromRule(ValidationRuleEnum id, List<string> messageParameters)
@@ -107,7 +107,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         internal string GetXpathFromValidationRule(ValidationRuleEnum id)
         {
-            var validationRule = _validationResult.ValidationRules.FirstOrDefault(r => r.Id == id);
+            var validationRule = ValidationResult.ValidationRules.FirstOrDefault(r => r.Id == id);
             var xPath = String.Empty;
 
             if (validationRule != null)

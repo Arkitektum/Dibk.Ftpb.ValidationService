@@ -7,19 +7,20 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class EiendomsAdresseValidator : EntityValidatorBase
     {
-        public EiendomsAdresseValidator() : base()
-        {}
+        public EiendomsAdresseValidator(string xPath) : base()
+        {
+            InitializeValidationRules(xPath);
+        }
 
         public ValidationResult Validate(EiendomsAdresseValidationEntity eiendomsAdresseValidationEntity)
         {
             base.ResetValidationMessages();
-            InitializeValidationRules(eiendomsAdresseValidationEntity.DataModelXpath);
             if (ValidateModelExists(eiendomsAdresseValidationEntity))
             {
                 ValidateEntityFields(eiendomsAdresseValidationEntity);
             }
 
-            return _validationResult;
+            return ValidationResult;
         }
 
         protected override void InitializeValidationRules(string xPathForEntity)
@@ -49,8 +50,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public void ValidateEntityFields(EiendomsAdresseValidationEntity eiendomsAdresseValidationEntity)
         {
             var xPath = eiendomsAdresseValidationEntity.DataModelXpath;
-
-
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Adresselinje1))
                 AddMessageFromRule(ValidationRuleEnum.eiendomsadresse_adresselinje1_utfylt, xPath);

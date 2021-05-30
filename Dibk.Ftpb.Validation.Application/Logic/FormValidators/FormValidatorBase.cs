@@ -11,15 +11,29 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
     {
         protected ValidationResult ValidationResult;
 
-        protected void UpdateValidationResult(ValidationResult validationResult)
+        protected void AccumulateValidationRules(List<ValidationRule> validationRules)
         {
+            //ValidationResult ??= new ValidationResult();
+            //ValidationResult.ValidationRules ??= new List<ValidationRule>();
+            //ValidationResult.ValidationMessages ??= new List<ValidationMessage>();
+
+            //var whereNotAlreadyExists = validationResult.ValidationRules.Where(x => !ValidationResult.ValidationRules.Any(y => y.Xpath == x.Xpath && y.Id == x.Id));
+            //ValidationResult.ValidationRules.AddRange(whereNotAlreadyExists);
+            //ValidationResult.ValidationMessages.AddRange(validationResult.ValidationMessages);
+            
             ValidationResult ??= new ValidationResult();
             ValidationResult.ValidationRules ??= new List<ValidationRule>();
-            ValidationResult.ValidationMessages ??= new List<ValidationMessage>();
 
-            var whereNotAlreadyExists = validationResult.ValidationRules.Where(x => !ValidationResult.ValidationRules.Any(y => y.Xpath == x.Xpath && y.Id == x.Id));
+            var whereNotAlreadyExists = validationRules.Where(x => !ValidationResult.ValidationRules.Any(y => y.Xpath == x.Xpath && y.Id == x.Id));
             ValidationResult.ValidationRules.AddRange(whereNotAlreadyExists);
-            ValidationResult.ValidationMessages.AddRange(validationResult.ValidationMessages);
         }
+
+        protected void AccumulateValidationMessages(List<ValidationMessage> validationMessages)
+        {
+            ValidationResult ??= new ValidationResult();
+            ValidationResult.ValidationMessages ??= new List<ValidationMessage>();
+            ValidationResult.ValidationMessages.AddRange(validationMessages);
+        }
+
     }
 }

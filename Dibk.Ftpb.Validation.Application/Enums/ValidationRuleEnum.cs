@@ -49,14 +49,14 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         adresse_postnr_stemmerIkke,
         adresse_postnr_ikke_validert,
 
-        eiendomsIdentifikasjon_kommunenummer_utfylt,
+        eiendomsidentifikasjon_kommunenummer_utfylt,
 
         //Matrikkel
-        eiendomsIdentifikasjon_utfylt,
-        eiendomsIdentifikasjon_gaardsnummer_utfylt,
-        eiendomsIdentifikasjon_bruksnummer_utfylt,
-        eiendomsIdentifikasjon_festenummer_utfylt,
-        eiendomsIdentifikasjon_seksjonsnummer_utfylt,
+        eiendomsidentifikasjon_utfylt,
+        eiendomsidentifikasjon_gaardsnummer_utfylt,
+        eiendomsidentifikasjon_bruksnummer_utfylt,
+        eiendomsidentifikasjon_festenummer_utfylt,
+        eiendomsidentifikasjon_seksjonsnummer_utfylt,
         
         //Kun for testing
         Parameter_Test,

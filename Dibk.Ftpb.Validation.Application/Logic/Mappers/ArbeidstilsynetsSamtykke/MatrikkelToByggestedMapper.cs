@@ -17,7 +17,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                 Seksjonsnummer = matrikkelnummerType.seksjonsnummer
             };
 
-            return new MatrikkelValidationEntity(matrikkel, "eiendomsIdentifikasjon", parentElementXpath);
+            return new MatrikkelValidationEntity(matrikkel, "eiendomsidentifikasjon", parentElementXpath);
         }
     }
 }

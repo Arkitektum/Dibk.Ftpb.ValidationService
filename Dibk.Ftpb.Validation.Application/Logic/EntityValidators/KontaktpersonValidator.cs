@@ -26,7 +26,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 //TODO fill upp {0} parent Node/class/context... in message
                 AddMessageFromRule(ValidationRuleEnum.kontaktperson_navn_utfylt);
 
-            return _validationResult;
+            return ValidationResult;
         }
     }
 }

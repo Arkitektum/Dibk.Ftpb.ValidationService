@@ -7,12 +7,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class FakturamottakerValidator : EntityValidatorBase
     {
-
         private EnkelAdresseValidator _enkelAdresseValidator;
-        public FakturamottakerValidator() : base()
+        public FakturamottakerValidator(string xPath) : base()
         {
-            _enkelAdresseValidator = new EnkelAdresseValidator();
+            InitializeValidationRules(xPath);            
+            _enkelAdresseValidator = new EnkelAdresseValidator($"{xPath}/adresse");
             
+            //TODO: Automize this?
+            this.ValidationResult.ValidationRules.AddRange(_enkelAdresseValidator.ValidationResult.ValidationRules);
+
         }
         protected override void InitializeValidationRules(string xPathForEntity)
         {
@@ -21,7 +24,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult Validate(FakturamottakerValidationEntity fakturamottaker = null)
         {
-            InitializeValidationRules(fakturamottaker.DataModelXpath);            
 
             if (Helpers.ObjectIsNullOrEmpty(fakturamottaker.ModelData))
             {
@@ -32,7 +34,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 var adresseValidationResult =  _enkelAdresseValidator.Validate(fakturamottaker.ModelData.Adresse);
                 UpdateValidationResultWithSubValidations(adresseValidationResult);
             }
-            return _validationResult;
+            return ValidationResult;
         }
     }
 }

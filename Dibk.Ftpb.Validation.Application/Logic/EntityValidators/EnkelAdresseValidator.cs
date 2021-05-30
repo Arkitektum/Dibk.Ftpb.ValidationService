@@ -8,8 +8,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public class EnkelAdresseValidator : EntityValidatorBase
     {
 
-        public EnkelAdresseValidator():base()
-        {}
+        public EnkelAdresseValidator(string xPath):base()
+        {
+            InitializeValidationRules(xPath);
+        }
         protected override void InitializeValidationRules(string xPathForEntity)
         {
             AddValidationRule(ValidationRuleEnum.adresse_utfylt, xPathForEntity);
@@ -24,17 +26,50 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null)
         {
-            InitializeValidationRules(enkelAdresse.DataModelXpath);
             if (Helpers.ObjectIsNullOrEmpty(enkelAdresse))
             {
                 AddMessageFromRule(ValidationRuleEnum.adresse_utfylt);
             }
             else
             {
-                //
+                ValidateEntityFields(enkelAdresse);
             }
 
-            return _validationResult;
+            return ValidationResult;
+        }
+
+        public void ValidateEntityFields(EnkelAdresseValidationEntity adresseValidationEntity)
+        {
+            var xPath = adresseValidationEntity.DataModelXpath;
+
+            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Adresselinje1))
+                AddMessageFromRule(ValidationRuleEnum.adresse_adresselinje1_utfylt, xPath);
+
+            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Adresselinje2))
+                AddMessageFromRule(ValidationRuleEnum.adresse_adresselinje2_utfylt, xPath);
+
+            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Adresselinje3))
+                AddMessageFromRule(ValidationRuleEnum.adresse_adresselinje3_utfylt, xPath);
+
+            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Landkode))
+                AddMessageFromRule(ValidationRuleEnum.adresse_landkode_utfylt, xPath);
+
+            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Postnr))
+                AddMessageFromRule(ValidationRuleEnum.adresse_postnr_utfylt, xPath);
+
+            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Poststed))
+                AddMessageFromRule(ValidationRuleEnum.adresse_poststed_utfylt, xPath);
+
+            if (!StringIs4digitNumber(adresseValidationEntity.ModelData.Postnr))
+                AddMessageFromRule(ValidationRuleEnum.eiendomsadresse_postnr_4siffer, xPath);
+        }
+
+        private bool StringIs4digitNumber(string input)
+        {
+            if (int.TryParse(input, out var number))
+                return (number >= 0 && number <= 9999);
+
+            return false;
         }
 
     }

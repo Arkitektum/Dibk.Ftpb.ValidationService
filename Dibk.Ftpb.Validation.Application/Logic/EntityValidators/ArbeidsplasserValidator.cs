@@ -10,18 +10,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     {
         private List<string> _attachmentList;
 
-        public ArbeidsplasserValidator() : base()
+        public ArbeidsplasserValidator(string xPath) : base()
         {   
+            InitializeValidationRules(xPath);
         }
         public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, List<string> attachments = null)
         {
-            InitializeValidationRules(arbeidsplasser.DataModelXpath);
 
             _attachmentList = attachments;
 
             ValidateEntityFields(arbeidsplasser);
 
-            return _validationResult;
+            return ValidationResult;
         }
 
         protected override void InitializeValidationRules(string xPathForEntity)

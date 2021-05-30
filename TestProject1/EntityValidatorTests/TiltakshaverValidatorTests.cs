@@ -82,7 +82,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         {
             var codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, true);
 
-            var tiltakshaverValidator = new TiltakshaverValidator(codeListService);
+            var tiltakshaverValidator = new TiltakshaverValidator("Test", codeListService);
             _tiltakshaver.ModelData.Foedselsnummer = "54554";
             var tiltakshaverResult = tiltakshaverValidator.Validate(_tiltakshaver);
 
