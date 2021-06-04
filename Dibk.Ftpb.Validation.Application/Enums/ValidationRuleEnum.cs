@@ -48,6 +48,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         adresse_postnr_ugyldig,
         adresse_postnr_stemmerIkke,
         adresse_postnr_ikke_validert,
+        adresse_postnr_til_galningar,
 
         eiendomsidentifikasjon_kommunenummer_utfylt,
 

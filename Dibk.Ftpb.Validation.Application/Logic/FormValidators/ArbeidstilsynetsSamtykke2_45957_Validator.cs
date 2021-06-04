@@ -94,7 +94,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             AccumulateValidationMessages(arbeidsplasserValidationResult.ValidationMessages);
 
             //Validering av tiltakshaver
-            IEnkelAdresseValidator enkelAdresseValidator = new EnkelAdresseValidator(_entityValidatorOrchestrator, "TiltakshaverValidator");
+            IEnkelAdresseValidator enkelAdresseValidator = new EnkelAdresseValidatorV2(_entityValidatorOrchestrator, "TiltakshaverValidator");
             IKontaktpersonValidator kontaktpersonValidator = new KontaktpersonValidator(_entityValidatorOrchestrator, "TiltakshaverValidator");
             IPartstypeValidator partstypeValidator = new PartstypeValidator(_entityValidatorOrchestrator, "TiltakshaverValidator", _codeListService);
             var tiltakshaverValidator = new TiltakshaverValidator(_entityValidatorOrchestrator, enkelAdresseValidator, kontaktpersonValidator, partstypeValidator, _codeListService);
