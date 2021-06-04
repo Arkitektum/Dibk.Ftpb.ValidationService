@@ -1,5 +1,6 @@
 ﻿using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
@@ -8,23 +9,23 @@ using System.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class EiendomValidator : EntityValidatorBase
+    public class EiendomValidator : EntityValidatorBase, IEiendomValidator
     {
-        private EiendomsAdresseValidator _eiendomsAdresseValidator;
-        private MatrikkelValidator _matrikkelValidator;
+        private IEiendomsAdresseValidator _eiendomsAdresseValidator;
+        private readonly IMatrikkelValidator _matrikkelValidator;
         private readonly IMunicipalityValidator _municipalityValidator;
         public override string ruleXmlElement { get { return "/eiendomByggested{0}"; } }
 
-        public EiendomValidator(string parentXPath, IMunicipalityValidator municipalityValidator) : base(parentXPath)
+        ValidationResult IEiendomValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
+
+        public EiendomValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, IEiendomsAdresseValidator eiendomsAdresseValidator, IMatrikkelValidator matrikkelValidator, IMunicipalityValidator municipalityValidator) 
+            : base(entityValidatorOrchestrator.Validators.FirstOrDefault(x => x.EntityValidator.Equals("EiendomValidator")).ParentXPath)
         {
             _municipalityValidator = municipalityValidator;
+            _eiendomsAdresseValidator = eiendomsAdresseValidator;
+            _matrikkelValidator = matrikkelValidator;
+            
             InitializeValidationRules(EntityXPath);
-
-            _eiendomsAdresseValidator = new EiendomsAdresseValidator(EntityXPath);
-            this.ValidationResult.ValidationRules.AddRange(_eiendomsAdresseValidator.ValidationResult.ValidationRules);
-
-            _matrikkelValidator = new MatrikkelValidator(EntityXPath);
-            this.ValidationResult.ValidationRules.AddRange(_matrikkelValidator.ValidationResult.ValidationRules);
         }
 
         protected override void InitializeValidationRules(string xPathForEntity)
@@ -53,16 +54,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     ValidateEntityFields(eiendomValidationEntity);
 
                     var eiendomsAdresseValidationResult = _eiendomsAdresseValidator.Validate(eiendomValidationEntity.ModelData.Adresse);
-                    ValidationResult.ValidationMessages.AddRange(eiendomsAdresseValidationResult.ValidationMessages);
+                    _validationResult.ValidationMessages.AddRange(eiendomsAdresseValidationResult.ValidationMessages);
 
                     var matrikkelValidationResult = _matrikkelValidator.Validate(eiendomValidationEntity.ModelData.Matrikkel);
-                    ValidationResult.ValidationMessages.AddRange(matrikkelValidationResult.ValidationMessages);
+                    _validationResult.ValidationMessages.AddRange(matrikkelValidationResult.ValidationMessages);
 
                     ValidateDataRelations(eiendomValidationEntity);
                 }
             }
 
-            return ValidationResult;
+            return _validationResult;
         }
 
         private void ValidateDataRelations(EiendomValidationEntity eiendomValidationEntity)
@@ -73,7 +74,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
         }
 
-        protected void ValidateEntityFields(EiendomValidationEntity eiendomValidationEntity)
+        private void ValidateEntityFields(EiendomValidationEntity eiendomValidationEntity)
         {
             var xPath = eiendomValidationEntity.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntity.ModelData?.Bygningsnummer))

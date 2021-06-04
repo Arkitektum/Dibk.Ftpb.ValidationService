@@ -18,6 +18,7 @@ using Serilog.Sinks.Elasticsearch;
 using System;
 using System.Text.Json.Serialization;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
+using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 
 namespace Dibk.Ftpb.Validation
 {
@@ -70,6 +71,7 @@ namespace Dibk.Ftpb.Validation
             
             services.AddTransient<IMunicipalityValidator, MunicipalityValidator>();
             services.AddScoped<ArbeidstilsynetsSamtykke2_45957_Validator>();
+            services.AddTransient<EntityValidatorOrchestrator>();
 
             services.AddAzureAppConfiguration();
         }

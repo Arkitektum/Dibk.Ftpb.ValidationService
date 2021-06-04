@@ -4,16 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class KontaktpersonValidator : EntityValidatorBase
+    public class KontaktpersonValidator : EntityValidatorBase, IKontaktpersonValidator
     {
         public override string ruleXmlElement { get { return "/kontaktperson"; } }
 
-        public KontaktpersonValidator(string parentXPath) : base(parentXPath)
+        public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
+
+        public KontaktpersonValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, string parent)
+            : base(entityValidatorOrchestrator.Validators.FirstOrDefault(x => x.EntityValidator.Equals("KontaktpersonValidator") && x.Parent.Equals(parent)).ParentXPath)
         {
             InitializeValidationRules(EntityXPath);
         }
@@ -29,7 +33,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 //TODO fill upp {0} parent Node/class/context... in message
                 AddMessageFromRule(ValidationRuleEnum.kontaktperson_navn_utfylt);
 
-            return ValidationResult;
+            return _validationResult;
         }
     }
 }

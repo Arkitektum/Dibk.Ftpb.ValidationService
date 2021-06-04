@@ -1,15 +1,20 @@
 ﻿using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
+using System.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class MatrikkelValidator : EntityValidatorBase
+    public class MatrikkelValidator : EntityValidatorBase, IMatrikkelValidator
     {
         public override string ruleXmlElement { get { return "/eiendomsidentifikasjon"; } }
 
-        public MatrikkelValidator(string parentXPath) : base(parentXPath)
+        ValidationResult IMatrikkelValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
+
+        public MatrikkelValidator(EntityValidatorOrchestrator entityValidatorOrchestrator) 
+            : base(entityValidatorOrchestrator.Validators.FirstOrDefault(x => x.EntityValidator.Equals("MatrikkelValidator")).ParentXPath)
         {
             InitializeValidationRules(EntityXPath);
         }
@@ -17,14 +22,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public ValidationResult Validate(MatrikkelValidationEntity matrikkel)
         {
             base.ResetValidationMessages();
-            //InitializeValidationRules(matrikkel.DataModelXpath);
 
             if (ValidateModelExists(matrikkel))
             {
                 ValidateEntityFields(matrikkel);
             }
 
-            return ValidationResult;
+            return _validationResult;
         }
 
         protected override void InitializeValidationRules(string xPathForEntity)

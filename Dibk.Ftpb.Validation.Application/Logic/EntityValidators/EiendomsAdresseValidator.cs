@@ -1,16 +1,23 @@
 ﻿using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
+using System.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class EiendomsAdresseValidator : EntityValidatorBase
+    public class EiendomsAdresseValidator : EntityValidatorBase, IEiendomsAdresseValidator
     {
         public override string ruleXmlElement { get { return "/adresse"; } }
-        public EiendomsAdresseValidator(string parentXPath) : base(parentXPath)
+
+        ValidationResult IEiendomsAdresseValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
+
+        public EiendomsAdresseValidator(EntityValidatorOrchestrator entityValidatorOrchestrator) 
+            : base(entityValidatorOrchestrator.Validators.FirstOrDefault(x => x.EntityValidator.Equals("EiendomsAdresseValidator")).ParentXPath)
         {
             InitializeValidationRules(EntityXPath);
+            
         }
 
         public ValidationResult Validate(EiendomsAdresseValidationEntity eiendomsAdresseValidationEntity)
@@ -21,7 +28,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 ValidateEntityFields(eiendomsAdresseValidationEntity);
             }
 
-            return ValidationResult;
+            return _validationResult;
         }
 
         protected override void InitializeValidationRules(string xPathForEntity)
@@ -48,7 +55,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             return true;
         }
-        public void ValidateEntityFields(EiendomsAdresseValidationEntity eiendomsAdresseValidationEntity)
+        private void ValidateEntityFields(EiendomsAdresseValidationEntity eiendomsAdresseValidationEntity)
         {
             var xPath = eiendomsAdresseValidationEntity.DataModelXpath;
 
@@ -85,7 +92,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         private bool StringIs4digitNumber(string input)
         {
-            if(int.TryParse(input, out var number))
+            if (int.TryParse(input, out var number))
                 return (number >= 0 && number <= 9999);
 
             return false;

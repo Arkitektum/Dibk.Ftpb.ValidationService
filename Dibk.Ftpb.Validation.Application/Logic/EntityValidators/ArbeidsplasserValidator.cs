@@ -1,18 +1,23 @@
 ﻿using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class ArbeidsplasserValidator : EntityValidatorBase
+    public class ArbeidsplasserValidator : EntityValidatorBase, IArbeidsplasserValidator
     {
         private List<string> _attachmentList;
         public override string ruleXmlElement { get { return "/arbeidsplasser"; } }
 
-        public ArbeidsplasserValidator(string parentXPath) : base(parentXPath)
-        {   
+        public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
+
+        public ArbeidsplasserValidator(EntityValidatorOrchestrator entityValidatorOrchestrator) 
+            : base(entityValidatorOrchestrator.Validators.FirstOrDefault(x => x.EntityValidator.Equals("ArbeidsplasserValidator")).ParentXPath)
+        {
             InitializeValidationRules(EntityXPath);
         }
         public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, List<string> attachments = null)
@@ -22,7 +27,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             ValidateEntityFields(arbeidsplasser);
 
-            return ValidationResult;
+            return _validationResult;
         }
 
         protected override void InitializeValidationRules(string xPathForEntity)
