@@ -14,7 +14,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
         public EnkelAdresseValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, string parent) 
-            : base(entityValidatorOrchestrator.Validators.FirstOrDefault(x => x.EntityValidator.Equals("EnkelAdresseValidator") && x.Parent.Equals(parent)).ParentXPath)
+            : base(entityValidatorOrchestrator)
         {
             InitializeValidationRules(EntityXPath);
         }

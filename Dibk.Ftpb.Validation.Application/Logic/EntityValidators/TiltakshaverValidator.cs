@@ -27,7 +27,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public TiltakshaverValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, IEnkelAdresseValidator enkelAdresseValidator, 
             IKontaktpersonValidator kontaktpersonValidator, IPartstypeValidator partstypeValidator , ICodeListService codeListService) 
-            : base(entityValidatorOrchestrator.Validators.FirstOrDefault(x => x.EntityValidator.Equals("TiltakshaverValidator")).ParentXPath)
+            : base(entityValidatorOrchestrator)
         {
             _codeListService = codeListService;
             InitializeValidationRules(EntityXPath);

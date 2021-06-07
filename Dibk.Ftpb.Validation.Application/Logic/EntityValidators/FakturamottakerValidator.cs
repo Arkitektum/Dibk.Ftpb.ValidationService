@@ -16,7 +16,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private readonly IEnkelAdresseValidator _enkelAdresseValidator;
 
         public FakturamottakerValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, IEnkelAdresseValidator enkelAdresseValidator) 
-            : base(entityValidatorOrchestrator.Validators.FirstOrDefault(x => x.EntityValidator.Equals("FakturamottakerValidator")).ParentXPath)
+            : base(entityValidatorOrchestrator)
         {
             InitializeValidationRules(EntityXPath);
 

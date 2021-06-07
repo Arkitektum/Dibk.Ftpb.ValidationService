@@ -50,12 +50,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             _entityValidatorOrchestrator.Validators = new List<EntityValidatorInfo>();
 
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "EiendomValidator", Parent = null, ParentXPath = "ArbeidstilsynetsSamtykke" });
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "EiendomsAdresseValidator", Parent = "EiendomValidator", ParentXPath = "ArbeidstilsynetsSamtykke/eiendomByggested{0}" });
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "MatrikkelValidator", Parent = "EiendomValidator", ParentXPath = "ArbeidstilsynetsSamtykke/eiendomByggested{0}" });
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "EiendomByggestedValidator", Parent = null, ParentXPath = "ArbeidstilsynetsSamtykke" });
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "EiendomsAdresseValidator", Parent = "EiendomByggestedValidator", ParentXPath = "ArbeidstilsynetsSamtykke/eiendomByggested{0}" });
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "MatrikkelValidator", Parent = "EiendomByggestedValidator", ParentXPath = "ArbeidstilsynetsSamtykke/eiendomByggested{0}" });
 
             _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "TiltakshaverValidator", Parent = null, ParentXPath = "ArbeidstilsynetsSamtykke" });
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "EnkelAdresseValidator", Parent = "TiltakshaverValidator", ParentXPath = "ArbeidstilsynetsSamtykke/tiltakshaver" });
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "EnkelAdresseValidatorV2", Parent = "TiltakshaverValidator", ParentXPath = "ArbeidstilsynetsSamtykke/tiltakshaver" });
             _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "KontaktpersonValidator", Parent = "TiltakshaverValidator", ParentXPath = "ArbeidstilsynetsSamtykke/tiltakshaver" });
             _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "PartstypeValidator", Parent = "TiltakshaverValidator", ParentXPath = "ArbeidstilsynetsSamtykke/tiltakshaver" });
 
@@ -79,11 +79,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //Validering av eiendom
             IEiendomsAdresseValidator eiendomsAdresseValidator = new EiendomsAdresseValidator(_entityValidatorOrchestrator);
             IMatrikkelValidator matrikkelValidator = new MatrikkelValidator(_entityValidatorOrchestrator);
-            IEiendomValidator eiendomValidator = new EiendomValidator(_entityValidatorOrchestrator, eiendomsAdresseValidator, matrikkelValidator, _municipalityValidator);
-            AccumulateValidationRules(eiendomValidator.ValidationResult.ValidationRules);
+            IEiendomByggestedValidator eiendomByggestedValidator = new EiendomByggestedValidator(_entityValidatorOrchestrator, eiendomsAdresseValidator, matrikkelValidator, _municipalityValidator);
+            AccumulateValidationRules(eiendomByggestedValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(eiendomsAdresseValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(matrikkelValidator.ValidationResult.ValidationRules);
-            var eiendomValidationResult = eiendomValidator.Validate(form.ModelData.EiendomValidationEntities);
+            var eiendomValidationResult = eiendomByggestedValidator.Validate(form.ModelData.EiendomValidationEntities);
             AccumulateValidationMessages(eiendomValidationResult.ValidationMessages);
 
             //Validering av arbeidsplasser

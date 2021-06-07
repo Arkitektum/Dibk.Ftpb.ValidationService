@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
 {
-    public interface IEiendomValidator
+    public interface IEiendomByggestedValidator
     {
         string ruleXmlElement { get; }
         ValidationResult ValidationResult { get; set; }

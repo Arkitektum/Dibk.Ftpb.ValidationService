@@ -36,8 +36,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         ValidationResult IEntityValidator.ValidationResult { get => _validationResult; set => _validationResult = value; }
 
 
-        public EntityValidatorBase(string parentXPath)
+        public EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator)
         {
+            var parentXPath = entityValidatorOrchestrator.Validators.FirstOrDefault(x => x.EntityValidator.Equals(this.GetType().Name)).ParentXPath;
             _validationResult = new ValidationResult();
             _validationResult.ValidationRules = new List<ValidationRule>();
             _validationResult.ValidationMessages = new List<ValidationMessage>();

@@ -3,6 +3,7 @@ using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,11 +13,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     {
         private List<string> _attachmentList;
         public override string ruleXmlElement { get { return "/arbeidsplasser"; } }
-
+        
+        public String harry = new String("");
+        
+        Type tttt = typeof(ArbeidsplasserValidator);
+        
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
         public ArbeidsplasserValidator(EntityValidatorOrchestrator entityValidatorOrchestrator) 
-            : base(entityValidatorOrchestrator.Validators.FirstOrDefault(x => x.EntityValidator.Equals("ArbeidsplasserValidator")).ParentXPath)
+            : base(entityValidatorOrchestrator)
         {
             InitializeValidationRules(EntityXPath);
         }

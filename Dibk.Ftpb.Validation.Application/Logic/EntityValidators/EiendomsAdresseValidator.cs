@@ -14,7 +14,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         ValidationResult IEiendomsAdresseValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
         public EiendomsAdresseValidator(EntityValidatorOrchestrator entityValidatorOrchestrator) 
-            : base(entityValidatorOrchestrator.Validators.FirstOrDefault(x => x.EntityValidator.Equals("EiendomsAdresseValidator")).ParentXPath)
+            : base(entityValidatorOrchestrator)
         {
             InitializeValidationRules(EntityXPath);
             

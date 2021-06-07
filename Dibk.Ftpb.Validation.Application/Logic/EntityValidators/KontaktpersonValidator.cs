@@ -17,7 +17,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 
         public KontaktpersonValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, string parent)
-            : base(entityValidatorOrchestrator.Validators.FirstOrDefault(x => x.EntityValidator.Equals("KontaktpersonValidator") && x.Parent.Equals(parent)).ParentXPath)
+            : base(entityValidatorOrchestrator)
         {
             InitializeValidationRules(EntityXPath);
         }

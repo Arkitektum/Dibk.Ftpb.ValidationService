@@ -92,7 +92,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             if (WriteValidationResultsToJsonFile)
             {
                 var jsonString = JsonConvert.SerializeObject(newValidationReport);
-                File.WriteAllText(_rootDirTestResults + @"\eiendomValidator_ikke_4_siffer_i_postnr_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
+                File.WriteAllText(_rootDirTestResults + @"\eiendomByggestedValidator_ikke_4_siffer_i_postnr_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
             }
         }
         [Fact]
@@ -106,7 +106,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             IEiendomsAdresseValidator eiendomsAdresseValidator = new EiendomsAdresseValidator(entityValidatorOrchestrator);
             IMatrikkelValidator matrikkelValidator = new MatrikkelValidator(entityValidatorOrchestrator);
 
-            var validationResultForEiendom = new EiendomValidator(entityValidatorOrchestrator, eiendomsAdresseValidator, matrikkelValidator, _municipalityValidator).Validate(formEntity.ModelData.EiendomValidationEntities);
+            var validationResultForEiendom = new EiendomByggestedValidator(entityValidatorOrchestrator, eiendomsAdresseValidator, matrikkelValidator, _municipalityValidator).Validate(formEntity.ModelData.EiendomValidationEntities);
 
             var validationMessage = validationResultForEiendom.ValidationMessages.Where(x => x.Reference.Equals("tillatte_postnr_i_kommune")).FirstOrDefault();
             //validationMessage.Reference.Should().NotBe(null);
@@ -118,7 +118,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             if (WriteValidationResultsToJsonFile)
             {
                 var jsonString = JsonConvert.SerializeObject(newValidationReport);
-                File.WriteAllText(_rootDirTestResults + @"\eiendomValidator_med_ugyldig_postnr_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
+                File.WriteAllText(_rootDirTestResults + @"\eiendomByggestedValidator_med_ugyldig_postnr_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
             }
         }
 
@@ -132,7 +132,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             EntityValidatorOrchestrator entityValidatorOrchestrator = new EntityValidatorOrchestrator();
             IEiendomsAdresseValidator eiendomsAdresseValidator = new EiendomsAdresseValidator(entityValidatorOrchestrator);
             IMatrikkelValidator matrikkelValidator = new MatrikkelValidator(entityValidatorOrchestrator);
-            var validationResultForEiendom = new EiendomValidator(entityValidatorOrchestrator, eiendomsAdresseValidator, matrikkelValidator, _municipalityValidator).Validate(formEntity.ModelData.EiendomValidationEntities);
+            var validationResultForEiendom = new EiendomByggestedValidator(entityValidatorOrchestrator, eiendomsAdresseValidator, matrikkelValidator, _municipalityValidator).Validate(formEntity.ModelData.EiendomValidationEntities);
 
             var validationMessage = validationResultForEiendom.ValidationMessages.Where(x => x.Reference.Equals("tillatte_postnr_i_kommune")).FirstOrDefault();
             //validationMessage.Reference.Should().NotBe(null);
@@ -144,7 +144,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             if (WriteValidationResultsToJsonFile)
             {
                 var jsonString = JsonConvert.SerializeObject(newValidationReport);
-                File.WriteAllText(_rootDirTestResults + @"\eiendomValidator_for_2_eiendommer_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
+                File.WriteAllText(_rootDirTestResults + @"\eiendomByggestedValidator_for_2_eiendommer_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
             }
         }
 

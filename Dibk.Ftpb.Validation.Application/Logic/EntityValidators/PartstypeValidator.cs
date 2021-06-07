@@ -20,7 +20,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 
         public PartstypeValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, string parent, ICodeListService codeListService) 
-            : base(entityValidatorOrchestrator.Validators.FirstOrDefault(x => x.EntityValidator.Equals("PartstypeValidator") && x.Parent.Equals(parent)).ParentXPath)
+            : base(entityValidatorOrchestrator)
         {
             _codeListService = codeListService;
             InitializeValidationRules(EntityXPath);
