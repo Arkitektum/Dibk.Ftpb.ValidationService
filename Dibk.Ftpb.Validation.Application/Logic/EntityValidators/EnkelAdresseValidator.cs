@@ -22,6 +22,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             AddValidationRule(ValidationRuleEnum.adresse_utfylt, xPathForEntity);
             AddValidationRule(ValidationRuleEnum.adresse_adresselinje1_utfylt, xPathForEntity, "adresselinje1");
+            AddValidationRule(ValidationRuleEnum.adresse_adresselinje2_utfylt, xPathForEntity, "adresselinje2");
+            AddValidationRule(ValidationRuleEnum.adresse_adresselinje3_utfylt, xPathForEntity, "adresselinje3");
             AddValidationRule(ValidationRuleEnum.adresse_landkode_utfylt, xPathForEntity, "landkode");
             AddValidationRule(ValidationRuleEnum.adresse_postnr_utfylt, xPathForEntity, "postnr");
             AddValidationRule(ValidationRuleEnum.adresse_postnr_kontrollsiffer, xPathForEntity, "postnr");

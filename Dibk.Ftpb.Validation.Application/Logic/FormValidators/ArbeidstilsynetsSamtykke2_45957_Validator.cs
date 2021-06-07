@@ -20,8 +20,21 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private readonly EntityValidatorOrchestrator _entityValidatorOrchestrator;
         private readonly IMunicipalityValidator _municipalityValidator;
         private readonly ICodeListService _codeListService;
+        //private readonly string _formXPath = "ArbeidstilsynetsSamtykke"; 
         public ArbeidstilsynetsSamtykke2Form_45957_ValidationEntity ArbeidstilsynetsSamtykke2Form45957 { get; set; }
         public ArbeidstilsynetsSamtykkeType _form { get; set; }
+        private IEiendomsAdresseValidator _eiendomsAdresseValidator;
+        private IMatrikkelValidator _matrikkelValidator;
+        private IEiendomByggestedValidator _eiendomByggestedValidator;
+        private IArbeidsplasserValidator _arbeidsplasserValidator;
+        private IEnkelAdresseValidator _tiltakshaverEnkelAdresseValidator;
+        private IKontaktpersonValidator _kontaktpersonValidator;
+        private IPartstypeValidator _partstypeValidator;
+        private ITiltakshaverValidator _tiltakshaverValidator;
+        private IEnkelAdresseValidator _fakturamottakerEnkelAdresseValidator;
+        private IFakturamottakerValidator _fakturamottakerValidator;
+
+        protected override string FormXPath => "ArbeidstilsynetsSamtykke";
 
         public ArbeidstilsynetsSamtykke2_45957_Validator(EntityValidatorOrchestrator entityValidatorOrchestrator, IMunicipalityValidator municipalityValidator, ICodeListService codeListService)
         {
@@ -30,7 +43,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _codeListService = codeListService;
         }
 
-        public ValidationResult StartValidation(ValidationInput validationInput)
+        public override ValidationResult StartValidation(ValidationInput validationInput)
         {
             InitializeValidatorConfig();
 
@@ -39,30 +52,66 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             // map to arbeidstilsynet formEntity 
             ArbeidstilsynetsSamtykke2Form45957 = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(_form);
+            InitializeValidatorConfig();
+            InstantiateValidators();
             Validate(ArbeidstilsynetsSamtykke2Form45957, validationInput);
 
             return ValidationResult;
         }
 
-        private void InitializeValidatorConfig()
+        protected override void InitializeValidatorConfig()
         {
-            _entityValidatorOrchestrator.ValidatorFormName = "ArbeidstilsynetsSamtykke2_45957_Validator";
+            _entityValidatorOrchestrator.ValidatorFormName = this.GetType().Name;
+            //_entityValidatorOrchestrator.ValidatorFormXPath = "ArbeidstilsynetsSamtykke";
 
             _entityValidatorOrchestrator.Validators = new List<EntityValidatorInfo>();
 
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "EiendomByggestedValidator", Parent = null, ParentXPath = "ArbeidstilsynetsSamtykke" });
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "EiendomsAdresseValidator", Parent = "EiendomByggestedValidator", ParentXPath = "ArbeidstilsynetsSamtykke/eiendomByggested{0}" });
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "MatrikkelValidator", Parent = "EiendomByggestedValidator", ParentXPath = "ArbeidstilsynetsSamtykke/eiendomByggested{0}" });
+            //Eiendombyggested
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "EiendomByggestedValidator", ParentXPath = FormXPath });
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "EiendomsAdresseValidator", ParentValidator = "EiendomByggestedValidator", ParentXPath = $"{FormXPath}/eiendomByggested{{0}}" });
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "MatrikkelValidator", ParentValidator = "EiendomByggestedValidator", ParentXPath = $"{FormXPath}/eiendomByggested{{0}}" });
 
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "TiltakshaverValidator", Parent = null, ParentXPath = "ArbeidstilsynetsSamtykke" });
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "EnkelAdresseValidatorV2", Parent = "TiltakshaverValidator", ParentXPath = "ArbeidstilsynetsSamtykke/tiltakshaver" });
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "KontaktpersonValidator", Parent = "TiltakshaverValidator", ParentXPath = "ArbeidstilsynetsSamtykke/tiltakshaver" });
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "PartstypeValidator", Parent = "TiltakshaverValidator", ParentXPath = "ArbeidstilsynetsSamtykke/tiltakshaver" });
+            //Tiltakshaver
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "TiltakshaverValidator", ParentXPath = FormXPath });
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "EnkelAdresseValidatorV2", ParentValidator = "TiltakshaverValidator", ParentXPath = $"{FormXPath}/tiltakshaver" });
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "KontaktpersonValidator", ParentValidator = "TiltakshaverValidator", ParentXPath = $"{FormXPath}/tiltakshaver" });
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "PartstypeValidator", ParentValidator = "TiltakshaverValidator", ParentXPath = $"{FormXPath}/tiltakshaver" });
 
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "FakturamottakerValidator", Parent = null, ParentXPath = "ArbeidstilsynetsSamtykke" });
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "EnkelAdresseValidator", Parent = "FakturamottakerValidator", ParentXPath = "ArbeidstilsynetsSamtykke/fakturamottaker" });
+            //Fakturamottaker
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "FakturamottakerValidator", ParentXPath = FormXPath });
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "EnkelAdresseValidator", ParentValidator = "FakturamottakerValidator", ParentXPath = $"{FormXPath}/fakturamottaker" });
 
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "ArbeidsplasserValidator", Parent = null, ParentXPath = "ArbeidstilsynetsSamtykke" });
+            //Arbeidsplasser
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo() { EntityValidator = "ArbeidsplasserValidator", ParentXPath = FormXPath });
+        }
+
+        protected override void InstantiateValidators()
+        {
+            _eiendomsAdresseValidator = new EiendomsAdresseValidator(_entityValidatorOrchestrator);
+            _matrikkelValidator = new MatrikkelValidator(_entityValidatorOrchestrator);
+            _eiendomByggestedValidator = new EiendomByggestedValidator(_entityValidatorOrchestrator, _eiendomsAdresseValidator, _matrikkelValidator, _municipalityValidator);
+            _arbeidsplasserValidator = new ArbeidsplasserValidator(_entityValidatorOrchestrator);
+            _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidatorV2(_entityValidatorOrchestrator, "TiltakshaverValidator");
+            _kontaktpersonValidator = new KontaktpersonValidator(_entityValidatorOrchestrator, "TiltakshaverValidator");
+            _partstypeValidator = new PartstypeValidator(_entityValidatorOrchestrator, "TiltakshaverValidator", _codeListService);
+            _tiltakshaverValidator = new TiltakshaverValidator(_entityValidatorOrchestrator, _tiltakshaverEnkelAdresseValidator, _kontaktpersonValidator, _partstypeValidator, _codeListService);
+            _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidator(_entityValidatorOrchestrator, "FakturamottakerValidator");
+            _fakturamottakerValidator = new FakturamottakerValidator(_entityValidatorOrchestrator, _fakturamottakerEnkelAdresseValidator);
+
+            DefineValidationRules();
+        }
+        protected override void DefineValidationRules()
+        {
+            AccumulateValidationRules(_eiendomByggestedValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_eiendomsAdresseValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_matrikkelValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_arbeidsplasserValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_tiltakshaverValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_partstypeValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_tiltakshaverEnkelAdresseValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_kontaktpersonValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_fakturamottakerValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_fakturamottakerEnkelAdresseValidator.ValidationResult.ValidationRules);
         }
 
         public ArbeidstilsynetsSamtykkeType DeserializeDataForm(string xmlData)
@@ -73,44 +122,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         public ValidationResult Validate(ArbeidstilsynetsSamtykke2Form_45957_ValidationEntity form, ValidationInput validationInput)
         {
-            //Parent xml element have the info to decide if sub element is an array or not
-            //TODO: How to configure what version of and sub validator to use?
-            
-            //Validering av eiendom
-            IEiendomsAdresseValidator eiendomsAdresseValidator = new EiendomsAdresseValidator(_entityValidatorOrchestrator);
-            IMatrikkelValidator matrikkelValidator = new MatrikkelValidator(_entityValidatorOrchestrator);
-            IEiendomByggestedValidator eiendomByggestedValidator = new EiendomByggestedValidator(_entityValidatorOrchestrator, eiendomsAdresseValidator, matrikkelValidator, _municipalityValidator);
-            AccumulateValidationRules(eiendomByggestedValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(eiendomsAdresseValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(matrikkelValidator.ValidationResult.ValidationRules);
-            var eiendomValidationResult = eiendomByggestedValidator.Validate(form.ModelData.EiendomValidationEntities);
+            var eiendomValidationResult = _eiendomByggestedValidator.Validate(form.ModelData.EiendomValidationEntities);
             AccumulateValidationMessages(eiendomValidationResult.ValidationMessages);
 
-            //Validering av arbeidsplasser
-            var arbeidsplasserValidator = new ArbeidsplasserValidator(_entityValidatorOrchestrator);
-            AccumulateValidationRules(arbeidsplasserValidator.ValidationResult.ValidationRules);
             var attachments = Helpers.ObjectIsNullOrEmpty(validationInput.Attachments) ? null : validationInput.Attachments.Select(a => a.AttachmentTypeName).ToList();
-            var arbeidsplasserValidationResult = arbeidsplasserValidator.Validate(form.ModelData.ArbeidsplasserValidationEntity, attachments);
+            var arbeidsplasserValidationResult = _arbeidsplasserValidator.Validate(form.ModelData.ArbeidsplasserValidationEntity, attachments);
             AccumulateValidationMessages(arbeidsplasserValidationResult.ValidationMessages);
 
-            //Validering av tiltakshaver
-            IEnkelAdresseValidator enkelAdresseValidator = new EnkelAdresseValidatorV2(_entityValidatorOrchestrator, "TiltakshaverValidator");
-            IKontaktpersonValidator kontaktpersonValidator = new KontaktpersonValidator(_entityValidatorOrchestrator, "TiltakshaverValidator");
-            IPartstypeValidator partstypeValidator = new PartstypeValidator(_entityValidatorOrchestrator, "TiltakshaverValidator", _codeListService);
-            var tiltakshaverValidator = new TiltakshaverValidator(_entityValidatorOrchestrator, enkelAdresseValidator, kontaktpersonValidator, partstypeValidator, _codeListService);
-            AccumulateValidationRules(tiltakshaverValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(partstypeValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(enkelAdresseValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(kontaktpersonValidator.ValidationResult.ValidationRules);
-            var tiltakshaverValidationResult = tiltakshaverValidator.Validate(form.ModelData.TiltakshaverValidationEntity);
+            var tiltakshaverValidationResult = _tiltakshaverValidator.Validate(form.ModelData.TiltakshaverValidationEntity);
             AccumulateValidationMessages(tiltakshaverValidationResult.ValidationMessages);
 
-            //Validering av fakturamottaker
-            enkelAdresseValidator = new EnkelAdresseValidator(_entityValidatorOrchestrator, "FakturamottakerValidator");
-            IFakturamottakerValidator fakturamottakerValidator = new FakturamottakerValidator(_entityValidatorOrchestrator, enkelAdresseValidator);
-            AccumulateValidationRules(fakturamottakerValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(enkelAdresseValidator.ValidationResult.ValidationRules);
-            var fakturamottakerValidationResult = fakturamottakerValidator.Validate(form.ModelData.FakturamottakerValidationEntity);
+            var fakturamottakerValidationResult = _fakturamottakerValidator.Validate(form.ModelData.FakturamottakerValidationEntity);
             AccumulateValidationMessages(fakturamottakerValidationResult.ValidationMessages);
 
             return ValidationResult;

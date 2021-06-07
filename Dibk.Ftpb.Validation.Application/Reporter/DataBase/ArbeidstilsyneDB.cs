@@ -33,7 +33,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
         }
         public List<ValidationMessageStorageEntry> InitiateMessageRepository()
         {
-
+            //Eiendombyggested
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.eiendom_utfylt, "ArbeidstilsynetsSamtykke/eiendomByggested{0}", "Eiendom må være utfyllt", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.eiendomsadresse_bygningsnummer_utfylt, "ArbeidstilsynetsSamtykke/eiendomByggested{0}/bygningsnummer", "Bygningsnr må være utfyllt");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.eiendomsadresse_bolignummer_utfylt, "ArbeidstilsynetsSamtykke/eiendomByggested{0}/bolignummer", "Bolignummer må være utfyllt");
@@ -51,23 +51,11 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.eiendomsadresse_bokstav_utfylt, "ArbeidstilsynetsSamtykke/eiendomByggested{0}/adresse/bokstav", "Eiendommens bokstav må være utfyllt");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.eiendomsadresse_postnr_4siffer, "ArbeidstilsynetsSamtykke/eiendomByggested{0}/adresse/postnr", "Eiendommens postnr må bestå av 4 siffer");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.eiendomsidentifikasjon_kommunenummer_utfylt, "ArbeidstilsynetsSamtykke/eiendomByggested{0}/eiendomsidentifikasjon/kommunenummer", "Eiendommens kommunenr i Matrikkelen må være utfyllt");
-
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.eiendomsidentifikasjon_utfylt, "ArbeidstilsynetsSamtykke/eiendomByggested{0}/eiendomsidentifikasjon", "Eiendommen må være utfyllt i Matrikkelen", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.eiendomsidentifikasjon_gaardsnummer_utfylt, "ArbeidstilsynetsSamtykke/eiendomByggested{0}/eiendomsidentifikasjon/gaardsnummer", "Eiendommens GNR i Matrikkelen må være utfyllt");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.eiendomsidentifikasjon_bruksnummer_utfylt, "ArbeidstilsynetsSamtykke/eiendomByggested{0}/eiendomsidentifikasjon/bruksnummer", "Eiendommens BNR i Matrikkelen må være utfyllt");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.eiendomsidentifikasjon_festenummer_utfylt, "ArbeidstilsynetsSamtykke/eiendomByggested{0}/eiendomsidentifikasjon/festenummer", "Eiendommens FNR i Matrikkelen må være utfyllt");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.eiendomsidentifikasjon_seksjonsnummer_utfylt, "ArbeidstilsynetsSamtykke/eiendomByggested{0}/eiendomsidentifikasjon/seksjonsnummer", "Eiendommens SNR i Matrikkelen må være utfyllt");
-
-
-            //Test
-            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
-            {
-                Id = ValidationRuleEnum.Parameter_Test,
-                LanguageCode = "NO",
-                XPath = "Unit{0}/Test/Parameter",
-                Message = "Parameter 1 kommer har '{0}' og parameter 2 kommer har ({1})"
-            });
-
 
 
             //arbeidsplasser
@@ -90,7 +78,6 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_postnr_stemmerIkke, "ArbeidstilsynetsSamtykke/tiltakshaver/adresse/postnr", "Postnummeret '{0}' for {3} stemmer ikke overens med poststedet '{1}'. Riktig postnummer er '{2}'. Du kan sjekke riktig poststed på http://adressesok.bring.no/");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_postnr_ikke_validert, "ArbeidstilsynetsSamtykke/tiltakshaver/adresse/postnr", "Postnummeret til tiltakshaver ble ikke validert.");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_postnr_til_galningar, "ArbeidstilsynetsSamtykke/tiltakshaver/adresse/postnr", "Tiltakshaver er ein gærning!!!");
-
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.tiltakshaver_telmob_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver", "Mobilnummer eller telefonnummer for tiltakshaver bør fylles ut.");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.tiltakshaver_epost_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/epost", "Epost for tiltakshaver bør fylles ut.");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.tiltakshaver_navn_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/navn", "Navnet til tiltakshaver må fylles ut.",ValidationResultSeverityEnum.ERROR);
@@ -105,12 +92,15 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             //Partstype
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.partstype_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/partstype/kodeverdi", "Kodeverdien for 'partstype' for foretak må fylles ut.");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.kodeverdi_ugyldig, "ArbeidstilsynetsSamtykke/tiltakshaver/partstype/kodeverdi", "Ugyldig kodeverdi '{0}' i henhold til kodeliste for 'partstype' for foretak. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype");
+            
             //Kontaktpersjon
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.kontaktperson_navn_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/kontaktperson/navn", "Navnet til kontaktperson for tiltakshaver bør fylles ut.");
 
             //fakturamottaker
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.fakturamottaker_utfylt, "ArbeidstilsynetsSamtykke/fakturamottaker", "Fakturainformasjon må fylles ut.",ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_adresselinje1_utfylt, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/adresselinje1", "Adresselinje 1 bør fylles ut for fakturamottaker.");
+            AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_adresselinje2_utfylt, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/adresselinje2", "Adresselinje 2 bør fylles ut for fakturamottaker.");
+            AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_adresselinje3_utfylt, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/adresselinje3", "Adresselinje 3 bør fylles ut for fakturamottaker.");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_postnr_kontrollsiffer, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/postnr", "Postnummeret '{0}' for fakturamottaker har ikke gyldig kontrollsiffer.");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_postnr_ugyldig, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/postnr", "Postnummeret '{0}' for {1} er ugyldig. Du kan sjekke riktig postnummer på http://adressesok.bring.no/");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_postnr_stemmerIkke, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/postnr", "Postnummeret '{0}' for {3} stemmer ikke overens med poststedet '{1}'. Riktig postnummer er '{2}'. Du kan sjekke riktig poststed på http://adressesok.bring.no/");
@@ -120,17 +110,22 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_landkode_utfylt, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/landkode", "Ugyldig landkode for fakturamottaker.", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_postnr_utfylt, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/postnr", "Postnummer for fakturamottaker må fylles ut.", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_postnr_stemmerIkke, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/postnr", "Poststed for fakturamottaker.");
-            //AddRuleTOValidationMessageStorageEntry("enkelAdress_adresseLinje1_Utfylt", "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/adresselinje1", "Adresselinje 1 bør fylles ut for tiltakshaver.");
-            //AddRuleTOValidationMessageStorageEntry("enkelAdress_postnr_utfylt", "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/postnr", "Postnummer for tiltakshaver bør angis.");
-            //AddRuleTOValidationMessageStorageEntry("enkelAdress_postnr_kontrollSiffer", "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/postnr", "Postnummeret '{0}' for tiltakshaver har ikke gyldig kontrollsiffer.");
-            //AddRuleTOValidationMessageStorageEntry("enkelAdress_postnr_ugyldig", "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/postnr", "Postnummeret '{0}' for {1} er ugyldig. Du kan sjekke riktig postnummer på http://adressesok.bring.no/");
-            //AddRuleTOValidationMessageStorageEntry("enkelAdress_postnr_stemmerIkke", "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/postnr", "Postnummeret '{0}' for {3} stemmer ikke overens med poststedet '{1}'. Riktig postnummer er '{2}'. Du kan sjekke riktig poststed på http://adressesok.bring.no/");
-            //AddRuleTOValidationMessageStorageEntry("enkelAdress_postnr_ikkeValidert", "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/postnr", "Postnummeret til tiltakshaver ble ikke validert.");
+            AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_postnr_4siffer, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/postnr", "Fakturamottakers postnr må bestå av 4 siffer");
 
             //TODO "ArbeidstilsynetsSamtykke" to "ArbeidstilsynetsSamtykkeV2"/"ArbeidstilsynetsSamtykkeDfv45957"??  rule may need to have dfv in the first "node" in order to connect the text to the correct version and correct schema.
+
+            //Test
+            _validationMessageStorageEntry.Add(new ValidationMessageStorageEntry()
+            {
+                Id = ValidationRuleEnum.Parameter_Test,
+                LanguageCode = "NO",
+                XPath = "Unit{0}/Test/Parameter",
+                Message = "Parameter 1 kommer har '{0}' og parameter 2 kommer har ({1})"
+            });
+
             return _validationMessageStorageEntry;
         }
-
-
     }
 }
+
+

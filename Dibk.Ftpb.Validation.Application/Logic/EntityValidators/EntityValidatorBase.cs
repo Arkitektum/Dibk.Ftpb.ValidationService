@@ -8,24 +8,6 @@ using System.Text.RegularExpressions;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    /// <summary>
-    /// Må huskes på:
-    /// - Ved opprettelse av ny validering for et skjema eller valideringsentitet; husk å initialiser reglen i metode InitializeValidationRules()
-    ///   
-    /// </summary>
-    //TODO: automatisk sjekk på at ingen regler blir validert uten at de først er initialisert.
-    public class EntityValidatorOrchestrator
-    {
-        public string ValidatorFormName { get; set; }
-        public List<EntityValidatorInfo> Validators = new List<EntityValidatorInfo>();
-    }
-
-    public class EntityValidatorInfo
-    {
-        public string EntityValidator { get; set; }
-        public string Parent { get; set; }
-        public string ParentXPath { get; set; }
-    }
     public abstract class EntityValidatorBase : IEntityValidator
     {
         protected string EntityName;
@@ -35,10 +17,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         ValidationResult IEntityValidator.ValidationResult { get => _validationResult; set => _validationResult = value; }
 
-
         public EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator)
         {
+            //if (entityValidatorOrchestrator.ValidatorFormXPath)
+            //{
+
+            //}
             var parentXPath = entityValidatorOrchestrator.Validators.FirstOrDefault(x => x.EntityValidator.Equals(this.GetType().Name)).ParentXPath;
+
             _validationResult = new ValidationResult();
             _validationResult.ValidationRules = new List<ValidationRule>();
             _validationResult.ValidationMessages = new List<ValidationMessage>();
