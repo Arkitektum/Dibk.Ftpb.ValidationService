@@ -83,9 +83,9 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         {
             var codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, true);
             EntityValidatorOrchestrator entityValidatorOrchestrator = new EntityValidatorOrchestrator();
-            IEnkelAdresseValidator enkelAdresseValidator = new EnkelAdresseValidator(entityValidatorOrchestrator, "TiltakshaverValidator");
-            IKontaktpersonValidator kontaktpersonValidator = new KontaktpersonValidator(entityValidatorOrchestrator, "TiltakshaverValidator");
-            IPartstypeValidator partstypeValidator = new PartstypeValidator(entityValidatorOrchestrator, "TiltakshaverValidator", codeListService);
+            IEnkelAdresseValidator enkelAdresseValidator = new EnkelAdresseValidator(entityValidatorOrchestrator, EntityValidatorEnum.TiltakshaverValidator);
+            IKontaktpersonValidator kontaktpersonValidator = new KontaktpersonValidator(entityValidatorOrchestrator, EntityValidatorEnum.TiltakshaverValidator);
+            IPartstypeValidator partstypeValidator = new PartstypeValidator(entityValidatorOrchestrator, EntityValidatorEnum.TiltakshaverValidator, codeListService);
 
             var tiltakshaverValidator = new TiltakshaverValidator(entityValidatorOrchestrator, enkelAdresseValidator, kontaktpersonValidator, partstypeValidator, codeListService);
             _tiltakshaver.ModelData.Foedselsnummer = "54554";

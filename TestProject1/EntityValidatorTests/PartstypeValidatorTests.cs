@@ -17,7 +17,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
             var partsType = new PartstypeCode() { Kodeverdi = "*Privatperson" };
             var ptValEntity = new ParttypeCodeValidationEntity(partsType, "PartsType");
-            var result = new PartstypeValidator(entityValidatorOrchestrator, "", codeListService).Validate(ptValEntity);
+            var result = new PartstypeValidator(entityValidatorOrchestrator, EntityValidatorEnum.FakturamottakerValidator, codeListService).Validate(ptValEntity);
             result.Should().NotBeNull();
         }
     }

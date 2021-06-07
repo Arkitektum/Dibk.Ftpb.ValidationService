@@ -20,16 +20,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator) 
             : this(entityValidatorOrchestrator, null) { }
         
-        public EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator, string parent)
+        public EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator, EntityValidatorEnum? parentValidator)
         {
             string parentXPath = null;
-            if (parent == null)
+            if (parentValidator == null)
             {
                 parentXPath = entityValidatorOrchestrator.ValidatorFormXPath;
             }
             else
             {
-                var XPathAfterParentForm = entityValidatorOrchestrator.Validators.FirstOrDefault(x => x.EntityValidator.Equals(this.GetType().Name) && x.ParentValidator.Equals(parent)).XPathAfterParent;
+                var XPathAfterParentForm = entityValidatorOrchestrator.Validators.FirstOrDefault(x => x.EntityValidator.Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).XPathAfterParent;
                 parentXPath = $"{entityValidatorOrchestrator.ValidatorFormXPath}/{XPathAfterParentForm}";
             }
 
