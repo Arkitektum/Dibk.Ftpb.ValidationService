@@ -21,7 +21,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private readonly EntityValidatorOrchestrator _entityValidatorOrchestrator;
         private readonly IMunicipalityValidator _municipalityValidator;
         private readonly ICodeListService _codeListService;
-        //private readonly string _formXPath = "ArbeidstilsynetsSamtykke"; 
         public ArbeidstilsynetsSamtykke2Form_45957_ValidationEntity ArbeidstilsynetsSamtykke2Form45957 { get; set; }
         public ArbeidstilsynetsSamtykkeType _form { get; set; }
         private IEiendomsAdresseValidator _eiendomsAdresseValidator;
@@ -55,6 +54,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             ArbeidstilsynetsSamtykke2Form45957 = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(_form);
             InitializeValidatorConfig();
             InstantiateValidators();
+            DefineValidationRules();
             Validate(ArbeidstilsynetsSamtykke2Form45957, validationInput);
 
             return ValidationResult;
@@ -68,22 +68,22 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _entityValidatorOrchestrator.Validators = new List<EntityValidatorInfo>();
 
             //Eiendombyggested
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo("EiendomByggestedValidator"));
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo("EiendomsAdresseValidator", EntityValidatorEnum.EiendomByggestedValidator));
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo("MatrikkelValidator", EntityValidatorEnum.EiendomByggestedValidator));
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EiendomByggestedValidator));
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EiendomsAdresseValidator, EntityValidatorEnum.EiendomByggestedValidator));
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.MatrikkelValidator, EntityValidatorEnum.EiendomByggestedValidator));
 
             //Tiltakshaver
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo("TiltakshaverValidator"));
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo("EnkelAdresseValidator", EntityValidatorEnum.TiltakshaverValidator));
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo("KontaktpersonValidator", EntityValidatorEnum.TiltakshaverValidator));
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo("PartstypeValidator", EntityValidatorEnum.TiltakshaverValidator));
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltakshaverValidator));
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidator, EntityValidatorEnum.TiltakshaverValidator));
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.KontaktpersonValidator, EntityValidatorEnum.TiltakshaverValidator));
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.PartstypeValidator, EntityValidatorEnum.TiltakshaverValidator));
 
             //Fakturamottaker
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo("FakturamottakerValidator"));
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo("EnkelAdresseValidator", EntityValidatorEnum.FakturamottakerValidator));
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.FakturamottakerValidator));
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidator, EntityValidatorEnum.FakturamottakerValidator));
 
             //Arbeidsplasser
-            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo("ArbeidsplasserValidator"));
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.ArbeidsplasserValidator));
         }
 
         protected override void InstantiateValidators()
@@ -99,7 +99,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidator(_entityValidatorOrchestrator, EntityValidatorEnum.FakturamottakerValidator);
             _fakturamottakerValidator = new FakturamottakerValidator(_entityValidatorOrchestrator, _fakturamottakerEnkelAdresseValidator);
 
-            DefineValidationRules();
         }
         protected override void DefineValidationRules()
         {

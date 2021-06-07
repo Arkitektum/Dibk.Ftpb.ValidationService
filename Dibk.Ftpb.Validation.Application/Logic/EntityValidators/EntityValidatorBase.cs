@@ -29,7 +29,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             else
             {
-                var XPathAfterParentForm = entityValidatorOrchestrator.Validators.FirstOrDefault(x => x.EntityValidator.Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).XPathAfterParent;
+                var XPathAfterParentForm = entityValidatorOrchestrator.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).XPathAfterParent;
                 parentXPath = $"{entityValidatorOrchestrator.ValidatorFormXPath}/{XPathAfterParentForm}";
             }
 
