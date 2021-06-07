@@ -71,6 +71,8 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/adresse", "Adresse bør fylles ut for tiltakshaver.");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_adresselinje1_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/adresse/adresselinje1", "Adresselinje 1 bør fylles ut for tiltakshaver.");
+            AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_adresselinje2_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/adresse/adresselinje2", "Adresselinje 2 bør fylles ut for tiltakshaver.");
+            AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_adresselinje3_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/adresse/adresselinje3", "Adresselinje 3 bør fylles ut for tiltakshaver.");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_landkode_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/adresse/landkode", "Ugyldig landkode for tiltakshaver.");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_postnr_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/adresse/postnr", "Postnummer for tiltakshaver bør angis.");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_postnr_kontrollsiffer, "ArbeidstilsynetsSamtykke/tiltakshaver/adresse/postnr", "Postnummeret '{0}' for tiltakshaver har ikke gyldig kontrollsiffer.");
@@ -78,6 +80,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_postnr_stemmerIkke, "ArbeidstilsynetsSamtykke/tiltakshaver/adresse/postnr", "Postnummeret '{0}' for {3} stemmer ikke overens med poststedet '{1}'. Riktig postnummer er '{2}'. Du kan sjekke riktig poststed på http://adressesok.bring.no/");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_postnr_ikke_validert, "ArbeidstilsynetsSamtykke/tiltakshaver/adresse/postnr", "Postnummeret til tiltakshaver ble ikke validert.");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_postnr_til_galningar, "ArbeidstilsynetsSamtykke/tiltakshaver/adresse/postnr", "Tiltakshaver er ein gærning!!!");
+            AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_postnr_4siffer, "ArbeidstilsynetsSamtykke/tiltakshaver/adresse/postnr", "Tiltakshavers postnr må bestå av 4 siffer");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.tiltakshaver_telmob_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver", "Mobilnummer eller telefonnummer for tiltakshaver bør fylles ut.");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.tiltakshaver_epost_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/epost", "Epost for tiltakshaver bør fylles ut.");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.tiltakshaver_navn_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/navn", "Navnet til tiltakshaver må fylles ut.",ValidationResultSeverityEnum.ERROR);
@@ -105,7 +108,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_postnr_ugyldig, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/postnr", "Postnummeret '{0}' for {1} er ugyldig. Du kan sjekke riktig postnummer på http://adressesok.bring.no/");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_postnr_stemmerIkke, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/postnr", "Postnummeret '{0}' for {3} stemmer ikke overens med poststedet '{1}'. Riktig postnummer er '{2}'. Du kan sjekke riktig poststed på http://adressesok.bring.no/");
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_postnr_ikke_validert, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/postnr", "Postnummeret til fakturamottaker ble ikke validert.");
-            AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_utfylt, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse", "Adresse bør fylles ut for tiltakshaver.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_utfylt, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse", "Adresse bør fylles ut for fakturamottaker.", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_adresselinje1_utfylt, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse", "Adresselinje 1 skal fylles ut for fakturamottaker.", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_landkode_utfylt, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/landkode", "Ugyldig landkode for fakturamottaker.", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(ValidationRuleEnum.adresse_postnr_utfylt, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/postnr", "Postnummer for fakturamottaker må fylles ut.", ValidationResultSeverityEnum.ERROR);

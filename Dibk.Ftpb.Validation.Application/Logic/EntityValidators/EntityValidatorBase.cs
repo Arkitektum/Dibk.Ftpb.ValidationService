@@ -17,13 +17,21 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         ValidationResult IEntityValidator.ValidationResult { get => _validationResult; set => _validationResult = value; }
 
-        public EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator)
+        public EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator) 
+            : this(entityValidatorOrchestrator, null) { }
+        
+        public EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator, string parent)
         {
-            //if (entityValidatorOrchestrator.ValidatorFormXPath)
-            //{
-
-            //}
-            var parentXPath = entityValidatorOrchestrator.Validators.FirstOrDefault(x => x.EntityValidator.Equals(this.GetType().Name)).ParentXPath;
+            string parentXPath = null;
+            if (parent == null)
+            {
+                parentXPath = entityValidatorOrchestrator.ValidatorFormXPath;
+            }
+            else
+            {
+                var XPathAfterParentForm = entityValidatorOrchestrator.Validators.FirstOrDefault(x => x.EntityValidator.Equals(this.GetType().Name) && x.ParentValidator.Equals(parent)).XPathAfterParent;
+                parentXPath = $"{entityValidatorOrchestrator.ValidatorFormXPath}/{XPathAfterParentForm}";
+            }
 
             _validationResult = new ValidationResult();
             _validationResult.ValidationRules = new List<ValidationRule>();

@@ -13,8 +13,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         ValidationResult IEiendomsAdresseValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        public EiendomsAdresseValidator(EntityValidatorOrchestrator entityValidatorOrchestrator) 
-            : base(entityValidatorOrchestrator)
+        public EiendomsAdresseValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, string parent) 
+            : base(entityValidatorOrchestrator, parent)
         {
             InitializeValidationRules(EntityXPath);
             
