@@ -15,9 +15,9 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             _validationMessageStorageEntry = new List<ValidationMessageStorageEntry>();
             InitiateMessageRepository();
         }
-        public ValidationRule GetValidationRuleMessage(ValidationRule validationRule, string languageCode)
+        public ValidationRule GetValidationRuleMessage(string dataFormatVersion, ValidationRule validationRule, string languageCode)
         {
-            var theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.Id.Equals(validationRule.Id) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.Xpath));
+            var theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.DataFormatVersion.Equals(dataFormatVersion) && x.Id.Equals(validationRule.Id) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.Xpath));
 
             if (theStorageEntry == null)
             {
@@ -33,12 +33,12 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             return validationRule;
         }
 
-        public ValidationMessage GetComposedValidationMessage(ValidationMessage validationMessage, string languageCode)
+        public ValidationMessage GetComposedValidationMessage(string dataFormatVersion, ValidationMessage validationMessage, string languageCode)
         {
 
             string xPath = Regex.Replace(validationMessage.XpathField, @"\[([0-9]*)\]", "{0}"); ;
 
-            var theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.Id == validationMessage.Reference && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath, StringComparison.OrdinalIgnoreCase));
+            var theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.DataFormatVersion.Equals(dataFormatVersion) && x.Id == validationMessage.Reference && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath, StringComparison.OrdinalIgnoreCase));
 
             if (theStorageEntry == null)
             {
