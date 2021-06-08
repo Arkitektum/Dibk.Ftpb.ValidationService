@@ -32,7 +32,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(ValidationRuleEnum.kodeverdi_ugyldig, xPathForEntity, "kodeverdi");
         }
 
-        public ValidationResult Validate(ParttypeCodeValidationEntity partstype)
+        public ValidationResult Validate(PartstypeValidationEntity partstype)
         {
             if (Helpers.ObjectIsNullOrEmpty(partstype.ModelData?.Kodeverdi))
             {

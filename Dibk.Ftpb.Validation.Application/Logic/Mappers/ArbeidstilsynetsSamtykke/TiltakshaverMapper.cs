@@ -45,19 +45,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
             }
         }
 
-        private class PartstypeCodeMapper : ModelToValidationEntityMapper<KodeType, ParttypeCodeValidationEntity>
+        private class PartstypeCodeMapper : ModelToValidationEntityMapper<KodeType, PartstypeValidationEntity>
         {
-            public override ParttypeCodeValidationEntity Map(KodeType mapFrom, string parentElementXpath = null)
+            public override PartstypeValidationEntity Map(KodeType mapFrom, string parentElementXpath = null)
             {
-                PartstypeCode partstypeCode = null;
+                Partstype partstypeCode = null;
                 if (mapFrom != null)
-                    partstypeCode= new PartstypeCode()
+                    partstypeCode= new Partstype()
                 {
                     Kodebeskrivelse = mapFrom.kodebeskrivelse,
                     Kodeverdi = mapFrom.kodeverdi
                 };
 
-                return new ParttypeCodeValidationEntity(partstypeCode, "partstype", parentElementXpath);
+                return new PartstypeValidationEntity(partstypeCode, "partstype", parentElementXpath);
             }
         }
     }

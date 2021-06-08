@@ -22,7 +22,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private readonly IMunicipalityValidator _municipalityValidator;
         private readonly ICodeListService _codeListService;
         private ArbeidstilsynetsSamtykke_41999_ValidationEntity _validationForm { get; set; }
-        public ArbeidstilsynetsSamtykkeType _form { get; set; }
         private IEiendomsAdresseValidator _eiendomsAdresseValidator;
         private IMatrikkelValidator _matrikkelValidator;
         private IEiendomByggestedValidator _eiendomByggestedValidator;
@@ -48,10 +47,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             InitializeValidatorConfig();
 
             //Get Arbeidstilsynets Samtykke v2 Dfv45957 class
-            _form = new ArbeidstilsynetsSamtykke_41999_Deserializer().Deserialize(validationInput.FormData);
+            ArbeidstilsynetsSamtykkeType formModel = new ArbeidstilsynetsSamtykke_41999_Deserializer().Deserialize(validationInput.FormData);
 
             // map to arbeidstilsynet formEntity 
-            _validationForm = new ArbeidstilsynetsSamtykke_41999_Mapper().GetFormEntity(_form);
+            _validationForm = new ArbeidstilsynetsSamtykke_41999_Mapper().GetFormEntity(formModel);
             InitializeValidatorConfig();
             InstantiateValidators();
             DefineValidationRules();
@@ -120,7 +119,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             return SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
         }
 
-        protected override ValidationResult Validate(ValidationInput validationInput)
+        protected override void Validate(ValidationInput validationInput)
         {
             var eiendomValidationResult = _eiendomByggestedValidator.Validate(_validationForm.ModelData.EiendomValidationEntities);
             AccumulateValidationMessages(eiendomValidationResult.ValidationMessages);
@@ -135,7 +134,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var fakturamottakerValidationResult = _fakturamottakerValidator.Validate(_validationForm.ModelData.FakturamottakerValidationEntity);
             AccumulateValidationMessages(fakturamottakerValidationResult.ValidationMessages);
 
-            return ValidationResult;
+            //return ValidationResult;
         }
     }
 }

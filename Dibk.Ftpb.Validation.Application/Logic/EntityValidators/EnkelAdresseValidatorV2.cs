@@ -22,9 +22,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             AddValidationRule(ValidationRuleEnum.adresse_utfylt, xPathForEntity);
             AddValidationRule(ValidationRuleEnum.adresse_adresselinje1_utfylt, xPathForEntity, "adresselinje1");
+            AddValidationRule(ValidationRuleEnum.adresse_adresselinje2_utfylt, xPathForEntity, "adresselinje2");
+            AddValidationRule(ValidationRuleEnum.adresse_adresselinje3_utfylt, xPathForEntity, "adresselinje3");
             AddValidationRule(ValidationRuleEnum.adresse_landkode_utfylt, xPathForEntity, "landkode");
             AddValidationRule(ValidationRuleEnum.adresse_postnr_utfylt, xPathForEntity, "postnr");
-            AddValidationRule(ValidationRuleEnum.adresse_postnr_til_galningar, xPathForEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_kontrollsiffer, xPathForEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_ugyldig, xPathForEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_stemmerIkke, xPathForEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_ikke_validert, xPathForEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_4siffer, xPathForEntity, "postnr");
         }
 
         public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null)
@@ -48,6 +54,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Adresselinje1))
                 AddMessageFromRule(ValidationRuleEnum.adresse_adresselinje1_utfylt, xPath);
 
+            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Adresselinje2))
+                AddMessageFromRule(ValidationRuleEnum.adresse_adresselinje2_utfylt, xPath);
+
+            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Adresselinje3))
+                AddMessageFromRule(ValidationRuleEnum.adresse_adresselinje3_utfylt, xPath);
+
             if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Landkode))
                 AddMessageFromRule(ValidationRuleEnum.adresse_landkode_utfylt, xPath);
 
@@ -57,17 +69,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Poststed))
                 AddMessageFromRule(ValidationRuleEnum.adresse_poststed_utfylt, xPath);
 
-            if (HerBurDetGalningar(adresseValidationEntity.ModelData.Postnr))
-                AddMessageFromRule(ValidationRuleEnum.adresse_postnr_til_galningar, xPath);
+            if (!StringIs4digitNumber(adresseValidationEntity.ModelData.Postnr))
+                AddMessageFromRule(ValidationRuleEnum.adresse_postnr_4siffer, xPath);
         }
 
-        private bool HerBurDetGalningar(string input)
+        private bool StringIs4digitNumber(string input)
         {
             if (int.TryParse(input, out var number))
-                return (number >= 0 && number <= 1111);
+                return (number >= 0 && number <= 9999);
 
             return false;
         }
-
     }
 }

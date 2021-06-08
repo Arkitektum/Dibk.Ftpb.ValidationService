@@ -1376,7 +1376,7 @@ namespace no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2 {
         
         private bool erKravOppfyltFieldSpecified;
         
-        private KodeType sjekklisteKravField;
+        private KodeType sjekklistepunktField;
         
         private string dokumentasjonField;
         
@@ -1404,12 +1404,12 @@ namespace no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2 {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public KodeType sjekklisteKrav {
+        public KodeType sjekklistepunkt {
             get {
-                return this.sjekklisteKravField;
+                return this.sjekklistepunktField;
             }
             set {
-                this.sjekklisteKravField = value;
+                this.sjekklistepunktField = value;
             }
         }
         

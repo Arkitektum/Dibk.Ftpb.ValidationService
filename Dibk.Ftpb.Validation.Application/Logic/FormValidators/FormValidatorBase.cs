@@ -9,9 +9,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
     {
         protected abstract string FormXPath { get; }
         protected abstract void InitializeValidatorConfig();
-        public abstract ValidationResult StartValidation(ValidationInput validationInput);
+        public virtual ValidationResult StartValidation(ValidationInput validationInput)
+        {
+            InitializeValidatorConfig();
+            InitializeValidatorConfig();
+            InstantiateValidators();
+            DefineValidationRules();
+            Validate(validationInput);
+
+            return ValidationResult;
+        }
         protected abstract void InstantiateValidators();
-        protected abstract ValidationResult Validate(ValidationInput validationInput);
+        protected abstract void Validate(ValidationInput validationInput);
         protected abstract void DefineValidationRules();
 
         protected ValidationResult ValidationResult;
