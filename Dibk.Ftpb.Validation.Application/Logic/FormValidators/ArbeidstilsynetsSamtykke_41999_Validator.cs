@@ -1,27 +1,27 @@
-using Dibk.Ftpb.Validation.Application.DataSources;
+﻿using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.Deserializers;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
+using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke;
 using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
-using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
+using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
-    [FormData(DataFormatVersion = "45957")]
-    public class ArbeidstilsynetsSamtykke2_45957_Validator : FormValidatorBase, IFormValidator
+    [FormData(DataFormatVersion = "41999")]
+    public class ArbeidstilsynetsSamtykke_41999_Validator : FormValidatorBase, IFormValidator
     {
         private readonly EntityValidatorOrchestrator _entityValidatorOrchestrator;
         private readonly IMunicipalityValidator _municipalityValidator;
         private readonly ICodeListService _codeListService;
-        private ArbeidstilsynetsSamtykke2_45957_ValidationEntity _validationForm { get; set; }
+        private ArbeidstilsynetsSamtykke_41999_ValidationEntity _validationForm { get; set; }
         public ArbeidstilsynetsSamtykkeType _form { get; set; }
         private IEiendomsAdresseValidator _eiendomsAdresseValidator;
         private IMatrikkelValidator _matrikkelValidator;
@@ -36,7 +36,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         protected override string FormXPath => "ArbeidstilsynetsSamtykke";
 
-        public ArbeidstilsynetsSamtykke2_45957_Validator(EntityValidatorOrchestrator entityValidatorOrchestrator, IMunicipalityValidator municipalityValidator, ICodeListService codeListService)
+        public ArbeidstilsynetsSamtykke_41999_Validator(EntityValidatorOrchestrator entityValidatorOrchestrator, IMunicipalityValidator municipalityValidator, ICodeListService codeListService)
         {
             _entityValidatorOrchestrator = entityValidatorOrchestrator;
             _municipalityValidator = municipalityValidator;
@@ -48,10 +48,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             InitializeValidatorConfig();
 
             //Get Arbeidstilsynets Samtykke v2 Dfv45957 class
-            _form = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(validationInput.FormData);
+            _form = new ArbeidstilsynetsSamtykke_41999_Deserializer().Deserialize(validationInput.FormData);
 
             // map to arbeidstilsynet formEntity 
-            _validationForm = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(_form);
+            _validationForm = new ArbeidstilsynetsSamtykke_41999_Mapper().GetFormEntity(_form);
             InitializeValidatorConfig();
             InstantiateValidators();
             DefineValidationRules();

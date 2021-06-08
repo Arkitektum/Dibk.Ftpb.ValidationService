@@ -2,6 +2,7 @@
 {
     public enum DataType
     {
-        ArbeidstilsynetsSamtykke = 1
+        ArbeidstilsynetsSamtykke = 1,
+        ArbeidstilsynetsSamtykke2 = 2
     }
 }

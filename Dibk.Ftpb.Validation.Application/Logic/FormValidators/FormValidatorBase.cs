@@ -11,6 +11,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         protected abstract void InitializeValidatorConfig();
         public abstract ValidationResult StartValidation(ValidationInput validationInput);
         protected abstract void InstantiateValidators();
+        protected abstract ValidationResult Validate(ValidationInput validationInput);
         protected abstract void DefineValidationRules();
 
         protected ValidationResult ValidationResult;
