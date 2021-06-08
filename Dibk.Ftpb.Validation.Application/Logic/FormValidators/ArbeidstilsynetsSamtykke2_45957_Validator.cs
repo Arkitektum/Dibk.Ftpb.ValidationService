@@ -21,7 +21,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private readonly EntityValidatorOrchestrator _entityValidatorOrchestrator;
         private readonly IMunicipalityValidator _municipalityValidator;
         private readonly ICodeListService _codeListService;
-        public ArbeidstilsynetsSamtykke2Form_45957_ValidationEntity ArbeidstilsynetsSamtykke2Form45957 { get; set; }
+        public ArbeidstilsynetsSamtykke2_45957_ValidationEntity ArbeidstilsynetsSamtykke2Form45957 { get; set; }
         public ArbeidstilsynetsSamtykkeType _form { get; set; }
         private IEiendomsAdresseValidator _eiendomsAdresseValidator;
         private IMatrikkelValidator _matrikkelValidator;
@@ -120,7 +120,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             return SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
         }
 
-        public ValidationResult Validate(ArbeidstilsynetsSamtykke2Form_45957_ValidationEntity form, ValidationInput validationInput)
+        public ValidationResult Validate(ArbeidstilsynetsSamtykke2_45957_ValidationEntity form, ValidationInput validationInput)
         {
             var eiendomValidationResult = _eiendomByggestedValidator.Validate(form.ModelData.EiendomValidationEntities);
             AccumulateValidationMessages(eiendomValidationResult.ValidationMessages);

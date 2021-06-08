@@ -6,7 +6,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
 {
     public class ArbeidstilsynetsSamtykke2_45957_Mapper
     {
-        public ArbeidstilsynetsSamtykke2Form_45957_ValidationEntity GetFormEntity(ArbeidstilsynetsSamtykkeType dataModel)
+        public ArbeidstilsynetsSamtykke2_45957_ValidationEntity GetFormEntity(ArbeidstilsynetsSamtykkeType dataModel)
         {
             var arbeidstilsynetsSamtykke2Form45957 = new ArbeidstilsynetsSamtykke2_45957_Form();
 
@@ -15,7 +15,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
             arbeidstilsynetsSamtykke2Form45957.TiltakshaverValidationEntity = new TiltakshaverMapper().Map(dataModel.tiltakshaver, "ArbeidstilsynetsSamtykke");
             arbeidstilsynetsSamtykke2Form45957.FakturamottakerValidationEntity = new FakturamottakerMapper().Map(dataModel.fakturamottaker, "ArbeidstilsynetsSamtykke");
 
-            return new ArbeidstilsynetsSamtykke2Form_45957_ValidationEntity(arbeidstilsynetsSamtykke2Form45957, "ArbeidstilsynetsSamtykke", null);
+            return new ArbeidstilsynetsSamtykke2_45957_ValidationEntity(arbeidstilsynetsSamtykke2Form45957, "ArbeidstilsynetsSamtykke", null);
         }
     }
 }

@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2
+namespace Dibk.Ftpb.Validation.Application.Logic.Mappers
 {
     public abstract class ModelToValidationEntityMapper<T, U>
     {
