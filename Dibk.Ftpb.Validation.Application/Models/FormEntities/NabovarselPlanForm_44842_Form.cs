@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.Models.FormEntities
 {
-    class NabovarselPlanForm_44842
+    class NabovarselPlanForm_44842_Form
     {
     }
 }

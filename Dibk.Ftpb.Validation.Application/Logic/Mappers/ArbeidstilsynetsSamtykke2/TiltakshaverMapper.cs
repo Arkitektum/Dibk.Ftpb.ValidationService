@@ -1,7 +1,7 @@
 ﻿using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 
-namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke
+namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2
 {
     public class TiltakshaverMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.PartType, AktoerValidationEntity>
     {

@@ -4,7 +4,7 @@ using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.Deserializers;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke;
+using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
 using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Dibk.Ftpb.Validation.Application.Reporter;
@@ -51,7 +51,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _form = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(validationInput.FormData);
 
             // map to arbeidstilsynet formEntity 
-            ArbeidstilsynetsSamtykke2Form45957 = new ArbeidstilsynetsSamtykkeV2Dfv45957_Mapper().GetFormEntity(_form);
+            ArbeidstilsynetsSamtykke2Form45957 = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(_form);
             InitializeValidatorConfig();
             InstantiateValidators();
             DefineValidationRules();

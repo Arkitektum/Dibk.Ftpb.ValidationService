@@ -44,7 +44,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
                 }
             };
 
-            _tiltakshaver = new Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke.TiltakshaverMapper().Map(tiltakshaver);
+            _tiltakshaver = new Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2.TiltakshaverMapper().Map(tiltakshaver);
 
             //_tiltakshaver = new Aktoer("Tiltakshaver")
             //{

@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="Logic\Xsd\" />
+    <Folder Include="Models\DataModels\ArbeidstilsynetsSamtykke\" />
     <Folder Include="Validators\" />
     <Folder Include="Services\" />
   </ItemGroup>
