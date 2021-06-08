@@ -20,6 +20,8 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         Krav,
         MatrikkelValidator,
         PartstypeValidator,
+        SjekklistekravValidator,
+        SjekklistepunktValidator,
         TiltakshaverValidator
     }
 }

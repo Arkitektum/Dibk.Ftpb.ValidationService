@@ -14,8 +14,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        public SjekklistepunktValidator(EntityValidatorOrchestrator entityValidatorOrchestrator)
-            : base(entityValidatorOrchestrator)
+        public SjekklistepunktValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, EntityValidatorEnum parentValidator)
+            : base(entityValidatorOrchestrator, parentValidator)
         {
             InitializeValidationRules(EntityXPath);
         }
@@ -36,7 +36,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules(string xPathForEntity)
         {
-            this.AddValidationRule(ValidationRuleEnum.sjekklistekrav_krav_kode_utfylt, xPathForEntity, "kodeverdi");
+            this.AddValidationRule(ValidationRuleEnum.sjekklistekrav_krav_utfylt, xPathForEntity, "kodeverdi");
             this.AddValidationRule(ValidationRuleEnum.sjekklistekrav_krav_kode_gyldig, xPathForEntity, "kodeverdi");
             this.AddValidationRule(ValidationRuleEnum.sjekklistekrav_krav_beskrivelse_utfylt, xPathForEntity, "kodebeskrivelse");
         }

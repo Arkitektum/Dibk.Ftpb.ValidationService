@@ -33,7 +33,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private IEnkelAdresseValidator _fakturamottakerEnkelAdresseValidator;
         private IFakturamottakerValidator _fakturamottakerValidator;
 
-        protected override string FormXPath => "ArbeidstilsynetsSamtykke";
+        protected override string XPathRoot => "ArbeidstilsynetsSamtykke";
 
         public ArbeidstilsynetsSamtykke_41999_Validator(EntityValidatorOrchestrator entityValidatorOrchestrator, IMunicipalityValidator municipalityValidator, ICodeListService codeListService)
         {
@@ -44,17 +44,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         public override ValidationResult StartValidation(ValidationInput validationInput)
         {
-            InitializeValidatorConfig();
-
-            //Get Arbeidstilsynets Samtykke v2 Dfv45957 class
             ArbeidstilsynetsSamtykkeType formModel = new ArbeidstilsynetsSamtykke_41999_Deserializer().Deserialize(validationInput.FormData);
-
-            // map to arbeidstilsynet formEntity 
-            _validationForm = new ArbeidstilsynetsSamtykke_41999_Mapper().GetFormEntity(formModel);
-            InitializeValidatorConfig();
-            InstantiateValidators();
-            DefineValidationRules();
-            Validate(validationInput);
+            _validationForm = new ArbeidstilsynetsSamtykke_41999_Mapper().GetFormEntity(formModel, XPathRoot);
+            
+            base.StartValidation(validationInput);
 
             return ValidationResult;
         }
@@ -62,7 +55,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         protected override void InitializeValidatorConfig()
         {
             _entityValidatorOrchestrator.ValidatorFormName = this.GetType().Name;
-            _entityValidatorOrchestrator.ValidatorFormXPath = "ArbeidstilsynetsSamtykke";
+            _entityValidatorOrchestrator.ValidatorFormXPath = XPathRoot;
 
             _entityValidatorOrchestrator.Validators = new List<EntityValidatorInfo>();
 

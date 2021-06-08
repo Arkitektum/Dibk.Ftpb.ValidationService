@@ -215,6 +215,15 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.adresse_postnr_4siffer, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/postnr", "Fakturamottakers postnr må bestå av 4 siffer");
             AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.adresse_postnr_til_galningar, "ArbeidstilsynetsSamtykke/fakturamottaker/adresse/postnr", "Fakturamottaker er ein gærning!!!");
 
+            //sjekklistekrav
+            AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.sjekklistekrav_utfylt, "ArbeidstilsynetsSamtykke/krav{0}", "Krav må være utfyllt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.sjekklistekrav_krav_utfylt, "ArbeidstilsynetsSamtykke/krav{0}/erKravOppfylt", "Kravets sjekklistepunkt må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.sjekklistekrav_krav_oppfylt, "ArbeidstilsynetsSamtykke/krav{0}/erKravOppfylt", "Kravets sjekklistepunkt må være oppfylt", ValidationResultSeverityEnum.ERROR);
+
+
+
+
+
             //TODO "ArbeidstilsynetsSamtykke" to "ArbeidstilsynetsSamtykkeV2"/"ArbeidstilsynetsSamtykkeDfv45957"??  rule may need to have dfv in the first "node" in order to connect the text to the correct version and correct schema.
 
             //Test

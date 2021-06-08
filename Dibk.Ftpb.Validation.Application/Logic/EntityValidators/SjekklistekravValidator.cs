@@ -12,7 +12,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     {
         private readonly ISjekklistepunktValidator _sjekklistepunktValidator;
 
-        public override string ruleXmlElement { get { return "/sjekklistekrav"; } }
+        public override string ruleXmlElement { get { return "/krav{0}"; } }
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
@@ -37,7 +37,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 {
                     ValidateEntityFields(krav);
 
-                    var sjekklistepunktValidationResult = _sjekklistepunktValidator.Validate(krav.ModelData.SjekklistepunktValidationEntity);
+                    var sjekklistepunktValidationResult = _sjekklistepunktValidator.Validate(krav.ModelData.Sjekklistepunkt);
                     _validationResult.ValidationMessages.AddRange(sjekklistepunktValidationResult.ValidationMessages);
                 }
             }
