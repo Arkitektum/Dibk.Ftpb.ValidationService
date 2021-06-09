@@ -30,8 +30,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             : base(entityValidatorOrchestrator)
         {
             _codeListService = codeListService;
-            InitializeValidationRules(EntityXPath);
-
             _enkelAdresseValidator = enkelAdresseValidator;
             _kontaktpersonValidator = kontaktpersonValidator;
             _partstypeValidator = partstypeValidator;

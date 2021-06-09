@@ -23,7 +23,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             : base(entityValidatorOrchestrator, parentValidator)
         {
             _codeListService = codeListService;
-            InitializeValidationRules(EntityXPath);
         }
 
         protected override void InitializeValidationRules(string xPathForEntity)

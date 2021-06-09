@@ -24,8 +24,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _municipalityValidator = municipalityValidator;
             _eiendomsAdresseValidator = eiendomsAdresseValidator;
             _matrikkelValidator = matrikkelValidator;
-            
-            InitializeValidationRules(EntityXPath);
         }
 
         protected override void InitializeValidationRules(string xPathForEntity)

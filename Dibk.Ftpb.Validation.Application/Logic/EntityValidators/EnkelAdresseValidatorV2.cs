@@ -16,7 +16,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public EnkelAdresseValidatorV2(EntityValidatorOrchestrator entityValidatorOrchestrator, EntityValidatorEnum parentValidator)
             : base(entityValidatorOrchestrator, parentValidator)
         {
-            InitializeValidationRules(EntityXPath);
         }
         protected override void InitializeValidationRules(string xPathForEntity)
         {

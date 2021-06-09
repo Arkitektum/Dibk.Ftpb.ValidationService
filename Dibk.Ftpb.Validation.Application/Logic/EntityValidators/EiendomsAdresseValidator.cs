@@ -16,8 +16,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public EiendomsAdresseValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, EntityValidatorEnum parentValidator) 
             : base(entityValidatorOrchestrator, parentValidator)
         {
-            InitializeValidationRules(EntityXPath);
-            
         }
 
         public ValidationResult Validate(EiendomsAdresseValidationEntity eiendomsAdresseValidationEntity)

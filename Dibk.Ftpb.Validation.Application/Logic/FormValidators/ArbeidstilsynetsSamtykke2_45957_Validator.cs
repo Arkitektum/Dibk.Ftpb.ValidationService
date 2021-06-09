@@ -51,12 +51,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             
             base.StartValidation(validationInput);
             
-            //InitializeValidatorConfig();
-            //InitializeValidatorConfig();
-            //InstantiateValidators();
-            //DefineValidationRules();
-            //Validate(validationInput);
-
             return ValidationResult;
         }
 

@@ -11,7 +11,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public abstract class EntityValidatorBase : IEntityValidator
     {
         protected string EntityName;
-        protected string EntityXPath;
+        private string EntityXPath;
         public abstract string ruleXmlElement { get; }
         protected ValidationResult _validationResult;
 
@@ -38,9 +38,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _validationResult.ValidationMessages = new List<ValidationMessage>();
 
             EntityXPath = $"{parentXPath}{ruleXmlElement}";
+
+            InitializeValidationRules(EntityXPath);
         }
 
-        
+
         protected abstract void InitializeValidationRules(string xPathForEntity);
 
         public ValidationResult ResetValidationMessages()

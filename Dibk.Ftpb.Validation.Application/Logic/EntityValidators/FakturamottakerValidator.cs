@@ -18,8 +18,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public FakturamottakerValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, IEnkelAdresseValidator enkelAdresseValidator) 
             : base(entityValidatorOrchestrator)
         {
-            InitializeValidationRules(EntityXPath);
-
             //TODO: Automize this?
             _enkelAdresseValidator = enkelAdresseValidator;
         }

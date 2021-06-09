@@ -17,7 +17,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public ArbeidsplasserValidator(EntityValidatorOrchestrator entityValidatorOrchestrator) 
             : base(entityValidatorOrchestrator)
         {
-            InitializeValidationRules(EntityXPath);
         }
         public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, List<string> attachments = null)
         {

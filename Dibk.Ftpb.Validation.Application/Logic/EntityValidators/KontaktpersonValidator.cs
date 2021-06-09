@@ -19,7 +19,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public KontaktpersonValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, EntityValidatorEnum parentValidator)
             : base(entityValidatorOrchestrator, parentValidator)
         {
-            InitializeValidationRules(EntityXPath);
         }
         protected override void InitializeValidationRules(string xPathForEntity)
         {

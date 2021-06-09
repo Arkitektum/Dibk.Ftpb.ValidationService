@@ -19,7 +19,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public SjekklistekravValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, ISjekklistepunktValidator sjekklistepunktValidator)
             : base(entityValidatorOrchestrator)
         {
-            InitializeValidationRules(EntityXPath);
             _sjekklistepunktValidator = sjekklistepunktValidator;
         }
         public ValidationResult Validate(IEnumerable<SjekklistekravValidationEntity> sjekklistekrav)
