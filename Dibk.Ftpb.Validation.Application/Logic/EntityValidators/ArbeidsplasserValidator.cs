@@ -1,4 +1,5 @@
 ﻿using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
@@ -6,16 +7,20 @@ using System.Collections.Generic;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class ArbeidsplasserValidator : EntityValidatorBase
+    public class ArbeidsplasserValidator : EntityValidatorBase, IArbeidsplasserValidator
     {
         private List<string> _attachmentList;
+        public override string ruleXmlElement { get { return "/arbeidsplasser"; } }
+        
+        public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        public ArbeidsplasserValidator() : base()
-        {   
+        public ArbeidsplasserValidator(EntityValidatorOrchestrator entityValidatorOrchestrator) 
+            : base(entityValidatorOrchestrator)
+        {
+            InitializeValidationRules(EntityXPath);
         }
         public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, List<string> attachments = null)
         {
-            InitializeValidationRules(arbeidsplasser.DataModelXpath);
 
             _attachmentList = attachments;
 
@@ -29,8 +34,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_utfylt, xPathForEntity);
             this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_framtidige_eller_eksisterende_utfylt, xPathForEntity);
             this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_faste_eller_midlertidige_utfylt, xPathForEntity);
-            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_type_arbeid_utfylt, xPathForEntity);
-            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_utleieBygg, xPathForEntity);
+            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_type_arbeid_utfylt, xPathForEntity, "antallVirksomheter");
+            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_utleieBygg, xPathForEntity, "utleieBygg");
             this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_beskrivelse, xPathForEntity, "beskrivelse");
         }
 

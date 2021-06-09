@@ -8,34 +8,44 @@ using System.Text.RegularExpressions;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    /// <summary>
-    /// Må huskes på:
-    /// - Ved opprettelse av ny validering for et skjema eller valideringsentitet; husk å initialiser reglen i metode InitializeValidationRules()
-    ///   
-    /// </summary>
-    //TODO: automatisk sjekk på at ingen regler blir validert uten at de først er initialisert.
-
     public abstract class EntityValidatorBase : IEntityValidator
     {
+        protected string EntityName;
+        protected string EntityXPath;
+        public abstract string ruleXmlElement { get; }
         protected ValidationResult _validationResult;
-        protected string EntityName;        
 
-        public EntityValidatorBase()
+        ValidationResult IEntityValidator.ValidationResult { get => _validationResult; set => _validationResult = value; }
+
+        public EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator) 
+            : this(entityValidatorOrchestrator, null) { }
+        
+        public EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator, EntityValidatorEnum? parentValidator)
         {
-            //EntityXPath = xPath;
-            _validationResult = new();
+            string parentXPath = null;
+            if (parentValidator == null)
+            {
+                parentXPath = entityValidatorOrchestrator.ValidatorFormXPath;
+            }
+            else
+            {
+                var XPathAfterParentForm = entityValidatorOrchestrator.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).XPathAfterParent;
+                parentXPath = $"{entityValidatorOrchestrator.ValidatorFormXPath}/{XPathAfterParentForm}";
+            }
+
+            _validationResult = new ValidationResult();
             _validationResult.ValidationRules = new List<ValidationRule>();
             _validationResult.ValidationMessages = new List<ValidationMessage>();
+
+            EntityXPath = $"{parentXPath}{ruleXmlElement}";
         }
 
-        //public EntityValidatorBase(string xPath, string enityName) : this($"{xPath}/{enityName}")
-        //{}
         
         protected abstract void InitializeValidationRules(string xPathForEntity);
 
         public ValidationResult ResetValidationMessages()
         {
-            _validationResult.ValidationMessages = new();
+            _validationResult.ValidationMessages = new List<ValidationMessage>();
             return _validationResult;
         }
         protected void UpdateValidationResultWithSubValidations(ValidationResult newValudationResult)
@@ -57,7 +67,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         //string xPath = Regex.Replace(validationMessage.XpathField, @"\[([0-9]*)\]", "{0}");
         protected void AddValidationRule(ValidationRuleEnum id, string xPath)
         {
-            //_validationResult.ValidationRules.Add(new ValidationRule() { Id = id, Xpath = xPath });
             AddValidationRule(id, xPath, null);
         }
 

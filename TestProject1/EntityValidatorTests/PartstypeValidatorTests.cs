@@ -13,10 +13,11 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         public void TestPartstype()
         {
             var codeListService = MockDataSource.IsCodeListValid(ArbeidstilsynetCodeListNames.arbeidstilsynets_krav, true);
+            EntityValidatorOrchestrator entityValidatorOrchestrator = new EntityValidatorOrchestrator();
 
-            var partsType = new PartstypeCode() { Kodeverdi = "*Privatperson" };
-            var ptValEntity = new ParttypeCodeValidationEntity(partsType, "PartsType");
-            var result = new PartstypeValidator(codeListService).Validate(ptValEntity);
+            var partsType = new Partstype() { Kodeverdi = "*Privatperson" };
+            var ptValEntity = new PartstypeValidationEntity(partsType, "PartsType");
+            var result = new PartstypeValidator(entityValidatorOrchestrator, EntityValidatorEnum.FakturamottakerValidator, codeListService).Validate(ptValEntity);
             result.Should().NotBeNull();
         }
     }

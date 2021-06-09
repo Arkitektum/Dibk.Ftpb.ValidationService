@@ -15,10 +15,8 @@ namespace Dibk.Ftpb.Validation.Web.Config
         {
             services.AddXmlSchemaValidator(options =>
             {
-                options.AddSchema(
-                    DataType.ArbeidstilsynetsSamtykke,
-                    GetXsdResourceStream("arbeidstilsynetsSamtykke2.xsd")
-                );
+                options.AddSchema(DataType.ArbeidstilsynetsSamtykke, GetXsdResourceStream("arbeidstilsynetsSamtykke.xsd"));
+                options.AddSchema(DataType.ArbeidstilsynetsSamtykke2, GetXsdResourceStream("arbeidstilsynetsSamtykke2.xsd"));
 
                 options.CacheFiles = false;
             });

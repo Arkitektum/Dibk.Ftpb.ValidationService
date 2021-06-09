@@ -1,5 +1,6 @@
 ﻿using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using FluentAssertions;
@@ -43,7 +44,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
                 }
             };
 
-            _tiltakshaver = new Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke.TiltakshaverMapper().Map(tiltakshaver);
+            _tiltakshaver = new Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2.TiltakshaverMapper().Map(tiltakshaver);
 
             //_tiltakshaver = new Aktoer("Tiltakshaver")
             //{
@@ -81,8 +82,12 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         public void TestTilashaver()
         {
             var codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, true);
+            EntityValidatorOrchestrator entityValidatorOrchestrator = new EntityValidatorOrchestrator();
+            IEnkelAdresseValidator enkelAdresseValidator = new EnkelAdresseValidator(entityValidatorOrchestrator, EntityValidatorEnum.TiltakshaverValidator);
+            IKontaktpersonValidator kontaktpersonValidator = new KontaktpersonValidator(entityValidatorOrchestrator, EntityValidatorEnum.TiltakshaverValidator);
+            IPartstypeValidator partstypeValidator = new PartstypeValidator(entityValidatorOrchestrator, EntityValidatorEnum.TiltakshaverValidator, codeListService);
 
-            var tiltakshaverValidator = new TiltakshaverValidator(codeListService);
+            var tiltakshaverValidator = new TiltakshaverValidator(entityValidatorOrchestrator, enkelAdresseValidator, kontaktpersonValidator, partstypeValidator, codeListService);
             _tiltakshaver.ModelData.Foedselsnummer = "54554";
             var tiltakshaverResult = tiltakshaverValidator.Validate(_tiltakshaver);
 

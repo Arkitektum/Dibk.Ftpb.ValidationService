@@ -1,19 +1,28 @@
 ﻿using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
+using System.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class EiendomsAdresseValidator : EntityValidatorBase
+    public class EiendomsAdresseValidator : EntityValidatorBase, IEiendomsAdresseValidator
     {
-        public EiendomsAdresseValidator() : base()
-        {}
+        public override string ruleXmlElement { get { return "/adresse"; } }
+
+        ValidationResult IEiendomsAdresseValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
+
+        public EiendomsAdresseValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, EntityValidatorEnum parentValidator) 
+            : base(entityValidatorOrchestrator, parentValidator)
+        {
+            InitializeValidationRules(EntityXPath);
+            
+        }
 
         public ValidationResult Validate(EiendomsAdresseValidationEntity eiendomsAdresseValidationEntity)
         {
             base.ResetValidationMessages();
-            InitializeValidationRules(eiendomsAdresseValidationEntity.DataModelXpath);
             if (ValidateModelExists(eiendomsAdresseValidationEntity))
             {
                 ValidateEntityFields(eiendomsAdresseValidationEntity);
@@ -46,11 +55,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             return true;
         }
-        public void ValidateEntityFields(EiendomsAdresseValidationEntity eiendomsAdresseValidationEntity)
+        private void ValidateEntityFields(EiendomsAdresseValidationEntity eiendomsAdresseValidationEntity)
         {
             var xPath = eiendomsAdresseValidationEntity.DataModelXpath;
-
-
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Adresselinje1))
                 AddMessageFromRule(ValidationRuleEnum.eiendomsadresse_adresselinje1_utfylt, xPath);
@@ -85,7 +92,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         private bool StringIs4digitNumber(string input)
         {
-            if(int.TryParse(input, out var number))
+            if (int.TryParse(input, out var number))
                 return (number >= 0 && number <= 9999);
 
             return false;

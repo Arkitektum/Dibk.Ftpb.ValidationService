@@ -1,9 +1,9 @@
 ﻿using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
-using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
+using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke
 {
-    public class FakturamottakerMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.FakturamottakerType, FakturamottakerValidationEntity>
+    public class FakturamottakerMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke.FakturamottakerType, FakturamottakerValidationEntity>
     {
         public override FakturamottakerValidationEntity Map(FakturamottakerType mapFrom, string parentElementXpath = null)
         {

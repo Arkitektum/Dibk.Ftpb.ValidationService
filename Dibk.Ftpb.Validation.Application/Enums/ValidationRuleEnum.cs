@@ -48,15 +48,16 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         adresse_postnr_ugyldig,
         adresse_postnr_stemmerIkke,
         adresse_postnr_ikke_validert,
+        adresse_postnr_til_galningar,
 
-        eiendomsIdentifikasjon_kommunenummer_utfylt,
+        eiendomsidentifikasjon_kommunenummer_utfylt,
 
         //Matrikkel
-        eiendomsIdentifikasjon_utfylt,
-        eiendomsIdentifikasjon_gaardsnummer_utfylt,
-        eiendomsIdentifikasjon_bruksnummer_utfylt,
-        eiendomsIdentifikasjon_festenummer_utfylt,
-        eiendomsIdentifikasjon_seksjonsnummer_utfylt,
+        eiendomsidentifikasjon_utfylt,
+        eiendomsidentifikasjon_gaardsnummer_utfylt,
+        eiendomsidentifikasjon_bruksnummer_utfylt,
+        eiendomsidentifikasjon_festenummer_utfylt,
+        eiendomsidentifikasjon_seksjonsnummer_utfylt,
         
         //Kun for testing
         Parameter_Test,
@@ -85,7 +86,13 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         tiltakshaver_organisasjonsnummer_kontrollsiffer,
         tiltakshaver_organisasjonsnummer_ugyldig,
 
-
+        //Sjekklistekrav
+        sjekklistekrav_utfylt,
+        sjekklistekrav_krav_utfylt,
+        sjekklistekrav_krav_oppfylt,
+        sjekklistekrav_krav_kode_utfylt,
+        sjekklistekrav_krav_kode_gyldig,
+        sjekklistekrav_krav_beskrivelse_utfylt,
 
         //Aktør
         //TelMob_Utfylt,

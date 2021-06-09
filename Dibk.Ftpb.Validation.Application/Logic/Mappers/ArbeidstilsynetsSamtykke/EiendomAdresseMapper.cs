@@ -2,9 +2,9 @@
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke
 {
-    public class EiendomAdresseMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.EiendommensAdresseType, EiendomsAdresseValidationEntity>
+    public class EiendomAdresseMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke.EiendommensAdresseType, EiendomsAdresseValidationEntity>
     {
-        public override EiendomsAdresseValidationEntity Map(no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.EiendommensAdresseType mapFrom, string parentElementXpath = null)
+        public override EiendomsAdresseValidationEntity Map(no.kxml.skjema.dibk.arbeidstilsynetsSamtykke.EiendommensAdresseType mapFrom, string parentElementXpath = null)
         {
             EiendomsAdresse addresse = null;
             if (mapFrom != null)

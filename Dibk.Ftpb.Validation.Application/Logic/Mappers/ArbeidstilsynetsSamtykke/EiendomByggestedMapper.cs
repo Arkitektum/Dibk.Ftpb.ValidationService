@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke
 {
-    public class EiendomToByggestedMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.EiendomType[], IEnumerable<EiendomValidationEntity>>
+    public class EiendomByggestedMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke.EiendomType[], IEnumerable<EiendomValidationEntity>>
     {
-        public override IEnumerable<EiendomValidationEntity> Map(no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.EiendomType[] eiendomByggesteder, string parentElementXpath = null)
+        public override IEnumerable<EiendomValidationEntity> Map(no.kxml.skjema.dibk.arbeidstilsynetsSamtykke.EiendomType[] eiendomByggesteder, string parentElementXpath = null)
         {
             if (eiendomByggesteder == null) return null;
             var retVal = new List<EiendomValidationEntity>();

@@ -19,7 +19,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.ReporterTests
                 XpathField = "Unit/Test/Parameter",
             };
             //string result;
-            var noko = new ValidationMessageRepository().GetComposedValidationMessage(validationMessage, "NO");
+            var noko = new ValidationMessageRepository().GetComposedValidationMessage("45957", validationMessage, "NO");
          
 
             //noko.Should().NotBeNull();

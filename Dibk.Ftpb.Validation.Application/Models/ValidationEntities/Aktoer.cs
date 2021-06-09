@@ -8,7 +8,7 @@
     }
     public class Aktoer 
     {
-        public ParttypeCodeValidationEntity Partstype { get; set; }
+        public PartstypeValidationEntity Partstype { get; set; }
 
         public string Foedselsnummer { get; set; }
 

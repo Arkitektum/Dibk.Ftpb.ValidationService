@@ -12,10 +12,12 @@
 
   <ItemGroup>
     <None Remove="Models\DataModels\ArbeidstilsynetsSamtykke2\arbeidstilsynetsSamtykke2.xsd" />
+    <None Remove="Models\DataModels\ArbeidstilsynetsSamtykke\arbeidstilsynetsSamtykke.xsd" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Models\DataModels\ArbeidstilsynetsSamtykke2\arbeidstilsynetsSamtykke2.xsd" />
+    <EmbeddedResource Include="Models\DataModels\ArbeidstilsynetsSamtykke\arbeidstilsynetsSamtykke.xsd" />
   </ItemGroup>
 
   <ItemGroup>

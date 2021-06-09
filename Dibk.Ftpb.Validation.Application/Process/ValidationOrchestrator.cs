@@ -47,9 +47,9 @@ namespace Dibk.Ftpb.Validation.Application.Process
                 List<ValidationRule> validationXmlMessages = new List<ValidationRule>();
                 ValidationResult.ValidationRules.AddRange(validationXmlMessages);
 
-                ValidateMainForm(dataFormatVersion, validationInput);
+                ValidateMainForm(dataFormatVersion, validationInput);   //DataFormatVersion: 45957
 
-                ValidationResult = _validationMessageComposer.ComposeValidationReport(ValidationResult, "NO");
+                ValidationResult = _validationMessageComposer.ComposeValidationReport(dataFormatVersion, ValidationResult, "NO");
             }
 
             // Todo: On ERRORS
@@ -92,7 +92,7 @@ namespace Dibk.Ftpb.Validation.Application.Process
             ValidationResult.ValidationMessages.AddRange(valResult.ValidationMessages);
         }
 
-        public IFormValidator GetValidator(string dataFormatVersion)
+        private IFormValidator GetValidator(string dataFormatVersion)
         {
             //Retrieves classes implementing IForm, having FormDataFormatAttribute and filtering by its DataFormatId
             object formLogicInstance = null;

@@ -2,9 +2,9 @@
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke
 {
-    public class MatrikkelToByggestedMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.MatrikkelnummerType, MatrikkelValidationEntity>
+    public class MatrikkelToByggestedMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke.MatrikkelnummerType, MatrikkelValidationEntity>
     {
-        public override MatrikkelValidationEntity Map(no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.MatrikkelnummerType matrikkelnummerType, string parentElementXpath = null)
+        public override MatrikkelValidationEntity Map(no.kxml.skjema.dibk.arbeidstilsynetsSamtykke.MatrikkelnummerType matrikkelnummerType, string parentElementXpath = null)
         {
             Matrikkel matrikkel = null;
             if (matrikkelnummerType != null)
@@ -17,7 +17,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                 Seksjonsnummer = matrikkelnummerType.seksjonsnummer
             };
 
-            return new MatrikkelValidationEntity(matrikkel, "eiendomsIdentifikasjon", parentElementXpath);
+            return new MatrikkelValidationEntity(matrikkel, "eiendomsidentifikasjon", parentElementXpath);
         }
     }
 }
