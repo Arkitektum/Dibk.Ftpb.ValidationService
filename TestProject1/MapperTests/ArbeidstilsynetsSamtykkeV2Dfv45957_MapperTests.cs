@@ -1,4 +1,5 @@
-﻿using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
+﻿using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using Dibk.Ftpb.Validation.Application.Utils;
@@ -47,7 +48,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             var form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
             var postmanXml = TestHelper.GetXmlWithoutSpaces(xmlData);
 
-            var tiltakshaver = new TiltakshaverMapper().Map(form.tiltakshaver);
+            var tiltakshaver = new AktoerMapper(AktoerEnum.tiltakshaver).Map(form.tiltakshaver);
 
             tiltakshaver.Should().NotBeNull();
 

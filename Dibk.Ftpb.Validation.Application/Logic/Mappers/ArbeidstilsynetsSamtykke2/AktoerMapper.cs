@@ -1,10 +1,18 @@
-﻿using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
+﻿using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
+using System;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2
 {
-    public class TiltakshaverMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.PartType, AktoerValidationEntity>
+    public class AktoerMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.PartType, AktoerValidationEntity>
     {
+        private readonly AktoerEnum _aktoerRole;
+
+        public AktoerMapper(AktoerEnum aktoerRole)
+        {
+            _aktoerRole = aktoerRole;
+        }
         public override AktoerValidationEntity Map(PartType mapFrom, string parentElementXpath = null)
         {
             Aktoer tiltakshaver = null;
@@ -19,12 +27,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                 Organisasjonsnummer = mapFrom.organisasjonsnummer
             };  
 
-            tiltakshaver.Adresse = new EnkelAdresseMapper().Map(mapFrom.adresse, $"{parentElementXpath}/tiltakshaver");
-                tiltakshaver.Kontaktperson = new KontaktpersonMapper().Map(mapFrom.kontaktperson, $"{parentElementXpath}/tiltakshaver");
-                tiltakshaver.Partstype = new PartstypeMapper().Map(mapFrom.partstype, $"{parentElementXpath}/tiltakshaver");
+            tiltakshaver.Adresse = new EnkelAdresseMapper().Map(mapFrom.adresse, $"{parentElementXpath}/{Enum.GetName(typeof(AktoerEnum), _aktoerRole)}");
+                tiltakshaver.Kontaktperson = new KontaktpersonMapper().Map(mapFrom.kontaktperson, $"{parentElementXpath}/{Enum.GetName(typeof(AktoerEnum), _aktoerRole)}");
+                tiltakshaver.Partstype = new PartstypeMapper().Map(mapFrom.partstype, $"{parentElementXpath}/{Enum.GetName(typeof(AktoerEnum), _aktoerRole)}");
             }
 
-            return  new AktoerValidationEntity(tiltakshaver, "tiltakshaver", parentElementXpath);
+            return  new AktoerValidationEntity(tiltakshaver, Enum.GetName(typeof(AktoerEnum), _aktoerRole), parentElementXpath);
         }
 
         private class KontaktpersonMapper : ModelToValidationEntityMapper<KontaktpersonType, KontaktpersonValidationEntity>

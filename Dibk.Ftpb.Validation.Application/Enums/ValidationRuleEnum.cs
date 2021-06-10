@@ -86,6 +86,24 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         tiltakshaver_organisasjonsnummer_kontrollsiffer,
         tiltakshaver_organisasjonsnummer_ugyldig,
 
+        //AnsvarligSoeker
+        ansvarligSoeker_utfylt,
+        ansvarligSoeker_partstype_utfylt,
+        ansvarligSoeker_adresse_utfylt,
+        ansvarligSoeker_kontaktperson_utfylt,
+        ansvarligSoeker_navn_utfylt,
+        ansvarligSoeker_telmob_utfylt,
+        ansvarligSoeker_epost_utfylt,
+        ansvarligSoeker_foedselnummer_utfylt,
+        ansvarligSoeker_foedselnummer_dekryptering,
+        ansvarligSoeker_foedselnummer_ugyldig,
+        ansvarligSoeker_foedselnummer_kontrollsiffer,
+        ansvarligSoeker_organisasjonsnummer_utfylt,
+        ansvarligSoeker_organisasjonsnummer_kontrollsiffer,
+        ansvarligSoeker_organisasjonsnummer_ugyldig,
+
+
+
         //Sjekklistekrav
         krav_utfylt,
         krav_sjekklistekrav_utfylt,

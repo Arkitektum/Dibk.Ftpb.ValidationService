@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Logic\Mappers\Common\" />
     <Folder Include="Logic\Xsd\" />
     <Folder Include="Validators\" />
     <Folder Include="Services\" />
