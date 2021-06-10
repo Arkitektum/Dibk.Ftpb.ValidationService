@@ -12,7 +12,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     {
         private readonly ISjekklistepunktValidator _sjekklistepunktValidator;
 
-        public override string ruleXmlElement { get { return "/krav{0}"; } }
+        public override string ruleXmlElement { get { return "krav{0}"; } set { ruleXmlElement = value; } }
 
         public ValidationResult ValidationResult { get => _validationResult; }
 

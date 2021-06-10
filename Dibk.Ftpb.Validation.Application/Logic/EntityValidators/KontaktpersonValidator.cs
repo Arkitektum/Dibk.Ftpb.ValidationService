@@ -12,7 +12,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class KontaktpersonValidator : EntityValidatorBase, IKontaktpersonValidator
     {
-        public override string ruleXmlElement { get { return "/kontaktperson"; } }
+        public override string ruleXmlElement { get { return "kontaktperson"; } set { ruleXmlElement = value; } }
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 

@@ -9,7 +9,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class FakturamottakerValidator : EntityValidatorBase, IFakturamottakerValidator
     {
-        public override string ruleXmlElement { get { return "/fakturamottaker"; } }
+        public override string ruleXmlElement { get { return "fakturamottaker"; } set { ruleXmlElement = value; } }
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 

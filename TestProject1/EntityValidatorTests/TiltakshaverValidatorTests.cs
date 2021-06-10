@@ -87,7 +87,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             IKontaktpersonValidator kontaktpersonValidator = new KontaktpersonValidator(entityValidatorOrchestrator, EntityValidatorEnum.TiltakshaverValidator);
             IPartstypeValidator partstypeValidator = new PartstypeValidator(entityValidatorOrchestrator, EntityValidatorEnum.TiltakshaverValidator, codeListService);
 
-            var tiltakshaverValidator = new TiltakshaverValidator(entityValidatorOrchestrator, enkelAdresseValidator, kontaktpersonValidator, partstypeValidator, codeListService);
+            var tiltakshaverValidator = new AktoerValidator(entityValidatorOrchestrator,  AktoerEnum.tiltakshaver, enkelAdresseValidator, kontaktpersonValidator, partstypeValidator, codeListService);
             _tiltakshaver.ModelData.Foedselsnummer = "54554";
             var tiltakshaverResult = tiltakshaverValidator.Validate(_tiltakshaver);
 

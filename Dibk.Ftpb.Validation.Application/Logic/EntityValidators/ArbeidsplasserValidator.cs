@@ -10,7 +10,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public class ArbeidsplasserValidator : EntityValidatorBase, IArbeidsplasserValidator
     {
         private List<string> _attachmentList;
-        public override string ruleXmlElement { get { return "/arbeidsplasser"; } }
+        public override string ruleXmlElement { get { return "arbeidsplasser"; } set { ruleXmlElement = value; } }
         
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 

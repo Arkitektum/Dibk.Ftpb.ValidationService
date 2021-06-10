@@ -9,7 +9,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class EnkelAdresseValidatorV2 : EntityValidatorBase, IEnkelAdresseValidator
     {
-        public override string ruleXmlElement { get { return "/adresse"; } }
+        public override string ruleXmlElement { get { return "adresse"; } set { ruleXmlElement = value; } }
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 

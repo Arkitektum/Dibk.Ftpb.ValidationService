@@ -9,7 +9,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class MatrikkelValidator : EntityValidatorBase, IMatrikkelValidator
     {
-        public override string ruleXmlElement { get { return "/eiendomsidentifikasjon"; } }
+        public override string ruleXmlElement { get { return "eiendomsidentifikasjon"; } set { ruleXmlElement = value; } }
 
         ValidationResult IMatrikkelValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 

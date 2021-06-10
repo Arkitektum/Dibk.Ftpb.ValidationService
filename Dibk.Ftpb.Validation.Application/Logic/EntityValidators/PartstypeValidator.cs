@@ -15,7 +15,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public class PartstypeValidator : EntityValidatorBase, IPartstypeValidator
     {
         private readonly ICodeListService _codeListService;
-        public override string ruleXmlElement { get { return "/partstype"; } }
+        public override string ruleXmlElement { get { return "partstype"; } set { ruleXmlElement = value; } }
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 

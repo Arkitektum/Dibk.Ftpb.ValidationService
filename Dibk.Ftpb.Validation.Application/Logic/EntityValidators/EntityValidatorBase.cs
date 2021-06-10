@@ -12,16 +12,37 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     {
         protected string EntityName;
         private string EntityXPath;
-        public abstract string ruleXmlElement { get; }
+        public abstract string ruleXmlElement { get; set; }
         protected ValidationResult _validationResult;
 
         ValidationResult IEntityValidator.ValidationResult { get => _validationResult; set => _validationResult = value; }
 
         public EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator) 
-            : this(entityValidatorOrchestrator, null) { }
-        
+            : this(entityValidatorOrchestrator, null, null) { }
+
+        public EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator, string xmlElement)
+            : this(entityValidatorOrchestrator, null, xmlElement) { }
+
         public EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator, EntityValidatorEnum? parentValidator)
+            : this(entityValidatorOrchestrator, parentValidator, null) { }
+
+
+        private EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator, EntityValidatorEnum? parentValidator, string xmlElement)
         {
+            _validationResult = new ValidationResult();
+            _validationResult.ValidationRules = new List<ValidationRule>();
+            _validationResult.ValidationMessages = new List<ValidationMessage>();
+
+            string endXPathElement;
+            if (xmlElement != null)
+            {
+                endXPathElement = xmlElement;
+            }
+            else
+            {
+                endXPathElement = ruleXmlElement;
+            }
+
             string parentXPath = null;
             if (parentValidator == null)
             {
@@ -33,11 +54,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 parentXPath = $"{entityValidatorOrchestrator.ValidatorFormXPath}/{XPathAfterParentForm}";
             }
 
-            _validationResult = new ValidationResult();
-            _validationResult.ValidationRules = new List<ValidationRule>();
-            _validationResult.ValidationMessages = new List<ValidationMessage>();
 
-            EntityXPath = $"{parentXPath}{ruleXmlElement}";
+            EntityXPath = $"{parentXPath}/{endXPathElement}";
 
             InitializeValidationRules(EntityXPath);
         }

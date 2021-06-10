@@ -29,7 +29,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private IEnkelAdresseValidator _tiltakshaverEnkelAdresseValidator;
         private IKontaktpersonValidator _kontaktpersonValidator;
         private IPartstypeValidator _partstypeValidator;
-        private ITiltakshaverValidator _tiltakshaverValidator;
+        private IAktoerValidator _tiltakshaverValidator;
         private IEnkelAdresseValidator _fakturamottakerEnkelAdresseValidator;
         private IFakturamottakerValidator _fakturamottakerValidator;
 
@@ -87,7 +87,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(_entityValidatorOrchestrator, EntityValidatorEnum.TiltakshaverValidator);
             _kontaktpersonValidator = new KontaktpersonValidator(_entityValidatorOrchestrator, EntityValidatorEnum.TiltakshaverValidator);
             _partstypeValidator = new PartstypeValidator(_entityValidatorOrchestrator, EntityValidatorEnum.TiltakshaverValidator, _codeListService);
-            _tiltakshaverValidator = new TiltakshaverValidator(_entityValidatorOrchestrator, _tiltakshaverEnkelAdresseValidator, _kontaktpersonValidator, _partstypeValidator, _codeListService);
+            _tiltakshaverValidator = new AktoerValidator(_entityValidatorOrchestrator, AktoerEnum.tiltakshaver, _tiltakshaverEnkelAdresseValidator, _kontaktpersonValidator, _partstypeValidator, _codeListService);
             _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidator(_entityValidatorOrchestrator, EntityValidatorEnum.FakturamottakerValidator);
             _fakturamottakerValidator = new FakturamottakerValidator(_entityValidatorOrchestrator, _fakturamottakerEnkelAdresseValidator);
 

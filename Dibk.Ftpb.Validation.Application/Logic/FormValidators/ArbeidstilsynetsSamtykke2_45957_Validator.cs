@@ -26,10 +26,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private IMatrikkelValidator _matrikkelValidator;
         private IEiendomByggestedValidator _eiendomByggestedValidator;
         private IArbeidsplasserValidator _arbeidsplasserValidator;
+
+        private IAktoerValidator _tiltakshaverValidator;
         private IEnkelAdresseValidator _tiltakshaverEnkelAdresseValidator;
-        private IKontaktpersonValidator _kontaktpersonValidator;
-        private IPartstypeValidator _partstypeValidator;
-        private ITiltakshaverValidator _tiltakshaverValidator;
+        private IKontaktpersonValidator _tiltakshaverKontaktpersonValidator;
+        private IPartstypeValidator _tiltakshaverPartstypeValidator;
+
+        private IAktoerValidator _ansvarligSoekerValidator;
+        private IEnkelAdresseValidator _ansvarligSoekerEnkelAdresseValidator;
+        private IKontaktpersonValidator _ansvarligSoekerKontaktpersonValidator;
+        private IPartstypeValidator _ansvarligSoekerPartstypeValidator;
+
         private IEnkelAdresseValidator _fakturamottakerEnkelAdresseValidator;
         private IFakturamottakerValidator _fakturamottakerValidator;
         private ISjekklistekravValidator _sjekklistekravValidator;
@@ -72,6 +79,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.KontaktpersonValidator, EntityValidatorEnum.TiltakshaverValidator));
             _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.PartstypeValidator, EntityValidatorEnum.TiltakshaverValidator));
 
+            //AnsvarligSoeker
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.AnsvarligSoekerValidator));
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidator, EntityValidatorEnum.AnsvarligSoekerValidator));
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.KontaktpersonValidator, EntityValidatorEnum.AnsvarligSoekerValidator));
+            _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.PartstypeValidator, EntityValidatorEnum.AnsvarligSoekerValidator));
+
             //Fakturamottaker
             _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.FakturamottakerValidator));
             _entityValidatorOrchestrator.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidatorV2, EntityValidatorEnum.FakturamottakerValidator));
@@ -90,11 +103,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _eiendomsAdresseValidator = new EiendomsAdresseValidator(_entityValidatorOrchestrator, EntityValidatorEnum.EiendomByggestedValidator);
             _matrikkelValidator = new MatrikkelValidator(_entityValidatorOrchestrator, EntityValidatorEnum.EiendomByggestedValidator);
             _eiendomByggestedValidator = new EiendomByggestedValidator(_entityValidatorOrchestrator, _eiendomsAdresseValidator, _matrikkelValidator, _municipalityValidator);
+            
             _arbeidsplasserValidator = new ArbeidsplasserValidator(_entityValidatorOrchestrator);
+
             _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(_entityValidatorOrchestrator, EntityValidatorEnum.TiltakshaverValidator);
-            _kontaktpersonValidator = new KontaktpersonValidator(_entityValidatorOrchestrator, EntityValidatorEnum.TiltakshaverValidator);
-            _partstypeValidator = new PartstypeValidator(_entityValidatorOrchestrator, EntityValidatorEnum.TiltakshaverValidator, _codeListService);
-            _tiltakshaverValidator = new TiltakshaverValidator(_entityValidatorOrchestrator, _tiltakshaverEnkelAdresseValidator, _kontaktpersonValidator, _partstypeValidator, _codeListService);
+            _tiltakshaverKontaktpersonValidator = new KontaktpersonValidator(_entityValidatorOrchestrator, EntityValidatorEnum.TiltakshaverValidator);
+            _tiltakshaverPartstypeValidator = new PartstypeValidator(_entityValidatorOrchestrator, EntityValidatorEnum.TiltakshaverValidator, _codeListService);
+            _tiltakshaverValidator = new AktoerValidator(_entityValidatorOrchestrator, AktoerEnum.tiltakshaver, _tiltakshaverEnkelAdresseValidator, _tiltakshaverKontaktpersonValidator, _tiltakshaverPartstypeValidator, _codeListService);
+
+            _ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(_entityValidatorOrchestrator, EntityValidatorEnum.AnsvarligSoekerValidator);
+            _ansvarligSoekerKontaktpersonValidator = new KontaktpersonValidator(_entityValidatorOrchestrator, EntityValidatorEnum.AnsvarligSoekerValidator);
+            _ansvarligSoekerPartstypeValidator = new PartstypeValidator(_entityValidatorOrchestrator, EntityValidatorEnum.AnsvarligSoekerValidator, _codeListService);
+            _ansvarligSoekerValidator = new AktoerValidator(_entityValidatorOrchestrator, AktoerEnum.ansvarligSoeker, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
+
             _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidatorV2(_entityValidatorOrchestrator, EntityValidatorEnum.FakturamottakerValidator);
             _fakturamottakerValidator = new FakturamottakerValidator(_entityValidatorOrchestrator, _fakturamottakerEnkelAdresseValidator);
 
@@ -107,10 +128,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             AccumulateValidationRules(_eiendomsAdresseValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_matrikkelValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_arbeidsplasserValidator.ValidationResult.ValidationRules);
+
             AccumulateValidationRules(_tiltakshaverValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_partstypeValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_tiltakshaverPartstypeValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_tiltakshaverEnkelAdresseValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_kontaktpersonValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_tiltakshaverKontaktpersonValidator.ValidationResult.ValidationRules);
+
+            AccumulateValidationRules(_ansvarligSoekerValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_ansvarligSoekerPartstypeValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_ansvarligSoekerEnkelAdresseValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_ansvarligSoekerKontaktpersonValidator.ValidationResult.ValidationRules);
+
             AccumulateValidationRules(_fakturamottakerValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_fakturamottakerEnkelAdresseValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_sjekklistekravValidator.ValidationResult.ValidationRules);
@@ -134,6 +162,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             var tiltakshaverValidationResult = _tiltakshaverValidator.Validate(_validationForm.ModelData.TiltakshaverValidationEntity);
             AccumulateValidationMessages(tiltakshaverValidationResult.ValidationMessages);
+
+            var ansvarligSoekerValidationResult = _ansvarligSoekerValidator.Validate(_validationForm.ModelData.AnsvarligSoekerValidationEntity);
+            AccumulateValidationMessages(ansvarligSoekerValidationResult.ValidationMessages);
 
             var fakturamottakerValidationResult = _fakturamottakerValidator.Validate(_validationForm.ModelData.FakturamottakerValidationEntity);
             AccumulateValidationMessages(fakturamottakerValidationResult.ValidationMessages);

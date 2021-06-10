@@ -70,38 +70,21 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         arbeidsplasser_utleieBygg,
         arbeidsplasser_beskrivelse,
 
-        //Tiltakshaver
-        tiltakshaver_utfylt,
-        tiltakshaver_partstype_utfylt,
-        tiltakshaver_adresse_utfylt,
-        tiltakshaver_kontaktperson_utfylt,
-        tiltakshaver_navn_utfylt,
-        tiltakshaver_telmob_utfylt,
-        tiltakshaver_epost_utfylt,
-        tiltakshaver_foedselnummer_utfylt,
-        tiltakshaver_foedselnummer_dekryptering,
-        tiltakshaver_foedselnummer_ugyldig,
-        tiltakshaver_foedselnummer_kontrollsiffer,
-        tiltakshaver_organisasjonsnummer_utfylt,
-        tiltakshaver_organisasjonsnummer_kontrollsiffer,
-        tiltakshaver_organisasjonsnummer_ugyldig,
-
-        //AnsvarligSoeker
-        ansvarligSoeker_utfylt,
-        ansvarligSoeker_partstype_utfylt,
-        ansvarligSoeker_adresse_utfylt,
-        ansvarligSoeker_kontaktperson_utfylt,
-        ansvarligSoeker_navn_utfylt,
-        ansvarligSoeker_telmob_utfylt,
-        ansvarligSoeker_epost_utfylt,
-        ansvarligSoeker_foedselnummer_utfylt,
-        ansvarligSoeker_foedselnummer_dekryptering,
-        ansvarligSoeker_foedselnummer_ugyldig,
-        ansvarligSoeker_foedselnummer_kontrollsiffer,
-        ansvarligSoeker_organisasjonsnummer_utfylt,
-        ansvarligSoeker_organisasjonsnummer_kontrollsiffer,
-        ansvarligSoeker_organisasjonsnummer_ugyldig,
-
+        //Tiltakshaver og ansvarligSoeker
+        aktoer_utfylt,
+        aktoer_partstype_utfylt,
+        aktoer_adresse_utfylt,
+        aktoer_kontaktperson_utfylt,
+        aktoer_navn_utfylt,
+        aktoer_telmob_utfylt,
+        aktoer_epost_utfylt,
+        aktoer_foedselnummer_utfylt,
+        aktoer_foedselnummer_dekryptering,
+        aktoer_foedselnummer_ugyldig,
+        aktoer_foedselnummer_kontrollsiffer,
+        aktoer_organisasjonsnummer_utfylt,
+        aktoer_organisasjonsnummer_kontrollsiffer,
+        aktoer_organisasjonsnummer_ugyldig,
 
 
         //Sjekklistekrav
@@ -111,18 +94,6 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         krav_sjekklistekrav_sjekklistepunkt_kode_utfylt,
         krav_sjekklistekrav_sjekklistepunkt_kode_gyldig,
         krav_sjekklistekrav_sjekklistepunkt_beskrivelse_utfylt,
-
-        //Aktør
-        //TelMob_Utfylt,
-        //epost_Utfylt,
-        //Navn_Utfylt,
-        //foedselnummer_utfylt,
-        //foedselnummer_Dekryptering,
-        //foedselnummer_ugyldig,
-        //foedselnummer_kontrollsiffer,
-        //organisasjonsnummer_utfylt,
-        //organisasjonsnummer_kontrollsiffer,
-        //organisasjonsnummer_ugyldig,
 
 
         //Partstype

@@ -14,7 +14,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private IEiendomsAdresseValidator _eiendomsAdresseValidator;
         private readonly IMatrikkelValidator _matrikkelValidator;
         private readonly IMunicipalityValidator _municipalityValidator;
-        public override string ruleXmlElement { get { return "/eiendomByggested{0}"; } }
+        public override string ruleXmlElement { get { return "eiendomByggested{0}"; } set { ruleXmlElement = value; } }
 
         ValidationResult IEiendomByggestedValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
