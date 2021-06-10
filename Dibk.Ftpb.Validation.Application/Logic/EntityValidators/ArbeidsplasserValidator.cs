@@ -28,35 +28,36 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             return _validationResult;
         }
 
-        protected override void InitializeValidationRules(string xPathForEntity)
+        protected override void InitializeValidationRules(string xPathToEntity)
         {
-            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_utfylt, xPathForEntity);
-            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_framtidige_eller_eksisterende_utfylt, xPathForEntity);
-            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_faste_eller_midlertidige_utfylt, xPathForEntity);
-            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_type_arbeid_utfylt, xPathForEntity, "antallVirksomheter");
-            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_utleieBygg, xPathForEntity, "utleieBygg");
-            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_beskrivelse, xPathForEntity, "beskrivelse");
+            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_utfylt, xPathToEntity);
+            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_framtidige_eller_eksisterende_utfylt, xPathToEntity);
+            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_faste_eller_midlertidige_utfylt, xPathToEntity);
+            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_type_arbeid_utfylt, xPathToEntity, "antallVirksomheter");
+            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_utleieBygg, xPathToEntity, "utleieBygg");
+            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_beskrivelse, xPathToEntity, "beskrivelse");
         }
 
 
         public void ValidateEntityFields(ArbeidsplasserValidationEntity arbeidsplasserValEntity)
         {
+            var xpath = arbeidsplasserValEntity.DataModelXpath;
             var arbeidsplasser = arbeidsplasserValEntity.ModelData;
             if (Helpers.ObjectIsNullOrEmpty(arbeidsplasser))
             {
-                AddMessageFromRule(ValidationRuleEnum.arbeidsplasser_utfylt);
+                AddMessageFromRule(ValidationRuleEnum.arbeidsplasser_utfylt, xpath);
             }
             else
             {
                 if (!arbeidsplasser.Eksisterende.GetValueOrDefault(false) && !arbeidsplasser.Framtidige.GetValueOrDefault(false))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.arbeidsplasser_framtidige_eller_eksisterende_utfylt);
+                    AddMessageFromRule(ValidationRuleEnum.arbeidsplasser_framtidige_eller_eksisterende_utfylt, xpath);
                 }
                 else
                 {
                     if (!arbeidsplasser.Faste.GetValueOrDefault(false) && !arbeidsplasser.Midlertidige.GetValueOrDefault(false))
                     {
-                        AddMessageFromRule(ValidationRuleEnum.arbeidsplasser_faste_eller_midlertidige_utfylt);
+                        AddMessageFromRule(ValidationRuleEnum.arbeidsplasser_faste_eller_midlertidige_utfylt, xpath);
                     }
 
                     if (arbeidsplasser.UtleieBygg.GetValueOrDefault(false))
@@ -65,7 +66,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         int.TryParse(arbeidsplasser.AntallVirksomheter, out antallVirksomheter);
                         if (antallVirksomheter <= 0)
                         {
-                            AddMessageFromRule(ValidationRuleEnum.arbeidsplasser_utleieBygg);
+                            AddMessageFromRule(ValidationRuleEnum.arbeidsplasser_utleieBygg, xpath);
                         }
                     }
 
@@ -73,7 +74,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     {
                         if (_attachmentList == null || !_attachmentList.Contains("BeskrivelseTypeArbeidProsess"))
                         {
-                            AddMessageFromRule(ValidationRuleEnum.arbeidsplasser_beskrivelse);
+                            AddMessageFromRule(ValidationRuleEnum.arbeidsplasser_beskrivelse, xpath);
                         }
                     }
                 }

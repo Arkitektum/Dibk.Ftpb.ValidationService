@@ -41,7 +41,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                     Telefonnummer = mapFrom.telefonnummer
                 };
 
-                return new KontaktpersonValidationEntity(kontaktperson, "Kontaktperson", parentElementXpath);
+                return new KontaktpersonValidationEntity(kontaktperson, "kontaktperson", parentElementXpath);
             }
         }
 

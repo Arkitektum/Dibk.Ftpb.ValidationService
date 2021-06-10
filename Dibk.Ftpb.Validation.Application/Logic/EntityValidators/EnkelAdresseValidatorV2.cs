@@ -17,26 +17,27 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             : base(entityValidatorOrchestrator, parentValidator)
         {
         }
-        protected override void InitializeValidationRules(string xPathForEntity)
+        protected override void InitializeValidationRules(string xPathToEntity)
         {
-            AddValidationRule(ValidationRuleEnum.adresse_utfylt, xPathForEntity);
-            AddValidationRule(ValidationRuleEnum.adresse_adresselinje1_utfylt, xPathForEntity, "adresselinje1");
-            AddValidationRule(ValidationRuleEnum.adresse_adresselinje2_utfylt, xPathForEntity, "adresselinje2");
-            AddValidationRule(ValidationRuleEnum.adresse_adresselinje3_utfylt, xPathForEntity, "adresselinje3");
-            AddValidationRule(ValidationRuleEnum.adresse_landkode_utfylt, xPathForEntity, "landkode");
-            AddValidationRule(ValidationRuleEnum.adresse_postnr_utfylt, xPathForEntity, "postnr");
-            AddValidationRule(ValidationRuleEnum.adresse_postnr_kontrollsiffer, xPathForEntity, "postnr");
-            AddValidationRule(ValidationRuleEnum.adresse_postnr_ugyldig, xPathForEntity, "postnr");
-            AddValidationRule(ValidationRuleEnum.adresse_postnr_stemmerIkke, xPathForEntity, "postnr");
-            AddValidationRule(ValidationRuleEnum.adresse_postnr_ikke_validert, xPathForEntity, "postnr");
-            AddValidationRule(ValidationRuleEnum.adresse_postnr_4siffer, xPathForEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_utfylt, xPathToEntity);
+            AddValidationRule(ValidationRuleEnum.adresse_adresselinje1_utfylt, xPathToEntity, "adresselinje1");
+            AddValidationRule(ValidationRuleEnum.adresse_adresselinje2_utfylt, xPathToEntity, "adresselinje2");
+            AddValidationRule(ValidationRuleEnum.adresse_adresselinje3_utfylt, xPathToEntity, "adresselinje3");
+            AddValidationRule(ValidationRuleEnum.adresse_landkode_utfylt, xPathToEntity, "landkode");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_utfylt, xPathToEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_kontrollsiffer, xPathToEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_ugyldig, xPathToEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_stemmerIkke, xPathToEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_ikke_validert, xPathToEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_4siffer, xPathToEntity, "postnr");
         }
 
         public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null)
         {
+            var xpath = enkelAdresse.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(enkelAdresse))
             {
-                AddMessageFromRule(ValidationRuleEnum.adresse_utfylt);
+                AddMessageFromRule(ValidationRuleEnum.adresse_utfylt, xpath);
             }
             else
             {

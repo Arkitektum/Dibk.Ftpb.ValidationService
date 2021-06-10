@@ -23,9 +23,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                 };
 
                 var eiendomValEntity = new EiendomValidationEntity(eiendom, $"eiendomByggested[{i}]", parentElementXpath);
-
                 eiendom.Matrikkel = new MatrikkelToByggestedMapper().Map(eiendomByggested.eiendomsidentifikasjon, eiendomValEntity.DataModelXpath);
                 eiendom.Adresse = new EiendomAdresseMapper().Map(eiendomByggested.adresse, eiendomValEntity.DataModelXpath);
+
                 retVal.Add(eiendomValEntity);
             }
 

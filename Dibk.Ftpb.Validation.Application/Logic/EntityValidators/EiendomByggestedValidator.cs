@@ -26,22 +26,20 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _matrikkelValidator = matrikkelValidator;
         }
 
-        protected override void InitializeValidationRules(string xPathForEntity)
+        protected override void InitializeValidationRules(string xPathToEntity)
         {
-            AddValidationRule(ValidationRuleEnum.eiendom_utfylt, xPathForEntity);
-            AddValidationRule(ValidationRuleEnum.eiendomsadresse_bygningsnummer_utfylt, xPathForEntity, "bygningsnummer");
-            AddValidationRule(ValidationRuleEnum.eiendomsadresse_bolignummer_utfylt, xPathForEntity, "bolignummer");
-            AddValidationRule(ValidationRuleEnum.eiendomsadresse_kommunenavn_utfylt, xPathForEntity, "kommunenavn");
-            AddValidationRule(ValidationRuleEnum.eiendomsadresse_tillatte_postnr_i_kommune, xPathForEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.eiendom_utfylt, xPathToEntity);
+            AddValidationRule(ValidationRuleEnum.eiendomsadresse_bygningsnummer_utfylt, xPathToEntity, "bygningsnummer");
+            AddValidationRule(ValidationRuleEnum.eiendomsadresse_bolignummer_utfylt, xPathToEntity, "bolignummer");
+            AddValidationRule(ValidationRuleEnum.eiendomsadresse_kommunenavn_utfylt, xPathToEntity, "kommunenavn");
+            AddValidationRule(ValidationRuleEnum.eiendomsadresse_tillatte_postnr_i_kommune, xPathToEntity, "postnr");
         }
 
         public ValidationResult Validate(IEnumerable<EiendomValidationEntity> eiendomValidationEntities)
         {
-            //base.ResetValidationMessages();
-
             if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntities) || eiendomValidationEntities.Count() == 0)
             {
-                AddMessageFromRule(ValidationRuleEnum.eiendom_utfylt);
+                AddMessageFromRuleIfCollectionIsEmpty(ValidationRuleEnum.eiendom_utfylt);
             }
             else
             {

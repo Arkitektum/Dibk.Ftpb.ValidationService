@@ -42,10 +42,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     case EntityValidatorEnum.DispensasjonValidator:
                         _xPathAfterParent = "dispensasjon";
                         break;
-                    case EntityValidatorEnum.Krav:
-                        _xPathAfterParent = "krav";
+                    case EntityValidatorEnum.SjekklistekravValidator:
+                        _xPathAfterParent = "krav{0}";
                         break;
-
+                    case EntityValidatorEnum.SjekklistepunktValidator:
+                        _xPathAfterParent = "sjekklistepunkt";
+                        break;
+                
                 }
             }
         }

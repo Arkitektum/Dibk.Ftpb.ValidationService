@@ -12,7 +12,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     {
         public override string ruleXmlElement { get { return "/sjekklistepunkt"; } }
 
-        public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
+        public ValidationResult ValidationResult { get => _validationResult; }
 
         public SjekklistepunktValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, EntityValidatorEnum parentValidator)
             : base(entityValidatorOrchestrator, parentValidator)
@@ -20,10 +20,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         public ValidationResult Validate(SjekklistepunktValidationEntity sjekklistepunkt)
         {
-
+            var xpath = sjekklistepunkt.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(sjekklistepunkt))
             {
-                AddMessageFromRule(ValidationRuleEnum.sjekklistekrav_krav_kode_utfylt);
+                AddMessageFromRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunkt_kode_utfylt, xpath);
             }
             else
             {
@@ -33,11 +33,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             return _validationResult;
         }
 
-        protected override void InitializeValidationRules(string xPathForEntity)
+        protected override void InitializeValidationRules(string xPathToEntity)
         {
-            this.AddValidationRule(ValidationRuleEnum.sjekklistekrav_krav_utfylt, xPathForEntity, "kodeverdi");
-            this.AddValidationRule(ValidationRuleEnum.sjekklistekrav_krav_kode_gyldig, xPathForEntity, "kodeverdi");
-            this.AddValidationRule(ValidationRuleEnum.sjekklistekrav_krav_beskrivelse_utfylt, xPathForEntity, "kodebeskrivelse");
+            this.AddValidationRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunkt_kode_utfylt, xPathToEntity, "kodeverdi");
+            this.AddValidationRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunkt_kode_gyldig, xPathToEntity, "kodeverdi");
+            this.AddValidationRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunkt_beskrivelse_utfylt, xPathToEntity, "kodebeskrivelse");
         }
 
         public void ValidateEntityFields(SjekklistepunktValidationEntity sjekklistepunktValidationEntity)
@@ -46,13 +46,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             var sjekklistepunkt = sjekklistepunktValidationEntity.ModelData;
             if (Helpers.ObjectIsNullOrEmpty(sjekklistepunkt))
-                AddMessageFromRule(ValidationRuleEnum.sjekklistekrav_krav_kode_utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunkt_kode_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(sjekklistepunkt?.Kodeverdi))
-                AddMessageFromRule(ValidationRuleEnum.sjekklistekrav_krav_kode_utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunkt_kode_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(sjekklistepunkt?.Kodebeskrivelse))
-                AddMessageFromRule(ValidationRuleEnum.sjekklistekrav_krav_beskrivelse_utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunkt_beskrivelse_utfylt, xPath);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public override string ruleXmlElement { get { return "/krav{0}"; } }
 
-        public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
+        public ValidationResult ValidationResult { get => _validationResult; }
 
         public SjekklistekravValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, ISjekklistepunktValidator sjekklistepunktValidator)
             : base(entityValidatorOrchestrator)
@@ -23,15 +23,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         public ValidationResult Validate(IEnumerable<SjekklistekravValidationEntity> sjekklistekrav)
         {
-
             if (Helpers.ObjectIsNullOrEmpty(sjekklistekrav) || sjekklistekrav.Count() == 0)
             {
-                //TODO
-                AddMessageFromRule(ValidationRuleEnum.sjekklistekrav_utfylt);
+                AddMessageFromRuleIfCollectionIsEmpty(ValidationRuleEnum.krav_utfylt);
             }
             else
             {
-
                 foreach (var krav in sjekklistekrav)
                 {
                     ValidateEntityFields(krav);
@@ -44,28 +41,25 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             return _validationResult;
         }
 
-        protected override void InitializeValidationRules(string xPathForEntity)
+        protected override void InitializeValidationRules(string xPathToEntity)
         {
-            this.AddValidationRule(ValidationRuleEnum.sjekklistekrav_utfylt, xPathForEntity);
-            this.AddValidationRule(ValidationRuleEnum.sjekklistekrav_krav_utfylt, xPathForEntity, "erKravOppfylt");
-            this.AddValidationRule(ValidationRuleEnum.sjekklistekrav_krav_oppfylt, xPathForEntity, "erKravOppfylt");
+            this.AddValidationRule(ValidationRuleEnum.krav_utfylt, xPathToEntity);
+            this.AddValidationRule(ValidationRuleEnum.krav_sjekklistekrav_utfylt, xPathToEntity, "erKravOppfylt");
+            this.AddValidationRule(ValidationRuleEnum.krav_sjekklistekrav_oppfylt, xPathToEntity, "erKravOppfylt");
         }
-
 
         public void ValidateEntityFields(SjekklistekravValidationEntity sjekklistekravValidationEntity)
         {
+            var xpath = sjekklistekravValidationEntity.DataModelXpath;
             var sjekklistekrav = sjekklistekravValidationEntity.ModelData;
-            if (Helpers.ObjectIsNullOrEmpty(sjekklistekrav))
-            {
-                AddMessageFromRule(ValidationRuleEnum.sjekklistekrav_utfylt);
-            }
+
             if (Helpers.ObjectIsNullOrEmpty(sjekklistekrav.ErKravOppfylt))
             {
-                AddMessageFromRule(ValidationRuleEnum.sjekklistekrav_krav_utfylt);
+                AddMessageFromRule(ValidationRuleEnum.krav_sjekklistekrav_utfylt, xpath);
             }
             if (!sjekklistekrav.ErKravOppfylt == true)
             {
-                AddMessageFromRule(ValidationRuleEnum.sjekklistekrav_krav_oppfylt);
+                AddMessageFromRule(ValidationRuleEnum.krav_sjekklistekrav_oppfylt, xpath);
             }
 
 

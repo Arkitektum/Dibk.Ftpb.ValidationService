@@ -87,12 +87,12 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         tiltakshaver_organisasjonsnummer_ugyldig,
 
         //Sjekklistekrav
-        sjekklistekrav_utfylt,
-        sjekklistekrav_krav_utfylt,
-        sjekklistekrav_krav_oppfylt,
-        sjekklistekrav_krav_kode_utfylt,
-        sjekklistekrav_krav_kode_gyldig,
-        sjekklistekrav_krav_beskrivelse_utfylt,
+        krav_utfylt,
+        krav_sjekklistekrav_utfylt,
+        krav_sjekklistekrav_oppfylt,
+        krav_sjekklistekrav_sjekklistepunkt_kode_utfylt,
+        krav_sjekklistekrav_sjekklistepunkt_kode_gyldig,
+        krav_sjekklistekrav_sjekklistepunkt_beskrivelse_utfylt,
 
         //Aktør
         //TelMob_Utfylt,

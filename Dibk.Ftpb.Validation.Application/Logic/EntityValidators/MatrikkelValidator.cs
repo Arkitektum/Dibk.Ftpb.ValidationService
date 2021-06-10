@@ -30,14 +30,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             return _validationResult;
         }
 
-        protected override void InitializeValidationRules(string xPathForEntity)
+        protected override void InitializeValidationRules(string xPathToEntity)
         {
-            AddValidationRule(ValidationRuleEnum.eiendomsidentifikasjon_utfylt, xPathForEntity);
-            AddValidationRule(ValidationRuleEnum.eiendomsidentifikasjon_kommunenummer_utfylt, xPathForEntity, "kommunenummer");
-            AddValidationRule(ValidationRuleEnum.eiendomsidentifikasjon_gaardsnummer_utfylt, xPathForEntity, "gaardsnummer");
-            AddValidationRule(ValidationRuleEnum.eiendomsidentifikasjon_bruksnummer_utfylt, xPathForEntity, "bruksnummer");
-            AddValidationRule(ValidationRuleEnum.eiendomsidentifikasjon_festenummer_utfylt, xPathForEntity, "festenummer");
-            AddValidationRule(ValidationRuleEnum.eiendomsidentifikasjon_seksjonsnummer_utfylt, xPathForEntity, "seksjonsnummer");
+            AddValidationRule(ValidationRuleEnum.eiendomsidentifikasjon_utfylt, xPathToEntity);
+            AddValidationRule(ValidationRuleEnum.eiendomsidentifikasjon_kommunenummer_utfylt, xPathToEntity, "kommunenummer");
+            AddValidationRule(ValidationRuleEnum.eiendomsidentifikasjon_gaardsnummer_utfylt, xPathToEntity, "gaardsnummer");
+            AddValidationRule(ValidationRuleEnum.eiendomsidentifikasjon_bruksnummer_utfylt, xPathToEntity, "bruksnummer");
+            AddValidationRule(ValidationRuleEnum.eiendomsidentifikasjon_festenummer_utfylt, xPathToEntity, "festenummer");
+            AddValidationRule(ValidationRuleEnum.eiendomsidentifikasjon_seksjonsnummer_utfylt, xPathToEntity, "seksjonsnummer");
         }
 
         private bool ValidateModelExists(MatrikkelValidationEntity modelEntity)

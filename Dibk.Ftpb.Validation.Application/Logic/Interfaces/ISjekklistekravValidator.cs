@@ -7,7 +7,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
     public interface ISjekklistekravValidator
     {
         string ruleXmlElement { get; }
-        ValidationResult ValidationResult { get; set; }
+        ValidationResult ValidationResult { get; }
         ValidationResult Validate(IEnumerable<SjekklistekravValidationEntity> sjekklistekrav);
     }
 }

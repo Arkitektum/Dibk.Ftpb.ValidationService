@@ -22,8 +22,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                 };
 
                 var sjekklistekravValEntity = new SjekklistekravValidationEntity(krav, $"krav[{i}]", parentElementXpath);
-
                 krav.Sjekklistepunkt = new SjekklistepunktMapper().Map(sjekklistekrav.sjekklistepunkt, sjekklistekravValEntity.DataModelXpath);
+
                 retVal.Add(sjekklistekravValEntity);
             }
 

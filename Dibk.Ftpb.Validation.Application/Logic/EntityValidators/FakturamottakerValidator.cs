@@ -21,17 +21,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             //TODO: Automize this?
             _enkelAdresseValidator = enkelAdresseValidator;
         }
-        protected override void InitializeValidationRules(string xPathForEntity)
+        protected override void InitializeValidationRules(string xPathToEntity)
         {
-            AddValidationRule(ValidationRuleEnum.fakturamottaker_utfylt, xPathForEntity);
+            AddValidationRule(ValidationRuleEnum.fakturamottaker_utfylt, xPathToEntity);
         }
 
         public ValidationResult Validate(FakturamottakerValidationEntity fakturamottaker = null)
         {
-
+            var xpath = fakturamottaker.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(fakturamottaker.ModelData))
             {
-                AddMessageFromRule(ValidationRuleEnum.fakturamottaker_utfylt);
+                AddMessageFromRule(ValidationRuleEnum.fakturamottaker_utfylt, xpath);
             }
             else
             {

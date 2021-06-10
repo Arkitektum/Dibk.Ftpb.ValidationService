@@ -66,24 +66,23 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             return validationRule;
         }
-        //string xPath = Regex.Replace(validationMessage.XpathField, @"\[([0-9]*)\]", "{0}");
+
         protected void AddValidationRule(ValidationRuleEnum id, string xPath)
         {
             AddValidationRule(id, xPath, null);
         }
 
-        protected void AddValidationRule(ValidationRuleEnum id, string xPath, string xmlElement)
+        protected void AddValidationRule(ValidationRuleEnum id, string xPathToEntity, string xmlElement)
         {
             var separator = "";
             if (!string.IsNullOrEmpty(xmlElement))
             {
                 separator = "/";
             }
-            string bartePath = $"{xPath}{separator}{xmlElement}";
-            bartePath = Regex.Replace(bartePath, @"\[([0-9]*)\]", "{0}");
-            _validationResult.ValidationRules.Add(new ValidationRule() { Id = id, Xpath = bartePath, XmlElement = xmlElement });
+            string xPath = $"{xPathToEntity}{separator}{xmlElement}";
+            //xPath = Regex.Replace(xPath, @"\[([0-9]*)\]", "{0}");
+            _validationResult.ValidationRules.Add(new ValidationRule() { Id = id, Xpath = xPath, XmlElement = xmlElement });
         }
-
 
         protected void AddMessageFromRule(ValidationRuleEnum id, string xPath, List<string> messageParameters)
         {
@@ -103,15 +102,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _validationResult.ValidationMessages.Add(validationMessage);
         }
 
-        public void AddMessageFromRule(ValidationRuleEnum id, List<string> messageParameters)
-        {
-            AddMessageFromRule(id, null, messageParameters);
-        }
+        //public void AddMessageFromRule(ValidationRuleEnum id, List<string> messageParameters)
+        //{
+        //    AddMessageFromRule(id, null, messageParameters);
+        //}
         public void AddMessageFromRule(ValidationRuleEnum id, string xPath)
         {
             AddMessageFromRule(id, xPath, null);
         }
-        public void AddMessageFromRule(ValidationRuleEnum id)
+        /// <summary>
+        /// Use when validating if collection is empty (because modelEntity.DataModelXpath is not present)
+        /// </summary>
+        /// <param name="id"></param>
+        public void AddMessageFromRuleIfCollectionIsEmpty(ValidationRuleEnum id)
         {
             AddMessageFromRule(id, null, null);
         }

@@ -17,7 +17,6 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         EnkelAdresseValidatorV2,
         FakturamottakerValidator,
         KontaktpersonValidator,
-        Krav,
         MatrikkelValidator,
         PartstypeValidator,
         SjekklistekravValidator,

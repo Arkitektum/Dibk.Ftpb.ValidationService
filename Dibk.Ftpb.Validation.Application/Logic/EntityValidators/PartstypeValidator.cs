@@ -25,17 +25,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _codeListService = codeListService;
         }
 
-        protected override void InitializeValidationRules(string xPathForEntity)
+        protected override void InitializeValidationRules(string xPathToEntity)
         {
-            AddValidationRule(ValidationRuleEnum.partstype_utfylt, xPathForEntity, "kodeverdi");
-            AddValidationRule(ValidationRuleEnum.kodeverdi_ugyldig, xPathForEntity, "kodeverdi");
+            AddValidationRule(ValidationRuleEnum.partstype_utfylt, xPathToEntity, "kodeverdi");
+            AddValidationRule(ValidationRuleEnum.kodeverdi_ugyldig, xPathToEntity, "kodeverdi");
         }
 
         public ValidationResult Validate(PartstypeValidationEntity partstype)
         {
+            var xpath = partstype.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(partstype.ModelData?.Kodeverdi))
             {
-                AddMessageFromRule(ValidationRuleEnum.partstype_utfylt);
+                AddMessageFromRule(ValidationRuleEnum.partstype_utfylt, xpath);
             }
             else
             {
