@@ -3,11 +3,11 @@ using Dibk.Ftpb.Validation.Application.Enums;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class PartstypeValidator : KodelisteValidator
+    public class TiltakstypeValidator : KodelisteValidator
     {
-        public override string ruleXmlElement { get { return "partstype"; } set { ruleXmlElement = value; } }
+        public override string ruleXmlElement { get { return "type"; } set { ruleXmlElement = value; } }
 
-        public PartstypeValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, EntityValidatorEnum parentValidator, ICodeListService codeListService)
+        public TiltakstypeValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, EntityValidatorEnum parentValidator, ICodeListService codeListService)
             : base(entityValidatorOrchestrator, parentValidator, codeListService)
         {
             _codeListService = codeListService;

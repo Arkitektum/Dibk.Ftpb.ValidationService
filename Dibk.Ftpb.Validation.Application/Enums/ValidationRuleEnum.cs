@@ -97,8 +97,17 @@ namespace Dibk.Ftpb.Validation.Application.Enums
 
 
         //Partstype
-        partstype_utfylt,
+        kodeliste_utfylt,
         kodeverdi_ugyldig,
+
+        //Tiltaksformaal
+        formaaltype_utfylt,
+        anleggstype_utfylt,
+        naeringsgruppe_utfylt,
+        bygningstype_utfylt,
+        tiltaksformaal_utfylt,
+        beskrivPlanlagtFormaal_utfylt,
+
 
         //Kontaktperson
         kontaktperson_navn_utfylt,

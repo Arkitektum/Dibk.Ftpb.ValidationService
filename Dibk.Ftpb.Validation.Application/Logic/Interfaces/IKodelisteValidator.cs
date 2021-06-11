@@ -3,10 +3,10 @@ using Dibk.Ftpb.Validation.Application.Reporter;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
 {
-    public interface IPartstypeValidator
+    public interface IKodelisteValidator
     {
         string ruleXmlElement { get; }
         ValidationResult ValidationResult { get; set; }
-        ValidationResult Validate(PartstypeValidationEntity partstype);
+        ValidationResult Validate(KodelisteValidationEntity partstype);
     }
 }

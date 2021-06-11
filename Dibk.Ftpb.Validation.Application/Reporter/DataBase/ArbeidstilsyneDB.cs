@@ -102,7 +102,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry("41999", ValidationRuleEnum.aktoer_organisasjonsnummer_ugyldig, "ArbeidstilsynetsSamtykke/tiltakshaver/organisasjonsnummer", "Organisasjonsnummeret ('{0}') for tiltakshaver er ikke gyldig.", ValidationResultSeverityEnum.ERROR);
 
             //Partstype
-            AddRuleToValidationMessageStorageEntry("41999", ValidationRuleEnum.partstype_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/partstype/kodeverdi", "Kodeverdien for 'partstype' for foretak må fylles ut.");
+            AddRuleToValidationMessageStorageEntry("41999", ValidationRuleEnum.kodeliste_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/partstype/kodeverdi", "Kodeverdien for 'partstype' for foretak må fylles ut.");
             AddRuleToValidationMessageStorageEntry("41999", ValidationRuleEnum.kodeverdi_ugyldig, "ArbeidstilsynetsSamtykke/tiltakshaver/partstype/kodeverdi", "Ugyldig kodeverdi '{0}' i henhold til kodeliste for 'partstype' for foretak. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype");
 
             //Kontaktpersjon
@@ -191,7 +191,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.aktoer_organisasjonsnummer_ugyldig, "ArbeidstilsynetsSamtykke/tiltakshaver/organisasjonsnummer", "Organisasjonsnummeret ('{0}') for tiltakshaver er ikke gyldig.", ValidationResultSeverityEnum.ERROR);
             
             //Tiltakshavers partstype
-            AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.partstype_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/partstype/kodeverdi", "Kodeverdien for tiltakshavers 'partstype' for foretak må fylles ut.");
+            AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.kodeliste_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/partstype/kodeverdi", "Kodeverdien for tiltakshavers 'partstype' for foretak må fylles ut.");
             AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.kodeverdi_ugyldig, "ArbeidstilsynetsSamtykke/tiltakshaver/partstype/kodeverdi", "Ugyldig kodeverdi '{0}' i henhold til kodeliste for 'partstype' for tiltakshaver. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype");
 
             //Tiltakshavers kontaktpersjon
@@ -223,7 +223,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.aktoer_organisasjonsnummer_ugyldig, "ArbeidstilsynetsSamtykke/ansvarligSoeker/organisasjonsnummer", "Organisasjonsnummeret ('{0}') for ansvarlig søker er ikke gyldig.", ValidationResultSeverityEnum.ERROR);
 
             //Ansvarlig søkers partstype
-            AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.partstype_utfylt, "ArbeidstilsynetsSamtykke/ansvarligSoeker/partstype/kodeverdi", "Kodeverdien for ansvarlig søkers 'partstype' for foretak må fylles ut.");
+            AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.kodeliste_utfylt, "ArbeidstilsynetsSamtykke/ansvarligSoeker/partstype/kodeverdi", "Kodeverdien for ansvarlig søkers 'partstype' for foretak må fylles ut.");
             AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.kodeverdi_ugyldig, "ArbeidstilsynetsSamtykke/ansvarligSoeker/partstype/kodeverdi", "Ugyldig kodeverdi '{0}' i henhold til kodeliste for 'partstype' for ansvarlig søker. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype");
 
             //Ansvarlig søkers kontaktpersjon

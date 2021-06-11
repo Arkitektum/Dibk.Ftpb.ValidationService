@@ -24,16 +24,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         private readonly IEnkelAdresseValidator _enkelAdresseValidator;
         private readonly IKontaktpersonValidator _kontaktpersonValidator;
-        private readonly IPartstypeValidator _partstypeValidator;
+        private readonly IKodelisteValidator _kodelisteValidator;
 
         public AktoerValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, AktoerEnum aktoerEnum, IEnkelAdresseValidator enkelAdresseValidator, 
-            IKontaktpersonValidator kontaktpersonValidator, IPartstypeValidator partstypeValidator , ICodeListService codeListService) 
+            IKontaktpersonValidator kontaktpersonValidator, IKodelisteValidator kodelisteValidator , ICodeListService codeListService) 
             : base(entityValidatorOrchestrator, Enum.GetName(typeof(AktoerEnum), aktoerEnum))
         {
             _codeListService = codeListService;
             _enkelAdresseValidator = enkelAdresseValidator;
             _kontaktpersonValidator = kontaktpersonValidator;
-            _partstypeValidator = partstypeValidator;
+            _kodelisteValidator = kodelisteValidator;
 
         }
         protected override void InitializeValidationRules(string xPathToEntity)
@@ -52,17 +52,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
 
 
-        public ValidationResult Validate(AktoerValidationEntity tiltakshaver = null)
+        public ValidationResult Validate(AktoerValidationEntity aktoer = null)
         {
-            var xpath = tiltakshaver.DataModelXpath;
-            if (Helpers.ObjectIsNullOrEmpty(tiltakshaver.ModelData))
+            var xpath = aktoer.DataModelXpath;
+            if (Helpers.ObjectIsNullOrEmpty(aktoer.ModelData))
             {
                 AddMessageFromRule(ValidationRuleEnum.aktoer_utfylt, xpath);
             }
             else
             {
                 //var partstypeValidatinResults = new PartstypeValidator(_codeListService).Validate(tiltakshaver.ModelData.Partstype);
-                var partstypeValidatinResults = _partstypeValidator.Validate(tiltakshaver.ModelData.Partstype);
+                var partstypeValidatinResults = _kodelisteValidator.Validate(aktoer.ModelData.Partstype);
 
                 UpdateValidationResultWithSubValidations(partstypeValidatinResults);
 
@@ -70,7 +70,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 //if validation message have any with tiltakshaver.Partstype.Kodeverdi (ok)
                 if (!partstypeValidatinResults.ValidationMessages.Any())
                 {
-                    ValidateEntityFields(tiltakshaver);
+                    ValidateEntityFields(aktoer);
                 }
             }
             return _validationResult;

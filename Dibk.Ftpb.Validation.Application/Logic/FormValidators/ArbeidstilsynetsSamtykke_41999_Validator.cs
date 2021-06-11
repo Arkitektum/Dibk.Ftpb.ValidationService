@@ -28,7 +28,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private IArbeidsplasserValidator _arbeidsplasserValidator;
         private IEnkelAdresseValidator _tiltakshaverEnkelAdresseValidator;
         private IKontaktpersonValidator _kontaktpersonValidator;
-        private IPartstypeValidator _partstypeValidator;
+        private IKodelisteValidator _partstypeValidator;
         private IAktoerValidator _tiltakshaverValidator;
         private IEnkelAdresseValidator _fakturamottakerEnkelAdresseValidator;
         private IFakturamottakerValidator _fakturamottakerValidator;
