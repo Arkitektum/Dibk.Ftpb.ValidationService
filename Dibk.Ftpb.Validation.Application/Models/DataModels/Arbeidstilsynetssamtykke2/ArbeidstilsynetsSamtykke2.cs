@@ -1372,9 +1372,9 @@ namespace no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2 {
     [System.Xml.Serialization.XmlRootAttribute("SjekklisteKrav", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
     public partial class SjekklisteKravType {
         
-        private System.Nullable<bool> erKravOppfyltField;
+        private System.Nullable<bool> sjekklistepunktsvarField;
         
-        private bool erKravOppfyltFieldSpecified;
+        private bool sjekklistepunktsvarFieldSpecified;
         
         private KodeType sjekklistepunktField;
         
@@ -1382,23 +1382,23 @@ namespace no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2 {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<bool> erKravOppfylt {
+        public System.Nullable<bool> sjekklistepunktsvar {
             get {
-                return this.erKravOppfyltField;
+                return this.sjekklistepunktsvarField;
             }
             set {
-                this.erKravOppfyltField = value;
+                this.sjekklistepunktsvarField = value;
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool erKravOppfyltSpecified {
+        public bool sjekklistepunktsvarSpecified {
             get {
-                return this.erKravOppfyltFieldSpecified;
+                return this.sjekklistepunktsvarFieldSpecified;
             }
             set {
-                this.erKravOppfyltFieldSpecified = value;
+                this.sjekklistepunktsvarFieldSpecified = value;
             }
         }
         
