@@ -28,14 +28,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             return _validationResult;
         }
 
-        protected override void InitializeValidationRules(string xPathToEntity)
+        protected override void InitializeValidationRules()
         {
-            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_utfylt, xPathToEntity);
-            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_framtidige_eller_eksisterende_utfylt, xPathToEntity);
-            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_faste_eller_midlertidige_utfylt, xPathToEntity);
-            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_type_arbeid_utfylt, xPathToEntity, "antallVirksomheter");
-            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_utleieBygg, xPathToEntity, "utleieBygg");
-            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_beskrivelse, xPathToEntity, "beskrivelse");
+            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_utfylt);
+            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_framtidige_eller_eksisterende_utfylt);
+            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_faste_eller_midlertidige_utfylt);
+            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_type_arbeid_utfylt, "antallVirksomheter");
+            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_utleieBygg, "utleieBygg");
+            this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_beskrivelse, "beskrivelse");
         }
 
 

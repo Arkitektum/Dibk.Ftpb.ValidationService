@@ -21,9 +21,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             //TODO: Automize this?
             _enkelAdresseValidator = enkelAdresseValidator;
         }
-        protected override void InitializeValidationRules(string xPathToEntity)
+        protected override void InitializeValidationRules()
         {
-            AddValidationRule(ValidationRuleEnum.fakturamottaker_utfylt, xPathToEntity);
+            AddValidationRule(ValidationRuleEnum.fakturamottaker_utfylt);
         }
 
         public ValidationResult Validate(FakturamottakerValidationEntity fakturamottaker = null)
