@@ -33,11 +33,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             return _validationResult;
         }
 
-        protected override void InitializeValidationRules(string xPathToEntity)
+        protected override void InitializeValidationRules()
         {
-            this.AddValidationRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunkt_kode_utfylt, xPathToEntity, "kodeverdi");
-            this.AddValidationRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunkt_kode_gyldig, xPathToEntity, "kodeverdi");
-            this.AddValidationRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunkt_beskrivelse_utfylt, xPathToEntity, "kodebeskrivelse");
+            this.AddValidationRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunkt_kode_utfylt, "kodeverdi");
+            this.AddValidationRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunkt_kode_gyldig, "kodeverdi");
+            this.AddValidationRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunkt_beskrivelse_utfylt, "kodebeskrivelse");
         }
 
         public void ValidateEntityFields(SjekklistepunktValidationEntity sjekklistepunktValidationEntity)

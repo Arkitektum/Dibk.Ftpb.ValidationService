@@ -46,13 +46,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _bygningstypeCodeListService = bygningstypeCodeListService;
             _tiltaksformaalCodeListService = tiltaksformaalCodeListService;
         }
-        protected override void InitializeValidationRules(string xPathToEntity)
+        protected override void InitializeValidationRules()
         {
-            AddValidationRule(ValidationRuleEnum.anleggstype_utfylt, xPathToEntity, "anleggstype");
-            AddValidationRule(ValidationRuleEnum.naeringsgruppe_utfylt, xPathToEntity, "naeringsgruppe");
-            AddValidationRule(ValidationRuleEnum.bygningstype_utfylt, xPathToEntity, "bygningstype");
-            AddValidationRule(ValidationRuleEnum.tiltaksformaal_utfylt, xPathToEntity, "tiltaksformaal");
-            AddValidationRule(ValidationRuleEnum.beskrivPlanlagtFormaal_utfylt, xPathToEntity, "beskrivPlanlagtFormaal");
+            AddValidationRule(ValidationRuleEnum.anleggstype_utfylt, "anleggstype");
+            AddValidationRule(ValidationRuleEnum.naeringsgruppe_utfylt, "naeringsgruppe");
+            AddValidationRule(ValidationRuleEnum.bygningstype_utfylt, "bygningstype");
+            AddValidationRule(ValidationRuleEnum.tiltaksformaal_utfylt, "tiltaksformaal");
+            AddValidationRule(ValidationRuleEnum.beskrivPlanlagtFormaal_utfylt, "beskrivPlanlagtFormaal");
         }
 
         public ValidationResult Validate(FormaaltypeValidationEntity formaaltypeValEntity = null)

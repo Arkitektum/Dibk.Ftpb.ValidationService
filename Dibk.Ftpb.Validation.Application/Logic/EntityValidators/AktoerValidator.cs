@@ -36,19 +36,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _kodelisteValidator = kodelisteValidator;
 
         }
-        protected override void InitializeValidationRules(string xPathToEntity)
+        protected override void InitializeValidationRules()
         {
-            AddValidationRule(ValidationRuleEnum.aktoer_utfylt, xPathToEntity);
-            AddValidationRule(ValidationRuleEnum.aktoer_foedselnummer_utfylt, xPathToEntity, "foedselsnummer");
-            AddValidationRule(ValidationRuleEnum.aktoer_foedselnummer_dekryptering, xPathToEntity, "foedselsnummer");
-            AddValidationRule(ValidationRuleEnum.aktoer_foedselnummer_kontrollsiffer, xPathToEntity, "foedselsnummer");
-            AddValidationRule(ValidationRuleEnum.aktoer_foedselnummer_ugyldig, xPathToEntity, "foedselsnummer");
-            AddValidationRule(ValidationRuleEnum.aktoer_organisasjonsnummer_utfylt, xPathToEntity, "organisasjonsnummer");
-            AddValidationRule(ValidationRuleEnum.aktoer_organisasjonsnummer_kontrollsiffer, xPathToEntity, "organisasjonsnummer");
-            AddValidationRule(ValidationRuleEnum.aktoer_organisasjonsnummer_ugyldig, xPathToEntity, "organisasjonsnummer");
-            AddValidationRule(ValidationRuleEnum.aktoer_telmob_utfylt, xPathToEntity, "mobilnummer");
-            AddValidationRule(ValidationRuleEnum.aktoer_epost_utfylt, xPathToEntity, "epost");
-            AddValidationRule(ValidationRuleEnum.aktoer_navn_utfylt, xPathToEntity, "navn");
+            AddValidationRule(ValidationRuleEnum.aktoer_utfylt);
+            AddValidationRule(ValidationRuleEnum.aktoer_foedselnummer_utfylt, "foedselsnummer");
+            AddValidationRule(ValidationRuleEnum.aktoer_foedselnummer_dekryptering, "foedselsnummer");
+            AddValidationRule(ValidationRuleEnum.aktoer_foedselnummer_kontrollsiffer, "foedselsnummer");
+            AddValidationRule(ValidationRuleEnum.aktoer_foedselnummer_ugyldig, "foedselsnummer");
+            AddValidationRule(ValidationRuleEnum.aktoer_organisasjonsnummer_utfylt, "organisasjonsnummer");
+            AddValidationRule(ValidationRuleEnum.aktoer_organisasjonsnummer_kontrollsiffer, "organisasjonsnummer");
+            AddValidationRule(ValidationRuleEnum.aktoer_organisasjonsnummer_ugyldig, "organisasjonsnummer");
+            AddValidationRule(ValidationRuleEnum.aktoer_telmob_utfylt, "mobilnummer");
+            AddValidationRule(ValidationRuleEnum.aktoer_epost_utfylt, "epost");
+            AddValidationRule(ValidationRuleEnum.aktoer_navn_utfylt, "navn");
         }
 
 

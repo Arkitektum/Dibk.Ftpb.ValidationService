@@ -24,10 +24,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _codeListService = codeListService;
         }
 
-        protected override void InitializeValidationRules(string xPathToEntity)
+        protected override void InitializeValidationRules()
         {
-            AddValidationRule(ValidationRuleEnum.kodeliste_utfylt, xPathToEntity, "kodeverdi");
-            AddValidationRule(ValidationRuleEnum.kodeverdi_ugyldig, xPathToEntity, "kodeverdi");
+            AddValidationRule(ValidationRuleEnum.kodeliste_utfylt, "kodeverdi");
+            AddValidationRule(ValidationRuleEnum.kodeverdi_ugyldig, "kodeverdi");
         }
 
         public ValidationResult Validate(KodelisteValidationEntity kodeliste)

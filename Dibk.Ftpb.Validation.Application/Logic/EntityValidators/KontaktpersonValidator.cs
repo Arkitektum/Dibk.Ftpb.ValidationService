@@ -16,9 +16,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             : base(entityValidatorOrchestrator, parentValidator)
         {
         }
-        protected override void InitializeValidationRules(string xPathToEntity)
+        protected override void InitializeValidationRules()
         {
-            AddValidationRule(ValidationRuleEnum.kontaktperson_navn_utfylt, xPathToEntity, "navn");
+            AddValidationRule(ValidationRuleEnum.kontaktperson_navn_utfylt, "navn");
         }
 
         public ValidationResult Validate(KontaktpersonValidationEntity kontaktperson = null)

@@ -17,14 +17,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             : base(entityValidatorOrchestrator, parentValidator)
         {
         }
-        protected override void InitializeValidationRules(string xPathToEntity)
+        protected override void InitializeValidationRules()
         {
-            AddValidationRule(ValidationRuleEnum.adresse_utfylt, xPathToEntity);
-            AddValidationRule(ValidationRuleEnum.adresse_adresselinje1_utfylt, xPathToEntity, "adresselinje1");
-            AddValidationRule(ValidationRuleEnum.adresse_adresselinje2_utfylt, xPathToEntity, "adresselinje2");
-            AddValidationRule(ValidationRuleEnum.adresse_landkode_utfylt, xPathToEntity, "landkode");
-            AddValidationRule(ValidationRuleEnum.adresse_postnr_utfylt, xPathToEntity, "postnr");
-            AddValidationRule(ValidationRuleEnum.adresse_postnr_til_galningar, xPathToEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_utfylt);
+            AddValidationRule(ValidationRuleEnum.adresse_adresselinje1_utfylt, "adresselinje1");
+            AddValidationRule(ValidationRuleEnum.adresse_adresselinje2_utfylt, "adresselinje2");
+            AddValidationRule(ValidationRuleEnum.adresse_landkode_utfylt, "landkode");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_utfylt, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_til_galningar, "postnr");
         }
 
         public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null)

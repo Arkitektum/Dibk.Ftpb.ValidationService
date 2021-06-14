@@ -17,19 +17,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             : base(entityValidatorOrchestrator, parentValidator)
         {
         }
-        protected override void InitializeValidationRules(string xPathToEntity)
+        protected override void InitializeValidationRules()
         {
-            AddValidationRule(ValidationRuleEnum.adresse_utfylt, xPathToEntity);
-            AddValidationRule(ValidationRuleEnum.adresse_adresselinje1_utfylt, xPathToEntity, "adresselinje1");
-            AddValidationRule(ValidationRuleEnum.adresse_adresselinje2_utfylt, xPathToEntity, "adresselinje2");
-            AddValidationRule(ValidationRuleEnum.adresse_adresselinje3_utfylt, xPathToEntity, "adresselinje3");
-            AddValidationRule(ValidationRuleEnum.adresse_landkode_utfylt, xPathToEntity, "landkode");
-            AddValidationRule(ValidationRuleEnum.adresse_postnr_utfylt, xPathToEntity, "postnr");
-            AddValidationRule(ValidationRuleEnum.adresse_postnr_kontrollsiffer, xPathToEntity, "postnr");
-            AddValidationRule(ValidationRuleEnum.adresse_postnr_ugyldig, xPathToEntity, "postnr");
-            AddValidationRule(ValidationRuleEnum.adresse_postnr_stemmerIkke, xPathToEntity, "postnr");
-            AddValidationRule(ValidationRuleEnum.adresse_postnr_ikke_validert, xPathToEntity, "postnr");
-            AddValidationRule(ValidationRuleEnum.adresse_postnr_4siffer, xPathToEntity, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_utfylt);
+            AddValidationRule(ValidationRuleEnum.adresse_adresselinje1_utfylt, "adresselinje1");
+            AddValidationRule(ValidationRuleEnum.adresse_adresselinje2_utfylt, "adresselinje2");
+            AddValidationRule(ValidationRuleEnum.adresse_adresselinje3_utfylt, "adresselinje3");
+            AddValidationRule(ValidationRuleEnum.adresse_landkode_utfylt, "landkode");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_utfylt, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_kontrollsiffer, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_ugyldig, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_stemmerIkke, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_ikke_validert, "postnr");
+            AddValidationRule(ValidationRuleEnum.adresse_postnr_4siffer, "postnr");
         }
 
         public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null)
