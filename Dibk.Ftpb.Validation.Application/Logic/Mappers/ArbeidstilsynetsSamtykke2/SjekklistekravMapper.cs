@@ -17,7 +17,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                 
                 var krav = new Sjekklistekrav()
                 {
-                    ErKravOppfylt = sjekklistekrav.erKravOppfylt,
+                    Sjekklistepunktsvar = sjekklistekrav.sjekklistepunktsvar,
                     Dokumentasjon = sjekklistekrav.dokumentasjon
                 };
 

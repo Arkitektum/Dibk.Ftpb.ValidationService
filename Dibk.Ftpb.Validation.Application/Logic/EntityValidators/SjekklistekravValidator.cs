@@ -44,8 +44,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected override void InitializeValidationRules(string xPathToEntity)
         {
             this.AddValidationRule(ValidationRuleEnum.krav_utfylt, xPathToEntity);
-            this.AddValidationRule(ValidationRuleEnum.krav_sjekklistekrav_utfylt, xPathToEntity, "erKravOppfylt");
-            this.AddValidationRule(ValidationRuleEnum.krav_sjekklistekrav_oppfylt, xPathToEntity, "erKravOppfylt");
+            this.AddValidationRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunktsvar_utfylt, xPathToEntity, "sjekklistepunktsvar");
+            this.AddValidationRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunktsvar_oppfylt, xPathToEntity, "sjekklistepunktsvar");
+            this.AddValidationRule(ValidationRuleEnum.krav_sjekklistekrav_dokumentasjon_utfylt, xPathToEntity, "dokumentasjon");
         }
 
         public void ValidateEntityFields(SjekklistekravValidationEntity sjekklistekravValidationEntity)
@@ -53,15 +54,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var xpath = sjekklistekravValidationEntity.DataModelXpath;
             var sjekklistekrav = sjekklistekravValidationEntity.ModelData;
 
-            if (Helpers.ObjectIsNullOrEmpty(sjekklistekrav.ErKravOppfylt))
+            if (Helpers.ObjectIsNullOrEmpty(sjekklistekrav.Sjekklistepunktsvar))
             {
-                AddMessageFromRule(ValidationRuleEnum.krav_sjekklistekrav_utfylt, xpath);
+                AddMessageFromRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunktsvar_utfylt, xpath, new List<string>() { sjekklistekrav.Sjekklistepunkt.ModelData.Kodeverdi });
             }
-            if (!sjekklistekrav.ErKravOppfylt == true)
+            if (!sjekklistekrav.Sjekklistepunktsvar == true)
             {
-                AddMessageFromRule(ValidationRuleEnum.krav_sjekklistekrav_oppfylt, xpath);
+                AddMessageFromRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunktsvar_oppfylt, xpath, new List<string>() { sjekklistekrav.Sjekklistepunkt.ModelData.Kodeverdi });
             }
-
+            if (string.IsNullOrEmpty(sjekklistekrav.Dokumentasjon))
+            {
+                AddMessageFromRule(ValidationRuleEnum.krav_sjekklistekrav_dokumentasjon_utfylt, xpath);
+            }
 
         }
 

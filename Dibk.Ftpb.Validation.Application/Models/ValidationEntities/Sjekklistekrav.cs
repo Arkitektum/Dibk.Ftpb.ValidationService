@@ -13,7 +13,7 @@ namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
     }
     public class Sjekklistekrav
     {
-        public bool? ErKravOppfylt { get; set; }
+        public bool? Sjekklistepunktsvar { get; set; }
         public string Dokumentasjon { get; set; }
         public SjekklistepunktValidationEntity Sjekklistepunkt { get; set; }
     

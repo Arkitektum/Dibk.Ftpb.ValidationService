@@ -249,12 +249,13 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
 
             //sjekklistekrav
             AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.krav_utfylt, "ArbeidstilsynetsSamtykke/krav{0}", "Krav må være utfyllt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.krav_sjekklistekrav_utfylt, "ArbeidstilsynetsSamtykke/krav{0}/erKravOppfylt", "Sjekklistekrav 'erKravOppfylt' må være utfylt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.krav_sjekklistekrav_oppfylt, "ArbeidstilsynetsSamtykke/krav{0}/erKravOppfylt", "Sjekklistekrav 'erKravOppfylt' må være utfylt med 'true' eller 'false'", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunktsvar_utfylt, "ArbeidstilsynetsSamtykke/krav{0}/sjekklistepunktsvar", "Sjekklistepunktsvar for {0} må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunktsvar_oppfylt, "ArbeidstilsynetsSamtykke/krav{0}/sjekklistepunktsvar", "Sjekklistepunktsvar for {0} må være utfylt med 'true' eller 'false'", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunkt_kode_utfylt, "ArbeidstilsynetsSamtykke/krav{0}/sjekklistepunkt/kodeverdi", "Kravets sjekklistepunkt må utfylles med kodeverdi", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunkt_kode_gyldig, "ArbeidstilsynetsSamtykke/krav{0}/sjekklistepunkt/kodeverdi", "Kravets sjekklistepunkt må ha tillatt kodeverdi", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunkt_beskrivelse_utfylt, "ArbeidstilsynetsSamtykke/krav{0}/sjekklistepunkt/kodebeskrivelse", "Kravets sjekklistepunkt må ha beskrivelse", ValidationResultSeverityEnum.ERROR);
-
+            AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.krav_sjekklistekrav_dokumentasjon_utfylt, "ArbeidstilsynetsSamtykke/krav{0}/dokumentasjon", "Kravet må være dokumentert", ValidationResultSeverityEnum.ERROR);
+            
 
             //TODO "ArbeidstilsynetsSamtykke" to "ArbeidstilsynetsSamtykkeV2"/"ArbeidstilsynetsSamtykkeDfv45957"??  rule may need to have dfv in the first "node" in order to connect the text to the correct version and correct schema.
 

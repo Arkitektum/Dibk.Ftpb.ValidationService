@@ -89,11 +89,12 @@ namespace Dibk.Ftpb.Validation.Application.Enums
 
         //Sjekklistekrav
         krav_utfylt,
-        krav_sjekklistekrav_utfylt,
-        krav_sjekklistekrav_oppfylt,
+        krav_sjekklistekrav_sjekklistepunktsvar_utfylt,
+        krav_sjekklistekrav_sjekklistepunktsvar_oppfylt,
         krav_sjekklistekrav_sjekklistepunkt_kode_utfylt,
         krav_sjekklistekrav_sjekklistepunkt_kode_gyldig,
         krav_sjekklistekrav_sjekklistepunkt_beskrivelse_utfylt,
+        krav_sjekklistekrav_dokumentasjon_utfylt,
 
 
         //Partstype
