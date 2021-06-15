@@ -23,22 +23,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private readonly ICodeListService _bygningstypeCodeListService;
         private readonly ICodeListService _tiltaksformaalCodeListService;
 
-        public FormaaltypeValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, 
+        public FormaaltypeValidator(FormValidatorConfiguration formValidatorConfiguration,
                                     EntityValidatorEnum parentValidator,
-                                    AnleggstypeValidator anleggstypeValidator,
-                                    ICodeListService anleggstypeCodeListService,
-                                    NaeringsgruppeValidator naeringsgruppeValidator,
-                                    ICodeListService naeringsgruppeCodeListService,
-                                    BygningstypeValidator bygningstypeValidator,
-                                    ICodeListService bygningstypeCodeListService,
-                                    TiltaksformaalValidator tiltaksformaalValidator,
-                                    ICodeListService tiltaksformaalCodeListService
+                                    AnleggstypeValidator anleggstypeValidator, ICodeListService anleggstypeCodeListService,
+                                    NaeringsgruppeValidator naeringsgruppeValidator, ICodeListService naeringsgruppeCodeListService,
+                                    BygningstypeValidator bygningstypeValidator, ICodeListService bygningstypeCodeListService,
+                                    TiltaksformaalValidator tiltaksformaalValidator, ICodeListService tiltaksformaalCodeListService
                                     )
-            : base(entityValidatorOrchestrator, parentValidator)
+            : base(formValidatorConfiguration, parentValidator)
         {
             _anleggstypeValidator = anleggstypeValidator;
-            _naeringsgruppeCodeListService = naeringsgruppeCodeListService;
-            _bygningstypeCodeListService = bygningstypeCodeListService;
+            _naeringsgruppeValidator = naeringsgruppeValidator;
+            _bygningstypeValidator = bygningstypeValidator;
             _tiltaksformaalValidator = tiltaksformaalValidator;
 
             _anleggstypeCodeListService = anleggstypeCodeListService;
@@ -48,18 +44,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(ValidationRuleEnum.anleggstype_utfylt, "anleggstype");
-            AddValidationRule(ValidationRuleEnum.naeringsgruppe_utfylt, "naeringsgruppe");
-            AddValidationRule(ValidationRuleEnum.bygningstype_utfylt, "bygningstype");
-            AddValidationRule(ValidationRuleEnum.tiltaksformaal_utfylt, "tiltaksformaal");
-            AddValidationRule(ValidationRuleEnum.beskrivPlanlagtFormaal_utfylt, "beskrivPlanlagtFormaal");
+            AddValidationRule(ValidationRuleEnum.beskrivelseAvTiltak_anleggstype_kode_utfylt, "anleggstype");
+            AddValidationRule(ValidationRuleEnum.beskrivelseAvTiltak_naeringsgruppe_kode_utfylt, "naeringsgruppe");
+            AddValidationRule(ValidationRuleEnum.beskrivelseAvTiltak_bygningstype_kode_utfylt, "bygningstype");
+            AddValidationRule(ValidationRuleEnum.beskrivelseAvTiltak_tiltakformaal_kode_utfylt, "tiltaksformaal");
+            AddValidationRule(ValidationRuleEnum.beskrivelseAvTiltak_beskrivPlanlagtFormaal_utfylt, "beskrivPlanlagtFormaal");
         }
 
         public ValidationResult Validate(FormaaltypeValidationEntity formaaltypeValEntity = null)
         {
             if (Helpers.ObjectIsNullOrEmpty(formaaltypeValEntity.ModelData))
             {
-                AddMessageFromRule(ValidationRuleEnum.formaaltype_utfylt, formaaltypeValEntity.DataModelXpath);
+                AddMessageFromRule(ValidationRuleEnum.beskrivelseAvTiltak_formaaltype_utfylt, formaaltypeValEntity.DataModelXpath);
             }
             else
             {
@@ -75,7 +71,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             if (Helpers.ObjectIsNullOrEmpty(formaaltype.Anleggstype))
             {
-                AddMessageFromRule(ValidationRuleEnum.formaaltype_utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.beskrivelseAvTiltak_formaaltype_utfylt, xPath);
             }
 
         }

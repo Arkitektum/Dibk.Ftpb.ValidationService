@@ -13,8 +13,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         ValidationResult IMatrikkelValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        public MatrikkelValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, EntityValidatorEnum parentValidator) 
-            : base(entityValidatorOrchestrator, parentValidator)
+        public MatrikkelValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator) 
+            : base(formValidatorConfiguration, parentValidator)
         {
         }
 

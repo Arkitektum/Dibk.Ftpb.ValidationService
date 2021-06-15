@@ -17,17 +17,20 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         ValidationResult IEntityValidator.ValidationResult { get => _validationResult; set => _validationResult = value; }
 
-        public EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator) 
-            : this(entityValidatorOrchestrator, null, null) { }
+        public EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration) 
+            : this(formValidatorConfiguration, null, null, null) { }
 
-        public EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator, string xmlElement)
-            : this(entityValidatorOrchestrator, null, xmlElement) { }
+        public EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration, string xmlElement)
+            : this(formValidatorConfiguration, null, null, xmlElement) { }
 
-        public EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator, EntityValidatorEnum? parentValidator)
-            : this(entityValidatorOrchestrator, parentValidator, null) { }
+        public EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum? parentValidator)
+            : this(formValidatorConfiguration, parentValidator, null, null) { }
 
+        public EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum? parentValidator, EntityValidatorEnum? grandParentValidator)
+            : this(formValidatorConfiguration, parentValidator, grandParentValidator, null) { }
 
-        private EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator, EntityValidatorEnum? parentValidator, string xmlElement)
+        
+        private EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum? parentValidator, EntityValidatorEnum? grandParentValidator, string xmlElement)
         {
             _validationResult = new ValidationResult();
             _validationResult.ValidationRules = new List<ValidationRule>();
@@ -43,19 +46,23 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 endXPathElement = ruleXmlElement;
             }
 
-            string parentXPath = null;
-            if (parentValidator == null)
+            string xPathBetweenRootAndEndElement = null;
+
+            if (grandParentValidator != null)
             {
-                parentXPath = entityValidatorOrchestrator.ValidatorFormXPath;
+                xPathBetweenRootAndEndElement = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator) && x.GrandparentValidator.Equals(grandParentValidator)).ParentValidatorXPathElement;
             }
-            else
+            else if (parentValidator != null)
             {
-                var XPathAfterParentForm = entityValidatorOrchestrator.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).XPathAfterParent;
-                parentXPath = $"{entityValidatorOrchestrator.ValidatorFormXPath}/{XPathAfterParentForm}";
+                xPathBetweenRootAndEndElement = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).ParentValidatorXPathElement;
             }
 
-
-            EntityXPath = $"{parentXPath}/{endXPathElement}";
+            if (xPathBetweenRootAndEndElement != null)
+            {
+                xPathBetweenRootAndEndElement = $"/{xPathBetweenRootAndEndElement}";
+            }
+            
+            EntityXPath = $"{formValidatorConfiguration.FormXPathRoot}{xPathBetweenRootAndEndElement}/{endXPathElement}";
 
             InitializeValidationRules();
         }
@@ -120,10 +127,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _validationResult.ValidationMessages.Add(validationMessage);
         }
 
-        //public void AddMessageFromRule(ValidationRuleEnum id, List<string> messageParameters)
-        //{
-        //    AddMessageFromRule(id, null, messageParameters);
-        //}
         public void AddMessageFromRule(ValidationRuleEnum id, string xPath)
         {
             AddMessageFromRule(id, xPath, null);

@@ -16,8 +16,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult ValidationResult { get => _validationResult; }
 
-        public SjekklistekravValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, ISjekklistepunktValidator sjekklistepunktValidator)
-            : base(entityValidatorOrchestrator)
+        public SjekklistekravValidator(FormValidatorConfiguration formValidatorConfiguration, ISjekklistepunktValidator sjekklistepunktValidator)
+            : base(formValidatorConfiguration)
         {
             _sjekklistepunktValidator = sjekklistepunktValidator;
         }

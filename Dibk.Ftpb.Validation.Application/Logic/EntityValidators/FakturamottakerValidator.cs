@@ -3,7 +3,9 @@ using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
+using System;
 using System.Linq;
+using System.Reflection;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -15,12 +17,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         private readonly IEnkelAdresseValidator _enkelAdresseValidator;
 
-        public FakturamottakerValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, IEnkelAdresseValidator enkelAdresseValidator) 
-            : base(entityValidatorOrchestrator)
+        public FakturamottakerValidator(FormValidatorConfiguration formValidatorConfiguration, IEnkelAdresseValidator enkelAdresseValidator) 
+            : base(formValidatorConfiguration)
         {
             //TODO: Automize this?
             _enkelAdresseValidator = enkelAdresseValidator;
         }
+
         protected override void InitializeValidationRules()
         {
             AddValidationRule(ValidationRuleEnum.fakturamottaker_utfylt);

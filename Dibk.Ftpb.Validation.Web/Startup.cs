@@ -67,7 +67,7 @@ namespace Dibk.Ftpb.Validation
             services.AddTransient<IValidationOrchestrator, ValidationOrchestrator>();
             services.AddTransient<IValidationMessageComposer, ValidationMessageComposer>();
             
-            services.AddTransient<EntityValidatorOrchestrator>();
+            services.AddTransient<FormValidatorConfiguration>();
             services.AddTransient<IMunicipalityValidator, MunicipalityValidator>();
             services.AddScoped<ArbeidstilsynetsSamtykke_41999_Validator>();
             services.AddScoped<ArbeidstilsynetsSamtykke2_45957_Validator>();

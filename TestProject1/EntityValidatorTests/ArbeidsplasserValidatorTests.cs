@@ -33,9 +33,9 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         [Fact]
         public void ArbeidsplasserTest()
         {
-            EntityValidatorOrchestrator entityValidatorOrchestrator = new EntityValidatorOrchestrator();
+            FormValidatorConfiguration formValidatorConfiguration = new FormValidatorConfiguration();
 
-            var arbeidsplasser = new ArbeidsplasserValidator(entityValidatorOrchestrator);
+            var arbeidsplasser = new ArbeidsplasserValidator(formValidatorConfiguration);
             _arbeidsplasser.ModelData.Beskrivelse = null;
             _attachemntList.Remove("BeskrivelseTypeArbeidProsess");
             var validationsResult = arbeidsplasser.Validate(_arbeidsplasser, _attachemntList);

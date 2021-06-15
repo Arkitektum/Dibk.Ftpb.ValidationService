@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
@@ -17,7 +13,7 @@ namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
         public KodelisteValidationEntity Anleggstype { get; set; }
         public KodelisteValidationEntity Naeringsgruppe { get; set; }
         public KodelisteValidationEntity Bygningstype { get; set; }
-        public KodelisteValidationEntity Tiltaksformaal { get; set; }
+        public IEnumerable<KodelisteValidationEntity> Tiltaksformaal { get; set; }
         public string BeskrivPlanlagtFormaal {  get; set; }
     }
 }
