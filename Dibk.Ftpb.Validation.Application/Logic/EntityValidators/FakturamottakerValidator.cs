@@ -24,20 +24,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _enkelAdresseValidator = enkelAdresseValidator;
         }
 
-        public FakturamottakerValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum enkelAdresseValidator) 
-            : base(formValidatorConfiguration)
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            var type = assembly.GetTypes()
-                .First(t => t.Name == Enum.GetName(typeof(EntityValidatorEnum), enkelAdresseValidator));
-            
-            _enkelAdresseValidator = (IEnkelAdresseValidator)Activator.CreateInstance(type);
-
-        }
-
-
-
-
         protected override void InitializeValidationRules()
         {
             AddValidationRule(ValidationRuleEnum.fakturamottaker_utfylt);

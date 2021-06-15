@@ -65,9 +65,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         {
             ArbeidstilsynetsSamtykkeType formModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(validationInput.FormData);
             _validationForm = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(formModel, XPathRoot);
-            
+
             base.StartValidation(validationInput);
-            
+
             return ValidationResult;
         }
 
@@ -122,7 +122,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _eiendomsAdresseValidator = new EiendomsAdresseValidator(_formValidatorConfiguration, EntityValidatorEnum.EiendomByggestedValidator);
             _matrikkelValidator = new MatrikkelValidator(_formValidatorConfiguration, EntityValidatorEnum.EiendomByggestedValidator);
             _eiendomByggestedValidator = new EiendomByggestedValidator(_formValidatorConfiguration, _eiendomsAdresseValidator, _matrikkelValidator, _municipalityValidator);
-            
+
             _arbeidsplasserValidator = new ArbeidsplasserValidator(_formValidatorConfiguration);
 
             _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(_formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator);
@@ -137,7 +137,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidatorV2(_formValidatorConfiguration, EntityValidatorEnum.FakturamottakerValidator);
             _fakturamottakerValidator = new FakturamottakerValidator(_formValidatorConfiguration, _fakturamottakerEnkelAdresseValidator);
-            //_fakturamottakerValidator = new FakturamottakerValidator(_formValidatorConfiguration, EntityValidatorEnum.EnkelAdresseValidatorV2);
 
             _sjekklistepunktValidator = new SjekklistepunktValidator(_formValidatorConfiguration, EntityValidatorEnum.SjekklistekravValidator);
             _sjekklistekravValidator = new SjekklistekravValidator(_formValidatorConfiguration, _sjekklistepunktValidator);
@@ -147,6 +146,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _bygningstypeValidator = new BygningstypeValidator(_formValidatorConfiguration, EntityValidatorEnum.FormaaltypeValidator, _codeListService);
             _tiltaksformaalValidator = new TiltaksformaalValidator(_formValidatorConfiguration, EntityValidatorEnum.FormaaltypeValidator, _codeListService);
             _formaaltypeValidator = new FormaaltypeValidator(_formValidatorConfiguration,
+                                                             EntityValidatorEnum.BeskrivelseAvTiltakValidator,
                                                              _anleggstypeValidator, _codeListService,
                                                              _naeringsgruppeValidator, _codeListService,
                                                              _bygningstypeValidator, _codeListService,
@@ -178,7 +178,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             AccumulateValidationRules(_fakturamottakerEnkelAdresseValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_sjekklistekravValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_sjekklistepunktValidator.ValidationResult.ValidationRules);
-            
+
             AccumulateValidationRules(_beskrivelseAvTiltakValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_formaaltypeValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_anleggstypeValidator.ValidationResult.ValidationRules);
@@ -216,7 +216,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             var sjekklistekravValidationResult = _sjekklistekravValidator.Validate(_validationForm.ModelData.SjekklistekravValidationEntities);
             AccumulateValidationMessages(sjekklistekravValidationResult.ValidationMessages);
-            
+
             var beskrivelseAvTiltakValidationResult = _beskrivelseAvTiltakValidator.Validate(_validationForm.ModelData.BeskrivelseAvTiltakValidationEntity);
             AccumulateValidationMessages(beskrivelseAvTiltakValidationResult.ValidationMessages);
         }

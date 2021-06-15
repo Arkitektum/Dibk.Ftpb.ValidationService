@@ -24,7 +24,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(ValidationRuleEnum.fakturamottaker_utfylt);
+            AddValidationRule(ValidationRuleEnum.beskrivelseAvTiltak_utfylt);
         }
 
         public ValidationResult Validate(BeskrivelseAvTiltakValidationEntity beskrivelseAvTiltakValidationEntity = null)

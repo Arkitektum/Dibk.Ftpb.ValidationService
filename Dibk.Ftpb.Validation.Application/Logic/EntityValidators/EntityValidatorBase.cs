@@ -46,59 +46,23 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 endXPathElement = ruleXmlElement;
             }
 
-            if (parentValidator == EntityValidatorEnum.FormaaltypeValidator)
-            {
-
-            }
-
-            string xPath = null;
-            //if (grandParentValidator != null)
-            //{
-            //    xPath = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).ParentValidatorXPathElement;
-
-            //    if (parentValidator != null)
-            //    {
-
-            //        var xx = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(parentValidator) && x.ParentValidator.Equals(grandParentValidator)).ParentValidatorXPathElement;
-            //        xPath = $"{xx}/{xPath}";
-            //    }
-            //    else
-            //    {
-            //        throw new ArgumentNullException($"'ParentValidator' er påkrevd når 'GrandParentValidator' er angitt ({grandParentValidator}).");
-            //    }
-            //    xPath = $"{formValidatorConfiguration.FormXPathRoot}/{xPath}";
-            //}
-            //else if (parentValidator != null)
-            //{
-            //    xPath = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).ParentValidatorXPathElement;
-            //    xPath = $"{formValidatorConfiguration.FormXPathRoot}/{xPath}";
-            //}
-            //else
-            //{
-
-
-            //    var XPathAfterParentForm = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).ParentValidatorXPathElement;
-            //    xPath = $"{formValidatorConfiguration.FormXPathRoot}/{XPathAfterParentForm}";
-            //}
+            string xPathBetweenRootAndEndElement = null;
 
             if (grandParentValidator != null)
             {
-                //var grandparentXPath = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(parentValidator) && x.ParentValidator.Equals(grandParentValidator)).ParentValidatorXPathElement;
-                xPath = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator) && x.GrandparentValidator.Equals(grandParentValidator)).ParentValidatorXPathElement;
-                //xPath = $"{grandparentXPath}/{xPath}";
+                xPathBetweenRootAndEndElement = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator) && x.GrandparentValidator.Equals(grandParentValidator)).ParentValidatorXPathElement;
             }
             else if (parentValidator != null)
             {
-                xPath = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).ParentValidatorXPathElement;
+                xPathBetweenRootAndEndElement = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).ParentValidatorXPathElement;
             }
-            else
+
+            if (xPathBetweenRootAndEndElement != null)
             {
-
+                xPathBetweenRootAndEndElement = $"/{xPathBetweenRootAndEndElement}";
             }
-            xPath = $"{formValidatorConfiguration.FormXPathRoot}/{xPath}";
-
             
-            EntityXPath = $"{xPath}/{endXPathElement}";
+            EntityXPath = $"{formValidatorConfiguration.FormXPathRoot}{xPathBetweenRootAndEndElement}/{endXPathElement}";
 
             InitializeValidationRules();
         }
@@ -163,10 +127,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _validationResult.ValidationMessages.Add(validationMessage);
         }
 
-        //public void AddMessageFromRule(ValidationRuleEnum id, List<string> messageParameters)
-        //{
-        //    AddMessageFromRule(id, null, messageParameters);
-        //}
         public void AddMessageFromRule(ValidationRuleEnum id, string xPath)
         {
             AddMessageFromRule(id, xPath, null);

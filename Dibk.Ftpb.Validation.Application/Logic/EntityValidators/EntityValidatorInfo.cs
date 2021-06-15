@@ -40,32 +40,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 
                 var parent = GetXPathElement(parentValidator);
                 _parentValidatorXPathElement = $"{grandpar}{parent}";
-
-                //switch (parentValidator)
-                //{
-                //    case EntityValidatorEnum.EiendomByggestedValidator:
-                //        _parentValidatorXPathElement = "eiendomByggested{0}";
-                //        break;
-                //    case EntityValidatorEnum.TiltakshaverValidator:
-                //        _parentValidatorXPathElement = "tiltakshaver";
-                //        break;
-                //    case EntityValidatorEnum.FakturamottakerValidator:
-                //        _parentValidatorXPathElement = "fakturamottaker";
-                //        break;
-                //    case EntityValidatorEnum.AnsvarligSoekerValidator:
-                //        _parentValidatorXPathElement = "ansvarligSoeker";
-                //        break;
-                //    case EntityValidatorEnum.DispensasjonValidator:
-                //        _parentValidatorXPathElement = "dispensasjon";
-                //        break;
-                //    case EntityValidatorEnum.SjekklistekravValidator:
-                //        _parentValidatorXPathElement = "krav{0}";
-                //        break;
-                //    case EntityValidatorEnum.SjekklistepunktValidator:
-                //        _parentValidatorXPathElement = "sjekklistepunkt";
-                //        break;
-                
-                //}
             }
         }
 
@@ -85,22 +59,22 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     return "dispensasjon";
                 case EntityValidatorEnum.SjekklistekravValidator:
                     return "krav{0}";
-                case EntityValidatorEnum.SjekklistepunktValidator:
-                    return "sjekklistepunkt";
+                //case EntityValidatorEnum.SjekklistepunktValidator:
+                //    return "sjekklistepunkt";
                 case EntityValidatorEnum.BeskrivelseAvTiltakValidator:
                     return "beskrivelseAvTiltak";
                 case EntityValidatorEnum.FormaaltypeValidator:
                     return "bruk";
-                case EntityValidatorEnum.AnleggstypeValidator:
-                    return "anleggstype";
-                case EntityValidatorEnum.NaeringsgruppeValidator:
-                    return "naeringsgruppe";
-                case EntityValidatorEnum.BygningstypeValidator:
-                    return "bygningstype";
-                case EntityValidatorEnum.TiltaksformaalValidator:
-                    return "tiltaksformaal{0}";
-                case EntityValidatorEnum.TiltakstypeValidator:
-                    return "type{0}";
+                //case EntityValidatorEnum.AnleggstypeValidator:
+                //    return "anleggstype";
+                //case EntityValidatorEnum.NaeringsgruppeValidator:
+                //    return "naeringsgruppe";
+                //case EntityValidatorEnum.BygningstypeValidator:
+                //    return "bygningstype";
+                //case EntityValidatorEnum.TiltaksformaalValidator:
+                //    return "tiltaksformaal{0}";
+                //case EntityValidatorEnum.TiltakstypeValidator:
+                //    return "type{0}";
             }
             throw new ArgumentOutOfRangeException("Missing valid validator configuration.");
         }

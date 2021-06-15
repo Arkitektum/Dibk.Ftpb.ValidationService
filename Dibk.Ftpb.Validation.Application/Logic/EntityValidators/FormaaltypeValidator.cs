@@ -23,17 +23,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private readonly ICodeListService _bygningstypeCodeListService;
         private readonly ICodeListService _tiltaksformaalCodeListService;
 
-        public FormaaltypeValidator(FormValidatorConfiguration formValidatorConfiguration, 
-                                    AnleggstypeValidator anleggstypeValidator,
-                                    ICodeListService anleggstypeCodeListService,
-                                    NaeringsgruppeValidator naeringsgruppeValidator,
-                                    ICodeListService naeringsgruppeCodeListService,
-                                    BygningstypeValidator bygningstypeValidator,
-                                    ICodeListService bygningstypeCodeListService,
-                                    TiltaksformaalValidator tiltaksformaalValidator,
-                                    ICodeListService tiltaksformaalCodeListService
+        public FormaaltypeValidator(FormValidatorConfiguration formValidatorConfiguration,
+                                    EntityValidatorEnum parentValidator,
+                                    AnleggstypeValidator anleggstypeValidator, ICodeListService anleggstypeCodeListService,
+                                    NaeringsgruppeValidator naeringsgruppeValidator, ICodeListService naeringsgruppeCodeListService,
+                                    BygningstypeValidator bygningstypeValidator, ICodeListService bygningstypeCodeListService,
+                                    TiltaksformaalValidator tiltaksformaalValidator, ICodeListService tiltaksformaalCodeListService
                                     )
-            : base(formValidatorConfiguration)
+            : base(formValidatorConfiguration, parentValidator)
         {
             _anleggstypeValidator = anleggstypeValidator;
             _naeringsgruppeValidator = naeringsgruppeValidator;
