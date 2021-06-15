@@ -13,8 +13,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        public EnkelAdresseValidatorV2(EntityValidatorOrchestrator entityValidatorOrchestrator, EntityValidatorEnum parentValidator)
-            : base(entityValidatorOrchestrator, parentValidator)
+        public EnkelAdresseValidatorV2(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator)
+            : base(formValidatorConfiguration, parentValidator)
         {
         }
         protected override void InitializeValidationRules()

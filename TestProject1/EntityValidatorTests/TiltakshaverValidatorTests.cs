@@ -4,6 +4,7 @@ using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using FluentAssertions;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
@@ -82,12 +83,24 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         public void TestTilashaver()
         {
             var codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, true);
-            EntityValidatorOrchestrator entityValidatorOrchestrator = new EntityValidatorOrchestrator();
-            IEnkelAdresseValidator enkelAdresseValidator = new EnkelAdresseValidator(entityValidatorOrchestrator, EntityValidatorEnum.TiltakshaverValidator);
-            IKontaktpersonValidator kontaktpersonValidator = new KontaktpersonValidator(entityValidatorOrchestrator, EntityValidatorEnum.TiltakshaverValidator);
-            IKodelisteValidator partstypeValidator = new PartstypeValidator(entityValidatorOrchestrator, EntityValidatorEnum.TiltakshaverValidator, codeListService);
+            FormValidatorConfiguration formValidatorConfiguration = new FormValidatorConfiguration();
+            formValidatorConfiguration.ValidatorFormName = "ArbeidstilsynetsSamtykke2_45957_Validator";
+            formValidatorConfiguration.FormXPathRoot = "ArbeidstilsynetsSamtykke";
 
-            var tiltakshaverValidator = new AktoerValidator(entityValidatorOrchestrator,  AktoerEnum.tiltakshaver, enkelAdresseValidator, kontaktpersonValidator, partstypeValidator, codeListService);
+            formValidatorConfiguration.Validators = new List<EntityValidatorInfo>();
+
+            formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltakshaverValidator));
+            formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.KontaktpersonValidator, EntityValidatorEnum.TiltakshaverValidator));
+            formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.PartstypeValidator, EntityValidatorEnum.TiltakshaverValidator));
+            formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidator, EntityValidatorEnum.TiltakshaverValidator));
+
+
+
+            IEnkelAdresseValidator enkelAdresseValidator = new EnkelAdresseValidator(formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator);
+            IKontaktpersonValidator kontaktpersonValidator = new KontaktpersonValidator(formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator);
+            IKodelisteValidator partstypeValidator = new PartstypeValidator(formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator, codeListService);
+
+            var tiltakshaverValidator = new AktoerValidator(formValidatorConfiguration,  AktoerEnum.tiltakshaver, enkelAdresseValidator, kontaktpersonValidator, partstypeValidator, codeListService);
             _tiltakshaver.ModelData.Foedselsnummer = "54554";
             var tiltakshaverResult = tiltakshaverValidator.Validate(_tiltakshaver);
 

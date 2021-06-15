@@ -96,18 +96,36 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         krav_sjekklistekrav_sjekklistepunkt_beskrivelse_utfylt,
         krav_sjekklistekrav_dokumentasjon_utfylt,
 
-
         //Partstype
         kodeliste_utfylt,
         kodeverdi_ugyldig,
 
-        //Tiltaksformaal
-        formaaltype_utfylt,
-        anleggstype_utfylt,
-        naeringsgruppe_utfylt,
-        bygningstype_utfylt,
-        tiltaksformaal_utfylt,
-        beskrivPlanlagtFormaal_utfylt,
+        //BeskrivelseAvTiltak
+        beskrivelseAvTiltak_utfylt,
+        beskrivelseAvTiltak_formaaltype_utfylt,
+
+        beskrivelseAvTiltak_anleggstype_kode_utfylt,
+        beskrivelseAvTiltak_anleggstype_gyldig_kode,
+        beskrivelseAvTiltak_anleggstype_beskrivelse_utfylt,
+        
+        beskrivelseAvTiltak_naeringsgruppe_kode_utfylt,
+        beskrivelseAvTiltak_naeringsgruppe_gyldig_kode,
+        beskrivelseAvTiltak_naeringsgruppe_beskrivelse_utfylt,
+        
+        beskrivelseAvTiltak_bygningstype_kode_utfylt,
+        beskrivelseAvTiltak_bygningstype_gyldig_kode,
+        beskrivelseAvTiltak_bygningstype_beskrivelse_utfylt,
+        
+        beskrivelseAvTiltak_tiltakformaal_kode_utfylt,
+        beskrivelseAvTiltak_tiltakformaal_gyldig_kode,
+        beskrivelseAvTiltak_tiltakformaal_beskrivelse_utfylt,
+        
+        beskrivelseAvTiltak_tiltakstype_finnes_ikke,
+        beskrivelseAvTiltak_tiltakstype_kode_utfylt,
+        beskrivelseAvTiltak_tiltakstype_gyldig_kode,
+        beskrivelseAvTiltak_tiltakstype_beskrivelse_utfylt,
+        
+        beskrivelseAvTiltak_beskrivPlanlagtFormaal_utfylt,
 
 
         //Kontaktperson

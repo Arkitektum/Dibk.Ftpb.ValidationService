@@ -17,17 +17,20 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         ValidationResult IEntityValidator.ValidationResult { get => _validationResult; set => _validationResult = value; }
 
-        public EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator) 
-            : this(entityValidatorOrchestrator, null, null) { }
+        public EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration) 
+            : this(formValidatorConfiguration, null, null, null) { }
 
-        public EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator, string xmlElement)
-            : this(entityValidatorOrchestrator, null, xmlElement) { }
+        public EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration, string xmlElement)
+            : this(formValidatorConfiguration, null, null, xmlElement) { }
 
-        public EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator, EntityValidatorEnum? parentValidator)
-            : this(entityValidatorOrchestrator, parentValidator, null) { }
+        public EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum? parentValidator)
+            : this(formValidatorConfiguration, parentValidator, null, null) { }
 
+        public EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum? parentValidator, EntityValidatorEnum? grandParentValidator)
+            : this(formValidatorConfiguration, parentValidator, grandParentValidator, null) { }
 
-        private EntityValidatorBase(EntityValidatorOrchestrator entityValidatorOrchestrator, EntityValidatorEnum? parentValidator, string xmlElement)
+        
+        private EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum? parentValidator, EntityValidatorEnum? grandParentValidator, string xmlElement)
         {
             _validationResult = new ValidationResult();
             _validationResult.ValidationRules = new List<ValidationRule>();
@@ -43,19 +46,59 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 endXPathElement = ruleXmlElement;
             }
 
-            string parentXPath = null;
-            if (parentValidator == null)
+            if (parentValidator == EntityValidatorEnum.FormaaltypeValidator)
             {
-                parentXPath = entityValidatorOrchestrator.ValidatorFormXPath;
+
+            }
+
+            string xPath = null;
+            //if (grandParentValidator != null)
+            //{
+            //    xPath = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).ParentValidatorXPathElement;
+
+            //    if (parentValidator != null)
+            //    {
+
+            //        var xx = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(parentValidator) && x.ParentValidator.Equals(grandParentValidator)).ParentValidatorXPathElement;
+            //        xPath = $"{xx}/{xPath}";
+            //    }
+            //    else
+            //    {
+            //        throw new ArgumentNullException($"'ParentValidator' er påkrevd når 'GrandParentValidator' er angitt ({grandParentValidator}).");
+            //    }
+            //    xPath = $"{formValidatorConfiguration.FormXPathRoot}/{xPath}";
+            //}
+            //else if (parentValidator != null)
+            //{
+            //    xPath = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).ParentValidatorXPathElement;
+            //    xPath = $"{formValidatorConfiguration.FormXPathRoot}/{xPath}";
+            //}
+            //else
+            //{
+
+
+            //    var XPathAfterParentForm = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).ParentValidatorXPathElement;
+            //    xPath = $"{formValidatorConfiguration.FormXPathRoot}/{XPathAfterParentForm}";
+            //}
+
+            if (grandParentValidator != null)
+            {
+                //var grandparentXPath = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(parentValidator) && x.ParentValidator.Equals(grandParentValidator)).ParentValidatorXPathElement;
+                xPath = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator) && x.GrandparentValidator.Equals(grandParentValidator)).ParentValidatorXPathElement;
+                //xPath = $"{grandparentXPath}/{xPath}";
+            }
+            else if (parentValidator != null)
+            {
+                xPath = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).ParentValidatorXPathElement;
             }
             else
             {
-                var XPathAfterParentForm = entityValidatorOrchestrator.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).XPathAfterParent;
-                parentXPath = $"{entityValidatorOrchestrator.ValidatorFormXPath}/{XPathAfterParentForm}";
+
             }
+            xPath = $"{formValidatorConfiguration.FormXPathRoot}/{xPath}";
 
-
-            EntityXPath = $"{parentXPath}/{endXPathElement}";
+            
+            EntityXPath = $"{xPath}/{endXPathElement}";
 
             InitializeValidationRules();
         }

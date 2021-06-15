@@ -18,8 +18,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 
-        public KodelisteValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, EntityValidatorEnum parentValidator, ICodeListService codeListService) 
-            : base(entityValidatorOrchestrator, parentValidator)
+        public KodelisteValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator, ICodeListService codeListService) 
+            : base(formValidatorConfiguration, parentValidator)
+        {
+            _codeListService = codeListService;
+        }        
+        public KodelisteValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator, EntityValidatorEnum grandParentValidator, ICodeListService codeListService) 
+            : base(formValidatorConfiguration, parentValidator, grandParentValidator)
         {
             _codeListService = codeListService;
         }

@@ -8,19 +8,26 @@ namespace Dibk.Ftpb.Validation.Application.Enums
 {
     public enum EntityValidatorEnum
     {
+        AnleggstypeValidator,
         AnsvarligSoekerValidator,
         ArbeidsplasserValidator,
+        BeskrivelseAvTiltakValidator,
+        BygningstypeValidator,
         DispensasjonValidator,
         EiendomByggestedValidator,
         EiendomsAdresseValidator,
         EnkelAdresseValidator,
         EnkelAdresseValidatorV2,
         FakturamottakerValidator,
+        FormaaltypeValidator,
         KontaktpersonValidator,
         MatrikkelValidator,
+        NaeringsgruppeValidator,
         PartstypeValidator,
         SjekklistekravValidator,
         SjekklistepunktValidator,
-        TiltakshaverValidator
+        TiltaksformaalValidator,
+        TiltakshaverValidator,
+        TiltakstypeValidator
     }
 }

@@ -26,9 +26,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private readonly IKontaktpersonValidator _kontaktpersonValidator;
         private readonly IKodelisteValidator _kodelisteValidator;
 
-        public AktoerValidator(EntityValidatorOrchestrator entityValidatorOrchestrator, AktoerEnum aktoerEnum, IEnkelAdresseValidator enkelAdresseValidator, 
+        public AktoerValidator(FormValidatorConfiguration formValidatorConfiguration, AktoerEnum aktoerEnum, IEnkelAdresseValidator enkelAdresseValidator, 
             IKontaktpersonValidator kontaktpersonValidator, IKodelisteValidator kodelisteValidator , ICodeListService codeListService) 
-            : base(entityValidatorOrchestrator, Enum.GetName(typeof(AktoerEnum), aktoerEnum))
+            : base(formValidatorConfiguration, Enum.GetName(typeof(AktoerEnum), aktoerEnum))
         {
             _codeListService = codeListService;
             _enkelAdresseValidator = enkelAdresseValidator;

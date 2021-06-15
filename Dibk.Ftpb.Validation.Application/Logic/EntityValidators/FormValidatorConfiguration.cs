@@ -8,10 +8,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     ///   
     /// </summary>
     //TODO: automatisk sjekk på at ingen regler blir validert uten at de først er initialisert.
-    public class EntityValidatorOrchestrator
+    public class FormValidatorConfiguration
     {
         public string ValidatorFormName { get; set; }
-        public string ValidatorFormXPath { get; set; }
+        public string FormXPathRoot { get; set; }
         public List<EntityValidatorInfo> Validators = new List<EntityValidatorInfo>();
     }
 }
