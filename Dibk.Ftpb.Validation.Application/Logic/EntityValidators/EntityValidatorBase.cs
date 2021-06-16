@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Dibk.Ftpb.Validation.Application.Utils;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -17,7 +18,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         ValidationResult IEntityValidator.ValidationResult { get => _validationResult; set => _validationResult = value; }
 
-        public EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration) 
+        public EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration)
             : this(formValidatorConfiguration, null, null, null) { }
 
         public EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration, string xmlElement)
@@ -29,7 +30,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum? parentValidator, EntityValidatorEnum? grandParentValidator)
             : this(formValidatorConfiguration, parentValidator, grandParentValidator, null) { }
 
-        
         private EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum? parentValidator, EntityValidatorEnum? grandParentValidator, string xmlElement)
         {
             _validationResult = new ValidationResult();
@@ -61,7 +61,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             {
                 xPathBetweenRootAndEndElement = $"/{xPathBetweenRootAndEndElement}";
             }
-            
+
             EntityXPath = $"{formValidatorConfiguration.FormXPathRoot}{xPathBetweenRootAndEndElement}/{endXPathElement}";
 
             InitializeValidationRules();
@@ -91,7 +91,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             return validationRule;
         }
-
         protected void AddValidationRule(ValidationRuleEnum id)
         {
             AddValidationRule(id, null);
@@ -186,14 +185,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         //**
 
+        public bool? IsAnyValidationMessagesWithXpath(string xpath, string elemetNode = null)
         {
-            var validationRule = _validationResult.ValidationRules.FirstOrDefault(r => r.Id == id);
-            var xPath = String.Empty;
+            if (string.IsNullOrEmpty(xpath))
+                return null;
 
-            if (validationRule != null)
-                xPath = validationRule.Xpath;
+            if (Helpers.ObjectIsNullOrEmpty(_validationResult.ValidationRules))
+                return null;
 
-            return xPath;
+            var xpathToFind = string.IsNullOrEmpty(elemetNode) ? xpath : $"{xpath}/{elemetNode}";
+            var ruleFounded = _validationResult.ValidationMessages.Any(r => r.XpathField.Equals(xpathToFind, StringComparison.OrdinalIgnoreCase));
+
+            return ruleFounded;
         }
+
     }
 }

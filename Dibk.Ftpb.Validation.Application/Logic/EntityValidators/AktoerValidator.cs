@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.GeneralValidations;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
@@ -38,17 +39,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(ValidationRuleEnum.aktoer_utfylt);
-            AddValidationRule(ValidationRuleEnum.aktoer_foedselnummer_utfylt, "foedselsnummer");
-            AddValidationRule(ValidationRuleEnum.aktoer_foedselnummer_dekryptering, "foedselsnummer");
-            AddValidationRule(ValidationRuleEnum.aktoer_foedselnummer_kontrollsiffer, "foedselsnummer");
-            AddValidationRule(ValidationRuleEnum.aktoer_foedselnummer_ugyldig, "foedselsnummer");
-            AddValidationRule(ValidationRuleEnum.aktoer_organisasjonsnummer_utfylt, "organisasjonsnummer");
-            AddValidationRule(ValidationRuleEnum.aktoer_organisasjonsnummer_kontrollsiffer, "organisasjonsnummer");
-            AddValidationRule(ValidationRuleEnum.aktoer_organisasjonsnummer_ugyldig, "organisasjonsnummer");
-            AddValidationRule(ValidationRuleEnum.aktoer_telmob_utfylt, "mobilnummer");
-            AddValidationRule(ValidationRuleEnum.aktoer_epost_utfylt, "epost");
-            AddValidationRule(ValidationRuleEnum.aktoer_navn_utfylt, "navn");
+            AddValidationRule(AktoerValidationEnums.utfylt,null);
+            AddValidationRule(AktoerValidationEnums.foedselnummer_utfylt, "foedselsnummer");
+            AddValidationRule(AktoerValidationEnums.foedselnummer_dekryptering, "foedselsnummer");
+            AddValidationRule(AktoerValidationEnums.foedselnummer_kontrollsiffer, "foedselsnummer");
+            AddValidationRule(AktoerValidationEnums.foedselnummer_ugyldig, "foedselsnummer");
+            AddValidationRule(AktoerValidationEnums.organisasjonsnummer_utfylt, "organisasjonsnummer");
+            AddValidationRule(AktoerValidationEnums.organisasjonsnummer_kontrollsiffer, "organisasjonsnummer");
+            AddValidationRule(AktoerValidationEnums.organisasjonsnummer_ugyldig, "organisasjonsnummer");
+            
+            AddValidationRule(AktoerValidationEnums.telmob_utfylt, "mobilnummer");
+            
+            AddValidationRule(AktoerValidationEnums.epost_utfylt, "epost");
+            AddValidationRule(AktoerValidationEnums.navn_utfylt, "navn");
         }
 
 
@@ -57,18 +60,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var xpath = aktoer.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(aktoer.ModelData))
             {
-                AddMessageFromRule(ValidationRuleEnum.aktoer_utfylt, xpath);
+                AddMessageFromRule(AktoerValidationEnums.utfylt);
             }
             else
             {
-                //var partstypeValidatinResults = new PartstypeValidator(_codeListService).Validate(tiltakshaver.ModelData.Partstype);
-                var partstypeValidatinResults = _kodelisteValidator.Validate(aktoer.ModelData.Partstype);
+                var tiltakshaverPartsType = aktoer.ModelData.Partstype;
+                var partstypeValidatinResults = _kodelisteValidator.Validate(tiltakshaverPartsType);
 
                 UpdateValidationResultWithSubValidations(partstypeValidatinResults);
 
-                //TODO diskutere hvordan man bruke svaret 
-                //if validation message have any with tiltakshaver.Partstype.Kodeverdi (ok)
-                if (!partstypeValidatinResults.ValidationMessages.Any())
+                var codeValueHaveError = IsAnyValidationMessagesWithXpath(tiltakshaverPartsType.DataModelXpath, "Kodeverdi").GetValueOrDefault();
+
+                if (!codeValueHaveError)
                 {
                     ValidateEntityFields(aktoer);
                 }
@@ -86,16 +89,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 switch (foedselsnummerValidation)
                 {
                     case FoedselnumerValidation.Empty:
-                        AddMessageFromRule(ValidationRuleEnum.aktoer_foedselnummer_utfylt, xpath);
+                        AddMessageFromRule(AktoerValidationEnums.foedselnummer_utfylt);
                         break;
                     case FoedselnumerValidation.InvalidEncryption:
-                        AddMessageFromRule(ValidationRuleEnum.aktoer_foedselnummer_dekryptering, xpath);
+                        AddMessageFromRule(AktoerValidationEnums.foedselnummer_dekryptering);
                         break;
                     case FoedselnumerValidation.InvalidDigitsControl:
-                        AddMessageFromRule(ValidationRuleEnum.aktoer_foedselnummer_kontrollsiffer, xpath);
+                        AddMessageFromRule(AktoerValidationEnums.foedselnummer_kontrollsiffer);
                         break;
                     case FoedselnumerValidation.Invalid:
-                        AddMessageFromRule(ValidationRuleEnum.aktoer_foedselnummer_ugyldig, xpath);
+                        AddMessageFromRule(AktoerValidationEnums.foedselnummer_ugyldig);
                         break;
                 }
             }
@@ -105,34 +108,58 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 switch (organisasjonsnummerValidation)
                 {
                     case OrganisasjonsnummerValidation.Empty:
-                        AddMessageFromRule(ValidationRuleEnum.aktoer_organisasjonsnummer_utfylt, xpath);
+                        AddMessageFromRule(AktoerValidationEnums.organisasjonsnummer_utfylt);
                         break;
                     case OrganisasjonsnummerValidation.InvalidDigitsControl:
-                        AddMessageFromRule(ValidationRuleEnum.aktoer_organisasjonsnummer_kontrollsiffer, xpath);
+                        AddMessageFromRule(AktoerValidationEnums.organisasjonsnummer_kontrollsiffer);
                         break;
                     case OrganisasjonsnummerValidation.Invalid:
-                        AddMessageFromRule(ValidationRuleEnum.aktoer_organisasjonsnummer_ugyldig, xpath);
+                        AddMessageFromRule(AktoerValidationEnums.organisasjonsnummer_ugyldig);
                         break;
                 }
 
-                var enkeladressResult = _enkelAdresseValidator.Validate(tiltakshaver.Adresse);
-                UpdateValidationResultWithSubValidations(enkeladressResult);
-
-                //var kontaktpersonResult = new KontaktpersonValidator().Validate(tiltakshaver.Kontaktperson);
                 var kontaktpersonValidationResult = _kontaktpersonValidator.Validate(tiltakshaver.Kontaktperson);
                 UpdateValidationResultWithSubValidations(kontaktpersonValidationResult);
 
-                if (string.IsNullOrEmpty(tiltakshaver.Mobilnummer) && string.IsNullOrEmpty(tiltakshaver.Telefonnummer))
-                    AddMessageFromRule(ValidationRuleEnum.aktoer_telmob_utfylt, xpath);
-
-
                 if (string.IsNullOrEmpty(tiltakshaver.Epost))
-                    AddMessageFromRule(ValidationRuleEnum.aktoer_epost_utfylt, xpath);
+                    AddMessageFromRule(AktoerValidationEnums.epost_utfylt);
 
                 if (string.IsNullOrEmpty(tiltakshaver.Navn))
-                    AddMessageFromRule(ValidationRuleEnum.aktoer_navn_utfylt, xpath);
-
+                    AddMessageFromRule(AktoerValidationEnums.navn_utfylt);
             }
+
+            var enkeladressResult = _enkelAdresseValidator.Validate(tiltakshaver.Adresse);
+            UpdateValidationResultWithSubValidations(enkeladressResult);
+
+            if (string.IsNullOrEmpty(tiltakshaver.Mobilnummer) && string.IsNullOrEmpty(tiltakshaver.Telefonnummer))
+                AddMessageFromRule(AktoerValidationEnums.telmob_utfylt);
+
+            if (string.IsNullOrEmpty(tiltakshaver.Telefonnummer) && string.IsNullOrEmpty(tiltakshaver.Mobilnummer))
+            {
+                AddMessageFromRule(AktoerValidationEnums.telmob_utfylt);
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(tiltakshaver.Telefonnummer))
+                {
+                    var telefonNumber = tiltakshaver?.Telefonnummer;
+                    var isValidTelefonNumber = telefonNumber.All(c => "+0123456789".Contains(c));
+                    if (!isValidTelefonNumber)
+                    {
+                        //_validationResult.AddMessage("5721.1.5.6.5.1", null);
+                    }
+                }
+                if (!string.IsNullOrEmpty(tiltakshaver.Mobilnummer))
+                {
+                    var mobilNummer = tiltakshaver.Mobilnummer;
+                    var isValidmobilnummer = mobilNummer.All(c => "+0123456789".Contains(c));
+                    if (!isValidmobilnummer)
+                    {
+                        //_validationResult.AddMessage("5721.1.5.6.5.2", null);
+                    }
+                }
+            }
+
         }
 
         private void UpdateValidationResultWithSubValidations(ValidationResult newValudationResult)
