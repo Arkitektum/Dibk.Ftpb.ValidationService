@@ -1,4 +1,6 @@
-﻿using Dibk.Ftpb.Validation.Application.Enums;
+﻿using System.Collections.Generic;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
+using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
@@ -12,6 +14,9 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
     public class TiltakshaverValidatorTests
     {
         private AktoerValidationEntity _tiltakshaver;
+        private FormValidatorConfiguration _formValidatorConfiguration;
+        private ICodeListService _codeListService;
+        private AktoerValidator _aktoerValidator;
         public TiltakshaverValidatorTests()
         {
             var tiltakshaver = new no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.PartType()
@@ -45,65 +50,34 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
                 }
             };
 
-            _tiltakshaver = new Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2.AktoerMapper(AktoerEnum.tiltakshaver).Map(tiltakshaver);
+            _tiltakshaver = new Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2.AktoerMapper(AktoerEnum.tiltakshaver).Map(tiltakshaver, "ArbeidstilsynetsSamtykke");
+            _codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, true);
+            _formValidatorConfiguration = new FormValidatorConfiguration();
+            _formValidatorConfiguration.ValidatorFormName = "ArbeidstilsynetsSamtykke2_45957_Validator";
+            _formValidatorConfiguration.FormXPathRoot = "ArbeidstilsynetsSamtykke";
+            _formValidatorConfiguration.Validators = new List<EntityValidatorInfo>();
+            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltakshaverValidator));
+            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.KontaktpersonValidator, EntityValidatorEnum.TiltakshaverValidator));
+            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.PartstypeValidator, EntityValidatorEnum.TiltakshaverValidator));
+            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidator, EntityValidatorEnum.TiltakshaverValidator));
 
-            //_tiltakshaver = new Aktoer("Tiltakshaver")
-            //{
-            //    Navn = "benjamin",
-            //    Epost = "epost@benjamin.no",
-            //    Mobilnummer = "123456789",
-            //    Telefonnummer = "98765432",
-            //    Foedselsnummer = "08021612345",
-            //    Organisasjonsnummer = "910065211"
-            //};
-            //_tiltakshaver.Adresse = new EnkelAdresse("Adresse", _tiltakshaver)
-            //{
-            //    Adresselinje1 = "bøgate 123",
-            //    Adresselinje2 = "adress 2",
-            //    Adresselinje3 = "adress 3",
-            //    Landkode = "NO",
-            //    Postnr = "3801",
-            //    Poststed = "Bø i telemark"
-            //};
-            //_tiltakshaver.Kontaktperson = new Kontaktperson("Kontaktperson", _tiltakshaver)
-            //{
-            //    Navn = "Señor Presidente",
-            //    Epost = "presi@dente.no",
-            //    Mobilnummer = "98765432",
-            //    Telefonnummer = "55564789"
-            //};
-            //_tiltakshaver.Partstype = new PartstypeCode("PartsType", _tiltakshaver)
-            //{
-            //    Kodeverdi = "Privatperson",
-            //    Kodebeskrivelse = "Privatperson"
-            //};
+            IEnkelAdresseValidator enkelAdresseValidator = new EnkelAdresseValidator(_formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator);
+            IKontaktpersonValidator kontaktpersonValidator = new KontaktpersonValidator(_formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator);
+            IKodelisteValidator partstypeValidator = new PartstypeValidator(_formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator, _codeListService);
+
+            _aktoerValidator = new AktoerValidator(_formValidatorConfiguration, AktoerEnum.tiltakshaver, enkelAdresseValidator, kontaktpersonValidator, partstypeValidator, _codeListService);
+
         }
 
         [Fact]
         public void TestTilashaver()
         {
-            var codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, true);
-            FormValidatorConfiguration formValidatorConfiguration = new FormValidatorConfiguration();
-            formValidatorConfiguration.ValidatorFormName = "ArbeidstilsynetsSamtykke2_45957_Validator";
-            formValidatorConfiguration.FormXPathRoot = "ArbeidstilsynetsSamtykke";
 
-            formValidatorConfiguration.Validators = new List<EntityValidatorInfo>();
+            //_tiltakshaver.ModelData.Partstype.ModelData.Kodeverdi = "54554";
+            _tiltakshaver.ModelData.Mobilnummer = null;
+            _tiltakshaver.ModelData.Telefonnummer = null;
 
-            formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltakshaverValidator));
-            formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.KontaktpersonValidator, EntityValidatorEnum.TiltakshaverValidator));
-            formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.PartstypeValidator, EntityValidatorEnum.TiltakshaverValidator));
-            formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidator, EntityValidatorEnum.TiltakshaverValidator));
-
-
-
-            IEnkelAdresseValidator enkelAdresseValidator = new EnkelAdresseValidator(formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator);
-            IKontaktpersonValidator kontaktpersonValidator = new KontaktpersonValidator(formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator);
-            IKodelisteValidator partstypeValidator = new PartstypeValidator(formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator, codeListService);
-
-            var tiltakshaverValidator = new AktoerValidator(formValidatorConfiguration,  AktoerEnum.tiltakshaver, enkelAdresseValidator, kontaktpersonValidator, partstypeValidator, codeListService);
-            _tiltakshaver.ModelData.Foedselsnummer = "54554";
-            var tiltakshaverResult = tiltakshaverValidator.Validate(_tiltakshaver);
-
+            var tiltakshaverResult = _aktoerValidator.Validate(_tiltakshaver);
             tiltakshaverResult.Should().NotBeNull();
         }
     }

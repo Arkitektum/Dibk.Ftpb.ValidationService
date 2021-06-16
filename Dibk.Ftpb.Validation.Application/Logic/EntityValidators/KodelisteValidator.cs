@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
@@ -18,7 +19,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 
-        public KodelisteValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator, ICodeListService codeListService) 
+        public KodelisteValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator, ICodeListService codeListService)
             : base(formValidatorConfiguration, parentValidator)
         {
             _codeListService = codeListService;
@@ -31,33 +32,24 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(ValidationRuleEnum.kodeliste_utfylt, "kodeverdi");
-            AddValidationRule(ValidationRuleEnum.kodeverdi_ugyldig, "kodeverdi");
+            AddValidationRule(KodeListValidationEnums.utfylt, "kodeverdi");
+            AddValidationRule(KodeListValidationEnums.ugyldig, "kodeverdi");
         }
 
         public ValidationResult Validate(KodelisteValidationEntity kodeliste)
         {
-            var xpath = kodeliste.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(kodeliste.ModelData?.Kodeverdi))
             {
-                AddMessageFromRule(ValidationRuleEnum.kodeliste_utfylt, xpath);
+                AddMessageFromRule(KodeListValidationEnums.utfylt);
             }
             else
             {
                 //TODO Sjekk hva "partstypeKodeverdi_ugyldig" er. Den er ikke initialisert....
-
-                //if (!_codeListService.IsCodelistValid(FtbCodeListNames.Partstype, partstype.ModelData?.Kodeverdi))
-                //{
-                //    AddMessageFromRule("partstypeKodeverdi_ugyldig");
-                //}
-                //var gyldigPartsType = new List<string>() { "Foretak", "Offentlig myndighet", "Organisasjon", "Privatperson" };
-
-                //if (!gyldigPartsType.Any(p => p.Equals(partstype.ModelData?.Kodeverdi)))
-                //{
-                //    AddMessageFromRule(ValidationRuleEnum.partstype_utfylt);
-                //}
+                if (!_codeListService.IsCodelistValid(FtbCodeListNames.Partstype, kodeliste.ModelData?.Kodeverdi))
+                {
+                    AddMessageFromRule(KodeListValidationEnums.ugyldig);
+                }
             }
-
             return ValidationResult;
         }
     }
