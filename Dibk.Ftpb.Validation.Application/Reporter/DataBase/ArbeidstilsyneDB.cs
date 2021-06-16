@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 
 namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
 {
@@ -31,7 +32,23 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             _validationMessageStorageEntry.Add(validationMessageStorageEntry);
 
         }
-
+        //*New
+        public void AddRuleToValidationMessageStorageEntry(string dataFormatVersion, object id, string xPath, string message, ValidationResultSeverityEnum validationResultSeverity = ValidationResultSeverityEnum.WARNING, string languageCode = null, string checklistReference = null, string dataForm = null)
+        {
+            var validationMessageStorageEntry = new ValidationMessageStorageEntry()
+            {
+                IdSt = id.ToString(),
+                XPath = xPath,
+                Message = message,
+                ChecklistReference = checklistReference,
+                Messagetype = validationResultSeverity
+            };
+            validationMessageStorageEntry.LanguageCode = string.IsNullOrEmpty(languageCode) ? "NO" : languageCode;
+            //validationMessageStorageEntry.DataForm = string.IsNullOrEmpty(dataForm) ? "ArbeidstilsynetsSamtykkeV2" : dataForm;
+            validationMessageStorageEntry.DataFormatVersion = dataFormatVersion;
+            _validationMessageStorageEntry.Add(validationMessageStorageEntry);
+        }
+        //**
         public List<ValidationMessageStorageEntry> InitiateMessageRepository()
         {
             var storage = new List<ValidationMessageStorageEntry>();
@@ -180,6 +197,9 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.adresse_postnr_til_galningar, "ArbeidstilsynetsSamtykke/tiltakshaver/adresse/postnr", "Tiltakshaver er ein gærning!!!");
             AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.adresse_postnr_4siffer, "ArbeidstilsynetsSamtykke/tiltakshaver/adresse/postnr", "Tiltakshavers postnr må bestå av 4 siffer");
             AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.aktoer_telmob_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/mobilnummer", "Telefon- eller mobilnummer for tiltakshaver bør fylles ut.");
+            
+            AddRuleToValidationMessageStorageEntry("45957", AktoerValidationEnums.telmob_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/mobilnummer", "Telefon- eller mobilnummer for tiltakshaver bør fylles ut.");
+            
             AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.aktoer_epost_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/epost", "Epost for tiltakshaver bør fylles ut.");
             AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.aktoer_navn_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/navn", "Navnet til tiltakshaver må fylles ut.", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry("45957", ValidationRuleEnum.aktoer_foedselnummer_utfylt, "ArbeidstilsynetsSamtykke/tiltakshaver/foedselsnummer", "Fødselsnummer må angis når tiltakshaver er privatperson.", ValidationResultSeverityEnum.ERROR);

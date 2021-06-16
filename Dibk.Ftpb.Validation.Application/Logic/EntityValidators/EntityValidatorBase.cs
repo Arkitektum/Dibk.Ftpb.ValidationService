@@ -139,8 +139,53 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             AddMessageFromRule(id, null, null);
         }
+        //TODO Test this
+        public ValidationRule RuleToValidate(string id)
+        {
+            var validationRule = _validationResult.ValidationRules.FirstOrDefault(r => r.IdSt.Equals(id)) ?? new ValidationRule()
+            {
+                IdSt = id,
+                Message = $"Can't find rule with id:'{id}'.-"
+            };
 
-        internal string GetXpathFromValidationRule(ValidationRuleEnum id)
+            return validationRule;
+        }
+        protected void AddValidationRule(object id, string xmlElement)
+        {
+            var separator = "";
+            if (!string.IsNullOrEmpty(xmlElement))
+            {
+                separator = "/";
+            }
+            string xPath = $"{EntityXPath}{separator}{xmlElement}";
+            //xPath = Regex.Replace(xPath, @"\[([0-9]*)\]", "{0}");
+            _validationResult.ValidationRules.Add(new ValidationRule() { IdSt = id.ToString(), Xpath = xPath, XmlElement = xmlElement });
+        }
+        protected void AddMessageFromRule(string id, string xPath, List<string> messageParameters)
+        {
+            var rule = RuleToValidate(id);
+            var XmlElement = String.IsNullOrEmpty(rule.XmlElement) ? null : $"/{rule.XmlElement}";
+
+            string newXPath;
+            newXPath = string.IsNullOrEmpty(xPath) ? rule.Xpath : $"{xPath}{XmlElement}"; // debug XmlElement in rule.Xpath!?
+
+            var validationMessage = new ValidationMessage()
+            {
+                ReferenceSt = id,
+                XpathField = newXPath,
+                MessageParameters = messageParameters
+            };
+
+            _validationResult.ValidationMessages.Add(validationMessage);
+        }
+        public void AddMessageFromRule(object id)
+        {
+            var idSt = id.ToString();
+            AddMessageFromRule(idSt, null, null);
+        }
+
+        //**
+
         {
             var validationRule = _validationResult.ValidationRules.FirstOrDefault(r => r.Id == id);
             var xPath = String.Empty;
