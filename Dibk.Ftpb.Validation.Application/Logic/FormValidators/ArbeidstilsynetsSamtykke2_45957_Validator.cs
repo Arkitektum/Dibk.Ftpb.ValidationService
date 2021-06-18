@@ -128,12 +128,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(_formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator);
             _tiltakshaverKontaktpersonValidator = new KontaktpersonValidator(_formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator);
             _tiltakshaverPartstypeValidator = new PartstypeValidator(_formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator, _codeListService);
-            _tiltakshaverValidator = new AktoerValidator(_formValidatorConfiguration, AktoerEnum.tiltakshaver, _tiltakshaverEnkelAdresseValidator, _tiltakshaverKontaktpersonValidator, _tiltakshaverPartstypeValidator, _codeListService);
+            _tiltakshaverValidator = new TiltakshaverValidator(_formValidatorConfiguration, _tiltakshaverEnkelAdresseValidator, _tiltakshaverKontaktpersonValidator, _tiltakshaverPartstypeValidator, _codeListService);
 
             _ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(_formValidatorConfiguration, EntityValidatorEnum.AnsvarligSoekerValidator);
             _ansvarligSoekerKontaktpersonValidator = new KontaktpersonValidator(_formValidatorConfiguration, EntityValidatorEnum.AnsvarligSoekerValidator);
             _ansvarligSoekerPartstypeValidator = new PartstypeValidator(_formValidatorConfiguration, EntityValidatorEnum.AnsvarligSoekerValidator, _codeListService);
-            _ansvarligSoekerValidator = new AktoerValidator(_formValidatorConfiguration, AktoerEnum.ansvarligSoeker, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
+            _ansvarligSoekerValidator = new AnsvarligSoekerValidator(_formValidatorConfiguration, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
 
             _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidatorV2(_formValidatorConfiguration, EntityValidatorEnum.FakturamottakerValidator);
             _fakturamottakerValidator = new FakturamottakerValidator(_formValidatorConfiguration, _fakturamottakerEnkelAdresseValidator);

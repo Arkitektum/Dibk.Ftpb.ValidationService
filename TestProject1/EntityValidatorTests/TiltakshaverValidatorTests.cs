@@ -77,7 +77,21 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             _tiltakshaver.ModelData.Mobilnummer = null;
             _tiltakshaver.ModelData.Telefonnummer = null;
 
-            var tiltakshaverResult = _aktoerValidator.Validate(_tiltakshaver);
+            formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltakshaverValidator));
+            formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.KontaktpersonValidator, EntityValidatorEnum.TiltakshaverValidator));
+            formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.PartstypeValidator, EntityValidatorEnum.TiltakshaverValidator));
+            formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidator, EntityValidatorEnum.TiltakshaverValidator));
+
+
+
+            IEnkelAdresseValidator enkelAdresseValidator = new EnkelAdresseValidator(formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator);
+            IKontaktpersonValidator kontaktpersonValidator = new KontaktpersonValidator(formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator);
+            IKodelisteValidator partstypeValidator = new PartstypeValidator(formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator, codeListService);
+
+            var tiltakshaverValidator = new TiltakshaverValidator(formValidatorConfiguration,  enkelAdresseValidator, kontaktpersonValidator, partstypeValidator, codeListService);
+            _tiltakshaver.ModelData.Foedselsnummer = "54554";
+            var tiltakshaverResult = tiltakshaverValidator.Validate(_tiltakshaver);
+
             tiltakshaverResult.Should().NotBeNull();
         }
     }

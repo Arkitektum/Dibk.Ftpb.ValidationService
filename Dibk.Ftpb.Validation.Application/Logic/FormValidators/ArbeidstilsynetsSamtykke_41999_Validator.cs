@@ -87,7 +87,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(_formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator);
             _kontaktpersonValidator = new KontaktpersonValidator(_formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator);
             _partstypeValidator = new PartstypeValidator(_formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator, _codeListService);
-            _tiltakshaverValidator = new AktoerValidator(_formValidatorConfiguration, AktoerEnum.tiltakshaver, _tiltakshaverEnkelAdresseValidator, _kontaktpersonValidator, _partstypeValidator, _codeListService);
+            _tiltakshaverValidator = new TiltakshaverValidator(_formValidatorConfiguration, _tiltakshaverEnkelAdresseValidator, _kontaktpersonValidator, _partstypeValidator, _codeListService);
             _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidator(_formValidatorConfiguration, EntityValidatorEnum.FakturamottakerValidator);
             _fakturamottakerValidator = new FakturamottakerValidator(_formValidatorConfiguration, _fakturamottakerEnkelAdresseValidator);
 

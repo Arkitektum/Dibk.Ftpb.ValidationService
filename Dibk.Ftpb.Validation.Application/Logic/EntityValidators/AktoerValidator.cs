@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
@@ -14,22 +11,22 @@ using Dibk.Ftpb.Validation.Application.Utils;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public sealed class AktoerValidator : EntityValidatorBase, IAktoerValidator
+    public abstract class AktoerValidator : EntityValidatorBase, IAktoerValidator
     {
-        private string _aktoer { get; set; }
-        public override string ruleXmlElement { get { return $"{_aktoer}"; } set { ruleXmlElement = value; } }
+        //private string _aktoer { get; set; }
+        //public override string ruleXmlElement { get { return $"{_aktoer}"; } set { ruleXmlElement = value; } }
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 
-        private readonly ICodeListService _codeListService;
+        protected ICodeListService _codeListService;
 
-        private readonly IEnkelAdresseValidator _enkelAdresseValidator;
-        private readonly IKontaktpersonValidator _kontaktpersonValidator;
-        private readonly IKodelisteValidator _kodelisteValidator;
+        protected IEnkelAdresseValidator _enkelAdresseValidator;
+        protected IKontaktpersonValidator _kontaktpersonValidator;
+        protected IKodelisteValidator _kodelisteValidator;
 
-        public AktoerValidator(FormValidatorConfiguration formValidatorConfiguration, AktoerEnum aktoerEnum, IEnkelAdresseValidator enkelAdresseValidator, 
+        public AktoerValidator(FormValidatorConfiguration formValidatorConfiguration, IEnkelAdresseValidator enkelAdresseValidator, 
             IKontaktpersonValidator kontaktpersonValidator, IKodelisteValidator kodelisteValidator , ICodeListService codeListService) 
-            : base(formValidatorConfiguration, Enum.GetName(typeof(AktoerEnum), aktoerEnum))
+            : base(formValidatorConfiguration)
         {
             _codeListService = codeListService;
             _enkelAdresseValidator = enkelAdresseValidator;

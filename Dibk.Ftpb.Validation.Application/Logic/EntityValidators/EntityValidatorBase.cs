@@ -12,6 +12,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public abstract class EntityValidatorBase : IEntityValidator
     {
         protected string EntityName;
+        public string RulePath;
         private string EntityXPath;
         public abstract string ruleXmlElement { get; set; }
         protected ValidationResult _validationResult;
@@ -50,20 +51,29 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             if (grandParentValidator != null)
             {
-                xPathBetweenRootAndEndElement = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator) && x.GrandparentValidator.Equals(grandParentValidator)).ParentValidatorXPathElement;
+                xPathBetweenRootAndEndElement = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator) && x.GrandparentValidator.Equals(grandParentValidator)).XPathBetweenRootAndEndElement;
+                RulePath = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator) && x.GrandparentValidator.Equals(grandParentValidator)).RulePath;
             }
             else if (parentValidator != null)
             {
-                xPathBetweenRootAndEndElement = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).ParentValidatorXPathElement;
+                xPathBetweenRootAndEndElement = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).XPathBetweenRootAndEndElement;
+                RulePath = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).RulePath;
             }
 
             if (xPathBetweenRootAndEndElement != null)
             {
                 xPathBetweenRootAndEndElement = $"/{xPathBetweenRootAndEndElement}";
+                RulePath = $"{RulePath}";
+            }
+            else
+            {
+                RulePath = formValidatorConfiguration.Validators.FirstOrDefault(x => Enum.GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator == null).RulePath;
+                RulePath = $"{RulePath}";
             }
 
             EntityXPath = $"{formValidatorConfiguration.FormXPathRoot}{xPathBetweenRootAndEndElement}/{endXPathElement}";
-
+            RulePath = $"{formValidatorConfiguration.FormXPathRoot}{RulePath}.{endXPathElement}";
+            
             InitializeValidationRules();
         }
 
@@ -105,7 +115,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             string xPath = $"{EntityXPath}{separator}{xmlElement}";
             //xPath = Regex.Replace(xPath, @"\[([0-9]*)\]", "{0}");
-            _validationResult.ValidationRules.Add(new ValidationRule() { Id = id, Xpath = xPath, XmlElement = xmlElement });
+            _validationResult.ValidationRules.Add(new ValidationRule() { Id = id, Xpath = xPath, XmlElement = xmlElement, RulePath = RulePath });
         }
 
         protected void AddMessageFromRule(ValidationRuleEnum id, string xPath, List<string> messageParameters)

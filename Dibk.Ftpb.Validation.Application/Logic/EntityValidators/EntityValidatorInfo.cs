@@ -5,14 +5,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class EntityValidatorInfo
     {
+        private string _rulePath;
         private EntityValidatorEnum _entityValidator;
         private EntityValidatorEnum? _parentValidator;
         private EntityValidatorEnum? _grandParentValidator;
-        private string _parentValidatorXPathElement;
+        private string _xPathBetweenRootAndEndElement;
         public EntityValidatorEnum EntityValidator { get => _entityValidator; set => _entityValidator = value; }
         public EntityValidatorEnum? ParentValidator { get => _parentValidator; set => _parentValidator = value; }
         public EntityValidatorEnum? GrandparentValidator { get => _grandParentValidator; set => _grandParentValidator = value; }
-        public string ParentValidatorXPathElement { get => _parentValidatorXPathElement; set => _parentValidatorXPathElement = value; }
+        public string XPathBetweenRootAndEndElement { get => _xPathBetweenRootAndEndElement; set => _xPathBetweenRootAndEndElement = value; }
+        public string RulePath { get => _rulePath; set => _rulePath = value; }
 
         public EntityValidatorInfo(EntityValidatorEnum entityValidator)
             : this(entityValidator, null) { }
@@ -28,7 +30,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             if (parentValidator == null)
             {
-                _parentValidatorXPathElement = "";
+                _xPathBetweenRootAndEndElement = "";
+                _rulePath = $"{((int)entityValidator)}";
             }
             else
             {
@@ -36,10 +39,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 if (grandparentValidator != null)
                 {
                     grandpar = $"{GetXPathElement(grandparentValidator)}/";
+                    _rulePath = $"{((int)grandparentValidator)}";
                 }
                 
                 var parent = GetXPathElement(parentValidator);
-                _parentValidatorXPathElement = $"{grandpar}{parent}";
+                
+                _xPathBetweenRootAndEndElement = $"{grandpar}{parent}";
+                _rulePath = $"{_rulePath}.{((int)parentValidator)}.{((int)entityValidator)}";
             }
         }
 
