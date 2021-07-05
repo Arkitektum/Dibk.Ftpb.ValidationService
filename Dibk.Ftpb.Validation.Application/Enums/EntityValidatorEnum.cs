@@ -14,13 +14,13 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         BeskrivelseAvTiltakValidator,
         BygningstypeValidator,
         DispensasjonValidator,
-        
+
         [EnumerationAttribute(XmlNode = "eiendomByggested{0}")]
         EiendomByggestedValidator,
 
-        [EnumerationAttribute(XmlNode = "adresse")]
+        [EnumerationAttribute(XmlNode = "adresse", ValidatorId = "7")]
         EiendomsAdresseValidator,
-        
+
         EnkelAdresseValidator,
         EnkelAdresseValidatorV2,
         FakturamottakerValidator,
@@ -34,6 +34,6 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         TiltaksformaalValidator,
         TiltakshaverValidator,
         TiltakstypeValidator,
-        
+
     }
 }

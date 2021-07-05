@@ -10,6 +10,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums
     public class EnumerationAttribute : Attribute
     {
         public string XmlNode { get; set; }
+        public string ValidatorId { get; set; }
     }
 
 }
