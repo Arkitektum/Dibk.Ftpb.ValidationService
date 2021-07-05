@@ -13,7 +13,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class FormaaltypeValidator : EntityValidatorBase, IFormaaltypeValidator
     {
-        public override string ruleXmlElement { get { return "bruk"; } set { ruleXmlElement = value; } }
+        //public override string ruleXmlElement { get { return "bruk"; } set { ruleXmlElement = value; } }
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
         private readonly AnleggstypeValidator _anleggstypeValidator;
@@ -48,25 +48,27 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             //_bygningstypeCodeListService = bygningstypeCodeListService;
             //_tiltaksformaalCodeListService = tiltaksformaalCodeListService;
         }
-        public FormaaltypeValidator(FormValidatorConfiguration formValidatorConfiguration,
-                                    EntityValidatorEnum parentValidator,
-                                    AnleggstypeValidator anleggstypeValidator, ICodeListService anleggstypeCodeListService,
-                                    NaeringsgruppeValidator naeringsgruppeValidator, ICodeListService naeringsgruppeCodeListService,
-                                    BygningstypeValidator bygningstypeValidator, ICodeListService bygningstypeCodeListService,
-                                    TiltaksformaalValidator tiltaksformaalValidator, ICodeListService tiltaksformaalCodeListService
-                                    )
-            : base(formValidatorConfiguration, parentValidator)
-        {
-            _anleggstypeValidator = anleggstypeValidator;
-            //_naeringsgruppeValidator = naeringsgruppeValidator;
-            //_bygningstypeValidator = bygningstypeValidator;
-            //_tiltaksformaalValidator = tiltaksformaalValidator;
+        //public FormaaltypeValidator(FormValidatorConfiguration formValidatorConfiguration,
+        //                            EntityValidatorEnum parentValidator,
+        //                            AnleggstypeValidator anleggstypeValidator, ICodeListService anleggstypeCodeListService,
+        //                            NaeringsgruppeValidator naeringsgruppeValidator, ICodeListService naeringsgruppeCodeListService,
+        //                            BygningstypeValidator bygningstypeValidator, ICodeListService bygningstypeCodeListService,
+        //                            TiltaksformaalValidator tiltaksformaalValidator, ICodeListService tiltaksformaalCodeListService
+        //                            )
+        //    : base(formValidatorConfiguration, parentValidator)
+        //{
+        //    _anleggstypeValidator = anleggstypeValidator;
+        //    //_naeringsgruppeValidator = naeringsgruppeValidator;
+        //    //_bygningstypeValidator = bygningstypeValidator;
+        //    //_tiltaksformaalValidator = tiltaksformaalValidator;
 
-            _anleggstypeCodeListService = anleggstypeCodeListService;
-            _naeringsgruppeCodeListService = naeringsgruppeCodeListService;
-            _bygningstypeCodeListService = bygningstypeCodeListService;
-            _tiltaksformaalCodeListService = tiltaksformaalCodeListService;
-        }
+        //    _anleggstypeCodeListService = anleggstypeCodeListService;
+        //    _naeringsgruppeCodeListService = naeringsgruppeCodeListService;
+        //    _bygningstypeCodeListService = bygningstypeCodeListService;
+        //    _tiltaksformaalCodeListService = tiltaksformaalCodeListService;
+        //}
+
+
         protected override void InitializeValidationRules()
         {
 

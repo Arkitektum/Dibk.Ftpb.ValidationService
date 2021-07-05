@@ -5,7 +5,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
 {
     public interface IFakturamottakerValidator
     {
-        string ruleXmlElement { get; }
+        //string ruleXmlElement { get; }
         ValidationResult ValidationResult { get; set; }
         ValidationResult Validate(FakturamottakerValidationEntity fakturamottaker = null);
     }

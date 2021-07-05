@@ -11,14 +11,20 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class SjekklistepunktValidator : EntityValidatorBase, ISjekklistepunktValidator
     {
-        public override string ruleXmlElement { get { return "sjekklistepunkt"; } set { ruleXmlElement = value; } }
+        //public override string ruleXmlElement { get { return "sjekklistepunkt"; } set { ruleXmlElement = value; } }
 
         public ValidationResult ValidationResult { get => _validationResult; }
 
-        public SjekklistepunktValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator)
-            : base(formValidatorConfiguration, parentValidator)
+        //public SjekklistepunktValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator)
+        //    : base(formValidatorConfiguration, parentValidator)
+        //{
+        //}
+        public SjekklistepunktValidator(IList<EntityValidatorNode> entityValidationGroup)
+            : base(entityValidationGroup)
         {
         }
+
+
         public ValidationResult Validate(SjekklistepunktValidationEntity sjekklistepunkt)
         {
             var xpath = sjekklistepunkt.DataModelXpath;

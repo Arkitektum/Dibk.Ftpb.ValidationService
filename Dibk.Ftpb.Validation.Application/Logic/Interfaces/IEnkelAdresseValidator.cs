@@ -5,7 +5,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
 {
     public interface IEnkelAdresseValidator
     {
-        string ruleXmlElement { get; }
+        //string ruleXmlElement { get; }
         ValidationResult ValidationResult { get; set; }
         ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null);
         void ValidateEntityFields(EnkelAdresseValidationEntity adresseValidationEntity);

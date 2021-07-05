@@ -6,7 +6,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
 {
     public interface IArbeidsplasserValidator
     {
-        string ruleXmlElement { get; }
+        //string ruleXmlElement { get; }
         ValidationResult ValidationResult { get; set; }
         ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, List<string> attachments = null);
     }

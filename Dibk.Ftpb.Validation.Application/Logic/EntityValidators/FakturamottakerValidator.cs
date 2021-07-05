@@ -7,23 +7,32 @@ using System;
 using System.Linq;
 using System.Reflection;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
+using System.Collections.Generic;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class FakturamottakerValidator : EntityValidatorBase, IFakturamottakerValidator
     {
-        public override string ruleXmlElement { get { return "fakturamottaker"; } set { ruleXmlElement = value; } }
+        //public override string ruleXmlElement { get { return "fakturamottaker"; } set { ruleXmlElement = value; } }
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
         private readonly IEnkelAdresseValidator _enkelAdresseValidator;
 
-        public FakturamottakerValidator(FormValidatorConfiguration formValidatorConfiguration, IEnkelAdresseValidator enkelAdresseValidator) 
-            : base(formValidatorConfiguration)
+        //public FakturamottakerValidator(FormValidatorConfiguration formValidatorConfiguration, IEnkelAdresseValidator enkelAdresseValidator) 
+        //    : base(formValidatorConfiguration)
+        //{
+        //    //TODO: Automize this?
+        //    _enkelAdresseValidator = enkelAdresseValidator;
+        //}
+
+        public FakturamottakerValidator(IList<EntityValidatorNode> entityValidationGroup, IEnkelAdresseValidator enkelAdresseValidator) 
+            : base(entityValidationGroup)
         {
             //TODO: Automize this?
             _enkelAdresseValidator = enkelAdresseValidator;
         }
+
 
         protected override void InitializeValidationRules()
         {

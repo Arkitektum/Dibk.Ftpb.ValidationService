@@ -13,15 +13,23 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     {
         private readonly ISjekklistepunktValidator _sjekklistepunktValidator;
 
-        public override string ruleXmlElement { get { return "krav{0}"; } set { ruleXmlElement = value; } }
+        //public override string ruleXmlElement { get { return "krav{0}"; } set { ruleXmlElement = value; } }
 
         public ValidationResult ValidationResult { get => _validationResult; }
 
-        public SjekklistekravValidator(FormValidatorConfiguration formValidatorConfiguration, ISjekklistepunktValidator sjekklistepunktValidator)
-            : base(formValidatorConfiguration)
+        //public SjekklistekravValidator(FormValidatorConfiguration formValidatorConfiguration, ISjekklistepunktValidator sjekklistepunktValidator)
+        //    : base(formValidatorConfiguration)
+        //{
+        //    _sjekklistepunktValidator = sjekklistepunktValidator;
+        //}
+
+        public SjekklistekravValidator(IList<EntityValidatorNode> entityValidationGroup, ISjekklistepunktValidator sjekklistepunktValidator)
+            : base(entityValidationGroup)
         {
             _sjekklistepunktValidator = sjekklistepunktValidator;
         }
+
+
         public ValidationResult Validate(IEnumerable<SjekklistekravValidationEntity> sjekklistekrav)
         {
             if (Helpers.ObjectIsNullOrEmpty(sjekklistekrav) || sjekklistekrav.Count() == 0)

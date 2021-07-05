@@ -5,19 +5,26 @@ using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
+using System.Collections.Generic;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class EnkelAdresseValidator : EntityValidatorBase, IEnkelAdresseValidator
     {
-        public override string ruleXmlElement { get { return "adresse"; } set { ruleXmlElement = value; } }
+        //public override string ruleXmlElement { get { return "adresse"; } set { ruleXmlElement = value; } }
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        public EnkelAdresseValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator) 
-            : base(formValidatorConfiguration, parentValidator)
+        //public EnkelAdresseValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator) 
+        //    : base(formValidatorConfiguration, parentValidator)
+        //{
+        //}
+
+        public EnkelAdresseValidator(IList<EntityValidatorNode> entityValidationGroup) 
+            : base(entityValidationGroup)
         {
         }
+
         protected override void InitializeValidationRules()
         {
             AddValidationRule(ValidationRuleEnum.adresse_utfylt);

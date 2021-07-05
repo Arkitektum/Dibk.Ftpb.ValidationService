@@ -140,11 +140,11 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EiendomsAdresseValidator, EntityValidatorEnum.EiendomByggestedValidator));
             _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.MatrikkelValidator, EntityValidatorEnum.EiendomByggestedValidator));
 
-            IEiendomsAdresseValidator eiendomsAdresseValidator = new EiendomsAdresseValidator(_formValidatorConfiguration, EntityValidatorEnum.EiendomByggestedValidator);
-            IMatrikkelValidator matrikkelValidator = new MatrikkelValidator(_formValidatorConfiguration, EntityValidatorEnum.EiendomByggestedValidator);
-            _municipalityValidator = MockDataSource.MunicipalityValidatorResult(MunicipalityValidationEnum.Ok);
+            //IEiendomsAdresseValidator eiendomsAdresseValidator = new EiendomsAdresseValidator(_formValidatorConfiguration, EntityValidatorEnum.EiendomByggestedValidator);
+            //IMatrikkelValidator matrikkelValidator = new MatrikkelValidator(_formValidatorConfiguration, EntityValidatorEnum.EiendomByggestedValidator);
+            //_municipalityValidator = MockDataSource.MunicipalityValidatorResult(MunicipalityValidationEnum.Ok);
 
-            _eiendomByggestedValidator = new EiendomByggestedValidator(_formValidatorConfiguration, eiendomsAdresseValidator, matrikkelValidator, _municipalityValidator);
+            //_eiendomByggestedValidator = new EiendomByggestedValidator(_formValidatorConfiguration, eiendomsAdresseValidator, matrikkelValidator, _municipalityValidator);
 
 
             var flatList = new List<EntityValidatorNode>()
@@ -173,7 +173,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             };
             var tree = EntityValidatiorTree.BuildTree(flatList);
             _formValidatorConfiguration.Validators1 = tree;
-            _eiendomByggestedValidatorTreeTest = new EiendomByggestedValidator(tree, eiendomsAdresseValidator, matrikkelValidator, _municipalityValidator);
+           // _eiendomByggestedValidatorTreeTest = new EiendomByggestedValidator(tree, eiendomsAdresseValidator, matrikkelValidator, _municipalityValidator);
         }
 
 

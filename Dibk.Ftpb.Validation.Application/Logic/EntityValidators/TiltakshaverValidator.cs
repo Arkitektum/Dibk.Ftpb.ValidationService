@@ -8,20 +8,21 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class TiltakshaverValidator : AktoerValidator
     {
-        public override string ruleXmlElement { get { return "tiltakshaver"; } set { ruleXmlElement = value; } }
+        //public override string ruleXmlElement { get { return "tiltakshaver"; } set { ruleXmlElement = value; } }
 
-        public TiltakshaverValidator(FormValidatorConfiguration formValidatorConfiguration, IEnkelAdresseValidator enkelAdresseValidator,
+        //public TiltakshaverValidator(FormValidatorConfiguration formValidatorConfiguration, IEnkelAdresseValidator enkelAdresseValidator,
+        //        IKontaktpersonValidator kontaktpersonValidator, IKodelisteValidator kodelisteValidator, ICodeListService codeListService)
+        //    : base(formValidatorConfiguration, enkelAdresseValidator, kontaktpersonValidator, kodelisteValidator, codeListService)
+        //{
+        //    _codeListService = codeListService;
+        //    _enkelAdresseValidator = enkelAdresseValidator;
+        //    _kontaktpersonValidator = kontaktpersonValidator;
+        //    _kodelisteValidator = kodelisteValidator;
+
+        //}
+        public TiltakshaverValidator(IList<EntityValidatorNode> entityValidationGroup, int nodeid, IEnkelAdresseValidator enkelAdresseValidator,
                 IKontaktpersonValidator kontaktpersonValidator, IKodelisteValidator kodelisteValidator, ICodeListService codeListService)
-            : base(formValidatorConfiguration, enkelAdresseValidator, kontaktpersonValidator, kodelisteValidator, codeListService)
-        {
-            _codeListService = codeListService;
-            _enkelAdresseValidator = enkelAdresseValidator;
-            _kontaktpersonValidator = kontaktpersonValidator;
-            _kodelisteValidator = kodelisteValidator;
-
-        }
-        public TiltakshaverValidator(IList<EntityValidatorNode> entityValidationGroup, IKodelisteValidator kodelisteValidator, ICodeListService codeListService)
-            : base(entityValidationGroup, 1, kodelisteValidator, codeListService)
+            : base(entityValidationGroup, nodeid, enkelAdresseValidator, kontaktpersonValidator, kodelisteValidator, codeListService)
         {
             _codeListService = codeListService;
             //_enkelAdresseValidator = enkelAdresseValidator;

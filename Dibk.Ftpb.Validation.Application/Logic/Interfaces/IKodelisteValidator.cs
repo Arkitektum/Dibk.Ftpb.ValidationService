@@ -5,7 +5,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
 {
     public interface IKodelisteValidator
     {
-        string ruleXmlElement { get; }
+        //string ruleXmlElement { get; }
         ValidationResult ValidationResult { get; set; }
         ValidationResult Validate(KodelisteValidationEntity partstype);
     }

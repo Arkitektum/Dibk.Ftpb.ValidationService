@@ -74,86 +74,235 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         protected override void InitializeValidatorConfig()
         {
-            _formValidatorConfiguration.ValidatorFormName = this.GetType().Name;
-            _formValidatorConfiguration.FormXPathRoot = XPathRoot;
+            //_formValidatorConfiguration.ValidatorFormName = this.GetType().Name;
+            //_formValidatorConfiguration.FormXPathRoot = XPathRoot;
 
-            _formValidatorConfiguration.Validators = new List<EntityValidatorInfo>();
+            //_formValidatorConfiguration.Validators = new List<EntityValidatorInfo>();
 
-            //Eiendombyggested
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EiendomByggestedValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EiendomsAdresseValidator, EntityValidatorEnum.EiendomByggestedValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.MatrikkelValidator, EntityValidatorEnum.EiendomByggestedValidator));
+            ////Eiendombyggested
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EiendomByggestedValidator));
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EiendomsAdresseValidator, EntityValidatorEnum.EiendomByggestedValidator));
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.MatrikkelValidator, EntityValidatorEnum.EiendomByggestedValidator));
 
-            //Tiltakshaver
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltakshaverValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidator, EntityValidatorEnum.TiltakshaverValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.KontaktpersonValidator, EntityValidatorEnum.TiltakshaverValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.PartstypeValidator, EntityValidatorEnum.TiltakshaverValidator));
+            ////Tiltakshaver
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltakshaverValidator));
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidator, EntityValidatorEnum.TiltakshaverValidator));
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.KontaktpersonValidator, EntityValidatorEnum.TiltakshaverValidator));
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.PartstypeValidator, EntityValidatorEnum.TiltakshaverValidator));
 
-            //AnsvarligSoeker
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.AnsvarligSoekerValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidator, EntityValidatorEnum.AnsvarligSoekerValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.KontaktpersonValidator, EntityValidatorEnum.AnsvarligSoekerValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.PartstypeValidator, EntityValidatorEnum.AnsvarligSoekerValidator));
+            ////AnsvarligSoeker
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.AnsvarligSoekerValidator));
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidator, EntityValidatorEnum.AnsvarligSoekerValidator));
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.KontaktpersonValidator, EntityValidatorEnum.AnsvarligSoekerValidator));
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.PartstypeValidator, EntityValidatorEnum.AnsvarligSoekerValidator));
 
-            //Fakturamottaker
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.FakturamottakerValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidatorV2, EntityValidatorEnum.FakturamottakerValidator));
+            ////Fakturamottaker
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.FakturamottakerValidator));
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidatorV2, EntityValidatorEnum.FakturamottakerValidator));
 
-            //Arbeidsplasser
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.ArbeidsplasserValidator));
+            ////Arbeidsplasser
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.ArbeidsplasserValidator));
 
-            //Sjekkliste
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.SjekklistekravValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.SjekklistepunktValidator, EntityValidatorEnum.SjekklistekravValidator));
+            ////Sjekkliste
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.SjekklistekravValidator));
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.SjekklistepunktValidator, EntityValidatorEnum.SjekklistekravValidator));
 
-            //BeskrivelseAvTiltak
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.AnleggstypeValidator, EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.NaeringsgruppeValidator, EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.BygningstypeValidator, EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltaksformaalValidator, EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltakstypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
+            ////BeskrivelseAvTiltak
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.BeskrivelseAvTiltakValidator));
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.AnleggstypeValidator, EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.NaeringsgruppeValidator, EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.BygningstypeValidator, EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltaksformaalValidator, EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltakstypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
+
+
+
+
+            var entityValidatorNodes = new List<EntityValidatorNode>()
+            {
+                //Eiendombyggested
+                new ()
+                {
+                    Id = 1,
+                    EnumId = EntityValidatorEnum.EiendomByggestedValidator,
+                    ParentID = null,
+                }, //root node
+                new ()
+                {
+                    Id = 2,
+                    EnumId = EntityValidatorEnum.EiendomsAdresseValidator,
+                    ParentID = 1,
+                },
+                new ()
+                {
+                    Id = 3,
+                    EnumId = EntityValidatorEnum.MatrikkelValidator,
+                    ParentID = 1,
+                },
+                
+                //AnsvarligSoeker
+                new ()
+                {
+                    Id = 11,
+                    EnumId = EntityValidatorEnum.AnsvarligSoekerValidator,
+                    ParentID = null,
+                },
+                new ()
+                {
+                    Id = 12,
+                    EnumId = EntityValidatorEnum.EnkelAdresseValidator,
+                    ParentID = 11,
+                },                
+                new ()
+                {
+                    Id = 13,
+                    EnumId = EntityValidatorEnum.KontaktpersonValidator,
+                    ParentID = 11,
+                },                
+                new ()
+                {
+                    Id = 14,
+                    EnumId = EntityValidatorEnum.PartstypeValidator,
+                    ParentID = 11,
+                },
+                //Tiltakshaver
+                new ()
+                {
+                    Id = 4,
+                    EnumId = EntityValidatorEnum.TiltakshaverValidator,
+                    ParentID = null,
+                },
+                new ()
+                {
+                    Id = 5,
+                    EnumId = EntityValidatorEnum.KontaktpersonValidator,
+                    ParentID = 4,
+                },
+                new ()
+                {
+                    Id = 6,
+                    EnumId = EntityValidatorEnum.PartstypeValidator,
+                    ParentID = 4,
+                },
+                new ()
+                {
+                    Id = 7,
+                    EnumId = EntityValidatorEnum.EnkelAdresseValidator,
+                    ParentID = 4,
+                },
+
+                //Fakturamottaker
+                new ()
+                {
+                    Id = 8,
+                    EnumId = EntityValidatorEnum.FakturamottakerValidator,
+                    ParentID = null,
+                },
+                new ()
+                {
+                    Id = 9,
+                    EnumId = EntityValidatorEnum.EnkelAdresseValidator,
+                    ParentID = 8,
+                },
+
+                //Arbeidsplasser
+                new ()
+                {
+                    Id = 10,
+                    EnumId = EntityValidatorEnum.ArbeidsplasserValidator,
+                    ParentID = null,
+                },
+
+                //BeskrivelseAvTiltak
+                new ()
+                {
+                    Id = 15,
+                    EnumId = EntityValidatorEnum.BeskrivelseAvTiltakValidator,
+                    ParentID = null,
+                },
+                new ()
+                {
+                    Id = 16,
+                    EnumId = EntityValidatorEnum.FormaaltypeValidator,
+                    ParentID = 15,
+                },
+                new ()
+                {
+                    Id = 17,
+                    EnumId = EntityValidatorEnum.AnleggstypeValidator,
+                    ParentID = 16,
+                },
+                new ()
+                {
+                    Id = 18,
+                    EnumId = EntityValidatorEnum.NaeringsgruppeValidator,
+                    ParentID = 16,
+                },
+                new ()
+                {
+                    Id = 19,
+                    EnumId = EntityValidatorEnum.BygningstypeValidator,
+                    ParentID = 16,
+                },
+                new ()
+                {
+                    Id = 20,
+                    EnumId = EntityValidatorEnum.TiltaksformaalValidator,
+                    ParentID = 16,
+                },
+                new ()
+                {
+                    Id = 21,
+                    EnumId = EntityValidatorEnum.TiltakstypeValidator,
+                    ParentID = 15,
+                },
+            };
+
+            EntityValidatorTree = EntityValidatiorTree.BuildTree(entityValidatorNodes);
+
+
 
         }
 
         protected override void InstantiateValidators()
         {
-            _eiendomsAdresseValidator = new EiendomsAdresseValidator(_formValidatorConfiguration, EntityValidatorEnum.EiendomByggestedValidator);
-            _matrikkelValidator = new MatrikkelValidator(_formValidatorConfiguration, EntityValidatorEnum.EiendomByggestedValidator);
-            _eiendomByggestedValidator = new EiendomByggestedValidator(_formValidatorConfiguration, _eiendomsAdresseValidator, _matrikkelValidator, _municipalityValidator);
+            _eiendomsAdresseValidator = new EiendomsAdresseValidator(EntityValidatorTree);
+            _matrikkelValidator = new MatrikkelValidator(EntityValidatorTree);
+            _eiendomByggestedValidator = new EiendomByggestedValidator(EntityValidatorTree, _eiendomsAdresseValidator, _matrikkelValidator, _municipalityValidator);
 
-            _arbeidsplasserValidator = new ArbeidsplasserValidator(_formValidatorConfiguration);
+            _arbeidsplasserValidator = new ArbeidsplasserValidator(EntityValidatorTree);
 
-            _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(_formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator);
-            _tiltakshaverKontaktpersonValidator = new KontaktpersonValidator(_formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator);
-            _tiltakshaverPartstypeValidator = new PartstypeValidator(_formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator, _codeListService);
-            _tiltakshaverValidator = new TiltakshaverValidator(_formValidatorConfiguration, _tiltakshaverEnkelAdresseValidator, _tiltakshaverKontaktpersonValidator, _tiltakshaverPartstypeValidator, _codeListService);
+            _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree);
+            _tiltakshaverKontaktpersonValidator = new KontaktpersonValidator(EntityValidatorTree);
+            _tiltakshaverPartstypeValidator = new PartstypeValidator(EntityValidatorTree, 4, _codeListService);
+            _tiltakshaverValidator = new TiltakshaverValidator(EntityValidatorTree, 4, _tiltakshaverEnkelAdresseValidator, _tiltakshaverKontaktpersonValidator, _tiltakshaverPartstypeValidator, _codeListService);
 
-            _ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(_formValidatorConfiguration, EntityValidatorEnum.AnsvarligSoekerValidator);
-            _ansvarligSoekerKontaktpersonValidator = new KontaktpersonValidator(_formValidatorConfiguration, EntityValidatorEnum.AnsvarligSoekerValidator);
-            _ansvarligSoekerPartstypeValidator = new PartstypeValidator(_formValidatorConfiguration, EntityValidatorEnum.AnsvarligSoekerValidator, _codeListService);
-            _ansvarligSoekerValidator = new AnsvarligSoekerValidator(_formValidatorConfiguration, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
+            _ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree);
+            _ansvarligSoekerKontaktpersonValidator = new KontaktpersonValidator(EntityValidatorTree);
+            _ansvarligSoekerPartstypeValidator = new PartstypeValidator(EntityValidatorTree, 11, _codeListService);
+            _ansvarligSoekerValidator = new AnsvarligSoekerValidator(EntityValidatorTree, 11, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
 
-            _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidatorV2(_formValidatorConfiguration, EntityValidatorEnum.FakturamottakerValidator);
-            _fakturamottakerValidator = new FakturamottakerValidator(_formValidatorConfiguration, _fakturamottakerEnkelAdresseValidator);
+            _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidatorV2(EntityValidatorTree);
+            _fakturamottakerValidator = new FakturamottakerValidator(EntityValidatorTree, _fakturamottakerEnkelAdresseValidator);
 
-            _sjekklistepunktValidator = new SjekklistepunktValidator(_formValidatorConfiguration, EntityValidatorEnum.SjekklistekravValidator);
-            _sjekklistekravValidator = new SjekklistekravValidator(_formValidatorConfiguration, _sjekklistepunktValidator);
+            _sjekklistepunktValidator = new SjekklistepunktValidator(EntityValidatorTree);
+            _sjekklistekravValidator = new SjekklistekravValidator(EntityValidatorTree, _sjekklistepunktValidator);
 
-            _anleggstypeValidator = new AnleggstypeValidator(_formValidatorConfiguration, EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator, _codeListService);
-            _naeringsgruppeValidator = new NaeringsgruppeValidator(_formValidatorConfiguration, EntityValidatorEnum.FormaaltypeValidator, _codeListService);
-            _bygningstypeValidator = new BygningstypeValidator(_formValidatorConfiguration, EntityValidatorEnum.FormaaltypeValidator, _codeListService);
-            _tiltaksformaalValidator = new TiltaksformaalValidator(_formValidatorConfiguration, EntityValidatorEnum.FormaaltypeValidator, _codeListService);
-            _formaaltypeValidator = new FormaaltypeValidator(_formValidatorConfiguration,
-                                                             EntityValidatorEnum.BeskrivelseAvTiltakValidator,
-                                                             _anleggstypeValidator, _codeListService,
-                                                             _naeringsgruppeValidator, _codeListService,
-                                                             _bygningstypeValidator, _codeListService,
-                                                             _tiltaksformaalValidator, _codeListService);
-            _tiltakstypeValidator = new TiltakstypeValidator(_formValidatorConfiguration, EntityValidatorEnum.BeskrivelseAvTiltakValidator, _codeListService);
-            _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(_formValidatorConfiguration, _formaaltypeValidator, _tiltakstypeValidator);
+            _anleggstypeValidator = new AnleggstypeValidator(EntityValidatorTree, 15, _codeListService);
+            _naeringsgruppeValidator = new NaeringsgruppeValidator(EntityValidatorTree, 15, _codeListService);
+            _bygningstypeValidator = new BygningstypeValidator(EntityValidatorTree, 15, _codeListService);
+            _tiltaksformaalValidator = new TiltaksformaalValidator(EntityValidatorTree, 15, _codeListService);
+            _formaaltypeValidator = new FormaaltypeValidator(EntityValidatorTree,
+                                                             15,
+                                                             _anleggstypeValidator, _codeListService);
+            
+                                                             //_naeringsgruppeValidator, _codeListService,
+                                                             //_bygningstypeValidator, _codeListService,
+                                                             //_tiltaksformaalValidator, _codeListService);
+
+            _tiltakstypeValidator = new TiltakstypeValidator(EntityValidatorTree, 15, _codeListService);
+            _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(EntityValidatorTree, _formaaltypeValidator, _anleggstypeValidator, _codeListService);
 
 
 

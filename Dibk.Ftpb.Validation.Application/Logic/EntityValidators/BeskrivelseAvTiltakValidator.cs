@@ -12,7 +12,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class BeskrivelseAvTiltakValidator : EntityValidatorBase, IBeskrivelseAvTiltakValidator
     {
-        public override string ruleXmlElement { get { return "beskrivelseAvTiltak"; } set { ruleXmlElement = value; } }
+        //public override string ruleXmlElement { get { return "beskrivelseAvTiltak"; } set { ruleXmlElement = value; } }
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
@@ -29,12 +29,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _anleggstypeValidator = anleggstypeValidator;
             _anleggstypeCodeListService = anleggstypeCodeListService;
         }
-        public BeskrivelseAvTiltakValidator(FormValidatorConfiguration formValidatorConfiguration, FormaaltypeValidator formaaltypeValidator, TiltakstypeValidator tiltakstypeValidator)
-            : base(formValidatorConfiguration)
-        {
-            _formaaltypeValidator = formaaltypeValidator;
-            //_tiltakstypeValidator = tiltakstypeValidator;
-        }
+        //public BeskrivelseAvTiltakValidator(FormValidatorConfiguration formValidatorConfiguration, FormaaltypeValidator formaaltypeValidator, TiltakstypeValidator tiltakstypeValidator)
+        //    : base(formValidatorConfiguration)
+        //{
+        //    _formaaltypeValidator = formaaltypeValidator;
+        //    //_tiltakstypeValidator = tiltakstypeValidator;
+        //}
         protected override void InitializeValidationRules()
         {
             AddValidationRule(ValidationRuleEnum.beskrivelseAvTiltak_utfylt);

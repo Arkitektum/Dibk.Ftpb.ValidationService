@@ -5,20 +5,28 @@ using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
+using System.Collections.Generic;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class EiendomsAdresseValidator : EntityValidatorBase, IEiendomsAdresseValidator
     {
-        public override string ruleXmlElement { get { return "adresse"; } set { ruleXmlElement = value; } }
+        //public override string ruleXmlElement { get { return "adresse"; } set { ruleXmlElement = value; } }
 
         ValidationResult IEiendomsAdresseValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        public EiendomsAdresseValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator) 
-            : base(formValidatorConfiguration, parentValidator)
+        //public EiendomsAdresseValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator) 
+        //    : base(formValidatorConfiguration, parentValidator)
+        //{
+        //}
+
+        public EiendomsAdresseValidator(IList<EntityValidatorNode> entityValidationGroup) 
+            : base(entityValidationGroup)
         {
         }
 
+
+        //IList<EntityValidatorNode> entityValidationGroup
         public ValidationResult Validate(EiendomsAdresseValidationEntity eiendomsAdresseValidationEntity)
         {
             base.ResetValidationMessages();

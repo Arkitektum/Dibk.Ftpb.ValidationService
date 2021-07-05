@@ -90,7 +90,10 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             var entityValidationTree = EntityValidatiorTree.BuildTree(entityValidatorNodes);
 
             var partstypeValidator = new PartstypeValidator(entityValidationTree, 1, _codeListService);
-            _aktoerValidatorTest = new TiltakshaverValidator(entityValidationTree, partstypeValidator, _codeListService);
+            IEnkelAdresseValidator enkelAdresseValidator = new EnkelAdresseValidator(entityValidationTree);
+            IKontaktpersonValidator kontaktpersonValidator = new KontaktpersonValidator(entityValidationTree);
+
+            _aktoerValidatorTest = new TiltakshaverValidator(entityValidationTree, 1, enkelAdresseValidator, kontaktpersonValidator, partstypeValidator, _codeListService);
         }
 
         [Fact]

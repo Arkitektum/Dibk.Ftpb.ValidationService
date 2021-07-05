@@ -1,4 +1,5 @@
-﻿using Dibk.Ftpb.Validation.Application.Models.Web;
+﻿using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
+using Dibk.Ftpb.Validation.Application.Models.Web;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
     public abstract class FormValidatorBase
     {
+        protected IList<EntityValidatorNode> EntityValidatorTree;
+
         protected abstract string XPathRoot { get; }
         protected abstract void InitializeValidatorConfig();
         public virtual ValidationResult StartValidation(ValidationInput validationInput)

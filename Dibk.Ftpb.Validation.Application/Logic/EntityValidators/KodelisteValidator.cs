@@ -29,16 +29,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             _codeListService = codeListService;
         }        
-        public KodelisteValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator, ICodeListService codeListService)
-            : base(formValidatorConfiguration, parentValidator)
-        {
-            _codeListService = codeListService;
-        }        
-        public KodelisteValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator, EntityValidatorEnum grandParentValidator, ICodeListService codeListService) 
-            : base(formValidatorConfiguration, parentValidator, grandParentValidator)
-        {
-            _codeListService = codeListService;
-        }
+        //public KodelisteValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator, ICodeListService codeListService)
+        //    : base(formValidatorConfiguration, parentValidator)
+        //{
+        //    _codeListService = codeListService;
+        //}        
+        //public KodelisteValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator, EntityValidatorEnum grandParentValidator, ICodeListService codeListService) 
+        //    : base(formValidatorConfiguration, parentValidator, grandParentValidator)
+        //{
+        //    _codeListService = codeListService;
+        //}
 
         protected override void InitializeValidationRules()
         {

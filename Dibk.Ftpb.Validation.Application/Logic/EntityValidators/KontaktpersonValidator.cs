@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
@@ -9,14 +10,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class KontaktpersonValidator : EntityValidatorBase, IKontaktpersonValidator
     {
-        public override string ruleXmlElement { get { return "kontaktperson"; } set { ruleXmlElement = value; } }
+        //public override string ruleXmlElement { get { return "kontaktperson"; } set { ruleXmlElement = value; } }
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 
-        public KontaktpersonValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator)
-            : base(formValidatorConfiguration, parentValidator)
+        //public KontaktpersonValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator)
+        //    : base(formValidatorConfiguration, parentValidator)
+        //{
+        //}
+        public KontaktpersonValidator(IList<EntityValidatorNode> entityValidationGroup)
+            : base(entityValidationGroup)
         {
         }
+
         protected override void InitializeValidationRules()
         {
             AddValidationRule(ValidationRuleEnum.kontaktperson_navn_utfylt, "navn");

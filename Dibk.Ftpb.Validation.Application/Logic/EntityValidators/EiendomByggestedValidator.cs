@@ -16,26 +16,24 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private IEiendomsAdresseValidator _eiendomsAdresseValidator;
         private readonly IMatrikkelValidator _matrikkelValidator;
         private readonly IMunicipalityValidator _municipalityValidator;
-        public override string ruleXmlElement { get { return "eiendomByggested{0}"; } set { ruleXmlElement = value; } }
+        //public override string ruleXmlElement { get { return "eiendomByggested{0}"; } set { ruleXmlElement = value; } }
 
         ValidationResult IEiendomByggestedValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        public EiendomByggestedValidator(IList<EntityValidatorNode> entityValidationGroup,
-            IEiendomsAdresseValidator eiendomsAdresseValidator, IMatrikkelValidator matrikkelValidator,
-            IMunicipalityValidator municipalityValidator)
+        public EiendomByggestedValidator(IList<EntityValidatorNode> entityValidationGroup, IEiendomsAdresseValidator eiendomsAdresseValidator, IMatrikkelValidator matrikkelValidator, IMunicipalityValidator municipalityValidator)
             : base(entityValidationGroup)
         {
             _municipalityValidator = municipalityValidator;
             _eiendomsAdresseValidator = eiendomsAdresseValidator;
             _matrikkelValidator = matrikkelValidator;
         }
-        public EiendomByggestedValidator(FormValidatorConfiguration formValidatorConfiguration, IEiendomsAdresseValidator eiendomsAdresseValidator, IMatrikkelValidator matrikkelValidator, IMunicipalityValidator municipalityValidator)
-            : base(formValidatorConfiguration)
-        {
-            _municipalityValidator = municipalityValidator;
-            _eiendomsAdresseValidator = eiendomsAdresseValidator;
-            _matrikkelValidator = matrikkelValidator;
-        }
+        //public EiendomByggestedValidator(FormValidatorConfiguration formValidatorConfiguration, IEiendomsAdresseValidator eiendomsAdresseValidator, IMatrikkelValidator matrikkelValidator, IMunicipalityValidator municipalityValidator)
+        //    : base(formValidatorConfiguration)
+        //{
+        //    _municipalityValidator = municipalityValidator;
+        //    _eiendomsAdresseValidator = eiendomsAdresseValidator;
+        //    _matrikkelValidator = matrikkelValidator;
+        //}
 
         protected override void InitializeValidationRules()
         {

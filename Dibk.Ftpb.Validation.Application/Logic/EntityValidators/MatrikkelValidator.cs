@@ -11,12 +11,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class MatrikkelValidator : EntityValidatorBase, IMatrikkelValidator
     {
-        public override string ruleXmlElement { get { return "eiendomsidentifikasjon"; } set { ruleXmlElement = value; } }
+        //public override string ruleXmlElement { get { return "eiendomsidentifikasjon"; } set { ruleXmlElement = value; } }
 
         ValidationResult IMatrikkelValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        public MatrikkelValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator) 
-            : base(formValidatorConfiguration, parentValidator)
+        //public MatrikkelValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator) 
+        //    : base(formValidatorConfiguration, parentValidator)
+        //{
+        //}
+
+        public MatrikkelValidator(IList<EntityValidatorNode> entityValidationGroup) 
+            : base(entityValidationGroup)
         {
         }
 
