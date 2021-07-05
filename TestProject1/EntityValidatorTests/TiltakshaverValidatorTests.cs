@@ -64,32 +64,30 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
                     Id = 1,
                     EnumId = EntityValidatorEnum.TiltakshaverValidator,
                     ParentID = null,
-                    EnumParentId = null
+
                 }, //root node
                 new ()
                 {
                     Id = 2,
                     EnumId = EntityValidatorEnum.KontaktpersonValidator,
                     ParentID = 1,
-                    EnumParentId =null
+                    
                 },
                 new ()
                 {
                     Id = 3,
                     EnumId = EntityValidatorEnum.PartstypeValidator,
                     ParentID = 1,
-                    EnumParentId =null
                 },
                 new ()
                 {
                     Id = 4,
                     EnumId = EntityValidatorEnum.EnkelAdresseValidator,
                     ParentID = 1,
-                    EnumParentId =null
                 },
             };
 
-            var entityValidationTree =EntityValidatiorTree.BuildTree(entityValidatorNodes);
+            var entityValidationTree = EntityValidatiorTree.BuildTree(entityValidatorNodes);
 
             var partstypeValidator = new PartstypeValidator(entityValidationTree, 1, _codeListService);
             _aktoerValidatorTest = new TiltakshaverValidator(entityValidationTree, partstypeValidator, _codeListService);

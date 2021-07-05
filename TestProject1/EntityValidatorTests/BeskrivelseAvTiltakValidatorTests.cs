@@ -50,49 +50,42 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
                     Id = 1,
                     EnumId = EntityValidatorEnum.BeskrivelseAvTiltakValidator,
                     ParentID = null,
-                    EnumParentId = null
                 }, //root node
                 new ()
                 {
                     Id = 2,
                     EnumId = EntityValidatorEnum.FormaaltypeValidator,
                     ParentID = 1,
-                    EnumParentId =null
                 },
                 new ()
                 {
                     Id = 3,
                     EnumId = EntityValidatorEnum.AnleggstypeValidator,
                     ParentID = 2,
-                    EnumParentId =null
                 },
                 new ()
                 {
                     Id = 4,
                     EnumId = EntityValidatorEnum.NaeringsgruppeValidator,
                     ParentID = 2,
-                    EnumParentId =null
                 },
                 new ()
                 {
                     Id = 5,
                     EnumId = EntityValidatorEnum.BygningstypeValidator,
                     ParentID = 2,
-                    EnumParentId =null
                 },
                 new ()
                 {
                     Id = 6,
                     EnumId = EntityValidatorEnum.TiltaksformaalValidator,
                     ParentID = 2,
-                    EnumParentId =null
                 },
                 new ()
                 {
                     Id = 7,
                     EnumId = EntityValidatorEnum.TiltakstypeValidator,
                     ParentID = 1,
-                    EnumParentId =null
                 }
             };
 

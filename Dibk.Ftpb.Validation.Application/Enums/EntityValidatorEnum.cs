@@ -8,6 +8,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums
 {
     public enum EntityValidatorEnum
     {
+        [EnumerationAttribute(XmlNode = "anleggstype", ValidatorId = "1")]
         AnleggstypeValidator,
         AnsvarligSoekerValidator,
         ArbeidsplasserValidator,
@@ -15,10 +16,10 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         BygningstypeValidator,
         DispensasjonValidator,
 
-        [EnumerationAttribute(XmlNode = "eiendomByggested{0}")]
+        [EnumerationAttribute(XmlNode = "eiendomByggested{0}", ValidatorId = "7")]
         EiendomByggestedValidator,
 
-        [EnumerationAttribute(XmlNode = "adresse", ValidatorId = "7")]
+        [EnumerationAttribute(XmlNode = "adresse", ValidatorId = "8")]
         EiendomsAdresseValidator,
 
         EnkelAdresseValidator,

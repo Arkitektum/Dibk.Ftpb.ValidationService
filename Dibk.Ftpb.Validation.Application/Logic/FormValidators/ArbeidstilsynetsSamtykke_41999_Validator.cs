@@ -20,6 +20,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
     public class ArbeidstilsynetsSamtykke_41999_Validator : FormValidatorBase, IFormValidator
     {
         private readonly FormValidatorConfiguration _formValidatorConfiguration;
+        private IList<EntityValidatorNode> _entityValidatorTree;
+
         private readonly IMunicipalityValidator _municipalityValidator;
         private readonly ICodeListService _codeListService;
         private ArbeidstilsynetsSamtykke_41999_ValidationEntity _validationForm { get; set; }
@@ -47,7 +49,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         {
             ArbeidstilsynetsSamtykkeType formModel = new ArbeidstilsynetsSamtykke_41999_Deserializer().Deserialize(validationInput.FormData);
             _validationForm = new ArbeidstilsynetsSamtykke_41999_Mapper().GetFormEntity(formModel, XPathRoot);
-            
+
             base.StartValidation(validationInput);
 
             return ValidationResult;
@@ -77,13 +79,93 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             //Arbeidsplasser
             _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.ArbeidsplasserValidator));
+
+
+            //New tree structure
+
+            var entityValidatorNodes = new List<EntityValidatorNode>()
+            {
+                //Eiendombyggested
+                new ()
+                {
+                    Id = 1,
+                    EnumId = EntityValidatorEnum.EiendomByggestedValidator,
+                    ParentID = null,
+                }, //root node
+                new ()
+                {
+                    Id = 2,
+                    EnumId = EntityValidatorEnum.EiendomsAdresseValidator,
+                    ParentID = 1,
+                },
+                new ()
+                {
+                    Id = 3,
+                    EnumId = EntityValidatorEnum.MatrikkelValidator,
+                    ParentID = 1,
+                },
+                
+                //Tiltakshaver
+                new ()
+                {
+                Id = 4,
+                EnumId = EntityValidatorEnum.TiltakshaverValidator,
+                ParentID = null,
+            }, //root node
+            new ()
+            {
+                Id = 5,
+                EnumId = EntityValidatorEnum.KontaktpersonValidator,
+                ParentID = 4,
+            },
+            new ()
+            {
+                Id = 6,
+                EnumId = EntityValidatorEnum.PartstypeValidator,
+                ParentID = 4,
+            },
+            new ()
+            {
+                Id = 7,
+                EnumId = EntityValidatorEnum.EnkelAdresseValidator,
+                ParentID = null,
+            },
+            //Fakturamottaker
+            new ()
+            {
+                Id = 8,
+                EnumId = EntityValidatorEnum.FakturamottakerValidator,
+                ParentID = 4,
+            },
+            new ()
+            {
+                Id = 9,
+                EnumId = EntityValidatorEnum.EnkelAdresseValidator,
+                ParentID = 8,
+            },
+            //Arbeidsplasser
+            new ()
+            {
+                Id = 10,
+                EnumId = EntityValidatorEnum.ArbeidsplasserValidator,
+                ParentID = null,
+            },
+            };
+
+            _entityValidatorTree = EntityValidatiorTree.BuildTree(entityValidatorNodes);
         }
 
         protected override void InstantiateValidators()
         {
+
+            _eiendomByggestedValidator = new EiendomByggestedValidator(_entityValidatorTree, _eiendomsAdresseValidator, _matrikkelValidator, _municipalityValidator);
+
+
             _eiendomsAdresseValidator = new EiendomsAdresseValidator(_formValidatorConfiguration, EntityValidatorEnum.EiendomByggestedValidator);
             _matrikkelValidator = new MatrikkelValidator(_formValidatorConfiguration, EntityValidatorEnum.EiendomByggestedValidator);
-            _eiendomByggestedValidator = new EiendomByggestedValidator(_formValidatorConfiguration, _eiendomsAdresseValidator, _matrikkelValidator, _municipalityValidator);
+            
+
+
             _arbeidsplasserValidator = new ArbeidsplasserValidator(_formValidatorConfiguration);
             _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(_formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator);
             _kontaktpersonValidator = new KontaktpersonValidator(_formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator);

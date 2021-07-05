@@ -154,21 +154,21 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
                     Id = 1,
                     EnumId = EntityValidatorEnum.EiendomByggestedValidator,
                     ParentID = null,
-                    EnumParentId = null
+                   
                 }, //root node
                 new ()
                 {
                     Id = 2,
                     EnumId = EntityValidatorEnum.EiendomsAdresseValidator,
                     ParentID = 1,
-                    EnumParentId =null
+                   
                 },
                 new ()
                 {
                     Id = 3,
                     EnumId = EntityValidatorEnum.MatrikkelValidator,
                     ParentID = 1,
-                    EnumParentId =null
+                   
                 }
             };
             var tree = EntityValidatiorTree.BuildTree(flatList);
