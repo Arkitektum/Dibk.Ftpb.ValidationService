@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
-    public enum KodeListValidationEnums
+    public enum FormaaltypeValidationEnums
     {
-        kodeverdi_utfylt,
-        kodeverdi_ugyldig,
-        Kodebeskrivelse_utfylt,
-        kodebeskrivelse_ugyldig
-
+        beskrivelseAvTiltak_anleggstype_utfylt,
+        beskrivelseAvTiltak_naeringsgruppe_kode_utfylt
     }
 }

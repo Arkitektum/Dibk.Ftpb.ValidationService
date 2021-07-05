@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
+using Dibk.Ftpb.Validation.Application.Enums;
 
 namespace Dibk.Ftpb.Validation.Application.Utils
 {
@@ -58,6 +61,27 @@ namespace Dibk.Ftpb.Validation.Application.Utils
                    || type.IsEnum
                    || type == typeof(string)
                    || type == typeof(decimal);
+        }
+        public static string GetEnumDescription(Enum value)
+        {
+            FieldInfo fi = value.GetType().GetField(value.ToString());
+            
+            var noko = fi.GetCustomAttributes(typeof(EnumerationAttribute), false) as EnumerationAttribute[];
+
+            var xmlNode = string.Empty;
+            if (noko != null && noko.Any())
+            {
+                xmlNode= noko.First().XmlNode;
+            }
+
+            return xmlNode;
+            //DescriptionAttribute[] attributes = fi.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];
+
+            //if (attributes != null && attributes.Any())
+            //{
+            //    return attributes.First().Description;
+            //}
+            //return value.ToString();
         }
     }
 }

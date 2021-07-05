@@ -8,6 +8,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
     {
         public ValidationRuleEnum Reference { get; set; }
         public string ReferenceSt { get; set; }
+        public string RulePath { get; set; }
         public string Message { get; set; }
         public ValidationResultSeverityEnum? Messagetype { get; set; }
         

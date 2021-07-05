@@ -17,6 +17,5 @@ namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
         public FormaaltypeValidationEntity Formaaltype { get; set; }
         public string BRA { get; set; }
         public IEnumerable<KodelisteValidationEntity> Tiltakstype { get; set; }
-
     }
 }

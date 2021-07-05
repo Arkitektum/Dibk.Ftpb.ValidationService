@@ -1,5 +1,10 @@
 ﻿using Dibk.Ftpb.Validation.Application.Enums;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
+using Dibk.Ftpb.Validation.Application.Utils;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -9,6 +14,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private EntityValidatorEnum _entityValidator;
         private EntityValidatorEnum? _parentValidator;
         private EntityValidatorEnum? _grandParentValidator;
+
+
         private string _xPathBetweenRootAndEndElement;
         public EntityValidatorEnum EntityValidator { get => _entityValidator; set => _entityValidator = value; }
         public EntityValidatorEnum? ParentValidator { get => _parentValidator; set => _parentValidator = value; }
@@ -27,6 +34,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _entityValidator = entityValidator;
             _parentValidator = parentValidator;
             _grandParentValidator = grandparentValidator;
+            _rulePath = $"{((int)entityValidator)}";
+
 
             if (parentValidator == null)
             {
@@ -36,14 +45,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             else
             {
                 string grandpar = "";
+                string grandparInt = null;
                 if (grandparentValidator != null)
                 {
                     grandpar = $"{GetXPathElement(grandparentValidator)}/";
-                    _rulePath = $"{((int)grandparentValidator)}";
+                    grandparInt = $"{((int)grandparentValidator)}";
+                    //_rulePath = $"{((int)grandparentValidator)}";
                 }
-                
+
                 var parent = GetXPathElement(parentValidator);
-                
+
+
+                _rulePath = $"{((int)parentValidator)}.{_rulePath}";
                 _xPathBetweenRootAndEndElement = $"{grandpar}{parent}";
                 _rulePath = $"{_rulePath}.{((int)parentValidator)}.{((int)entityValidator)}";
             }
@@ -71,16 +84,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     return "beskrivelseAvTiltak";
                 case EntityValidatorEnum.FormaaltypeValidator:
                     return "bruk";
-                //case EntityValidatorEnum.AnleggstypeValidator:
-                //    return "anleggstype";
-                //case EntityValidatorEnum.NaeringsgruppeValidator:
-                //    return "naeringsgruppe";
-                //case EntityValidatorEnum.BygningstypeValidator:
-                //    return "bygningstype";
-                //case EntityValidatorEnum.TiltaksformaalValidator:
-                //    return "tiltaksformaal{0}";
-                //case EntityValidatorEnum.TiltakstypeValidator:
-                //    return "type{0}";
+                    //case EntityValidatorEnum.AnleggstypeValidator:
+                    //    return "anleggstype";
+                    //case EntityValidatorEnum.NaeringsgruppeValidator:
+                    //    return "naeringsgruppe";
+                    //case EntityValidatorEnum.BygningstypeValidator:
+                    //    return "bygningstype";
+                    //case EntityValidatorEnum.TiltaksformaalValidator:
+                    //    return "tiltaksformaal{0}";
+                    //case EntityValidatorEnum.TiltakstypeValidator:
+                    //    return "type{0}";
             }
             throw new ArgumentOutOfRangeException("Missing valid validator configuration.");
         }

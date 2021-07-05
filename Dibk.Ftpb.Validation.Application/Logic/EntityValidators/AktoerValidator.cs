@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
+using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Logic.GeneralValidations;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
@@ -24,8 +26,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected IKontaktpersonValidator _kontaktpersonValidator;
         protected IKodelisteValidator _kodelisteValidator;
 
-        public AktoerValidator(FormValidatorConfiguration formValidatorConfiguration, IEnkelAdresseValidator enkelAdresseValidator, 
-            IKontaktpersonValidator kontaktpersonValidator, IKodelisteValidator kodelisteValidator , ICodeListService codeListService) 
+        //TODO Check Parent Validator in : base()
+        public AktoerValidator(IList<EntityValidatorNode> entityValidationGroup, int nodeId,IKodelisteValidator kodelisteValidator, ICodeListService codeListService)
+            : base(entityValidationGroup, nodeId)
+        {
+            _codeListService = codeListService;
+            //_enkelAdresseValidator = enkelAdresseValidator;
+            //_kontaktpersonValidator = kontaktpersonValidator;
+            _kodelisteValidator = kodelisteValidator;
+
+        }
+        public AktoerValidator(FormValidatorConfiguration formValidatorConfiguration, IEnkelAdresseValidator enkelAdresseValidator,
+            IKontaktpersonValidator kontaktpersonValidator, IKodelisteValidator kodelisteValidator, ICodeListService codeListService)
             : base(formValidatorConfiguration)
         {
             _codeListService = codeListService;
@@ -36,7 +48,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(AktoerValidationEnums.utfylt,null);
+            AddValidationRule(AktoerValidationEnums.utfylt, null);
             AddValidationRule(AktoerValidationEnums.foedselnummer_utfylt, "foedselsnummer");
             AddValidationRule(AktoerValidationEnums.foedselnummer_dekryptering, "foedselsnummer");
             AddValidationRule(AktoerValidationEnums.foedselnummer_kontrollsiffer, "foedselsnummer");
@@ -44,9 +56,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(AktoerValidationEnums.organisasjonsnummer_utfylt, "organisasjonsnummer");
             AddValidationRule(AktoerValidationEnums.organisasjonsnummer_kontrollsiffer, "organisasjonsnummer");
             AddValidationRule(AktoerValidationEnums.organisasjonsnummer_ugyldig, "organisasjonsnummer");
-            
+
             AddValidationRule(AktoerValidationEnums.telmob_utfylt, "mobilnummer");
-            
+
             AddValidationRule(AktoerValidationEnums.epost_utfylt, "epost");
             AddValidationRule(AktoerValidationEnums.navn_utfylt, "navn");
         }
@@ -115,8 +127,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         break;
                 }
 
-                var kontaktpersonValidationResult = _kontaktpersonValidator.Validate(tiltakshaver.Kontaktperson);
-                UpdateValidationResultWithSubValidations(kontaktpersonValidationResult);
+                //var kontaktpersonValidationResult = _kontaktpersonValidator.Validate(tiltakshaver.Kontaktperson);
+                //UpdateValidationResultWithSubValidations(kontaktpersonValidationResult);
 
                 if (string.IsNullOrEmpty(tiltakshaver.Epost))
                     AddMessageFromRule(AktoerValidationEnums.epost_utfylt);
@@ -125,8 +137,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     AddMessageFromRule(AktoerValidationEnums.navn_utfylt);
             }
 
-            var enkeladressResult = _enkelAdresseValidator.Validate(tiltakshaver.Adresse);
-            UpdateValidationResultWithSubValidations(enkeladressResult);
+            //var enkeladressResult = _enkelAdresseValidator.Validate(tiltakshaver.Adresse);
+            //UpdateValidationResultWithSubValidations(enkeladressResult);
 
             if (string.IsNullOrEmpty(tiltakshaver.Mobilnummer) && string.IsNullOrEmpty(tiltakshaver.Telefonnummer))
                 AddMessageFromRule(AktoerValidationEnums.telmob_utfylt);

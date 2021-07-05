@@ -1,9 +1,12 @@
-﻿using Dibk.Ftpb.Validation.Application.Enums;
+﻿using System.Collections.Generic;
+using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 using System.Linq;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
+using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -14,13 +17,23 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
         private readonly FormaaltypeValidator _formaaltypeValidator;
-        private readonly TiltakstypeValidator _tiltakstypeValidator;
+        //private readonly TiltakstypeValidator _tiltakstypeValidator;
+        private readonly AnleggstypeValidator _anleggstypeValidator;
+        private readonly ICodeListService _anleggstypeCodeListService;
 
+        public BeskrivelseAvTiltakValidator(IList<EntityValidatorNode> entityValidationGroup, FormaaltypeValidator formaaltypeValidator,  AnleggstypeValidator anleggstypeValidator, ICodeListService anleggstypeCodeListService)
+            : base(entityValidationGroup, null)
+        {
+            _formaaltypeValidator = formaaltypeValidator;
+            //_tiltakstypeValidator = tiltakstypeValidator;
+            _anleggstypeValidator = anleggstypeValidator;
+            _anleggstypeCodeListService = anleggstypeCodeListService;
+        }
         public BeskrivelseAvTiltakValidator(FormValidatorConfiguration formValidatorConfiguration, FormaaltypeValidator formaaltypeValidator, TiltakstypeValidator tiltakstypeValidator)
             : base(formValidatorConfiguration)
         {
             _formaaltypeValidator = formaaltypeValidator;
-            _tiltakstypeValidator = tiltakstypeValidator;
+            //_tiltakstypeValidator = tiltakstypeValidator;
         }
         protected override void InitializeValidationRules()
         {
@@ -57,17 +70,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 {
                     foreach (var tiltakstypeValidationEntity in beskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype)
                     {
-                        var tiltakstypeValidationResult = _tiltakstypeValidator.Validate(tiltakstypeValidationEntity);
-                        UpdateValidationResultWithSubValidations(tiltakstypeValidationResult);
+                        //var tiltakstypeValidationResult = _tiltakstypeValidator.Validate(tiltakstypeValidationEntity);
+                        //UpdateValidationResultWithSubValidations(tiltakstypeValidationResult);
                     } 
                 }
-
-
-
             }
             return ValidationResult;
         }
-
-
     }
 }

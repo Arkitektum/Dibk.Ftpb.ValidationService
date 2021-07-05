@@ -36,4 +36,10 @@
     <ProjectReference Include="..\Dibk.Ftpb.Validation.Application\Dibk.Ftpb.Validation.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Data\ArbeidstilsynetsSamtykke_v2_dfv45957.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

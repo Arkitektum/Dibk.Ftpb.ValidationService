@@ -1,4 +1,7 @@
-﻿using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
+﻿using System.Collections.Generic;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
+using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
@@ -16,6 +19,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _kontaktpersonValidator = kontaktpersonValidator;
             _kodelisteValidator = kodelisteValidator;
 
+        }
+        public TiltakshaverValidator(IList<EntityValidatorNode> entityValidationGroup, IKodelisteValidator kodelisteValidator, ICodeListService codeListService)
+            : base(entityValidationGroup, 1, kodelisteValidator, codeListService)
+        {
+            _codeListService = codeListService;
+            //_enkelAdresseValidator = enkelAdresseValidator;
+            //_kontaktpersonValidator = kontaktpersonValidator;
+            _kodelisteValidator = kodelisteValidator;
         }
 
     }

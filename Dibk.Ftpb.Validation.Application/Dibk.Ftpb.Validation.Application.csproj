@@ -25,7 +25,6 @@
     <Folder Include="Logic\Xsd\" />
     <Folder Include="Models\DataModels\ArbeidstilsynetSignaturSamtykke\" />
     <Folder Include="Validators\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>

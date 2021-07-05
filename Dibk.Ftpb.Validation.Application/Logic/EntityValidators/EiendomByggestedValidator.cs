@@ -6,6 +6,8 @@ using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 using System.Collections.Generic;
 using System.Linq;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
+using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -18,7 +20,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         ValidationResult IEiendomByggestedValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        public EiendomByggestedValidator(FormValidatorConfiguration formValidatorConfiguration, IEiendomsAdresseValidator eiendomsAdresseValidator, IMatrikkelValidator matrikkelValidator, IMunicipalityValidator municipalityValidator) 
+        public EiendomByggestedValidator(IList<EntityValidatorNode> entityValidationGroup,
+            IEiendomsAdresseValidator eiendomsAdresseValidator, IMatrikkelValidator matrikkelValidator,
+            IMunicipalityValidator municipalityValidator)
+            : base(entityValidationGroup)
+        {
+            _municipalityValidator = municipalityValidator;
+            _eiendomsAdresseValidator = eiendomsAdresseValidator;
+            _matrikkelValidator = matrikkelValidator;
+        }
+        public EiendomByggestedValidator(FormValidatorConfiguration formValidatorConfiguration, IEiendomsAdresseValidator eiendomsAdresseValidator, IMatrikkelValidator matrikkelValidator, IMunicipalityValidator municipalityValidator)
             : base(formValidatorConfiguration)
         {
             _municipalityValidator = municipalityValidator;
@@ -28,6 +39,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
+
+            AddValidationRule(EiendomValidationEnums.adresse_utfylt, "adresse");
+
             AddValidationRule(ValidationRuleEnum.eiendom_utfylt);
             AddValidationRule(ValidationRuleEnum.eiendomsadresse_bygningsnummer_utfylt, "bygningsnummer");
             AddValidationRule(ValidationRuleEnum.eiendomsadresse_bolignummer_utfylt, "bolignummer");
@@ -46,16 +60,28 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                 foreach (var eiendomValidationEntity in eiendomValidationEntities)
                 {
+                    var xPath = eiendomValidationEntity.DataModelXpath;
 
-                    ValidateEntityFields(eiendomValidationEntity);
+                    if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntity.ModelData.Adresse))
+                    {
+                        AddMessageFromRule(EiendomValidationEnums.adresse_utfylt, xPath);
+                        AddMessageFromRule(ValidationRuleEnum.eiendomsadresse_utfylt, xPath);
 
-                    var eiendomsAdresseValidationResult = _eiendomsAdresseValidator.Validate(eiendomValidationEntity.ModelData.Adresse);
-                    _validationResult.ValidationMessages.AddRange(eiendomsAdresseValidationResult.ValidationMessages);
+                    }
+                    else
+                    {
+                        //
+                    }
 
-                    var matrikkelValidationResult = _matrikkelValidator.Validate(eiendomValidationEntity.ModelData.Matrikkel);
-                    _validationResult.ValidationMessages.AddRange(matrikkelValidationResult.ValidationMessages);
+                    //ValidateEntityFields(eiendomValidationEntity);
 
-                    ValidateDataRelations(eiendomValidationEntity);
+                    //var eiendomsAdresseValidationResult = _eiendomsAdresseValidator.Validate(eiendomValidationEntity.ModelData.Adresse);
+                    //_validationResult.ValidationMessages.AddRange(eiendomsAdresseValidationResult.ValidationMessages);
+
+                    //var matrikkelValidationResult = _matrikkelValidator.Validate(eiendomValidationEntity.ModelData.Matrikkel);
+                    //_validationResult.ValidationMessages.AddRange(matrikkelValidationResult.ValidationMessages);
+
+                    //ValidateDataRelations(eiendomValidationEntity);
                 }
             }
 

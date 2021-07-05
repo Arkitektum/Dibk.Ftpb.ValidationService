@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -13,5 +14,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public string ValidatorFormName { get; set; }
         public string FormXPathRoot { get; set; }
         public List<EntityValidatorInfo> Validators = new List<EntityValidatorInfo>();
+        public IList<EntityValidatorNode> Validators1 = new List<EntityValidatorNode>();
     }
 }

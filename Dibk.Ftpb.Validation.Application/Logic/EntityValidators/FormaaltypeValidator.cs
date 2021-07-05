@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
+using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
@@ -14,15 +17,37 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
         private readonly AnleggstypeValidator _anleggstypeValidator;
-        private readonly NaeringsgruppeValidator _naeringsgruppeValidator;
-        private readonly BygningstypeValidator _bygningstypeValidator;
-        private readonly TiltaksformaalValidator _tiltaksformaalValidator;
+        //private readonly NaeringsgruppeValidator _naeringsgruppeValidator;
+        //private readonly BygningstypeValidator _bygningstypeValidator;
+        //private readonly TiltaksformaalValidator _tiltaksformaalValidator;
 
         private readonly ICodeListService _anleggstypeCodeListService;
         private readonly ICodeListService _naeringsgruppeCodeListService;
         private readonly ICodeListService _bygningstypeCodeListService;
         private readonly ICodeListService _tiltaksformaalCodeListService;
 
+        protected IKodelisteValidator _anleggstypeCodeListServiceNew;
+
+
+        public FormaaltypeValidator(IList<EntityValidatorNode> entityValidationGroup,
+            int nodeId,
+            AnleggstypeValidator anleggstypeValidator, ICodeListService anleggstypeCodeListService
+            //NaeringsgruppeValidator naeringsgruppeValidator, ICodeListService naeringsgruppeCodeListService,
+            //BygningstypeValidator bygningstypeValidator, ICodeListService bygningstypeCodeListService,
+            //TiltaksformaalValidator tiltaksformaalValidator, ICodeListService tiltaksformaalCodeListService
+        )
+            : base(entityValidationGroup, nodeId)
+        {
+            _anleggstypeValidator = anleggstypeValidator;
+            //_naeringsgruppeValidator = naeringsgruppeValidator;
+            //_bygningstypeValidator = bygningstypeValidator;
+            //_tiltaksformaalValidator = tiltaksformaalValidator;
+
+            _anleggstypeCodeListService = anleggstypeCodeListService;
+            //_naeringsgruppeCodeListService = naeringsgruppeCodeListService;
+            //_bygningstypeCodeListService = bygningstypeCodeListService;
+            //_tiltaksformaalCodeListService = tiltaksformaalCodeListService;
+        }
         public FormaaltypeValidator(FormValidatorConfiguration formValidatorConfiguration,
                                     EntityValidatorEnum parentValidator,
                                     AnleggstypeValidator anleggstypeValidator, ICodeListService anleggstypeCodeListService,
@@ -33,9 +58,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             : base(formValidatorConfiguration, parentValidator)
         {
             _anleggstypeValidator = anleggstypeValidator;
-            _naeringsgruppeValidator = naeringsgruppeValidator;
-            _bygningstypeValidator = bygningstypeValidator;
-            _tiltaksformaalValidator = tiltaksformaalValidator;
+            //_naeringsgruppeValidator = naeringsgruppeValidator;
+            //_bygningstypeValidator = bygningstypeValidator;
+            //_tiltaksformaalValidator = tiltaksformaalValidator;
 
             _anleggstypeCodeListService = anleggstypeCodeListService;
             _naeringsgruppeCodeListService = naeringsgruppeCodeListService;
@@ -44,6 +69,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         protected override void InitializeValidationRules()
         {
+
+            AddValidationRule(FormaaltypeValidationEnums.beskrivelseAvTiltak_anleggstype_utfylt, "anleggstype");
+
+
             AddValidationRule(ValidationRuleEnum.beskrivelseAvTiltak_anleggstype_kode_utfylt, "anleggstype");
             AddValidationRule(ValidationRuleEnum.beskrivelseAvTiltak_naeringsgruppe_kode_utfylt, "naeringsgruppe");
             AddValidationRule(ValidationRuleEnum.beskrivelseAvTiltak_bygningstype_kode_utfylt, "bygningstype");
@@ -64,7 +93,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             return _validationResult;
         }
-        private void ValidateEntityFields(FormaaltypeValidationEntity formaaltypeValEntity = null)
+        private void ValidateEntityFields(FormaaltypeValidationEntity formaaltypeValEntity)
         {
             var xPath = formaaltypeValEntity.DataModelXpath;
             var formaaltype = formaaltypeValEntity.ModelData;
@@ -72,6 +101,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             if (Helpers.ObjectIsNullOrEmpty(formaaltype.Anleggstype))
             {
                 AddMessageFromRule(ValidationRuleEnum.beskrivelseAvTiltak_formaaltype_utfylt, xPath);
+            }
+            else
+            {
+                var anleggstypeValidationResult = _anleggstypeValidator.Validate(formaaltype.Anleggstype);
+                UpdateValidationResultWithSubValidations(anleggstypeValidationResult);
             }
 
         }
