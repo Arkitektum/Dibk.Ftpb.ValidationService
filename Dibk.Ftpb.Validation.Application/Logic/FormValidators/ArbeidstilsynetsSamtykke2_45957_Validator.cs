@@ -12,6 +12,7 @@ using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 using System.Collections.Generic;
 using System.Linq;
+using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {

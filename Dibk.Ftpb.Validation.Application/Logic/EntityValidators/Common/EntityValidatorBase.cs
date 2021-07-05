@@ -1,16 +1,13 @@
-using Dibk.Ftpb.Validation.Application.Enums;
-using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
-using Dibk.Ftpb.Validation.Application.Reporter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
-using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
+using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
+using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
-using Elasticsearch.Net;
 using static System.Enum;
 
-namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
+namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 {
     public abstract class EntityValidatorBase : IEntityValidator
     {
@@ -186,11 +183,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             AddMessageFromRule(id, null, null);
         }
-        //TODO Test this
+
+        //**Add rules with dynamic enum 
         public ValidationRule RuleToValidate(string id)
         {
-            var validationRules = _validationResult.ValidationRules.Where(r => !string.IsNullOrEmpty(r.IdSt))
-                .Where(r => r.IdSt.Equals(id)).ToArray();
             var validationRule = _validationResult.ValidationRules.Where(r => !string.IsNullOrEmpty(r.IdSt)).FirstOrDefault(r => r.IdSt.Equals(id)) ?? new ValidationRule()
             {
                 IdSt = id,
@@ -231,6 +227,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             else
             {
+                //If xpath is null or empty, we get the xpath from the rule,  Xpath is build when whe create the entityValidatorTree.-
                 newXPath = rule.Xpath;
             }
 
@@ -246,7 +243,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         public void AddMessageFromRule(object id, string xPath = null)
         {
-            var idSt = id.ToString();
+            var idSt = string.Empty;
+
+            if (id is Enum)
+                idSt = id.ToString();
+            
             AddMessageFromRule(idSt, xPath, null);
         }
 

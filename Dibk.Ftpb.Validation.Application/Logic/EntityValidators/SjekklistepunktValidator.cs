@@ -5,6 +5,7 @@ using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 using System.Linq;
 using System.Collections.Generic;
+using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {

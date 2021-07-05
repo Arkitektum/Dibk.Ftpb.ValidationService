@@ -6,6 +6,7 @@ using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Municipality;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
+using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
@@ -146,7 +147,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             _eiendomByggestedValidator = new EiendomByggestedValidator(_formValidatorConfiguration, eiendomsAdresseValidator, matrikkelValidator, _municipalityValidator);
 
 
-            var flatList = new List<GroupEnumerable.EntityValidatorNode>()
+            var flatList = new List<EntityValidatorNode>()
             {
                 new ()
                 {
@@ -170,7 +171,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
                     EnumParentId =null
                 }
             };
-            var tree = GroupEnumerable.BuildTree(flatList);
+            var tree = EntityValidatiorTree.BuildTree(flatList);
             _formValidatorConfiguration.Validators1 = tree;
             _eiendomByggestedValidatorTreeTest = new EiendomByggestedValidator(tree, eiendomsAdresseValidator, matrikkelValidator, _municipalityValidator);
         }

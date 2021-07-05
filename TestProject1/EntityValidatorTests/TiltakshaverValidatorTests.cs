@@ -16,7 +16,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
     public class TiltakshaverValidatorTests
     {
         private AktoerValidationEntity _tiltakshaver;
-        private FormValidatorConfiguration _formValidatorConfiguration;
+
         private ICodeListService _codeListService;
         private AktoerValidator _aktoerValidator;
         private AktoerValidator _aktoerValidatorTest;
@@ -56,25 +56,8 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             _tiltakshaver = new Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2.AktoerMapper(AktoerEnum.tiltakshaver).Map(tiltakshaver, "ArbeidstilsynetsSamtykke");
             _codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, false);
 
-            _formValidatorConfiguration = new FormValidatorConfiguration();
-            //_formValidatorConfiguration.ValidatorFormName = "ArbeidstilsynetsSamtykke2_45957_Validator";
-            //_formValidatorConfiguration.FormXPathRoot = "ArbeidstilsynetsSamtykke";
-            //_formValidatorConfiguration.Validators = new List<EntityValidatorInfo>();
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltakshaverValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.KontaktpersonValidator, EntityValidatorEnum.TiltakshaverValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.PartstypeValidator, EntityValidatorEnum.TiltakshaverValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidator, EntityValidatorEnum.TiltakshaverValidator));
 
-
-            //IEnkelAdresseValidator enkelAdresseValidator = new EnkelAdresseValidator(_formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator);
-            //IKontaktpersonValidator kontaktpersonValidator = new KontaktpersonValidator(_formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator);
-            ////IKodelisteValidator partstypeValidator = new PartstypeValidator(_formValidatorConfiguration, EntityValidatorEnum.TiltakshaverValidator, _codeListService);
-
-            //_aktoerValidator = new TiltakshaverValidator(_formValidatorConfiguration, enkelAdresseValidator, kontaktpersonValidator, partstypeValidator, _codeListService);
-
-
-
-            var flatList = new List<EntityValidatorNode>()
+            var entityValidatorNodes = new List<EntityValidatorNode>()
             {
                 new ()
                 {
@@ -105,11 +88,11 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
                     EnumParentId =null
                 },
             };
-            var tree =EntityValidatiorTree.BuildTree(flatList);
-            _formValidatorConfiguration.Validators1 = tree;
 
-            var partstypeValidator = new PartstypeValidator(tree, 1, _codeListService);
-            _aktoerValidatorTest = new TiltakshaverValidator(tree, partstypeValidator, _codeListService);
+            var entityValidationTree =EntityValidatiorTree.BuildTree(entityValidatorNodes);
+
+            var partstypeValidator = new PartstypeValidator(entityValidationTree, 1, _codeListService);
+            _aktoerValidatorTest = new TiltakshaverValidator(entityValidationTree, partstypeValidator, _codeListService);
         }
 
         [Fact]

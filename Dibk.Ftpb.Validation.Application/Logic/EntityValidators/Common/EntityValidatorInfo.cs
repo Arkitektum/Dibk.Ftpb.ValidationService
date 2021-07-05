@@ -1,12 +1,7 @@
-﻿using Dibk.Ftpb.Validation.Application.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
-using Dibk.Ftpb.Validation.Application.Utils;
+﻿using System;
+using Dibk.Ftpb.Validation.Application.Enums;
 
-namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
+namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 {
     public class EntityValidatorInfo
     {
