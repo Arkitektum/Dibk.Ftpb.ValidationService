@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
 {
-    public interface IEiendomByggestedValidator
+    public interface IEiendomByggestedValidator : IEntityBaseValidator
     {
         //string ruleXmlElement { get; }
-        ValidationResult ValidationResult { get; set; }
+        //ValidationResult ValidationResult { get; set; }
         ValidationResult Validate(IEnumerable<EiendomValidationEntity> eiendomValidationEntities);
     }
 }

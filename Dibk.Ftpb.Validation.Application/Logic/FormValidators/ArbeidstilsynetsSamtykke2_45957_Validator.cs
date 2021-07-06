@@ -54,6 +54,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private TiltakstypeValidator _tiltakstypeValidator;
         private IBeskrivelseAvTiltakValidator _beskrivelseAvTiltakValidator;
 
+        
 
         protected override string XPathRoot => "ArbeidstilsynetsSamtykke";
 
