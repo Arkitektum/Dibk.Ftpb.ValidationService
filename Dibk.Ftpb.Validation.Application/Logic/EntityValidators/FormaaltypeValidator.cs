@@ -29,14 +29,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected IKodelisteValidator _anleggstypeCodeListServiceNew;
 
 
-        public FormaaltypeValidator(IList<EntityValidatorNode> entityValidationGroup,
+        public FormaaltypeValidator(IList<EntityValidatorNode> entityValidatorTree,
             int nodeId,
             AnleggstypeValidator anleggstypeValidator, ICodeListService anleggstypeCodeListService
             //NaeringsgruppeValidator naeringsgruppeValidator, ICodeListService naeringsgruppeCodeListService,
             //BygningstypeValidator bygningstypeValidator, ICodeListService bygningstypeCodeListService,
             //TiltaksformaalValidator tiltaksformaalValidator, ICodeListService tiltaksformaalCodeListService
         )
-            : base(entityValidationGroup, nodeId)
+            : base(entityValidatorTree, nodeId)
         {
             _anleggstypeValidator = anleggstypeValidator;
             //_naeringsgruppeValidator = naeringsgruppeValidator;

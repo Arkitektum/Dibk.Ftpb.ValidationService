@@ -19,8 +19,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         //    : base(formValidatorConfiguration, parentValidator)
         //{
         //}
-        public SjekklistepunktValidator(IList<EntityValidatorNode> entityValidationGroup)
-            : base(entityValidationGroup)
+        public SjekklistepunktValidator(IList<EntityValidatorNode> entityValidatorTree)
+            : base(entityValidatorTree)
         {
         }
 

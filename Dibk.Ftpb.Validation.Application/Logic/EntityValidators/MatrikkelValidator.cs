@@ -15,15 +15,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         ValidationResult IMatrikkelValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        //public MatrikkelValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator) 
-        //    : base(formValidatorConfiguration, parentValidator)
-        //{
-        //}
-
-        public MatrikkelValidator(IList<EntityValidatorNode> entityValidationGroup) 
-            : base(entityValidationGroup)
+        public MatrikkelValidator(IList<EntityValidatorNode> entityValidatorTree, int? nodeId = null)
+            : base(entityValidatorTree, nodeId)
         {
         }
+        //public MatrikkelValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator)
+        // : base(formValidatorConfiguration, parentValidator)
+        //{
+        //}
 
         public ValidationResult Validate(MatrikkelValidationEntity matrikkel)
         {

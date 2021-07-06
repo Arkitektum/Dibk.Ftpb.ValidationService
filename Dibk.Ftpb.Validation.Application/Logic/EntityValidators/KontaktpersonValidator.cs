@@ -14,14 +14,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 
+        public KontaktpersonValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId)
+            : base(entityValidatorTree, nodeId)
+        {
+        }
         //public KontaktpersonValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator)
         //    : base(formValidatorConfiguration, parentValidator)
         //{
         //}
-        public KontaktpersonValidator(IList<EntityValidatorNode> entityValidationGroup)
-            : base(entityValidationGroup)
-        {
-        }
 
         protected override void InitializeValidationRules()
         {

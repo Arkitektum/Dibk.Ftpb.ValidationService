@@ -1,4 +1,5 @@
-﻿using Dibk.Ftpb.Validation.Application.Enums;
+﻿using System.Collections.Generic;
+using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
@@ -15,15 +16,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        //public EnkelAdresseValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator) 
+        public EnkelAdresseValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId)
+            : base(entityValidatorTree, nodeId)
+        {
+        }
+        //public EnkelAdresseValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator)
         //    : base(formValidatorConfiguration, parentValidator)
         //{
         //}
-
-        public EnkelAdresseValidator(IList<EntityValidatorNode> entityValidationGroup) 
-            : base(entityValidationGroup)
-        {
-        }
 
         protected override void InitializeValidationRules()
         {

@@ -19,13 +19,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         
         
-        //public KodelisteValidator(IList<GroupEnumerable.EntityValidatorNode> entityValidationGroup, EntityValidatorEnum parentValidator, ICodeListService codeListService)
-        //    : base(entityValidationGroup, parentValidator.ToString())
+        //public KodelisteValidator(IList<GroupEnumerable.EntityValidatorNode> entityValidatorTree, EntityValidatorEnum parentValidator, ICodeListService codeListService)
+        //    : base(entityValidatorTree, parentValidator.ToString())
         //{
         //    _codeListService = codeListService;
         //} 
-        public KodelisteValidator(IList<EntityValidatorNode> entityValidationGroup, int nodeId, ICodeListService codeListService)
-            : base(entityValidationGroup, nodeId)
+        public KodelisteValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, ICodeListService codeListService)
+            : base(entityValidatorTree, nodeId)
         {
             _codeListService = codeListService;
         }        

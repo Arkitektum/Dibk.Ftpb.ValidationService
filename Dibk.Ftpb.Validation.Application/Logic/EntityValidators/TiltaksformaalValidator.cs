@@ -14,8 +14,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         //{
         //    _codeListService = codeListService;
         //}
-        public TiltaksformaalValidator(IList<EntityValidatorNode> entityValidationGroup, int nodeid, ICodeListService codeListService)
-            : base(entityValidationGroup, nodeid, codeListService)
+        public TiltaksformaalValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeid, ICodeListService codeListService)
+            : base(entityValidatorTree, nodeid, codeListService)
         {
             _codeListService = codeListService;
         }

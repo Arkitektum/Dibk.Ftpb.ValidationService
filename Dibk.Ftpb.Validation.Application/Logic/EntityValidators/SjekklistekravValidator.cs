@@ -23,8 +23,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         //    _sjekklistepunktValidator = sjekklistepunktValidator;
         //}
 
-        public SjekklistekravValidator(IList<EntityValidatorNode> entityValidationGroup, ISjekklistepunktValidator sjekklistepunktValidator)
-            : base(entityValidationGroup)
+        public SjekklistekravValidator(IList<EntityValidatorNode> entityValidatorTree, ISjekklistepunktValidator sjekklistepunktValidator)
+            : base(entityValidatorTree)
         {
             _sjekklistepunktValidator = sjekklistepunktValidator;
         }

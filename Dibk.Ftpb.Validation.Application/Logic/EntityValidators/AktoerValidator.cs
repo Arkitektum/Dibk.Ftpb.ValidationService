@@ -26,10 +26,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected IKontaktpersonValidator _kontaktpersonValidator;
         protected IKodelisteValidator _kodelisteValidator;
 
-        //TODO Check Parent Validator in : base()
-        public AktoerValidator(IList<EntityValidatorNode> entityValidationGroup, int nodeId, IEnkelAdresseValidator enkelAdresseValidator,
+        
+        public AktoerValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, IEnkelAdresseValidator enkelAdresseValidator,
             IKontaktpersonValidator kontaktpersonValidator, IKodelisteValidator kodelisteValidator, ICodeListService codeListService)
-            : base(entityValidationGroup, nodeId)
+            : base(entityValidatorTree, nodeId)
         {
             _codeListService = codeListService;
             _enkelAdresseValidator = enkelAdresseValidator;

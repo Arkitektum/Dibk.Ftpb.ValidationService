@@ -108,50 +108,46 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 //Tiltakshaver
                 new ()
                 {
-                    Id = 4,
-                    EnumId = EntityValidatorEnum.TiltakshaverValidator,
-                    ParentID = null,
-                },
-                new ()
-                {
-                    Id = 5,
-                    EnumId = EntityValidatorEnum.KontaktpersonValidator,
-                    ParentID = 4,
-                },
-                new ()
-                {
-                    Id = 6,
-                    EnumId = EntityValidatorEnum.PartstypeValidator,
-                    ParentID = 4,
-                },
-                new ()
-                {
-                    Id = 7,
-                    EnumId = EntityValidatorEnum.EnkelAdresseValidator,
-                    ParentID = 4,
-                },
+                Id = 4,
+                EnumId = EntityValidatorEnum.TiltakshaverValidator,
+                ParentID = null,
+                }, //root node
+                new () {
+                Id = 5,
+                EnumId = EntityValidatorEnum.KontaktpersonValidator,
+                ParentID = 4,
 
-                //Fakturamottaker
-                new ()
-                {
-                    Id = 8,
-                    EnumId = EntityValidatorEnum.FakturamottakerValidator,
-                    ParentID = null,
                 },
-                new ()
-                {
-                    Id = 9,
-                    EnumId = EntityValidatorEnum.EnkelAdresseValidator,
-                    ParentID = 8,
+                new () {
+                Id = 6,
+                EnumId = EntityValidatorEnum.PartstypeValidator,
+                ParentID = 4,
                 },
-
-                //Arbeidsplasser
-                new ()
-                {
-                    Id = 10,
-                    EnumId = EntityValidatorEnum.ArbeidsplasserValidator,
-                    ParentID = null,
-                },
+                new () {
+                Id = 7,
+                EnumId = EntityValidatorEnum.EnkelAdresseValidator,
+                ParentID = 4,
+            },
+            //Fakturamottaker
+            new ()
+            {
+                Id = 8,
+                EnumId = EntityValidatorEnum.FakturamottakerValidator,
+                ParentID = 4,
+            },
+            new ()
+            {
+                Id = 9,
+                EnumId = EntityValidatorEnum.EnkelAdresseValidator,
+                ParentID = 8,
+            },
+            //Arbeidsplasser
+            new ()
+            {
+                Id = 10,
+                EnumId = EntityValidatorEnum.ArbeidsplasserValidator,
+                ParentID = null,
+            },
             };
 
             _entityValidatorTree = EntityValidatiorTree.BuildTree(entityValidatorNodes);
@@ -159,20 +155,22 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         protected override void InstantiateValidators()
         {
+            //EiendomByggested
+            _matrikkelValidator = new MatrikkelValidator(_entityValidatorTree, 3);
+            _eiendomsAdresseValidator = new EiendomsAdresseValidator(_entityValidatorTree, 2);
+            _eiendomByggestedValidator = new EiendomByggestedValidator(_entityValidatorTree,1, _eiendomsAdresseValidator, _matrikkelValidator, _municipalityValidator);
 
-            _eiendomsAdresseValidator = new EiendomsAdresseValidator(_entityValidatorTree);
-            _matrikkelValidator = new MatrikkelValidator(_entityValidatorTree);
-            _eiendomByggestedValidator = new EiendomByggestedValidator(_entityValidatorTree, _eiendomsAdresseValidator, _matrikkelValidator, _municipalityValidator);
+            //Tiltakshaver
+            _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(_entityValidatorTree, 7);
+            _kontaktpersonValidator = new KontaktpersonValidator(_entityValidatorTree, 5);
+            _partstypeValidator = new PartstypeValidator(_entityValidatorTree, 6, _codeListService);
+            _tiltakshaverValidator = new TiltakshaverValidator(_entityValidatorTree,4, _tiltakshaverEnkelAdresseValidator, _kontaktpersonValidator, _partstypeValidator, _codeListService);
+            //Arbeidsplasser
+            _arbeidsplasserValidator = new ArbeidsplasserValidator(_entityValidatorTree,10);
 
-            _arbeidsplasserValidator = new ArbeidsplasserValidator(_entityValidatorTree);
-
-            _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(_entityValidatorTree);
-            _kontaktpersonValidator = new KontaktpersonValidator(_entityValidatorTree);
-            _partstypeValidator = new PartstypeValidator(_entityValidatorTree, 6, _codeListService);  //?????????????
-            _tiltakshaverValidator = new TiltakshaverValidator(_entityValidatorTree, 4, _tiltakshaverEnkelAdresseValidator, _kontaktpersonValidator, _partstypeValidator, _codeListService);
-            
-            _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidator(_entityValidatorTree);
-            _fakturamottakerValidator = new FakturamottakerValidator(_entityValidatorTree, _fakturamottakerEnkelAdresseValidator);
+            //Fakturamottaker
+            _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidator(_entityValidatorTree,9);
+            _fakturamottakerValidator = new FakturamottakerValidator(_entityValidatorTree,8, _fakturamottakerEnkelAdresseValidator);
 
         }
         protected override void DefineValidationRules()

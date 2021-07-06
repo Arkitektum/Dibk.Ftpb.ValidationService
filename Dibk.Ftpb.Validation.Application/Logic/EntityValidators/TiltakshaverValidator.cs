@@ -20,13 +20,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         //    _kodelisteValidator = kodelisteValidator;
 
         //}
-        public TiltakshaverValidator(IList<EntityValidatorNode> entityValidationGroup, int nodeid, IEnkelAdresseValidator enkelAdresseValidator,
-                IKontaktpersonValidator kontaktpersonValidator, IKodelisteValidator kodelisteValidator, ICodeListService codeListService)
-            : base(entityValidationGroup, nodeid, enkelAdresseValidator, kontaktpersonValidator, kodelisteValidator, codeListService)
+        public TiltakshaverValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, IEnkelAdresseValidator enkelAdresseValidator, IKontaktpersonValidator kontaktpersonValidator, IKodelisteValidator kodelisteValidator, ICodeListService codeListService)
+            : base(entityValidatorTree, nodeId, enkelAdresseValidator, kontaktpersonValidator, kodelisteValidator, codeListService)
         {
             _codeListService = codeListService;
-            //_enkelAdresseValidator = enkelAdresseValidator;
-            //_kontaktpersonValidator = kontaktpersonValidator;
+            _enkelAdresseValidator = enkelAdresseValidator;
+            _kontaktpersonValidator = kontaktpersonValidator;
             _kodelisteValidator = kodelisteValidator;
         }
 

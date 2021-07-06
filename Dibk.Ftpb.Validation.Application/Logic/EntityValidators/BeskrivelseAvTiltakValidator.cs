@@ -17,17 +17,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
         private readonly FormaaltypeValidator _formaaltypeValidator;
-        //private readonly TiltakstypeValidator _tiltakstypeValidator;
-        private readonly AnleggstypeValidator _anleggstypeValidator;
-        private readonly ICodeListService _anleggstypeCodeListService;
+        private readonly TiltakstypeValidator _tiltakstypeValidator;
 
-        public BeskrivelseAvTiltakValidator(IList<EntityValidatorNode> entityValidationGroup, FormaaltypeValidator formaaltypeValidator,  AnleggstypeValidator anleggstypeValidator, ICodeListService anleggstypeCodeListService)
-            : base(entityValidationGroup, null)
+        public BeskrivelseAvTiltakValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, FormaaltypeValidator formaaltypeValidator, TiltakstypeValidator tiltakstypeValidator)
+            : base(entityValidatorTree, nodeId)
         {
             _formaaltypeValidator = formaaltypeValidator;
-            //_tiltakstypeValidator = tiltakstypeValidator;
-            _anleggstypeValidator = anleggstypeValidator;
-            _anleggstypeCodeListService = anleggstypeCodeListService;
+            _tiltakstypeValidator = tiltakstypeValidator;
         }
         //public BeskrivelseAvTiltakValidator(FormValidatorConfiguration formValidatorConfiguration, FormaaltypeValidator formaaltypeValidator, TiltakstypeValidator tiltakstypeValidator)
         //    : base(formValidatorConfiguration)
@@ -72,7 +68,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     {
                         //var tiltakstypeValidationResult = _tiltakstypeValidator.Validate(tiltakstypeValidationEntity);
                         //UpdateValidationResultWithSubValidations(tiltakstypeValidationResult);
-                    } 
+                    }
                 }
             }
             return ValidationResult;

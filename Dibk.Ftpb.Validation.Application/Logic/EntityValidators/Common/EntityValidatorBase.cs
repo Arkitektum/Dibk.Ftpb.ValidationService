@@ -19,14 +19,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 
         ValidationResult IEntityValidator.ValidationResult { get => _validationResult; set => _validationResult = value; }
 
-        public EntityValidatorBase(IList<EntityValidatorNode> entityValidationGroup, int? nodeId = null, string xmlElement = null)
+        public EntityValidatorBase(IList<EntityValidatorNode> entityValidatorTree, int? nodeId = null, string xmlElement = null)
         {
             _validationResult = new ValidationResult();
             _validationResult = new ValidationResult();
             _validationResult.ValidationRules = new List<ValidationRule>();
             _validationResult.ValidationMessages = new List<ValidationMessage>();
             var validatorName = xmlElement ?? this.GetType().Name;
-            var rule = GetEntityValidationGroup(entityValidationGroup, nodeId, validatorName);
+            var rule = GetEntityValidationGroup(entityValidatorTree, nodeId, validatorName);
 
             _rulePath = rule.RulePath;
             _entityXPath = rule.EntityXPath;

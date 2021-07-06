@@ -20,8 +20,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         ValidationResult IEiendomByggestedValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        public EiendomByggestedValidator(IList<EntityValidatorNode> entityValidationGroup, IEiendomsAdresseValidator eiendomsAdresseValidator, IMatrikkelValidator matrikkelValidator, IMunicipalityValidator municipalityValidator)
-            : base(entityValidationGroup)
+        public EiendomByggestedValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, IEiendomsAdresseValidator eiendomsAdresseValidator, IMatrikkelValidator matrikkelValidator, IMunicipalityValidator municipalityValidator)
+            : base(entityValidatorTree, nodeId)
         {
             _municipalityValidator = municipalityValidator;
             _eiendomsAdresseValidator = eiendomsAdresseValidator;

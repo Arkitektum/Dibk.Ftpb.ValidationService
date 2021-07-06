@@ -1,4 +1,5 @@
-﻿using Dibk.Ftpb.Validation.Application.Enums;
+﻿using System.Collections.Generic;
+using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
@@ -15,18 +16,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         ValidationResult IEiendomsAdresseValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        //public EiendomsAdresseValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator) 
-        //    : base(formValidatorConfiguration, parentValidator)
+        public EiendomsAdresseValidator(IList<EntityValidatorNode> entityValidatorTree, int? nodeId = null)
+            : base(entityValidatorTree, nodeId)
+        {
+        }
+        //public EiendomsAdresseValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator)
+        //  : base(formValidatorConfiguration, parentValidator)
         //{
         //}
 
-        public EiendomsAdresseValidator(IList<EntityValidatorNode> entityValidationGroup) 
-            : base(entityValidationGroup)
-        {
-        }
 
-
-        //IList<EntityValidatorNode> entityValidationGroup
+        //IList<EntityValidatorNode> entityValidatorTree
         public ValidationResult Validate(EiendomsAdresseValidationEntity eiendomsAdresseValidationEntity)
         {
             base.ResetValidationMessages();

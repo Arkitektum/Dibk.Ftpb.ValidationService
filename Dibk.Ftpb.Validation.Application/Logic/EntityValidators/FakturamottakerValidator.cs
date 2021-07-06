@@ -26,8 +26,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         //    _enkelAdresseValidator = enkelAdresseValidator;
         //}
 
-        public FakturamottakerValidator(IList<EntityValidatorNode> entityValidationGroup, IEnkelAdresseValidator enkelAdresseValidator) 
-            : base(entityValidationGroup)
+        public FakturamottakerValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, IEnkelAdresseValidator enkelAdresseValidator) 
+            : base(entityValidatorTree, nodeId)
         {
             //TODO: Automize this?
             _enkelAdresseValidator = enkelAdresseValidator;

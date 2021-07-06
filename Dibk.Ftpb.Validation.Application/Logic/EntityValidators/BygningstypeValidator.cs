@@ -14,8 +14,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         //{
         //    _codeListService = codeListService;
         //}
-        public BygningstypeValidator(IList<EntityValidatorNode> entityValidationGroup, int nodeId, ICodeListService codeListService)
-            : base(entityValidationGroup, nodeId, codeListService)
+        public BygningstypeValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, ICodeListService codeListService)
+            : base(entityValidatorTree, nodeId, codeListService)
         {
             _codeListService = codeListService;
         }

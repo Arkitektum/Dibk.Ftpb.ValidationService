@@ -89,23 +89,16 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
                 }
             };
 
-            _tree =EntityValidatiorTree.BuildTree(flatList);
+            _tree = EntityValidatiorTree.BuildTree(flatList);
 
             ICodeListService anleggstypeCodeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, false);
             AnleggstypeValidator anleggstypeValidator = new AnleggstypeValidator(_tree, 3, anleggstypeCodeListService);
-
-
-            ICodeListService tiltaksformaalCodeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, true);
-
             FormaaltypeValidator formaaltypeValidator = new FormaaltypeValidator(_tree, 2, anleggstypeValidator, anleggstypeCodeListService);
 
-            //TiltakstypeValidator tiltakstypeValidator = new TiltakstypeValidator(_formValidatorConfiguration, EntityValidatorEnum.BeskrivelseAvTiltakValidator, tiltaksformaalCodeListService);
+            ICodeListService tiltaksformaalCodeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, true);
+            TiltakstypeValidator tiltakstypeValidator = new TiltakstypeValidator(_tree, 7, tiltaksformaalCodeListService);
 
-            //Test new AnleggstypeValidator for "beskrivelseAvTiltakValidator". Same validator is use in to different places 
-            ICodeListService anleggstypeCodeListService1 = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, false);
-            AnleggstypeValidator anleggstypeValidator1 = new AnleggstypeValidator(_tree, 8, anleggstypeCodeListService);
-
-            _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(_tree, formaaltypeValidator, anleggstypeValidator1, anleggstypeCodeListService1);
+            _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(_tree, 1, formaaltypeValidator, tiltakstypeValidator);
 
         }
 
@@ -114,7 +107,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         {
 
             var formEntity = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(_form, "ArbeidstilsynetsSamtykke");
-           
+
             var beskrivelseValidationResult = _beskrivelseAvTiltakValidator.Validate(formEntity.ModelData.BeskrivelseAvTiltakValidationEntity);
             beskrivelseValidationResult.Should().NotBeNull();
 

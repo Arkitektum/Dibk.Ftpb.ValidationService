@@ -20,8 +20,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         //{
         //}
 
-        public EnkelAdresseValidatorV2(IList<EntityValidatorNode> entityValidationGroup)
-            : base(entityValidationGroup)
+        public EnkelAdresseValidatorV2(IList<EntityValidatorNode> entityValidatorTree, int nodeId)
+            : base(entityValidatorTree, nodeId)
         {
         }
 
