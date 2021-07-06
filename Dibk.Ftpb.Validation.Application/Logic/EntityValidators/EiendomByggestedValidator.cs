@@ -91,7 +91,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             if (!TillattPostnrIKommune(eiendomValidationEntity.ModelData.Kommunenavn, eiendomValidationEntity.ModelData.Adresse.ModelData?.Postnr))
             {
-                AddMessageFromRule(ValidationRuleEnum.eiendomsadresse_tillatte_postnr_i_kommune, eiendomValidationEntity.DataModelXpath, new List<string>() { eiendomValidationEntity.ModelData.Adresse.ModelData?.Postnr, eiendomValidationEntity.ModelData.Kommunenavn });
+                AddMessageFromRule(ValidationRuleEnum.eiendomsadresse_tillatte_postnr_i_kommune, eiendomValidationEntity.DataModelXpath, new [] { eiendomValidationEntity.ModelData.Adresse.ModelData?.Postnr, eiendomValidationEntity.ModelData.Kommunenavn });
             }
         }
 

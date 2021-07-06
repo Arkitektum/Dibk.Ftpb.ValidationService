@@ -180,41 +180,45 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 
 
 
-        protected void AddMessageFromRule(ValidationRuleEnum id, string xPath, List<string> messageParameters)
-        {
-            var rule = RuleToValidate(id);
-            var XmlElement = String.IsNullOrEmpty(rule.XmlElement) ? null : $"/{rule.XmlElement}";
+        //protected void AddMessageFromRule(ValidationRuleEnum id, string xPath, string[] messageParameters)
+        //{
+        //    var rule = RuleToValidate(id);
+        //    var XmlElement = String.IsNullOrEmpty(rule.XmlElement) ? null : $"/{rule.XmlElement}";
 
-            string newXPath;
-            newXPath = string.IsNullOrEmpty(xPath) ? rule.Xpath : $"{xPath}{XmlElement}"; // debug XmlElement in rule.Xpath!?
+        //    string newXPath;
+        //    newXPath = string.IsNullOrEmpty(xPath) ? rule.Xpath : $"{xPath}{XmlElement}"; // debug XmlElement in rule.Xpath!?
 
-            var validationMessage = new ValidationMessage()
-            {
-                Reference = id,
-                XpathField = newXPath,
-                MessageParameters = messageParameters
-            };
+        //    var validationMessage = new ValidationMessage()
+        //    {
+        //        Reference = id,
+        //        XpathField = newXPath,
+        //        MessageParameters = messageParameters
+        //    };
 
-            _validationResult.ValidationMessages.Add(validationMessage);
-        }
+        //    _validationResult.ValidationMessages.Add(validationMessage);
+        //}
 
-        public void AddMessageFromRule(ValidationRuleEnum id, string xPath)
-        {
-            AddMessageFromRule(id, xPath, null);
-        }
-        /// <summary>
-        /// Use when validating if collection is empty (because modelEntity.DataModelXpath is not present)
-        /// </summary>
-        /// <param name="id"></param>
+        //public void AddMessageFromRule(ValidationRuleEnum id, string xPath)
+        //{
+        //    AddMessageFromRule(id, xPath, null);
+        //}
+        ///// <summary>
+        ///// Use when validating if collection is empty (because modelEntity.DataModelXpath is not present)
+        ///// </summary>
+        ///// <param name="id"></param>
         public void AddMessageFromRuleIfCollectionIsEmpty(ValidationRuleEnum id)
         {
             AddMessageFromRule(id, null, null);
         }
 
 
-        protected void AddMessageFromRule(string id, string xPath, List<string> messageParameters)
+        protected void AddMessageFromRule(object id, string xPath, string[] messageParameters = null)
         {
-            var rule = RuleToValidate(id);
+            var idSt = string.Empty;
+
+            idSt = id.ToString();
+
+            var rule = RuleToValidate(idSt);
 
             string newXPath;
             if (!string.IsNullOrEmpty(xPath))
@@ -229,7 +233,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 
             var validationMessage = new ValidationMessage()
             {
-                ReferenceSt = id,
+                ReferenceSt = idSt,
                 RulePath = rule.RulePath ?? _rulePath,
                 XpathField = newXPath,
                 MessageParameters = messageParameters
@@ -243,7 +247,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 
             if (id is Enum)
                 idSt = id.ToString();
-            
+
             AddMessageFromRule(idSt, xPath, null);
         }
 

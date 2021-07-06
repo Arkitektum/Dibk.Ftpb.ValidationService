@@ -68,7 +68,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private void ValidateCodeFromRegister(KodelisteValidationEntity tiltakstypeValidationEntity)
         {
             if (tiltakstypeValidationEntity.ModelData.Kodeverdi != "XX")
-                AddMessageFromRule(ValidationRuleEnum.beskrivelseAvTiltak_tiltakstype_gyldig_kode, tiltakstypeValidationEntity.DataModelXpath, new List<string>() { tiltakstypeValidationEntity.ModelData.Kodeverdi });
+                AddMessageFromRule(ValidationRuleEnum.beskrivelseAvTiltak_tiltakstype_gyldig_kode, tiltakstypeValidationEntity.DataModelXpath, new [] { tiltakstypeValidationEntity.ModelData.Kodeverdi });
 
         }
     }

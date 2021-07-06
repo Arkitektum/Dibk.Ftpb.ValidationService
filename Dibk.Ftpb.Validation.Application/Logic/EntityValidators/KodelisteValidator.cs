@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Enums;
@@ -60,7 +60,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             {
                 if (!_codeListService.IsCodelistValid(FtbCodeListNames.Partstype, kodeliste.ModelData?.Kodeverdi))
                 {
-                    AddMessageFromRule(KodeListValidationEnums.kodeverdi_ugyldig, xpath);
+                        AddMessageFromRule(KodeListValidationEnums.kodeverdi_ugyldig, xpath, new[] { kodeliste.ModelData?.Kodeverdi });
                 }
             }
             return ValidationResult;
