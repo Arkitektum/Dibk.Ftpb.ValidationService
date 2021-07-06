@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
@@ -7,7 +8,9 @@ using Dibk.Ftpb.Validation.Application.Utils;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
+using Dibk.Ftpb.Validation.Application.Logic.GeneralValidations;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -26,8 +29,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected override void InitializeValidationRules()
         {
             AddValidationRule(EnkelAdresseValidationEnums.adresse_utfylt, "adresse");
+            AddValidationRule(EnkelAdresseValidationEnums.adresse_utfylt, "adresse");
             AddValidationRule(EnkelAdresseValidationEnums.adresselinje1_utfylt, "adresselinje1");
-            AddValidationRule(EnkelAdresseValidationEnums.adresselinje2_utfylt, "adresselinje2");
             AddValidationRule(EnkelAdresseValidationEnums.landkode_utfylt, "landkode");
             AddValidationRule(EnkelAdresseValidationEnums.postnr_utfylt, "postnr");
         }
@@ -35,7 +38,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null)
         {
             var xpath = enkelAdresse.DataModelXpath;
-            if (Helpers.ObjectIsNullOrEmpty(enkelAdresse))
+            if (Helpers.ObjectIsNullOrEmpty(enkelAdresse?.ModelData))
             {
                 AddMessageFromRule(ValidationRuleEnum.adresse_utfylt, xpath);
             }
@@ -52,23 +55,64 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var xPath = adresseValidationEntity.DataModelXpath;
             var adresse = adresseValidationEntity.ModelData;
 
-            if (Helpers.ObjectIsNullOrEmpty(adresse.Adresselinje1))
+            if (string.IsNullOrEmpty(adresse.Adresselinje1))
+            {
                 AddMessageFromRule(EnkelAdresseValidationEnums.adresselinje1_utfylt, xPath);
+            }
+            else
+            {
+                if (!CountryCodeHandler.IsCountryNorway(adresse.Landkode))
+                {
+                    if (!CountryCodeHandler.VerifyCountryCode(adresse.Landkode))
+                    {
+                        AddMessageFromRule(EnkelAdresseValidationEnums.landkode_ugyldug, xPath);
+                    }
+                }
+                else
+                {
+                    var postNr = adresse.Postnr;
+                    var landkode = adresse.Landkode;
 
-            if (Helpers.ObjectIsNullOrEmpty(adresse.Adresselinje2))
-                AddMessageFromRule(EnkelAdresseValidationEnums.adresselinje2_utfylt, xPath);
+                    if (string.IsNullOrEmpty(postNr))
+                    {
+                        AddMessageFromRule(EnkelAdresseValidationEnums.postnr_utfylt, xPath);
+                    }
+                    else
+                    {
+                        Match isPostNrValid = Regex.Match(postNr, "^([0-9])([0-9])([0-9])([0-9])$");
 
-            if (Helpers.ObjectIsNullOrEmpty(adresse.Landkode))
-                AddMessageFromRule(EnkelAdresseValidationEnums.landkode_utfylt, xPath);
+                        if (!isPostNrValid.Success)
+                        {
+                            AddMessageFromRule(EnkelAdresseValidationEnums.postnr_kontrollSiffer, xPath);
+                        }
+                        else
+                        {
+                            var postnrValidation = new PostalCode.BringPostalCodeProvider().ValidatePostnr(postNr, landkode);
+                            if (postnrValidation != null)
+                            {
+                                if (!postnrValidation.Valid)
+                                {
+                                    _validationResult.AddMessage("4845.1.6.12", null);
+                                }
+                                else
+                                {
+                                    if (!postnrValidation.Result.Equals(tiltakshaver.adresse.poststed, StringComparison.CurrentCultureIgnoreCase))
+                                    {
+                                        _validationResult.AddMessage("4845.1.6.13", new[] { postNr, tiltakshaver.adresse.poststed, postnrValidation.Result });
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                _validationResult.AddMessage("4845.1.6.14", null);
+                            }
+                        }
+                    }
+                }
 
-            if (Helpers.ObjectIsNullOrEmpty(adresse.Postnr))
-                AddMessageFromRule(EnkelAdresseValidationEnums.postnr_utfylt, xPath);
+            }
 
-            if (Helpers.ObjectIsNullOrEmpty(adresse.Poststed))
-                AddMessageFromRule(EnkelAdresseValidationEnums.poststed_utfylt, xPath);
 
-            if (HerBurDetGalningar(adresse.Postnr))
-                AddMessageFromRule(EnkelAdresseValidationEnums.postnr_kontrollSiffer, xPath);
         }
 
         private bool HerBurDetGalningar(string input)
