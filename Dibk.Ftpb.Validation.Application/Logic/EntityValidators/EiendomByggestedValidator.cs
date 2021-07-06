@@ -11,14 +11,15 @@ using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class EiendomByggestedValidator : EntityValidatorBase, IEiendomByggestedValidator
+    public class EiendomByggestedValidator : EntityValidatorBase, IEiendomByggestedValidator, IEntityBaseValidator
     {
         private IEiendomsAdresseValidator _eiendomsAdresseValidator;
         private readonly IMatrikkelValidator _matrikkelValidator;
         private readonly IMunicipalityValidator _municipalityValidator;
+       
         //public override string ruleXmlElement { get { return "eiendomByggested{0}"; } set { ruleXmlElement = value; } }
 
-        ValidationResult IEiendomByggestedValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
+        ValidationResult IEntityBaseValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
         public EiendomByggestedValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, IEiendomsAdresseValidator eiendomsAdresseValidator, IMatrikkelValidator matrikkelValidator, IMunicipalityValidator municipalityValidator)
             : base(entityValidatorTree, nodeId)

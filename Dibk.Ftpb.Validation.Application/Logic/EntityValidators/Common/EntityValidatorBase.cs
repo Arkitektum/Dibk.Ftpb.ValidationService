@@ -156,6 +156,30 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             _validationResult.ValidationRules.Add(new ValidationRule() { Id = id, Xpath = xPath, XmlElement = xmlElement, RulePath = _rulePath });
         }
 
+        protected void AddValidationRule(object id, string xmlElement)
+        {
+            var separator = "";
+            int? enumHashCode;
+            string elementRuleId = null;
+            if (id is Enum)
+            {
+                enumHashCode = id.GetHashCode();
+                elementRuleId = $"{_rulePath}.{enumHashCode}";
+            }
+
+            if (!string.IsNullOrEmpty(xmlElement))
+            {
+                separator = "/";
+            }
+            string xPath = $"{_entityXPath}{separator}{xmlElement}";
+            //xPath = Regex.Replace(xPath, @"\[([0-9]*)\]", "{0}");
+
+            _validationResult.ValidationRules.Add(new ValidationRule() { IdSt = id.ToString(), Xpath = xPath, XmlElement = xmlElement, RulePath = elementRuleId ?? _rulePath });
+        }
+
+
+
+
         protected void AddMessageFromRule(ValidationRuleEnum id, string xPath, List<string> messageParameters)
         {
             var rule = RuleToValidate(id);
@@ -187,38 +211,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             AddMessageFromRule(id, null, null);
         }
 
-        //**Add rules with dynamic enum 
-        public ValidationRule RuleToValidate(string id)
-        {
-            var validationRule = _validationResult.ValidationRules.Where(r => !string.IsNullOrEmpty(r.IdSt)).FirstOrDefault(r => r.IdSt.Equals(id)) ?? new ValidationRule()
-            {
-                IdSt = id,
-                Message = $"Can't find rule with id:'{id}'.-"
-            };
 
-            return validationRule;
-        }
-        protected void AddValidationRule(object id, string xmlElement)
-        {
-            var separator = "";
-            int? enumHashCode;
-            string elementRuleId = null;
-            if (id is Enum)
-            {
-                enumHashCode = id.GetHashCode();
-                elementRuleId = $"{_rulePath}.{enumHashCode}";
-            }
-
-            if (!string.IsNullOrEmpty(xmlElement))
-            {
-                separator = "/";
-            }
-            string xPath = $"{_entityXPath}{separator}{xmlElement}";
-            //xPath = Regex.Replace(xPath, @"\[([0-9]*)\]", "{0}");
-
-            _validationResult.ValidationRules.Add(new ValidationRule() { IdSt = id.ToString(), Xpath = xPath, XmlElement = xmlElement, RulePath = elementRuleId ?? _rulePath });
-
-        }
         protected void AddMessageFromRule(string id, string xPath, List<string> messageParameters)
         {
             var rule = RuleToValidate(id);
@@ -269,6 +262,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 
             return ruleFounded;
         }
+
+        //**Add rules with dynamic enum 
+        public ValidationRule RuleToValidate(string id)
+        {
+            var validationRule = _validationResult.ValidationRules.Where(r => !string.IsNullOrEmpty(r.IdSt)).FirstOrDefault(r => r.IdSt.Equals(id)) ?? new ValidationRule()
+            {
+                IdSt = id,
+                Message = $"Can't find rule with id:'{id}'.-"
+            };
+
+            return validationRule;
+        }
+
 
     }
 }

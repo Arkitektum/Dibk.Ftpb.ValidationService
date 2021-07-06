@@ -131,8 +131,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         //Kontaktperson
         kontaktperson_navn_utfylt,
 
-        //fakturamottaker
-        fakturamottaker_utfylt,
+
         
         //
         XsdValidationErrors

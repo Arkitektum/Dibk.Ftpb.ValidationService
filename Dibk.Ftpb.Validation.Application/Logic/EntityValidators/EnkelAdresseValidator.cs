@@ -7,6 +7,7 @@ using Dibk.Ftpb.Validation.Application.Utils;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using System.Collections.Generic;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -14,25 +15,21 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     {
         //public override string ruleXmlElement { get { return "adresse"; } set { ruleXmlElement = value; } }
 
-        public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
+        ValidationResult IEntityBaseValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
         public EnkelAdresseValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId)
             : base(entityValidatorTree, nodeId)
         {
         }
-        //public EnkelAdresseValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator)
-        //    : base(formValidatorConfiguration, parentValidator)
-        //{
-        //}
+
 
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(ValidationRuleEnum.adresse_utfylt);
-            AddValidationRule(ValidationRuleEnum.adresse_adresselinje1_utfylt, "adresselinje1");
-            AddValidationRule(ValidationRuleEnum.adresse_adresselinje2_utfylt, "adresselinje2");
-            AddValidationRule(ValidationRuleEnum.adresse_landkode_utfylt, "landkode");
-            AddValidationRule(ValidationRuleEnum.adresse_postnr_utfylt, "postnr");
-            AddValidationRule(ValidationRuleEnum.adresse_postnr_til_galningar, "postnr");
+            AddValidationRule(EnkelAdresseValidationEnums.adresse_utfylt, "adresse");
+            AddValidationRule(EnkelAdresseValidationEnums.adresselinje1_utfylt, "adresselinje1");
+            AddValidationRule(EnkelAdresseValidationEnums.adresselinje2_utfylt, "adresselinje2");
+            AddValidationRule(EnkelAdresseValidationEnums.landkode_utfylt, "landkode");
+            AddValidationRule(EnkelAdresseValidationEnums.postnr_utfylt, "postnr");
         }
 
         public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null)
@@ -53,24 +50,25 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public void ValidateEntityFields(EnkelAdresseValidationEntity adresseValidationEntity)
         {
             var xPath = adresseValidationEntity.DataModelXpath;
+            var adresse = adresseValidationEntity.ModelData;
 
-            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Adresselinje1))
-                AddMessageFromRule(ValidationRuleEnum.adresse_adresselinje1_utfylt, xPath);
+            if (Helpers.ObjectIsNullOrEmpty(adresse.Adresselinje1))
+                AddMessageFromRule(EnkelAdresseValidationEnums.adresselinje1_utfylt, xPath);
 
-            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Adresselinje2))
-                AddMessageFromRule(ValidationRuleEnum.adresse_adresselinje2_utfylt, xPath);
+            if (Helpers.ObjectIsNullOrEmpty(adresse.Adresselinje2))
+                AddMessageFromRule(EnkelAdresseValidationEnums.adresselinje2_utfylt, xPath);
 
-            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Landkode))
-                AddMessageFromRule(ValidationRuleEnum.adresse_landkode_utfylt, xPath);
+            if (Helpers.ObjectIsNullOrEmpty(adresse.Landkode))
+                AddMessageFromRule(EnkelAdresseValidationEnums.landkode_utfylt, xPath);
 
-            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Postnr))
-                AddMessageFromRule(ValidationRuleEnum.adresse_postnr_utfylt, xPath);
+            if (Helpers.ObjectIsNullOrEmpty(adresse.Postnr))
+                AddMessageFromRule(EnkelAdresseValidationEnums.postnr_utfylt, xPath);
 
-            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Poststed))
-                AddMessageFromRule(ValidationRuleEnum.adresse_poststed_utfylt, xPath);
+            if (Helpers.ObjectIsNullOrEmpty(adresse.Poststed))
+                AddMessageFromRule(EnkelAdresseValidationEnums.poststed_utfylt, xPath);
 
-            if (HerBurDetGalningar(adresseValidationEntity.ModelData.Postnr))
-                AddMessageFromRule(ValidationRuleEnum.adresse_postnr_til_galningar, xPath);
+            if (HerBurDetGalningar(adresse.Postnr))
+                AddMessageFromRule(EnkelAdresseValidationEnums.postnr_kontrollSiffer, xPath);
         }
 
         private bool HerBurDetGalningar(string input)

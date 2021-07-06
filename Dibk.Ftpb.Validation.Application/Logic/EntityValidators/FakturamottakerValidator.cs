@@ -8,6 +8,8 @@ using System.Linq;
 using System.Reflection;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using System.Collections.Generic;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
+using Dibk.Ftpb.Validation.Application.Logic.GeneralValidations;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -36,7 +38,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(ValidationRuleEnum.fakturamottaker_utfylt);
+            AddValidationRule(FakturamottakerValidationEnums.fakturamottaker_utfylt, "fakturamottaker");
+            AddValidationRule(FakturamottakerValidationEnums.organisasjonsnummer_utfylt, "organisasjonsnummer");
+            AddValidationRule(FakturamottakerValidationEnums.organisasjonsnummer_kontrollsiffer, "organisasjonsnummer");
+            AddValidationRule(FakturamottakerValidationEnums.organisasjonsnummer_ugyldig, "organisasjonsnummer");
+
         }
 
         public ValidationResult Validate(FakturamottakerValidationEntity fakturamottaker = null)
@@ -44,10 +50,31 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var xpath = fakturamottaker.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(fakturamottaker.ModelData))
             {
-                AddMessageFromRule(ValidationRuleEnum.fakturamottaker_utfylt, xpath);
+                AddMessageFromRule(FakturamottakerValidationEnums.fakturamottaker_utfylt, xpath);
             }
             else
             {
+                if (string.IsNullOrEmpty(fakturamottaker.ModelData.Organisasjonsnummer))
+                {
+                    AddMessageFromRule(FakturamottakerValidationEnums.organisasjonsnummer_utfylt, xpath);
+                }
+                else
+                {
+                    var organisasjonsnummerValidation = NorskStandardValidator.Validate_OrgnummerEnum(fakturamottaker.ModelData.Organisasjonsnummer);
+                    switch (organisasjonsnummerValidation)
+                    {
+                        case OrganisasjonsnummerValidation.Empty:
+                            AddMessageFromRule(FakturamottakerValidationEnums.organisasjonsnummer_utfylt, xpath);
+                            break;
+                        case OrganisasjonsnummerValidation.InvalidDigitsControl:
+                            AddMessageFromRule(FakturamottakerValidationEnums.organisasjonsnummer_kontrollsiffer, xpath);
+                            break;
+                        case OrganisasjonsnummerValidation.Invalid:
+                            AddMessageFromRule(FakturamottakerValidationEnums.organisasjonsnummer_ugyldig, xpath);
+                            break;
+                    }
+                }
+
                 var adresseValidationResult = _enkelAdresseValidator.Validate(fakturamottaker.ModelData.Adresse);
                 UpdateValidationResultWithSubValidations(adresseValidationResult);
             }
