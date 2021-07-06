@@ -53,8 +53,8 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
                 }
             };
 
-            _tiltakshaver = new Logic.Mappers.ArbeidstilsynetsSamtykke2.AktoerMapper(AktoerEnum.tiltakshaver).Map(tiltakshaver, "ArbeidstilsynetsSamtykke");
-            _codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, false);
+            _tiltakshaver = new Logic.Mappers.ArbeidstilsynetsSamtykke2.AktoerMapper(AktoerEnum.tiltakshaver).Map(tiltakshaver, "UnitTest");
+            _codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, true);
 
 
             var entityValidatorNodes = new List<EntityValidatorNode>()
@@ -99,9 +99,10 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         [Fact]
         public void TestTilashaver()
         {
-            //_tiltakshaver.ModelData.Partstype.ModelData.Kodeverdi = "54554";
-            _tiltakshaver.ModelData.Mobilnummer = null;
-            _tiltakshaver.ModelData.Telefonnummer = null;
+            //_tiltakshaver.ModelData.Mobilnummer = null;
+            //_tiltakshaver.ModelData.Telefonnummer = null;
+            _tiltakshaver.ModelData.Partstype.ModelData = null;
+
             var tiltakshaverResult = _aktoerValidatorTest.Validate(_tiltakshaver);
 
             tiltakshaverResult.Should().NotBeNull();

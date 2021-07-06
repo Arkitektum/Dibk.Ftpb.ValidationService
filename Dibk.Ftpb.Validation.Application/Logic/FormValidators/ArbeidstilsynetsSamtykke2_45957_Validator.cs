@@ -118,8 +118,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.BygningstypeValidator, EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
             //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltaksformaalValidator, EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
             //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltakstypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-
-
+           
+            var eiendombyggestedTree = new List<EntityValidatorNode>()
+            {
+                new () {Id = 1, EnumId = EntityValidatorEnum.EiendomByggestedValidator, ParentID = null},
+                new () {Id = 2, EnumId = EntityValidatorEnum.EiendomsAdresseValidator, ParentID = 1},
+                new () {Id = 3, EnumId = EntityValidatorEnum.MatrikkelValidator, ParentID = 1},
+            };
             var tiltakshaverTree = new List<EntityValidatorNode>()
             {
                 new () {Id = 4, EnumId = EntityValidatorEnum.TiltakshaverValidator, ParentID = null},
@@ -127,13 +132,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 new () {Id = 6, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 4},
                 new () {Id = 7, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 4}
             };
-            var eiendombyggestedTree = new List<EntityValidatorNode>()
-            {
-                new () {Id = 1, EnumId = EntityValidatorEnum.EiendomByggestedValidator, ParentID = null},
-                new () {Id = 2, EnumId = EntityValidatorEnum.EiendomsAdresseValidator, ParentID = 1},
-                new () {Id = 3, EnumId = EntityValidatorEnum.MatrikkelValidator, ParentID = 1},
-            };
-
             var fakturamottakerTree = new List<EntityValidatorNode>()
             {
                 new () {Id = 8, EnumId = EntityValidatorEnum.FakturamottakerValidator, ParentID = null},

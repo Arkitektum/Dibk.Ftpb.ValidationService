@@ -13,6 +13,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
         adresselinje2_utfylt,
         adresselinje3_utfylt,
         landkode_utfylt,
+        landkode_ugyldug,
         postnr_utfylt,
         poststed_utfylt,
         postnr_4siffer,

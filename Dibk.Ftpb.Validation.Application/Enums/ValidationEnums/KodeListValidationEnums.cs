@@ -8,6 +8,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
     public enum KodeListValidationEnums
     {
+        utfylt,
         kodeverdi_utfylt,
         kodeverdi_ugyldig,
         Kodebeskrivelse_utfylt,

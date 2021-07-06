@@ -27,12 +27,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             _validationResult.ValidationMessages = new List<ValidationMessage>();
             var validatorName = xmlElement ?? this.GetType().Name;
             var node = GetEntityValidatorNode(entityValidatorTree, nodeId, validatorName);
-            if (node == null)
+            if (node != null)
             {
-                
+                _rulePath = node.RulePath;
+                _entityXPath = node.EntityXPath;
             }
-            _rulePath = node.RulePath;
-            _entityXPath = node.EntityXPath;
+            else
+            {
+                _rulePath = "Can't find the node";
+                _entityXPath = $"Can't find the node:'{validatorName}' with nodeId:'{nodeId}'";
+            }
+            
             InitializeValidationRules();
         }
 
