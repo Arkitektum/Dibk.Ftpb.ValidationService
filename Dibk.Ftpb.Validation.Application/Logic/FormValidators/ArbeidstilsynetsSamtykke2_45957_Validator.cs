@@ -143,20 +143,24 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             {
                 new() {Id = 10, EnumId = EntityValidatorEnum.ArbeidsplasserValidator, ParentID = null}
             };
-            var ansvarligSoekerTree =new List<EntityValidatorNode>() { 
+
+            var ansvarligSoekerTree =new List<EntityValidatorNode>() 
+            { 
                 new () {Id = 11, EnumId = EntityValidatorEnum.AnsvarligSoekerValidator, ParentID = null},
                 new () {Id = 12, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 11},
                 new () {Id = 13, EnumId = EntityValidatorEnum.KontaktpersonValidator, ParentID = 11,},
-                new () {Id = 14, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 11,}};
+                new () {Id = 14, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 11,}
+            };
 
-            var beskrivelseAvTiltakTree = new List<EntityValidatorNode>() {
+            var beskrivelseAvTiltakTree = new List<EntityValidatorNode>() 
+            {
                 new () {Id = 15, EnumId = EntityValidatorEnum.BeskrivelseAvTiltakValidator, ParentID = null},
                 new () {Id = 16, EnumId = EntityValidatorEnum.FormaaltypeValidator, ParentID = 15},
                 new () {Id = 17, EnumId = EntityValidatorEnum.AnleggstypeValidator, ParentID = 16},
                 new () {Id = 18, EnumId = EntityValidatorEnum.NaeringsgruppeValidator, ParentID = 16},
                 new () {Id = 19, EnumId = EntityValidatorEnum.BygningstypeValidator, ParentID = 16},
                 new () {Id = 20, EnumId = EntityValidatorEnum.TiltaksformaalValidator, ParentID = 16},
-                };
+            };
 
             var formTree = new List<EntityValidatorNode>();
             formTree.AddRange(tiltakshaverTree);
