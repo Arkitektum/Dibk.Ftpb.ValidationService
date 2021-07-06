@@ -90,13 +90,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltakshaverValidator));
             //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidator, EntityValidatorEnum.TiltakshaverValidator));
             //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.KontaktpersonValidator, EntityValidatorEnum.TiltakshaverValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.PartstypeValidator, EntityValidatorEnum.TiltakshaverValidator));
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum._partstypeValidator, EntityValidatorEnum.TiltakshaverValidator));
 
             ////AnsvarligSoeker
             //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.AnsvarligSoekerValidator));
             //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidator, EntityValidatorEnum.AnsvarligSoekerValidator));
             //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.KontaktpersonValidator, EntityValidatorEnum.AnsvarligSoekerValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.PartstypeValidator, EntityValidatorEnum.AnsvarligSoekerValidator));
+            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum._partstypeValidator, EntityValidatorEnum.AnsvarligSoekerValidator));
 
             ////Fakturamottaker
             //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.FakturamottakerValidator));

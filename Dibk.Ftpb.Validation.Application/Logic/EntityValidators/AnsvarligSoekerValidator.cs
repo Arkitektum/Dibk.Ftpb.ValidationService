@@ -10,24 +10,24 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         //public override string ruleXmlElement { get { return "ansvarligSoeker"; } set { ruleXmlElement = value; } }
 
         //public AnsvarligSoekerValidator(FormValidatorConfiguration formValidatorConfiguration, IEnkelAdresseValidator enkelAdresseValidator,
-        //        IKontaktpersonValidator kontaktpersonValidator, IKodelisteValidator kodelisteValidator, ICodeListService codeListService)
-        //    : base(formValidatorConfiguration, enkelAdresseValidator, kontaktpersonValidator, kodelisteValidator, codeListService)
+        //        IKontaktpersonValidator kontaktpersonValidator, IKodelisteValidator partstypeValidator, ICodeListService codeListService)
+        //    : base(formValidatorConfiguration, enkelAdresseValidator, kontaktpersonValidator, partstypeValidator, codeListService)
         //{
         //    _codeListService = codeListService;
         //    _enkelAdresseValidator = enkelAdresseValidator;
         //    _kontaktpersonValidator = kontaktpersonValidator;
-        //    _kodelisteValidator = kodelisteValidator;
+        //    _partstypeValidator = partstypeValidator;
 
         //}
 
         public AnsvarligSoekerValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeid, IEnkelAdresseValidator enkelAdresseValidator,
-                IKontaktpersonValidator kontaktpersonValidator, IKodelisteValidator kodelisteValidator, ICodeListService codeListService)
-            : base(entityValidatorTree, nodeid, enkelAdresseValidator, kontaktpersonValidator, kodelisteValidator, codeListService)
+                IKontaktpersonValidator kontaktpersonValidator, IKodelisteValidator partstypeValidator, ICodeListService codeListService)
+            : base(entityValidatorTree, nodeid, enkelAdresseValidator, kontaktpersonValidator, partstypeValidator, codeListService)
         {
             _codeListService = codeListService;
             _enkelAdresseValidator = enkelAdresseValidator;
             _kontaktpersonValidator = kontaktpersonValidator;
-            _kodelisteValidator = kodelisteValidator;
+            _partstypeValidator = partstypeValidator;
 
         }
 

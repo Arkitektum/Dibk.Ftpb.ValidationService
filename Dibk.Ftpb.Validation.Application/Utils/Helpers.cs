@@ -2,6 +2,7 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using Dibk.Ftpb.Validation.Application.Enums;
 
@@ -87,6 +88,38 @@ namespace Dibk.Ftpb.Validation.Application.Utils
             }
             return ruleNumber;
 
+        }
+
+        public static string GetNodeNamefromClass<T>(Expression<Func<T>> action)
+        {
+            var path = action.Body.ToString();
+            var index = path.LastIndexOf(".");
+            var nodeName = index>0? path.Remove(0, index + 1):"";
+            return nodeName;
+        }
+        public static string GetFullClassPath<T>(Expression<Func<T>> action)
+        {
+
+            var path = action.Body.ToString();
+            int index = path.LastIndexOf("form.", StringComparison.InvariantCultureIgnoreCase);
+
+            var classPathTemp = index > 0 ? path.Remove(0, index) : path.Remove(0, path.IndexOf(")", StringComparison.Ordinal) + 2);
+
+            string classPath = String.Empty;
+            int index2 = classPathTemp.LastIndexOf(".form", StringComparison.InvariantCultureIgnoreCase);
+
+
+            if (index2 > 0 && classPathTemp.Length == index2 + 5 && !classPathTemp.Contains("form."))
+            {
+                classPath = classPathTemp.Remove(0, index2 + 1);
+            }
+            else
+            {
+                classPath = classPathTemp;
+            }
+
+            classPath = classPath.Replace(".", "/");
+            return classPath;
         }
     }
 }

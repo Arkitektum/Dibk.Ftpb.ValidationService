@@ -53,7 +53,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
                 }
             };
 
-            _tiltakshaver = new Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2.AktoerMapper(AktoerEnum.tiltakshaver).Map(tiltakshaver, "ArbeidstilsynetsSamtykke");
+            _tiltakshaver = new Logic.Mappers.ArbeidstilsynetsSamtykke2.AktoerMapper(AktoerEnum.tiltakshaver).Map(tiltakshaver, "ArbeidstilsynetsSamtykke");
             _codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, false);
 
 

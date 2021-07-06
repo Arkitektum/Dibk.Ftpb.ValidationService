@@ -14,7 +14,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             _codeListService = codeListService;
         }
-        //public PartstypeValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator, ICodeListService codeListService)
+        //public _partstypeValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator, ICodeListService codeListService)
         //    : base(formValidatorConfiguration, parentValidator, codeListService)
         //{
         //    _codeListService = codeListService;
