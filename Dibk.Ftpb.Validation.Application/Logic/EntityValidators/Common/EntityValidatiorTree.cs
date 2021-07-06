@@ -25,20 +25,20 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             return roots;
         }
 
-        private static void AddChildren(EntityValidatorNode node, IDictionary<int, List<EntityValidatorNode>> source, string parentName = null, string paretRuleNumber = null)
+        private static void AddChildren(EntityValidatorNode node, IDictionary<int, List<EntityValidatorNode>> source, string parentName = null, string parentRuleNumber = null)
         {
             if (source.ContainsKey(node.Id))
             {
                 node.Children = source[node.Id];
                 node.EntityXPath = AddNodeToXpath(parentName ?? node.RulePath, node.EnumId);
-                node.RulePath = AddNodeToRulePath(paretRuleNumber ?? node.RulePath, (int)node.EnumId);
+                node.RulePath = AddNodeToRulePath(parentRuleNumber ?? node.RulePath, node.EnumId);
 
                 for (int i = 0; i < node.Children.Count; i++) AddChildren(node.Children[i], source, node.EntityXPath, node.RulePath);
             }
             else
             {
                 node.EntityXPath = AddNodeToXpath(parentName ?? node.RulePath, node.EnumId);
-                node.RulePath = AddNodeToRulePath(paretRuleNumber ?? node.RulePath, (int)node.EnumId);
+                node.RulePath = AddNodeToRulePath(parentRuleNumber ?? node.RulePath, node.EnumId);
                 node.Children = new List<EntityValidatorNode>();
             }
         }
@@ -46,7 +46,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
         private static string AddNodeToXpath(string entityXpath, EntityValidatorEnum EnumId)
         {
 
-            var xmlNode = Helpers.GetEnumDescription(EnumId);
+            var xmlNode = Helpers.GetEnumXmlNodeName(EnumId);
             var entityName = xmlNode ?? EnumId.ToString();
 
             if (string.IsNullOrEmpty(entityName))
@@ -54,12 +54,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             var newXpath = $"{entityXpath}/{entityName}";
             return newXpath;
         }
-        private static string AddNodeToRulePath(string entityXpath, int? entityName = null)
+        private static string AddNodeToRulePath(string entityXpath, EntityValidatorEnum? EnumId = null)
         {
-            if (!entityName.HasValue)
+            if (!EnumId.HasValue)
                 return entityXpath;
-
-            var newXpath = $"{entityXpath}.{entityName}";
+            
+            var enumValidatorNumber = Helpers.GetEnumValidatorRuleNumber(EnumId);
+            var newXpath = $"{entityXpath}.{enumValidatorNumber}";
             return newXpath;
         }
     }

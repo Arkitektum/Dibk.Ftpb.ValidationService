@@ -62,7 +62,7 @@ namespace Dibk.Ftpb.Validation.Application.Utils
                    || type == typeof(string)
                    || type == typeof(decimal);
         }
-        public static string GetEnumDescription(Enum value)
+        public static string GetEnumXmlNodeName(Enum value)
         {
             FieldInfo fi = value.GetType().GetField(value.ToString());
             
@@ -75,13 +75,18 @@ namespace Dibk.Ftpb.Validation.Application.Utils
             }
 
             return xmlNode;
-            //DescriptionAttribute[] attributes = fi.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];
+        }
+        public static string GetEnumValidatorRuleNumber(Enum value)
+        {
+            FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
+            var ruleNumber = string.Empty;
 
-            //if (attributes != null && attributes.Any())
-            //{
-            //    return attributes.First().Description;
-            //}
-            //return value.ToString();
+            if (fieldInfo?.GetCustomAttributes(typeof(EnumerationAttribute), false) is EnumerationAttribute[] enumerationAttributes && enumerationAttributes.Any())
+            {
+                ruleNumber= enumerationAttributes.First().ValidatorId;
+            }
+            return ruleNumber;
+
         }
     }
 }

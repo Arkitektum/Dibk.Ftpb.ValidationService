@@ -19,10 +19,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
     [FormData(DataFormatVersion = "45957")]
     public class ArbeidstilsynetsSamtykke2_45957_Validator : FormValidatorBase, IFormValidator
     {
-        private readonly FormValidatorConfiguration _formValidatorConfiguration;
+        private ArbeidstilsynetsSamtykke2_45957_ValidationEntity _validationForm { get; set; }
+
+        //private readonly FormValidatorConfiguration _formValidatorConfiguration;
         private readonly IMunicipalityValidator _municipalityValidator;
         private readonly ICodeListService _codeListService;
-        private ArbeidstilsynetsSamtykke2_45957_ValidationEntity _validationForm { get; set; }
+
         private IEiendomsAdresseValidator _eiendomsAdresseValidator;
         private IMatrikkelValidator _matrikkelValidator;
         private IEiendomByggestedValidator _eiendomByggestedValidator;
@@ -57,7 +59,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         public ArbeidstilsynetsSamtykke2_45957_Validator(FormValidatorConfiguration formValidatorConfiguration, IMunicipalityValidator municipalityValidator, ICodeListService codeListService)
         {
-            _formValidatorConfiguration = formValidatorConfiguration;
+            //_formValidatorConfiguration = formValidatorConfiguration;
             _municipalityValidator = municipalityValidator;
             _codeListService = codeListService;
         }
@@ -259,8 +261,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             };
 
             EntityValidatorTree = EntityValidatiorTree.BuildTree(entityValidatorNodes);
-
-
 
         }
 
