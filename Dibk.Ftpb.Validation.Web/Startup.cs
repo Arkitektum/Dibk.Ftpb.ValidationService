@@ -18,6 +18,7 @@ using Serilog.Sinks.Elasticsearch;
 using System;
 using System.Text.Json.Serialization;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 
 namespace Dibk.Ftpb.Validation
@@ -59,6 +60,10 @@ namespace Dibk.Ftpb.Validation
             services.AddHttpClient<CodelistApiHttpClient>();
             services.AddTransient<ICodeListService, CodeListService>();
             services.Configure<CodelistApiSettings>(Configuration.GetSection("CodeListApi"));
+
+            services.AddHttpClient<PostalCodeHttpClient>();
+            services.AddTransient<IPostalCodeService, PostalCodeService>();
+            services.Configure<PostalCodeSettings>(Configuration.GetSection("PostalCodeApi"));
 
 
             services.AddTransient<IValidationService, ValidationService>();
