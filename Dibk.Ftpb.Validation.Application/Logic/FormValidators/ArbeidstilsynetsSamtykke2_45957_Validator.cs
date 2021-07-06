@@ -119,148 +119,54 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltakstypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
 
 
-
-
-            var entityValidatorNodes = new List<EntityValidatorNode>()
+            var tiltakshaverTree = new List<EntityValidatorNode>()
             {
-                //Eiendombyggested
-                new ()
-                {
-                    Id = 1,
-                    EnumId = EntityValidatorEnum.EiendomByggestedValidator,
-                    ParentID = null,
-                }, //root node
-                new ()
-                {
-                    Id = 2,
-                    EnumId = EntityValidatorEnum.EiendomsAdresseValidator,
-                    ParentID = 1,
-                },
-                new ()
-                {
-                    Id = 3,
-                    EnumId = EntityValidatorEnum.MatrikkelValidator,
-                    ParentID = 1,
-                },
-
-                //Tiltakshaver
-                new ()
-                {
-                    Id = 4,
-                    EnumId = EntityValidatorEnum.TiltakshaverValidator,
-                    ParentID = null,
-                },
-                new ()
-                {
-                    Id = 5,
-                    EnumId = EntityValidatorEnum.KontaktpersonValidator,
-                    ParentID = 4,
-                },
-                new ()
-                {
-                    Id = 6,
-                    EnumId = EntityValidatorEnum.PartstypeValidator,
-                    ParentID = 4,
-                },
-                new ()
-                {
-                    Id = 7,
-                    EnumId = EntityValidatorEnum.EnkelAdresseValidator,
-                    ParentID = 4,
-                },
-
-                //Fakturamottaker
-                new ()
-                {
-                    Id = 8,
-                    EnumId = EntityValidatorEnum.FakturamottakerValidator,
-                    ParentID = null,
-                },
-                new ()
-                {
-                    Id = 9,
-                    EnumId = EntityValidatorEnum.EnkelAdresseValidator,
-                    ParentID = 8,
-                },
-                //Arbeidsplasser
-                new ()
-                {
-                    Id = 10,
-                    EnumId = EntityValidatorEnum.ArbeidsplasserValidator,
-                    ParentID = null,
-                },
-                //AnsvarligSoeker
-                new ()
-                {
-                    Id = 11,
-                    EnumId = EntityValidatorEnum.AnsvarligSoekerValidator,
-                    ParentID = null,
-                },
-                new ()
-                {
-                    Id = 12,
-                    EnumId = EntityValidatorEnum.EnkelAdresseValidator,
-                    ParentID = 11,
-                },
-                new ()
-                {
-                    Id = 13,
-                    EnumId = EntityValidatorEnum.KontaktpersonValidator,
-                    ParentID = 11,
-                },
-                new ()
-                {
-                    Id = 14,
-                    EnumId = EntityValidatorEnum.PartstypeValidator,
-                    ParentID = 11,
-                },
-
-                //BeskrivelseAvTiltak
-                new ()
-                {
-                    Id = 15,
-                    EnumId = EntityValidatorEnum.BeskrivelseAvTiltakValidator,
-                    ParentID = null,
-                },
-                new ()
-                {
-                    Id = 16,
-                    EnumId = EntityValidatorEnum.FormaaltypeValidator,
-                    ParentID = 15,
-                },
-                new ()
-                {
-                    Id = 17,
-                    EnumId = EntityValidatorEnum.AnleggstypeValidator,
-                    ParentID = 16,
-                },
-                new ()
-                {
-                    Id = 18,
-                    EnumId = EntityValidatorEnum.NaeringsgruppeValidator,
-                    ParentID = 16,
-                },
-                new ()
-                {
-                    Id = 19,
-                    EnumId = EntityValidatorEnum.BygningstypeValidator,
-                    ParentID = 16,
-                },
-                new ()
-                {
-                    Id = 20,
-                    EnumId = EntityValidatorEnum.TiltaksformaalValidator,
-                    ParentID = 16,
-                },
-                new ()
-                {
-                    Id = 21,
-                    EnumId = EntityValidatorEnum.TiltakstypeValidator,
-                    ParentID = 15,
-                },
+                new () {Id = 4, EnumId = EntityValidatorEnum.TiltakshaverValidator, ParentID = null},
+                new () {Id = 5, EnumId = EntityValidatorEnum.KontaktpersonValidator, ParentID = 4},
+                new () {Id = 6, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 4},
+                new () {Id = 7, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 4}
+            };
+            var eiendombyggestedTree = new List<EntityValidatorNode>()
+            {
+                new () {Id = 1, EnumId = EntityValidatorEnum.EiendomByggestedValidator, ParentID = null},
+                new () {Id = 2, EnumId = EntityValidatorEnum.EiendomsAdresseValidator, ParentID = 1},
+                new () {Id = 3, EnumId = EntityValidatorEnum.MatrikkelValidator, ParentID = 1},
             };
 
-            EntityValidatorTree = EntityValidatiorTree.BuildTree(entityValidatorNodes);
+            var fakturamottakerTree = new List<EntityValidatorNode>()
+            {
+                new () {Id = 8, EnumId = EntityValidatorEnum.FakturamottakerValidator, ParentID = null},
+                new () {Id = 9, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 8}
+            };
+
+            var arbeidsplasserTree = new List<EntityValidatorNode>()
+            {
+                new() {Id = 10, EnumId = EntityValidatorEnum.ArbeidsplasserValidator, ParentID = null}
+            };
+            var ansvarligSoekerTree =new List<EntityValidatorNode>() { 
+                new () {Id = 11, EnumId = EntityValidatorEnum.AnsvarligSoekerValidator, ParentID = null},
+                new () {Id = 12, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 11},
+                new () {Id = 13, EnumId = EntityValidatorEnum.KontaktpersonValidator, ParentID = 11,},
+                new () {Id = 14, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 11,}};
+
+            var beskrivelseAvTiltakTree = new List<EntityValidatorNode>() {
+                new () {Id = 15, EnumId = EntityValidatorEnum.BeskrivelseAvTiltakValidator, ParentID = null},
+                new () {Id = 16, EnumId = EntityValidatorEnum.FormaaltypeValidator, ParentID = 15},
+                new () {Id = 17, EnumId = EntityValidatorEnum.AnleggstypeValidator, ParentID = 16},
+                new () {Id = 18, EnumId = EntityValidatorEnum.NaeringsgruppeValidator, ParentID = 16},
+                new () {Id = 19, EnumId = EntityValidatorEnum.BygningstypeValidator, ParentID = 16},
+                new () {Id = 20, EnumId = EntityValidatorEnum.TiltaksformaalValidator, ParentID = 16},
+                };
+
+            var formTree = new List<EntityValidatorNode>();
+            formTree.AddRange(tiltakshaverTree);
+            formTree.AddRange(eiendombyggestedTree);
+            formTree.AddRange(fakturamottakerTree);
+            formTree.AddRange(arbeidsplasserTree);
+            formTree.AddRange(ansvarligSoekerTree);
+            formTree.AddRange(beskrivelseAvTiltakTree);
+
+            EntityValidatorTree = EntityValidatiorTree.BuildTree(formTree);
 
         }
 

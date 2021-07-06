@@ -27,7 +27,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             _validationResult.ValidationMessages = new List<ValidationMessage>();
             var validatorName = xmlElement ?? this.GetType().Name;
             var rule = GetEntityValidationGroup(entityValidatorTree, nodeId, validatorName);
-
+            if (rule == null)
+            {
+                
+            }
             _rulePath = rule.RulePath;
             _entityXPath = rule.EntityXPath;
             InitializeValidationRules();
