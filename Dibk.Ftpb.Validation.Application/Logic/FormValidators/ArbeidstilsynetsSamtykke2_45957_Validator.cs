@@ -160,6 +160,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 new () {Id = 18, EnumId = EntityValidatorEnum.NaeringsgruppeValidator, ParentID = 16},
                 new () {Id = 19, EnumId = EntityValidatorEnum.BygningstypeValidator, ParentID = 16},
                 new () {Id = 20, EnumId = EntityValidatorEnum.TiltaksformaalValidator, ParentID = 16},
+                new () {Id = 21, EnumId = EntityValidatorEnum.TiltakstypeValidator, ParentID = 15},
             };
 
             var formTree = new List<EntityValidatorNode>();
@@ -211,8 +212,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _tiltakstypeValidator = new TiltakstypeValidator(EntityValidatorTree, 21, _codeListService);
             _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(EntityValidatorTree, 15, _formaaltypeValidator, _tiltakstypeValidator);
 
-            _sjekklistepunktValidator = new SjekklistepunktValidator(EntityValidatorTree);
-            _sjekklistekravValidator = new SjekklistekravValidator(EntityValidatorTree, _sjekklistepunktValidator);
+            //_sjekklistepunktValidator = new SjekklistepunktValidator(EntityValidatorTree);
+            //_sjekklistekravValidator = new SjekklistekravValidator(EntityValidatorTree, _sjekklistepunktValidator);
 
 
             //_naeringsgruppeValidator, _codeListService,
@@ -242,8 +243,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             AccumulateValidationRules(_fakturamottakerValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_fakturamottakerEnkelAdresseValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_sjekklistekravValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_sjekklistepunktValidator.ValidationResult.ValidationRules);
+            //AccumulateValidationRules(_sjekklistekravValidator.ValidationResult.ValidationRules);
+            //AccumulateValidationRules(_sjekklistepunktValidator.ValidationResult.ValidationRules);
 
             AccumulateValidationRules(_beskrivelseAvTiltakValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_formaaltypeValidator.ValidationResult.ValidationRules);
@@ -280,8 +281,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var fakturamottakerValidationResult = _fakturamottakerValidator.Validate(_validationForm.ModelData.FakturamottakerValidationEntity);
             AccumulateValidationMessages(fakturamottakerValidationResult.ValidationMessages);
 
-            var sjekklistekravValidationResult = _sjekklistekravValidator.Validate(_validationForm.ModelData.SjekklistekravValidationEntities);
-            AccumulateValidationMessages(sjekklistekravValidationResult.ValidationMessages);
+            //var sjekklistekravValidationResult = _sjekklistekravValidator.Validate(_validationForm.ModelData.SjekklistekravValidationEntities);
+            //AccumulateValidationMessages(sjekklistekravValidationResult.ValidationMessages);
 
             var beskrivelseAvTiltakValidationResult = _beskrivelseAvTiltakValidator.Validate(_validationForm.ModelData.BeskrivelseAvTiltakValidationEntity);
             AccumulateValidationMessages(beskrivelseAvTiltakValidationResult.ValidationMessages);
