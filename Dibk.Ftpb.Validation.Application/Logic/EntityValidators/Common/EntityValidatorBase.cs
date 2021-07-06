@@ -26,31 +26,34 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             _validationResult.ValidationRules = new List<ValidationRule>();
             _validationResult.ValidationMessages = new List<ValidationMessage>();
             var validatorName = xmlElement ?? this.GetType().Name;
-            var rule = GetEntityValidationGroup(entityValidatorTree, nodeId, validatorName);
-
-            _rulePath = rule.RulePath;
-            _entityXPath = rule.EntityXPath;
+            var node = GetEntityValidatorNode(entityValidatorTree, nodeId, validatorName);
+            if (node == null)
+            {
+                
+            }
+            _rulePath = node.RulePath;
+            _entityXPath = node.EntityXPath;
             InitializeValidationRules();
         }
 
-        private static EntityValidatorNode GetEntityValidationGroup(IList<EntityValidatorNode> entityValidationGroup, int? treeNodeId, string validatorName)
+        private static EntityValidatorNode GetEntityValidatorNode(IList<EntityValidatorNode> entityValidationTree, int? treeNodeId, string validatorName)
         {
-            EntityValidatorNode entityValidationInfo;
+            EntityValidatorNode entityValidationNode;
             if (treeNodeId.HasValue)
-                entityValidationInfo = entityValidationGroup.FirstOrDefault(e => e.Id.Equals(treeNodeId.Value));
+                entityValidationNode = entityValidationTree.FirstOrDefault(e => e.Id.Equals(treeNodeId.Value));
             else
-                entityValidationInfo = entityValidationGroup.FirstOrDefault(e => GetName(typeof(EntityValidatorEnum), e.EnumId).Equals(validatorName));
+                entityValidationNode = entityValidationTree.FirstOrDefault(e => GetName(typeof(EntityValidatorEnum), e.EnumId).Equals(validatorName));
 
-            if (entityValidationInfo == null)
+            if (entityValidationNode == null)
             {
-                foreach (EntityValidatorNode validationGroup in entityValidationGroup)
+                foreach (EntityValidatorNode validationGroup in entityValidationTree)
                 {
-                    entityValidationInfo = GetEntityValidationGroup(validationGroup.Children, treeNodeId, validatorName);
-                    if (entityValidationInfo != null)
+                    entityValidationNode = GetEntityValidatorNode(validationGroup.Children, treeNodeId, validatorName);
+                    if (entityValidationNode != null)
                         break;
                 }
             }
-            return entityValidationInfo;
+            return entityValidationNode;
         }
 
 

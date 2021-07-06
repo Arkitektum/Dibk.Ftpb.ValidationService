@@ -30,20 +30,20 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             if (source.ContainsKey(node.Id))
             {
                 node.Children = source[node.Id];
-                node.EntityXPath = AddNodeToXpath(parentName ?? node.RulePath, node.EnumId);
-                node.RulePath = AddNodeToRulePath(parentRuleNumber ?? node.RulePath, node.EnumId);
+                node.EntityXPath = AddXPathToNode(parentName ?? node.RulePath, node.EnumId);
+                node.RulePath = AddRulePathToNode(parentRuleNumber ?? node.RulePath, node.EnumId);
 
                 for (int i = 0; i < node.Children.Count; i++) AddChildren(node.Children[i], source, node.EntityXPath, node.RulePath);
             }
             else
             {
-                node.EntityXPath = AddNodeToXpath(parentName ?? node.RulePath, node.EnumId);
-                node.RulePath = AddNodeToRulePath(parentRuleNumber ?? node.RulePath, node.EnumId);
+                node.EntityXPath = AddXPathToNode(parentName ?? node.RulePath, node.EnumId);
+                node.RulePath = AddRulePathToNode(parentRuleNumber ?? node.RulePath, node.EnumId);
                 node.Children = new List<EntityValidatorNode>();
             }
         }
 
-        private static string AddNodeToXpath(string entityXpath, EntityValidatorEnum EnumId)
+        private static string AddXPathToNode(string entityXpath, EntityValidatorEnum EnumId)
         {
 
             var xmlNode = Helpers.GetEnumXmlNodeName(EnumId);
@@ -54,7 +54,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             var newXpath = $"{entityXpath}/{entityName}";
             return newXpath;
         }
-        private static string AddNodeToRulePath(string entityXpath, EntityValidatorEnum? EnumId = null)
+        private static string AddRulePathToNode(string entityXpath, EntityValidatorEnum? EnumId = null)
         {
             if (!EnumId.HasValue)
                 return entityXpath;

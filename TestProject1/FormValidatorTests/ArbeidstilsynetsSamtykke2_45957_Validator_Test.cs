@@ -18,14 +18,14 @@ using Xunit;
 
 namespace Dibk.Ftpb.Validation.Application.Tests
 {
-    public class ArbeidstilsynetsSamtykke245957ValidatorTest
+    public class ArbeidstilsynetsSamtykke2_45957_Validator_Test
     {
         IMunicipalityValidator _municipalityValidator;
         private ICodeListService _codeListService;
         ArbeidstilsynetsSamtykke2_45957_Validator _formValidator;
         private readonly string _rootDirTestResults = @"C:\ATIL_testresults";
         private readonly bool WriteValidationResultsToJsonFile = true;
-        public ArbeidstilsynetsSamtykke245957ValidatorTest()
+        public ArbeidstilsynetsSamtykke2_45957_Validator_Test()
         {
             _municipalityValidator = MockDataSource.MunicipalityValidatorResult(MunicipalityValidationEnum.Ok);
             _codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, true);
