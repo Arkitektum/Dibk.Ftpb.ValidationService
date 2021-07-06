@@ -17,6 +17,6 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         //public string PreCondition { get; set; }
         public string ChecklistReference { get; set; }
         [JsonIgnore]
-        public List<string> MessageParameters { get; set; }
+        public string[] MessageParameters { get; set; }
     }
 }

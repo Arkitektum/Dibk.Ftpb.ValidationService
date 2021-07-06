@@ -65,11 +65,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             if (Helpers.ObjectIsNullOrEmpty(sjekklistekrav.Sjekklistepunktsvar))
             {
-                AddMessageFromRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunktsvar_utfylt, xpath, new List<string>() { sjekklistekrav.Sjekklistepunkt.ModelData.Kodeverdi });
+                AddMessageFromRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunktsvar_utfylt, xpath, new [] { sjekklistekrav.Sjekklistepunkt.ModelData.Kodeverdi });
             }
             if (!sjekklistekrav.Sjekklistepunktsvar == true)
             {
-                AddMessageFromRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunktsvar_oppfylt, xpath, new List<string>() { sjekklistekrav.Sjekklistepunkt.ModelData.Kodeverdi });
+                AddMessageFromRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunktsvar_oppfylt, xpath, new[] { sjekklistekrav.Sjekklistepunkt.ModelData.Kodeverdi });
             }
             if (string.IsNullOrEmpty(sjekklistekrav.Dokumentasjon))
             {
