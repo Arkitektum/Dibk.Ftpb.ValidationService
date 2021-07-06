@@ -50,16 +50,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult Validate(KodelisteValidationEntity kodeliste)
         {
+            var xpath = kodeliste.DataModelXpath;
+            //TODO check null
             if (Helpers.ObjectIsNullOrEmpty(kodeliste.ModelData?.Kodeverdi))
             {
-                AddMessageFromRule(KodeListValidationEnums.kodeverdi_utfylt);
+                AddMessageFromRule(KodeListValidationEnums.kodeverdi_utfylt, xpath);
             }
             else
             {
-                //TODO Sjekk hva "partstypeKodeverdi_ugyldig" er. Den er ikke initialisert....
                 if (!_codeListService.IsCodelistValid(FtbCodeListNames.Partstype, kodeliste.ModelData?.Kodeverdi))
                 {
-                    AddMessageFromRule(KodeListValidationEnums.kodeverdi_ugyldig);
+                    AddMessageFromRule(KodeListValidationEnums.kodeverdi_ugyldig, xpath);
                 }
             }
             return ValidationResult;
