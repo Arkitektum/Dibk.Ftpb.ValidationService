@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Dibk.Ftpb.Validation.Application.Reporter.DataBase;
+using Dibk.Ftpb.Validation.Application.Utils;
 
 namespace Dibk.Ftpb.Validation.Application.Reporter
 {
@@ -17,7 +18,16 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         }
         public ValidationRule GetValidationRuleMessage(string dataFormatVersion, ValidationRule validationRule, string languageCode)
         {
-            var theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.DataFormatVersion.Equals(dataFormatVersion) && x.Id.Equals(validationRule.Id) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.Xpath));
+            ValidationMessageStorageEntry theStorageEntry;
+            try
+            {
+                theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.DataFormatVersion.Equals(dataFormatVersion) && x.Id.Equals(validationRule.Id) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.Xpath));
+            }
+            catch
+            {
+
+                theStorageEntry = null;
+            }
 
             if (theStorageEntry == null)
             {
@@ -38,7 +48,16 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
 
             string xPath = Regex.Replace(validationMessage.XpathField, @"\[([0-9]*)\]", "{0}"); ;
 
-            var theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.DataFormatVersion.Equals(dataFormatVersion) && x.Id == validationMessage.Reference && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath, StringComparison.OrdinalIgnoreCase));
+            ValidationMessageStorageEntry theStorageEntry;
+            try
+            {
+                theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.DataFormatVersion.Equals(dataFormatVersion) && x.Id == validationMessage.Reference && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath, StringComparison.OrdinalIgnoreCase));
+            }
+            catch 
+            {
+
+                theStorageEntry = null;
+            }
 
             if (theStorageEntry == null)
             {
