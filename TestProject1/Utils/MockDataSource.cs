@@ -5,6 +5,7 @@ using Dibk.Ftpb.Validation.Application.Enums;
 using Moq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 
 namespace Dibk.Ftpb.Validation.Application.Tests.Utils
 {
@@ -42,6 +43,15 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
             var codelistClient = new Mock<ICodeListService>();
             codelistClient.Setup(a => a.IsCodelistValid(It.IsAny<FtbCodeListNames>(), It.IsAny<string>())).Returns(valid);
             return codelistClient.Object;
+        }
+
+        public static IPostalCodeService ValidatePostnr(bool valid, string result, string postalCodeType)
+        {
+            var postalCodeService = new Mock<IPostalCodeService>();
+            postalCodeService.Setup((a => a.ValidatePostnr(It.IsAny<string>(), It.IsAny<string>())))
+                .Returns(new PostalCodeValidationResult() { PostalCodeType = postalCodeType, Result = result, Valid = valid });
+            return postalCodeService.Object;
+
         }
 
     }

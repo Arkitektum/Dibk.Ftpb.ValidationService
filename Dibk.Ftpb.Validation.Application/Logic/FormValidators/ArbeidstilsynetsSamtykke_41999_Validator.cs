@@ -12,6 +12,7 @@ using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke;
 using System.Collections.Generic;
 using System.Linq;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
@@ -24,6 +25,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         private readonly IMunicipalityValidator _municipalityValidator;
         private readonly ICodeListService _codeListService;
+        private readonly IPostalCodeService _postalCodeService;
         private ArbeidstilsynetsSamtykke_41999_ValidationEntity _validationForm { get; set; }
         private IEiendomsAdresseValidator _eiendomsAdresseValidator;
         private IMatrikkelValidator _matrikkelValidator;
@@ -38,11 +40,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         protected override string XPathRoot => "ArbeidstilsynetsSamtykke";
 
-        public ArbeidstilsynetsSamtykke_41999_Validator(FormValidatorConfiguration formValidatorConfiguration, IMunicipalityValidator municipalityValidator, ICodeListService codeListService)
+        public ArbeidstilsynetsSamtykke_41999_Validator(FormValidatorConfiguration formValidatorConfiguration, IMunicipalityValidator municipalityValidator, ICodeListService codeListService, IPostalCodeService postalCodeService)
         {
             _formValidatorConfiguration = formValidatorConfiguration;
             _municipalityValidator = municipalityValidator;
             _codeListService = codeListService;
+            _postalCodeService = postalCodeService;
         }
 
         public override ValidationResult StartValidation(ValidationInput validationInput)
@@ -158,19 +161,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //EiendomByggested
             _matrikkelValidator = new MatrikkelValidator(_entityValidatorTree, 3);
             _eiendomsAdresseValidator = new EiendomsAdresseValidator(_entityValidatorTree, 2);
-            _eiendomByggestedValidator = new EiendomByggestedValidator(_entityValidatorTree,1, _eiendomsAdresseValidator, _matrikkelValidator, _municipalityValidator);
+            _eiendomByggestedValidator = new EiendomByggestedValidator(_entityValidatorTree, 1, _eiendomsAdresseValidator, _matrikkelValidator, _municipalityValidator);
 
             //Tiltakshaver
-            _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(_entityValidatorTree, 7);
+            _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(_entityValidatorTree, 7, _postalCodeService);
             _kontaktpersonValidator = new KontaktpersonValidator(_entityValidatorTree, 5);
             _partstypeValidator = new PartstypeValidator(_entityValidatorTree, 6, _codeListService);
-            _tiltakshaverValidator = new TiltakshaverValidator(_entityValidatorTree,4, _tiltakshaverEnkelAdresseValidator, _kontaktpersonValidator, _partstypeValidator, _codeListService);
+            _tiltakshaverValidator = new TiltakshaverValidator(_entityValidatorTree, 4, _tiltakshaverEnkelAdresseValidator, _kontaktpersonValidator, _partstypeValidator, _codeListService);
             //Arbeidsplasser
-            _arbeidsplasserValidator = new ArbeidsplasserValidator(_entityValidatorTree,10);
+            _arbeidsplasserValidator = new ArbeidsplasserValidator(_entityValidatorTree, 10);
 
             //Fakturamottaker
-            _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidator(_entityValidatorTree,9);
-            _fakturamottakerValidator = new FakturamottakerValidator(_entityValidatorTree,8, _fakturamottakerEnkelAdresseValidator);
+            _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidator(_entityValidatorTree, 9, _postalCodeService);
+            _fakturamottakerValidator = new FakturamottakerValidator(_entityValidatorTree, 8, _fakturamottakerEnkelAdresseValidator);
 
         }
         protected override void DefineValidationRules()

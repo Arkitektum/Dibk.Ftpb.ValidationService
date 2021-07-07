@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Linq;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Xunit;
 
 namespace Dibk.Ftpb.Validation.Application.Tests
@@ -22,6 +23,8 @@ namespace Dibk.Ftpb.Validation.Application.Tests
     {
         IMunicipalityValidator _municipalityValidator;
         private ICodeListService _codeListService;
+        private readonly IPostalCodeService _postalCodeService;
+
         ArbeidstilsynetsSamtykke2_45957_Validator _formValidator;
         private readonly string _rootDirTestResults = @"C:\ATIL_testresults";
         private readonly bool WriteValidationResultsToJsonFile = true;
@@ -29,9 +32,10 @@ namespace Dibk.Ftpb.Validation.Application.Tests
         {
             _municipalityValidator = MockDataSource.MunicipalityValidatorResult(MunicipalityValidationEnum.Ok);
             _codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, true);
+            _postalCodeService = MockDataSource.ValidatePostnr(true, "Bø i Telemark", "true");
             FormValidatorConfiguration formValidatorConfiguration = new FormValidatorConfiguration();
 
-            _formValidator = new ArbeidstilsynetsSamtykke2_45957_Validator(formValidatorConfiguration, _municipalityValidator, _codeListService);
+            _formValidator = new ArbeidstilsynetsSamtykke2_45957_Validator(formValidatorConfiguration, _municipalityValidator, _codeListService, _postalCodeService);
 
             if (WriteValidationResultsToJsonFile && !Directory.Exists(_rootDirTestResults))
             {
@@ -45,7 +49,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
         {
             ValidationInput validationInput = new ValidationInput();
             validationInput.FormData = @"<?xml version='1.0' encoding='utf-8'?><ArbeidstilsynetsSamtykke xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' dataFormatProvider='SERES' dataFormatId='6821' dataFormatVersion='45957' xmlns='http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0'><eiendomByggested><eiendom><adresse><adresselinje1>Bøgata 1</adresselinje1><adresselinje2 xsi:nil='true' /><adresselinje3 xsi:nil='true' /><postnr>3800</postnr><poststed>Bø i Telemark</poststed><landkode>NO</landkode><gatenavn xsi:nil='true' /><husnr xsi:nil='true' /><bokstav xsi:nil='true' /></adresse><eiendomsidentifikasjon><kommunenummer>3817</kommunenummer><gaardsnummer>148</gaardsnummer><bruksnummer>283</bruksnummer><festenummer>0</festenummer><seksjonsnummer>0</seksjonsnummer></eiendomsidentifikasjon><bygningsnummer>80466985</bygningsnummer><bolignummer>H0102</bolignummer><kommunenavn>Midt Telemark</kommunenavn></eiendom></eiendomByggested></ArbeidstilsynetsSamtykke>";
-           
+
             var validationResult = _formValidator.StartValidation(validationInput);
 
             var validationMessage = validationResult.ValidationMessages.Where(x => x.Reference.Equals("eiendomsAdresse_adresselinje2_utfylt")).FirstOrDefault();
@@ -59,7 +63,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             validationMessage = validationResult.ValidationMessages.Where(x => x.Reference.Equals("eiendomsAdresse_husnr_utfylt")).FirstOrDefault();
             validationMessage.Reference.Should().NotBe(null);
-            
+
             validationMessage = validationResult.ValidationMessages.Where(x => x.Reference.Equals("eiendomsAdresse_bokstav_utfylt")).FirstOrDefault();
             validationMessage.Reference.Should().NotBe(null);
 

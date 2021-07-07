@@ -9,6 +9,7 @@ using System.Linq;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.GeneralValidations;
 
@@ -16,13 +17,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class EnkelAdresseValidator : EntityValidatorBase, IEnkelAdresseValidator
     {
+        private readonly IPostalCodeService _postalCodeService;
         //public override string ruleXmlElement { get { return "adresse"; } set { ruleXmlElement = value; } }
 
         ValidationResult IEntityBaseValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        public EnkelAdresseValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId)
+        public EnkelAdresseValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, IPostalCodeService postalCodeService)
             : base(entityValidatorTree, nodeId)
         {
+            _postalCodeService = postalCodeService;
         }
 
 
@@ -80,47 +83,35 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     else
                     {
                         Match isPostNrValid = Regex.Match(postNr, "^([0-9])([0-9])([0-9])([0-9])$");
-
                         if (!isPostNrValid.Success)
                         {
-                            AddMessageFromRule(EnkelAdresseValidationEnums.postnr_kontrollSiffer, xPath);
+                            AddMessageFromRule(EnkelAdresseValidationEnums.postnr_kontrollSiffer, xPath, new[] { postNr });
                         }
                         else
                         {
-                            var postnrValidation = new PostalCode.BringPostalCodeProvider().ValidatePostnr(postNr, landkode);
+                            var postnrValidation = _postalCodeService.ValidatePostnr(postNr, landkode);
                             if (postnrValidation != null)
                             {
                                 if (!postnrValidation.Valid)
                                 {
-                                    _validationResult.AddMessage("4845.1.6.12", null);
+                                    AddMessageFromRule(EnkelAdresseValidationEnums.postnr_ugyldig, xPath, new[] { postNr });
                                 }
                                 else
                                 {
-                                    if (!postnrValidation.Result.Equals(tiltakshaver.adresse.poststed, StringComparison.CurrentCultureIgnoreCase))
+                                    if (!postnrValidation.Result.Equals(adresse.Poststed, StringComparison.CurrentCultureIgnoreCase))
                                     {
-                                        _validationResult.AddMessage("4845.1.6.13", new[] { postNr, tiltakshaver.adresse.poststed, postnrValidation.Result });
+                                        AddMessageFromRule(EnkelAdresseValidationEnums.postnr_stemmerIkke, xPath, new[] { postNr, adresse.Poststed, postnrValidation.Result });
                                     }
                                 }
                             }
                             else
                             {
-                                _validationResult.AddMessage("4845.1.6.14", null);
+                                AddMessageFromRule(EnkelAdresseValidationEnums.postnr_ikkeValidert, xPath);
                             }
                         }
                     }
                 }
-
             }
-
-
-        }
-
-        private bool HerBurDetGalningar(string input)
-        {
-            if (int.TryParse(input, out var number))
-                return (number >= 0 && number <= 1111);
-
-            return false;
         }
     }
 }
