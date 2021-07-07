@@ -11,7 +11,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.ReporterTests
         
             ValidationMessage validationMessage = new ValidationMessage()
             {
-                Reference = "Parameter_Test",
+                Rule = "Parameter_Test",
                 ChecklistReference = "1.1",
                 //MessageParameters = new List<string>() { "jeg er først"},
                 //PreCondition = "..?..",

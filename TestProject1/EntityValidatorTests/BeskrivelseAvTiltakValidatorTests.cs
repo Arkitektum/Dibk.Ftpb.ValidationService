@@ -47,43 +47,43 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             {
                 new ()
                 {
-                    Id = 1,
+                    NodeId = 1,
                     EnumId = EntityValidatorEnum.BeskrivelseAvTiltakValidator,
                     ParentID = null,
                 }, //root node
                 new ()
                 {
-                    Id = 2,
+                    NodeId = 2,
                     EnumId = EntityValidatorEnum.FormaaltypeValidator,
                     ParentID = 1,
                 },
                 new ()
                 {
-                    Id = 3,
+                    NodeId = 3,
                     EnumId = EntityValidatorEnum.AnleggstypeValidator,
                     ParentID = 2,
                 },
                 new ()
                 {
-                    Id = 4,
+                    NodeId = 4,
                     EnumId = EntityValidatorEnum.NaeringsgruppeValidator,
                     ParentID = 2,
                 },
                 new ()
                 {
-                    Id = 5,
+                    NodeId = 5,
                     EnumId = EntityValidatorEnum.BygningstypeValidator,
                     ParentID = 2,
                 },
                 new ()
                 {
-                    Id = 6,
+                    NodeId = 6,
                     EnumId = EntityValidatorEnum.TiltaksformaalValidator,
                     ParentID = 2,
                 },
                 new ()
                 {
-                    Id = 7,
+                    NodeId = 7,
                     EnumId = EntityValidatorEnum.TiltakstypeValidator,
                     ParentID = 1,
                 }

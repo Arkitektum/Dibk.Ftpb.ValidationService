@@ -28,18 +28,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 
         private static void AddChildren(EntityValidatorNode node, IDictionary<int, List<EntityValidatorNode>> source, string parentName = null, string parentRuleNumber = null)
         {
-            if (source.ContainsKey(node.Id))
+            if (source.ContainsKey(node.NodeId))
             {
-                node.Children = source[node.Id];
-                node.EntityXPath = AddXPathToNode(parentName ?? node.RulePath, node.EnumId);
-                node.RulePath = AddRulePathToNode(parentRuleNumber ?? node.RulePath, node.EnumId);
+                node.Children = source[node.NodeId];
+                node.EntityXPath = AddXPathToNode(parentName ?? node.IdPath, node.EnumId);
+                node.IdPath = AddRulePathToNode(parentRuleNumber ?? node.IdPath, node.EnumId);
 
-                for (int i = 0; i < node.Children.Count; i++) AddChildren(node.Children[i], source, node.EntityXPath, node.RulePath);
+                for (int i = 0; i < node.Children.Count; i++) AddChildren(node.Children[i], source, node.EntityXPath, node.IdPath);
             }
             else
             {
-                node.EntityXPath = AddXPathToNode(parentName ?? node.RulePath, node.EnumId);
-                node.RulePath = AddRulePathToNode(parentRuleNumber ?? node.RulePath, node.EnumId);
+                node.EntityXPath = AddXPathToNode(parentName ?? node.IdPath, node.EnumId);
+                node.IdPath = AddRulePathToNode(parentRuleNumber ?? node.IdPath, node.EnumId);
                 node.Children = new List<EntityValidatorNode>();
             }
         }

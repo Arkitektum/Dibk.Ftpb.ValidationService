@@ -151,21 +151,21 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             {
                 new ()
                 {
-                    Id = 1,
+                    NodeId = 1,
                     EnumId = EntityValidatorEnum.EiendomByggestedValidator,
                     ParentID = null,
                    
                 }, //root node
                 new ()
                 {
-                    Id = 2,
+                    NodeId = 2,
                     EnumId = EntityValidatorEnum.EiendomsAdresseValidator,
                     ParentID = 1,
                    
                 },
                 new ()
                 {
-                    Id = 3,
+                    NodeId = 3,
                     EnumId = EntityValidatorEnum.MatrikkelValidator,
                     ParentID = 1,
                    

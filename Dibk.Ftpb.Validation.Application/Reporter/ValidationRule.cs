@@ -6,8 +6,8 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
 {
     public class ValidationRule
     {
-        //public ValidationRuleEnum Id { get; set; }
         public string Id { get; set; }
+        public string Rule { get; set; }
         public string Message { get; set; }
         public ValidationResultSeverityEnum? Messagetype { get; set; }
         public string Xpath { get; set; }
@@ -15,6 +15,5 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         public string XmlElement { get; set; }
         public string PreCondition { get; set; }
         public string ChecklistReference { get; set; }
-        public string RulePath { get; set; }
     }
 }

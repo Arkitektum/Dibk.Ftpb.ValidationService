@@ -56,20 +56,20 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             var validationResult = _formValidator.StartValidation("45957", validationInput);
 
-            var validationMessage = validationResult.ValidationMessages.Where(x => x.Reference.Equals("eiendomsAdresse_adresselinje2_utfylt")).FirstOrDefault();
-            validationMessage.Reference.Should().NotBe(null);
+            var validationMessage = validationResult.ValidationMessages.Where(x => x.Rule.Equals("eiendomsAdresse_adresselinje2_utfylt")).FirstOrDefault();
+            validationMessage.Rule.Should().NotBe(null);
 
-            validationMessage = validationResult.ValidationMessages.Where(x => x.Reference.Equals("eiendomsAdresse_adresselinje3_utfylt")).FirstOrDefault();
-            validationMessage.Reference.Should().NotBe(null);
+            validationMessage = validationResult.ValidationMessages.Where(x => x.Rule.Equals("eiendomsAdresse_adresselinje3_utfylt")).FirstOrDefault();
+            validationMessage.Rule.Should().NotBe(null);
 
-            validationMessage = validationResult.ValidationMessages.Where(x => x.Reference.Equals("eiendomsAdresse_gatenavn_utfylt")).FirstOrDefault();
-            validationMessage.Reference.Should().NotBe(null);
+            validationMessage = validationResult.ValidationMessages.Where(x => x.Rule.Equals("eiendomsAdresse_gatenavn_utfylt")).FirstOrDefault();
+            validationMessage.Rule.Should().NotBe(null);
 
-            validationMessage = validationResult.ValidationMessages.Where(x => x.Reference.Equals("eiendomsAdresse_husnr_utfylt")).FirstOrDefault();
-            validationMessage.Reference.Should().NotBe(null);
+            validationMessage = validationResult.ValidationMessages.Where(x => x.Rule.Equals("eiendomsAdresse_husnr_utfylt")).FirstOrDefault();
+            validationMessage.Rule.Should().NotBe(null);
 
-            validationMessage = validationResult.ValidationMessages.Where(x => x.Reference.Equals("eiendomsAdresse_bokstav_utfylt")).FirstOrDefault();
-            validationMessage.Reference.Should().NotBe(null);
+            validationMessage = validationResult.ValidationMessages.Where(x => x.Rule.Equals("eiendomsAdresse_bokstav_utfylt")).FirstOrDefault();
+            validationMessage.Rule.Should().NotBe(null);
 
             if (WriteValidationResultsToJsonFile)
             {
