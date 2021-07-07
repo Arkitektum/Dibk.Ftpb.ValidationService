@@ -2,6 +2,9 @@
 {
     public enum FtbCodeListNames
     {
-        Partstype,
+        partstype,
+        anleggstype,
+        naeringsgruppe
+
     }
 }

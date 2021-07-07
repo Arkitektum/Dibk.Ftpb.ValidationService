@@ -37,7 +37,8 @@ namespace Dibk.Ftpb.Validation.Application.Utils
             //Complex type - Child properties
             if (mainObject.GetType().GetProperties().Any())
             {
-                var props = mainObject.GetType().GetProperties().Where(p => !p.Name.EndsWith("Specified"));
+                // TODO test this, returns false when in xml all nodes are "xsi:nil="true" "
+                var props = mainObject.GetType().GetProperties().Where(p => !p.Name.EndsWith("Specified", StringComparison.CurrentCultureIgnoreCase) && !p.Name.Equals("DataModelXpath", StringComparison.CurrentCultureIgnoreCase));
 
                 foreach (var propertyInfo in props)
                 {
@@ -66,13 +67,13 @@ namespace Dibk.Ftpb.Validation.Application.Utils
         public static string GetEnumXmlNodeName(Enum value)
         {
             FieldInfo fi = value.GetType().GetField(value.ToString());
-            
+
             var noko = fi.GetCustomAttributes(typeof(EnumerationAttribute), false) as EnumerationAttribute[];
 
             var xmlNode = string.Empty;
             if (noko != null && noko.Any())
             {
-                xmlNode= noko.First().XmlNode;
+                xmlNode = noko.First().XmlNode;
             }
 
             return xmlNode;
@@ -84,7 +85,7 @@ namespace Dibk.Ftpb.Validation.Application.Utils
 
             if (fieldInfo?.GetCustomAttributes(typeof(EnumerationAttribute), false) is EnumerationAttribute[] enumerationAttributes && enumerationAttributes.Any())
             {
-                ruleNumber= enumerationAttributes.First().ValidatorId;
+                ruleNumber = enumerationAttributes.First().ValidatorId;
             }
             return ruleNumber;
 
@@ -94,7 +95,7 @@ namespace Dibk.Ftpb.Validation.Application.Utils
         {
             var path = action.Body.ToString();
             var index = path.LastIndexOf(".");
-            var nodeName = index>0? path.Remove(0, index + 1):"";
+            var nodeName = index > 0 ? path.Remove(0, index + 1) : "";
             return nodeName;
         }
         public static string GetFullClassPath<T>(Expression<Func<T>> action)

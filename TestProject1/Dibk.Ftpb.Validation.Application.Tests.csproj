@@ -40,6 +40,9 @@
     <None Update="Data\ArbeidstilsynetsSamtykke_v2_dfv45957.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Data\ArbeidstilsynetsSamtykke_v2_dfv45957_Test.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

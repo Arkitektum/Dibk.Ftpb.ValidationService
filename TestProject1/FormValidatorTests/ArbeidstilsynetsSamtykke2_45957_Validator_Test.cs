@@ -31,7 +31,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
         public ArbeidstilsynetsSamtykke2_45957_Validator_Test()
         {
             _municipalityValidator = MockDataSource.MunicipalityValidatorResult(MunicipalityValidationEnum.Ok);
-            _codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, true);
+            _codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.partstype, true);
             _postalCodeService = MockDataSource.ValidatePostnr(true, "Bø i Telemark", "true");
             FormValidatorConfiguration formValidatorConfiguration = new FormValidatorConfiguration();
 

@@ -6,14 +6,13 @@ using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class BeskrivelseAvTiltakValidator : EntityValidatorBase, IBeskrivelseAvTiltakValidator
     {
-        //public override string ruleXmlElement { get { return "beskrivelseAvTiltak"; } set { ruleXmlElement = value; } }
-
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
         private readonly FormaaltypeValidator _formaaltypeValidator;
@@ -25,37 +24,23 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _formaaltypeValidator = formaaltypeValidator;
             _tiltakstypeValidator = tiltakstypeValidator;
         }
-        //public BeskrivelseAvTiltakValidator(FormValidatorConfiguration formValidatorConfiguration, FormaaltypeValidator formaaltypeValidator, TiltakstypeValidator tiltakstypeValidator)
-        //    : base(formValidatorConfiguration)
-        //{
-        //    _formaaltypeValidator = formaaltypeValidator;
-        //    //_tiltakstypeValidator = tiltakstypeValidator;
-        //}
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(ValidationRuleEnum.beskrivelseAvTiltak_utfylt);
+            AddValidationRule(BeskrivelseAvTiltakValidationEnums.utfylt, null);
         }
 
         public ValidationResult Validate(BeskrivelseAvTiltakValidationEntity beskrivelseAvTiltakValidationEntity = null)
         {
-            var xpath = beskrivelseAvTiltakValidationEntity.DataModelXpath;
-            if (Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity) || Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity.ModelData))
+            var xpath = beskrivelseAvTiltakValidationEntity?.DataModelXpath;
+            if (Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity?.ModelData))
             {
                 AddMessageFromRule(ValidationRuleEnum.beskrivelseAvTiltak_utfylt, xpath);
             }
             else
             {
-                var formaaltypeValidationEntity = beskrivelseAvTiltakValidationEntity.ModelData.Formaaltype;
+                var formaaltypeValidationResult = _formaaltypeValidator.Validate(beskrivelseAvTiltakValidationEntity?.ModelData?.Formaaltype);
+                UpdateValidationResultWithSubValidations(formaaltypeValidationResult);
 
-                if (Helpers.ObjectIsNullOrEmpty(formaaltypeValidationEntity) || Helpers.ObjectIsNullOrEmpty(formaaltypeValidationEntity.ModelData))
-                {
-                    AddMessageFromRule(ValidationRuleEnum.beskrivelseAvTiltak_formaaltype_utfylt, xpath);
-                }
-                else
-                {
-                    var formaaltypeValidationResult = _formaaltypeValidator.Validate(formaaltypeValidationEntity);
-                    UpdateValidationResultWithSubValidations(formaaltypeValidationResult);
-                }
 
                 //var tiltakstypeValidationEntity = beskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype;
                 if (Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype) || beskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype.Count() == 0)

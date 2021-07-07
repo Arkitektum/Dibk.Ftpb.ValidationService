@@ -22,7 +22,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
         public KodelisteValidatorTests()
         {
-            _codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, true);
+            _codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.partstype, true);
             Kodeliste kodeliste = new Kodeliste()
             {
                 Kodeverdi = "kodeverdi Value",

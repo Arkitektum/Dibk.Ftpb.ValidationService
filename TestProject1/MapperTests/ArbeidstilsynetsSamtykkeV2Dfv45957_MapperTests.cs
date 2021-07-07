@@ -63,5 +63,27 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             fakturamottaker.Should().NotBeNull();
         }
+        [Fact]
+        public void beskrivelseAvTiltakMapTest()
+        {
+            var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957.xml");
+            var form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
+
+            var xmlData1 = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957_Test.xml");
+            var form1 = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData1);
+
+            var beskrivelseAvTiltak = new BeskrivelseAvTiltakMapper().Map(form.beskrivelseAvTiltak);
+            var beskrivelseAvTiltak1 = new BeskrivelseAvTiltakMapper().Map(form1.beskrivelseAvTiltak);
+            if (Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltak.ModelData))
+            {
+                //
+            }
+            if (Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltak1.ModelData))
+            {
+                //
+            }
+
+            beskrivelseAvTiltak.Should().NotBeNull();
+        }
     }
 }

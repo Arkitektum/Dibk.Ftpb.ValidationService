@@ -17,7 +17,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
 
         public NaeringsgruppeValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, ICodeListService codeListService)
-            : base(entityValidatorTree, nodeId, codeListService)
+            : base(entityValidatorTree, nodeId,FtbCodeListNames.naeringsgruppe, codeListService)
         {
             _codeListService = codeListService;
         }

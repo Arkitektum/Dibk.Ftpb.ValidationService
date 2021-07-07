@@ -13,13 +13,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public abstract class KodelisteValidator : EntityValidatorBase, IKodelisteValidator
     {
+        private readonly FtbCodeListNames _codeListName;
         protected ICodeListService _codeListService;
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 
-        public KodelisteValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, ICodeListService codeListService)
+        public KodelisteValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, FtbCodeListNames codeListName ,ICodeListService codeListService)
                    : base(entityValidatorTree, nodeId)
         {
+            _codeListName = codeListName;
             _codeListService = codeListService;
         }
 
@@ -28,8 +30,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(KodeListValidationEnums.utfylt, null);
             AddValidationRule(KodeListValidationEnums.kodeverdi_utfylt, "kodeverdi");
             AddValidationRule(KodeListValidationEnums.kodeverdi_ugyldig, "kodeverdi");
-            AddValidationRule(KodeListValidationEnums.Kodebeskrivelse_utfylt, "Kodebeskrivelse");
-            AddValidationRule(KodeListValidationEnums.kodebeskrivelse_ugyldig, "Kodebeskrivelse");
+            AddValidationRule(KodeListValidationEnums.Kodebeskrivelse_utfylt, "kodebeskrivelse");
+            AddValidationRule(KodeListValidationEnums.kodebeskrivelse_ugyldig, "kodebeskrivelse");
         }
 
         public ValidationResult Validate(KodelisteValidationEntity kodeliste)
@@ -48,7 +50,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 }
                 else
                 {
-                    if (!_codeListService.IsCodelistValid(FtbCodeListNames.Partstype, kodeliste.ModelData?.Kodeverdi))
+                    if (!_codeListService.IsCodelistValid(_codeListName, kodeliste.ModelData?.Kodeverdi))
                     {
                         AddMessageFromRule(KodeListValidationEnums.kodeverdi_ugyldig, xpath, new[] { kodeliste.ModelData?.Kodeverdi });
                     }

@@ -59,7 +59,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             };
 
             _tiltakshaver = new Logic.Mappers.ArbeidstilsynetsSamtykke2.AktoerMapper(AktoerEnum.tiltakshaver).Map(tiltakshaver, "UnitTest");
-            _codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, true);
+            _codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.partstype, true);
 
 
             var entityValidatorNodes = new List<EntityValidatorNode>()
