@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
-using System.Linq;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
-using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.GeneralValidations;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
@@ -18,7 +15,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public class EnkelAdresseValidator : EntityValidatorBase, IEnkelAdresseValidator
     {
         private readonly IPostalCodeService _postalCodeService;
-        //public override string ruleXmlElement { get { return "adresse"; } set { ruleXmlElement = value; } }
 
         ValidationResult IEntityBaseValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
@@ -28,11 +24,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _postalCodeService = postalCodeService;
         }
 
-
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(EnkelAdresseValidationEnums.adresse_utfylt, "adresse");
-            AddValidationRule(EnkelAdresseValidationEnums.adresse_utfylt, "adresse");
+            AddValidationRule(EnkelAdresseValidationEnums.utfylt);
             AddValidationRule(EnkelAdresseValidationEnums.adresselinje1_utfylt, "adresselinje1");
             AddValidationRule(EnkelAdresseValidationEnums.landkode_utfylt, "landkode");
             AddValidationRule(EnkelAdresseValidationEnums.postnr_utfylt, "postnr");
@@ -43,7 +37,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var xpath = enkelAdresse.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(enkelAdresse?.ModelData))
             {
-                AddMessageFromRule(ValidationRuleEnum.adresse_utfylt, xpath);
+                AddMessageFromRule(EnkelAdresseValidationEnums.utfylt, xpath);
             }
             else
             {
@@ -85,7 +79,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         Match isPostNrValid = Regex.Match(postNr, "^([0-9])([0-9])([0-9])([0-9])$");
                         if (!isPostNrValid.Success)
                         {
-                            AddMessageFromRule(EnkelAdresseValidationEnums.postnr_kontrollSiffer, xPath, new[] { postNr });
+                            AddMessageFromRule(EnkelAdresseValidationEnums.postnr_kontrollsiffer, xPath, new[] { postNr });
                         }
                         else
                         {
@@ -106,7 +100,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                             }
                             else
                             {
-                                AddMessageFromRule(EnkelAdresseValidationEnums.postnr_ikkeValidert, xPath);
+                                AddMessageFromRule(EnkelAdresseValidationEnums.postnr_ikke_validert, xPath);
                             }
                         }
                     }

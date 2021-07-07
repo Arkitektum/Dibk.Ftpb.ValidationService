@@ -16,17 +16,13 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             _validationMessageStorageEntry = new List<ValidationMessageStorageEntry>();
             InitiateMessageRepository();
         }
-        public ValidationRule GetValidationRuleMessage(string dataFormatVersion, ValidationRule validationRule, string languageCode)
+        public ValidationRule GetValidationRuleMessage(ValidationRule validationRule, string languageCode, string dataFormatVersion)
         {
             ValidationMessageStorageEntry theStorageEntry;
-            try
+            theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => dataFormatVersion.Equals(x.DataFormatVersion) && x.Id.Equals(validationRule.Id) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.Xpath));
+            if (theStorageEntry == null)
             {
-                theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.DataFormatVersion.Equals(dataFormatVersion) && x.Id.Equals(validationRule.Id) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.Xpath));
-            }
-            catch
-            {
-
-                theStorageEntry = null;
+                theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.DataFormatVersion == null && x.Id.Equals(validationRule.Id) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.Xpath));
             }
 
             if (theStorageEntry == null)
@@ -49,14 +45,11 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             string xPath = Regex.Replace(validationMessage.XpathField, @"\[([0-9]*)\]", "{0}"); ;
 
             ValidationMessageStorageEntry theStorageEntry;
-            try
-            {
-                theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.DataFormatVersion.Equals(dataFormatVersion) && x.Id == validationMessage.Reference && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath, StringComparison.OrdinalIgnoreCase));
-            }
-            catch 
-            {
+            theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => dataFormatVersion.Equals(x.DataFormatVersion) && x.Id == validationMessage.Reference && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath, StringComparison.OrdinalIgnoreCase));
 
-                theStorageEntry = null;
+            if (theStorageEntry == null)
+            {
+                theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.DataFormatVersion == null && x.Id == validationMessage.Reference && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath, StringComparison.OrdinalIgnoreCase));
             }
 
             if (theStorageEntry == null)

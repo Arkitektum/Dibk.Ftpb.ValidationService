@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Text;
 using System.Threading.Tasks;
-using Dibk.Ftpb.Validation.Application.DataSources.Models;
 using Dibk.Ftpb.Validation.Application.Enums;
-using Microsoft.AspNetCore.Server.IIS.Core;
 using Microsoft.Extensions.Options;
 
 namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList

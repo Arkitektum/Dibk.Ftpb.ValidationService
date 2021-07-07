@@ -1,5 +1,6 @@
 ﻿using System;
 using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 {

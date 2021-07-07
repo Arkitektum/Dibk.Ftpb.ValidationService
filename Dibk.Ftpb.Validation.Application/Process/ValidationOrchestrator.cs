@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Microsoft.Extensions.Logging;
 
@@ -16,16 +17,13 @@ namespace Dibk.Ftpb.Validation.Application.Process
     {
         private readonly IServiceProvider _services;
         private readonly ILogger<ValidationOrchestrator> _logger;
-        private readonly IValidationMessageComposer _validationMessageComposer;
 
-        //public List<ValidationRule> ValidationRules { get; set; }
         public ValidationResult ValidationResult { get; set; }
 
-        public ValidationOrchestrator(IServiceProvider services, ILogger<ValidationOrchestrator> logger, IValidationMessageComposer validationMessageComposer)
+        public ValidationOrchestrator(IServiceProvider services, ILogger<ValidationOrchestrator> logger)
         {
             _services = services;
             _logger = logger;
-            _validationMessageComposer = validationMessageComposer;
         }
 
         public async Task<ValidationResult> ExecuteAsync(string dataFormatVersion, List<string> errorMessages, ValidationInput validationInput)
@@ -38,7 +36,7 @@ namespace Dibk.Ftpb.Validation.Application.Process
             {
                 foreach (var message in errorMessages)
                 {
-                    ValidationResult.ValidationMessages.Add(new ValidationMessage() { Reference = ValidationRuleEnum.XsdValidationErrors, Message = message });
+                    ValidationResult.ValidationMessages.Add(new ValidationMessage() { Reference = "XsdValidationErrors", Message = message });
                 }
             }
             else
@@ -47,9 +45,8 @@ namespace Dibk.Ftpb.Validation.Application.Process
                 List<ValidationRule> validationXmlMessages = new List<ValidationRule>();
                 ValidationResult.ValidationRules.AddRange(validationXmlMessages);
 
-                ValidateMainForm(dataFormatVersion, validationInput);   //DataFormatVersion: 45957
+                ValidateMainForm(dataFormatVersion, validationInput);
 
-                ValidationResult = _validationMessageComposer.ComposeValidationReport(dataFormatVersion, ValidationResult, "NO");
             }
 
             // Todo: On ERRORS
@@ -86,7 +83,7 @@ namespace Dibk.Ftpb.Validation.Application.Process
         private void ValidateMainForm(string dataFormatVersion, ValidationInput validationInput)
         {
             IFormValidator formValidator = GetValidator(dataFormatVersion); //45957
-            ValidationResult valResult = formValidator.StartValidation(validationInput);
+            ValidationResult valResult = formValidator.StartValidation(dataFormatVersion, validationInput);
 
             ValidationResult.ValidationRules.AddRange(valResult.ValidationRules);
             ValidationResult.ValidationMessages.AddRange(valResult.ValidationMessages);

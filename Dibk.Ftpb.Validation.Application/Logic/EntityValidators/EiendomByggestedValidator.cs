@@ -1,12 +1,11 @@
 ﻿using Dibk.Ftpb.Validation.Application.DataSources;
-using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 using System.Collections.Generic;
 using System.Linq;
-using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
@@ -17,8 +16,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private readonly IMatrikkelValidator _matrikkelValidator;
         private readonly IMunicipalityValidator _municipalityValidator;
        
-        //public override string ruleXmlElement { get { return "eiendomByggested{0}"; } set { ruleXmlElement = value; } }
-
         ValidationResult IEntityBaseValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
         public EiendomByggestedValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, IEiendomsAdresseValidator eiendomsAdresseValidator, IMatrikkelValidator matrikkelValidator, IMunicipalityValidator municipalityValidator)
@@ -28,31 +25,24 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _eiendomsAdresseValidator = eiendomsAdresseValidator;
             _matrikkelValidator = matrikkelValidator;
         }
-        //public EiendomByggestedValidator(FormValidatorConfiguration formValidatorConfiguration, IEiendomsAdresseValidator eiendomsAdresseValidator, IMatrikkelValidator matrikkelValidator, IMunicipalityValidator municipalityValidator)
-        //    : base(formValidatorConfiguration)
-        //{
-        //    _municipalityValidator = municipalityValidator;
-        //    _eiendomsAdresseValidator = eiendomsAdresseValidator;
-        //    _matrikkelValidator = matrikkelValidator;
-        //}
+
 
         protected override void InitializeValidationRules()
         {
 
-            AddValidationRule(EiendomValidationEnums.adresse_utfylt, "adresse");
+            //AddValidationRule(EiendomValidationEnums.utfylt, "adresse");
 
-            AddValidationRule(ValidationRuleEnum.eiendom_utfylt);
-            AddValidationRule(ValidationRuleEnum.eiendomsadresse_bygningsnummer_utfylt, "bygningsnummer");
-            AddValidationRule(ValidationRuleEnum.eiendomsadresse_bolignummer_utfylt, "bolignummer");
-            AddValidationRule(ValidationRuleEnum.eiendomsadresse_kommunenavn_utfylt, "kommunenavn");
-            AddValidationRule(ValidationRuleEnum.eiendomsadresse_tillatte_postnr_i_kommune, "postnr");
+            AddValidationRule(EiendomValidationEnums.utfylt);
+            AddValidationRule(EiendomValidationEnums.bygningsnummer_utfylt, "bygningsnummer");
+            AddValidationRule(EiendomValidationEnums.bolignummer_utfylt, "bolignummer");
+            AddValidationRule(EiendomValidationEnums.kommunenavn_utfylt, "kommunenavn");
         }
 
         public ValidationResult Validate(IEnumerable<EiendomValidationEntity> eiendomValidationEntities)
         {
             if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntities) || eiendomValidationEntities.Count() == 0)
             {
-                AddMessageFromRuleIfCollectionIsEmpty(ValidationRuleEnum.eiendom_utfylt);
+                AddMessageFromRule(EiendomValidationEnums.utfylt);
             }
             else
             {
@@ -60,27 +50,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 foreach (var eiendomValidationEntity in eiendomValidationEntities)
                 {
                     var xPath = eiendomValidationEntity.DataModelXpath;
+                    
+                    ValidateEntityFields(eiendomValidationEntity);
 
-                    if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntity.ModelData.Adresse))
-                    {
-                        AddMessageFromRule(EiendomValidationEnums.adresse_utfylt, xPath);
-                        AddMessageFromRule(ValidationRuleEnum.eiendomsadresse_utfylt, xPath);
+                    var eiendomsAdresseValidationResult = _eiendomsAdresseValidator.Validate(eiendomValidationEntity.ModelData.Adresse);
+                    _validationResult.ValidationMessages.AddRange(eiendomsAdresseValidationResult.ValidationMessages);
 
-                    }
-                    else
-                    {
-                        //
-                    }
+                    var matrikkelValidationResult = _matrikkelValidator.Validate(eiendomValidationEntity.ModelData.Matrikkel);
+                    _validationResult.ValidationMessages.AddRange(matrikkelValidationResult.ValidationMessages);
 
-                    //ValidateEntityFields(eiendomValidationEntity);
-
-                    //var eiendomsAdresseValidationResult = _eiendomsAdresseValidator.Validate(eiendomValidationEntity.ModelData.Adresse);
-                    //_validationResult.ValidationMessages.AddRange(eiendomsAdresseValidationResult.ValidationMessages);
-
-                    //var matrikkelValidationResult = _matrikkelValidator.Validate(eiendomValidationEntity.ModelData.Matrikkel);
-                    //_validationResult.ValidationMessages.AddRange(matrikkelValidationResult.ValidationMessages);
-
-                    //ValidateDataRelations(eiendomValidationEntity);
+                    ValidateDataRelations(eiendomValidationEntity);
                 }
             }
 
@@ -91,7 +70,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             if (!TillattPostnrIKommune(eiendomValidationEntity.ModelData.Kommunenavn, eiendomValidationEntity.ModelData.Adresse.ModelData?.Postnr))
             {
-                AddMessageFromRule(ValidationRuleEnum.eiendomsadresse_tillatte_postnr_i_kommune, eiendomValidationEntity.DataModelXpath, new [] { eiendomValidationEntity.ModelData.Adresse.ModelData?.Postnr, eiendomValidationEntity.ModelData.Kommunenavn });
+                AddMessageFromRule(EiendomValidationEnums.tillatte_postnr_i_kommune, eiendomValidationEntity.DataModelXpath, new [] { eiendomValidationEntity.ModelData.Adresse.ModelData?.Postnr, eiendomValidationEntity.ModelData.Kommunenavn });
             }
         }
 
@@ -99,13 +78,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             var xPath = eiendomValidationEntity.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntity.ModelData?.Bygningsnummer))
-                AddMessageFromRule(ValidationRuleEnum.eiendomsadresse_bygningsnummer_utfylt, xPath);
+                AddMessageFromRule(EiendomValidationEnums.bygningsnummer_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntity.ModelData?.Bolignummer))
-                AddMessageFromRule(ValidationRuleEnum.eiendomsadresse_bolignummer_utfylt, xPath);
+                AddMessageFromRule(EiendomValidationEnums.bolignummer_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntity.ModelData?.Kommunenavn))
-                AddMessageFromRule(ValidationRuleEnum.eiendomsadresse_kommunenavn_utfylt, xPath);
+                AddMessageFromRule(EiendomValidationEnums.kommunenavn_utfylt, xPath);
         }
 
         private bool TillattPostnrIKommune(string kommunenavn, string postnr)

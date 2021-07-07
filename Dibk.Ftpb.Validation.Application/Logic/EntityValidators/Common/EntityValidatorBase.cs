@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
@@ -61,66 +63,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             return entityValidationNode;
         }
 
-
-        //public EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration)
-        //    : this(formValidatorConfiguration, null, null, null) { }
-
-        //public EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration, string xmlElement)
-        //    : this(formValidatorConfiguration, null, null, xmlElement) { }
-
-        //public EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum? parentValidator)
-        //    : this(formValidatorConfiguration, parentValidator, null, null) { }
-
-        //public EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum? parentValidator, EntityValidatorEnum? grandParentValidator)
-        //    : this(formValidatorConfiguration, parentValidator, grandParentValidator, null) { }
-
-        //private EntityValidatorBase(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum? parentValidator, EntityValidatorEnum? grandParentValidator, string xmlElement)
-        //{
-        //    _validationResult = new ValidationResult();
-        //    _validationResult.ValidationRules = new List<ValidationRule>();
-        //    _validationResult.ValidationMessages = new List<ValidationMessage>();
-
-        //    string endXPathElement;
-        //    if (xmlElement != null)
-        //    {
-        //        endXPathElement = xmlElement;
-        //    }
-        //    else
-        //    {
-        //        endXPathElement = ruleXmlElement;
-        //    }
-
-        //    string xPathBetweenRootAndEndElement = null;
-
-        //    if (grandParentValidator != null)
-        //    {
-        //        xPathBetweenRootAndEndElement = formValidatorConfiguration.Validators.FirstOrDefault(x => GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator) && x.GrandparentValidator.Equals(grandParentValidator)).XPathBetweenRootAndEndElement;
-        //        _rulePath = formValidatorConfiguration.Validators.FirstOrDefault(x => GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator) && x.GrandparentValidator.Equals(grandParentValidator)).RulePath;
-        //    }
-        //    else if (parentValidator != null)
-        //    {
-        //        xPathBetweenRootAndEndElement = formValidatorConfiguration.Validators.FirstOrDefault(x => GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).XPathBetweenRootAndEndElement;
-        //        _rulePath = formValidatorConfiguration.Validators.FirstOrDefault(x => GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator.Equals(parentValidator)).RulePath;
-        //    }
-
-        //    if (xPathBetweenRootAndEndElement != null)
-        //    {
-        //        xPathBetweenRootAndEndElement = $"/{xPathBetweenRootAndEndElement}";
-        //        _rulePath = $"{_rulePath}";
-        //    }
-        //    else
-        //    {
-        //        _rulePath = formValidatorConfiguration.Validators.FirstOrDefault(x => GetName(typeof(EntityValidatorEnum), x.EntityValidator).Equals(this.GetType().Name) && x.ParentValidator == null).RulePath;
-        //        _rulePath = $"{_rulePath}";
-        //    }
-
-        //    _entityXPath = $"{formValidatorConfiguration.FormXPathRoot}{xPathBetweenRootAndEndElement}/{endXPathElement}";
-        //    _rulePath = $"{formValidatorConfiguration.FormXPathRoot}{_rulePath}.{endXPathElement}";
-
-        //    InitializeValidationRules();
-        //}
-
-
         protected abstract void InitializeValidationRules();
 
         public ValidationResult ResetValidationMessages()
@@ -134,32 +76,32 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             _validationResult.ValidationMessages.AddRange(newValudationResult.ValidationMessages);
         }
 
-        public ValidationRule RuleToValidate(ValidationRuleEnum id)
-        {
-            var validationRule = _validationResult.ValidationRules.FirstOrDefault(r => r.Id.Equals(id)) ?? new ValidationRule()
-            {
-                Id = id,
-                Message = $"Can't find rule with id:'{id}'.-"
-            };
+        //public ValidationRule RuleToValidate(ValidationRuleEnum id)
+        //{
+        //    var validationRule = _validationResult.ValidationRules.FirstOrDefault(r => r.Id.Equals(id)) ?? new ValidationRule()
+        //    {
+        //        Id = id,
+        //        Message = $"Can't find rule with id:'{id}'.-"
+        //    };
 
-            return validationRule;
-        }
-        protected void AddValidationRule(ValidationRuleEnum id)
+        //    return validationRule;
+        //}
+        protected void AddValidationRule(object id)
         {
             AddValidationRule(id, null);
         }
 
-        protected void AddValidationRule(ValidationRuleEnum id, string xmlElement)
-        {
-            var separator = "";
-            if (!string.IsNullOrEmpty(xmlElement))
-            {
-                separator = "/";
-            }
-            string xPath = $"{_entityXPath}{separator}{xmlElement}";
-            //xPath = Regex.Replace(xPath, @"\[([0-9]*)\]", "{0}");
-            _validationResult.ValidationRules.Add(new ValidationRule() { Id = id, Xpath = xPath, XmlElement = xmlElement, RulePath = _rulePath });
-        }
+        //protected void AddValidationRule(ValidationRuleEnum id, string xmlElement)
+        //{
+        //    var separator = "";
+        //    if (!string.IsNullOrEmpty(xmlElement))
+        //    {
+        //        separator = "/";
+        //    }
+        //    string xPath = $"{_entityXPath}{separator}{xmlElement}";
+        //    //xPath = Regex.Replace(xPath, @"\[([0-9]*)\]", "{0}");
+        //    _validationResult.ValidationRules.Add(new ValidationRule() { Id = id, Xpath = xPath, XmlElement = xmlElement, RulePath = _rulePath });
+        //}
 
         protected void AddValidationRule(object id, string xmlElement)
         {
@@ -179,7 +121,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             string xPath = $"{_entityXPath}{separator}{xmlElement}";
             //xPath = Regex.Replace(xPath, @"\[([0-9]*)\]", "{0}");
 
-            _validationResult.ValidationRules.Add(new ValidationRule() { IdSt = id.ToString(), Xpath = xPath, XmlElement = xmlElement, RulePath = elementRuleId ?? _rulePath });
+            _validationResult.ValidationRules.Add(new ValidationRule() { Id = id.ToString(), Xpath = xPath, XmlElement = xmlElement, RulePath = elementRuleId ?? _rulePath });
         }
 
 
@@ -238,7 +180,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 
             var validationMessage = new ValidationMessage()
             {
-                ReferenceSt = idSt,
+                Reference = idSt,
                 RulePath = rule.RulePath ?? _rulePath,
                 XpathField = newXPath,
                 MessageParameters = messageParameters
@@ -275,9 +217,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
         //**Add rules with dynamic enum 
         public ValidationRule RuleToValidate(string id)
         {
-            var validationRule = _validationResult.ValidationRules.Where(r => !string.IsNullOrEmpty(r.IdSt)).FirstOrDefault(r => r.IdSt.Equals(id)) ?? new ValidationRule()
+            var validationRule = _validationResult.ValidationRules.Where(r => !string.IsNullOrEmpty(r.Id)).FirstOrDefault(r => r.Id.Equals(id)) ?? new ValidationRule()
             {
-                IdSt = id,
+                Id = id,
                 Message = $"Can't find rule with id:'{id}'.-"
             };
 

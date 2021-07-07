@@ -9,13 +9,12 @@ using Dibk.Ftpb.Validation.Application.Logic;
 
 namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
-    public enum EiendomValidationEnums {
-        [EnumerationAttribute(XmlNode = "eso si funciona")]
+    public enum EiendomValidationEnums 
+    {
         utfylt,
-        adresse_utfylt, //In eiendomsAdresseValidator ???
-        eiendomsidentifikasjon_utfylt, //In matrikkelValidator ???
         bygningsnummer_utfylt,
         bolignummer_utfylt,
         kommunenavn_utfylt,
+        tillatte_postnr_i_kommune,
     }
-   }
+}

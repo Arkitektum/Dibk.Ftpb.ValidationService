@@ -1,6 +1,7 @@
 using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.Deserializers;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
@@ -22,7 +23,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
     {
         private ArbeidstilsynetsSamtykke2_45957_ValidationEntity _validationForm { get; set; }
 
-        //private readonly FormValidatorConfiguration _formValidatorConfiguration;
         private readonly IMunicipalityValidator _municipalityValidator;
         private readonly ICodeListService _codeListService;
         private readonly IPostalCodeService _postalCodeService;
@@ -60,68 +60,27 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         protected override string XPathRoot => "ArbeidstilsynetsSamtykke";
 
-        public ArbeidstilsynetsSamtykke2_45957_Validator(FormValidatorConfiguration formValidatorConfiguration, IMunicipalityValidator municipalityValidator, ICodeListService codeListService,IPostalCodeService postalCodeService)
+        public ArbeidstilsynetsSamtykke2_45957_Validator(IValidationMessageComposer validationMessageComposer, IMunicipalityValidator municipalityValidator, ICodeListService codeListService,IPostalCodeService postalCodeService)
+            : base(validationMessageComposer)
         {
-            //_formValidatorConfiguration = formValidatorConfiguration;
             _municipalityValidator = municipalityValidator;
             _codeListService = codeListService;
             _postalCodeService = postalCodeService;
         }
 
-        public override ValidationResult StartValidation(ValidationInput validationInput)
+        public override ValidationResult StartValidation(string dataFormatVersion, ValidationInput validationInput)
         {
             ArbeidstilsynetsSamtykkeType formModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(validationInput.FormData);
-            _validationForm = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(formModel, XPathRoot);
+            _validationForm = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(formModel);
 
-            base.StartValidation(validationInput);
+            base.StartValidation(dataFormatVersion, validationInput);
+
 
             return ValidationResult;
         }
 
         protected override void InitializeValidatorConfig()
         {
-            //_formValidatorConfiguration.ValidatorFormName = this.GetType().Name;
-            //_formValidatorConfiguration.FormXPathRoot = XPathRoot;
-
-            //_formValidatorConfiguration.Validators = new List<EntityValidatorInfo>();
-
-            ////Eiendombyggested
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EiendomByggestedValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EiendomsAdresseValidator, EntityValidatorEnum.EiendomByggestedValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.MatrikkelValidator, EntityValidatorEnum.EiendomByggestedValidator));
-
-            ////Tiltakshaver
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltakshaverValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidator, EntityValidatorEnum.TiltakshaverValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.KontaktpersonValidator, EntityValidatorEnum.TiltakshaverValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum._partstypeValidator, EntityValidatorEnum.TiltakshaverValidator));
-
-            ////AnsvarligSoeker
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.AnsvarligSoekerValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidator, EntityValidatorEnum.AnsvarligSoekerValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.KontaktpersonValidator, EntityValidatorEnum.AnsvarligSoekerValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum._partstypeValidator, EntityValidatorEnum.AnsvarligSoekerValidator));
-
-            ////Fakturamottaker
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.FakturamottakerValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidatorV2, EntityValidatorEnum.FakturamottakerValidator));
-
-            ////Arbeidsplasser
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.ArbeidsplasserValidator));
-
-            ////Sjekkliste
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.SjekklistekravValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.SjekklistepunktValidator, EntityValidatorEnum.SjekklistekravValidator));
-
-            ////BeskrivelseAvTiltak
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.AnleggstypeValidator, EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.NaeringsgruppeValidator, EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.BygningstypeValidator, EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltaksformaalValidator, EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltakstypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-           
             var eiendombyggestedTree = new List<EntityValidatorNode>()
             {
                 new () {Id = 1, EnumId = EntityValidatorEnum.EiendomByggestedValidator, ParentID = null},
@@ -146,7 +105,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 new() {Id = 10, EnumId = EntityValidatorEnum.ArbeidsplasserValidator, ParentID = null}
             };
 
-            var ansvarligSoekerTree =new List<EntityValidatorNode>() 
+            var ansvarligSoekerTree = new List<EntityValidatorNode>() 
             { 
                 new () {Id = 11, EnumId = EntityValidatorEnum.AnsvarligSoekerValidator, ParentID = null},
                 new () {Id = 12, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 11},

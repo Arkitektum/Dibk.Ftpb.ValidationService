@@ -38,10 +38,10 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
             codelistClient.Setup(a => a.IsCodelistValid(It.IsAny<ArbeidstilsynetCodeListNames>(), It.IsAny<string>())).Returns(valid);
             return codelistClient.Object;
         }
-        public static ICodeListService IsCodeListValid(FtbCodeListNames codeListName, bool valid = true)
+        public static ICodeListService IsCodeListValid(FtbKodeListeEnums codeListName, bool valid = true)
         {
             var codelistClient = new Mock<ICodeListService>();
-            codelistClient.Setup(a => a.IsCodelistValid(It.IsAny<FtbCodeListNames>(), It.IsAny<string>())).Returns(valid);
+            codelistClient.Setup(a => a.IsCodelistValid(It.IsAny<FtbKodeListeEnums>(), It.IsAny<string>())).Returns(valid);
             return codelistClient.Object;
         }
 

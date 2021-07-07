@@ -8,7 +8,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
     public enum FakturamottakerValidationEnums
     {
-        fakturamottaker_utfylt,
+        utfylt,
         organisasjonsnummer_utfylt,
         organisasjonsnummer_kontrollsiffer,
         organisasjonsnummer_ugyldig,

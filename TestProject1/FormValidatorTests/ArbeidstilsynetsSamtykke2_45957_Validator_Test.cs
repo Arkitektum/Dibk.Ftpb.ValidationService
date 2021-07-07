@@ -28,19 +28,23 @@ namespace Dibk.Ftpb.Validation.Application.Tests
         ArbeidstilsynetsSamtykke2_45957_Validator _formValidator;
         private readonly string _rootDirTestResults = @"C:\ATIL_testresults";
         private readonly bool WriteValidationResultsToJsonFile = true;
+        private readonly ValidationMessageComposer _validationMessageComposer;
+
         public ArbeidstilsynetsSamtykke2_45957_Validator_Test()
         {
             _municipalityValidator = MockDataSource.MunicipalityValidatorResult(MunicipalityValidationEnum.Ok);
-            _codeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.partstype, true);
+            _codeListService = MockDataSource.IsCodeListValid(FtbKodeListeEnums.Partstype, true);
             _postalCodeService = MockDataSource.ValidatePostnr(true, "Bø i Telemark", "true");
             FormValidatorConfiguration formValidatorConfiguration = new FormValidatorConfiguration();
 
-            _formValidator = new ArbeidstilsynetsSamtykke2_45957_Validator(formValidatorConfiguration, _municipalityValidator, _codeListService, _postalCodeService);
+            _validationMessageComposer = new ValidationMessageComposer();
+            _formValidator = new ArbeidstilsynetsSamtykke2_45957_Validator(_validationMessageComposer, _municipalityValidator, _codeListService, _postalCodeService);
 
             if (WriteValidationResultsToJsonFile && !Directory.Exists(_rootDirTestResults))
             {
                 Directory.CreateDirectory(_rootDirTestResults);
             }
+
         }
 
 
@@ -50,7 +54,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             ValidationInput validationInput = new ValidationInput();
             validationInput.FormData = @"<?xml version='1.0' encoding='utf-8'?><ArbeidstilsynetsSamtykke xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' dataFormatProvider='SERES' dataFormatId='6821' dataFormatVersion='45957' xmlns='http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0'><eiendomByggested><eiendom><adresse><adresselinje1>Bøgata 1</adresselinje1><adresselinje2 xsi:nil='true' /><adresselinje3 xsi:nil='true' /><postnr>3800</postnr><poststed>Bø i Telemark</poststed><landkode>NO</landkode><gatenavn xsi:nil='true' /><husnr xsi:nil='true' /><bokstav xsi:nil='true' /></adresse><eiendomsidentifikasjon><kommunenummer>3817</kommunenummer><gaardsnummer>148</gaardsnummer><bruksnummer>283</bruksnummer><festenummer>0</festenummer><seksjonsnummer>0</seksjonsnummer></eiendomsidentifikasjon><bygningsnummer>80466985</bygningsnummer><bolignummer>H0102</bolignummer><kommunenavn>Midt Telemark</kommunenavn></eiendom></eiendomByggested></ArbeidstilsynetsSamtykke>";
 
-            var validationResult = _formValidator.StartValidation(validationInput);
+            var validationResult = _formValidator.StartValidation("45957", validationInput);
 
             var validationMessage = validationResult.ValidationMessages.Where(x => x.Reference.Equals("eiendomsAdresse_adresselinje2_utfylt")).FirstOrDefault();
             validationMessage.Reference.Should().NotBe(null);
@@ -67,12 +71,9 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             validationMessage = validationResult.ValidationMessages.Where(x => x.Reference.Equals("eiendomsAdresse_bokstav_utfylt")).FirstOrDefault();
             validationMessage.Reference.Should().NotBe(null);
 
-            var validationComposer = new ValidationMessageComposer();
-            var newValidationReport = validationComposer.ComposeValidationReport("45957", validationResult, "NO");
-
             if (WriteValidationResultsToJsonFile)
             {
-                var jsonString = JsonConvert.SerializeObject(newValidationReport);
+                var jsonString = JsonConvert.SerializeObject(validationResult);
                 File.WriteAllText(_rootDirTestResults + @"\validatortest_hele_skjemaet_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
             }
         }
@@ -83,7 +84,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             string xmlData = @"<?xml version='1.0' encoding='utf-8'?><ArbeidstilsynetsSamtykke xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' dataFormatProvider='SERES' dataFormatId='6821' dataFormatVersion='45957' xmlns='http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0'><eiendomByggested><eiendom><adresse><adresselinje1>Bøgata 1</adresselinje1><adresselinje2 xsi:nil='true' /><adresselinje3 xsi:nil='true' /><postnr>xxx3800</postnr><poststed>Bø i Telemark</poststed><landkode>NO</landkode><gatenavn xsi:nil='true' /><husnr xsi:nil='true' /><bokstav xsi:nil='true' /></adresse><eiendomsidentifikasjon><kommunenummer>3817</kommunenummer><gaardsnummer>148</gaardsnummer><bruksnummer>283</bruksnummer><festenummer>0</festenummer><seksjonsnummer>0</seksjonsnummer></eiendomsidentifikasjon><bygningsnummer>80466985</bygningsnummer><bolignummer>H0102</bolignummer><kommunenavn>Midt Telemark</kommunenavn></eiendom></eiendomByggested></ArbeidstilsynetsSamtykke>";
 
             var dataModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(xmlData);
-            var formEntity = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(dataModel, "ArbeidstilsynetsSamtykke");
+            var formEntity = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(dataModel);
             FormValidatorConfiguration formValidatorConfiguration = new FormValidatorConfiguration();
             //var validationResultForEiendomsAdresse = new EiendomsAdresseValidator(formValidatorConfiguration, EntityValidatorEnum.EiendomByggestedValidator).Validate(formEntity.ModelData.EiendomValidationEntities.ToList()[0].ModelData.Adresse);
 
@@ -105,7 +106,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             string xmlData = @"<?xml version='1.0' encoding='utf-8'?><ArbeidstilsynetsSamtykke xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' dataFormatProvider='SERES' dataFormatId='6821' dataFormatVersion='45957' xmlns='http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0'><eiendomByggested><eiendom><adresse><adresselinje1>Bøgata 1</adresselinje1><adresselinje2 xsi:nil='true' /><adresselinje3 xsi:nil='true' /><postnr>3810</postnr><poststed>Bø i Telemark</poststed><landkode>NO</landkode><gatenavn xsi:nil='true' /><husnr xsi:nil='true' /><bokstav xsi:nil='true' /></adresse><eiendomsidentifikasjon><kommunenummer>3817</kommunenummer><gaardsnummer>148</gaardsnummer><bruksnummer>283</bruksnummer><festenummer>0</festenummer><seksjonsnummer>0</seksjonsnummer></eiendomsidentifikasjon><bygningsnummer>80466985</bygningsnummer><bolignummer>H0102</bolignummer><kommunenavn>Midt Telemark</kommunenavn></eiendom></eiendomByggested></ArbeidstilsynetsSamtykke>";
 
             var dataModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(xmlData);
-            var formEntity = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(dataModel, "ArbeidstilsynetsSamtykke");
+            var formEntity = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(dataModel);
             FormValidatorConfiguration formValidatorConfiguration = new FormValidatorConfiguration();
             //IEiendomsAdresseValidator eiendomsAdresseValidator = new EiendomsAdresseValidator(formValidatorConfiguration, EntityValidatorEnum.EiendomByggestedValidator);
             //IMatrikkelValidator matrikkelValidator = new MatrikkelValidator(formValidatorConfiguration, EntityValidatorEnum.EiendomByggestedValidator);
@@ -132,7 +133,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             string xmlData = @"<?xml version='1.0' encoding='utf-8'?><ArbeidstilsynetsSamtykke xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' dataFormatProvider='SERES' dataFormatId='6821' dataFormatVersion='45957' xmlns='http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0'><eiendomByggested><eiendom><adresse><adresselinje1>B�gata 1</adresselinje1><adresselinje2 xsi:nil='true' /><adresselinje3 xsi:nil='true' /><postnr>3810</postnr><poststed>B� i Telemark</poststed><landkode>NO</landkode><gatenavn xsi:nil='true' /><husnr xsi:nil='true' /><bokstav xsi:nil='true' /></adresse><eiendomsidentifikasjon><kommunenummer>3817</kommunenummer><gaardsnummer>148</gaardsnummer><bruksnummer>283</bruksnummer><festenummer>0</festenummer><seksjonsnummer>0</seksjonsnummer></eiendomsidentifikasjon><bygningsnummer>80466985</bygningsnummer><bolignummer>H0102</bolignummer><kommunenavn>Midt Telemark</kommunenavn></eiendom><eiendom><adresse><adresselinje1>B�gata 2</adresselinje1><adresselinje2 xsi:nil='true' /><adresselinje3 xsi:nil='true' /><postnr>3809</postnr><poststed>B� i Telemark</poststed><landkode>NO</landkode><gatenavn xsi:nil='true' /><husnr xsi:nil='true' /><bokstav xsi:nil='true' /></adresse><eiendomsidentifikasjon><kommunenummer>3817</kommunenummer><gaardsnummer>248</gaardsnummer><bruksnummer>283</bruksnummer><festenummer>0</festenummer><seksjonsnummer>0</seksjonsnummer></eiendomsidentifikasjon><bygningsnummer>80466985</bygningsnummer><bolignummer>H0102</bolignummer><kommunenavn>Midt Telemark</kommunenavn></eiendom></eiendomByggested></ArbeidstilsynetsSamtykke>";
 
             var dataModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(xmlData);
-            var formEntity = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(dataModel, "ArbeidstilsynetsSamtykke");
+            var formEntity = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(dataModel);
             FormValidatorConfiguration formValidatorConfiguration = new FormValidatorConfiguration();
             //IEiendomsAdresseValidator eiendomsAdresseValidator = new EiendomsAdresseValidator(formValidatorConfiguration, EntityValidatorEnum.EiendomByggestedValidator);
             //IMatrikkelValidator matrikkelValidator = new MatrikkelValidator(formValidatorConfiguration, EntityValidatorEnum.EiendomByggestedValidator);
@@ -159,10 +160,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             ValidationInput validationInput = new();
             validationInput.FormData = xmlData;
-            var result = _formValidator.StartValidation(validationInput);
-
-            var validationComposer = new ValidationMessageComposer();
-            var newValidationReport = validationComposer.ComposeValidationReport("45957", result, "NO");
+            var newValidationReport = _formValidator.StartValidation("45957", validationInput);
 
             if (WriteValidationResultsToJsonFile)
             {

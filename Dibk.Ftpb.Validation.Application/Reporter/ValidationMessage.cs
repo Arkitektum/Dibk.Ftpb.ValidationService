@@ -1,4 +1,6 @@
 ﻿using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -6,8 +8,8 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
 {
     public class ValidationMessage
     {
-        public ValidationRuleEnum Reference { get; set; }
-        public string ReferenceSt { get; set; }
+        //public ValidationRuleEnum Reference { get; set; }
+        public string Reference { get; set; }
         public string RulePath { get; set; }
         public string Message { get; set; }
         public ValidationResultSeverityEnum? Messagetype { get; set; }

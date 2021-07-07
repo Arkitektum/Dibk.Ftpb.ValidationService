@@ -13,12 +13,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public abstract class KodelisteValidator : EntityValidatorBase, IKodelisteValidator
     {
-        private readonly FtbCodeListNames _codeListName;
+        private readonly FtbKodeListeEnums _codeListName;
         protected ICodeListService _codeListService;
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 
-        public KodelisteValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, FtbCodeListNames codeListName ,ICodeListService codeListService)
+        public KodelisteValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, FtbKodeListeEnums codeListName ,ICodeListService codeListService)
                    : base(entityValidatorTree, nodeId)
         {
             _codeListName = codeListName;
@@ -30,7 +30,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(KodeListValidationEnums.utfylt, null);
             AddValidationRule(KodeListValidationEnums.kodeverdi_utfylt, "kodeverdi");
             AddValidationRule(KodeListValidationEnums.kodeverdi_ugyldig, "kodeverdi");
-            AddValidationRule(KodeListValidationEnums.Kodebeskrivelse_utfylt, "kodebeskrivelse");
+            AddValidationRule(KodeListValidationEnums.kodebeskrivelse_utfylt, "kodebeskrivelse");
             AddValidationRule(KodeListValidationEnums.kodebeskrivelse_ugyldig, "kodebeskrivelse");
         }
 

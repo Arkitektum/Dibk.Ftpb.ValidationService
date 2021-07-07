@@ -1,17 +1,18 @@
 ﻿using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class ArbeidsplasserValidator : EntityValidatorBase, IArbeidsplasserValidator
     {
         private List<string> _attachmentList;
-        //public override string ruleXmlElement { get { return "arbeidsplasser"; } set { ruleXmlElement = value; } }
         
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
@@ -19,10 +20,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             : base(entityValidatorTree, nodeId)
         {
         }
-        //public ArbeidsplasserValidator(FormValidatorConfiguration formValidatorConfiguration) 
-        //    : base(formValidatorConfiguration)
-        //{
-        //}
 
         public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, List<string> attachments = null)
         {
@@ -43,7 +40,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_utleieBygg, "utleieBygg");
             this.AddValidationRule(ValidationRuleEnum.arbeidsplasser_beskrivelse, "beskrivelse");
         }
-
 
         public void ValidateEntityFields(ArbeidsplasserValidationEntity arbeidsplasserValEntity)
         {

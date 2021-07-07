@@ -7,20 +7,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class TiltaksformaalValidator : KodelisteValidator
     {
-        //public override string ruleXmlElement { get { return "tiltaksformaal"; } set { ruleXmlElement = value; } }
-
-        //public TiltaksformaalValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator, ICodeListService codeListService)
-        //    : base(formValidatorConfiguration, parentValidator, codeListService)
-        //{
-        //    _codeListService = codeListService;
-        //}
         public TiltaksformaalValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeid, ICodeListService codeListService)
-            : base(entityValidatorTree, nodeid, codeListService)
+            : base(entityValidatorTree, nodeid, FtbKodeListeEnums.Tiltaksformaal, codeListService)
         {
             _codeListService = codeListService;
         }
-
-
-
     }
 }

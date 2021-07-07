@@ -1,4 +1,5 @@
 ﻿using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
@@ -7,10 +8,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
 {
     public class ArbeidstilsynetsSamtykke2_45957_Mapper
     {
-        public ArbeidstilsynetsSamtykke2_45957_ValidationEntity GetFormEntity(ArbeidstilsynetsSamtykkeType dataModel, string XPathRoot)
+        public ArbeidstilsynetsSamtykke2_45957_ValidationEntity GetFormEntity(ArbeidstilsynetsSamtykkeType dataModel)
         {
             var arbeidstilsynetsSamtykke2Form45957 = new ArbeidstilsynetsSamtykke2_45957_Form();
-
+            string XPathRoot = "";
             arbeidstilsynetsSamtykke2Form45957.EiendomValidationEntities = new EiendomByggestedMapper().Map(dataModel.eiendomByggested, XPathRoot);
             arbeidstilsynetsSamtykke2Form45957.ArbeidsplasserValidationEntity = new ArbeidsplasserMapper().Map(dataModel.arbeidsplasser, XPathRoot);
             arbeidstilsynetsSamtykke2Form45957.TiltakshaverValidationEntity = new AktoerMapper(AktoerEnum.tiltakshaver).Map(dataModel.tiltakshaver, XPathRoot);
