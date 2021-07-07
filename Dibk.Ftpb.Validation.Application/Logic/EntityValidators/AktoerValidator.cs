@@ -121,19 +121,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         AddMessageFromRule(AktoerValidationEnums.organisasjonsnummer_ugyldig, xpath);
                         break;
                 }
-
-                //var kontaktpersonValidationResult = _kontaktpersonValidator.Validate(tiltakshaver.Kontaktperson);
-                //UpdateValidationResultWithSubValidations(kontaktpersonValidationResult);
-
-                if (string.IsNullOrEmpty(tiltakshaver.Epost))
-                    AddMessageFromRule(AktoerValidationEnums.epost_utfylt, xpath);
-
-                if (string.IsNullOrEmpty(tiltakshaver.Navn))
-                    AddMessageFromRule(AktoerValidationEnums.navn_utfylt, xpath);
+                var kontaktpersonValidationResult = _kontaktpersonValidator.Validate(tiltakshaver.Kontaktperson);
+                UpdateValidationResultWithSubValidations(kontaktpersonValidationResult);
             }
 
             var enkeladressResult = _enkelAdresseValidator.Validate(tiltakshaver.Adresse);
             UpdateValidationResultWithSubValidations(enkeladressResult);
+            
+            if (string.IsNullOrEmpty(tiltakshaver.Navn))
+                AddMessageFromRule(AktoerValidationEnums.navn_utfylt, xpath);
+
+            if (string.IsNullOrEmpty(tiltakshaver.Epost))
+                AddMessageFromRule(AktoerValidationEnums.epost_utfylt, xpath);
 
             if (string.IsNullOrEmpty(tiltakshaver.Telefonnummer) && string.IsNullOrEmpty(tiltakshaver.Mobilnummer))
             {
