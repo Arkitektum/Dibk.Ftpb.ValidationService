@@ -16,9 +16,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public abstract class AktoerValidator : EntityValidatorBase, IAktoerValidator
     {
-        //private string _aktoer { get; set; }
-        //public override string ruleXmlElement { get { return $"{_aktoer}"; } set { ruleXmlElement = value; } }
-
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 
         protected ICodeListService _codeListService;
@@ -36,7 +33,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _enkelAdresseValidator = enkelAdresseValidator;
             _kontaktpersonValidator = kontaktpersonValidator;
             _partstypeValidator = partstypeValidator;
-
         }
 
         protected override void InitializeValidationRules()

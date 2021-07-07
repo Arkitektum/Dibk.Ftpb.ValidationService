@@ -20,7 +20,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
     [FormData(DataFormatVersion = "41999")]
     public class ArbeidstilsynetsSamtykke_41999_Validator : FormValidatorBase, IFormValidator
     {
-        private readonly FormValidatorConfiguration _formValidatorConfiguration;
         private IList<EntityValidatorNode> _entityValidatorTree;
 
         private readonly IMunicipalityValidator _municipalityValidator;
@@ -40,140 +39,101 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         protected override string XPathRoot => "ArbeidstilsynetsSamtykke";
 
-        public ArbeidstilsynetsSamtykke_41999_Validator(FormValidatorConfiguration formValidatorConfiguration, IMunicipalityValidator municipalityValidator, ICodeListService codeListService, IPostalCodeService postalCodeService)
+        public ArbeidstilsynetsSamtykke_41999_Validator(IValidationMessageComposer validationMessageComposer, IMunicipalityValidator municipalityValidator, ICodeListService codeListService, IPostalCodeService postalCodeService)
+            : base(validationMessageComposer)
         {
-            _formValidatorConfiguration = formValidatorConfiguration;
             _municipalityValidator = municipalityValidator;
             _codeListService = codeListService;
             _postalCodeService = postalCodeService;
         }
 
-        public override ValidationResult StartValidation(ValidationInput validationInput)
+        public override ValidationResult StartValidation(string dataFormatVersion, ValidationInput validationInput)
         {
             ArbeidstilsynetsSamtykkeType formModel = new ArbeidstilsynetsSamtykke_41999_Deserializer().Deserialize(validationInput.FormData);
-            _validationForm = new ArbeidstilsynetsSamtykke_41999_Mapper().GetFormEntity(formModel, XPathRoot);
+            _validationForm = new ArbeidstilsynetsSamtykke_41999_Mapper().GetFormEntity(formModel);
 
-            base.StartValidation(validationInput);
+            base.StartValidation(dataFormatVersion, validationInput);
 
             return ValidationResult;
         }
 
         protected override void InitializeValidatorConfig()
         {
-            //_formValidatorConfiguration.ValidatorFormName = this.GetType().Name;
-            //_formValidatorConfiguration.FormXPathRoot = XPathRoot;
-
-            //_formValidatorConfiguration.Validators = new List<EntityValidatorInfo>();
-
-            ////Eiendombyggested
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EiendomByggestedValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EiendomsAdresseValidator, EntityValidatorEnum.EiendomByggestedValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.MatrikkelValidator, EntityValidatorEnum.EiendomByggestedValidator));
-
-            ////Tiltakshaver
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltakshaverValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidator, EntityValidatorEnum.TiltakshaverValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.KontaktpersonValidator, EntityValidatorEnum.TiltakshaverValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum._partstypeValidator, EntityValidatorEnum.TiltakshaverValidator));
-
-            ////Fakturamottaker
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.FakturamottakerValidator));
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.EnkelAdresseValidator, EntityValidatorEnum.FakturamottakerValidator));
-
-            ////Arbeidsplasser
-            //_formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.ArbeidsplasserValidator));
-
-
-            //New tree structure
-
-            var entityValidatorNodes = new List<EntityValidatorNode>()
+            var eiendombyggestedTree = new List<EntityValidatorNode>()
             {
-                //Eiendombyggested
-                new ()
-                {
-                    Id = 1,
-                    EnumId = EntityValidatorEnum.EiendomByggestedValidator,
-                    ParentID = null,
-                }, //root node
-                new ()
-                {
-                    Id = 2,
-                    EnumId = EntityValidatorEnum.EiendomsAdresseValidator,
-                    ParentID = 1,
-                },
-                new ()
-                {
-                    Id = 3,
-                    EnumId = EntityValidatorEnum.MatrikkelValidator,
-                    ParentID = 1,
-                },
-                
-                //Tiltakshaver
-                new ()
-                {
-                Id = 4,
-                EnumId = EntityValidatorEnum.TiltakshaverValidator,
-                ParentID = null,
-                }, //root node
-                new () {
-                Id = 5,
-                EnumId = EntityValidatorEnum.KontaktpersonValidator,
-                ParentID = 4,
-
-                },
-                new () {
-                Id = 6,
-                EnumId = EntityValidatorEnum.PartstypeValidator,
-                ParentID = 4,
-                },
-                new () {
-                Id = 7,
-                EnumId = EntityValidatorEnum.EnkelAdresseValidator,
-                ParentID = 4,
-            },
-            //Fakturamottaker
-            new ()
+                new () {Id = 1, EnumId = EntityValidatorEnum.EiendomByggestedValidator, ParentID = null},
+                new () {Id = 2, EnumId = EntityValidatorEnum.EiendomsAdresseValidator, ParentID = 1},
+                new () {Id = 3, EnumId = EntityValidatorEnum.MatrikkelValidator, ParentID = 1},
+            };
+            var tiltakshaverTree = new List<EntityValidatorNode>()
             {
-                Id = 8,
-                EnumId = EntityValidatorEnum.FakturamottakerValidator,
-                ParentID = 4,
-            },
-            new ()
+                new () {Id = 4, EnumId = EntityValidatorEnum.TiltakshaverValidator, ParentID = null},
+                new () {Id = 5, EnumId = EntityValidatorEnum.KontaktpersonValidator, ParentID = 4},
+                new () {Id = 6, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 4},
+                new () {Id = 7, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 4}
+            };
+            var fakturamottakerTree = new List<EntityValidatorNode>()
             {
-                Id = 9,
-                EnumId = EntityValidatorEnum.EnkelAdresseValidator,
-                ParentID = 8,
-            },
-            //Arbeidsplasser
-            new ()
-            {
-                Id = 10,
-                EnumId = EntityValidatorEnum.ArbeidsplasserValidator,
-                ParentID = null,
-            },
+                new () {Id = 8, EnumId = EntityValidatorEnum.FakturamottakerValidator, ParentID = null},
+                new () {Id = 9, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 8}
             };
 
-            _entityValidatorTree = EntityValidatiorTree.BuildTree(entityValidatorNodes);
+            var arbeidsplasserTree = new List<EntityValidatorNode>()
+            {
+                new() {Id = 10, EnumId = EntityValidatorEnum.ArbeidsplasserValidator, ParentID = null}
+            };
+
+            var ansvarligSoekerTree = new List<EntityValidatorNode>()
+            {
+                new () {Id = 11, EnumId = EntityValidatorEnum.AnsvarligSoekerValidator, ParentID = null},
+                new () {Id = 12, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 11},
+                new () {Id = 13, EnumId = EntityValidatorEnum.KontaktpersonValidator, ParentID = 11,},
+                new () {Id = 14, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 11,}
+            };
+
+            //Datamodellen for denne skjemaversjon er ulik v.2 - kommenterer derfor ut
+            //var beskrivelseAvTiltakTree = new List<EntityValidatorNode>()
+            //{
+            //    new () {Id = 15, EnumId = EntityValidatorEnum.BeskrivelseAvTiltakValidator, ParentID = null},
+            //    new () {Id = 16, EnumId = EntityValidatorEnum.FormaaltypeValidator, ParentID = 15},
+            //    new () {Id = 17, EnumId = EntityValidatorEnum.AnleggstypeValidator, ParentID = 16},
+            //    new () {Id = 18, EnumId = EntityValidatorEnum.NaeringsgruppeValidator, ParentID = 16},
+            //    new () {Id = 19, EnumId = EntityValidatorEnum.BygningstypeValidator, ParentID = 16},
+            //    new () {Id = 20, EnumId = EntityValidatorEnum.TiltaksformaalValidator, ParentID = 16},
+            //    new () {Id = 21, EnumId = EntityValidatorEnum.TiltakstypeValidator, ParentID = 15},
+            //};
+
+            var formTree = new List<EntityValidatorNode>();
+            formTree.AddRange(tiltakshaverTree);
+            formTree.AddRange(eiendombyggestedTree);
+            formTree.AddRange(fakturamottakerTree);
+            formTree.AddRange(arbeidsplasserTree);
+            formTree.AddRange(ansvarligSoekerTree);
+            //formTree.AddRange(beskrivelseAvTiltakTree);
+
+            EntityValidatorTree = EntityValidatiorTree.BuildTree(formTree);
+
         }
 
         protected override void InstantiateValidators()
         {
             //EiendomByggested
-            _matrikkelValidator = new MatrikkelValidator(_entityValidatorTree, 3);
-            _eiendomsAdresseValidator = new EiendomsAdresseValidator(_entityValidatorTree, 2);
-            _eiendomByggestedValidator = new EiendomByggestedValidator(_entityValidatorTree, 1, _eiendomsAdresseValidator, _matrikkelValidator, _municipalityValidator);
+            _matrikkelValidator = new MatrikkelValidator(EntityValidatorTree, 3);
+            _eiendomsAdresseValidator = new EiendomsAdresseValidator(EntityValidatorTree, 2);
+            _eiendomByggestedValidator = new EiendomByggestedValidator(EntityValidatorTree, 1, _eiendomsAdresseValidator, _matrikkelValidator, _municipalityValidator);
 
             //Tiltakshaver
-            _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(_entityValidatorTree, 7, _postalCodeService);
-            _kontaktpersonValidator = new KontaktpersonValidator(_entityValidatorTree, 5);
-            _partstypeValidator = new PartstypeValidator(_entityValidatorTree, 6, _codeListService);
-            _tiltakshaverValidator = new TiltakshaverValidator(_entityValidatorTree, 4, _tiltakshaverEnkelAdresseValidator, _kontaktpersonValidator, _partstypeValidator, _codeListService);
+            _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 7, _postalCodeService);
+            _kontaktpersonValidator = new KontaktpersonValidator(EntityValidatorTree, 5);
+            _partstypeValidator = new PartstypeValidator(EntityValidatorTree, 6, _codeListService);
+            _tiltakshaverValidator = new TiltakshaverValidator(EntityValidatorTree, 4, _tiltakshaverEnkelAdresseValidator, _kontaktpersonValidator, _partstypeValidator, _codeListService);
+            
             //Arbeidsplasser
-            _arbeidsplasserValidator = new ArbeidsplasserValidator(_entityValidatorTree, 10);
+            _arbeidsplasserValidator = new ArbeidsplasserValidator(EntityValidatorTree, 10);
 
             //Fakturamottaker
-            _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidator(_entityValidatorTree, 9, _postalCodeService);
-            _fakturamottakerValidator = new FakturamottakerValidator(_entityValidatorTree, 8, _fakturamottakerEnkelAdresseValidator);
+            _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 9, _postalCodeService);
+            _fakturamottakerValidator = new FakturamottakerValidator(EntityValidatorTree, 8, _fakturamottakerEnkelAdresseValidator);
 
         }
         protected override void DefineValidationRules()
@@ -201,17 +161,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var eiendomValidationResult = _eiendomByggestedValidator.Validate(_validationForm.ModelData.EiendomValidationEntities);
             AccumulateValidationMessages(eiendomValidationResult.ValidationMessages);
 
+            var tiltakshaverValidationResult = _tiltakshaverValidator.Validate(_validationForm.ModelData.TiltakshaverValidationEntity);
+            AccumulateValidationMessages(tiltakshaverValidationResult.ValidationMessages);
+
             var attachments = Helpers.ObjectIsNullOrEmpty(validationInput.Attachments) ? null : validationInput.Attachments.Select(a => a.AttachmentTypeName).ToList();
             var arbeidsplasserValidationResult = _arbeidsplasserValidator.Validate(_validationForm.ModelData.ArbeidsplasserValidationEntity, attachments);
             AccumulateValidationMessages(arbeidsplasserValidationResult.ValidationMessages);
 
-            var tiltakshaverValidationResult = _tiltakshaverValidator.Validate(_validationForm.ModelData.TiltakshaverValidationEntity);
-            AccumulateValidationMessages(tiltakshaverValidationResult.ValidationMessages);
-
             var fakturamottakerValidationResult = _fakturamottakerValidator.Validate(_validationForm.ModelData.FakturamottakerValidationEntity);
             AccumulateValidationMessages(fakturamottakerValidationResult.ValidationMessages);
-
-            //return ValidationResult;
         }
     }
 }

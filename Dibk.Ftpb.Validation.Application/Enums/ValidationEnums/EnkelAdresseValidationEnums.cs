@@ -8,14 +8,19 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
     public enum EnkelAdresseValidationEnums
     {
-        adresse_utfylt,
+        utfylt,
         adresselinje1_utfylt,
+        adresselinje2_utfylt,
+        adresselinje3_utfylt,
         landkode_utfylt,
         landkode_ugyldug,
         postnr_utfylt,
-        postnr_kontrollSiffer,
+        poststed_utfylt,
+        postnr_4siffer,
+        postnr_kontrollsiffer,
         postnr_ugyldig,
         postnr_stemmerIkke,
-        postnr_ikkeValidert,
+        postnr_ikke_validert,
+        tillatte_postnr_i_kommune,
     }
 }

@@ -11,7 +11,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
         utfylt,
         kodeverdi_utfylt,
         kodeverdi_ugyldig,
-        Kodebeskrivelse_utfylt,
+        kodebeskrivelse_utfylt,
         kodebeskrivelse_ugyldig
 
     }

@@ -8,7 +8,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         {
         }
 
-        public ValidationResult ComposeValidationReport(string dataFormatVersion, ValidationResult validationResult, string languageCode)
+        public ValidationResult ComposeValidationReport(string xPathRoot, string dataFormatVersion, ValidationResult validationResult, string languageCode)
         {
             ValidationMessageRepository repo = new ValidationMessageRepository();
             foreach (var validationMessage in validationResult.ValidationMessages)
@@ -21,10 +21,21 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
 
             foreach (var validationRule in validationResult.ValidationRules)
             {
-                var validationRuleFromRepo = repo.GetValidationRuleMessage(dataFormatVersion, validationRule, languageCode);
+                var validationRuleFromRepo = repo.GetValidationRuleMessage(validationRule, languageCode, dataFormatVersion);
                 validationRule.Message = validationRuleFromRepo.Message;
                 validationRule.ChecklistReference = validationRuleFromRepo.ChecklistReference;
                 validationRule.Messagetype = validationRuleFromRepo.Messagetype;
+            }
+
+            foreach (var rule in validationResult.ValidationRules)
+            {
+                rule.Xpath = $"{xPathRoot}{rule.Xpath}";
+                rule.RulePath = $"{dataFormatVersion}{rule.RulePath}";
+            }
+            foreach (var message in validationResult.ValidationMessages)
+            {
+                message.XpathField = $"{xPathRoot}{message.XpathField}";
+                message.RulePath = $"{dataFormatVersion}{message.RulePath}";
             }
 
             return validationResult;
@@ -33,6 +44,6 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
 
     public interface IValidationMessageComposer
     {
-        ValidationResult ComposeValidationReport(string dataFormatVersion, ValidationResult validationResult, string languageCode);
+        ValidationResult ComposeValidationReport(string xPathRoot, string dataFormatVersion, ValidationResult validationResult, string languageCode);
     }
 }

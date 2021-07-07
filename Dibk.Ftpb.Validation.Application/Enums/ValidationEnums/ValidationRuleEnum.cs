@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dibk.Ftpb.Validation.Application.Enums
+namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
     public enum ValidationRuleEnum
     {

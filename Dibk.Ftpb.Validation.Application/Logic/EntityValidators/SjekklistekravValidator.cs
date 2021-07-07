@@ -1,4 +1,4 @@
-﻿using Dibk.Ftpb.Validation.Application.Enums;
+﻿using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
@@ -13,22 +13,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     {
         private readonly ISjekklistepunktValidator _sjekklistepunktValidator;
 
-        //public override string ruleXmlElement { get { return "krav{0}"; } set { ruleXmlElement = value; } }
-
         public ValidationResult ValidationResult { get => _validationResult; }
-
-        //public SjekklistekravValidator(FormValidatorConfiguration formValidatorConfiguration, ISjekklistepunktValidator sjekklistepunktValidator)
-        //    : base(formValidatorConfiguration)
-        //{
-        //    _sjekklistepunktValidator = sjekklistepunktValidator;
-        //}
 
         public SjekklistekravValidator(IList<EntityValidatorNode> entityValidatorTree, ISjekklistepunktValidator sjekklistepunktValidator)
             : base(entityValidatorTree)
         {
             _sjekklistepunktValidator = sjekklistepunktValidator;
         }
-
 
         public ValidationResult Validate(IEnumerable<SjekklistekravValidationEntity> sjekklistekrav)
         {

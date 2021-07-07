@@ -1,11 +1,13 @@
 ﻿using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 
 namespace Dibk.Ftpb.Validation.Application.Reporter
 {
     public class ValidationMessageStorageEntry
     {
-        public ValidationRuleEnum Id { get; set; }
-        public string IdSt { get; set; }
+        //public ValidationRuleEnum Id { get; set; }
+        public string Id { get; set; }
         public string XPath { get; set; }
         public string LanguageCode { get; set; }
         public string Message { get; set; }

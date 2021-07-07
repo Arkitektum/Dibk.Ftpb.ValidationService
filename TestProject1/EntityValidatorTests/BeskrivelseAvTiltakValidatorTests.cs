@@ -91,12 +91,12 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
             _tree = EntityValidatiorTree.BuildTree(flatList);
 
-            ICodeListService anleggstypeCodeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.partstype, false);
+            ICodeListService anleggstypeCodeListService = MockDataSource.IsCodeListValid(FtbKodeListeEnums.Partstype, false);
             AnleggstypeValidator anleggstypeValidator = new AnleggstypeValidator(_tree, 3, anleggstypeCodeListService);
             NaeringsgruppeValidator naeringsgruppeValidator = new NaeringsgruppeValidator(_tree, 4, anleggstypeCodeListService);
             FormaaltypeValidator formaaltypeValidator = new FormaaltypeValidator(_tree, 2, anleggstypeValidator, naeringsgruppeValidator);
 
-            ICodeListService tiltaksformaalCodeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.partstype, true);
+            ICodeListService tiltaksformaalCodeListService = MockDataSource.IsCodeListValid(FtbKodeListeEnums.Partstype, true);
             TiltakstypeValidator tiltakstypeValidator = new TiltakstypeValidator(_tree, 7, tiltaksformaalCodeListService);
 
             _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(_tree, 1, formaaltypeValidator, tiltakstypeValidator);
@@ -107,7 +107,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         public void testBeskrivelseAvTiltak()
         {
 
-            var formEntity = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(_form, "ArbeidstilsynetsSamtykke");
+            var formEntity = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(_form);
 
             var beskrivelseValidationResult = _beskrivelseAvTiltakValidator.Validate(formEntity.ModelData.BeskrivelseAvTiltakValidationEntity);
             beskrivelseValidationResult.Should().NotBeNull();

@@ -9,15 +9,23 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
     public abstract class FormValidatorBase
     {
         protected IList<EntityValidatorNode> EntityValidatorTree;
+        private readonly IValidationMessageComposer _validationMessageComposer;
 
         protected abstract string XPathRoot { get; }
         protected abstract void InitializeValidatorConfig();
-        public virtual ValidationResult StartValidation(ValidationInput validationInput)
+        public FormValidatorBase(IValidationMessageComposer validationMessageComposer)
+        {
+            _validationMessageComposer = validationMessageComposer;
+        }
+
+        public virtual ValidationResult StartValidation(string dataFormatVersion, ValidationInput validationInput)
         {
             InitializeValidatorConfig();
             InstantiateValidators();
             DefineValidationRules();
             Validate(validationInput);
+
+            ValidationResult = _validationMessageComposer.ComposeValidationReport(XPathRoot, dataFormatVersion, ValidationResult, "NO");
 
             return ValidationResult;
         }
@@ -26,6 +34,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         protected abstract void DefineValidationRules();
 
         protected ValidationResult ValidationResult;
+        //private readonly IValidationMessageComposer validationMessageComposer;
 
         protected void AccumulateValidationRules(List<ValidationRule> validationRules)
         {

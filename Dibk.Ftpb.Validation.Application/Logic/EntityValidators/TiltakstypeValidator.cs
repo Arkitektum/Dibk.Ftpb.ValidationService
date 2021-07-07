@@ -1,6 +1,7 @@
 ﻿using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
@@ -13,23 +14,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class TiltakstypeValidator : KodelisteValidator
     {
-        //public override string ruleXmlElement { get { return "type"; } set { ruleXmlElement = value; } }
-
-        //public TiltakstypeValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator, ICodeListService codeListService)
-        //    : base(formValidatorConfiguration, parentValidator, codeListService)
-        //{
-        //    _codeListService = codeListService;
-        //}
         public TiltakstypeValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeid, ICodeListService codeListService)
-            : base(entityValidatorTree, nodeid, codeListService)
+            : base(entityValidatorTree, nodeid, FtbKodeListeEnums.Tiltakstype, codeListService)
         {
             _codeListService = codeListService;
         }
 
-
-
-
-        //IEnumerable
         public ValidationResult Validate(IEnumerable<KodelisteValidationEntity> modeldata)
         {
             if (Helpers.ObjectIsNullOrEmpty(modeldata) || modeldata.Count() == 0)
