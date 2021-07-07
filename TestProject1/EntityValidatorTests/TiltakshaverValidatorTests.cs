@@ -7,6 +7,7 @@ using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using FluentAssertions;
 using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using Xunit;
@@ -18,10 +19,14 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         private AktoerValidationEntity _tiltakshaver;
 
         private ICodeListService _codeListService;
+        private readonly IPostalCodeService _postalCodeService;
+
         private AktoerValidator _aktoerValidator;
         private AktoerValidator _aktoerValidatorTest;
         public TiltakshaverValidatorTests()
         {
+            _postalCodeService = MockDataSource.ValidatePostnr(true, "Bø i telemark", "true");
+
             var tiltakshaver = new no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.PartType()
             {
                 adresse = new no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.EnkelAdresseType()
@@ -90,7 +95,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             var entityValidationTree = EntityValidatiorTree.BuildTree(entityValidatorNodes);
 
             var partstypeValidator = new PartstypeValidator(entityValidationTree, 1, _codeListService);
-            IEnkelAdresseValidator enkelAdresseValidator = new EnkelAdresseValidator(entityValidationTree,4);
+            IEnkelAdresseValidator enkelAdresseValidator = new EnkelAdresseValidator(entityValidationTree,4,_postalCodeService);
             IKontaktpersonValidator kontaktpersonValidator = new KontaktpersonValidator(entityValidationTree,2);
 
             _aktoerValidatorTest = new TiltakshaverValidator(entityValidationTree, 1, enkelAdresseValidator, kontaktpersonValidator, partstypeValidator, _codeListService);

@@ -12,6 +12,7 @@ using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 using System.Collections.Generic;
 using System.Linq;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
@@ -24,6 +25,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         //private readonly FormValidatorConfiguration _formValidatorConfiguration;
         private readonly IMunicipalityValidator _municipalityValidator;
         private readonly ICodeListService _codeListService;
+        private readonly IPostalCodeService _postalCodeService;
 
         private IEiendomsAdresseValidator _eiendomsAdresseValidator;
         private IMatrikkelValidator _matrikkelValidator;
@@ -58,11 +60,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         protected override string XPathRoot => "ArbeidstilsynetsSamtykke";
 
-        public ArbeidstilsynetsSamtykke2_45957_Validator(FormValidatorConfiguration formValidatorConfiguration, IMunicipalityValidator municipalityValidator, ICodeListService codeListService)
+        public ArbeidstilsynetsSamtykke2_45957_Validator(FormValidatorConfiguration formValidatorConfiguration, IMunicipalityValidator municipalityValidator, ICodeListService codeListService,IPostalCodeService postalCodeService)
         {
             //_formValidatorConfiguration = formValidatorConfiguration;
             _municipalityValidator = municipalityValidator;
             _codeListService = codeListService;
+            _postalCodeService = postalCodeService;
         }
 
         public override ValidationResult StartValidation(ValidationInput validationInput)
@@ -182,7 +185,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _eiendomByggestedValidator = new EiendomByggestedValidator(EntityValidatorTree, 1, _eiendomsAdresseValidator, _matrikkelValidator, _municipalityValidator);
 
             //Tiltakshaver
-            _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 7);
+            _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 7,_postalCodeService);
             _tiltakshaverKontaktpersonValidator = new KontaktpersonValidator(EntityValidatorTree, 5);
             _tiltakshaverPartstypeValidator = new PartstypeValidator(EntityValidatorTree, 6, _codeListService);
             _tiltakshaverValidator = new TiltakshaverValidator(EntityValidatorTree, 4, _tiltakshaverEnkelAdresseValidator, _tiltakshaverKontaktpersonValidator, _tiltakshaverPartstypeValidator, _codeListService);
@@ -195,7 +198,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _arbeidsplasserValidator = new ArbeidsplasserValidator(EntityValidatorTree, 10);
 
             //AnsvarligSoeker
-            _ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 12);
+            _ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 12,_postalCodeService);
             _ansvarligSoekerKontaktpersonValidator = new KontaktpersonValidator(EntityValidatorTree, 13);
             _ansvarligSoekerPartstypeValidator = new PartstypeValidator(EntityValidatorTree, 14, _codeListService);
             _ansvarligSoekerValidator = new AnsvarligSoekerValidator(EntityValidatorTree, 11, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);

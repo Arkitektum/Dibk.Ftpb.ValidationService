@@ -35,7 +35,7 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode
                 .Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _httpClient.DefaultRequestHeaders.Add("X-Bring-Client-URL", requestUrl);
 
-            var requestPath = $"PostalCodeValidation-{pnr}-{country}";
+            var requestPath = $"?pnr={pnr}&country={country?.ToUpper()}";
 
             var response = await _httpClient.GetAsync(requestPath);
             string jsonCodeList = String.Empty;

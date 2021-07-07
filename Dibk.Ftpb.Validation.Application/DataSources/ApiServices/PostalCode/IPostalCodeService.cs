@@ -5,6 +5,6 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode
 {
     public interface IPostalCodeService
     {
-        Task<PostalCodeValidationResult> ValidatePostnr(string pnr, string country);
+        PostalCodeValidationResult ValidatePostnr(string pnr, string country);
     }
 }
