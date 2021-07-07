@@ -66,27 +66,27 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             {
                 new ()
                 {
-                    Id = 1,
+                    NodeId = 1,
                     EnumId = EntityValidatorEnum.TiltakshaverValidator,
                     ParentID = null,
 
                 }, //root node
                 new ()
                 {
-                    Id = 2,
+                    NodeId = 2,
                     EnumId = EntityValidatorEnum.KontaktpersonValidator,
                     ParentID = 1,
                     
                 },
                 new ()
                 {
-                    Id = 3,
+                    NodeId = 3,
                     EnumId = EntityValidatorEnum.PartstypeValidator,
                     ParentID = 1,
                 },
                 new ()
                 {
-                    Id = 4,
+                    NodeId = 4,
                     EnumId = EntityValidatorEnum.EnkelAdresseValidator,
                     ParentID = 1,
                 },

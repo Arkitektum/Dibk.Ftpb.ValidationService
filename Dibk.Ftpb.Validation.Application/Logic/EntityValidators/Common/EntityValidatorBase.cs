@@ -14,7 +14,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
     public abstract class EntityValidatorBase : IEntityValidator
     {
         protected string EntityName;
-        public string _rulePath;
+        public string _idPath;
         private string _entityXPath;
         //public abstract string ruleXmlElement { get; set; }
         protected ValidationResult _validationResult;
@@ -31,12 +31,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             var node = GetEntityValidatorNode(entityValidatorTree, nodeId, validatorName);
             if (node != null)
             {
-                _rulePath = node.RulePath;
+                _idPath = node.IdPath;
                 _entityXPath = node.EntityXPath;
             }
             else
             {
-                _rulePath = "Can't find the node";
+                _idPath = "Can't find the node";
                 _entityXPath = $"Can't find the node:'{validatorName}' with nodeId:'{nodeId}'";
             }
             
@@ -47,7 +47,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
         {
             EntityValidatorNode entityValidationNode;
             if (treeNodeId.HasValue)
-                entityValidationNode = entityValidationTree.FirstOrDefault(e => e.Id.Equals(treeNodeId.Value));
+                entityValidationNode = entityValidationTree.FirstOrDefault(e => e.NodeId.Equals(treeNodeId.Value));
             else
                 entityValidationNode = entityValidationTree.FirstOrDefault(e => GetName(typeof(EntityValidatorEnum), e.EnumId).Equals(validatorName));
 
@@ -103,15 +103,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
         //    _validationResult.ValidationRules.Add(new ValidationRule() { Id = id, Xpath = xPath, XmlElement = xmlElement, RulePath = _rulePath });
         //}
 
-        protected void AddValidationRule(object id, string xmlElement)
+        protected void AddValidationRule(object rule, string xmlElement)
         {
             var separator = "";
             int? enumHashCode;
             string elementRuleId = null;
-            if (id is Enum)
+            if (rule is Enum)
             {
-                enumHashCode = id.GetHashCode();
-                elementRuleId = $"{_rulePath}.{enumHashCode}";
+                enumHashCode = rule.GetHashCode();
+                elementRuleId = $"{_idPath}.{enumHashCode}";
             }
 
             if (!string.IsNullOrEmpty(xmlElement))
@@ -121,7 +121,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             string xPath = $"{_entityXPath}{separator}{xmlElement}";
             //xPath = Regex.Replace(xPath, @"\[([0-9]*)\]", "{0}");
 
-            _validationResult.ValidationRules.Add(new ValidationRule() { Id = id.ToString(), Xpath = xPath, XmlElement = xmlElement, RulePath = elementRuleId ?? _rulePath });
+            _validationResult.ValidationRules.Add(new ValidationRule() { Rule = rule.ToString(), Xpath = xPath, XmlElement = xmlElement, Id = elementRuleId ?? _idPath });
         }
 
 
@@ -180,8 +180,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 
             var validationMessage = new ValidationMessage()
             {
-                Reference = idSt,
-                RulePath = rule.RulePath ?? _rulePath,
+                Rule = idSt,
+                Reference = rule.Id ?? _idPath,
                 XpathField = newXPath,
                 MessageParameters = messageParameters
             };
@@ -215,12 +215,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
         }
 
         //**Add rules with dynamic enum 
-        public ValidationRule RuleToValidate(string id)
+        public ValidationRule RuleToValidate(string rule)
         {
-            var validationRule = _validationResult.ValidationRules.Where(r => !string.IsNullOrEmpty(r.Id)).FirstOrDefault(r => r.Id.Equals(id)) ?? new ValidationRule()
+            var validationRule = _validationResult.ValidationRules.Where(r => !string.IsNullOrEmpty(r.Rule)).FirstOrDefault(r => r.Rule.Equals(rule)) ?? new ValidationRule()
             {
-                Id = id,
-                Message = $"Can't find rule with id:'{id}'.-"
+                Rule = rule,
+                Message = $"Can't find rule:'{rule}'.-"
             };
 
             return validationRule;

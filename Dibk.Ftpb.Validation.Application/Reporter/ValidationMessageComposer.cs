@@ -30,12 +30,12 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             foreach (var rule in validationResult.ValidationRules)
             {
                 rule.Xpath = $"{xPathRoot}{rule.Xpath}";
-                rule.RulePath = $"{dataFormatVersion}{rule.RulePath}";
+                rule.Id = $"{dataFormatVersion}{rule.Id}";
             }
             foreach (var message in validationResult.ValidationMessages)
             {
                 message.XpathField = $"{xPathRoot}{message.XpathField}";
-                message.RulePath = $"{dataFormatVersion}{message.RulePath}";
+                message.Reference = $"{dataFormatVersion}{message.Reference}";
             }
 
             return validationResult;

@@ -30,6 +30,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(EnkelAdresseValidationEnums.adresselinje1_utfylt, "adresselinje1");
             AddValidationRule(EnkelAdresseValidationEnums.landkode_utfylt, "landkode");
             AddValidationRule(EnkelAdresseValidationEnums.postnr_utfylt, "postnr");
+            AddValidationRule(EnkelAdresseValidationEnums.postnr_ugyldig, "postnr");
         }
 
         public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null)

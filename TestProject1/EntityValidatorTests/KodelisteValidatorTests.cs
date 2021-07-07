@@ -34,7 +34,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             {
                 new()
                 {
-                    Id = 1,
+                    NodeId = 1,
                     EnumId = EntityValidatorEnum.PartstypeValidator,
                     ParentID = null,
 
