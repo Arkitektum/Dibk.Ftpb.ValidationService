@@ -206,10 +206,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //**BeskrivelseAvTiltak
             //BeskrivelseAvTiltak.formaal
             _anleggstypeValidator = new AnleggstypeValidator(EntityValidatorTree, 17, _codeListService);
-            _formaaltypeValidator = new FormaaltypeValidator(EntityValidatorTree, 16, _anleggstypeValidator, _codeListService);
             _naeringsgruppeValidator = new NaeringsgruppeValidator(EntityValidatorTree, 18, _codeListService);
             _bygningstypeValidator = new BygningstypeValidator(EntityValidatorTree, 19, _codeListService);
             _tiltaksformaalValidator = new TiltaksformaalValidator(EntityValidatorTree, 20, _codeListService);
+            _formaaltypeValidator = new FormaaltypeValidator(EntityValidatorTree, 16, _anleggstypeValidator, _naeringsgruppeValidator);
+           
 
             _tiltakstypeValidator = new TiltakstypeValidator(EntityValidatorTree, 21, _codeListService);
             _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(EntityValidatorTree, 15, _formaaltypeValidator, _tiltakstypeValidator);

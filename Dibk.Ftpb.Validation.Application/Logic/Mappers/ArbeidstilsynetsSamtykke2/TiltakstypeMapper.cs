@@ -15,6 +15,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
             for (int i = 0; i < mapFrom.Count(); i++)
             {
                 var kode = mapFrom[i];
+                if (kode ==null) break;
 
                 var kodeliste = new Kodeliste()
                 {

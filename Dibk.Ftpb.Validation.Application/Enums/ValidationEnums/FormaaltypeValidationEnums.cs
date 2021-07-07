@@ -8,7 +8,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
     public enum FormaaltypeValidationEnums
     {
-        beskrivelseAvTiltak_anleggstype_utfylt,
-        beskrivelseAvTiltak_naeringsgruppe_kode_utfylt
+        utfylt,
+        beskrivPlanlagtFormaal_utfylt
     }
 }

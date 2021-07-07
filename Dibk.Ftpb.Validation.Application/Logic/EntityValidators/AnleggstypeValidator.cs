@@ -10,7 +10,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         //public override string ruleXmlElement { get { return "anleggstype"; } set { ruleXmlElement = value; } }
 
         public AnleggstypeValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, ICodeListService codeListService)
-            : base(entityValidatorTree, nodeId, codeListService)
+            : base(entityValidatorTree, nodeId,FtbCodeListNames.anleggstype, codeListService)
         {
             _codeListService = codeListService;
         }

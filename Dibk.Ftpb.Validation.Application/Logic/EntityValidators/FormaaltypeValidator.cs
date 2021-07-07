@@ -13,11 +13,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class FormaaltypeValidator : EntityValidatorBase, IFormaaltypeValidator
     {
-        //public override string ruleXmlElement { get { return "bruk"; } set { ruleXmlElement = value; } }
-
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
         private readonly AnleggstypeValidator _anleggstypeValidator;
-        //private readonly NaeringsgruppeValidator _naeringsgruppeValidator;
+        private readonly NaeringsgruppeValidator _naeringsgruppeValidator;
         //private readonly BygningstypeValidator _bygningstypeValidator;
         //private readonly TiltaksformaalValidator _tiltaksformaalValidator;
 
@@ -29,21 +27,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected IKodelisteValidator _anleggstypeCodeListServiceNew;
 
 
-        public FormaaltypeValidator(IList<EntityValidatorNode> entityValidatorTree,
-            int nodeId,
-            AnleggstypeValidator anleggstypeValidator, ICodeListService anleggstypeCodeListService
-            //NaeringsgruppeValidator naeringsgruppeValidator, ICodeListService naeringsgruppeCodeListService,
+        public FormaaltypeValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, 
+            AnleggstypeValidator anleggstypeValidator, NaeringsgruppeValidator naeringsgruppeValidator
             //BygningstypeValidator bygningstypeValidator, ICodeListService bygningstypeCodeListService,
             //TiltaksformaalValidator tiltaksformaalValidator, ICodeListService tiltaksformaalCodeListService
         )
             : base(entityValidatorTree, nodeId)
         {
             _anleggstypeValidator = anleggstypeValidator;
-            //_naeringsgruppeValidator = naeringsgruppeValidator;
+            _naeringsgruppeValidator = naeringsgruppeValidator;
             //_bygningstypeValidator = bygningstypeValidator;
             //_tiltaksformaalValidator = tiltaksformaalValidator;
 
-            _anleggstypeCodeListService = anleggstypeCodeListService;
+
             //_naeringsgruppeCodeListService = naeringsgruppeCodeListService;
             //_bygningstypeCodeListService = bygningstypeCodeListService;
             //_tiltaksformaalCodeListService = tiltaksformaalCodeListService;
@@ -71,25 +67,21 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-
-            AddValidationRule(FormaaltypeValidationEnums.beskrivelseAvTiltak_anleggstype_utfylt, "anleggstype");
-
-
-            AddValidationRule(ValidationRuleEnum.beskrivelseAvTiltak_anleggstype_kode_utfylt, "anleggstype");
-            AddValidationRule(ValidationRuleEnum.beskrivelseAvTiltak_naeringsgruppe_kode_utfylt, "naeringsgruppe");
-            AddValidationRule(ValidationRuleEnum.beskrivelseAvTiltak_bygningstype_kode_utfylt, "bygningstype");
-            AddValidationRule(ValidationRuleEnum.beskrivelseAvTiltak_tiltakformaal_kode_utfylt, "tiltaksformaal");
-            AddValidationRule(ValidationRuleEnum.beskrivelseAvTiltak_beskrivPlanlagtFormaal_utfylt, "beskrivPlanlagtFormaal");
+            AddValidationRule(FormaaltypeValidationEnums.utfylt, null);
+            AddValidationRule(FormaaltypeValidationEnums.beskrivPlanlagtFormaal_utfylt, "beskrivPlanlagtFormaal");
         }
 
         public ValidationResult Validate(FormaaltypeValidationEntity formaaltypeValEntity = null)
         {
-            if (Helpers.ObjectIsNullOrEmpty(formaaltypeValEntity.ModelData))
+            if (Helpers.ObjectIsNullOrEmpty(formaaltypeValEntity?.ModelData))
             {
-                AddMessageFromRule(ValidationRuleEnum.beskrivelseAvTiltak_formaaltype_utfylt, formaaltypeValEntity.DataModelXpath);
+                AddMessageFromRule(ValidationRuleEnum.beskrivelseAvTiltak_formaaltype_utfylt, formaaltypeValEntity?.DataModelXpath);
             }
             else
             {
+                var anleggstypeValidationResult = _anleggstypeValidator.Validate(formaaltypeValEntity?.ModelData?.Anleggstype);
+                UpdateValidationResultWithSubValidations(anleggstypeValidationResult);
+
                 ValidateEntityFields(formaaltypeValEntity);
             }
 
@@ -106,8 +98,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             else
             {
-                var anleggstypeValidationResult = _anleggstypeValidator.Validate(formaaltype.Anleggstype);
-                UpdateValidationResultWithSubValidations(anleggstypeValidationResult);
+                
             }
 
         }

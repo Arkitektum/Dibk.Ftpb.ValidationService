@@ -25,7 +25,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         private IList<EntityValidatorNode> _tree;
         public BeskrivelseAvTiltakValidatorTests()
         {
-            var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957.xml");
+            var xmlData = File.ReadAllText(@"ArbeidstilsynetsSamtykke_v2_dfv45957_Test");
             _form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
 
             _formValidatorConfiguration = new FormValidatorConfiguration();
@@ -91,11 +91,12 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
             _tree = EntityValidatiorTree.BuildTree(flatList);
 
-            ICodeListService anleggstypeCodeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, false);
+            ICodeListService anleggstypeCodeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.partstype, false);
             AnleggstypeValidator anleggstypeValidator = new AnleggstypeValidator(_tree, 3, anleggstypeCodeListService);
-            FormaaltypeValidator formaaltypeValidator = new FormaaltypeValidator(_tree, 2, anleggstypeValidator, anleggstypeCodeListService);
+            NaeringsgruppeValidator naeringsgruppeValidator = new NaeringsgruppeValidator(_tree, 4, anleggstypeCodeListService);
+            FormaaltypeValidator formaaltypeValidator = new FormaaltypeValidator(_tree, 2, anleggstypeValidator, naeringsgruppeValidator);
 
-            ICodeListService tiltaksformaalCodeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.Partstype, true);
+            ICodeListService tiltaksformaalCodeListService = MockDataSource.IsCodeListValid(FtbCodeListNames.partstype, true);
             TiltakstypeValidator tiltakstypeValidator = new TiltakstypeValidator(_tree, 7, tiltaksformaalCodeListService);
 
             _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(_tree, 1, formaaltypeValidator, tiltakstypeValidator);
