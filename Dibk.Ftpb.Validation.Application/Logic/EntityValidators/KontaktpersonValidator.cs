@@ -10,19 +10,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class KontaktpersonValidator : EntityValidatorBase, IKontaktpersonValidator
     {
-        //public override string ruleXmlElement { get { return "kontaktperson"; } set { ruleXmlElement = value; } }
-
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 
         public KontaktpersonValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId)
             : base(entityValidatorTree, nodeId)
         {
         }
-        //public KontaktpersonValidator(FormValidatorConfiguration formValidatorConfiguration, EntityValidatorEnum parentValidator)
-        //    : base(formValidatorConfiguration, parentValidator)
-        //{
-        //}
-
         protected override void InitializeValidationRules()
         {
             AddValidationRule(ValidationRuleEnum.kontaktperson_navn_utfylt, "navn");
@@ -31,9 +24,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public ValidationResult Validate(KontaktpersonValidationEntity kontaktperson = null)
         {
 
-            if (string.IsNullOrEmpty(kontaktperson.ModelData?.Navn))
-                //TODO fill upp {0} parent Node/class/context... in message
-                AddMessageFromRule(ValidationRuleEnum.kontaktperson_navn_utfylt, kontaktperson.DataModelXpath);
+            var xpath = kontaktperson?.DataModelXpath;
+            if (string.IsNullOrEmpty(kontaktperson?.ModelData?.Navn))
+                AddMessageFromRule(ValidationRuleEnum.kontaktperson_navn_utfylt, xpath);
 
             return _validationResult;
         }
