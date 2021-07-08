@@ -26,14 +26,23 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private readonly ICodeListService _codeListService;
         private readonly IPostalCodeService _postalCodeService;
         private ArbeidstilsynetsSamtykke_41999_ValidationEntity _validationForm { get; set; }
+        
         private IEiendomsAdresseValidator _eiendomsAdresseValidator;
         private IMatrikkelValidator _matrikkelValidator;
         private IEiendomByggestedValidator _eiendomByggestedValidator;
+        
         private IArbeidsplasserValidator _arbeidsplasserValidator;
+        
         private IEnkelAdresseValidator _tiltakshaverEnkelAdresseValidator;
-        private IKontaktpersonValidator _kontaktpersonValidator;
-        private IKodelisteValidator _partstypeValidator;
+        private IKontaktpersonValidator _tiltakshaverKontaktpersonValidator;
+        private IKodelisteValidator _tiltakshaverPartstypeValidator;
         private IAktoerValidator _tiltakshaverValidator;
+
+        private IAktoerValidator _ansvarligSoekerValidator;
+        private IEnkelAdresseValidator _ansvarligSoekerEnkelAdresseValidator;
+        private IKontaktpersonValidator _ansvarligSoekerKontaktpersonValidator;
+        private IKodelisteValidator _ansvarligSoekerPartstypeValidator;
+
         private IEnkelAdresseValidator _fakturamottakerEnkelAdresseValidator;
         private IFakturamottakerValidator _fakturamottakerValidator;
 
@@ -124,16 +133,22 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             //Tiltakshaver
             _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 7, _postalCodeService);
-            _kontaktpersonValidator = new KontaktpersonValidator(EntityValidatorTree, 5);
-            _partstypeValidator = new PartstypeValidator(EntityValidatorTree, 6, _codeListService);
-            _tiltakshaverValidator = new TiltakshaverValidator(EntityValidatorTree, 4, _tiltakshaverEnkelAdresseValidator, _kontaktpersonValidator, _partstypeValidator, _codeListService);
-            
-            //Arbeidsplasser
-            _arbeidsplasserValidator = new ArbeidsplasserValidator(EntityValidatorTree, 10);
+            _tiltakshaverKontaktpersonValidator = new KontaktpersonValidator(EntityValidatorTree, 5);
+            _tiltakshaverPartstypeValidator = new PartstypeValidator(EntityValidatorTree, 6, _codeListService);
+            _tiltakshaverValidator = new TiltakshaverValidator(EntityValidatorTree, 4, _tiltakshaverEnkelAdresseValidator, _tiltakshaverKontaktpersonValidator, _tiltakshaverPartstypeValidator, _codeListService);
+
+            //AnsvarligSoeker
+            _ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 12, _postalCodeService);
+            _ansvarligSoekerKontaktpersonValidator = new KontaktpersonValidator(EntityValidatorTree, 13);
+            _ansvarligSoekerPartstypeValidator = new PartstypeValidator(EntityValidatorTree, 14, _codeListService);
+            _ansvarligSoekerValidator = new AnsvarligSoekerValidator(EntityValidatorTree, 11, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
 
             //Fakturamottaker
             _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 9, _postalCodeService);
             _fakturamottakerValidator = new FakturamottakerValidator(EntityValidatorTree, 8, _fakturamottakerEnkelAdresseValidator);
+
+            //Arbeidsplasser
+            _arbeidsplasserValidator = new ArbeidsplasserValidator(EntityValidatorTree, 10);
 
         }
         protected override void DefineValidationRules()
@@ -141,11 +156,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             AccumulateValidationRules(_eiendomByggestedValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_eiendomsAdresseValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_matrikkelValidator.ValidationResult.ValidationRules);
+            
             AccumulateValidationRules(_arbeidsplasserValidator.ValidationResult.ValidationRules);
+            
             AccumulateValidationRules(_tiltakshaverValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_partstypeValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_tiltakshaverPartstypeValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_tiltakshaverEnkelAdresseValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_kontaktpersonValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_tiltakshaverKontaktpersonValidator.ValidationResult.ValidationRules);
+
+            AccumulateValidationRules(_ansvarligSoekerValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_ansvarligSoekerPartstypeValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_ansvarligSoekerEnkelAdresseValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_ansvarligSoekerKontaktpersonValidator.ValidationResult.ValidationRules);
+
             AccumulateValidationRules(_fakturamottakerValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_fakturamottakerEnkelAdresseValidator.ValidationResult.ValidationRules);
         }
@@ -163,6 +186,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             var tiltakshaverValidationResult = _tiltakshaverValidator.Validate(_validationForm.ModelData.TiltakshaverValidationEntity);
             AccumulateValidationMessages(tiltakshaverValidationResult.ValidationMessages);
+
+            var ansvarligSoekerValidationResult = _ansvarligSoekerValidator.Validate(_validationForm.ModelData.AnsvarligSoekerValidationEntity);
+            AccumulateValidationMessages(ansvarligSoekerValidationResult.ValidationMessages);
 
             var attachments = Helpers.ObjectIsNullOrEmpty(validationInput.Attachments) ? null : validationInput.Attachments.Select(a => a.AttachmentTypeName).ToList();
             var arbeidsplasserValidationResult = _arbeidsplasserValidator.Validate(_validationForm.ModelData.ArbeidsplasserValidationEntity, attachments);

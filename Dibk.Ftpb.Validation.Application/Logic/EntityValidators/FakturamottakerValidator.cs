@@ -29,7 +29,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(FakturamottakerValidationEnums.utfylt, "fakturamottaker");
+            AddValidationRule(FakturamottakerValidationEnums.utfylt);
             AddValidationRule(FakturamottakerValidationEnums.organisasjonsnummer_utfylt, "organisasjonsnummer");
             AddValidationRule(FakturamottakerValidationEnums.organisasjonsnummer_kontrollsiffer, "organisasjonsnummer");
             AddValidationRule(FakturamottakerValidationEnums.organisasjonsnummer_ugyldig, "organisasjonsnummer");

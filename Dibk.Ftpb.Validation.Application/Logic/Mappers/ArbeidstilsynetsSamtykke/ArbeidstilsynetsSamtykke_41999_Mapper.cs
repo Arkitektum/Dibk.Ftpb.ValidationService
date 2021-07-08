@@ -1,5 +1,5 @@
-﻿using Dibk.Ftpb.Validation.Application.Models.FormEntities;
-using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
+﻿using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke
@@ -12,7 +12,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
             string XPathRoot = "";
             arbeidstilsynetsSamtykkeForm41999.EiendomValidationEntities = new EiendomByggestedMapper().Map(dataModel.eiendomByggested, XPathRoot);
             arbeidstilsynetsSamtykkeForm41999.ArbeidsplasserValidationEntity = new ArbeidsplasserMapper().Map(dataModel.arbeidsplasser, XPathRoot);
-            arbeidstilsynetsSamtykkeForm41999.TiltakshaverValidationEntity = new TiltakshaverMapper().Map(dataModel.tiltakshaver, XPathRoot);
+            arbeidstilsynetsSamtykkeForm41999.TiltakshaverValidationEntity = new AktoerMapper(AktoerEnum.tiltakshaver).Map(dataModel.tiltakshaver, XPathRoot);
+            arbeidstilsynetsSamtykkeForm41999.AnsvarligSoekerValidationEntity = new AktoerMapper(AktoerEnum.ansvarligSoeker).Map(dataModel.ansvarligSoeker, XPathRoot);
             arbeidstilsynetsSamtykkeForm41999.FakturamottakerValidationEntity = new FakturamottakerMapper().Map(dataModel.fakturamottaker, XPathRoot);
 
             return new ArbeidstilsynetsSamtykke_41999_ValidationEntity(arbeidstilsynetsSamtykkeForm41999, XPathRoot, null);
