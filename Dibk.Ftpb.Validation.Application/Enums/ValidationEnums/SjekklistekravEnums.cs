@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
-    public enum KodeListValidationEnums
+    public enum SjekklistekravEnums
     {
         utfylt,
-        kodeverdi_utfylt,
-        kodeverdi_gyldig,
-        kodebeskrivelse_utfylt,
-        kodebeskrivelse_gyldig
-
+        sjekklistepunkt_utfylt,
+        sjekklistepunktSvar_utfylt,
+        sjekklistepunktSvar_gyldig,
+        dokumentasjon_utfylt
     }
 }

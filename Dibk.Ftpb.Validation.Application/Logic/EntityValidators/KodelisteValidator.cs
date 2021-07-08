@@ -29,9 +29,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             AddValidationRule(KodeListValidationEnums.utfylt, null);
             AddValidationRule(KodeListValidationEnums.kodeverdi_utfylt, "kodeverdi");
-            AddValidationRule(KodeListValidationEnums.kodeverdi_ugyldig, "kodeverdi");
+            AddValidationRule(KodeListValidationEnums.kodeverdi_gyldig, "kodeverdi");
             AddValidationRule(KodeListValidationEnums.kodebeskrivelse_utfylt, "kodebeskrivelse");
-            AddValidationRule(KodeListValidationEnums.kodebeskrivelse_ugyldig, "kodebeskrivelse");
+            AddValidationRule(KodeListValidationEnums.kodebeskrivelse_gyldig, "kodebeskrivelse");
         }
 
         public ValidationResult Validate(KodelisteValidationEntity kodeliste)
@@ -52,7 +52,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 {
                     if (!_codeListService.IsCodelistValid(_codeListName, kodeliste.ModelData?.Kodeverdi))
                     {
-                        AddMessageFromRule(KodeListValidationEnums.kodeverdi_ugyldig, xpath, new[] { kodeliste.ModelData?.Kodeverdi });
+                        AddMessageFromRule(KodeListValidationEnums.kodeverdi_gyldig, xpath, new[] { kodeliste.ModelData?.Kodeverdi });
                     }
                 }
             }

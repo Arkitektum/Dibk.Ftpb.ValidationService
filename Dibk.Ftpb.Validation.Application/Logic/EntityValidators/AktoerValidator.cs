@@ -41,10 +41,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(AktoerValidationEnums.foedselnummer_utfylt, "foedselsnummer");
             AddValidationRule(AktoerValidationEnums.foedselnummer_dekryptering, "foedselsnummer");
             AddValidationRule(AktoerValidationEnums.foedselnummer_kontrollsiffer, "foedselsnummer");
-            AddValidationRule(AktoerValidationEnums.foedselnummer_ugyldig, "foedselsnummer");
+            AddValidationRule(AktoerValidationEnums.foedselnummer_gyldig, "foedselsnummer");
             AddValidationRule(AktoerValidationEnums.organisasjonsnummer_utfylt, "organisasjonsnummer");
             AddValidationRule(AktoerValidationEnums.organisasjonsnummer_kontrollsiffer, "organisasjonsnummer");
-            AddValidationRule(AktoerValidationEnums.organisasjonsnummer_ugyldig, "organisasjonsnummer");
+            AddValidationRule(AktoerValidationEnums.organisasjonsnummer_gyldig, "organisasjonsnummer");
 
             AddValidationRule(AktoerValidationEnums.telmob_utfylt, "mobilnummer");
 
@@ -98,7 +98,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         AddMessageFromRule(AktoerValidationEnums.foedselnummer_kontrollsiffer, xpath);
                         break;
                     case FoedselnumerValidation.Invalid:
-                        AddMessageFromRule(AktoerValidationEnums.foedselnummer_ugyldig, xpath);
+                        AddMessageFromRule(AktoerValidationEnums.foedselnummer_gyldig, xpath);
                         break;
                 }
             }
@@ -114,7 +114,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         AddMessageFromRule(AktoerValidationEnums.organisasjonsnummer_kontrollsiffer, xpath);
                         break;
                     case OrganisasjonsnummerValidation.Invalid:
-                        AddMessageFromRule(AktoerValidationEnums.organisasjonsnummer_ugyldig, xpath);
+                        AddMessageFromRule(AktoerValidationEnums.organisasjonsnummer_gyldig, xpath);
                         break;
                 }
                 var kontaktpersonValidationResult = _kontaktpersonValidator.Validate(tiltakshaver.Kontaktperson);

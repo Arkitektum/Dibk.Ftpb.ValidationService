@@ -30,7 +30,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(EnkelAdresseValidationEnums.adresselinje1_utfylt, "adresselinje1");
             AddValidationRule(EnkelAdresseValidationEnums.landkode_utfylt, "landkode");
             AddValidationRule(EnkelAdresseValidationEnums.postnr_utfylt, "postnr");
-            AddValidationRule(EnkelAdresseValidationEnums.postnr_ugyldig, "postnr");
+            AddValidationRule(EnkelAdresseValidationEnums.postnr_gyldig, "postnr");
         }
 
         public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null)
@@ -89,7 +89,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                             {
                                 if (!postnrValidation.Valid)
                                 {
-                                    AddMessageFromRule(EnkelAdresseValidationEnums.postnr_ugyldig, xPath, new[] { postNr });
+                                    AddMessageFromRule(EnkelAdresseValidationEnums.postnr_gyldig, xPath, new[] { postNr });
                                 }
                                 else
                                 {

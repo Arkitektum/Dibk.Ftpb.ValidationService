@@ -18,7 +18,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
         poststed_utfylt,
         postnr_4siffer,
         postnr_kontrollsiffer,
-        postnr_ugyldig,
+        postnr_gyldig,
         postnr_stemmerIkke,
         postnr_ikke_validert,
         tillatte_postnr_i_kommune,

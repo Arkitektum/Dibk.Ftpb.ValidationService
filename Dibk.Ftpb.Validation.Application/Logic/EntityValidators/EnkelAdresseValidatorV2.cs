@@ -29,7 +29,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(EnkelAdresseValidationEnums.landkode_utfylt, "landkode");
             AddValidationRule(EnkelAdresseValidationEnums.postnr_utfylt, "postnr");
             AddValidationRule(EnkelAdresseValidationEnums.postnr_kontrollsiffer, "postnr");
-            AddValidationRule(EnkelAdresseValidationEnums.postnr_ugyldig, "postnr");
+            AddValidationRule(EnkelAdresseValidationEnums.postnr_gyldig, "postnr");
             AddValidationRule(EnkelAdresseValidationEnums.postnr_stemmerIkke, "postnr");
             AddValidationRule(EnkelAdresseValidationEnums.postnr_ikke_validert, "postnr");
             AddValidationRule(EnkelAdresseValidationEnums.postnr_4siffer, "postnr");

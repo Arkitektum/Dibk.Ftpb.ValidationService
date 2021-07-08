@@ -8,5 +8,6 @@
         Tiltaksformaal,
         Bygningstype,
         Tiltakstype,
+        Sjekklistepunkttype
     }
 }
