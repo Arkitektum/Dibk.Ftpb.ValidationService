@@ -149,18 +149,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _tiltakshaverPartstypeValidator = new PartstypeValidator(EntityValidatorTree, 6, _codeListService);
             _tiltakshaverValidator = new TiltakshaverValidator(EntityValidatorTree, 4, _tiltakshaverEnkelAdresseValidator, _tiltakshaverKontaktpersonValidator, _tiltakshaverPartstypeValidator, _codeListService);
 
+            //AnsvarligSoeker
+            _ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 12,_postalCodeService);
+            _ansvarligSoekerKontaktpersonValidator = new KontaktpersonValidator(EntityValidatorTree, 13);
+            _ansvarligSoekerPartstypeValidator = new PartstypeValidator(EntityValidatorTree, 14, _codeListService);
+            _ansvarligSoekerValidator = new AnsvarligSoekerValidator(EntityValidatorTree, 11, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
+
             //Fakturamottaker
             _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidatorV2(EntityValidatorTree, 9);
             _fakturamottakerValidator = new FakturamottakerValidator(EntityValidatorTree, 8, _fakturamottakerEnkelAdresseValidator);
 
             //Arbeidsplasser
             _arbeidsplasserValidator = new ArbeidsplasserValidator(EntityValidatorTree, 10);
-
-            //AnsvarligSoeker
-            _ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 12,_postalCodeService);
-            _ansvarligSoekerKontaktpersonValidator = new KontaktpersonValidator(EntityValidatorTree, 13);
-            _ansvarligSoekerPartstypeValidator = new PartstypeValidator(EntityValidatorTree, 14, _codeListService);
-            _ansvarligSoekerValidator = new AnsvarligSoekerValidator(EntityValidatorTree, 11, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
 
             //**BeskrivelseAvTiltak
             //BeskrivelseAvTiltak.formaal
@@ -205,6 +205,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             AccumulateValidationRules(_fakturamottakerValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_fakturamottakerEnkelAdresseValidator.ValidationResult.ValidationRules);
+            
             //AccumulateValidationRules(_sjekklistekravValidator.ValidationResult.ValidationRules);
             //AccumulateValidationRules(_sjekklistepunktValidator.ValidationResult.ValidationRules);
 

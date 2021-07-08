@@ -15,10 +15,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
         }
         public override AktoerValidationEntity Map(PartType mapFrom, string parentElementXpath = null)
         {
-            Aktoer tiltakshaver = null;
+            Aktoer aktoerType = null;
             if (mapFrom != null)
             {
-                tiltakshaver = new Aktoer()
+                aktoerType = new Aktoer()
             {
                 Epost = mapFrom.epost,
                 Foedselsnummer = mapFrom.foedselsnummer,
@@ -27,12 +27,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                 Organisasjonsnummer = mapFrom.organisasjonsnummer
             };  
 
-            tiltakshaver.Adresse = new EnkelAdresseMapper().Map(mapFrom.adresse, $"{parentElementXpath}/{Enum.GetName(typeof(AktoerEnum), _aktoerEnum)}");
-            tiltakshaver.Kontaktperson = new KontaktpersonMapper().Map(mapFrom.kontaktperson, $"{parentElementXpath}/{Enum.GetName(typeof(AktoerEnum), _aktoerEnum)}");
-            tiltakshaver.Partstype = new PartstypeMapper().Map(mapFrom.partstype, $"{parentElementXpath}/{Enum.GetName(typeof(AktoerEnum), _aktoerEnum)}");
+            aktoerType.Adresse = new EnkelAdresseMapper().Map(mapFrom.adresse, $"{parentElementXpath}/{Enum.GetName(typeof(AktoerEnum), _aktoerEnum)}");
+            aktoerType.Kontaktperson = new KontaktpersonMapper().Map(mapFrom.kontaktperson, $"{parentElementXpath}/{Enum.GetName(typeof(AktoerEnum), _aktoerEnum)}");
+            aktoerType.Partstype = new PartstypeMapper().Map(mapFrom.partstype, $"{parentElementXpath}/{Enum.GetName(typeof(AktoerEnum), _aktoerEnum)}");
             }
 
-            return  new AktoerValidationEntity(tiltakshaver, Enum.GetName(typeof(AktoerEnum), _aktoerEnum), parentElementXpath);
+            return  new AktoerValidationEntity(aktoerType, Enum.GetName(typeof(AktoerEnum), _aktoerEnum), parentElementXpath);
         }
 
         private class KontaktpersonMapper : ModelToValidationEntityMapper<KontaktpersonType, KontaktpersonValidationEntity>
