@@ -24,7 +24,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(BeskrivelseAvTiltakValidationEnums.utfylt, null);
+            AddValidationRule(BeskrivelseAvTiltakValidationEnum.utfylt, null);
         }
 
         public ValidationResult Validate(BeskrivelseAvTiltakValidationEntity beskrivelseAvTiltakValidationEntity = null)

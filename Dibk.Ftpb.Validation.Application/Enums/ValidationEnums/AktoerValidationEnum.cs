@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
-    public enum AktoerValidationEnums
+    public enum AktoerValidationEnum
     {
         utfylt,
         partstype_utfylt,

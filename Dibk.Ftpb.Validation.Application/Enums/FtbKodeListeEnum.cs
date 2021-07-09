@@ -1,6 +1,6 @@
 ﻿namespace Dibk.Ftpb.Validation.Application.Enums
 {
-    public enum FtbKodeListeEnums
+    public enum FtbKodeListeEnum
     {
         Partstype,
         Anleggstype,

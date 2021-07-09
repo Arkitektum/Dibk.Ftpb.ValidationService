@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
-    public enum SjekklistekravEnums
+    public enum BeskrivelseAvTiltakValidationEnum
     {
         utfylt,
-        sjekklistepunkt_utfylt,
-        sjekklistepunktSvar_utfylt,
-        sjekklistepunktSvar_gyldig,
-        dokumentasjon_utfylt
+        formaaltype_utfylt,
     }
 }

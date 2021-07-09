@@ -9,7 +9,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public class BygningstypeValidator : KodelisteValidator
     {
         public BygningstypeValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, ICodeListService codeListService)
-            : base(entityValidatorTree, nodeId, FtbKodeListeEnums.Bygningstype, codeListService)
+            : base(entityValidatorTree, nodeId, FtbKodeListeEnum.Bygningstype, codeListService)
         {
             _codeListService = codeListService;
         }

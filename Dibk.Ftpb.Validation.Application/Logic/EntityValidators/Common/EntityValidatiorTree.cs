@@ -60,7 +60,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             if (!EnumId.HasValue)
                 return entityXpath;
             
-            var enumValidatorNumber = Helpers.GetEnumValidatorRuleNumber(EnumId);
+            var enumValidatorNumber = Helpers.GetEnumEntityValidatorNumber(EnumId);
             var newXpath = $"{entityXpath}.{enumValidatorNumber}";
             return newXpath;
         }

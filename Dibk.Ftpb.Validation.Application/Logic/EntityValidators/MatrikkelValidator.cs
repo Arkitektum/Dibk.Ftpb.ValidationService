@@ -32,12 +32,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(MatrikkelValidationEnums.utfylt);
-            AddValidationRule(MatrikkelValidationEnums.kommunenummer_utfylt, "kommunenummer");
-            AddValidationRule(MatrikkelValidationEnums.gaardsnummer_utfylt, "gaardsnummer");
-            AddValidationRule(MatrikkelValidationEnums.bruksnummer_utfylt, "bruksnummer");
-            AddValidationRule(MatrikkelValidationEnums.festenummer_utfylt, "festenummer");
-            AddValidationRule(MatrikkelValidationEnums.seksjonsnummer_utfylt, "seksjonsnummer");
+            AddValidationRule(MatrikkelValidationEnum.utfylt);
+            AddValidationRule(MatrikkelValidationEnum.kommunenummer_utfylt, "kommunenummer");
+            AddValidationRule(MatrikkelValidationEnum.gaardsnummer_utfylt, "gaardsnummer");
+            AddValidationRule(MatrikkelValidationEnum.bruksnummer_utfylt, "bruksnummer");
+            AddValidationRule(MatrikkelValidationEnum.festenummer_utfylt, "festenummer");
+            AddValidationRule(MatrikkelValidationEnum.seksjonsnummer_utfylt, "seksjonsnummer");
         }
 
         private bool ValidateModelExists(MatrikkelValidationEntity modelEntity)
@@ -45,7 +45,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var xPath = modelEntity.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(modelEntity.ModelData))
             {
-                AddMessageFromRule(MatrikkelValidationEnums.utfylt, xPath);
+                AddMessageFromRule(MatrikkelValidationEnum.utfylt, xPath);
                 return false;
             }
             return true;
@@ -55,19 +55,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             var xPath = matrikkel.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Kommunenummer))
-                AddMessageFromRule(MatrikkelValidationEnums.kommunenummer_utfylt, xPath);
+                AddMessageFromRule(MatrikkelValidationEnum.kommunenummer_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Gaardsnummer))
-                AddMessageFromRule(MatrikkelValidationEnums.gaardsnummer_utfylt, xPath);
+                AddMessageFromRule(MatrikkelValidationEnum.gaardsnummer_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Bruksnummer))
-                AddMessageFromRule(MatrikkelValidationEnums.bruksnummer_utfylt, xPath);
+                AddMessageFromRule(MatrikkelValidationEnum.bruksnummer_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Festenummer))
-                AddMessageFromRule(MatrikkelValidationEnums.festenummer_utfylt, xPath);
+                AddMessageFromRule(MatrikkelValidationEnum.festenummer_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Seksjonsnummer))
-                AddMessageFromRule(MatrikkelValidationEnums.seksjonsnummer_utfylt, xPath);
+                AddMessageFromRule(MatrikkelValidationEnum.seksjonsnummer_utfylt, xPath);
         }
     }
 }

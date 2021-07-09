@@ -30,24 +30,24 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(EiendomsAdresseValidationEnums.utfylt);
-            AddValidationRule(EiendomsAdresseValidationEnums.adresselinje1_utfylt, "adresselinje1");
-            AddValidationRule(EiendomsAdresseValidationEnums.adresselinje2_utfylt, "adresselinje2");
-            AddValidationRule(EiendomsAdresseValidationEnums.adresselinje3_utfylt, "adresselinje3");
-            AddValidationRule(EiendomsAdresseValidationEnums.landkode_utfylt, "landkode");
-            AddValidationRule(EiendomsAdresseValidationEnums.postnr_utfylt, "postnr");
-            AddValidationRule(EiendomsAdresseValidationEnums.poststed_utfylt, "poststed");
-            AddValidationRule(EiendomsAdresseValidationEnums.gatenavn_utfylt, "gatenavn");
-            AddValidationRule(EiendomsAdresseValidationEnums.husnr_utfylt, "husnr");
-            AddValidationRule(EiendomsAdresseValidationEnums.bokstav_utfylt, "bokstav");
-            AddValidationRule(EiendomsAdresseValidationEnums.postnr_4siffer, "postnr");
+            AddValidationRule(EiendomsAdresseValidationEnum.utfylt);
+            AddValidationRule(EiendomsAdresseValidationEnum.adresselinje1_utfylt, "adresselinje1");
+            AddValidationRule(EiendomsAdresseValidationEnum.adresselinje2_utfylt, "adresselinje2");
+            AddValidationRule(EiendomsAdresseValidationEnum.adresselinje3_utfylt, "adresselinje3");
+            AddValidationRule(EiendomsAdresseValidationEnum.landkode_utfylt, "landkode");
+            AddValidationRule(EiendomsAdresseValidationEnum.postnr_utfylt, "postnr");
+            AddValidationRule(EiendomsAdresseValidationEnum.poststed_utfylt, "poststed");
+            AddValidationRule(EiendomsAdresseValidationEnum.gatenavn_utfylt, "gatenavn");
+            AddValidationRule(EiendomsAdresseValidationEnum.husnr_utfylt, "husnr");
+            AddValidationRule(EiendomsAdresseValidationEnum.bokstav_utfylt, "bokstav");
+            AddValidationRule(EiendomsAdresseValidationEnum.postnr_4siffer, "postnr");
         }
         private bool ValidateModelExists(EiendomsAdresseValidationEntity modelEntity)
         {
             var xPath = modelEntity.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(modelEntity.ModelData))
             {
-                AddMessageFromRule(EiendomsAdresseValidationEnums.utfylt, xPath);
+                AddMessageFromRule(EiendomsAdresseValidationEnum.utfylt, xPath);
                 return false;
             }
             return true;
@@ -57,34 +57,34 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var xPath = eiendomsAdresseValidationEntity.DataModelXpath;
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Adresselinje1))
-                AddMessageFromRule(EiendomsAdresseValidationEnums.adresselinje1_utfylt, xPath);
+                AddMessageFromRule(EiendomsAdresseValidationEnum.adresselinje1_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Adresselinje2))
-                AddMessageFromRule(EiendomsAdresseValidationEnums.adresselinje2_utfylt, xPath);
+                AddMessageFromRule(EiendomsAdresseValidationEnum.adresselinje2_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Adresselinje3))
-                AddMessageFromRule(EiendomsAdresseValidationEnums.adresselinje3_utfylt, xPath);
+                AddMessageFromRule(EiendomsAdresseValidationEnum.adresselinje3_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Landkode))
-                AddMessageFromRule(EiendomsAdresseValidationEnums.landkode_utfylt, xPath);
+                AddMessageFromRule(EiendomsAdresseValidationEnum.landkode_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Postnr))
-                AddMessageFromRule(EiendomsAdresseValidationEnums.postnr_utfylt, xPath);
+                AddMessageFromRule(EiendomsAdresseValidationEnum.postnr_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Poststed))
-                AddMessageFromRule(EiendomsAdresseValidationEnums.poststed_utfylt, xPath);
+                AddMessageFromRule(EiendomsAdresseValidationEnum.poststed_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Gatenavn))
-                AddMessageFromRule(EiendomsAdresseValidationEnums.gatenavn_utfylt, xPath);
+                AddMessageFromRule(EiendomsAdresseValidationEnum.gatenavn_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Husnr))
-                AddMessageFromRule(EiendomsAdresseValidationEnums.husnr_utfylt, xPath);
+                AddMessageFromRule(EiendomsAdresseValidationEnum.husnr_utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Bokstav))
-                AddMessageFromRule(EiendomsAdresseValidationEnums.bokstav_utfylt, xPath);
+                AddMessageFromRule(EiendomsAdresseValidationEnum.bokstav_utfylt, xPath);
 
             if (!StringIs4digitNumber(eiendomsAdresseValidationEntity.ModelData.Postnr))
-                AddMessageFromRule(EiendomsAdresseValidationEnums.postnr_4siffer, xPath);
+                AddMessageFromRule(EiendomsAdresseValidationEnum.postnr_4siffer, xPath);
         }
 
         private bool StringIs4digitNumber(string input)

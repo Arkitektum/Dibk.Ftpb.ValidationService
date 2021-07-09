@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
-    public enum ArbeidsplasserValidationEnums
+    public enum ArbeidsplasserValidationEnum
     {
         utfylt,
         framtidige_eller_eksisterende_utfylt,

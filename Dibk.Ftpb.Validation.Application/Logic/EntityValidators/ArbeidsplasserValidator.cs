@@ -33,12 +33,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-            this.AddValidationRule(ArbeidsplasserValidationEnums.utfylt);
-            this.AddValidationRule(ArbeidsplasserValidationEnums.framtidige_eller_eksisterende_utfylt);
-            this.AddValidationRule(ArbeidsplasserValidationEnums.faste_eller_midlertidige_utfylt);
-            this.AddValidationRule(ArbeidsplasserValidationEnums.type_arbeid_utfylt, "antallVirksomheter");
-            this.AddValidationRule(ArbeidsplasserValidationEnums.utleieBygg, "utleieBygg");
-            this.AddValidationRule(ArbeidsplasserValidationEnums.beskrivelse, "beskrivelse");
+            this.AddValidationRule(ArbeidsplasserValidationEnum.utfylt);
+            this.AddValidationRule(ArbeidsplasserValidationEnum.framtidige_eller_eksisterende_utfylt);
+            this.AddValidationRule(ArbeidsplasserValidationEnum.faste_eller_midlertidige_utfylt);
+            this.AddValidationRule(ArbeidsplasserValidationEnum.type_arbeid_utfylt, "antallVirksomheter");
+            this.AddValidationRule(ArbeidsplasserValidationEnum.utleieBygg, "utleieBygg");
+            this.AddValidationRule(ArbeidsplasserValidationEnum.beskrivelse, "beskrivelse");
         }
 
         public void ValidateEntityFields(ArbeidsplasserValidationEntity arbeidsplasserValEntity)
@@ -47,19 +47,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var arbeidsplasser = arbeidsplasserValEntity.ModelData;
             if (Helpers.ObjectIsNullOrEmpty(arbeidsplasser))
             {
-                AddMessageFromRule(ArbeidsplasserValidationEnums.utfylt, xpath);
+                AddMessageFromRule(ArbeidsplasserValidationEnum.utfylt, xpath);
             }
             else
             {
                 if (!arbeidsplasser.Eksisterende.GetValueOrDefault(false) && !arbeidsplasser.Framtidige.GetValueOrDefault(false))
                 {
-                    AddMessageFromRule(ArbeidsplasserValidationEnums.framtidige_eller_eksisterende_utfylt, xpath);
+                    AddMessageFromRule(ArbeidsplasserValidationEnum.framtidige_eller_eksisterende_utfylt, xpath);
                 }
                 else
                 {
                     if (!arbeidsplasser.Faste.GetValueOrDefault(false) && !arbeidsplasser.Midlertidige.GetValueOrDefault(false))
                     {
-                        AddMessageFromRule(ArbeidsplasserValidationEnums.faste_eller_midlertidige_utfylt, xpath);
+                        AddMessageFromRule(ArbeidsplasserValidationEnum.faste_eller_midlertidige_utfylt, xpath);
                     }
 
                     if (arbeidsplasser.UtleieBygg.GetValueOrDefault(false))
@@ -68,7 +68,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         int.TryParse(arbeidsplasser.AntallVirksomheter, out antallVirksomheter);
                         if (antallVirksomheter <= 0)
                         {
-                            AddMessageFromRule(ArbeidsplasserValidationEnums.utleieBygg, xpath);
+                            AddMessageFromRule(ArbeidsplasserValidationEnum.utleieBygg, xpath);
                         }
                     }
 
@@ -76,7 +76,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     {
                         if (_attachmentList == null || !_attachmentList.Contains("BeskrivelseTypeArbeidProsess"))
                         {
-                            AddMessageFromRule(ArbeidsplasserValidationEnums.beskrivelse, xpath);
+                            AddMessageFromRule(ArbeidsplasserValidationEnum.beskrivelse, xpath);
                         }
                     }
                 }

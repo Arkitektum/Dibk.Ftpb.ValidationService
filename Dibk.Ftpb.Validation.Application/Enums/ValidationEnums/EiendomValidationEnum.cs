@@ -9,7 +9,7 @@ using Dibk.Ftpb.Validation.Application.Logic;
 
 namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
-    public enum EiendomValidationEnums 
+    public enum EiendomValidationEnum 
     {
         utfylt,
         bygningsnummer_utfylt,

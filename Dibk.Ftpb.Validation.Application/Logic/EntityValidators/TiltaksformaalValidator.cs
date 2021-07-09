@@ -8,7 +8,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public class TiltaksformaalValidator : KodelisteValidator
     {
         public TiltaksformaalValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeid, ICodeListService codeListService)
-            : base(entityValidatorTree, nodeid, FtbKodeListeEnums.Tiltaksformaal, codeListService)
+            : base(entityValidatorTree, nodeid, FtbKodeListeEnum.Tiltaksformaal, codeListService)
         {
             _codeListService = codeListService;
         }

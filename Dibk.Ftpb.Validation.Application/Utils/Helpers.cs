@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
@@ -79,18 +80,41 @@ namespace Dibk.Ftpb.Validation.Application.Utils
 
             return xmlNode;
         }
-        public static string GetEnumValidatorRuleNumber(Enum value)
+        public static string GetEnumEntityValidatorNumber(Enum value)
         {
             FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
-            var ruleNumber = string.Empty;
+            var entityValidatorNumber = string.Empty;
 
             if (fieldInfo?.GetCustomAttributes(typeof(EnumerationAttribute), false) is EnumerationAttribute[] enumerationAttributes && enumerationAttributes.Any())
             {
-                ruleNumber = enumerationAttributes.First().ValidatorId;
+                entityValidatorNumber = enumerationAttributes.First().ValidatorId;
             }
-            return ruleNumber;
+            return entityValidatorNumber;
 
         }
+
+        public static List<SjekklistekravEnum> GetSjekklistekravEnumFromIndex(string checklistNumber)
+        {
+            var enumsForChecklistNumber = new List<SjekklistekravEnum>();
+
+            var enumList = Enum.GetValues(typeof(SjekklistekravEnum)).OfType<SjekklistekravEnum>().ToList();
+            foreach (var theEnum in enumList)
+            {
+                FieldInfo fieldInfo = theEnum.GetType().GetField(theEnum.ToString());
+                var entityValidatorNumber = string.Empty;
+
+                if (fieldInfo?.GetCustomAttributes(typeof(SjekklistekravEnumerationAttribute), false) is SjekklistekravEnumerationAttribute[] enumerationAttributes && enumerationAttributes.Any()
+                    && enumerationAttributes.First().SjekklistepunktVerdi.Equals(checklistNumber))
+                {
+                    enumsForChecklistNumber.Add(theEnum);
+                }
+            }
+
+            return enumsForChecklistNumber;
+        }
+
+
+
 
         public static string GetNodeNamefromClass<T>(Expression<Func<T>> action)
         {

@@ -13,4 +13,11 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         public string ValidatorId { get; set; }
     }
 
+    public class SjekklistekravEnumerationAttribute : Attribute
+    {
+        public string SjekklistepunktVerdi { get; set; }
+    }
+
+
+
 }

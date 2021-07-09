@@ -46,7 +46,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private IFakturamottakerValidator _fakturamottakerValidator;
         
         private ISjekklistekravValidator _sjekklistekravValidator;
-        private IKodelisteValidator _sjekklistepunktValidator;
+        //private IKodelisteValidator _sjekklistepunktValidator;
 
 
         private AnleggstypeValidator _anleggstypeValidator;
@@ -182,8 +182,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _tiltakstypeValidator = new TiltakstypeValidator(EntityValidatorTree, 21, _codeListService);
             _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(EntityValidatorTree, 15, _formaaltypeValidator, _tiltakstypeValidator);
 
-            _sjekklistepunktValidator = new SjekklistepunktValidator(EntityValidatorTree, 23, _codeListService);
-            _sjekklistekravValidator = new SjekklistekravValidator(EntityValidatorTree, 22, _sjekklistepunktValidator);
+            //_sjekklistepunktValidator = new SjekklistepunktValidator(EntityValidatorTree, 23, _codeListService);
+            //_sjekklistekravValidator = new SjekklistekravValidator(EntityValidatorTree, 22, _sjekklistepunktValidator);
+            _sjekklistekravValidator = new SjekklistekravValidator(EntityValidatorTree, 22);
 
 
             //_naeringsgruppeValidator, _codeListService,
@@ -215,7 +216,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             AccumulateValidationRules(_fakturamottakerEnkelAdresseValidator.ValidationResult.ValidationRules);
             
             AccumulateValidationRules(_sjekklistekravValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_sjekklistepunktValidator.ValidationResult.ValidationRules);
+            //AccumulateValidationRules(_sjekklistepunktValidator.ValidationResult.ValidationRules);
 
             AccumulateValidationRules(_beskrivelseAvTiltakValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_formaaltypeValidator.ValidationResult.ValidationRules);

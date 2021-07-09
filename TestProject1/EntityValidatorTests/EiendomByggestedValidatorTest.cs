@@ -188,10 +188,10 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         [Fact]
         public void TestEiendom()
         {
-            var nn = Helpers.GetEnumXmlNodeName(EiendomValidationEnums.utfylt);
+            var nn = Helpers.GetEnumXmlNodeName(EiendomValidationEnum.utfylt);
 
-            var description = typeof(EiendomValidationEnums)
-                .GetField(nameof(EiendomValidationEnums.utfylt))
+            var description = typeof(EiendomValidationEnum)
+                .GetField(nameof(EiendomValidationEnum.utfylt))
                 .GetCustomAttribute<EnumerationAttribute>(false)
                 ?.XmlNode;
 

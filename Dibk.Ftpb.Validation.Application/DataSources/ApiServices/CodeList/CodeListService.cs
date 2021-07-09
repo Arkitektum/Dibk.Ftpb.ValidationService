@@ -24,7 +24,7 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList
         {
             return await GetCodeList(codeListName.ToString(), registryType);
         }
-        public async Task<Dictionary<string, CodelistFormat>> GetCodeList(FtbKodeListeEnums codeListName, RegistryType registryType = RegistryType.Arbeidstilsynet)
+        public async Task<Dictionary<string, CodelistFormat>> GetCodeList(FtbKodeListeEnum codeListName, RegistryType registryType = RegistryType.Arbeidstilsynet)
         {
             return await GetCodeList(codeListName.ToString(), registryType);
         }
@@ -36,7 +36,7 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList
             return codelist.ContainsKey(codeValue);
         }
 
-        public bool IsCodelistValid(FtbKodeListeEnums codeListName, string codeValue)
+        public bool IsCodelistValid(FtbKodeListeEnum codeListName, string codeValue)
         {
             if (String.IsNullOrEmpty(codeValue)) return false;
             Dictionary<string, CodelistFormat> codelist = GetCodeList(codeListName, RegistryType.Byggesoknad).Result;

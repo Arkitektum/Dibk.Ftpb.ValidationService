@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
-    public enum KodeListValidationEnums
+    public enum KodeListValidationEnum
     {
         utfylt,
         kodeverdi_utfylt,

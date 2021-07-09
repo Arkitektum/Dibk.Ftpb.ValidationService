@@ -26,11 +26,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(EnkelAdresseValidationEnums.utfylt);
-            AddValidationRule(EnkelAdresseValidationEnums.adresselinje1_utfylt, "adresselinje1");
-            AddValidationRule(EnkelAdresseValidationEnums.landkode_utfylt, "landkode");
-            AddValidationRule(EnkelAdresseValidationEnums.postnr_utfylt, "postnr");
-            AddValidationRule(EnkelAdresseValidationEnums.postnr_gyldig, "postnr");
+            AddValidationRule(EnkelAdresseValidationEnum.utfylt);
+            AddValidationRule(EnkelAdresseValidationEnum.adresselinje1_utfylt, "adresselinje1");
+            AddValidationRule(EnkelAdresseValidationEnum.landkode_utfylt, "landkode");
+            AddValidationRule(EnkelAdresseValidationEnum.postnr_utfylt, "postnr");
+            AddValidationRule(EnkelAdresseValidationEnum.postnr_gyldig, "postnr");
         }
 
         public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null)
@@ -38,7 +38,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var xpath = enkelAdresse.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(enkelAdresse?.ModelData))
             {
-                AddMessageFromRule(EnkelAdresseValidationEnums.utfylt, xpath);
+                AddMessageFromRule(EnkelAdresseValidationEnum.utfylt, xpath);
             }
             else
             {
@@ -55,7 +55,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             if (string.IsNullOrEmpty(adresse.Adresselinje1))
             {
-                AddMessageFromRule(EnkelAdresseValidationEnums.adresselinje1_utfylt, xPath);
+                AddMessageFromRule(EnkelAdresseValidationEnum.adresselinje1_utfylt, xPath);
             }
             else
             {
@@ -63,7 +63,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 {
                     if (!CountryCodeHandler.VerifyCountryCode(adresse.Landkode))
                     {
-                        AddMessageFromRule(EnkelAdresseValidationEnums.landkode_ugyldug, xPath);
+                        AddMessageFromRule(EnkelAdresseValidationEnum.landkode_ugyldug, xPath);
                     }
                 }
                 else
@@ -73,14 +73,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                     if (string.IsNullOrEmpty(postNr))
                     {
-                        AddMessageFromRule(EnkelAdresseValidationEnums.postnr_utfylt, xPath);
+                        AddMessageFromRule(EnkelAdresseValidationEnum.postnr_utfylt, xPath);
                     }
                     else
                     {
                         Match isPostNrValid = Regex.Match(postNr, "^([0-9])([0-9])([0-9])([0-9])$");
                         if (!isPostNrValid.Success)
                         {
-                            AddMessageFromRule(EnkelAdresseValidationEnums.postnr_kontrollsiffer, xPath, new[] { postNr });
+                            AddMessageFromRule(EnkelAdresseValidationEnum.postnr_kontrollsiffer, xPath, new[] { postNr });
                         }
                         else
                         {
@@ -89,19 +89,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                             {
                                 if (!postnrValidation.Valid)
                                 {
-                                    AddMessageFromRule(EnkelAdresseValidationEnums.postnr_gyldig, xPath, new[] { postNr });
+                                    AddMessageFromRule(EnkelAdresseValidationEnum.postnr_gyldig, xPath, new[] { postNr });
                                 }
                                 else
                                 {
                                     if (!postnrValidation.Result.Equals(adresse.Poststed, StringComparison.CurrentCultureIgnoreCase))
                                     {
-                                        AddMessageFromRule(EnkelAdresseValidationEnums.postnr_stemmerIkke, xPath, new[] { postNr, adresse.Poststed, postnrValidation.Result });
+                                        AddMessageFromRule(EnkelAdresseValidationEnum.postnr_stemmerIkke, xPath, new[] { postNr, adresse.Poststed, postnrValidation.Result });
                                     }
                                 }
                             }
                             else
                             {
-                                AddMessageFromRule(EnkelAdresseValidationEnums.postnr_ikke_validert, xPath);
+                                AddMessageFromRule(EnkelAdresseValidationEnum.postnr_ikke_validert, xPath);
                             }
                         }
                     }

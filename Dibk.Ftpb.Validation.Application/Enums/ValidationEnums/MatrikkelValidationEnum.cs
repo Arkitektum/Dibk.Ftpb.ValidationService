@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
-    public enum MatrikkelValidationEnums
+    public enum MatrikkelValidationEnum
     {
         utfylt,
         kommunenummer_utfylt,

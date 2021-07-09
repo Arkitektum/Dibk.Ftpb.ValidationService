@@ -29,10 +29,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(FakturamottakerValidationEnums.utfylt);
-            AddValidationRule(FakturamottakerValidationEnums.organisasjonsnummer_utfylt, "organisasjonsnummer");
-            AddValidationRule(FakturamottakerValidationEnums.organisasjonsnummer_kontrollsiffer, "organisasjonsnummer");
-            AddValidationRule(FakturamottakerValidationEnums.organisasjonsnummer_ugyldig, "organisasjonsnummer");
+            AddValidationRule(FakturamottakerValidationEnum.utfylt);
+            AddValidationRule(FakturamottakerValidationEnum.organisasjonsnummer_utfylt, "organisasjonsnummer");
+            AddValidationRule(FakturamottakerValidationEnum.organisasjonsnummer_kontrollsiffer, "organisasjonsnummer");
+            AddValidationRule(FakturamottakerValidationEnum.organisasjonsnummer_ugyldig, "organisasjonsnummer");
         }
 
         public ValidationResult Validate(FakturamottakerValidationEntity fakturamottaker = null)
@@ -40,13 +40,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var xpath = fakturamottaker.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(fakturamottaker.ModelData))
             {
-                AddMessageFromRule(FakturamottakerValidationEnums.utfylt, xpath);
+                AddMessageFromRule(FakturamottakerValidationEnum.utfylt, xpath);
             }
             else
             {
                 if (string.IsNullOrEmpty(fakturamottaker.ModelData.Organisasjonsnummer))
                 {
-                    AddMessageFromRule(FakturamottakerValidationEnums.organisasjonsnummer_utfylt, xpath);
+                    AddMessageFromRule(FakturamottakerValidationEnum.organisasjonsnummer_utfylt, xpath);
                 }
                 else
                 {
@@ -54,13 +54,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     switch (organisasjonsnummerValidation)
                     {
                         case OrganisasjonsnummerValidation.Empty:
-                            AddMessageFromRule(FakturamottakerValidationEnums.organisasjonsnummer_utfylt, xpath);
+                            AddMessageFromRule(FakturamottakerValidationEnum.organisasjonsnummer_utfylt, xpath);
                             break;
                         case OrganisasjonsnummerValidation.InvalidDigitsControl:
-                            AddMessageFromRule(FakturamottakerValidationEnums.organisasjonsnummer_kontrollsiffer, xpath);
+                            AddMessageFromRule(FakturamottakerValidationEnum.organisasjonsnummer_kontrollsiffer, xpath);
                             break;
                         case OrganisasjonsnummerValidation.Invalid:
-                            AddMessageFromRule(FakturamottakerValidationEnums.organisasjonsnummer_ugyldig, xpath);
+                            AddMessageFromRule(FakturamottakerValidationEnum.organisasjonsnummer_ugyldig, xpath);
                             break;
                     }
                 }

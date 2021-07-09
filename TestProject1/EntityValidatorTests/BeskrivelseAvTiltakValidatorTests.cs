@@ -91,12 +91,12 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
             _tree = EntityValidatiorTree.BuildTree(flatList);
 
-            ICodeListService anleggstypeCodeListService = MockDataSource.IsCodeListValid(FtbKodeListeEnums.Partstype, false);
+            ICodeListService anleggstypeCodeListService = MockDataSource.IsCodeListValid(FtbKodeListeEnum.Partstype, false);
             AnleggstypeValidator anleggstypeValidator = new AnleggstypeValidator(_tree, 3, anleggstypeCodeListService);
             NaeringsgruppeValidator naeringsgruppeValidator = new NaeringsgruppeValidator(_tree, 4, anleggstypeCodeListService);
             FormaaltypeValidator formaaltypeValidator = new FormaaltypeValidator(_tree, 2, anleggstypeValidator, naeringsgruppeValidator);
 
-            ICodeListService tiltaksformaalCodeListService = MockDataSource.IsCodeListValid(FtbKodeListeEnums.Partstype, true);
+            ICodeListService tiltaksformaalCodeListService = MockDataSource.IsCodeListValid(FtbKodeListeEnum.Partstype, true);
             TiltakstypeValidator tiltakstypeValidator = new TiltakstypeValidator(_tree, 7, tiltaksformaalCodeListService);
 
             _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(_tree, 1, formaaltypeValidator, tiltakstypeValidator);

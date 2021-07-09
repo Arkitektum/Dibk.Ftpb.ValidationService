@@ -68,8 +68,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(FormaaltypeValidationEnums.utfylt, null);
-            AddValidationRule(FormaaltypeValidationEnums.beskrivPlanlagtFormaal_utfylt, "beskrivPlanlagtFormaal");
+            AddValidationRule(FormaaltypeValidationEnum.utfylt, null);
+            AddValidationRule(FormaaltypeValidationEnum.beskrivPlanlagtFormaal_utfylt, "beskrivPlanlagtFormaal");
         }
 
         public ValidationResult Validate(FormaaltypeValidationEntity formaaltypeValEntity = null)

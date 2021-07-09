@@ -22,6 +22,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             _sjekklistepunktValidator = sjekklistepunktValidator;
         }
+        public SjekklistekravValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeid)
+            : base(entityValidatorTree, nodeid)
+        {
+        }
 
         protected override void InitializeValidationRules()
         {
@@ -30,12 +34,24 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             //this.AddValidationRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunktsvar_oppfylt, "sjekklistepunktsvar");
             //this.AddValidationRule(ValidationRuleEnum.krav_sjekklistekrav_dokumentasjon_utfylt, "dokumentasjon");
             //this.AddValidationRule(ValidationRuleEnum.krav_sjekklistekrav_dokumentasjon_utfylt, "dokumentasjon");
-            
-            this.AddValidationRule(SjekklistekravEnums.utfylt);
-            this.AddValidationRule(SjekklistekravEnums.sjekklistepunkt_utfylt, "sjekklistepunkt");
-            this.AddValidationRule(SjekklistekravEnums.sjekklistepunktSvar_utfylt, "sjekklistepunktsvar");
-            this.AddValidationRule(SjekklistekravEnums.sjekklistepunktSvar_gyldig, "sjekklistepunktsvar");
 
+            //this.AddValidationRule(SjekklistekravEnum.kodeverdi_gyldig);
+            this.AddValidationRule(SjekklistekravEnum.kodeverdi_mangler, "sjekklistepunkt/kodeverdi");
+
+            List<string> checklistNumbers = new List<string>() { "1.13", "1.16", "10.1" };
+
+            foreach (var checklistNumber in checklistNumbers)
+            {
+                var enums = Helpers.GetSjekklistekravEnumFromIndex(checklistNumber);
+                //var xx = enums.First(x => Enum.GetName(typeof(SjekklistekravEnum), x).Contains("kodeverdi_utfylt"));
+
+                this.AddValidationRule(enums.First(x => Enum.GetName(typeof(SjekklistekravEnum), x).Contains("kodeverdi_utfylt")), "sjekklistepunkt/kodeverdi");
+                this.AddValidationRule(enums.First(x => Enum.GetName(typeof(SjekklistekravEnum), x).Contains("kodebeskrivelse_gyldig")), "sjekklistepunkt/kodebeskrivelse");
+                this.AddValidationRule(enums.First(x => Enum.GetName(typeof(SjekklistekravEnum), x).Contains("sjekklistepunktsvar_gyldig")), "sjekklistepunktsvar");
+                this.AddValidationRule(enums.First(x => Enum.GetName(typeof(SjekklistekravEnum), x).Contains("dokumentasjon_utfylt")), "dokumentasjon");
+
+            }
+            //AddValidationRules();
         }        
         
         public ValidationResult Validate(IEnumerable<SjekklistekravValidationEntity> sjekklistekrav)
@@ -45,21 +61,52 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 if (Helpers.ObjectIsNullOrEmpty(sjekklistekrav) || sjekklistekrav.Count() == 0)
                 {
                     //AddMessageFromRuleIfCollectionIsEmpty(ValidationRuleEnum.krav_utfylt);
-                    AddMessageFromRule(SjekklistekravEnums.utfylt);
+                    AddMessageFromRule(SjekklistekravEnum.utfylt);
                 }
                 else
                 {
-                    bool? svar_1_1 = ValiderSjekklistepunkt(sjekklistekrav, "1.1", false);
-                    bool? svar_1_2 = ValiderSjekklistepunkt(sjekklistekrav, "1.2", false);
-                    if (svar_1_2 != null && svar_1_2 == false)
+                    /* ====== 1.13 ======*/
+                    if (SjekklistepunktFinnesOgErBesvart(sjekklistekrav, "1.13"))
                     {
-                        bool? svar_1_3 = ValiderSjekklistepunkt(sjekklistekrav, "1.3", false);
-                        bool? svar_1_4 = ValiderSjekklistepunkt(sjekklistekrav, "1.4", false);
-                        bool? svar_1_5 = ValiderSjekklistepunkt(sjekklistekrav, "1.5", false);
-                        bool? svar_1_6 = ValiderSjekklistepunkt(sjekklistekrav, "1.6", false);
-                        bool? svar_1_7 = ValiderSjekklistepunkt(sjekklistekrav, "1.7", false);
-                        bool? svar_1_8 = ValiderSjekklistepunkt(sjekklistekrav, "1.8", false);
+                        SjekklistepunktDokumentasjonFinnes(sjekklistekrav, "1.13");
+                    }
 
+                    //Validate 1.16 on form root level, towards arbeidsplasser/utleiebygg
+
+                    /* ====== 10.1 ======*/
+                    if (SjekklistepunktFinnesOgErBesvart(sjekklistekrav, "10.1"))
+                    {
+                        if (SjekklistepunktBesvartMedJa(sjekklistekrav, "10.1"))
+                        {
+                            SjekklistepunktDokumentasjonFinnes(sjekklistekrav, "10.1");
+                        }
+                        else
+                        {
+                            SjekklistepunktFinnesOgErBesvart(sjekklistekrav, "10.2");
+                        }
+                    }
+
+                    /* ====== 10.3 ======*/
+                    if (SjekklistepunktFinnesOgErBesvart(sjekklistekrav, "10.3"))
+                    {
+                        if (SjekklistepunktBesvartMedJa(sjekklistekrav, "10.3"))
+                        {
+                            SjekklistepunktDokumentasjonFinnes(sjekklistekrav, "10.3");
+                        }
+                        else
+                        {
+                            SjekklistepunktFinnesOgErBesvart(sjekklistekrav, "10.4");
+                        }
+                    }
+
+
+
+
+                    //bool? svar_1_1 = ValiderSjekklistepunkt(sjekklistekrav, "1.13", false);
+                    //bool? svar_1_2 = ValiderSjekklistepunkt(sjekklistekrav, "1.2", false);
+                    //if (svar_1_2 != null && svar_1_2 == false)
+                    {
+                        //bool? svar_1_3 = ValiderSjekklistepunkt(sjekklistekrav, "1.3", false);
                     }
                 }
 
@@ -81,7 +128,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                 if (kravet.Sjekklistepunktsvar == detSomErFeilSvar)
                 {
-                    AddMessageFromRule(SjekklistekravEnums.sjekklistepunktSvar_gyldig, kravet.Sjekklistepunkt.DataModelXpath, new[] { kravet.Sjekklistepunkt.ModelData.Kodeverdi });
+                    AddMessageFromRule(SjekklistekravEnum.pkt_10_1_dokumentasjon_utfylt, kravet.Sjekklistepunkt.DataModelXpath, new[] { kravet.Sjekklistepunkt.ModelData.Kodeverdi });
                 }
                 
                 return (bool)kravet.Sjekklistepunktsvar;
@@ -90,16 +137,56 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             return null;
         }
 
+        private bool SjekklistepunktBesvartMedJa(IEnumerable<SjekklistekravValidationEntity> kravliste, string sjekklistepunktnr)
+        {
+            var kravEntity = kravliste.FirstOrDefault(x => x.ModelData.Sjekklistepunkt.ModelData.Kodeverdi.Equals(sjekklistepunktnr));
+            var xPath = kravEntity.DataModelXpath;
+            if (kravEntity != null)
+            {
+                if (kravEntity.ModelData.Sjekklistepunktsvar == true )
+                {
+                    return true;
+                    //var enums = Helpers.GetSjekklistekravEnumFromIndex(sjekklistepunktnr);
+                    //var sjekklistekravEnum = enums.First(x => Enum.GetName(typeof(SjekklistekravEnum), x).Contains("sjekklistepunktsvar_gyldig"));
+                    //AddMessageFromRule(sjekklistekravEnum, xPath);
+                }
+                return false;
+            }
+            else
+            {
+                throw new ArgumentNullException($"Checklist number {sjekklistepunktnr} doesn't exist.");
+            }
+        }
+
+        private bool SjekklistepunktDokumentasjonFinnes(IEnumerable<SjekklistekravValidationEntity> kravliste, string sjekklistepunktnr)
+        {
+            var kravEntity = kravliste.FirstOrDefault(x => x.ModelData.Sjekklistepunkt.ModelData.Kodeverdi.Equals(sjekklistepunktnr));
+            var xPath = kravEntity.DataModelXpath;
+            if (kravEntity != null)
+            {
+                if (string.IsNullOrEmpty(kravEntity.ModelData.Dokumentasjon))
+                {
+                    var enums = Helpers.GetSjekklistekravEnumFromIndex(sjekklistepunktnr);
+                    var sjekklistekravEnum = enums.First(x => Enum.GetName(typeof(SjekklistekravEnum), x).Contains("dokumentasjon_utfylt"));
+                    AddMessageFromRule(sjekklistekravEnum, $"{xPath}/dokumentasjon");
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                throw new ArgumentNullException($"Checklist number {sjekklistepunktnr} doesn't exist.");
+            }
+        }
+
 
         private bool SjekklistepunktFinnesOgErBesvart(IEnumerable<SjekklistekravValidationEntity> kravliste, string sjekklistepunktnr)
         {
-
-
             var kravEntity = kravliste.FirstOrDefault(x => x.ModelData.Sjekklistepunkt.ModelData.Kodeverdi.Equals(sjekklistepunktnr));
-            var xPath = kravliste.First().ModelData.Sjekklistepunkt.DataModelXpath;
+            var xPath = kravliste.First().DataModelXpath;
             if (kravEntity == null)
             {
-                AddMessageFromRule(SjekklistekravEnums.sjekklistepunkt_utfylt, xPath.Replace("krav[0]", "krav[999]"), new[] { sjekklistepunktnr });
+                AddMessageFromRule(SjekklistekravEnum.kodeverdi_mangler, xPath.Replace("krav[0]", "krav[999]"), new[] { sjekklistepunktnr });
                 return false;
             }
             else
@@ -108,10 +195,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 var xPath2 = kravet.Sjekklistepunkt.DataModelXpath;
                 if (kravet.Sjekklistepunktsvar == null)
                 {
-                    AddMessageFromRule(SjekklistekravEnums.sjekklistepunktSvar_utfylt, xPath2, new[] { sjekklistepunktnr });
+                    //TODO: THis condition will never arise, due to "Sjekklistepunktsvar" being nullable....
+                    var enums = Helpers.GetSjekklistekravEnumFromIndex(sjekklistepunktnr);
+                    var sjekklistekravEnum = enums.First(x => Enum.GetName(typeof(SjekklistekravEnum), x).Contains("sjekklistepunktsvar_gyldig"));
+                    AddMessageFromRule(sjekklistekravEnum, xPath);
+                    return false;
                 }
 
-                //TODO: Use sjekklistepunktValidator to verfy correkt description from GeoNorge ?? Necessary ???
+                //TODO: Maybe not: Use sjekklistepunktValidator to verfy correkt description from GeoNorge ?? Necessary ???
                 //Here......
             }
 
@@ -120,24 +211,59 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public void ValidateEntityFields(SjekklistekravValidationEntity sjekklistekravValidationEntity)
         {
-            var xpath = sjekklistekravValidationEntity.DataModelXpath;
-            var sjekklistekrav = sjekklistekravValidationEntity.ModelData;
+            //var xpath = sjekklistekravValidationEntity.DataModelXpath;
+            //var sjekklistekrav = sjekklistekravValidationEntity.ModelData;
 
-            if (Helpers.ObjectIsNullOrEmpty(sjekklistekrav.Sjekklistepunktsvar))
+            //if (Helpers.ObjectIsNullOrEmpty(sjekklistekrav.Sjekklistepunktsvar))
+            //{
+            //    AddMessageFromRule(SjekklistekravEnum.sjekklistepunktSvar_utfylt, xpath, new [] { sjekklistekrav.Sjekklistepunkt.ModelData.Kodeverdi });
+            //}
+
+
+
+            //if (!sjekklistekrav.Sjekklistepunktsvar == true)
+            //{
+            //    AddMessageFromRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunktsvar_oppfylt, xpath, new[] { sjekklistekrav.Sjekklistepunkt.ModelData.Kodeverdi });
+            //}
+            //if (string.IsNullOrEmpty(sjekklistekrav.Dokumentasjon))
+            //{
+            //    AddMessageFromRule(ValidationRuleEnum.krav_sjekklistekrav_dokumentasjon_utfylt, xpath);
+            //}
+
+        }
+
+        private void AddValidationRules()
+        {
+            this.AddValidationRule(SjekklistekravEnum.utfylt);
+
+            List<string> checklistNumbers = new List<string>() {"1.13", "1.16", "10.1" };
+
+            foreach (var checklistNumber in checklistNumbers)
             {
-                AddMessageFromRule(SjekklistekravEnums.sjekklistepunktSvar_utfylt, xpath, new [] { sjekklistekrav.Sjekklistepunkt.ModelData.Kodeverdi });
+                var enums = Helpers.GetSjekklistekravEnumFromIndex(checklistNumber);
+                //var xx = enums.First(x => Enum.GetName(typeof(SjekklistekravEnum), x).Contains("kodeverdi_utfylt"));
+
+                this.AddValidationRule(enums.First(x => Enum.GetName(typeof(SjekklistekravEnum), x).Contains("kodeverdi_utfylt")), "sjekklistepunkt/kodeverdi");
+                this.AddValidationRule(enums.First(x => Enum.GetName(typeof(SjekklistekravEnum), x).Contains("kodebeskrivelse_gyldig")), "kodebeskrivelse");
+                this.AddValidationRule(enums.First(x => Enum.GetName(typeof(SjekklistekravEnum), x).Contains("sjekklistepunktsvar_gyldig")), "sjekklistepunktsvar");
+                this.AddValidationRule(enums.First(x => Enum.GetName(typeof(SjekklistekravEnum), x).Contains("dokumentasjon_utfylt")), "dokumentasjon");
+
             }
 
+            //this.AddValidationRule(SjekklistekravEnum.pkt_1_13_kodeverdi_utfylt, "kodeverdi");
+            //this.AddValidationRule(SjekklistekravEnum.pkt_1_13_kodebeskrivelse_gyldig, "kodebeskrivelse");
+            //this.AddValidationRule(SjekklistekravEnum.pkt_1_13_sjekklistepunktsvar_gyldig, "sjekklistepunktsvar");
+            //this.AddValidationRule(SjekklistekravEnum.pkt_1_13_dokumentasjon_utfylt, "dokumentasjon");
 
+            //this.AddValidationRule(SjekklistekravEnum.pkt_1_16_kodeverdi_utfylt, "kodeverdi");
+            //this.AddValidationRule(SjekklistekravEnum.pkt_1_16_kodebeskrivelse_gyldig, "kodebeskrivelse");
+            //this.AddValidationRule(SjekklistekravEnum.pkt_1_16_sjekklistepunktsvar_gyldig, "sjekklistepunktsvar");
+            //this.AddValidationRule(SjekklistekravEnum.pkt_1_16_dokumentasjon_utfylt, "dokumentasjon");
 
-            if (!sjekklistekrav.Sjekklistepunktsvar == true)
-            {
-                AddMessageFromRule(ValidationRuleEnum.krav_sjekklistekrav_sjekklistepunktsvar_oppfylt, xpath, new[] { sjekklistekrav.Sjekklistepunkt.ModelData.Kodeverdi });
-            }
-            if (string.IsNullOrEmpty(sjekklistekrav.Dokumentasjon))
-            {
-                AddMessageFromRule(ValidationRuleEnum.krav_sjekklistekrav_dokumentasjon_utfylt, xpath);
-            }
+            //this.AddValidationRule(SjekklistekravEnum.pkt_10_1_kodeverdi_utfylt, "kodeverdi");
+            //this.AddValidationRule(SjekklistekravEnum.pkt_10_1_kodebeskrivelse_gyldig, "kodebeskrivelse");
+            //this.AddValidationRule(SjekklistekravEnum.pkt_10_1_sjekklistepunktsvar_gyldig, "sjekklistepunktsvar");
+            //this.AddValidationRule(SjekklistekravEnum.pkt_10_1_dokumentasjon_utfylt, "dokumentasjon");
 
         }
 
