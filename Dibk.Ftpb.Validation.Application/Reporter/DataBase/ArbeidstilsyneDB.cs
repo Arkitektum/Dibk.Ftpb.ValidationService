@@ -442,35 +442,35 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.utfylt, "/krav{0}", "Kravet må være utfylt", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.kodeverdi_mangler, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '{0}' må være utfylt", ValidationResultSeverityEnum.ERROR);
             
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_13_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '1.13' må være utfylt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_13_kodebeskrivelse_gyldig, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '1.13' må være gyldig", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_13_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '1.13' er ikke gyldig", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_13_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '1.13' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_13_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '1.13' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "1.13");
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_13_kodebeskrivelse_gyldig, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '1.13' må være gyldig", ValidationResultSeverityEnum.ERROR, null, "1.13");
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_13_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '1.13' er ikke gyldig", ValidationResultSeverityEnum.ERROR, null, "1.13");
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_13_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '1.13' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "1.13");
 
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_16_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '1.16' må være utfylt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_16_kodebeskrivelse_gyldig, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '1.16' må være gyldig", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_16_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '1.16' er ikke gyldig", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_16_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '1.16' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_16_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '1.16' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "1.16");
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_16_kodebeskrivelse_gyldig, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '1.16' må være gyldig", ValidationResultSeverityEnum.ERROR, null, "1.16");
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_16_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '1.16' er ikke gyldig", ValidationResultSeverityEnum.ERROR, null, "1.16");
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_16_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '1.16' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "1.16");
 
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_1_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.1' må være utfylt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_1_kodebeskrivelse_gyldig, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '10.1' må være gyldig", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_1_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.1' er ikke gyldig", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_1_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '10.1' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_1_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.1' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "10.1");
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_1_kodebeskrivelse_gyldig, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '10.1' må være gyldig", ValidationResultSeverityEnum.ERROR, null, "10.1");
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_1_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.1' er ikke gyldig", ValidationResultSeverityEnum.ERROR, null, "10.1");
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_1_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '10.1' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "10.1");
 
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_2_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.2' må være utfylt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_2_kodebeskrivelse_gyldig, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '10.2' må være gyldig", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_2_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.2' er ikke gyldig", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_2_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '10.2' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_2_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.2' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "10.2");
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_2_kodebeskrivelse_gyldig, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '10.2' må være gyldig", ValidationResultSeverityEnum.ERROR, null, "10.2");
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_2_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.2' er ikke gyldig", ValidationResultSeverityEnum.ERROR, null, "10.2");
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_2_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '10.2' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "10.2");
 
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_3_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.3' må være utfylt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_3_kodebeskrivelse_gyldig, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '10.3' må være gyldig", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_3_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.3' er ikke gyldig", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_3_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '10.3' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_3_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.3' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "10.3");
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_3_kodebeskrivelse_gyldig, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '10.3' må være gyldig", ValidationResultSeverityEnum.ERROR, null, "10.3");
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_3_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.3' er ikke gyldig", ValidationResultSeverityEnum.ERROR, null, "10.3");
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_3_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '10.3' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "10.3");
 
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_4_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.4' må være utfylt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_4_kodebeskrivelse_gyldig, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '10.4' må være gyldig", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_4_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.4' er ikke gyldig", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_4_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '10.4' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_4_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.4' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "10.4");
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_4_kodebeskrivelse_gyldig, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '10.4' må være gyldig", ValidationResultSeverityEnum.ERROR, null, "10.4");
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_4_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.4' er ikke gyldig", ValidationResultSeverityEnum.ERROR, null, "10.4");
+            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_4_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '10.4' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "10.4");
 
 
 
