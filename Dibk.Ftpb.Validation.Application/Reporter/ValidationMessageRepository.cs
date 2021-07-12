@@ -42,39 +42,46 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         public ValidationMessage GetComposedValidationMessage(string dataFormatVersion, ValidationMessage validationMessage, string languageCode)
         {
 
-            string xPath = Regex.Replace(validationMessage.XpathField, @"\[([0-9]*)\]", "{0}"); ;
-
-            ValidationMessageStorageEntry theStorageEntry;
-            theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => dataFormatVersion.Equals(x.DataFormatVersion) && x.Rule == validationMessage.Rule && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath, StringComparison.OrdinalIgnoreCase));
-
-            if (theStorageEntry == null)
+            if (string.IsNullOrEmpty(validationMessage.XpathField))
             {
-                theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.DataFormatVersion == null && x.Rule == validationMessage.Rule && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath, StringComparison.OrdinalIgnoreCase));
-            }
-
-            if (theStorageEntry == null)
-            {
-                validationMessage.Message = $"Could not find validation message with reference: '{validationMessage.Rule}', xpath: '{validationMessage.XpathField}' and languageCode:'{languageCode}'.-";
+                validationMessage.Message = $"Could not find validation message xPath for rule: '{validationMessage.Rule}', and rule Reference id:'{validationMessage.Reference}'.-";
             }
             else
             {
-                if (validationMessage.MessageParameters != null)
+                string xPath = Regex.Replace(validationMessage.XpathField, @"\[([0-9]*)\]", "{0}"); ;
+
+                ValidationMessageStorageEntry theStorageEntry;
+                theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => dataFormatVersion.Equals(x.DataFormatVersion) && x.Rule == validationMessage.Rule && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath, StringComparison.OrdinalIgnoreCase));
+
+                if (theStorageEntry == null)
                 {
-                    try
-                    {
-                        validationMessage.Message = String.Format(theStorageEntry.Message, validationMessage.MessageParameters.ToArray());
-                    }
-                    catch (FormatException)
-                    {
-                        validationMessage.Message = $"{theStorageEntry.Message} . **'Illegal number of validation parameters'";
-                    }
+                    theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.DataFormatVersion == null && x.Rule == validationMessage.Rule && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath, StringComparison.OrdinalIgnoreCase));
+                }
+
+                if (theStorageEntry == null)
+                {
+                    validationMessage.Message = $"Could not find validation message with reference: '{validationMessage.Rule}', xpath: '{validationMessage.XpathField}' and languageCode:'{languageCode}'.-";
                 }
                 else
                 {
-                    validationMessage.Message = theStorageEntry.Message;
+                    if (validationMessage.MessageParameters != null)
+                    {
+                        try
+                        {
+                            validationMessage.Message = String.Format(theStorageEntry.Message, validationMessage.MessageParameters.ToArray());
+                        }
+                        catch (FormatException)
+                        {
+                            validationMessage.Message = $"{theStorageEntry.Message} . **'Illegal number of validation parameters'";
+                        }
+                    }
+                    else
+                    {
+                        validationMessage.Message = theStorageEntry.Message;
+                    }
+                    validationMessage.ChecklistReference = theStorageEntry.ChecklistReference;
+                    validationMessage.Messagetype = theStorageEntry.Messagetype;
                 }
-                validationMessage.ChecklistReference = theStorageEntry.ChecklistReference;
-                validationMessage.Messagetype = theStorageEntry.Messagetype;
             }
             return validationMessage;
         }
