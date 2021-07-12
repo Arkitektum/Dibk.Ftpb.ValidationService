@@ -54,10 +54,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     }
                     else
                     {
-                        //if (!_codeListService.IsCodelistLabelValid(_codeListName, kodeliste.ModelData?.Kodeverdi, kodeliste.ModelData?.Kodebeskrivelse, RegistryType.Arbeidstilsynet))
-                        //{
-                        //    AddMessageFromRule(KodeListValidationEnum.kodeverdi_gyldig, xpath, new[] { kodeliste.ModelData?.Kodeverdi, kodeliste.ModelData?.Kodebeskrivelse });
-                        //}
+                        if (!_codeListService.IsCodelistLabelValid(_codeListName, kodeliste.ModelData?.Kodeverdi, kodeliste.ModelData?.Kodebeskrivelse, RegistryType.Arbeidstilsynet))
+                        {
+                            AddMessageFromRule(KodeListValidationEnum.kodeverdi_gyldig, xpath, new[] { kodeliste.ModelData?.Kodeverdi, kodeliste.ModelData?.Kodebeskrivelse });
+                        }
 
                     }
                 }

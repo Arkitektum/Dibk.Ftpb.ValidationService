@@ -62,7 +62,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 var naeringsgruppeValidationResult = _naeringsgruppeValidator.Validate(formaaltypeValEntity?.ModelData?.Anleggstype);
                 UpdateValidationResultWithSubValidations(naeringsgruppeValidationResult);
 
-                var bygningstypeValidationResult = _bygningstypeValidator.Validate(formaaltypeValEntity?.ModelData?.Anleggstype);
+                var bygningstypeValidationResult = _bygningstypeValidator.Validate(formaaltypeValEntity?.ModelData?.Bygningstype);
                 UpdateValidationResultWithSubValidations(bygningstypeValidationResult);
 
                 ValidateEntityFields(formaaltypeValEntity);

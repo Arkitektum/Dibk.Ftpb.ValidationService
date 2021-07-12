@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,30 +20,32 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList
             _memoryCache = memoryCache;
         }
 
-        public async Task<Dictionary<string, CodelistFormat>> GetCodeList(ArbeidstilsynetCodeListNames codeListName, RegistryType registryType = RegistryType.Arbeidstilsynet)
+        public async Task<Dictionary<string, CodelistFormat>> GetCodeList(object codeListName, RegistryType registryType = RegistryType.Arbeidstilsynet)
         {
-            return await GetCodeList(codeListName.ToString(), registryType);
-        }
-        public async Task<Dictionary<string, CodelistFormat>> GetCodeList(FtbKodeListeEnum codeListName, RegistryType registryType = RegistryType.Arbeidstilsynet)
-        {
+            var codeListNameSt = codeListName.ToString();
             return await GetCodeList(codeListName.ToString(), registryType);
         }
 
-        public bool IsCodelistValid(ArbeidstilsynetCodeListNames codeListName, string codeValue)
+        public bool IsCodelistValid(object codeListName, string codeValue)
         {
             if (String.IsNullOrEmpty(codeValue)) return false;
             Dictionary<string, CodelistFormat> codelist = GetCodeList(codeListName, RegistryType.Arbeidstilsynet).Result;
             return codelist.ContainsKey(codeValue);
         }
 
-        public bool IsCodelistValid(FtbKodeListeEnum codeListName, string codeValue)
+        public bool IsCodelistLabelValid(object codeListName, string codeValue, string codeName, RegistryType registryType = RegistryType.Byggesoknad)
         {
-            if (String.IsNullOrEmpty(codeValue)) return false;
-            Dictionary<string, CodelistFormat> codelist = GetCodeList(codeListName, RegistryType.Byggesoknad).Result;
-            return codelist.ContainsKey(codeValue);
+            if (String.IsNullOrEmpty(codeValue) || string.IsNullOrEmpty(codeName)) return false;
+
+            Dictionary<string, CodelistFormat> codelist = GetCodeList(codeListName, registryType).Result;
+            CodelistFormat result;
+            if (codelist.TryGetValue(codeValue, out result))
+            {
+                if (result.Name.Equals(codeName)) return true;
+                else return false;
+            }
+            else return false;
         }
-
-
 
 
         private async Task<Dictionary<string, CodelistFormat>> GetCodeList(string cocelistName, RegistryType registryType = RegistryType.Arbeidstilsynet)
