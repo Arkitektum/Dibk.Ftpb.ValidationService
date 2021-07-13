@@ -38,6 +38,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult Validate(KodelisteValidationEntity kodeliste)
         {
+            base.ResetValidationMessages();
+
             var xpath = kodeliste.DataModelXpath;
 
             if (Helpers.ObjectIsNullOrEmpty(kodeliste?.ModelData))

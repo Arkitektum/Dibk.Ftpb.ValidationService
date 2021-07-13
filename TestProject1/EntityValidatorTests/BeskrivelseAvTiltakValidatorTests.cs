@@ -96,8 +96,9 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             AnleggstypeValidator anleggstypeValidator = new AnleggstypeValidator(_tree, 3, codeListServiceMock);
             NaeringsgruppeValidator naeringsgruppeValidator = new NaeringsgruppeValidator(_tree, 4, codeListServiceMock);
             BygningstypeValidator bygningstypeValidator = new BygningstypeValidator(_tree, 5, codeListServiceMock);
+            TiltaksformaalValidator tiltaksformaalValidator = new TiltaksformaalValidator(_tree, 7, codeListServiceMock);
 
-            FormaaltypeValidator formaaltypeValidator = new FormaaltypeValidator(_tree, 2, anleggstypeValidator, naeringsgruppeValidator, bygningstypeValidator);
+            FormaaltypeValidator formaaltypeValidator = new FormaaltypeValidator(_tree, 2, anleggstypeValidator, naeringsgruppeValidator, bygningstypeValidator, tiltaksformaalValidator);
 
             ICodeListService tiltaksformaalCodeListService = MockDataSource.IsCodeListValid(FtbKodeListeEnum.Partstype, true);
             TiltakstypeValidator tiltakstypeValidator = new TiltakstypeValidator(_tree, 7, tiltaksformaalCodeListService);

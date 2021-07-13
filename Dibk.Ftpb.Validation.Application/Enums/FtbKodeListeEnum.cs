@@ -5,7 +5,7 @@
         Partstype,
         Anleggstype,
         Naeringsgruppe,
-        Tiltaksformaal,
+        tiltaksformal,
         Bygningstype,
         Tiltakstype,
         Sjekklistepunkttype

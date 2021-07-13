@@ -47,7 +47,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 var anleggstypeValidationResult = _anleggstypeValidator.Validate(formaaltypeValEntity?.ModelData?.Anleggstype);
                 UpdateValidationResultWithSubValidations(anleggstypeValidationResult);
 
-                var naeringsgruppeValidationResult = _naeringsgruppeValidator.Validate(formaaltypeValEntity?.ModelData?.Anleggstype);
+                var naeringsgruppeValidationResult = _naeringsgruppeValidator.Validate(formaaltypeValEntity?.ModelData?.Naeringsgruppe);
                 UpdateValidationResultWithSubValidations(naeringsgruppeValidationResult);
 
                 var bygningstypeValidationResult = _bygningstypeValidator.Validate(formaaltypeValEntity?.ModelData?.Bygningstype);
