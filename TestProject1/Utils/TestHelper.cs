@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.ComponentModel;
+using System.Text.RegularExpressions;
 using Dibk.Ftpb.Validation.Application.Enums;
 
 namespace Dibk.Ftpb.Validation.Application.Tests.Utils
@@ -27,27 +29,45 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
                     {
                         if (enumNumber < 100)
                         {
-                            var enumDisplayStatus = (EntityValidatorEnum)enumNumber;
-
-                            string stringValue = enumDisplayStatus.ToString();
+                            string validatorText;
+                            var validatorEnum = GetValueFromDescription<EntityValidatorEnum>(enumNumber.ToString());
+                            string stringValue = validatorEnum.ToString();
                             if (!int.TryParse(stringValue, out int theNumber))
                             {
-                                validatorPath = ValidationEnumsNumber.Length == i + 1 ? $"{validatorPath}/({stringValue})?" : $"{validatorPath}/{stringValue}";
+                                validatorText = ValidationEnumsNumber.Length == i + 1 ? $"/({stringValue})?" : $"/{stringValue}";
                             }
                             else
                             {
-                                validatorPath = $"{validatorPath}/Enum:'{theNumber}'";
+                                validatorText = $"/Enum:'{theNumber}'";
                             }
+
+                            validatorPath = $"{validatorPath}{validatorText}";
                         }
                     }
-
-                }
-                foreach (var validatorNumber in ValidationEnumsNumber)
-                {
-
                 }
             }
             return validatorPath;
+        }
+
+        public static T GetValueFromDescription<T>(string validatorId) where T : Enum
+        {
+            foreach (var field in typeof(T).GetFields())
+            {
+                if (Attribute.GetCustomAttribute(field,
+                    typeof(EnumerationAttribute)) is EnumerationAttribute attribute)
+                {
+                    if (attribute.ValidatorId == validatorId)
+                        return (T)field.GetValue(null);
+                }
+                else
+                {
+                    if (field.Name == validatorId)
+                        return (T)field.GetValue(null);
+                }
+            }
+
+            throw new ArgumentException("Not found.", nameof(validatorId));
+            // Or return default(T);
         }
     }
 }

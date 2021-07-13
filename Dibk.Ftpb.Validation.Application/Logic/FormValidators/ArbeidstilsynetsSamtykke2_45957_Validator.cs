@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
+using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidationTree;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
@@ -44,7 +45,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         private IEnkelAdresseValidator _fakturamottakerEnkelAdresseValidator;
         private IFakturamottakerValidator _fakturamottakerValidator;
-        
+
         private ISjekklistekravValidator _sjekklistekravValidator;
         //private IKodelisteValidator _sjekklistepunktValidator;
 
@@ -57,11 +58,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private TiltakstypeValidator _tiltakstypeValidator;
         private IBeskrivelseAvTiltakValidator _beskrivelseAvTiltakValidator;
 
-        
+
 
         protected override string XPathRoot => "ArbeidstilsynetsSamtykke";
 
-        public ArbeidstilsynetsSamtykke2_45957_Validator(IValidationMessageComposer validationMessageComposer, IMunicipalityValidator municipalityValidator, ICodeListService codeListService,IPostalCodeService postalCodeService)
+        public ArbeidstilsynetsSamtykke2_45957_Validator(IValidationMessageComposer validationMessageComposer, IMunicipalityValidator municipalityValidator, ICodeListService codeListService, IPostalCodeService postalCodeService)
             : base(validationMessageComposer)
         {
             _municipalityValidator = municipalityValidator;
@@ -82,12 +83,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         protected override void InitializeValidatorConfig()
         {
-            var eiendombyggestedTree = new List<EntityValidatorNode>()
-            {
-                new () {NodeId = 1, EnumId = EntityValidatorEnum.EiendomByggestedValidator, ParentID = null},
-                new () {NodeId = 2, EnumId = EntityValidatorEnum.EiendomsAdresseValidator, ParentID = 1},
-                new () {NodeId = 3, EnumId = EntityValidatorEnum.MatrikkelValidator, ParentID = 1},
-            };
+            var eiendombyggestedLogic = new EiendombyggestedLogic(1);
+            var eiendombyggestedTree = eiendombyggestedLogic.GetNodeList;
+
             var tiltakshaverTree = new List<EntityValidatorNode>()
             {
                 new () {NodeId = 4, EnumId = EntityValidatorEnum.TiltakshaverValidator, ParentID = null},
@@ -106,24 +104,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 new() {NodeId = 10, EnumId = EntityValidatorEnum.ArbeidsplasserValidator, ParentID = null}
             };
 
-            var ansvarligSoekerTree = new List<EntityValidatorNode>() 
-            { 
+            var ansvarligSoekerTree = new List<EntityValidatorNode>()
+            {
                 new () {NodeId = 11, EnumId = EntityValidatorEnum.AnsvarligSoekerValidator, ParentID = null},
                 new () {NodeId = 12, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 11},
                 new () {NodeId = 13, EnumId = EntityValidatorEnum.KontaktpersonValidator, ParentID = 11,},
                 new () {NodeId = 14, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 11,}
             };
 
-            var beskrivelseAvTiltakTree = new List<EntityValidatorNode>() 
-            {
-                new () {NodeId = 15, EnumId = EntityValidatorEnum.BeskrivelseAvTiltakValidator, ParentID = null},
-                new () {NodeId = 16, EnumId = EntityValidatorEnum.FormaaltypeValidator, ParentID = 15},
-                new () {NodeId = 17, EnumId = EntityValidatorEnum.AnleggstypeValidator, ParentID = 16},
-                new () {NodeId = 18, EnumId = EntityValidatorEnum.NaeringsgruppeValidator, ParentID = 16},
-                new () {NodeId = 19, EnumId = EntityValidatorEnum.BygningstypeValidator, ParentID = 16},
-                new () {NodeId = 20, EnumId = EntityValidatorEnum.TiltaksformaalValidator, ParentID = 16},
-                new () {NodeId = 21, EnumId = EntityValidatorEnum.TiltakstypeValidator, ParentID = 15},
-            };
+            var beskrivelseAvTiltakValidatorLogic = new BeskrivelseAvTiltakValidatorLogic(15);
+            var beskrivelseAvTiltakTree = beskrivelseAvTiltakValidatorLogic.GetNodeList;
 
             var sjekklisteKravTree = new List<EntityValidatorNode>()
             {
@@ -152,13 +142,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _eiendomByggestedValidator = new EiendomByggestedValidator(EntityValidatorTree, 1, _eiendomsAdresseValidator, _matrikkelValidator, _municipalityValidator);
 
             //Tiltakshaver
-            _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 7,_postalCodeService);
+            _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 7, _postalCodeService);
             _tiltakshaverKontaktpersonValidator = new KontaktpersonValidator(EntityValidatorTree, 5);
             _tiltakshaverPartstypeValidator = new PartstypeValidator(EntityValidatorTree, 6, _codeListService);
             _tiltakshaverValidator = new TiltakshaverValidator(EntityValidatorTree, 4, _tiltakshaverEnkelAdresseValidator, _tiltakshaverKontaktpersonValidator, _tiltakshaverPartstypeValidator, _codeListService);
 
             //AnsvarligSoeker
-            _ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 12,_postalCodeService);
+            _ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 12, _postalCodeService);
             _ansvarligSoekerKontaktpersonValidator = new KontaktpersonValidator(EntityValidatorTree, 13);
             _ansvarligSoekerPartstypeValidator = new PartstypeValidator(EntityValidatorTree, 14, _codeListService);
             _ansvarligSoekerValidator = new AnsvarligSoekerValidator(EntityValidatorTree, 11, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
@@ -176,8 +166,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _naeringsgruppeValidator = new NaeringsgruppeValidator(EntityValidatorTree, 18, _codeListService);
             _bygningstypeValidator = new BygningstypeValidator(EntityValidatorTree, 19, _codeListService);
             _tiltaksformaalValidator = new TiltaksformaalValidator(EntityValidatorTree, 20, _codeListService);
-            _formaaltypeValidator = new FormaaltypeValidator(EntityValidatorTree, 16, _anleggstypeValidator, _naeringsgruppeValidator,_bygningstypeValidator,_tiltaksformaalValidator);
-           
+            _formaaltypeValidator = new FormaaltypeValidator(EntityValidatorTree, 16, _anleggstypeValidator, _naeringsgruppeValidator, _bygningstypeValidator, _tiltaksformaalValidator);
+
 
             _tiltakstypeValidator = new TiltakstypeValidator(EntityValidatorTree, 21, _codeListService);
             _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(EntityValidatorTree, 15, _formaaltypeValidator, _tiltakstypeValidator);
@@ -214,7 +204,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             AccumulateValidationRules(_fakturamottakerValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_fakturamottakerEnkelAdresseValidator.ValidationResult.ValidationRules);
-            
+
             AccumulateValidationRules(_sjekklistekravValidator.ValidationResult.ValidationRules);
             //AccumulateValidationRules(_sjekklistepunktValidator.ValidationResult.ValidationRules);
 

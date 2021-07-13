@@ -70,12 +70,12 @@ namespace Dibk.Ftpb.Validation.Application.Utils
         {
             FieldInfo fi = value.GetType().GetField(value.ToString());
 
-            var noko = fi.GetCustomAttributes(typeof(EnumerationAttribute), false) as EnumerationAttribute[];
+            var enumerationAttributes = fi.GetCustomAttributes(typeof(EnumerationAttribute), false) as EnumerationAttribute[];
 
             var xmlNode = string.Empty;
-            if (noko != null && noko.Any())
+            if (enumerationAttributes != null && enumerationAttributes.Any())
             {
-                xmlNode = noko.First().XmlNode;
+                xmlNode = enumerationAttributes.First().XmlNode;
             }
 
             return xmlNode;
