@@ -9,6 +9,6 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
     public enum BeskrivelseAvTiltakValidationEnum
     {
         utfylt,
-        formaaltype_utfylt,
+        bra_utfylt,
     }
 }

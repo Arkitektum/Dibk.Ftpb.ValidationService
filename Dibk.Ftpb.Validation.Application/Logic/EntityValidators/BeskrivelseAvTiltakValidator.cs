@@ -25,6 +25,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected override void InitializeValidationRules()
         {
             AddValidationRule(BeskrivelseAvTiltakValidationEnum.utfylt, null);
+            AddValidationRule(BeskrivelseAvTiltakValidationEnum.bra_utfylt, "BRA");
         }
 
         public ValidationResult Validate(BeskrivelseAvTiltakValidationEntity beskrivelseAvTiltakValidationEntity = null)
@@ -32,25 +33,25 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var xpath = beskrivelseAvTiltakValidationEntity?.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity?.ModelData))
             {
-                AddMessageFromRule(ValidationRuleEnum.beskrivelseAvTiltak_utfylt, xpath);
+                AddMessageFromRule(BeskrivelseAvTiltakValidationEnum.utfylt, xpath);
             }
             else
             {
                 var formaaltypeValidationResult = _formaaltypeValidator.Validate(beskrivelseAvTiltakValidationEntity?.ModelData?.Formaaltype);
                 UpdateValidationResultWithSubValidations(formaaltypeValidationResult);
 
-
-                //var tiltakstypeValidationEntity = beskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype;
-                if (Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype) || beskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype.Count() == 0)
+                if (string.IsNullOrEmpty(beskrivelseAvTiltakValidationEntity?.ModelData?.BRA))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.beskrivelseAvTiltak_tiltakstype_finnes_ikke, xpath);
+                    AddMessageFromRule(BeskrivelseAvTiltakValidationEnum.bra_utfylt, xpath);
+
                 }
-                else
+                
+                if (!Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity?.ModelData?.Tiltakstype) && !beskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype.Any())
                 {
                     foreach (var tiltakstypeValidationEntity in beskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype)
                     {
-                        //var tiltakstypeValidationResult = _tiltakstypeValidator.Validate(tiltakstypeValidationEntity);
-                        //UpdateValidationResultWithSubValidations(tiltakstypeValidationResult);
+                        var tiltakstypeValidationResult = _tiltakstypeValidator.Validate(tiltakstypeValidationEntity);
+                        UpdateValidationResultWithSubValidations(tiltakstypeValidationResult);
                     }
                 }
             }

@@ -60,18 +60,23 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     else
                     {
                         if (!isCodeValid.GetValueOrDefault())
-                        {
                             AddMessageFromRule(KodeListValidationEnum.kodeverdi_gyldig, xpath, new[] { kodeliste.ModelData?.Kodeverdi });
-                        }
-                        else
+                    }
+
+                    if (string.IsNullOrEmpty(kodeliste.ModelData.Kodebeskrivelse))
+                    {
+                        AddMessageFromRule(KodeListValidationEnum.kodebeskrivelse_utfylt, xpath);
+                    }
+                    else
+                    {
+                        if (isCodeValid.GetValueOrDefault())
                         {
-                            if (!_codeListService.IsCodelistLabelValid(_codeListName, kodeliste.ModelData?.Kodeverdi, kodeliste.ModelData?.Kodebeskrivelse, _registryType).GetValueOrDefault())
+                            var isCodelistLabelValid = _codeListService.IsCodelistLabelValid(_codeListName,kodeliste.ModelData?.Kodeverdi, kodeliste.ModelData?.Kodebeskrivelse, _registryType);
+                            if (!isCodelistLabelValid.GetValueOrDefault())
                             {
                                 AddMessageFromRule(KodeListValidationEnum.kodeverdi_gyldig, xpath, new[] { kodeliste.ModelData?.Kodeverdi, kodeliste.ModelData?.Kodebeskrivelse });
                             }
-
                         }
-
                     }
                 }
             }
