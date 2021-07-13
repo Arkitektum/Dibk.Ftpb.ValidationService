@@ -57,7 +57,8 @@ namespace Dibk.Ftpb.Validation
             services.AddTransient<IMunicipalityApiService, MunicipalityApiService>();
             services.Configure<MunicipalityApiSettings>(Configuration.GetSection("MunicipalityApi"));
 
-            services.AddHttpClient<CodelistApiHttpClient>();
+            //https://stackoverflow.com/a/44177920
+            //services.AddHttpClient<CodelistApiHttpClient>();
             services.AddTransient<ICodeListService, CodeListService>();
             services.Configure<CodelistApiSettings>(Configuration.GetSection("CodeListApi"));
 

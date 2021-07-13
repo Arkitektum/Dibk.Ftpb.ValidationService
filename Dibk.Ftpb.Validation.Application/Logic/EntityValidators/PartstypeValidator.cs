@@ -9,7 +9,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public class PartstypeValidator : KodelisteValidator
     {
         public PartstypeValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, ICodeListService codeListService)
-            : base(entityValidatorTree, nodeId, FtbKodeListeEnum.Partstype, codeListService)
+            : base(entityValidatorTree, nodeId, FtbKodeListeEnum.Partstype, RegistryType.Byggesoknad, codeListService)
         {
             _codeListService = codeListService;
         }

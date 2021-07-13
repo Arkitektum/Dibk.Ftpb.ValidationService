@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.DataSources.Models;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList
@@ -14,30 +15,38 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList
         private readonly CodelistApiHttpClient _codelistApiHttpClient;
         private readonly IMemoryCache _memoryCache;
 
-        public CodeListService(CodelistApiHttpClient codelistApiHttpClient, IMemoryCache memoryCache)
+        public CodeListService(IMemoryCache memoryCache, IOptions<CodelistApiSettings> options)
         {
-            _codelistApiHttpClient = codelistApiHttpClient;
+            _codelistApiHttpClient = new CodelistApiHttpClient(options);
             _memoryCache = memoryCache;
         }
 
-        public async Task<Dictionary<string, CodelistFormat>> GetCodeList(object codeListName, RegistryType registryType = RegistryType.Arbeidstilsynet)
+        public async Task<Dictionary<string, CodelistFormat>> GetCodeList(object codeListName, RegistryType registryType)
         {
             var codeListNameSt = codeListName.ToString();
             return await GetCodeList(codeListName.ToString(), registryType);
         }
 
-        public bool IsCodelistValid(object codeListName, string codeValue)
+        public bool? IsCodelistValid(object codeListName, string codeValue, RegistryType registryType)
         {
             if (String.IsNullOrEmpty(codeValue)) return false;
-            Dictionary<string, CodelistFormat> codelist = GetCodeList(codeListName, RegistryType.Arbeidstilsynet).Result;
+            Dictionary<string, CodelistFormat> codelist = GetCodeList(codeListName, registryType).Result;
+            
+            if (codelist == null)
+                return null;
+
             return codelist.ContainsKey(codeValue);
         }
 
-        public bool IsCodelistLabelValid(object codeListName, string codeValue, string codeName, RegistryType registryType = RegistryType.Byggesoknad)
+        public bool? IsCodelistLabelValid(object codeListName, string codeValue, string codeName, RegistryType registryType)
         {
             if (String.IsNullOrEmpty(codeValue) || string.IsNullOrEmpty(codeName)) return false;
 
             Dictionary<string, CodelistFormat> codelist = GetCodeList(codeListName, registryType).Result;
+
+            if (codelist == null)
+                return null;
+
             CodelistFormat result;
             if (codelist.TryGetValue(codeValue, out result))
             {
@@ -48,31 +57,34 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList
         }
 
 
-        private async Task<Dictionary<string, CodelistFormat>> GetCodeList(string cocelistName, RegistryType registryType = RegistryType.Arbeidstilsynet)
+        private async Task<Dictionary<string, CodelistFormat>> GetCodeList(string cocelistName, RegistryType registryType)
         {
+            Dictionary<string, CodelistFormat> codeList = null;
             //Get from cache
-            if (_memoryCache.TryGetValue<Dictionary<string, CodelistFormat>>(cocelistName, out var codeList))
+            if (_memoryCache.TryGetValue<Dictionary<string, CodelistFormat>>(cocelistName, out codeList))
                 return codeList;
 
             //Get from API
             var jsonResponce = await _codelistApiHttpClient.GetCodeList(cocelistName, registryType);
-            codeList = ParseCodeList(jsonResponce);
 
             //Add to cache if found
-            if (jsonResponce != null)
+            if (!string.IsNullOrEmpty(jsonResponce))
             {
+                codeList = ParseCodeList(jsonResponce);
                 _memoryCache.Set(cocelistName, codeList, new MemoryCacheEntryOptions()
                 {
                     SlidingExpiration = new TimeSpan(6, 0, 0)
                 });
             }
+
             return codeList;
         }
         private Dictionary<string, CodelistFormat> ParseCodeList(string jsonString)
         {
+            var codeList = new Dictionary<string, CodelistFormat>(StringComparer.CurrentCultureIgnoreCase);
+
             try
             {
-                var codeList = new Dictionary<string, CodelistFormat>(StringComparer.CurrentCultureIgnoreCase);
 
                 var response = JObject.Parse(jsonString);
 
@@ -88,12 +100,14 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList
                         codeList.Add(codevalue, new CodelistFormat(codename, codeDescription, codestatus));
                     }
                 }
-                return codeList;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                //TODO Add logg and skip 'Throw'
                 throw new ArgumentException($"Can not parse jsonResponse :'{jsonString}'");
             }
+            return codeList;
+
         }
         private List<string> GetCodeListNames(string data)
         {

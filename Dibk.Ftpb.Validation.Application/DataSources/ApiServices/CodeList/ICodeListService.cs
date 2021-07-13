@@ -11,34 +11,8 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList
 {
     public interface ICodeListService
     {
-        Task<Dictionary<string, CodelistFormat>> GetCodeList(object cocelistName, RegistryType registryType = RegistryType.Arbeidstilsynet);
-        bool IsCodelistValid(object codeListName, string codeValue);
-        bool IsCodelistLabelValid(object codeListName, string codeValue, string codeName, RegistryType registryType = RegistryType.Byggesoknad);
-
-
-        //Task<Dictionary<string, CodelistFormat>> GetCodeList(ArbeidstilsynetCodeListNames cocelistName, RegistryType registryType = RegistryType.Arbeidstilsynet);
-        //Task<Dictionary<string, CodelistFormat>> GetCodeList(FtbKodeListeEnum cocelistName, RegistryType registryType = RegistryType.Arbeidstilsynet);
-        //bool IsCodelistValid(ArbeidstilsynetCodeListNames codeListName, string codeValue);
-        //bool IsCodelistValid(FtbKodeListeEnum codeListName, string codeValue);
-        //bool IsCodelistLabelValid(FtbKodeListeEnum codeListName, string codeValue, string codeName, RegistryType registryType = RegistryType.Byggesoknad);
-    }
-
-    public class CodelistFtp : ICodeListService
-    {
-        public Task<Dictionary<string, CodelistFormat>> GetCodeList(object cocelistName, RegistryType registryType = RegistryType.Arbeidstilsynet)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsCodelistValid(object codeListName, string codeValue)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsCodelistLabelValid(object codeListName, string codeValue, string codeName,
-            RegistryType registryType = RegistryType.Byggesoknad)
-        {
-            throw new NotImplementedException();
-        }
+        Task<Dictionary<string, CodelistFormat>> GetCodeList(object cocelistName, RegistryType registryType);
+        bool? IsCodelistValid(object codeListName, string codeValue, RegistryType registryType);
+        bool? IsCodelistLabelValid(object codeListName, string codeValue, string codeName, RegistryType registryType);
     }
 }

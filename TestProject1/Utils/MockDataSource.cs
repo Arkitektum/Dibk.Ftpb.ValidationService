@@ -32,16 +32,10 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
 
             return codelistClient.Object;
         }
-        public static ICodeListService IsCodeListValid(ArbeidstilsynetCodeListNames CodeListName, bool valid = true)
+        public static ICodeListService IsCodeListValid(object CodeListName, bool valid = true)
         {
             var codelistClient = new Mock<ICodeListService>();
-            codelistClient.Setup(a => a.IsCodelistValid(It.IsAny<ArbeidstilsynetCodeListNames>(), It.IsAny<string>())).Returns(valid);
-            return codelistClient.Object;
-        }
-        public static ICodeListService IsCodeListValid(FtbKodeListeEnum codeListName, bool valid = true)
-        {
-            var codelistClient = new Mock<ICodeListService>();
-            codelistClient.Setup(a => a.IsCodelistValid(It.IsAny<FtbKodeListeEnum>(), It.IsAny<string>())).Returns(valid);
+            codelistClient.Setup(a => a.IsCodelistValid(It.IsAny<object>(), It.IsAny<string>(),It.IsAny<RegistryType>())).Returns(valid);
             return codelistClient.Object;
         }
 

@@ -13,21 +13,24 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public abstract class KodelisteValidator : EntityValidatorBase, IKodelisteValidator
     {
-        private readonly FtbKodeListeEnum _codeListName;
+        private readonly object _codeListName;
+        private readonly RegistryType _registryType;
         protected ICodeListService _codeListService;
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 
-        public KodelisteValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, FtbKodeListeEnum codeListName ,ICodeListService codeListService)
+        public KodelisteValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, object codeListName, RegistryType registryType, ICodeListService codeListService)
                    : base(entityValidatorTree, nodeId)
         {
             _codeListName = codeListName;
+            _registryType = registryType;
             _codeListService = codeListService;
         }
 
         protected override void InitializeValidationRules()
         {
             AddValidationRule(KodeListValidationEnum.utfylt, null);
+            AddValidationRule(KodeListValidationEnum.kode_KanIkkeValidere, null);
             AddValidationRule(KodeListValidationEnum.kodeverdi_utfylt, "kodeverdi");
             AddValidationRule(KodeListValidationEnum.kodeverdi_gyldig, "kodeverdi");
         }
@@ -48,9 +51,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 }
                 else
                 {
-                    if (!_codeListService.IsCodelistValid(_codeListName, kodeliste.ModelData?.Kodeverdi))
+                    var isCodeValid = _codeListService.IsCodelistValid(_codeListName, kodeliste.ModelData?.Kodeverdi, _registryType);
+                    if (!isCodeValid.HasValue)
                     {
-                        AddMessageFromRule(KodeListValidationEnum.kodeverdi_gyldig, xpath, new[] { kodeliste.ModelData?.Kodeverdi });
+                        AddMessageFromRule(KodeListValidationEnum.kode_KanIkkeValidere, xpath);
+                    }
+                    else
+                    {
+                        if (!isCodeValid.GetValueOrDefault())
+                        {
+                            AddMessageFromRule(KodeListValidationEnum.kodeverdi_gyldig, xpath,
+                                new[] { kodeliste.ModelData?.Kodeverdi });
+                        }
                     }
                 }
             }

@@ -7,32 +7,41 @@ using Microsoft.Extensions.Options;
 
 namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList
 {
-    public class CodelistApiHttpClient
+    public class CodelistApiHttpClient 
     {
-        public HttpClient _httpClient;
         private readonly IOptions<CodelistApiSettings> _options;
 
-        public CodelistApiHttpClient(HttpClient httpClient, IOptions<CodelistApiSettings> options)
+        public CodelistApiHttpClient(IOptions<CodelistApiSettings> options)
         {
             _options = options;
-            _httpClient = httpClient;
         }
 
         public async Task<string> GetCodeList(string codeListName, RegistryType registryType)
         {
-            var url = GetUrlForCodeList(registryType);
-            _httpClient.BaseAddress = new Uri(url);
-            _httpClient.DefaultRequestHeaders.Accept
-                .Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            var requestPath = $"{codeListName}";
-
-            var response = await _httpClient.GetAsync(requestPath);
             string jsonCodeList = String.Empty;
+            var url = GetUrlForCodeList(registryType);
 
-            if (response.IsSuccessStatusCode)
-                jsonCodeList = await response.Content.ReadAsStringAsync();
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    httpClient.BaseAddress = new Uri(url);
+                    httpClient.DefaultRequestHeaders.Accept
+                        .Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+                    var requestPath = $"{codeListName}";
+
+                    var response = await httpClient.GetAsync(requestPath);
+
+                    if (response.IsSuccessStatusCode)
+                        jsonCodeList = await response.Content.ReadAsStringAsync();
+                }
+            }
+            catch (Exception e)
+            {
+                //TODO Add logg and skip 'Throw'
+                throw new ArgumentException($"Can not get codeList :'{codeListName}' from '{registryType.ToString()}' with Url: '{url}'");
+            }
             return jsonCodeList;
         }
 
