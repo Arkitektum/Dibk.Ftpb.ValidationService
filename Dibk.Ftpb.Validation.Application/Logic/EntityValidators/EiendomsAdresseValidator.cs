@@ -10,7 +10,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class EiendomsAdresseValidator : EntityValidatorBase, IEiendomsAdresseValidator
     {
-        ValidationResult IEntityBaseValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
+        ValidationResult IEiendomsAdresseValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
         public EiendomsAdresseValidator(IList<EntityValidatorNode> entityValidatorTree, int? nodeId = null)
             : base(entityValidatorTree, nodeId)

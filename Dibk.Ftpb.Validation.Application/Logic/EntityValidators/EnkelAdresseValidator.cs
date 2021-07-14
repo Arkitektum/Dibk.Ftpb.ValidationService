@@ -16,7 +16,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     {
         private readonly IPostalCodeService _postalCodeService;
 
-        ValidationResult IEntityBaseValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
+        ValidationResult IEnkelAdresseValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
         public EnkelAdresseValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, IPostalCodeService postalCodeService)
             : base(entityValidatorTree, nodeId)

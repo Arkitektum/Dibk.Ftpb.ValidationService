@@ -3,10 +3,10 @@ using Dibk.Ftpb.Validation.Application.Reporter;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
 {
-    public interface IEnkelAdresseValidator : IEntityBaseValidator
+    public interface IEnkelAdresseValidator 
     {
         //string ruleXmlElement { get; }
-       // ValidationResult ValidationResult { get; set; }
+        ValidationResult ValidationResult { get; set; }
         ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null);
         void ValidateEntityFields(EnkelAdresseValidationEntity adresseValidationEntity);
     }
