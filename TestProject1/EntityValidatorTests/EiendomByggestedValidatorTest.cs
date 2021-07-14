@@ -172,7 +172,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
                 }
             };
             var tree = EntityValidatiorTree.BuildTree(flatList);
-            _formValidatorConfiguration.Validators1 = tree;
+            _formValidatorConfiguration.ValidatorsTree = tree;
            // _eiendomByggestedValidatorTreeTest = new EiendomByggestedValidator(tree, eiendomsAdresseValidator, matrikkelValidator, _municipalityValidator);
         }
 

@@ -12,6 +12,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
     public enum EiendomValidationEnum 
     {
         utfylt,
+        bygningsnummer_ugyldig,
         bygningsnummer_utfylt,
         bolignummer_utfylt,
         kommunenavn_utfylt,

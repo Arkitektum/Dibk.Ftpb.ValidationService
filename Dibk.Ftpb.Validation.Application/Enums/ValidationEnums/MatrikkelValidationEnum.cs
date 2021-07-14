@@ -10,6 +10,8 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
     {
         utfylt,
         kommunenummer_utfylt,
+        kommunenummer_ugyldig,
+        kommunenummer_gammel,
         gaardsnummer_utfylt,
         bruksnummer_utfylt,
         festenummer_utfylt,

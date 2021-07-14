@@ -138,8 +138,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         {
             //Eiendombyggested
             _eiendomsAdresseValidator = new EiendomsAdresseValidator(EntityValidatorTree, 2);
-            _matrikkelValidator = new MatrikkelValidator(EntityValidatorTree, 3);
-            _eiendomByggestedValidator = new EiendomByggestedValidator(EntityValidatorTree, 1, _eiendomsAdresseValidator, _matrikkelValidator, _municipalityValidator);
+            _matrikkelValidator = new MatrikkelValidator(EntityValidatorTree, 3,_municipalityValidator);
+            _eiendomByggestedValidator = new EiendomByggestedValidator(EntityValidatorTree, 1, _eiendomsAdresseValidator, _matrikkelValidator);
 
             //Tiltakshaver
             _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 7, _postalCodeService);

@@ -8,6 +8,8 @@ namespace Dibk.Ftpb.Validation.Application.Enums
 {
     public enum EntityValidatorEnum
     {
+        //TODO https://stackoverflow.com/a/60454909
+
         [EnumerationAttribute(XmlNode = "anleggstype", ValidatorId = "1")]
         AnleggstypeValidator,
 

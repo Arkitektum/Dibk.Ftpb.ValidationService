@@ -127,9 +127,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         protected override void InstantiateValidators()
         {
             //EiendomByggested
-            _matrikkelValidator = new MatrikkelValidator(EntityValidatorTree, 3);
+            _matrikkelValidator = new MatrikkelValidator(EntityValidatorTree, 3,_municipalityValidator);
             _eiendomsAdresseValidator = new EiendomsAdresseValidator(EntityValidatorTree, 2);
-            _eiendomByggestedValidator = new EiendomByggestedValidator(EntityValidatorTree, 1, _eiendomsAdresseValidator, _matrikkelValidator, _municipalityValidator);
+            _eiendomByggestedValidator = new EiendomByggestedValidator(EntityValidatorTree, 1, _eiendomsAdresseValidator, _matrikkelValidator);
 
             //Tiltakshaver
             _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 7, _postalCodeService);

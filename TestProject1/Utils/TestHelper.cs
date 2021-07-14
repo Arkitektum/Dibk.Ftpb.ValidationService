@@ -30,7 +30,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
                         if (enumNumber < 100)
                         {
                             string validatorText;
-                            var validatorEnum = GetValueFromDescription<EntityValidatorEnum>(enumNumber.ToString());
+                            var validatorEnum = GetEnumFromValidationId<EntityValidatorEnum>(enumNumber.ToString());
                             string stringValue = validatorEnum.ToString();
                             if (!int.TryParse(stringValue, out int theNumber))
                             {
@@ -49,7 +49,8 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
             return validatorPath;
         }
 
-        public static T GetValueFromDescription<T>(string validatorId) where T : Enum
+        //https://stackoverflow.com/a/4367868
+        public static T GetEnumFromValidationId<T>(string validatorId) where T : Enum
         {
             foreach (var field in typeof(T).GetFields())
             {
