@@ -24,6 +24,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
     {
         private ArbeidstilsynetsSamtykke2_45957_ValidationEntity _validationForm { get; set; }
 
+
+        //TODO abstract class / Interface ... :thinkingface ...
+        private BeskrivelseAvTiltakValidatorLogic _beskrivelseAvTiltakValidatorLogic;
+        private EiendombyggestedLogic _eiendombyggestedLogic;
+
+
         private readonly IMunicipalityValidator _municipalityValidator;
         private readonly ICodeListService _codeListService;
         private readonly IPostalCodeService _postalCodeService;
@@ -68,6 +74,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _municipalityValidator = municipalityValidator;
             _codeListService = codeListService;
             _postalCodeService = postalCodeService;
+
+           
+
+
         }
 
         public override ValidationResult StartValidation(string dataFormatVersion, ValidationInput validationInput)
@@ -83,8 +93,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         protected override void InitializeValidatorConfig()
         {
-            var eiendombyggestedLogic = new EiendombyggestedLogic(1);
-            var eiendombyggestedTree = eiendombyggestedLogic.GetNodeList;
+            _beskrivelseAvTiltakValidatorLogic = new BeskrivelseAvTiltakValidatorLogic(15, _codeListService);
+            _eiendombyggestedLogic = new EiendombyggestedLogic(1, _municipalityValidator);
 
             var tiltakshaverTree = new List<EntityValidatorNode>()
             {
@@ -112,8 +122,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 new () {NodeId = 14, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 11,}
             };
 
-            var beskrivelseAvTiltakValidatorLogic = new BeskrivelseAvTiltakValidatorLogic(15);
-            var beskrivelseAvTiltakTree = beskrivelseAvTiltakValidatorLogic.GetNodeList;
+
 
             var sjekklisteKravTree = new List<EntityValidatorNode>()
             {
@@ -123,23 +132,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             var formTree = new List<EntityValidatorNode>();
             formTree.AddRange(tiltakshaverTree);
-            formTree.AddRange(eiendombyggestedTree);
             formTree.AddRange(fakturamottakerTree);
             formTree.AddRange(arbeidsplasserTree);
             formTree.AddRange(ansvarligSoekerTree);
-            formTree.AddRange(beskrivelseAvTiltakTree);
             formTree.AddRange(sjekklisteKravTree);
-
             EntityValidatorTree = EntityValidatiorTree.BuildTree(formTree);
-
         }
 
         protected override void InstantiateValidators()
         {
-            //Eiendombyggested
-            _eiendomsAdresseValidator = new EiendomsAdresseValidator(EntityValidatorTree, 2);
-            _matrikkelValidator = new MatrikkelValidator(EntityValidatorTree, 3,_municipalityValidator);
-            _eiendomByggestedValidator = new EiendomByggestedValidator(EntityValidatorTree, 1, _eiendomsAdresseValidator, _matrikkelValidator);
+            
 
             //Tiltakshaver
             _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 7, _postalCodeService);
@@ -160,17 +162,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //Arbeidsplasser
             _arbeidsplasserValidator = new ArbeidsplasserValidator(EntityValidatorTree, 10);
 
-            //**BeskrivelseAvTiltak
-            //BeskrivelseAvTiltak.formaal
-            _anleggstypeValidator = new AnleggstypeValidator(EntityValidatorTree, 17, _codeListService);
-            _naeringsgruppeValidator = new NaeringsgruppeValidator(EntityValidatorTree, 18, _codeListService);
-            _bygningstypeValidator = new BygningstypeValidator(EntityValidatorTree, 19, _codeListService);
-            _tiltaksformaalValidator = new TiltaksformaalValidator(EntityValidatorTree, 20, _codeListService);
-            _formaaltypeValidator = new FormaaltypeValidator(EntityValidatorTree, 16, _anleggstypeValidator, _naeringsgruppeValidator, _bygningstypeValidator, _tiltaksformaalValidator);
 
-
-            _tiltakstypeValidator = new TiltakstypeValidator(EntityValidatorTree, 21, _codeListService);
-            _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(EntityValidatorTree, 15, _formaaltypeValidator, _tiltakstypeValidator);
 
             //_sjekklistepunktValidator = new SjekklistepunktValidator(EntityValidatorTree, 23, _codeListService);
             //_sjekklistekravValidator = new SjekklistekravValidator(EntityValidatorTree, 22, _sjekklistepunktValidator);
@@ -182,14 +174,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //_tiltaksformaalValidator, _codeListService);
 
 
+            //** New
+            //**BeskrivelseAvTiltak
+            _beskrivelseAvTiltakValidator = _beskrivelseAvTiltakValidatorLogic.Validator;
+            //Eiendombyggested
+            _eiendomByggestedValidator = _eiendombyggestedLogic.Validator;
 
 
         }
         protected override void DefineValidationRules()
         {
-            AccumulateValidationRules(_eiendomByggestedValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_eiendomsAdresseValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_matrikkelValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_arbeidsplasserValidator.ValidationResult.ValidationRules);
 
             AccumulateValidationRules(_tiltakshaverValidator.ValidationResult.ValidationRules);
@@ -208,14 +202,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             AccumulateValidationRules(_sjekklistekravValidator.ValidationResult.ValidationRules);
             //AccumulateValidationRules(_sjekklistepunktValidator.ValidationResult.ValidationRules);
 
-            AccumulateValidationRules(_beskrivelseAvTiltakValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_formaaltypeValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_anleggstypeValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_naeringsgruppeValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_bygningstypeValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_tiltaksformaalValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_tiltakstypeValidator.ValidationResult.ValidationRules);
-
+            //** New
+            AccumulateValidationRules(_beskrivelseAvTiltakValidatorLogic.ValidationRules);
+            AccumulateValidationRules(_eiendombyggestedLogic.ValidationRules);
 
         }
 
