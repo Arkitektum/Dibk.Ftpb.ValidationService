@@ -4,14 +4,14 @@
     <eiendom>
       <adresse>
         <adresselinje1>Bøgata 1</adresselinje1>
-        <adresselinje2 xsi:nil="true" />
-        <adresselinje3 xsi:nil="true" />
+        <adresselinje2 xsi:nil="true"/>
+        <adresselinje3 xsi:nil="true"/>
         <postnr>3800</postnr>
         <poststed>Bø i Telemark</poststed>
         <landkode>NO</landkode>
-        <gatenavn xsi:nil="true" />
-        <husnr xsi:nil="true" />
-        <bokstav xsi:nil="true" />
+        <gatenavn>Bøgata</gatenavn>
+        <husnr>1</husnr>
+        <bokstav xsi:nil="true"/>
       </adresse>
       <eiendomsidentifikasjon>
         <kommunenummer>3817</kommunenummer>
@@ -24,30 +24,52 @@
       <bolignummer>H0102</bolignummer>
       <kommunenavn>Midt Telemark</kommunenavn>
     </eiendom>
-  </eiendomByggested>
+  <eiendom>
+      <adresse>
+        <adresselinje1>Kyrkjevegen 6</adresselinje1>
+        <adresselinje2 xsi:nil="true"/>
+        <adresselinje3 xsi:nil="true"/>
+        <postnr>3800</postnr>
+        <poststed>Bø i Telemark</poststed>
+        <landkode>NO</landkode>
+        <gatenavn>Kyrkjevegen</gatenavn>
+        <husnr>6</husnr>
+        <bokstav xsi:nil="true"/>
+      </adresse>
+      <eiendomsidentifikasjon>
+        <kommunenummer>3817</kommunenummer>
+        <gaardsnummer>55</gaardsnummer>
+        <bruksnummer>40</bruksnummer>
+        <festenummer>0</festenummer>
+        <seksjonsnummer>0</seksjonsnummer>
+      </eiendomsidentifikasjon>
+      <bygningsnummer>165679733</bygningsnummer>
+      <bolignummer>H0102</bolignummer>
+      <kommunenavn>MIDT-TELEMARK</kommunenavn>
+    </eiendom></eiendomByggested>
   <tiltakshaver>
     <partstype>
       <kodeverdi>Foretak</kodeverdi>
       <kodebeskrivelse>Foretak</kodebeskrivelse>
     </partstype>
-    <foedselsnummer xsi:nil="true" />
+    <foedselsnummer xsi:nil="true"/>
     <organisasjonsnummer>910748548</organisasjonsnummer>
     <navn>BLOMSTERDALEN OG ØVRE SNERTINGDAL</navn>
     <adresse>
       <adresselinje1>Bøgata 16</adresselinje1>
-      <adresselinje2 xsi:nil="true" />
-      <adresselinje3 xsi:nil="true" />
+      <adresselinje2 xsi:nil="true"/>
+      <adresselinje3 xsi:nil="true"/>
       <postnr>3802</postnr>
       <poststed>Bø i Telemark</poststed>
       <landkode>NO</landkode>
     </adresse>
     <telefonnummer>11223344</telefonnummer>
-    <mobilnummer xsi:nil="true" />
+    <mobilnummer xsi:nil="true"/>
     <epost>tine@arkitektum.no</epost>
     <kontaktperson>
       <navn>Tine Høllre</navn>
       <telefonnummer>98839131</telefonnummer>
-      <mobilnummer xsi:nil="true" />
+      <mobilnummer xsi:nil="true"/>
       <epost>tine@arkitektum.no</epost>
     </kontaktperson>
   </tiltakshaver>
@@ -63,34 +85,34 @@
   </arbeidsplasser>
   <fakturamottaker>
     <organisasjonsnummer>910297937</organisasjonsnummer>
-    <bestillerReferanse xsi:nil="true" />
-    <fakturareferanser xsi:nil="true" />
+    <bestillerReferanse xsi:nil="true"/>
+    <fakturareferanser xsi:nil="true"/>
     <navn>FANA OG HAFSLO REVISJON</navn>
     <prosjektnummer>12345</prosjektnummer>
     <ehfFaktura>true</ehfFaktura>
     <fakturaPapir>false</fakturaPapir>
     <adresse>
       <adresselinje1>Bøgata 16</adresselinje1>
-      <adresselinje2 xsi:nil="true" />
-      <adresselinje3 xsi:nil="true" />
+      <adresselinje2 xsi:nil="true"/>
+      <adresselinje3 xsi:nil="true"/>
       <postnr>3802</postnr>
       <poststed>Bø i Telemark</poststed>
       <landkode>NO</landkode>
     </adresse>
   </fakturamottaker>
-  <signatur xsi:nil="true" />
+  <signatur xsi:nil="true"/>
   <ansvarligSoeker>
     <partstype>
       <kodeverdi>Foretak</kodeverdi>
       <kodebeskrivelse>Foretak</kodebeskrivelse>
     </partstype>
-    <foedselsnummer xsi:nil="true" />
+    <foedselsnummer xsi:nil="true"/>
     <organisasjonsnummer>910598023</organisasjonsnummer>
     <navn>HUSNES OG OPPDAL</navn>
     <adresse>
       <adresselinje1>Bøgata 16</adresselinje1>
-      <adresselinje2 xsi:nil="true" />
-      <adresselinje3 xsi:nil="true" />
+      <adresselinje2 xsi:nil="true"/>
+      <adresselinje3 xsi:nil="true"/>
       <postnr>3802</postnr>
       <poststed>Bø i Telemark</poststed>
       <landkode>NO</landkode>
@@ -105,8 +127,8 @@
       <epost>tor@arkitektum.no</epost>
     </kontaktperson>
   </ansvarligSoeker>
-  <betaling xsi:nil="true" />
-  <dispensasjon xsi:nil="true" />
+  <betaling xsi:nil="true"/>
+  <dispensasjon xsi:nil="true"/>
   <krav>
     <sjekklistekrav>
       <sjekklistepunktsvar>true</sjekklistepunktsvar>
@@ -122,7 +144,7 @@
         <kodeverdi>2.1</kodeverdi>
         <kodebeskrivelse>Er arbeidstakere sikret mot fall i tråd med følgende krav?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -130,7 +152,7 @@
         <kodeverdi>2.3</kodeverdi>
         <kodebeskrivelse>Er fallfare en risiko i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>true</sjekklistepunktsvar>
@@ -146,7 +168,7 @@
         <kodeverdi>2.7</kodeverdi>
         <kodebeskrivelse>Er det arbeidslokalene plassert, innredet og utformet med hensyn til fare for vold og trusler om vold i tråd med følgende krav ?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -154,7 +176,7 @@
         <kodeverdi>2.9</kodeverdi>
         <kodebeskrivelse>Er vold eller trusler om vold et tema i det søknadspliktige tiltaket og en risiko ved driften til virksomheten(e) som skal bruke tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -162,7 +184,7 @@
         <kodeverdi>2.10</kodeverdi>
         <kodebeskrivelse>Er det planlagt med rømningsveier og nødutganger i henhold til følgende krav?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -170,7 +192,7 @@
         <kodeverdi>2.12</kodeverdi>
         <kodebeskrivelse>Er rømningsveier og nødutganger et tema i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -178,7 +200,7 @@
         <kodeverdi>2.13</kodeverdi>
         <kodebeskrivelse>Er det planlagt med løfteinnretninger i tråd med følgende krav?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -186,7 +208,7 @@
         <kodeverdi>2.15</kodeverdi>
         <kodebeskrivelse>Er løfteinnretninger et tema i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -194,7 +216,7 @@
         <kodeverdi>3.1</kodeverdi>
         <kodebeskrivelse>Er det planlagt med handikaptoalett i tråd med følgende krav?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>true</sjekklistepunktsvar>
@@ -202,7 +224,7 @@
         <kodeverdi>3.3</kodeverdi>
         <kodebeskrivelse>Er handikaptoalett et tema i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>true</sjekklistepunktsvar>
@@ -210,7 +232,7 @@
         <kodeverdi>3.4</kodeverdi>
         <kodebeskrivelse>Er arbeidslokalene planlagt med trinnfri adkomst og heis i tråd med følgende krav?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>true</sjekklistepunktsvar>
@@ -218,7 +240,7 @@
         <kodeverdi>3.6</kodeverdi>
         <kodebeskrivelse>Er trinnfri adkomst og heis et tema i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>true</sjekklistepunktsvar>
@@ -226,7 +248,7 @@
         <kodeverdi>4.1</kodeverdi>
         <kodebeskrivelse>Er det planlagt med løsninger for klima, ventilasjon og luftkvalitet mv. i tråd med følgende krav?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -234,7 +256,7 @@
         <kodeverdi>4.3</kodeverdi>
         <kodebeskrivelse>Er klima, ventilasjon og luftkvalitet et tema i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -242,7 +264,7 @@
         <kodeverdi>4.4</kodeverdi>
         <kodebeskrivelse>Er forurensning i arbeidsatmosfæren ivaretatt i samsvar med følgende krav?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -250,7 +272,7 @@
         <kodeverdi>4.6</kodeverdi>
         <kodebeskrivelse>Er forurensing i arbeidsatmosfæren et tema i det søknadspliktige tiltaket og en mulig risiko ved driften til virksomheten(e) som skal bruke tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -258,7 +280,7 @@
         <kodeverdi>5.1</kodeverdi>
         <kodebeskrivelse>Er risiko for helsefarlig stråling ivaretatt i tråd med følgende krav?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -266,7 +288,7 @@
         <kodeverdi>5.3</kodeverdi>
         <kodebeskrivelse>Er stråling et tema i det søknadspliktige tiltaket og en risiko ved driften til virksomheten(e) som skal bruke tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -274,7 +296,7 @@
         <kodeverdi>5.4</kodeverdi>
         <kodebeskrivelse>Er risiko for biologisk helsefare ivaretatt i tråd med følgende krav?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -282,7 +304,7 @@
         <kodeverdi>5.6</kodeverdi>
         <kodebeskrivelse>Er biologisk helsefare et tema i det søknadspliktige tiltaket og en risiko ved driften til virksomheten(e) som skal bruke tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -290,7 +312,7 @@
         <kodeverdi>5.7</kodeverdi>
         <kodebeskrivelse>Er risiko for kjemisk helsefare ivaretatt i tråd med følgende krav?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -298,7 +320,7 @@
         <kodeverdi>5.9</kodeverdi>
         <kodebeskrivelse>Er kjemisk helsefare et tema i det søknadspliktige tiltaket og en risiko ved driften til virksomheten(e) som skal bruke tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -306,7 +328,7 @@
         <kodeverdi>5.10</kodeverdi>
         <kodebeskrivelse>Er det planlagt med løsninger for rent og urent område i tråd med følgende krav?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -314,7 +336,7 @@
         <kodeverdi>5.12</kodeverdi>
         <kodebeskrivelse>Er rent og urent område et tema i det søknadspliktige tiltaket og et krav som følger av driften til virksomheten(e) som skal bruke tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -322,7 +344,7 @@
         <kodeverdi>6.1</kodeverdi>
         <kodebeskrivelse>Er risiko for støy redusert i tråd med følgende krav?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -330,7 +352,7 @@
         <kodeverdi>6.3</kodeverdi>
         <kodebeskrivelse>Er støy et tema i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -338,7 +360,7 @@
         <kodeverdi>7.1</kodeverdi>
         <kodebeskrivelse>Er areal avsatt pr. arbeidsplass i tråd med følgende krav?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -346,7 +368,7 @@
         <kodeverdi>7.3</kodeverdi>
         <kodebeskrivelse>Er areal pr. arbeidsplass et tema i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -354,7 +376,7 @@
         <kodeverdi>7.4</kodeverdi>
         <kodebeskrivelse>Er romhøyden i tråd med følgende krav?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -362,7 +384,7 @@
         <kodeverdi>7.6</kodeverdi>
         <kodebeskrivelse>Er romhøyde et tema i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -370,7 +392,7 @@
         <kodeverdi>8.1</kodeverdi>
         <kodebeskrivelse>Er ferdsel og atkomst planlagt i tråd med følgende krav i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -378,7 +400,7 @@
         <kodeverdi>8.3</kodeverdi>
         <kodebeskrivelse>Er ferdsel og atkomst et tema i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -386,7 +408,7 @@
         <kodeverdi>8.4</kodeverdi>
         <kodebeskrivelse>Er varelevering planlagt i tråd med følgende krav i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -394,7 +416,7 @@
         <kodeverdi>8.6</kodeverdi>
         <kodebeskrivelse>Er varelevering et tema i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -402,7 +424,7 @@
         <kodeverdi>9.1</kodeverdi>
         <kodebeskrivelse>Er utendørs arbeids- og lagringsplasser planlagt i tråd med følgende krav i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -410,7 +432,7 @@
         <kodeverdi>9.3</kodeverdi>
         <kodebeskrivelse>Er utendørs arbeids- og lagringsplasser et tema i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -418,7 +440,7 @@
         <kodeverdi>10.1</kodeverdi>
         <kodebeskrivelse>Er de enkelte arbeidsplasser og personalrom planlagt med tilgang til dagslys og utsyn i tråd med følgende krav i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -426,7 +448,7 @@
         <kodeverdi>10.3</kodeverdi>
         <kodebeskrivelse>Er dagslys og utsyn et tema i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -434,7 +456,7 @@
         <kodeverdi>10.4</kodeverdi>
         <kodebeskrivelse>Er alle arbeidsplasser og ferdselsveier planlagt med belysning og synsforhold i tråd med følgende krav i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -442,7 +464,7 @@
         <kodeverdi>10.6</kodeverdi>
         <kodebeskrivelse>Er belysning og lysforhold et tema i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -450,7 +472,7 @@
         <kodeverdi>11.1</kodeverdi>
         <kodebeskrivelse>Er det planlagt med garderober som er plassert, innredet og utformet i tråd med følgende krav?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -458,7 +480,7 @@
         <kodeverdi>11.3</kodeverdi>
         <kodebeskrivelse>Er garderober ivaretatt i eksisterende bygningsmasse?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -466,7 +488,7 @@
         <kodeverdi>11.5</kodeverdi>
         <kodebeskrivelse>Er garderober et tema i det søknadspliktige tiltaket?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
     <sjekklistekrav>
       <sjekklistepunktsvar>false</sjekklistepunktsvar>
@@ -474,7 +496,7 @@
         <kodeverdi>11.6</kodeverdi>
         <kodebeskrivelse>Er det planlagt med dusjrom plassert, innredet og utformet i tråd med følgende krav?</kodebeskrivelse>
       </sjekklistepunkt>
-      <dokumentasjon />
+      <dokumentasjon/>
     </sjekklistekrav>
   </krav>
   <beskrivelseAvTiltak>
@@ -501,7 +523,7 @@
       </tiltaksformaal>
       <beskrivPlanlagtFormaal>En beskrivelse av planlagt formål.....</beskrivPlanlagtFormaal>
     </bruk>
-    <BRA />
+    <BRA/>
     <type>
       <kodeverdi>nyttbyggover70m2</kodeverdi>
       <kodebeskrivelse>Nytt bygg - Over 70 m2 -Ikke boligformål</kodebeskrivelse>
@@ -524,7 +546,7 @@
     <ftbId>1000000000001</ftbId>
     <prosjektnavn>Nytt prosjekt</prosjektnavn>
     <sluttbrukersystemUrl>https://fellesbygg.dibk.no</sluttbrukersystemUrl>
-    <hovedinnsendingsnummer xsi:nil="true" />
+    <hovedinnsendingsnummer xsi:nil="true"/>
     <klartForSigneringFraSluttbrukersystem>true</klartForSigneringFraSluttbrukersystem>
   </metadata>
 </ArbeidstilsynetsSamtykke>

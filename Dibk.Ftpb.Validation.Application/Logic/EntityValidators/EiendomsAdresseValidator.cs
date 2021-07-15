@@ -17,17 +17,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
         }
 
-        public ValidationResult Validate(EiendomsAdresseValidationEntity eiendomsAdresseValidationEntity)
-        {
-            base.ResetValidationMessages();
-            if (ValidateModelExists(eiendomsAdresseValidationEntity))
-            {
-                ValidateEntityFields(eiendomsAdresseValidationEntity);
-            }
-
-            return _validationResult;
-        }
-
         protected override void InitializeValidationRules()
         {
             AddValidationRule(EiendomsAdresseValidationEnum.utfylt);
@@ -42,50 +31,43 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(EiendomsAdresseValidationEnum.bokstav_utfylt, "bokstav");
             AddValidationRule(EiendomsAdresseValidationEnum.postnr_4siffer, "postnr");
         }
-        private bool ValidateModelExists(EiendomsAdresseValidationEntity modelEntity)
+
+        public ValidationResult Validate(EiendomsAdresseValidationEntity eiendomsAdresseValidationEntity)
         {
-            var xPath = modelEntity.DataModelXpath;
-            if (Helpers.ObjectIsNullOrEmpty(modelEntity.ModelData))
+            base.ResetValidationMessages();
+            var xPath = eiendomsAdresseValidationEntity.DataModelXpath;
+            if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData))
             {
                 AddMessageFromRule(EiendomsAdresseValidationEnum.utfylt, xPath);
-                return false;
             }
-            return true;
+            else
+            {
+                if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Adresselinje1))
+                    AddMessageFromRule(EiendomsAdresseValidationEnum.adresselinje1_utfylt, xPath);
+
+                if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Landkode))
+                    AddMessageFromRule(EiendomsAdresseValidationEnum.landkode_utfylt, xPath);
+
+                if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Postnr))
+                    AddMessageFromRule(EiendomsAdresseValidationEnum.postnr_utfylt, xPath);
+
+                if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Poststed))
+                    AddMessageFromRule(EiendomsAdresseValidationEnum.poststed_utfylt, xPath);
+
+                if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Gatenavn))
+                    AddMessageFromRule(EiendomsAdresseValidationEnum.gatenavn_utfylt, xPath);
+
+                if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Husnr))
+                    AddMessageFromRule(EiendomsAdresseValidationEnum.husnr_utfylt, xPath);
+
+                if (!StringIs4digitNumber(eiendomsAdresseValidationEntity.ModelData.Postnr))
+                    AddMessageFromRule(EiendomsAdresseValidationEnum.postnr_4siffer, xPath);
+            }
+            return _validationResult;
         }
-        private void ValidateEntityFields(EiendomsAdresseValidationEntity eiendomsAdresseValidationEntity)
-        {
-            var xPath = eiendomsAdresseValidationEntity.DataModelXpath;
 
-            if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Adresselinje1))
-                AddMessageFromRule(EiendomsAdresseValidationEnum.adresselinje1_utfylt, xPath);
 
-            if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Adresselinje2))
-                AddMessageFromRule(EiendomsAdresseValidationEnum.adresselinje2_utfylt, xPath);
 
-            if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Adresselinje3))
-                AddMessageFromRule(EiendomsAdresseValidationEnum.adresselinje3_utfylt, xPath);
-
-            if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Landkode))
-                AddMessageFromRule(EiendomsAdresseValidationEnum.landkode_utfylt, xPath);
-
-            if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Postnr))
-                AddMessageFromRule(EiendomsAdresseValidationEnum.postnr_utfylt, xPath);
-
-            if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Poststed))
-                AddMessageFromRule(EiendomsAdresseValidationEnum.poststed_utfylt, xPath);
-
-            if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Gatenavn))
-                AddMessageFromRule(EiendomsAdresseValidationEnum.gatenavn_utfylt, xPath);
-
-            if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Husnr))
-                AddMessageFromRule(EiendomsAdresseValidationEnum.husnr_utfylt, xPath);
-
-            if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Bokstav))
-                AddMessageFromRule(EiendomsAdresseValidationEnum.bokstav_utfylt, xPath);
-
-            if (!StringIs4digitNumber(eiendomsAdresseValidationEntity.ModelData.Postnr))
-                AddMessageFromRule(EiendomsAdresseValidationEnum.postnr_4siffer, xPath);
-        }
 
         private bool StringIs4digitNumber(string input)
         {

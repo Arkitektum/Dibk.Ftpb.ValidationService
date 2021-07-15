@@ -53,11 +53,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     var matrikkelValidationResult = _matrikkelValidator.Validate(eiendomValidationEntity.ModelData.Matrikkel);
                     _validationResult.ValidationMessages.AddRange(matrikkelValidationResult.ValidationMessages);
 
-
                     var eiendomsAdresseValidationResult = _eiendomsAdresseValidator.Validate(eiendomValidationEntity.ModelData.Adresse);
                     _validationResult.ValidationMessages.AddRange(eiendomsAdresseValidationResult.ValidationMessages);
-
-
 
                     ValidateDataRelations(eiendomValidationEntity);
                 }
@@ -70,10 +67,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             var xPath = eiendomValidationEntity.DataModelXpath;
 
-            if (!TillattPostnrIKommune(eiendomValidationEntity.ModelData.Kommunenavn, eiendomValidationEntity.ModelData.Adresse.ModelData?.Postnr))
-            {
-                AddMessageFromRule(EiendomValidationEnum.tillatte_postnr_i_kommune, eiendomValidationEntity.DataModelXpath, new[] { eiendomValidationEntity.ModelData.Adresse.ModelData?.Postnr, eiendomValidationEntity.ModelData.Kommunenavn });
-            }
+            //TODO Implement Matrikkel services, if Arbeidstilsynet har tilgang til Matrikkel API
+
         }
 
         private void ValidateEntityFields(EiendomValidationEntity eiendomValidationEntity)
@@ -86,6 +81,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 {
                     AddMessageFromRule(EiendomValidationEnum.bygningsnummer_ugyldig, xPath, new[] { eiendomValidationEntity.ModelData?.Bygningsnummer });
                 }
+                else
+                {
+                    if (bygningsnrLong <= 0)
+                    {
+                        AddMessageFromRule(EiendomValidationEnum.bygningsnummer_negativtTall, xPath, new[] { bygningsnrLong.ToString("N") });
+                    }
+                }
             }
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntity.ModelData?.Bolignummer))
@@ -93,15 +95,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntity.ModelData?.Kommunenavn))
                 AddMessageFromRule(EiendomValidationEnum.kommunenavn_utfylt, xPath);
-        }
-
-        private bool TillattPostnrIKommune(string kommunenavn, string postnr)
-        {
-            var kommunenavnOgTillattePostnr = new List<(string kommune, List<string> postnrListe)>();
-            kommunenavnOgTillattePostnr.Add(("Midt Telemark", new List<string>() { "3800", "3801", "3802", "3803", "3804" }));
-            var funnetKommune = kommunenavnOgTillattePostnr.Where(x => x.kommune.Equals(kommunenavn)).FirstOrDefault();
-
-            return funnetKommune.postnrListe.Contains(postnr);
         }
     }
 }

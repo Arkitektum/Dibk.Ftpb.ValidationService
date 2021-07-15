@@ -25,7 +25,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         private IList<EntityValidatorNode> _tree;
         public BeskrivelseAvTiltakValidatorTests()
         {
-            var xmlData = File.ReadAllText(@"ArbeidstilsynetsSamtykke_v2_dfv45957_Test");
+            var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957_Test.xml");
             _form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
 
             _formValidatorConfiguration = new FormValidatorConfiguration();

@@ -58,11 +58,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             var xPath = matrikkel.DataModelXpath;
 
-            var kommunenummer = matrikkel.ModelData.Kommunenummer;
+            var kommunenummer = matrikkel?.ModelData?.Kommunenummer;
             var kommunenummerStatus = _municipalityValidator.Validate_kommunenummerStatus(kommunenummer);
             if (kommunenummerStatus.Status != MunicipalityValidationEnum.Ok)
             {
-
                 switch (kommunenummerStatus.Status)
                 {
                     case MunicipalityValidationEnum.Empty:

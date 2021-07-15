@@ -2,6 +2,9 @@
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Models.Web;
+using Dibk.Ftpb.Validation.Application.Utils;
+using Newtonsoft.Json.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.Tests.Utils
 {
@@ -69,6 +72,19 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
 
             throw new ArgumentException("Not found.", nameof(validatorId));
             // Or return default(T);
+        }
+        //TODO how to convert new entities to main XML/parse to the main class?
+        public static JObject GetJsonForPostman(object form)
+        {
+            string data = null;
+            if (form != null)
+                data = SerializeUtil.Serialize(form);
+            ValidationInput validationInput = new ValidationInput()
+            {
+                FormData = GetXmlWithoutSpaces(data)
+            };
+            var validateFormv2JObject = JObject.FromObject(validationInput);
+            return validateFormv2JObject;
         }
     }
 }

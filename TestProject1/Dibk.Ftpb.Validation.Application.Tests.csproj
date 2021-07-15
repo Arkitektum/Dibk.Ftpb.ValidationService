@@ -8,10 +8,14 @@
 
   <ItemGroup>
     <None Remove="Data\ArbeidstilsynetsSamtykke2.xml" />
+    <None Remove="Data\ArbeidstilsynetsSamtykke_v2_dfv45957_Test.xml" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Data\ArbeidstilsynetsSamtykke2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\ArbeidstilsynetsSamtykke_v2_dfv45957_Test.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -38,9 +42,6 @@
 
   <ItemGroup>
     <None Update="Data\ArbeidstilsynetsSamtykke_v2_dfv45957.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Data\ArbeidstilsynetsSamtykke_v2_dfv45957_Test.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
