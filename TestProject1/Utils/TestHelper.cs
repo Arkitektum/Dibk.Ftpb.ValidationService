@@ -74,9 +74,9 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
             // Or return default(T);
         }
         //TODO how to convert new entities to main XML/parse to the main class?
-        public static JObject GetJsonForPostman(object form)
+        public static JObject GetJsonForPostman(string xmlData, object form = null)
         {
-            string data = null;
+            string data = xmlData;
             if (form != null)
                 data = SerializeUtil.Serialize(form);
             ValidationInput validationInput = new ValidationInput()

@@ -66,9 +66,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             return _validationResult;
         }
 
-
-
-
         private bool StringIs4digitNumber(string input)
         {
             if (int.TryParse(input, out var number))

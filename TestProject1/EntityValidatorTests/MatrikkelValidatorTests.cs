@@ -58,7 +58,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             var matrikkelInfo = _eiendomValidationEntities.ToArray();
             var result = _validator.Validate(matrikkelInfo[0].ModelData.Matrikkel);
 
-            var jsonPostamn = TestHelper.GetJsonForPostman(_xmlData);
+            var jsonPostamn = TestHelper.GetJsonForPostman(null, _form);
 
             result.Should().NotBeNull();
         }

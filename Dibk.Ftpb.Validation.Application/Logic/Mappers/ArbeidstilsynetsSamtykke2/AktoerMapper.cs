@@ -23,6 +23,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                 Epost = mapFrom.epost,
                 Foedselsnummer = mapFrom.foedselsnummer,
                 Mobilnummer = mapFrom.mobilnummer,
+                Telefonnummer = mapFrom.telefonnummer,
                 Navn = mapFrom.navn,
                 Organisasjonsnummer = mapFrom.organisasjonsnummer
             };  
