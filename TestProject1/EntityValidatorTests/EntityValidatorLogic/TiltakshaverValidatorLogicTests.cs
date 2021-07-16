@@ -1,24 +1,20 @@
-﻿using System.Collections.Generic;
-using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
-using Dibk.Ftpb.Validation.Application.Enums;
-using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
-using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
-using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
-using FluentAssertions;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
+using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
-using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
+using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidationTree;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
+using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using Dibk.Ftpb.Validation.Application.Utils;
+using FluentAssertions;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 using Xunit;
 
-namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
+namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests.EntityValidatorLogic
 {
-    public class TiltakshaverValidatorTests
+    public class TiltakshaverValidatorLogicTests
     {
         private ArbeidstilsynetsSamtykkeType _form;
 
@@ -30,7 +26,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         private TiltakshaverValidatorLogic _tiltakshaverValidatorLogic;
         private IAktoerValidator _aktoerValidator;
 
-        public TiltakshaverValidatorTests()
+        public TiltakshaverValidatorLogicTests()
         {
             _postalCodeService = MockDataSource.ValidatePostnr(true, "Bø i telemark", "true");
             _codeListService = MockDataSource.IsCodeListValid(FtbKodeListeEnum.Partstype, true);
@@ -47,16 +43,22 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         public void TestTree()
         {
             var TiltakshaverTree = _tiltakshaverValidatorLogic.Tree;
-            TiltakshaverTree.Should().NotBeNull();
+            TiltakshaverTree.Count.Should().Be(1);
+            TiltakshaverTree.FirstOrDefault().Children.Count.Should().Be(3);
         }
         [Fact]
-        public void TestTilashaver()
+        public void TestNode()
         {
-            //_tiltakshaver.ModelData.Partstype.ModelData = null;
-
-            var tiltakshaverResult = _aktoerValidator.Validate(_tiltakshaver);
-
-            tiltakshaverResult.Should().NotBeNull();
+            var validatorNodes = _tiltakshaverValidatorLogic.NodeList;
+            validatorNodes.Count.Should().Be(4);
         }
+        [Fact]
+        public void TestValidationRules()
+        {
+            var validatorNodes = _tiltakshaverValidatorLogic.ValidationRules;
+            var numberRules = validatorNodes.Count;
+        }
+
+
     }
 }

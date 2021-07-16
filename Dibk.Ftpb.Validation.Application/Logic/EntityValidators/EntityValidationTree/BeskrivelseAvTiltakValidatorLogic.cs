@@ -15,6 +15,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
     {
         private List<EntityValidatorNode> _entityValidatorNodes;
         private int _mainNode;
+
         private readonly ICodeListService _codeListService;
         private AnleggstypeValidator _anleggstypeValidator;
         private NaeringsgruppeValidator _naeringsgruppeValidator;

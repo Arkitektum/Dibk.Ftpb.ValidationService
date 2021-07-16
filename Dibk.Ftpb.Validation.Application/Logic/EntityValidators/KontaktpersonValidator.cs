@@ -18,7 +18,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(ValidationRuleEnum.kontaktperson_navn_utfylt, "navn");
+            AddValidationRule(KontaktpersonValidationEnum.kontaktperson_navn_utfylt, "navn");
         }
 
         public ValidationResult Validate(KontaktpersonValidationEntity kontaktperson = null)
@@ -26,7 +26,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             var xpath = kontaktperson?.DataModelXpath;
             if (string.IsNullOrEmpty(kontaktperson?.ModelData?.Navn))
-                AddMessageFromRule(ValidationRuleEnum.kontaktperson_navn_utfylt, xpath);
+                AddMessageFromRule(KontaktpersonValidationEnum.kontaktperson_navn_utfylt, xpath);
 
             return _validationResult;
         }

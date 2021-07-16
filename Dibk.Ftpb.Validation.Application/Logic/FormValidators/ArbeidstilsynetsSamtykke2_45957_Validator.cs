@@ -24,45 +24,28 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
     {
         private ArbeidstilsynetsSamtykke2_45957_ValidationEntity _validationForm { get; set; }
 
-
         //TODO abstract class / Interface ... :thinkingface ...
         private BeskrivelseAvTiltakValidatorLogic _beskrivelseAvTiltakValidatorLogic;
         private EiendombyggestedLogic _eiendombyggestedLogic;
-
+        private TiltakshaverValidatorLogic _tiltakshaverValidatorLogic;
+        private FakturamottakerValidatorLogic _fakturamottakerValidatorLogic;
+        private ArbeidsplasserValidatorLogic _arbeidsplasserValidatorLogic;
+        private AnsvarligSoekerValidatorLogic _ansvarligSoekerValidatorLogic;
+        private SjekklistekravValidatorLogic _sjekklistekravValidatorLogic;
 
         private readonly IMunicipalityValidator _municipalityValidator;
         private readonly ICodeListService _codeListService;
         private readonly IPostalCodeService _postalCodeService;
 
-        private IEiendomsAdresseValidator _eiendomsAdresseValidator;
-        private IMatrikkelValidator _matrikkelValidator;
-        private IEiendomByggestedValidator _eiendomByggestedValidator;
-        private IArbeidsplasserValidator _arbeidsplasserValidator;
-
-        private IAktoerValidator _tiltakshaverValidator;
-        private IEnkelAdresseValidator _tiltakshaverEnkelAdresseValidator;
-        private IKontaktpersonValidator _tiltakshaverKontaktpersonValidator;
-        private IKodelisteValidator _tiltakshaverPartstypeValidator;
-
-        private IAktoerValidator _ansvarligSoekerValidator;
-        private IEnkelAdresseValidator _ansvarligSoekerEnkelAdresseValidator;
-        private IKontaktpersonValidator _ansvarligSoekerKontaktpersonValidator;
-        private IKodelisteValidator _ansvarligSoekerPartstypeValidator;
-
-        private IEnkelAdresseValidator _fakturamottakerEnkelAdresseValidator;
-        private IFakturamottakerValidator _fakturamottakerValidator;
-
-        private ISjekklistekravValidator _sjekklistekravValidator;
         //private IKodelisteValidator _sjekklistepunktValidator;
 
-
-        private AnleggstypeValidator _anleggstypeValidator;
-        private NaeringsgruppeValidator _naeringsgruppeValidator;
-        private BygningstypeValidator _bygningstypeValidator;
-        private TiltaksformaalValidator _tiltaksformaalValidator;
-        private FormaaltypeValidator _formaaltypeValidator;
-        private TiltakstypeValidator _tiltakstypeValidator;
         private IBeskrivelseAvTiltakValidator _beskrivelseAvTiltakValidator;
+        private IAktoerValidator _tiltakshaverValidator;
+        private IEiendomByggestedValidator _eiendomByggestedValidator;
+        private IAktoerValidator _ansvarligSoekerValidator;
+        private IFakturamottakerValidator _fakturamottakerValidator;
+        private ISjekklistekravValidator _sjekklistekravValidator;
+        private IArbeidsplasserValidator _arbeidsplasserValidator;
 
 
 
@@ -75,7 +58,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _codeListService = codeListService;
             _postalCodeService = postalCodeService;
 
-           
+
 
 
         }
@@ -93,119 +76,43 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         protected override void InitializeValidatorConfig()
         {
-            _beskrivelseAvTiltakValidatorLogic = new BeskrivelseAvTiltakValidatorLogic(15, _codeListService);
+
             _eiendombyggestedLogic = new EiendombyggestedLogic(1, _municipalityValidator);
-
-            var tiltakshaverTree = new List<EntityValidatorNode>()
-            {
-                new () {NodeId = 4, EnumId = EntityValidatorEnum.TiltakshaverValidator, ParentID = null},
-                new () {NodeId = 5, EnumId = EntityValidatorEnum.KontaktpersonValidator, ParentID = 4},
-                new () {NodeId = 6, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 4},
-                new () {NodeId = 7, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 4}
-            };
-            var fakturamottakerTree = new List<EntityValidatorNode>()
-            {
-                new () {NodeId = 8, EnumId = EntityValidatorEnum.FakturamottakerValidator, ParentID = null},
-                new () {NodeId = 9, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 8}
-            };
-
-            var arbeidsplasserTree = new List<EntityValidatorNode>()
-            {
-                new() {NodeId = 10, EnumId = EntityValidatorEnum.ArbeidsplasserValidator, ParentID = null}
-            };
-
-            var ansvarligSoekerTree = new List<EntityValidatorNode>()
-            {
-                new () {NodeId = 11, EnumId = EntityValidatorEnum.AnsvarligSoekerValidator, ParentID = null},
-                new () {NodeId = 12, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 11},
-                new () {NodeId = 13, EnumId = EntityValidatorEnum.KontaktpersonValidator, ParentID = 11,},
-                new () {NodeId = 14, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 11,}
-            };
-
-
-
-            var sjekklisteKravTree = new List<EntityValidatorNode>()
-            {
-                new() {NodeId = 22, EnumId = EntityValidatorEnum.SjekklistekravValidator, ParentID = null},
-                new() {NodeId = 23, EnumId = EntityValidatorEnum.SjekklistepunktValidator, ParentID = 22}
-            };
-
-            var formTree = new List<EntityValidatorNode>();
-            formTree.AddRange(tiltakshaverTree);
-            formTree.AddRange(fakturamottakerTree);
-            formTree.AddRange(arbeidsplasserTree);
-            formTree.AddRange(ansvarligSoekerTree);
-            formTree.AddRange(sjekklisteKravTree);
-            EntityValidatorTree = EntityValidatiorTree.BuildTree(formTree);
+            _tiltakshaverValidatorLogic = new TiltakshaverValidatorLogic(_eiendombyggestedLogic.LastNodeNumber + 1, _codeListService, _postalCodeService);
+            _fakturamottakerValidatorLogic = new FakturamottakerValidatorLogic(_tiltakshaverValidatorLogic.LastNodeNumber + 1, _postalCodeService);
+            _arbeidsplasserValidatorLogic = new ArbeidsplasserValidatorLogic(_fakturamottakerValidatorLogic.LastNodeNumber + 1);
+            _ansvarligSoekerValidatorLogic = new AnsvarligSoekerValidatorLogic(_arbeidsplasserValidatorLogic.LastNodeNumber + 1, _codeListService, _postalCodeService);
+            _beskrivelseAvTiltakValidatorLogic = new BeskrivelseAvTiltakValidatorLogic(_ansvarligSoekerValidatorLogic.LastNodeNumber + 1, _codeListService);
+            _sjekklistekravValidatorLogic = new SjekklistekravValidatorLogic(_beskrivelseAvTiltakValidatorLogic.LastNodeNumber + 1);
         }
 
         protected override void InstantiateValidators()
         {
-            
-
-            //Tiltakshaver
-            _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 7, _postalCodeService);
-            _tiltakshaverKontaktpersonValidator = new KontaktpersonValidator(EntityValidatorTree, 5);
-            _tiltakshaverPartstypeValidator = new PartstypeValidator(EntityValidatorTree, 6, _codeListService);
-            _tiltakshaverValidator = new TiltakshaverValidator(EntityValidatorTree, 4, _tiltakshaverEnkelAdresseValidator, _tiltakshaverKontaktpersonValidator, _tiltakshaverPartstypeValidator, _codeListService);
-
-            //AnsvarligSoeker
-            _ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 12, _postalCodeService);
-            _ansvarligSoekerKontaktpersonValidator = new KontaktpersonValidator(EntityValidatorTree, 13);
-            _ansvarligSoekerPartstypeValidator = new PartstypeValidator(EntityValidatorTree, 14, _codeListService);
-            _ansvarligSoekerValidator = new AnsvarligSoekerValidator(EntityValidatorTree, 11, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
-
-            //Fakturamottaker
-            _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidatorV2(EntityValidatorTree, 9);
-            _fakturamottakerValidator = new FakturamottakerValidator(EntityValidatorTree, 8, _fakturamottakerEnkelAdresseValidator);
-
-            //Arbeidsplasser
-            _arbeidsplasserValidator = new ArbeidsplasserValidator(EntityValidatorTree, 10);
-
-
-
-            //_sjekklistepunktValidator = new SjekklistepunktValidator(EntityValidatorTree, 23, _codeListService);
-            //_sjekklistekravValidator = new SjekklistekravValidator(EntityValidatorTree, 22, _sjekklistepunktValidator);
-            _sjekklistekravValidator = new SjekklistekravValidator(EntityValidatorTree, 22);
-
-
-            //_naeringsgruppeValidator, _codeListService,
-            //_bygningstypeValidator, _codeListService,
-            //_tiltaksformaalValidator, _codeListService);
-
-
-            //** New
-            //**BeskrivelseAvTiltak
+            //BeskrivelseAvTiltak
             _beskrivelseAvTiltakValidator = _beskrivelseAvTiltakValidatorLogic.Validator;
             //Eiendombyggested
             _eiendomByggestedValidator = _eiendombyggestedLogic.Validator;
-
-
+            //Tiltakshaver
+            _tiltakshaverValidator = _tiltakshaverValidatorLogic.Validator;
+            //Fakturamottaker
+            _fakturamottakerValidator = _fakturamottakerValidatorLogic.Validator;
+            //Arbeidsplasser
+            _arbeidsplasserValidator = _arbeidsplasserValidatorLogic.Validator;
+            //AnsvarligSoeker
+            _ansvarligSoekerValidator = _ansvarligSoekerValidatorLogic.Validator;
+            //Sjekklistekr
+            _sjekklistekravValidator = _sjekklistekravValidatorLogic.Validator;
         }
+
         protected override void DefineValidationRules()
         {
-            AccumulateValidationRules(_arbeidsplasserValidator.ValidationResult.ValidationRules);
-
-            AccumulateValidationRules(_tiltakshaverValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_tiltakshaverPartstypeValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_tiltakshaverEnkelAdresseValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_tiltakshaverKontaktpersonValidator.ValidationResult.ValidationRules);
-
-            AccumulateValidationRules(_ansvarligSoekerValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_ansvarligSoekerPartstypeValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_ansvarligSoekerEnkelAdresseValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_ansvarligSoekerKontaktpersonValidator.ValidationResult.ValidationRules);
-
-            AccumulateValidationRules(_fakturamottakerValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_fakturamottakerEnkelAdresseValidator.ValidationResult.ValidationRules);
-
-            AccumulateValidationRules(_sjekklistekravValidator.ValidationResult.ValidationRules);
-            //AccumulateValidationRules(_sjekklistepunktValidator.ValidationResult.ValidationRules);
-
-            //** New
             AccumulateValidationRules(_beskrivelseAvTiltakValidatorLogic.ValidationRules);
             AccumulateValidationRules(_eiendombyggestedLogic.ValidationRules);
-
+            AccumulateValidationRules(_tiltakshaverValidatorLogic.ValidationRules);
+            AccumulateValidationRules(_fakturamottakerValidatorLogic.ValidationRules);
+            AccumulateValidationRules(_arbeidsplasserValidatorLogic.ValidationRules);
+            AccumulateValidationRules(_ansvarligSoekerValidatorLogic.ValidationRules);
+            AccumulateValidationRules(_sjekklistekravValidatorLogic.ValidationRules);
         }
 
         public ArbeidstilsynetsSamtykkeType DeserializeDataForm(string xmlData)

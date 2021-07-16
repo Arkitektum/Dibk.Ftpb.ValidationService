@@ -75,7 +75,7 @@
   </tiltakshaver>
   <arbeidsplasser>
     <framtidige>false</framtidige>
-    <faste>false</faste>
+    <faste>true</faste>
     <midlertidige>false</midlertidige>
     <antallAnsatte>30</antallAnsatte>
     <eksisterende>true</eksisterende>
@@ -523,7 +523,7 @@
       </tiltaksformaal>
       <beskrivPlanlagtFormaal>En beskrivelse av planlagt formål.....</beskrivPlanlagtFormaal>
     </bruk>
-    <BRA/>
+    <BRA>132</BRA>
     <type>
       <kodeverdi>nyttbyggover70m2</kodeverdi>
       <kodebeskrivelse>Nytt bygg - Over 70 m2 -Ikke boligformål</kodebeskrivelse>
@@ -550,3 +550,4 @@
     <klartForSigneringFraSluttbrukersystem>true</klartForSigneringFraSluttbrukersystem>
   </metadata>
 </ArbeidstilsynetsSamtykke>
+
