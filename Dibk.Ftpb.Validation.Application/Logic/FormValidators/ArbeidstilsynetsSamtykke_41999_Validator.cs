@@ -62,8 +62,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _validationForm = new ArbeidstilsynetsSamtykke_41999_Mapper().GetFormEntity(formModel);
 
             base.StartValidation(dataFormatVersion, validationInput);
+            //ValidationReport.ValidationResult = ValidationResult;
 
             return ValidationResult;
+        }
+
+        public override ValidationReport GetValidationReport(string dataFormatVersion, ValidationInput validationInput)
+        {
+            throw new System.NotImplementedException();
         }
 
         protected override void InitializeValidatorConfig()
@@ -197,5 +203,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var fakturamottakerValidationResult = _fakturamottakerValidator.Validate(_validationForm.ModelData.FakturamottakerValidationEntity);
             AccumulateValidationMessages(fakturamottakerValidationResult.ValidationMessages);
         }
+
+
     }
 }

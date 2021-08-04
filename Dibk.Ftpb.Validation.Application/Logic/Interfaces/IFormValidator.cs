@@ -7,6 +7,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
     public interface IFormValidator
     {
         ValidationResult StartValidation(string dataFormatVersion, ValidationInput validationInput);
+        ValidationReport GetValidationReport(string dataFormatVersion, ValidationInput validationInput);
     }
 
     public interface IDataModelMapper<T, U>

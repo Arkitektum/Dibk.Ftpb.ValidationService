@@ -19,18 +19,31 @@ namespace Dibk.Ftpb.Validation.Application.Process
         private readonly ILogger<ValidationOrchestrator> _logger;
 
         public ValidationResult ValidationResult { get; set; }
+        public ValidationReport ValidationReport { get; set; }
+        public PrefillChecklist PrefillChecklist { get; set; }
 
         public ValidationOrchestrator(IServiceProvider services, ILogger<ValidationOrchestrator> logger)
         {
             _services = services;
             _logger = logger;
+            ValidationReport = new ValidationReport();
         }
 
-        public async Task<ValidationResult> ExecuteAsync(string dataFormatVersion, List<string> errorMessages, ValidationInput validationInput)
+        public async Task<PrefillChecklist> GetPrefillChecklistAsync(string dataFormatVersion, ValidationInput validationInput)
+        {
+            GetPrefillChecklist(dataFormatVersion, validationInput);
+
+            return PrefillChecklist;
+        }
+
+        public async Task<ValidationReport> ValidateAsync(string dataFormatVersion, List<string> errorMessages, ValidationInput validationInput)
         {
             ValidationResult = new ValidationResult();
             ValidationResult.ValidationRules = new();
             ValidationResult.ValidationMessages = new();
+
+            ValidationReport.ValidationResult = ValidationResult;
+
 
             if (errorMessages.Count > 0)
             {
@@ -77,7 +90,7 @@ namespace Dibk.Ftpb.Validation.Application.Process
             //_formMetadataService.UpdateValidationResultToFormMetadata(archiveReference, "Ok", 0, validationWarnings);
 
 
-            return ValidationResult;
+            return ValidationReport;
         }
 
         private void ValidateMainForm(string dataFormatVersion, ValidationInput validationInput)
@@ -87,6 +100,12 @@ namespace Dibk.Ftpb.Validation.Application.Process
 
             ValidationResult.ValidationRules.AddRange(valResult.ValidationRules);
             ValidationResult.ValidationMessages.AddRange(valResult.ValidationMessages);
+        }
+
+        private void GetPrefillChecklist(string dataFormatVersion, ValidationInput validationInput)
+        {
+            //PrefillChecklist = PrefillChecklistAnswerBuilder.Build(validationInput);
+
         }
 
         private IFormValidator GetValidator(string dataFormatVersion)

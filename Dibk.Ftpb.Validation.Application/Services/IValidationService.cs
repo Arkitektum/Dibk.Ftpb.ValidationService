@@ -9,6 +9,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
     {
         //ValidationResult Validate(string xmlString, List<string> attachments = null, List<string> subForms = null);
         ValidationResult Validate(ValidationInput validationInput);
+        ValidationReport GetValidationReport(ValidationInput validationInput);
         List<string> Validate(IFormFile xmlFile);
     }
 }

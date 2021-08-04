@@ -69,9 +69,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _validationForm = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(formModel);
 
             base.StartValidation(dataFormatVersion, validationInput);
-
+            ValidationReport.ValidationResult = ValidationResult;
 
             return ValidationResult;
+            //return ValidationReport;
+        }
+
+
+        public override ValidationReport GetValidationReport(string dataFormatVersion, ValidationInput validationInput)
+        {
+            throw new System.NotImplementedException();
         }
 
         protected override void InitializeValidatorConfig()
@@ -145,5 +152,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var beskrivelseAvTiltakValidationResult = _beskrivelseAvTiltakValidator.Validate(_validationForm.ModelData.BeskrivelseAvTiltakValidationEntity);
             AccumulateValidationMessages(beskrivelseAvTiltakValidationResult.ValidationMessages);
         }
+
+
     }
 }

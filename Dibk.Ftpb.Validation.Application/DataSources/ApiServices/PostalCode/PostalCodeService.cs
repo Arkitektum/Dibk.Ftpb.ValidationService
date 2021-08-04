@@ -21,11 +21,12 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode
 
         public PostalCodeValidationResult ValidatePostnr(string pnr, string country)
         {
-            var postalCodeValidationResult = Task.Run(() => GetValidationPostNr(pnr,country)).Result;
+            var postalCodeValidationResult = Task.Run(() => GetValidationPostNrAsync(pnr,country)).Result;
+            
             return postalCodeValidationResult;
         }
-
-        public async Task<PostalCodeValidationResult> GetValidationPostNr(string pnr, string country)
+        
+        private async Task<PostalCodeValidationResult> GetValidationPostNrAsync(string pnr, string country)
         {
             //Get from cache
             if (_memoryCache.TryGetValue<PostalCodeValidationResult>($"{pnr}:{country}", out var municipality))

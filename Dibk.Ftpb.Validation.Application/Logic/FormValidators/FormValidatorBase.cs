@@ -1,6 +1,8 @@
 ﻿using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
+using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Dibk.Ftpb.Validation.Application.Reporter;
+using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,12 +12,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
     {
         protected IList<EntityValidatorNode> EntityValidatorTree;
         private readonly IValidationMessageComposer _validationMessageComposer;
+        protected IEnumerable<Sjekklistekrav> Sjekklistekrav;
 
+        protected ValidationReport ValidationReport;
         protected abstract string XPathRoot { get; }
         protected abstract void InitializeValidatorConfig();
         public FormValidatorBase(IValidationMessageComposer validationMessageComposer)
         {
             _validationMessageComposer = validationMessageComposer;
+            ValidationReport = new ValidationReport();
         }
 
         public virtual ValidationResult StartValidation(string dataFormatVersion, ValidationInput validationInput)
@@ -26,9 +31,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             Validate(validationInput);
 
             ValidationResult = _validationMessageComposer.ComposeValidationReport(XPathRoot, dataFormatVersion, ValidationResult, "NO");
+            //ValidationReport.ValidationResult = ValidationResult;
 
             return ValidationResult;
         }
+
+        public abstract ValidationReport GetValidationReport(string dataFormatVersion, ValidationInput validationInput);
+
         protected abstract void InstantiateValidators();
         protected abstract void Validate(ValidationInput validationInput);
         protected abstract void DefineValidationRules();

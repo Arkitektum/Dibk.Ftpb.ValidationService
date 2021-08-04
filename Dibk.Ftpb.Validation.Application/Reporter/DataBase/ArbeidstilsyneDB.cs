@@ -475,12 +475,25 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
 
 
             //Beskrivelse av tiltak
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.beskrivelseAvTiltak_utfylt, "/beskrivelseAvTiltak", "Krav må være utfyllt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.utfylt, "/beskrivelseAvTiltak", "Krav må være utfyllt", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.beskrivelseAvTiltak_anleggstype_kode_utfylt, "/beskrivelseAvTiltak/bruk/anleggstype", "Anleggstype må være utfyllt", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.beskrivelseAvTiltak_naeringsgruppe_kode_utfylt, "/beskrivelseAvTiltak/bruk/naeringsgruppe", "Næringsgruppe må være utfyllt", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.beskrivelseAvTiltak_bygningstype_kode_utfylt, "/beskrivelseAvTiltak/bruk/bygningstype", "Bygningstype må være utfyllt", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.beskrivelseAvTiltak_tiltakformaal_kode_utfylt, "/beskrivelseAvTiltak/bruk/tiltaksformaal", "Kode for tiltakets formål må være utfyllt", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.beskrivelseAvTiltak_beskrivPlanlagtFormaal_utfylt, "/beskrivelseAvTiltak/bruk/beskrivPlanlagtFormaal", "Tiltakets formål må være beskrevet", ValidationResultSeverityEnum.ERROR);
+            
+            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.utfylt, "/beskrivelseAvTiltak/bruk", "Bruk for beskrivelse av tiltak må være utfyllt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.utfylt, "/beskrivelseAvTiltak/bruk/anleggstype", "Anleggstype må være utfylt");
+            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kode_KanIkkeValidere, "/beskrivelseAvTiltak/bruk/anleggstype", "Ugyldig kodeliste for anleggstype.");
+            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.utfylt, "/beskrivelseAvTiltak/bruk/naeringsgruppe", "Næringsgruppe må være utfylt");
+            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kode_KanIkkeValidere, "/beskrivelseAvTiltak/bruk/naeringsgruppe", "Ugyldig kodeliste for næringsgruppe.");
+            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.utfylt, "/beskrivelseAvTiltak/bruk/bygningstype", "Bygningstype må være utfylt");
+            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kode_KanIkkeValidere, "/beskrivelseAvTiltak/bruk/bygningstype", "Ugyldig kodeliste for bygningstype.");
+            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.utfylt, "/beskrivelseAvTiltak/bruk/tiltaksformaal", "Tiltaksformaal må være utfylt");
+            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kode_KanIkkeValidere, "/beskrivelseAvTiltak/bruk/tiltaksformaal", "Ugyldig kodeliste for tiltaksformaal.");
+            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.utfylt, "/beskrivelseAvTiltak/bruk/type", "Tiltakstype må være utfylt");
+            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kode_KanIkkeValidere, "/beskrivelseAvTiltak/type", "Ugyldig kodeliste for tiltakstype.");
+
             AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_utfylt, "/beskrivelseAvTiltak/bruk/anleggstype/kodeverdi", "Kode for anleggstype må være utfylt", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_gyldig, "/beskrivelseAvTiltak/bruk/anleggstype/kodeverdi", "Kode for anleggstype må være gyldig", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_utfylt, "/beskrivelseAvTiltak/bruk/naeringsgruppe/kodeverdi", "Kode for næringsgruppe må være utfylt", ValidationResultSeverityEnum.ERROR);
@@ -489,10 +502,10 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_gyldig, "/beskrivelseAvTiltak/bruk/bygningstype/kodeverdi", "Kode for bygningstype må være gyldig", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_utfylt, "/beskrivelseAvTiltak/bruk/tiltaksformaal/kodeverdi", "Kode for tiltaksformaal må være utfylt", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_gyldig, "/beskrivelseAvTiltak/bruk/tiltaksformaal/kodeverdi", "Kode for tiltaksformaal må være gyldig", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_utfylt, "/beskrivelseAvTiltak/bruk/tiltaksformaal/kodeverdi", "Kode for tiltaksformaal må være utfylt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_gyldig, "/beskrivelseAvTiltak/bruk/tiltaksformaal/kodeverdi", "Kode for tiltaksformaal må være gyldig", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_utfylt, "/beskrivelseAvTiltak/type/kodeverdi", "Kode for tiltakstype må være utfylt", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_gyldig, "/beskrivelseAvTiltak/type/kodeverdi", "Kode for tiltakstype må være gyldig", ValidationResultSeverityEnum.ERROR);
+            
+            AddRuleToValidationMessageStorageEntry(null, BeskrivelseAvTiltakValidationEnum.bra_utfylt, "/beskrivelseAvTiltak/BRA", "Tiltakets bruttoareal må være utfylt", ValidationResultSeverityEnum.ERROR);
 
 
             //TODO "ArbeidstilsynetsSamtykke" to "ArbeidstilsynetsSamtykkeV2"/"ArbeidstilsynetsSamtykkeDfv45957"??  rule may need to have dfv in the first "node" in order to connect the text to the correct version and correct schema.

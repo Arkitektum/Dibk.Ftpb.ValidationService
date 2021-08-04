@@ -21,6 +21,12 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode
         {
             _options = options;
             _httpClient = httpClient;
+            var url = _options.Value.BaseAddress;
+            var requestUrl = _options.Value.ClientAddress;
+            _httpClient.BaseAddress = new Uri(url);
+            _httpClient.DefaultRequestHeaders.Accept
+                .Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.Add("X-Bring-Client-URL", requestUrl);
         }
 
         public async Task<PostalCodeValidationResult> ValidatePostnr(string pnr, string country)
@@ -28,15 +34,7 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode
             if (string.IsNullOrEmpty(pnr))
                 return null;
 
-            var url = _options.Value.BaseAddress;
-            var requestUrl = _options.Value.ClientAddress;
-            _httpClient.BaseAddress = new Uri(url);
-            _httpClient.DefaultRequestHeaders.Accept
-                .Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            _httpClient.DefaultRequestHeaders.Add("X-Bring-Client-URL", requestUrl);
-
             var requestPath = $"?pnr={pnr}&country={country?.ToUpper()}";
-
             var response = await _httpClient.GetAsync(requestPath);
             string jsonCodeList = String.Empty;
             PostalCodeValidationResult postalCodeValidationResult = null;

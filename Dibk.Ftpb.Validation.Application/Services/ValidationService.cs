@@ -24,6 +24,24 @@ namespace Dibk.Ftpb.Validation.Application.Services
             _validationOrchestrator = validationOrchestrator;
         }
 
+
+        public ValidationReport GetValidationReport(ValidationInput validationInput)
+        {
+            var xx = new ValidationReport();
+            xx.ValidationResult = Validate(validationInput);
+
+
+
+            var inputData = _inputDataService.GetInputData(validationInput.FormData);
+            var prefillChecklist = new PrefillChecklist();
+            if (!Helpers.ObjectIsNullOrEmpty(inputData?.Config?.DataFormatVersion))
+            {
+                xx.PrefillChecklist = _validationOrchestrator.GetPrefillChecklistAsync(inputData?.Config?.DataFormatVersion, validationInput).Result;
+            }
+
+            return xx;
+        }
+
         public ValidationResult Validate(ValidationInput validationInput)
         {
             var inputData = _inputDataService.GetInputData(validationInput.FormData);
@@ -61,7 +79,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
 
             if (!Helpers.ObjectIsNullOrEmpty(inputData?.Config?.DataFormatVersion))
             {
-                validationResult = _validationOrchestrator.ExecuteAsync(inputData?.Config?.DataFormatVersion, errorMessages, validationInput).Result;
+                validationResult = _validationOrchestrator.ValidateAsync(inputData?.Config?.DataFormatVersion, errorMessages, validationInput).Result.ValidationResult;
                 //return taskValidationResult.Result;
             }
             else
