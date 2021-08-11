@@ -20,6 +20,7 @@ using System.Text.Json.Serialization;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 
 namespace Dibk.Ftpb.Validation
 {
@@ -68,6 +69,7 @@ namespace Dibk.Ftpb.Validation
 
 
             services.AddTransient<IValidationService, ValidationService>();
+            services.AddTransient<IChecklistService, ChecklistService>();
             services.AddTransient<IInputDataService, InputDataService>();
             services.AddTransient<IXsdValidationService, XsdValidationService>();
             services.AddTransient<IValidationOrchestrator, ValidationOrchestrator>();

@@ -8,7 +8,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         {
         }
 
-        public ValidationResult ComposeValidationReport(string xPathRoot, string dataFormatVersion, ValidationResult validationResult, string languageCode)
+        public ValidationResult ComposeValidationResult(string xPathRoot, string dataFormatVersion, ValidationResult validationResult, string languageCode)
         {
             ValidationMessageRepository repo = new ValidationMessageRepository();
             foreach (var validationMessage in validationResult.ValidationMessages)
@@ -40,10 +40,5 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
 
             return validationResult;
         }
-    }
-
-    public interface IValidationMessageComposer
-    {
-        ValidationResult ComposeValidationReport(string xPathRoot, string dataFormatVersion, ValidationResult validationResult, string languageCode);
     }
 }

@@ -20,7 +20,6 @@ namespace Dibk.Ftpb.Validation.Application.Process
 
         public ValidationResult ValidationResult { get; set; }
         public ValidationReport ValidationReport { get; set; }
-        public PrefillChecklist PrefillChecklist { get; set; }
 
         public ValidationOrchestrator(IServiceProvider services, ILogger<ValidationOrchestrator> logger)
         {
@@ -29,14 +28,7 @@ namespace Dibk.Ftpb.Validation.Application.Process
             ValidationReport = new ValidationReport();
         }
 
-        public async Task<PrefillChecklist> GetPrefillChecklistAsync(string dataFormatVersion, ValidationInput validationInput)
-        {
-            GetPrefillChecklist(dataFormatVersion, validationInput);
-
-            return PrefillChecklist;
-        }
-
-        public async Task<ValidationReport> ValidateAsync(string dataFormatVersion, List<string> errorMessages, ValidationInput validationInput)
+        public async Task<ValidationResult> ValidateAsync(string dataFormatVersion, List<string> errorMessages, ValidationInput validationInput)
         {
             ValidationResult = new ValidationResult();
             ValidationResult.ValidationRules = new();
@@ -90,7 +82,7 @@ namespace Dibk.Ftpb.Validation.Application.Process
             //_formMetadataService.UpdateValidationResultToFormMetadata(archiveReference, "Ok", 0, validationWarnings);
 
 
-            return ValidationReport;
+            return ValidationReport.ValidationResult;
         }
 
         private void ValidateMainForm(string dataFormatVersion, ValidationInput validationInput)
@@ -100,12 +92,6 @@ namespace Dibk.Ftpb.Validation.Application.Process
 
             ValidationResult.ValidationRules.AddRange(valResult.ValidationRules);
             ValidationResult.ValidationMessages.AddRange(valResult.ValidationMessages);
-        }
-
-        private void GetPrefillChecklist(string dataFormatVersion, ValidationInput validationInput)
-        {
-            //PrefillChecklist = PrefillChecklistAnswerBuilder.Build(validationInput);
-
         }
 
         private IFormValidator GetValidator(string dataFormatVersion)

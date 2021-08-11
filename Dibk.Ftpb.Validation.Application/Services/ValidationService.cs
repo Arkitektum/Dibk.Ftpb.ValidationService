@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Dibk.Ftpb.Validation.Application.Utils;
 using System.Linq;
+using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 
 namespace Dibk.Ftpb.Validation.Application.Services
 {
@@ -13,41 +15,53 @@ namespace Dibk.Ftpb.Validation.Application.Services
         private readonly IInputDataService _inputDataService;
         private readonly IXsdValidationService _xsdValidationService;
         private readonly IValidationOrchestrator _validationOrchestrator;
+        private readonly IChecklistService _checklistService;
+        private Models.InputData _inputData;
+        private List<string> _errorMessages;
+        private ValidationResult _validationResult;
 
         public ValidationService(
             IInputDataService inputDataService,
             IXsdValidationService xsdValidationService,
-            IValidationOrchestrator validationOrchestrator)
+            IValidationOrchestrator validationOrchestrator,
+            IChecklistService checklistService)
         {
             _inputDataService = inputDataService;
             _xsdValidationService = xsdValidationService;
             _validationOrchestrator = validationOrchestrator;
+            _checklistService = checklistService;
         }
 
 
         public ValidationReport GetValidationReport(ValidationInput validationInput)
         {
-            var xx = new ValidationReport();
-            xx.ValidationResult = Validate(validationInput);
+            var validationReport = new ValidationReport();
+            var validationResult = Validate(validationInput);
+            validationReport.ValidationResult = validationResult;
 
-
-
-            var inputData = _inputDataService.GetInputData(validationInput.FormData);
-            var prefillChecklist = new PrefillChecklist();
-            if (!Helpers.ObjectIsNullOrEmpty(inputData?.Config?.DataFormatVersion))
+            if (!validationResult.ValidationMessages.Any(x => x.Messagetype.Equals(ValidationResultSeverityEnum.ERROR)))
             {
-                xx.PrefillChecklist = _validationOrchestrator.GetPrefillChecklistAsync(inputData?.Config?.DataFormatVersion, validationInput).Result;
+                if (!Helpers.ObjectIsNullOrEmpty(_inputData?.Config?.DataFormatVersion))
+                {
+                    var prefillChecklist = PrefillChecklistAnswerBuilder.Build(validationResult, _checklistService);
+                    validationReport.PrefillChecklist = prefillChecklist;
+
+                    return validationReport;
+                }
+                else
+                {
+                    throw new System.ArgumentOutOfRangeException("Missing DataFormatVersion");
+                }
+
+                throw new System.ArgumentOutOfRangeException("Illegal DataFormatVersion");
             }
 
-            return xx;
+            return validationReport;
         }
 
         public ValidationResult Validate(ValidationInput validationInput)
         {
             var inputData = _inputDataService.GetInputData(validationInput.FormData);
-            //inputData.Config.DataFormatVersion
-            //inputData.Data
-            //inputData.IsValid
             var errorMessages = _xsdValidationService.Validate(inputData);
             var validationResult = new ValidationResult();
 
@@ -79,8 +93,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
 
             if (!Helpers.ObjectIsNullOrEmpty(inputData?.Config?.DataFormatVersion))
             {
-                validationResult = _validationOrchestrator.ValidateAsync(inputData?.Config?.DataFormatVersion, errorMessages, validationInput).Result.ValidationResult;
-                //return taskValidationResult.Result;
+                validationResult = _validationOrchestrator.ValidateAsync(inputData?.Config?.DataFormatVersion, errorMessages, validationInput).Result;
             }
             else
             {

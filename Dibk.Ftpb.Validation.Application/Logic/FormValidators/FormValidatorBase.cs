@@ -30,13 +30,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             DefineValidationRules();
             Validate(validationInput);
 
-            ValidationResult = _validationMessageComposer.ComposeValidationReport(XPathRoot, dataFormatVersion, ValidationResult, "NO");
+            ValidationResult = _validationMessageComposer.ComposeValidationResult(XPathRoot, dataFormatVersion, ValidationResult, "NO");
             //ValidationReport.ValidationResult = ValidationResult;
 
             return ValidationResult;
         }
-
-        public abstract ValidationReport GetValidationReport(string dataFormatVersion, ValidationInput validationInput);
 
         protected abstract void InstantiateValidators();
         protected abstract void Validate(ValidationInput validationInput);

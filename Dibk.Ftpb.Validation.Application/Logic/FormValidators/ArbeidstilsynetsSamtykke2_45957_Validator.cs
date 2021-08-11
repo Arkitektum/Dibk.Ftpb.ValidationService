@@ -75,12 +75,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //return ValidationReport;
         }
 
-
-        public override ValidationReport GetValidationReport(string dataFormatVersion, ValidationInput validationInput)
-        {
-            throw new System.NotImplementedException();
-        }
-
         protected override void InitializeValidatorConfig()
         {
 

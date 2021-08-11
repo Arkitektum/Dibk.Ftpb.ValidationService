@@ -67,11 +67,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             return ValidationResult;
         }
 
-        public override ValidationReport GetValidationReport(string dataFormatVersion, ValidationInput validationInput)
-        {
-            throw new System.NotImplementedException();
-        }
-
         protected override void InitializeValidatorConfig()
         {
             var eiendombyggestedTree = new List<EntityValidatorNode>()

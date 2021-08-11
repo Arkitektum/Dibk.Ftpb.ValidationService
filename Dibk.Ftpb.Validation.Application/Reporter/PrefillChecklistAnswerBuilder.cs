@@ -1,27 +1,48 @@
-﻿using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
-using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
-using Dibk.Ftpb.Validation.Application.Models.Web;
-using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
-using System.Collections.Generic;
+﻿using Dibk.Ftpb.Validation.Application.Services;
+using System.Text.Json;
 
 namespace Dibk.Ftpb.Validation.Application.Reporter
 {
     public class PrefillChecklistAnswerBuilder
     {
-        //public IEnumerable<SjekklistekravValidationEntity> _sjekklistekravValidationEntities;
-        public static PrefillChecklist Build(SjekklisteKravType[] alleKrav, ValidationInput validationInput)
+        //private readonly IChecklistService _checklistService;
+
+        //public PrefillChecklistAnswerBuilder(IChecklistService checklistService)
+        //{
+        //    _checklistService = checklistService;
+        //}
+        //private XmlDocument xml = new XmlDocument();
+
+        public static PrefillChecklist Build(ValidationResult validationResult, IChecklistService checklistService)
         {
-            var sjekklisteKrav = new List<ChecklistAnswer>();
+            //var sjekklisteKrav = new List<ChecklistAnswer>();
+            //var xmldata = validationInput.FormData;
+            //xml.LoadXml(xmldata); //myXmlString is the xml file in string //copying xml to string: string myXmlString = xmldoc.OuterXml.ToString();
+            var retVal = checklistService.GetPrefillChecklist("", validationResult);
+            var prefillChecklist = JsonSerializer.Deserialize<PrefillChecklist>(retVal);
 
-            //IEnumerable<SjekklistekravValidationEntity> sjekklistekravValidationEntities = new List<SjekklistekravValidationEntity>();
-            var sjekklistekravValidationEntities = new SjekklistekravMapper().Map(alleKrav, "krav");
-            
-            foreach (var krav in alleKrav)
-            {
-                sjekklisteKrav.Add(new ChecklistAnswer() { ChecklistReference = krav.sjekklistepunkt.kodeverdi, ChecklistQuestion = krav.sjekklistepunkt.kodebeskrivelse, yesNo = (bool)krav.sjekklistepunktsvar, SupportingDataXpathField = "krav/sjekklistekrav", Documentation = krav.dokumentasjon });
-            }
-
-            return new PrefillChecklist() { ChecklistAnswers = sjekklisteKrav };
+            return prefillChecklist;
         }
+
+        //private void GetCriteriasForAllChecklistItems()
+        //{
+
+        //}
+
+        //private bool ErEiendomByggestedUtfylt(string xPath)
+        //{
+        //    return NodeHasValue(xPath);
+        //}
+
+        //private bool NodeHasValue(string xPath)
+        //{
+        //    var node = xml.SelectSingleNode(xPath);
+        //    if (!string.IsNullOrEmpty(node.Value))
+        //    {
+        //        return true;
+        //    }
+
+        //    return false;
+        //}
     }
 }
