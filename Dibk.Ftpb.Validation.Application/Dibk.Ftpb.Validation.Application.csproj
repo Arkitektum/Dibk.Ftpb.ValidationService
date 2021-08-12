@@ -24,6 +24,7 @@
     <Folder Include="Logic\Mappers\Common\" />
     <Folder Include="Logic\Xsd\" />
     <Folder Include="Models\DataModels\ArbeidstilsynetSignaturSamtykke\" />
+    <Folder Include="Process\" />
     <Folder Include="Validators\" />
   </ItemGroup>
 

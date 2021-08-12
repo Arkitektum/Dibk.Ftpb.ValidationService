@@ -1,12 +1,11 @@
-﻿using Dibk.Ftpb.Validation.Application.Process;
-using Dibk.Ftpb.Validation.Application.Reporter;
+﻿using Dibk.Ftpb.Validation.Application.Reporter;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Dibk.Ftpb.Validation.Application.Utils;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.Enums;
-using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
+using Dibk.Ftpb.Validation.Application.Logic.FormValidators;
 
 namespace Dibk.Ftpb.Validation.Application.Services
 {
@@ -14,7 +13,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
     {
         private readonly IInputDataService _inputDataService;
         private readonly IXsdValidationService _xsdValidationService;
-        private readonly IValidationOrchestrator _validationOrchestrator;
+        private readonly IValidationHandler _validationOrchestrator;
         private readonly IChecklistService _checklistService;
         private Models.InputData _inputData;
         private List<string> _errorMessages;
@@ -23,7 +22,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
         public ValidationService(
             IInputDataService inputDataService,
             IXsdValidationService xsdValidationService,
-            IValidationOrchestrator validationOrchestrator,
+            IValidationHandler validationOrchestrator,
             IChecklistService checklistService)
         {
             _inputDataService = inputDataService;
@@ -43,7 +42,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
             {
                 if (!Helpers.ObjectIsNullOrEmpty(_inputData?.Config?.DataFormatVersion))
                 {
-                    var prefillChecklist = PrefillChecklistAnswerBuilder.Build(validationResult, _checklistService);
+                    var prefillChecklist = PrefillChecklistAnswerBuilder.Build(validationResult, _checklistService, _inputData.Config.DataFormatVersion);
                     validationReport.PrefillChecklist = prefillChecklist;
 
                     return validationReport;

@@ -11,17 +11,17 @@ using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Microsoft.Extensions.Logging;
 
-namespace Dibk.Ftpb.Validation.Application.Process
+namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
-    public class ValidationOrchestrator : IValidationOrchestrator
+    public class ValidationHandler : IValidationHandler
     {
         private readonly IServiceProvider _services;
-        private readonly ILogger<ValidationOrchestrator> _logger;
+        private readonly ILogger<ValidationHandler> _logger;
 
         public ValidationResult ValidationResult { get; set; }
         public ValidationReport ValidationReport { get; set; }
 
-        public ValidationOrchestrator(IServiceProvider services, ILogger<ValidationOrchestrator> logger)
+        public ValidationHandler(IServiceProvider services, ILogger<ValidationHandler> logger)
         {
             _services = services;
             _logger = logger;

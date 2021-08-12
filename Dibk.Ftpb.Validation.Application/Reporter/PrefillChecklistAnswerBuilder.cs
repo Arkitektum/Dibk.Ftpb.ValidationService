@@ -13,7 +13,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         //}
         //private XmlDocument xml = new XmlDocument();
 
-        public static PrefillChecklist Build(ValidationResult validationResult, IChecklistService checklistService)
+        public static PrefillChecklist Build(ValidationResult validationResult, IChecklistService checklistService, string dataFormatVersion)
         {
             //var sjekklisteKrav = new List<ChecklistAnswer>();
             //var xmldata = validationInput.FormData;

@@ -2,7 +2,6 @@ using Arkitektum.XmlSchemaValidator.Config;
 using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Municipality;
 using Dibk.Ftpb.Validation.Application.Logic.FormValidators;
-using Dibk.Ftpb.Validation.Application.Process;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Services;
 using Dibk.Ftpb.Validation.Web.Config;
@@ -20,7 +19,6 @@ using System.Text.Json.Serialization;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
-using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 
 namespace Dibk.Ftpb.Validation
 {
@@ -72,7 +70,7 @@ namespace Dibk.Ftpb.Validation
             services.AddTransient<IChecklistService, ChecklistService>();
             services.AddTransient<IInputDataService, InputDataService>();
             services.AddTransient<IXsdValidationService, XsdValidationService>();
-            services.AddTransient<IValidationOrchestrator, ValidationOrchestrator>();
+            services.AddTransient<IValidationHandler, ValidationHandler>();
             services.AddTransient<IValidationMessageComposer, ValidationMessageComposer>();
             
             services.AddTransient<FormValidatorConfiguration>();
