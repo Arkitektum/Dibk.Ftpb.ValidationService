@@ -32,15 +32,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(FormaaltypeValidationEnum.utfylt, null);
-            AddValidationRule(FormaaltypeValidationEnum.beskrivPlanlagtFormaal_utfylt, "beskrivPlanlagtFormaal");
+            //AddValidationRule(FormaaltypeValidationEnum.utfylt, null);
+            //AddValidationRule(FormaaltypeValidationEnum.beskrivPlanlagtFormaal_utfylt, "beskrivPlanlagtFormaal");
+            
+            AddValidationRule(ValidationRuleEnum.utfylt, null);
+            AddValidationRule(ValidationRuleEnum.utfylt, "beskrivPlanlagtFormaal");
         }
 
         public ValidationResult Validate(FormaaltypeValidationEntity formaaltypeValEntity = null)
         {
             if (Helpers.ObjectIsNullOrEmpty(formaaltypeValEntity?.ModelData))
             {
-                AddMessageFromRule(ValidationRuleEnum.beskrivelseAvTiltak_formaaltype_utfylt, formaaltypeValEntity?.DataModelXpath);
+                //AddMessageFromRule(ValidationRuleEnum.beskrivelseAvTiltak_formaaltype_utfylt, formaaltypeValEntity?.DataModelXpath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, formaaltypeValEntity?.DataModelXpath);
             }
             else
             {
@@ -72,7 +76,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var formaaltype = formaaltypeValEntity.ModelData;
 
             if (string.IsNullOrEmpty(formaaltype.BeskrivPlanlagtFormaal))
-                AddMessageFromRule(ValidationRuleEnum.beskrivelseAvTiltak_formaaltype_utfylt, xPath);
+            {
+                //AddMessageFromRule(ValidationRuleEnum.beskrivelseAvTiltak_formaaltype_utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
+            }
 
         }
     }

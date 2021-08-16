@@ -23,14 +23,25 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(MatrikkelValidationEnum.utfylt);
-            AddValidationRule(MatrikkelValidationEnum.kommunenummer_utfylt, "kommunenummer");
-            AddValidationRule(MatrikkelValidationEnum.kommunenummer_ugyldig, "kommunenummer");
-            AddValidationRule(MatrikkelValidationEnum.kommunenummer_gammel, "kommunenummer");
-            AddValidationRule(MatrikkelValidationEnum.gaardsnummer_utfylt, "gaardsnummer");
-            AddValidationRule(MatrikkelValidationEnum.bruksnummer_utfylt, "bruksnummer");
-            AddValidationRule(MatrikkelValidationEnum.festenummer_utfylt, "festenummer");
-            AddValidationRule(MatrikkelValidationEnum.seksjonsnummer_utfylt, "seksjonsnummer");
+            //AddValidationRule(MatrikkelValidationEnum.utfylt);
+            //AddValidationRule(MatrikkelValidationEnum.kommunenummer_utfylt, "kommunenummer");
+            //AddValidationRule(MatrikkelValidationEnum.kommunenummer_ugyldig, "kommunenummer");   OBS <---- konsistens
+            //AddValidationRule(MatrikkelValidationEnum.kommunenummer_gammel, "kommunenummer");
+            //AddValidationRule(MatrikkelValidationEnum.gaardsnummer_utfylt, "gaardsnummer");
+            //AddValidationRule(MatrikkelValidationEnum.bruksnummer_utfylt, "bruksnummer");
+            //AddValidationRule(MatrikkelValidationEnum.festenummer_utfylt, "festenummer");
+            //AddValidationRule(MatrikkelValidationEnum.seksjonsnummer_utfylt, "seksjonsnummer");
+
+            AddValidationRule(ValidationRuleEnum.utfylt);
+            AddValidationRule(ValidationRuleEnum.utfylt, "kommunenummer");
+            AddValidationRule(ValidationRuleEnum.gyldig, "kommunenummer");
+            AddValidationRule(ValidationRuleEnum.kommunenummer_utgått, "kommunenummer");
+            AddValidationRule(ValidationRuleEnum.utfylt, "gaardsnummer");
+            AddValidationRule(ValidationRuleEnum.utfylt, "bruksnummer");
+            AddValidationRule(ValidationRuleEnum.utfylt, "festenummer");
+            AddValidationRule(ValidationRuleEnum.utfylt, "seksjonsnummer");
+
+
         }
 
         public ValidationResult Validate(MatrikkelValidationEntity matrikkel)
@@ -40,7 +51,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel?.ModelData))
             {
-                AddMessageFromRule(MatrikkelValidationEnum.utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
 
             }
             else
@@ -65,29 +76,29 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 switch (kommunenummerStatus.Status)
                 {
                     case MunicipalityValidationEnum.Empty:
-                        AddMessageFromRule(MatrikkelValidationEnum.kommunenummer_utfylt, xPath);
+                        AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
                         break;
                     case MunicipalityValidationEnum.Invalid:
-                        AddMessageFromRule(MatrikkelValidationEnum.kommunenummer_ugyldig, xPath, new[] { kommunenummer });
+                        AddMessageFromRule(ValidationRuleEnum.gyldig, xPath, new[] { kommunenummer });
                         break;
                     case MunicipalityValidationEnum.Expired:
-                        AddMessageFromRule(MatrikkelValidationEnum.kommunenummer_gammel, xPath, new[] { kommunenummer, kommunenummerStatus.Status.ToString() });
+                        AddMessageFromRule(ValidationRuleEnum.kommunenummer_utgått, xPath, new[] { kommunenummer, kommunenummerStatus.Status.ToString() });
                         break;
                 }
             }
 
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Gaardsnummer))
-                AddMessageFromRule(MatrikkelValidationEnum.gaardsnummer_utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Bruksnummer))
-                AddMessageFromRule(MatrikkelValidationEnum.bruksnummer_utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Festenummer))
-                AddMessageFromRule(MatrikkelValidationEnum.festenummer_utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Seksjonsnummer))
-                AddMessageFromRule(MatrikkelValidationEnum.seksjonsnummer_utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
         }
     }
 }

@@ -59,7 +59,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
             {
                 //_sjekklistepunktValidator = new SjekklistepunktValidator(EntityValidatorTree, 23, _codeListService);
                 //_sjekklistekravValidator = new SjekklistekravValidator(EntityValidatorTree, 22, _sjekklistepunktValidator);
-                _sjekklistekravValidator = new SjekklistekravValidator(Tree, 22);
+                _sjekklistekravValidator = new ATILSjekklistekravValidator(Tree, 22);
             }
 
             return _sjekklistekravValidator;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Enums;
@@ -12,11 +8,8 @@ using Dibk.Ftpb.Validation.Application.Reporter;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidationTree
 {
-    public class AnsvarligSoekerValidatorLogic
+    public class AnsvarligSoekerValidatorLogic : ValidatorLogicBase
     {
-        private IList<EntityValidatorNode> _tree;
-        private List<EntityValidatorNode> _entityValidatorNodes;
-        private int _mainNode;
         private readonly ICodeListService _codeListService;
         private readonly IPostalCodeService _postalCodeService;
         private IAktoerValidator _aktoerValidator;
@@ -31,36 +24,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
             _postalCodeService = postalCodeService;
             _entityValidatorNodes = ValidatorEntityNodeList();
         }
-        public IList<EntityValidatorNode> Tree
-        {
-            get => GetClassTree();
-        }
 
-        private IList<EntityValidatorNode> GetClassTree()
-        {
-            _tree ??= EntityValidatiorTree.BuildTree(_entityValidatorNodes);
-            return _tree;
-        }
+        //public override int LastNodeNumber()
+        //{
+        //    return _mainNode + 3;
+        //}
 
-        public List<EntityValidatorNode> NodeList
-        {
-            get => _entityValidatorNodes;
-        }
         public int LastNodeNumber
         {
             get => _mainNode + 3;
         }
-        public List<ValidationRule> ValidationRules
-        {
-            get => AllValidationRules();
 
-        }
-        public IAktoerValidator Validator
-        {
-            get => SetUpClasses();
-        }
 
-        private IAktoerValidator SetUpClasses()
+        protected override IAktoerValidator SetUpClasses()
         {
             if (_aktoerValidator != null)
                 return _aktoerValidator;
@@ -69,10 +45,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
             _ansvarligSoekerPartstypeValidator = new PartstypeValidator(Tree, _mainNode + 2, _codeListService);
             _ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(Tree, _mainNode + 3, _postalCodeService);
 
-            _aktoerValidator = new TiltakshaverValidator(Tree, _mainNode, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
+            _aktoerValidator = new AnsvarligSoekerValidator(Tree, _mainNode, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
             return _aktoerValidator;
         }
-        public List<EntityValidatorNode> ValidatorEntityNodeList()
+        private List<EntityValidatorNode> ValidatorEntityNodeList()
         {
             var validatorEntityNodeList = new List<EntityValidatorNode>()
             {
@@ -84,7 +60,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
             return validatorEntityNodeList;
         }
 
-        private List<ValidationRule> AllValidationRules()
+        protected override List<ValidationRule> AllValidationRules()
         {
             var validationResults = new List<ValidationRule>();
             validationResults.AddRange(_ansvarligSoekerKontaktpersonValidator.ValidationResult.ValidationRules);

@@ -58,7 +58,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
             foreach (var field in typeof(T).GetFields())
             {
                 if (Attribute.GetCustomAttribute(field,
-                    typeof(EnumerationAttribute)) is EnumerationAttribute attribute)
+                    typeof(EntityValidatorEnumerationAttribute)) is EntityValidatorEnumerationAttribute attribute)
                 {
                     if (attribute.ValidatorId == validatorId)
                         return (T)field.GetValue(null);

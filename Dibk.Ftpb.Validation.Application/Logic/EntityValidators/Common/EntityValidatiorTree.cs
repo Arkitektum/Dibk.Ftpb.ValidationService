@@ -55,12 +55,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             var newXpath = $"{entityXpath}/{entityName}";
             return newXpath;
         }
-        private static string AddRulePathToNode(string entityXpath, EntityValidatorEnum? EnumId = null)
+        private static string AddRulePathToNode(string entityXpath, EntityValidatorEnum? entityValidatorEnum = null)
         {
-            if (!EnumId.HasValue)
+            if (!entityValidatorEnum.HasValue)
                 return entityXpath;
             
-            var enumValidatorNumber = Helpers.GetEnumEntityValidatorNumber(EnumId);
+            var enumValidatorNumber = Helpers.GetEnumEntityValidatorNumber(entityValidatorEnum);
             var newXpath = $"{entityXpath}.{enumValidatorNumber}";
             return newXpath;
         }

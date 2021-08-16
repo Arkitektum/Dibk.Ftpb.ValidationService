@@ -30,7 +30,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         private MatrikkelValidator _matrikkelValidator;
 
         private FormValidatorConfiguration _formValidatorConfiguration;
-        private EiendombyggestedLogic _eiendombyggestedLogic;
+        private EiendombyggestedValidatorLogic _eiendombyggestedLogic;
 
 
         public EiendomByggestedValidatorTest()
@@ -46,7 +46,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             _formValidatorConfiguration.ValidatorFormName = "ArbeidstilsynetsSamtykke2_45957_Validator";
             _formValidatorConfiguration.FormXPathRoot = "ArbeidstilsynetsSamtykke";
 
-            _eiendombyggestedLogic = new EiendombyggestedLogic(1, _municipalityValidator);
+            _eiendombyggestedLogic = new EiendombyggestedValidatorLogic(1, _municipalityValidator);
             _eiendomByggestedValidator = _eiendombyggestedLogic.Validator;
 
             _formValidatorConfiguration.ValidatorsTree = _eiendombyggestedLogic.Tree;
@@ -69,7 +69,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
             var description = typeof(EiendomValidationEnum)
                 .GetField(nameof(EiendomValidationEnum.utfylt))
-                .GetCustomAttribute<EnumerationAttribute>(false)
+                .GetCustomAttribute<EntityValidatorEnumerationAttribute>(false)
                 ?.XmlNode;
 
             description.Should().NotBeNullOrEmpty();

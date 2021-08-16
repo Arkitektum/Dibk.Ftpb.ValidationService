@@ -70,7 +70,7 @@ namespace Dibk.Ftpb.Validation.Application.Utils
         {
             FieldInfo fi = value.GetType().GetField(value.ToString());
 
-            var enumerationAttributes = fi.GetCustomAttributes(typeof(EnumerationAttribute), false) as EnumerationAttribute[];
+            var enumerationAttributes = fi.GetCustomAttributes(typeof(EntityValidatorEnumerationAttribute), false) as EntityValidatorEnumerationAttribute[];
 
             var xmlNode = string.Empty;
             if (enumerationAttributes != null && enumerationAttributes.Any())
@@ -85,7 +85,7 @@ namespace Dibk.Ftpb.Validation.Application.Utils
             FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
             var entityValidatorNumber = string.Empty;
 
-            if (fieldInfo?.GetCustomAttributes(typeof(EnumerationAttribute), false) is EnumerationAttribute[] enumerationAttributes && enumerationAttributes.Any())
+            if (fieldInfo?.GetCustomAttributes(typeof(EntityValidatorEnumerationAttribute), false) is EntityValidatorEnumerationAttribute[] enumerationAttributes && enumerationAttributes.Any())
             {
                 entityValidatorNumber = enumerationAttributes.First().ValidatorId;
             }
@@ -93,11 +93,24 @@ namespace Dibk.Ftpb.Validation.Application.Utils
 
         }
 
-        public static List<SjekklistekravEnum> GetSjekklistekravEnumFromIndex(string checklistNumber)
+        public static string GetEnumFieldNameNumber(Enum value)
         {
-            var enumsForChecklistNumber = new List<SjekklistekravEnum>();
+            FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
+            var entityValidatorNumber = string.Empty;
 
-            var enumList = Enum.GetValues(typeof(SjekklistekravEnum)).OfType<SjekklistekravEnum>().ToList();
+            if (fieldInfo?.GetCustomAttributes(typeof(FieldNameEnumerationAttribute), false) is FieldNameEnumerationAttribute[] enumerationAttributes && enumerationAttributes.Any())
+            {
+                entityValidatorNumber = enumerationAttributes.First().FieldNameId;
+            }
+            return entityValidatorNumber;
+
+        }
+
+        public static List<ATILSjekklistekravEnum> GetSjekklistekravEnumFromIndex(string checklistNumber)
+        {
+            var enumsForChecklistNumber = new List<ATILSjekklistekravEnum>();
+
+            var enumList = Enum.GetValues(typeof(ATILSjekklistekravEnum)).OfType<ATILSjekklistekravEnum>().ToList();
             foreach (var theEnum in enumList)
             {
                 FieldInfo fieldInfo = theEnum.GetType().GetField(theEnum.ToString());

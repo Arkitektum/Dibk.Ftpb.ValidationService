@@ -11,7 +11,7 @@ using Dibk.Ftpb.Validation.Application.Reporter;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidationTree
 {
-    public class EiendombyggestedLogic
+    public class EiendombyggestedValidatorLogic
     {
         private List<EntityValidatorNode> _entityValidatorNodes;
         private int _mainNode;
@@ -73,7 +73,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
             return validationResults;
         }
 
-        public EiendombyggestedLogic(int startNode, IMunicipalityValidator municipalityValidator)
+        public EiendombyggestedValidatorLogic(int startNode, IMunicipalityValidator municipalityValidator)
         {
             _mainNode = startNode;
             _municipalityValidator = municipalityValidator;

@@ -8,6 +8,17 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
     public enum ValidationRuleEnum
     {
+        //Generelle test av nye aug-21
+        utfylt,
+        gyldig,
+        kodeverdi_utfylt,
+        kodeverdi_gyldig,
+        //kodebeskrivelse_utfylt,
+        //kodebeskrivelse_gyldig,
+        kode_KanIkkeValidere,
+        kodeliste_gyldig,
+        kommunenummer_utgått,
+
         //eiendom
         //eiendom_utfylt,
 
@@ -31,7 +42,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
         //eiendomsadresse_bolignummer_utfylt,
         //eiendomsadresse_kommunenavn_utfylt,
         //eiendomsadresse_tillatte_postnr_i_kommune,
-        
+
         //enkel adresse
         //adresse_utfylt,
         //adresse_adresselinje1_utfylt,
@@ -58,7 +69,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
         //eiendomsidentifikasjon_bruksnummer_utfylt,
         //eiendomsidentifikasjon_festenummer_utfylt,
         //eiendomsidentifikasjon_seksjonsnummer_utfylt,
-        
+
         //Kun for testing
         Parameter_Test,
 

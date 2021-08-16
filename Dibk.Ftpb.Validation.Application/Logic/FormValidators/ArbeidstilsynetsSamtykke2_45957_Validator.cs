@@ -26,7 +26,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         //TODO abstract class / Interface ... :thinkingface ...
         private BeskrivelseAvTiltakValidatorLogic _beskrivelseAvTiltakValidatorLogic;
-        private EiendombyggestedLogic _eiendombyggestedLogic;
+        private EiendombyggestedValidatorLogic _eiendombyggestedLogic;
         private TiltakshaverValidatorLogic _tiltakshaverValidatorLogic;
         private FakturamottakerValidatorLogic _fakturamottakerValidatorLogic;
         private ArbeidsplasserValidatorLogic _arbeidsplasserValidatorLogic;
@@ -44,8 +44,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private IEiendomByggestedValidator _eiendomByggestedValidator;
         private IAktoerValidator _ansvarligSoekerValidator;
         private IFakturamottakerValidator _fakturamottakerValidator;
-        private ISjekklistekravValidator _sjekklistekravValidator;
         private IArbeidsplasserValidator _arbeidsplasserValidator;
+        private ISjekklistekravValidator _sjekklistekravValidator;
+        private ISjekklistepunktValidator _sjekklistepunktValidator;
+        
 
 
 
@@ -78,7 +80,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         protected override void InitializeValidatorConfig()
         {
 
-            _eiendombyggestedLogic = new EiendombyggestedLogic(1, _municipalityValidator);
+            _eiendombyggestedLogic = new EiendombyggestedValidatorLogic(1, _municipalityValidator);
             _tiltakshaverValidatorLogic = new TiltakshaverValidatorLogic(_eiendombyggestedLogic.LastNodeNumber + 1, _codeListService, _postalCodeService);
             _fakturamottakerValidatorLogic = new FakturamottakerValidatorLogic(_tiltakshaverValidatorLogic.LastNodeNumber + 1, _postalCodeService);
             _arbeidsplasserValidatorLogic = new ArbeidsplasserValidatorLogic(_fakturamottakerValidatorLogic.LastNodeNumber + 1);

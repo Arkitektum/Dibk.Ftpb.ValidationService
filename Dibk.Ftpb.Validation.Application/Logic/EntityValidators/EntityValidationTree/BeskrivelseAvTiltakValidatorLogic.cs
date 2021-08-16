@@ -63,7 +63,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
             _entityValidatorNodes = ValidatorEntityNodeList();
 
         }
-        public List<EntityValidatorNode> ValidatorEntityNodeList()
+        private List<EntityValidatorNode> ValidatorEntityNodeList()
         {
             var beskrivelseAvTiltakNodeList = new List<EntityValidatorNode>()
             {
@@ -86,8 +86,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
             _bygningstypeValidator = new BygningstypeValidator(Tree, _mainNode + 4, _codeListService);
             _tiltaksformaalValidator = new TiltaksformaalValidator(Tree, _mainNode + 5, _codeListService);
             _formaaltypeValidator = new FormaaltypeValidator(Tree, _mainNode + 1, _anleggstypeValidator, _naeringsgruppeValidator, _bygningstypeValidator, _tiltaksformaalValidator);
-
             _tiltakstypeValidator = new TiltakstypeValidator(Tree, _mainNode + 6, _codeListService);
+            
             _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(Tree, _mainNode, _formaaltypeValidator, _tiltakstypeValidator);
 
             return _beskrivelseAvTiltakValidator;

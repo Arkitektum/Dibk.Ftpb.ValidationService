@@ -320,12 +320,15 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(null, EiendomsAdresseValidationEnum.husnr_utfylt, "/eiendomByggested{0}/adresse/husnr", "Eiendommens husnr må være utfyllt");
             AddRuleToValidationMessageStorageEntry(null, EiendomsAdresseValidationEnum.bokstav_utfylt, "/eiendomByggested{0}/adresse/bokstav", "Eiendommens bokstav må være utfyllt");
             AddRuleToValidationMessageStorageEntry(null, EiendomsAdresseValidationEnum.postnr_4siffer, "/eiendomByggested{0}/adresse/postnr", "Eiendommens postnr må bestå av 4 siffer");
-            AddRuleToValidationMessageStorageEntry(null, MatrikkelValidationEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon", "Eiendommen må være utfyllt i Matrikkelen", ValidationResultSeverityEnum.ERROR, null, "1.2");
-            AddRuleToValidationMessageStorageEntry(null, MatrikkelValidationEnum.kommunenummer_utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/kommunenummer", "Eiendommens kommunenr i Matrikkelen må være utfyllt", ValidationResultSeverityEnum.ERROR, null, "1.3");
-            AddRuleToValidationMessageStorageEntry(null, MatrikkelValidationEnum.gaardsnummer_utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/gaardsnummer", "Eiendommens GNR i Matrikkelen må være utfyllt", ValidationResultSeverityEnum.ERROR, null, "1.4");
-            AddRuleToValidationMessageStorageEntry(null, MatrikkelValidationEnum.bruksnummer_utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/bruksnummer", "Eiendommens BNR i Matrikkelen må være utfyllt", ValidationResultSeverityEnum.ERROR, null, "1.5");
-            AddRuleToValidationMessageStorageEntry(null, MatrikkelValidationEnum.festenummer_utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/festenummer", "Eiendommens FNR i Matrikkelen må være utfyllt", ValidationResultSeverityEnum.ERROR, null, "1.555555");
-            AddRuleToValidationMessageStorageEntry(null, MatrikkelValidationEnum.seksjonsnummer_utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/seksjonsnummer", "Eiendommens SNR i Matrikkelen må være utfyllt", ValidationResultSeverityEnum.ERROR, null, "1.6");
+            
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon", "Eiendommen må være utfyllt i Matrikkelen", ValidationResultSeverityEnum.ERROR, null, "1.2");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/kommunenummer", "Eiendommens kommunenr i Matrikkelen må være utfyllt", ValidationResultSeverityEnum.ERROR, null, "1.3");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/eiendomByggested{0}/eiendomsidentifikasjon/kommunenummer", "Eiendommens kommunenr i Matrikkelen må være gyldig", ValidationResultSeverityEnum.ERROR, null, "1.3");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/gaardsnummer", "Eiendommens GNR i Matrikkelen må være utfyllt", ValidationResultSeverityEnum.ERROR, null, "1.4");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/bruksnummer", "Eiendommens BNR i Matrikkelen må være utfyllt", ValidationResultSeverityEnum.ERROR, null, "1.5");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/festenummer", "Eiendommens FNR i Matrikkelen må være utfyllt", ValidationResultSeverityEnum.ERROR, null, "1.555555");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/seksjonsnummer", "Eiendommens SNR i Matrikkelen må være utfyllt", ValidationResultSeverityEnum.ERROR, null, "1.6");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.kommunenummer_utgått, "/eiendomByggested{0}/eiendomsidentifikasjon/kommunenummer", "Eiendommens kommunenr i Matrikkelen er utgått", ValidationResultSeverityEnum.ERROR, null, "1.3");
 
 
             //arbeidsplasser
@@ -371,7 +374,8 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodebeskrivelse_gyldig, "/tiltakshaver/partstype/kodebeskrivelse", "Ugyldig beskrivelse '{0}' i henhold til kodeliste for 'partstype' for tiltakshaver. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype");
 
             //Tiltakshavers kontaktpersjon
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.kontaktperson_navn_utfylt, "/tiltakshaver/kontaktperson/navn", "Navnet til kontaktperson for tiltakshaver bør fylles ut.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/tiltakshaver/kontaktperson/navn", "Navnet til kontaktperson for tiltakshaver bør fylles ut.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/tiltakshaver/kontaktperson/telefonnummer", "Telefonnummeret til kontaktperson for tiltakshaver bør fylles ut.");
 
             //Ansvarlig søker
             AddRuleToValidationMessageStorageEntry(null, AktoerValidationEnum.utfylt, "/ansvarligSoeker", "Informasjon om ansvarlig søker må fylles ut.", ValidationResultSeverityEnum.ERROR);
@@ -406,7 +410,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodebeskrivelse_gyldig, "/ansvarligSoeker/partstype/kodebeskrivelse", "Ugyldig beskrivelse '{0}' i henhold til kodeliste for 'partstype' for ansvarlig søker. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype");
 
             //Ansvarlig søkers kontaktpersjon
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.kontaktperson_navn_utfylt, "/ansvarligSoeker/kontaktperson/navn", "Navnet til kontaktperson for ansvarlig søker bør fylles ut.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarligSoeker/kontaktperson/navn", "Navnet til kontaktperson for ansvarlig søker bør fylles ut.");
 
 
             //fakturamottaker
@@ -439,73 +443,100 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             //AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.krav_sjekklistekrav_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Kravet må være dokumentert", ValidationResultSeverityEnum.ERROR);
 
 
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.utfylt, "/krav{0}", "Kravet må være utfylt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.kodeverdi_mangler, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '{0}' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.utfylt, "/krav{0}", "Kravet må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.kodeverdi_mangler, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '{0}' må være utfylt", ValidationResultSeverityEnum.ERROR);
             
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_13_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '1.13' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "1.13");
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_13_kodebeskrivelse_gyldig, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '1.13' må være gyldig", ValidationResultSeverityEnum.ERROR, null, "1.13");
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_13_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '1.13' er ikke gyldig", ValidationResultSeverityEnum.ERROR, null, "1.13");
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_13_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '1.13' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "1.13");
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_1_14_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '1.14' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_1_14_kodeverdi_gyldig, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '1.14' må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_1_14_kodebeskrivelse_utfylt, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '1.14' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_1_14_sjekklistepunktsvar_utfylt, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '1.14' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_1_14_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '1.14' må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_1_14_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '1.14' må være utfylt", ValidationResultSeverityEnum.ERROR);
 
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_16_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '1.16' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "1.16");
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_16_kodebeskrivelse_gyldig, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '1.16' må være gyldig", ValidationResultSeverityEnum.ERROR, null, "1.16");
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_16_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '1.16' er ikke gyldig", ValidationResultSeverityEnum.ERROR, null, "1.16");
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_1_16_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '1.16' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "1.16");
 
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_1_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.1' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "10.1");
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_1_kodebeskrivelse_gyldig, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '10.1' må være gyldig", ValidationResultSeverityEnum.ERROR, null, "10.1");
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_1_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.1' er ikke gyldig", ValidationResultSeverityEnum.ERROR, null, "10.1");
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_1_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '10.1' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "10.1");
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_1_17_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '1.17' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_1_17_kodeverdi_gyldig, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '1.17' må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_1_17_kodebeskrivelse_utfylt, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '1.17' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_1_17_sjekklistepunktsvar_utfylt, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '1.17' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_1_17_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '1.17' må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_1_17_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '1.17' må være utfylt", ValidationResultSeverityEnum.ERROR);
 
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_2_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.2' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "10.2");
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_2_kodebeskrivelse_gyldig, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '10.2' må være gyldig", ValidationResultSeverityEnum.ERROR, null, "10.2");
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_2_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.2' er ikke gyldig", ValidationResultSeverityEnum.ERROR, null, "10.2");
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_2_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '10.2' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "10.2");
 
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_3_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.3' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "10.3");
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_3_kodebeskrivelse_gyldig, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '10.3' må være gyldig", ValidationResultSeverityEnum.ERROR, null, "10.3");
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_3_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.3' er ikke gyldig", ValidationResultSeverityEnum.ERROR, null, "10.3");
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_3_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '10.3' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "10.3");
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_1_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.1' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_1_kodeverdi_gyldig, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.1' må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_1_kodebeskrivelse_utfylt, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '10.1' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_1_sjekklistepunktsvar_utfylt, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.1' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_1_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.1' må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_1_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '10.1' må være utfylt", ValidationResultSeverityEnum.ERROR);
 
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_4_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.4' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "10.4");
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_4_kodebeskrivelse_gyldig, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '10.4' må være gyldig", ValidationResultSeverityEnum.ERROR, null, "10.4");
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_4_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.4' er ikke gyldig", ValidationResultSeverityEnum.ERROR, null, "10.4");
-            AddRuleToValidationMessageStorageEntry(null, SjekklistekravEnum.pkt_10_4_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '10.4' må være utfylt", ValidationResultSeverityEnum.ERROR, null, "10.4");
+
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_2_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.2' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_2_kodeverdi_gyldig, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.2' må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_2_kodebeskrivelse_utfylt, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '10.2' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_2_sjekklistepunktsvar_utfylt, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.2' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_2_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.2' må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_2_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '10.2' må være utfylt", ValidationResultSeverityEnum.ERROR);
+
+
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_3_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.3' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_3_kodeverdi_gyldig, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.3' må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_3_kodebeskrivelse_utfylt, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '10.3' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_3_sjekklistepunktsvar_utfylt, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.3' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_3_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.3' må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_3_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '10.3' må være utfylt", ValidationResultSeverityEnum.ERROR);
+
+
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_4_kodeverdi_utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.4' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_4_kodeverdi_gyldig, "/krav{0}/sjekklistepunkt/kodeverdi", "Sjekklistepunktet '10.4' må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_4_kodebeskrivelse_utfylt, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Beskrivelse for '10.4' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_4_sjekklistepunktsvar_utfylt, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.4' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_4_sjekklistepunktsvar_gyldig, "/krav{0}/sjekklistepunktsvar", "Svaret for sjekklistepunkt '10.4' må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ATILSjekklistekravEnum.pkt_10_4_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon for sjekklistepunkt '10.4' må være utfylt", ValidationResultSeverityEnum.ERROR);
+
 
 
 
             //Beskrivelse av tiltak
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.utfylt, "/beskrivelseAvTiltak", "Krav må være utfyllt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.beskrivelseAvTiltak_anleggstype_kode_utfylt, "/beskrivelseAvTiltak/bruk/anleggstype", "Anleggstype må være utfyllt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.beskrivelseAvTiltak_naeringsgruppe_kode_utfylt, "/beskrivelseAvTiltak/bruk/naeringsgruppe", "Næringsgruppe må være utfyllt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.beskrivelseAvTiltak_bygningstype_kode_utfylt, "/beskrivelseAvTiltak/bruk/bygningstype", "Bygningstype må være utfyllt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.beskrivelseAvTiltak_tiltakformaal_kode_utfylt, "/beskrivelseAvTiltak/bruk/tiltaksformaal", "Kode for tiltakets formål må være utfyllt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.beskrivelseAvTiltak_beskrivPlanlagtFormaal_utfylt, "/beskrivelseAvTiltak/bruk/beskrivPlanlagtFormaal", "Tiltakets formål må være beskrevet", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak", "Krav må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/bruk", "Bruk for beskrivelse av tiltak må være utfyllt", ValidationResultSeverityEnum.ERROR);
             
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.utfylt, "/beskrivelseAvTiltak/bruk", "Bruk for beskrivelse av tiltak må være utfyllt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.utfylt, "/beskrivelseAvTiltak/bruk/anleggstype", "Anleggstype må være utfylt");
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kode_KanIkkeValidere, "/beskrivelseAvTiltak/bruk/anleggstype", "Ugyldig kodeliste for anleggstype.");
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.utfylt, "/beskrivelseAvTiltak/bruk/naeringsgruppe", "Næringsgruppe må være utfylt");
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kode_KanIkkeValidere, "/beskrivelseAvTiltak/bruk/naeringsgruppe", "Ugyldig kodeliste for næringsgruppe.");
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.utfylt, "/beskrivelseAvTiltak/bruk/bygningstype", "Bygningstype må være utfylt");
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kode_KanIkkeValidere, "/beskrivelseAvTiltak/bruk/bygningstype", "Ugyldig kodeliste for bygningstype.");
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.utfylt, "/beskrivelseAvTiltak/bruk/tiltaksformaal", "Tiltaksformaal må være utfylt");
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kode_KanIkkeValidere, "/beskrivelseAvTiltak/bruk/tiltaksformaal", "Ugyldig kodeliste for tiltaksformaal.");
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.utfylt, "/beskrivelseAvTiltak/bruk/type", "Tiltakstype må være utfylt");
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kode_KanIkkeValidere, "/beskrivelseAvTiltak/type", "Ugyldig kodeliste for tiltakstype.");
-
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_utfylt, "/beskrivelseAvTiltak/bruk/anleggstype/kodeverdi", "Kode for anleggstype må være utfylt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_gyldig, "/beskrivelseAvTiltak/bruk/anleggstype/kodeverdi", "Kode for anleggstype må være gyldig", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_utfylt, "/beskrivelseAvTiltak/bruk/naeringsgruppe/kodeverdi", "Kode for næringsgruppe må være utfylt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_gyldig, "/beskrivelseAvTiltak/bruk/naeringsgruppe/kodeverdi", "Kode for næringsgruppe må være gyldig", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_utfylt, "/beskrivelseAvTiltak/bruk/bygningstype/kodeverdi", "Kode for bygningstype må være utfylt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_gyldig, "/beskrivelseAvTiltak/bruk/bygningstype/kodeverdi", "Kode for bygningstype må være gyldig", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_utfylt, "/beskrivelseAvTiltak/bruk/tiltaksformaal/kodeverdi", "Kode for tiltaksformaal må være utfylt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_gyldig, "/beskrivelseAvTiltak/bruk/tiltaksformaal/kodeverdi", "Kode for tiltaksformaal må være gyldig", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_utfylt, "/beskrivelseAvTiltak/type/kodeverdi", "Kode for tiltakstype må være utfylt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_gyldig, "/beskrivelseAvTiltak/type/kodeverdi", "Kode for tiltakstype må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/bruk/beskrivPlanlagtFormaal", "Tiltakets formål må være beskrevet", ValidationResultSeverityEnum.ERROR);
             
-            AddRuleToValidationMessageStorageEntry(null, BeskrivelseAvTiltakValidationEnum.bra_utfylt, "/beskrivelseAvTiltak/BRA", "Tiltakets bruttoareal må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/bruk/anleggstype", "Anleggstype må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.kodeliste_gyldig, "/beskrivelseAvTiltak/bruk/anleggstype", "Ugyldig kodeliste for anleggstype.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/bruk/anleggstype/kodeverdi", "Kode for anleggstype må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/beskrivelseAvTiltak/bruk/anleggstype/kodeverdi", "Kode for anleggstype må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/bruk/anleggstype/kodebeskrivelse", "Beskrivelse for anleggstype må være utfylt", ValidationResultSeverityEnum.ERROR);
+            
+            
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/bruk/naeringsgruppe", "Næringsgruppe må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.kodeliste_gyldig, "/beskrivelseAvTiltak/bruk/naeringsgruppe", "Ugyldig kodeliste for næringsgruppe.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/bruk/naeringsgruppe/kodeverdi", "Kode for næringsgruppe må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/beskrivelseAvTiltak/bruk/naeringsgruppe/kodeverdi", "Kode for næringsgruppe må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/bruk/naeringsgruppe/kodebeskrivelse", "Beskrivelse for næringsgruppe må være utfylt", ValidationResultSeverityEnum.ERROR);
+            
+            
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/bruk/bygningstype", "Bygningstype må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.kodeliste_gyldig, "/beskrivelseAvTiltak/bruk/bygningstype", "Ugyldig kodeliste for bygningstype.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/bruk/bygningstype/kodeverdi", "Kode for bygningstype må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/beskrivelseAvTiltak/bruk/bygningstype/kodeverdi", "Kode for bygningstype må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/bruk/bygningstype/kodebeskrivelse", "Beskrivelse for bygningstype må være utfylt", ValidationResultSeverityEnum.ERROR);
+            
+            //AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/bruk/tiltaksformaal", "Kode for tiltakets formål må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/bruk/tiltaksformaal", "Tiltaksformaal må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.kodeliste_gyldig, "/beskrivelseAvTiltak/bruk/tiltaksformaal", "Ugyldig kodeliste for tiltaksformaal.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/bruk/tiltaksformaal/kodeverdi", "Kode for tiltaksformaal må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/beskrivelseAvTiltak/bruk/tiltaksformaal/kodeverdi", "Kode for tiltaksformaal må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/bruk/tiltaksformaal/kodebeskrivelse", "Beskrivelse for tiltaksformaal må være utfylt", ValidationResultSeverityEnum.ERROR);
+            
+            
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/type", "Tiltakstype må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.kodeliste_gyldig, "/beskrivelseAvTiltak/type", "Ugyldig kodeliste for tiltakstype.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/type/kodeverdi", "Kode for tiltakstype må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/beskrivelseAvTiltak/type/kodeverdi", "Kode for tiltakstype må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/type/kodebeskrivelse", "Beskrivelse for tiltakstype må være utfylt", ValidationResultSeverityEnum.ERROR);
+            
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/BRA", "Tiltakets bruttoareal må være utfylt", ValidationResultSeverityEnum.ERROR);
 
 
             //TODO "ArbeidstilsynetsSamtykke" to "ArbeidstilsynetsSamtykkeV2"/"ArbeidstilsynetsSamtykkeDfv45957"??  rule may need to have dfv in the first "node" in order to connect the text to the correct version and correct schema.

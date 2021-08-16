@@ -7,17 +7,22 @@ using System.Threading.Tasks;
 namespace Dibk.Ftpb.Validation.Application.Enums
 {
     [AttributeUsage(AttributeTargets.Field)]
-    public class EnumerationAttribute : Attribute
+    public class EntityValidatorEnumerationAttribute : Attribute
     {
         public string XmlNode { get; set; }
         public string ValidatorId { get; set; }
     }
 
+    [AttributeUsage(AttributeTargets.Field)]
     public class SjekklistekravEnumerationAttribute : Attribute
     {
         public string SjekklistepunktVerdi { get; set; }
     }
 
-
+    [AttributeUsage(AttributeTargets.Field)]
+    public class FieldNameEnumerationAttribute : Attribute
+    {
+        public string FieldNameId { get; set; }
+    }
 
 }

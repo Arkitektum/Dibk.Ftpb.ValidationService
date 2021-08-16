@@ -24,8 +24,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(BeskrivelseAvTiltakValidationEnum.utfylt, null);
-            AddValidationRule(BeskrivelseAvTiltakValidationEnum.bra_utfylt, "BRA");
+            //AddValidationRule(BeskrivelseAvTiltakValidationEnum.utfylt, null);
+            //AddValidationRule(BeskrivelseAvTiltakValidationEnum.bra_utfylt, "BRA");
+
+            AddValidationRule(ValidationRuleEnum.utfylt);
+            AddValidationRule(ValidationRuleEnum.utfylt, "BRA");
+
+            
         }
 
         public ValidationResult Validate(BeskrivelseAvTiltakValidationEntity beskrivelseAvTiltakValidationEntity = null)
@@ -33,7 +38,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var xpath = beskrivelseAvTiltakValidationEntity?.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity?.ModelData))
             {
-                AddMessageFromRule(BeskrivelseAvTiltakValidationEnum.utfylt, xpath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, xpath);
             }
             else
             {
@@ -42,7 +47,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                 if (string.IsNullOrEmpty(beskrivelseAvTiltakValidationEntity?.ModelData?.BRA))
                 {
-                    AddMessageFromRule(BeskrivelseAvTiltakValidationEnum.bra_utfylt, xpath);
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/BRA");
 
                 }
                 

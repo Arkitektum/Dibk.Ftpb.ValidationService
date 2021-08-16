@@ -28,55 +28,68 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(KodeListValidationEnum.utfylt, null);
-            AddValidationRule(KodeListValidationEnum.kode_KanIkkeValidere, null);
-            AddValidationRule(KodeListValidationEnum.kodeverdi_utfylt, "kodeverdi");
-            AddValidationRule(KodeListValidationEnum.kodeverdi_gyldig, "kodeverdi");
-            AddValidationRule(KodeListValidationEnum.kodebeskrivelse_utfylt, "kodebeskrivelse");
-            AddValidationRule(KodeListValidationEnum.kodebeskrivelse_gyldig, "kodebeskrivelse");
+            //AddValidationRule(KodeListValidationEnum.utfylt, null);
+            //AddValidationRule(KodeListValidationEnum.kode_KanIkkeValidere, null);
+            //AddValidationRule(KodeListValidationEnum.kodeverdi_utfylt, "kodeverdi");
+            //AddValidationRule(KodeListValidationEnum.kodeverdi_gyldig, "kodeverdi");
+            //AddValidationRule(KodeListValidationEnum.kodebeskrivelse_utfylt, "kodebeskrivelse");
+            //AddValidationRule(KodeListValidationEnum.kodebeskrivelse_gyldig, "kodebeskrivelse");
+
+            AddValidationRule(ValidationRuleEnum.utfylt, null);
+            AddValidationRule(ValidationRuleEnum.kodeliste_gyldig, null);
+            AddValidationRule(ValidationRuleEnum.utfylt, "kodeverdi");
+            AddValidationRule(ValidationRuleEnum.gyldig, "kodeverdi");
+            AddValidationRule(ValidationRuleEnum.utfylt, "kodebeskrivelse");
+            
         }
 
-        public ValidationResult Validate(KodelisteValidationEntity kodeliste)
+        public ValidationResult Validate(KodelisteValidationEntity kodeEntry)
         {
             base.ResetValidationMessages();
 
-            var xpath = kodeliste.DataModelXpath;
+            var xpath = kodeEntry.DataModelXpath;
 
-            if (Helpers.ObjectIsNullOrEmpty(kodeliste?.ModelData))
+            if (Helpers.ObjectIsNullOrEmpty(kodeEntry?.ModelData))
             {
-                AddMessageFromRule(KodeListValidationEnum.utfylt, xpath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, xpath);
             }
             else
             {
-                if (Helpers.ObjectIsNullOrEmpty(kodeliste.ModelData.Kodeverdi))
+                if (Helpers.ObjectIsNullOrEmpty(kodeEntry.ModelData.Kodeverdi))
                 {
-                    AddMessageFromRule(KodeListValidationEnum.kodeverdi_utfylt, xpath);
+                    //AddMessageFromRule(ValidationRuleEnum.kodeverdi_utfylt, xpath);
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/kodeverdi");
                 }
                 else
                 {
-                    var isCodeValid = _codeListService.IsCodelistValid(_codeListName, kodeliste.ModelData?.Kodeverdi, _registryType);
+                    var isCodeValid = _codeListService.IsCodelistValid(_codeListName, kodeEntry.ModelData?.Kodeverdi, _registryType);
                     if (!isCodeValid.HasValue)
                     {
-                        AddMessageFromRule(KodeListValidationEnum.kode_KanIkkeValidere, xpath);
+                        AddMessageFromRule(ValidationRuleEnum.kode_KanIkkeValidere, $"{xpath}/kodeverdi");
                     }
                     else
                     {
                         if (!isCodeValid.GetValueOrDefault())
-                            AddMessageFromRule(KodeListValidationEnum.kodeverdi_gyldig, xpath, new[] { kodeliste.ModelData?.Kodeverdi });
+                        {
+                            //AddMessageFromRule(KodeListValidationEnum.kodeverdi_gyldig, xpath, new[] { kodeliste.ModelData?.Kodeverdi });
+                            AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xpath}/kodeverdi", new[] { kodeEntry.ModelData?.Kodeverdi });
+                        }
                     }
 
-                    if (string.IsNullOrEmpty(kodeliste.ModelData.Kodebeskrivelse))
+                    if (string.IsNullOrEmpty(kodeEntry.ModelData.Kodebeskrivelse))
                     {
-                        AddMessageFromRule(KodeListValidationEnum.kodebeskrivelse_utfylt, xpath);
+                        //AddMessageFromRule(ValidationRuleEnum.kodebeskrivelse_utfylt, xpath);
+                        AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/kodebeskrivelse");
                     }
                     else
                     {
                         if (isCodeValid.GetValueOrDefault())
                         {
-                            var isCodelistLabelValid = _codeListService.IsCodelistLabelValid(_codeListName,kodeliste.ModelData?.Kodeverdi, kodeliste.ModelData?.Kodebeskrivelse, _registryType);
+                            var isCodelistLabelValid = _codeListService.IsCodelistLabelValid(_codeListName,kodeEntry.ModelData?.Kodeverdi, kodeEntry.ModelData?.Kodebeskrivelse, _registryType);
                             if (!isCodelistLabelValid.GetValueOrDefault())
                             {
-                                AddMessageFromRule(KodeListValidationEnum.kodeverdi_gyldig, xpath, new[] { kodeliste.ModelData?.Kodeverdi, kodeliste.ModelData?.Kodebeskrivelse });
+                                //AddMessageFromRule(KodeListValidationEnum.kodeverdi_gyldig, xpath, new[] { kodeliste.ModelData?.Kodeverdi, kodeliste.ModelData?.Kodebeskrivelse });
+                                AddMessageFromRule(ValidationRuleEnum.kodeliste_gyldig, xpath, new[] { kodeEntry.ModelData?.Kodeverdi, kodeEntry.ModelData?.Kodebeskrivelse });
                             }
                         }
                     }

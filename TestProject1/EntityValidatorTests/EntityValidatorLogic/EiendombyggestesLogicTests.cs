@@ -15,12 +15,12 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests.EntityVali
    public class EiendombyggestesLogicTests
     {
         IMunicipalityValidator _municipalityValidator;
-        private EiendombyggestedLogic _eiendombyggestedLogic;
+        private EiendombyggestedValidatorLogic _eiendombyggestedLogic;
 
         public EiendombyggestesLogicTests()
         {
             _municipalityValidator = MockDataSource.MunicipalityValidatorResult(MunicipalityValidationEnum.Ok);
-            _eiendombyggestedLogic = new EiendombyggestedLogic(1, _municipalityValidator);
+            _eiendombyggestedLogic = new EiendombyggestedValidatorLogic(1, _municipalityValidator);
 
         }
         [Fact]

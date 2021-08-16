@@ -15,7 +15,8 @@ namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
     {
         public bool? Sjekklistepunktsvar { get; set; }
         public string Dokumentasjon { get; set; }
-        public SjekklistepunktValidationEntity Sjekklistepunkt { get; set; }
-    
+        //public SjekklistepunktValidationEntity Sjekklistepunkt { get; set; }
+        public KodelisteValidationEntity Sjekklistepunkt { get; set; }
+
     }
 }

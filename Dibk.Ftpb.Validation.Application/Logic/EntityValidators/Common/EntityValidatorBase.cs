@@ -14,7 +14,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
     public abstract class EntityValidatorBase : IEntityValidator
     {
         protected string EntityName;
-        public string _idPath;
+        private string _ruleIdPath;
         private string _entityXPath;
         //public abstract string ruleXmlElement { get; set; }
         protected ValidationResult _validationResult;
@@ -31,12 +31,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             var node = GetEntityValidatorNode(entityValidatorTree, nodeId, validatorName);
             if (node != null)
             {
-                _idPath = node.IdPath;
+                _ruleIdPath = node.IdPath;
                 _entityXPath = node.EntityXPath;
             }
             else
             {
-                _idPath = "Can't find the node";
+                _ruleIdPath = "Can't find the node";
                 _entityXPath = $"Can't find the node:'{validatorName}' with nodeId:'{nodeId}'";
             }
             
@@ -86,9 +86,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 
         //    return validationRule;
         //}
-        protected void AddValidationRule(object id)
+        protected void AddValidationRule(object rule)
         {
-            AddValidationRule(id, null);
+            AddValidationRule(rule, null);
         }
 
         //protected void AddValidationRule(ValidationRuleEnum id, string xmlElement)
@@ -106,12 +106,21 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
         protected void AddValidationRule(object rule, string xmlElement)
         {
             var separator = "";
-            int? enumHashCode;
+            int? ruleHashCode;
             string elementRuleId = null;
             if (rule is Enum)
             {
-                enumHashCode = rule.GetHashCode();
-                elementRuleId = $"{_idPath}.{enumHashCode}";
+                ruleHashCode = rule.GetHashCode();
+                if (xmlElement != null)
+                {
+                    FieldNameEnum fieldNameEnum = (FieldNameEnum)System.Enum.Parse(typeof(FieldNameEnum), xmlElement);
+                    var fieldNameNumber = Helpers.GetEnumEntityValidatorNumber(fieldNameEnum);
+                    elementRuleId = $"{_ruleIdPath}.{fieldNameNumber}.{ruleHashCode}";
+                }
+                else
+                {
+                    elementRuleId = $"{_ruleIdPath}.{ruleHashCode}";
+                }
             }
 
             if (!string.IsNullOrEmpty(xmlElement))
@@ -121,7 +130,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             string xPath = $"{_entityXPath}{separator}{xmlElement}";
             //xPath = Regex.Replace(xPath, @"\[([0-9]*)\]", "{0}");
 
-            _validationResult.ValidationRules.Add(new ValidationRule() { Rule = rule.ToString(), Xpath = xPath, XmlElement = xmlElement, Id = elementRuleId ?? _idPath });
+            _validationResult.ValidationRules.Add(new ValidationRule() { Rule = rule.ToString(), Xpath = xPath, XmlElement = xmlElement, Id = elementRuleId ?? _ruleIdPath });
         }
 
 
@@ -181,7 +190,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             var validationMessage = new ValidationMessage()
             {
                 Rule = idSt,
-                Reference = rule.Id ?? _idPath,
+                Reference = rule.Id ?? _ruleIdPath,
                 XpathField = newXPath,
                 MessageParameters = messageParameters
             };
