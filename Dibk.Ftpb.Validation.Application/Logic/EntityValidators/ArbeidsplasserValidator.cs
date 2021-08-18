@@ -8,7 +8,7 @@ using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class ArbeidsplasserValidator : EntityValidatorBase, IArbeidsplasserValidator
+    public class ArbeidsplasserValidator : EntityValidatorBase
     {
         private List<string> _attachmentList;
         
@@ -16,19 +16,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ArbeidsplasserValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId) 
             : base(entityValidatorTree, nodeId)
-        {
-        }
+        { }
 
-        //TODO: Fix this
-        public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, IEnumerable<SjekklistekravValidationEntity> sjekkliste, List<string> attachments = null)
-        {
-            throw new System.NotImplementedException();
-        }
         public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, List<string> attachments = null)
         {
-
             _attachmentList = attachments;
-
             ValidateEntityFields(arbeidsplasser);
 
             return _validationResult;

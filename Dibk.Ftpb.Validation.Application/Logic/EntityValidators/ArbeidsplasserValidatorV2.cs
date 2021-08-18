@@ -8,7 +8,7 @@ using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class ArbeidsplasserValidatorV2 : EntityValidatorBase, IArbeidsplasserValidator
+    public class ArbeidsplasserValidatorV2 : ArbeidsplasserValidator
     {
         private List<string> _attachmentList;
         
@@ -17,12 +17,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public ArbeidsplasserValidatorV2(IList<EntityValidatorNode> entityValidatorTree, int nodeId) 
             : base(entityValidatorTree, nodeId)
         {
-        }
-
-        //TODO: Fix this
-        public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, List<string> attachments = null)
-        {
-            throw new System.NotImplementedException();
         }
 
         public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, IEnumerable<SjekklistekravValidationEntity> sjekkliste, List<string> attachments = null)
@@ -37,12 +31,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-            this.AddValidationRule(ArbeidsplasserValidationEnum.utfylt);
-            this.AddValidationRule(ArbeidsplasserValidationEnum.framtidige_eller_eksisterende_utfylt);
-            this.AddValidationRule(ArbeidsplasserValidationEnum.faste_eller_midlertidige_utfylt);
-            this.AddValidationRule(ArbeidsplasserValidationEnum.type_arbeid_utfylt, "antallVirksomheter");
-            this.AddValidationRule(ArbeidsplasserValidationEnum.utleieBygg, "utleieBygg");
-            this.AddValidationRule(ArbeidsplasserValidationEnum.beskrivelse, "beskrivelse");
+            //this.AddValidationRule(ArbeidsplasserValidationEnum.utfylt);
+            //this.AddValidationRule(ArbeidsplasserValidationEnum.framtidige_eller_eksisterende_utfylt);
+            //this.AddValidationRule(ArbeidsplasserValidationEnum.faste_eller_midlertidige_utfylt);
+            //this.AddValidationRule(ArbeidsplasserValidationEnum.type_arbeid_utfylt, "antallVirksomheter");
+            //this.AddValidationRule(ArbeidsplasserValidationEnum.utleieBygg, "utleieBygg");
+            //this.AddValidationRule(ArbeidsplasserValidationEnum.beskrivelse, "beskrivelse");
+
+            base.InitializeValidationRules();
+            this.AddValidationRule(ATILSjekklistekravEnum.pkt_1_17_dokumentasjon_utfylt);
         }
 
         public void ValidateEntityFields(ArbeidsplasserValidationEntity arbeidsplasserValEntity, IEnumerable<SjekklistekravValidationEntity> sjekkliste)

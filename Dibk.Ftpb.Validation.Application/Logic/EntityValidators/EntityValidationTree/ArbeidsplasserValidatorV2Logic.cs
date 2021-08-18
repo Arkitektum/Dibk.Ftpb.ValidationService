@@ -10,14 +10,14 @@ using Dibk.Ftpb.Validation.Application.Reporter;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidationTree
 {
-    public class ArbeidsplasserValidatorLogic
+    public class ArbeidsplasserValidatorV2Logic : ArbeidsplasserValidatorLogic
     {
         private IList<EntityValidatorNode> _tree;
         private List<EntityValidatorNode> _entityValidatorNodes;
-        private ArbeidsplasserValidator _arbeidsplasserValidator;
+        private ArbeidsplasserValidatorV2 _arbeidsplasserValidator;
         private int _mainNode;
 
-        public ArbeidsplasserValidatorLogic(int mainNode)
+        public ArbeidsplasserValidatorV2Logic(int mainNode) : base(mainNode)
         {
             _mainNode = mainNode;
             _entityValidatorNodes = ValidatorEntityNodeList();
@@ -48,31 +48,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
             get => AllValidationRules();
 
         }
-        public ArbeidsplasserValidator Validator
+        public ArbeidsplasserValidatorV2 Validator
         {
             get => SetUpClasses();
         }
 
-        private ArbeidsplasserValidator SetUpClasses()
+        private ArbeidsplasserValidatorV2 SetUpClasses()
         {
-            //if (_arbeidsplasserValidator == null)
-            //{
-            //    if (arbeidsplasserValidatorEnum == EntityValidatorEnum.ArbeidsplasserValidator)
-            //    {
-            //        _arbeidsplasserValidator = new ArbeidsplasserValidator(Tree, _mainNode);
-            //    }
-            //    else if (arbeidsplasserValidatorEnum == EntityValidatorEnum.ArbeidsplasserValidatorV2)
-            //    {
-            //        _arbeidsplasserValidator = new ArbeidsplasserValidatorV2(Tree, _mainNode);
-            //    }
-            //    else
-            //    {
-            //        throw new ArgumentOutOfRangeException("Invalid versjon of ArbeidsplasserValidator");
-            //    }
-            //}
             if (_arbeidsplasserValidator == null)
             {
-                _arbeidsplasserValidator = new ArbeidsplasserValidator(Tree, _mainNode);
+                _arbeidsplasserValidator = new ArbeidsplasserValidatorV2(Tree, _mainNode);
             }
             return _arbeidsplasserValidator;
         }

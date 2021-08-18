@@ -29,7 +29,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private EiendombyggestedValidatorLogic _eiendombyggestedLogic;
         private TiltakshaverValidatorLogic _tiltakshaverValidatorLogic;
         private FakturamottakerValidatorLogic _fakturamottakerValidatorLogic;
-        private ArbeidsplasserValidatorLogic _arbeidsplasserValidatorLogic;
+        private ArbeidsplasserValidatorV2Logic _arbeidsplasserValidatorLogic;
         private AnsvarligSoekerValidatorLogic _ansvarligSoekerValidatorLogic;
         private SjekklistekravValidatorLogic _sjekklistekravValidatorLogic;
 
@@ -44,7 +44,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private IEiendomByggestedValidator _eiendomByggestedValidator;
         private IAktoerValidator _ansvarligSoekerValidator;
         private IFakturamottakerValidator _fakturamottakerValidator;
-        private IArbeidsplasserValidator _arbeidsplasserValidator;
+        private ArbeidsplasserValidatorV2 _arbeidsplasserValidator;
         private ISjekklistekravValidator _sjekklistekravValidator;
         //private ISjekklistepunktValidator _sjekklistepunktValidator;
         
@@ -83,7 +83,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _eiendombyggestedLogic = new EiendombyggestedValidatorLogic(1, _municipalityValidator);
             _tiltakshaverValidatorLogic = new TiltakshaverValidatorLogic(_eiendombyggestedLogic.LastNodeNumber + 1, _codeListService, _postalCodeService);
             _fakturamottakerValidatorLogic = new FakturamottakerValidatorLogic(_tiltakshaverValidatorLogic.LastNodeNumber + 1, _postalCodeService);
-            _arbeidsplasserValidatorLogic = new ArbeidsplasserValidatorLogic(_fakturamottakerValidatorLogic.LastNodeNumber + 1);
+            _arbeidsplasserValidatorLogic = new ArbeidsplasserValidatorV2Logic(_fakturamottakerValidatorLogic.LastNodeNumber + 1);
             _ansvarligSoekerValidatorLogic = new AnsvarligSoekerValidatorLogic(_arbeidsplasserValidatorLogic.LastNodeNumber + 1, _codeListService, _postalCodeService);
             _beskrivelseAvTiltakValidatorLogic = new BeskrivelseAvTiltakValidatorLogic(_ansvarligSoekerValidatorLogic.LastNodeNumber + 1, _codeListService);
             _sjekklistekravValidatorLogic = new SjekklistekravValidatorLogic(_beskrivelseAvTiltakValidatorLogic.LastNodeNumber + 1, _codeListService);
@@ -100,7 +100,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //Fakturamottaker
             _fakturamottakerValidator = _fakturamottakerValidatorLogic.Validator;
             //Arbeidsplasser
-            _arbeidsplasserValidator = _arbeidsplasserValidatorLogic.SetUpClasses(EntityValidatorEnum.ArbeidsplasserValidatorV2);
+            _arbeidsplasserValidator = _arbeidsplasserValidatorLogic.Validator;
             //AnsvarligSoeker
             _ansvarligSoekerValidator = _ansvarligSoekerValidatorLogic.Validator;
             //Sjekklistekr

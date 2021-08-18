@@ -31,7 +31,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private IMatrikkelValidator _matrikkelValidator;
         private IEiendomByggestedValidator _eiendomByggestedValidator;
         
-        private IArbeidsplasserValidator _arbeidsplasserValidator;
+        private ArbeidsplasserValidator _arbeidsplasserValidator;
         
         private IEnkelAdresseValidator _tiltakshaverEnkelAdresseValidator;
         private IKontaktpersonValidator _tiltakshaverKontaktpersonValidator;
