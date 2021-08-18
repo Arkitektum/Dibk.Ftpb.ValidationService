@@ -23,7 +23,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
         private IKodelisteValidator _tiltakshaverPartstypeValidator;
 
 
-        public TiltakshaverValidatorLogic(int mainNode,ICodeListService codeListService, IPostalCodeService postalCodeService)
+        public TiltakshaverValidatorLogic(int mainNode, ICodeListService codeListService, IPostalCodeService postalCodeService)
         {
             _mainNode = mainNode;
             _codeListService = codeListService;

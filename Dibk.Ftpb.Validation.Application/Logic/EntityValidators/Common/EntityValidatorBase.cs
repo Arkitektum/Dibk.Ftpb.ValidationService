@@ -114,8 +114,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
                 if (xmlElement != null)
                 {
                     FieldNameEnum fieldNameEnum = (FieldNameEnum)System.Enum.Parse(typeof(FieldNameEnum), xmlElement);
-                    var fieldNameNumber = Helpers.GetEnumEntityValidatorNumber(fieldNameEnum);
-                    elementRuleId = $"{_ruleIdPath}.{fieldNameNumber}.{ruleHashCode}";
+                    var fieldNameNumber = Helpers.GetEnumFieldNameNumber(fieldNameEnum);  //GetEnumEntityValidatorNumber
+                     elementRuleId = $"{_ruleIdPath}.{fieldNameNumber}.{ruleHashCode}";
                 }
                 else
                 {

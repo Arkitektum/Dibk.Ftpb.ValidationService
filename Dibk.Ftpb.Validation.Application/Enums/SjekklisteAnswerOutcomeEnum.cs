@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidationTree
+namespace Dibk.Ftpb.Validation.Application.Enums
 {
     public enum SjekklisteAnswerOutcomeEnum
     {

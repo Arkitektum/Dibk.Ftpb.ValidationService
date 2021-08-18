@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
+using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidationTree;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
@@ -21,6 +23,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests.EntityVali
         private ArbeidstilsynetsSamtykkeType _form;
 
         private readonly IPostalCodeService _postalCodeService;
+        private ICodeListService _codeListService;
 
         private readonly SjekklistekravValidatorLogic _sjekklistekravValidatorLogic;
         private ISjekklistekravValidator _sjekklistekravValidator;
@@ -29,7 +32,8 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests.EntityVali
 
         public SjekklistekravValidatorLogicTests()
         {
-            _sjekklistekravValidatorLogic = new SjekklistekravValidatorLogic(1);
+            _codeListService = MockDataSource.IsCodeListValid(FtbKodeListeEnum.Sjekklistepunkttype, true);
+            _sjekklistekravValidatorLogic = new SjekklistekravValidatorLogic(1, _codeListService);
             _sjekklistekravValidator = _sjekklistekravValidatorLogic.Validator;
         }
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
+using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidationTree;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
@@ -35,7 +36,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests.EntityVali
             _arbeidsplasserValidationEntity = new Logic.Mappers.ArbeidstilsynetsSamtykke2.ArbeidsplasserMapper().Map(_form.arbeidsplasser, "UnitTest");
 
             _arbeidsplasserValidatorLogic = new ArbeidsplasserValidatorLogic(1);
-            _arbeidsplasserValidator = _arbeidsplasserValidatorLogic.Validator;
+            _arbeidsplasserValidator = _arbeidsplasserValidatorLogic.SetUpClasses(EntityValidatorEnum.ArbeidsplasserValidator);
         }
 
         [Fact]
@@ -57,7 +58,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests.EntityVali
         [Fact]
         public void TestValidator()
         {
-            var validator = _arbeidsplasserValidatorLogic.Validator;
+            var validator = _arbeidsplasserValidatorLogic.SetUpClasses(EntityValidatorEnum.ArbeidsplasserValidator);
             var result = validator.Validate(_arbeidsplasserValidationEntity, new List<string>());
 
             result.Should().NotBeNull();

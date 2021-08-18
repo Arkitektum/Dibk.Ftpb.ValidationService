@@ -40,6 +40,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
         }
         public int LastNodeNumber
         {
+            //TODO: Er dette riktig?? Skal være "_mainNode"
             get => _mainNode + 1;
         }
         public List<ValidationRule> ValidationRules
@@ -47,15 +48,28 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
             get => AllValidationRules();
 
         }
-        public IArbeidsplasserValidator Validator
-        {
-            get => SetUpClasses();
-        }
+        //public IArbeidsplasserValidator Validator
+        //{
+        //    get => SetUpClasses();
+        //}
 
-        private IArbeidsplasserValidator SetUpClasses()
+        public IArbeidsplasserValidator SetUpClasses(EntityValidatorEnum arbeidsplasserValidatorEnum)
         {
             if (_arbeidsplasserValidator == null)
-                _arbeidsplasserValidator = new ArbeidsplasserValidator(Tree, _mainNode);
+            {
+                if (arbeidsplasserValidatorEnum == EntityValidatorEnum.ArbeidsplasserValidator)
+                {
+                    _arbeidsplasserValidator = new ArbeidsplasserValidator(Tree, _mainNode);
+                }
+                else if (arbeidsplasserValidatorEnum == EntityValidatorEnum.ArbeidsplasserValidatorV2)
+                {
+                    _arbeidsplasserValidator = new ArbeidsplasserValidatorV2(Tree, _mainNode);
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("Invalid versjon of ArbeidsplasserValidator");
+                }
+            }
 
             return _arbeidsplasserValidator;
         }

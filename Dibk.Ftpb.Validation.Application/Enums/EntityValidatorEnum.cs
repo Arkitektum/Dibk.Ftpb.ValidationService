@@ -73,5 +73,8 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         [EntityValidatorEnumerationAttribute(XmlNode = "type", ValidatorId = "21")]
         TiltakstypeValidator,
 
+        [EntityValidatorEnumerationAttribute(XmlNode = "arbeidsplasser", ValidatorId = "22")]
+        ArbeidsplasserValidatorV2,
+
     }
 }

@@ -46,7 +46,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private IFakturamottakerValidator _fakturamottakerValidator;
         private IArbeidsplasserValidator _arbeidsplasserValidator;
         private ISjekklistekravValidator _sjekklistekravValidator;
-        private ISjekklistepunktValidator _sjekklistepunktValidator;
+        //private ISjekklistepunktValidator _sjekklistepunktValidator;
         
 
 
@@ -86,7 +86,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _arbeidsplasserValidatorLogic = new ArbeidsplasserValidatorLogic(_fakturamottakerValidatorLogic.LastNodeNumber + 1);
             _ansvarligSoekerValidatorLogic = new AnsvarligSoekerValidatorLogic(_arbeidsplasserValidatorLogic.LastNodeNumber + 1, _codeListService, _postalCodeService);
             _beskrivelseAvTiltakValidatorLogic = new BeskrivelseAvTiltakValidatorLogic(_ansvarligSoekerValidatorLogic.LastNodeNumber + 1, _codeListService);
-            _sjekklistekravValidatorLogic = new SjekklistekravValidatorLogic(_beskrivelseAvTiltakValidatorLogic.LastNodeNumber + 1);
+            _sjekklistekravValidatorLogic = new SjekklistekravValidatorLogic(_beskrivelseAvTiltakValidatorLogic.LastNodeNumber + 1, _codeListService);
         }
 
         protected override void InstantiateValidators()
@@ -100,7 +100,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //Fakturamottaker
             _fakturamottakerValidator = _fakturamottakerValidatorLogic.Validator;
             //Arbeidsplasser
-            _arbeidsplasserValidator = _arbeidsplasserValidatorLogic.Validator;
+            _arbeidsplasserValidator = _arbeidsplasserValidatorLogic.SetUpClasses(EntityValidatorEnum.ArbeidsplasserValidatorV2);
             //AnsvarligSoeker
             _ansvarligSoekerValidator = _ansvarligSoekerValidatorLogic.Validator;
             //Sjekklistekr
@@ -130,7 +130,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             AccumulateValidationMessages(eiendomValidationResult.ValidationMessages);
 
             var attachments = Helpers.ObjectIsNullOrEmpty(validationInput.Attachments) ? null : validationInput.Attachments.Select(a => a.AttachmentTypeName).ToList();
-            var arbeidsplasserValidationResult = _arbeidsplasserValidator.Validate(_validationForm.ModelData.ArbeidsplasserValidationEntity, attachments);
+            var arbeidsplasserValidationResult = _arbeidsplasserValidator.Validate(_validationForm.ModelData.ArbeidsplasserValidationEntity, _validationForm.ModelData.SjekklistekravValidationEntities, attachments);
             AccumulateValidationMessages(arbeidsplasserValidationResult.ValidationMessages);
 
             var tiltakshaverValidationResult = _tiltakshaverValidator.Validate(_validationForm.ModelData.TiltakshaverValidationEntity);

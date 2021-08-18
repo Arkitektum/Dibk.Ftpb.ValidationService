@@ -13,6 +13,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
         utfylt,
         kodeverdi_mangler,
         kodeverdi_gyldig,
+        kodevbeskrivelse_mangler,
 
         [SjekklistekravEnumerationAttribute(SjekklistepunktVerdi = "1.14")] pkt_1_14_kodeverdi_utfylt,
         [SjekklistekravEnumerationAttribute(SjekklistepunktVerdi = "1.14")] pkt_1_14_kodeverdi_gyldig,

@@ -8,28 +8,29 @@ using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class ArbeidsplasserValidator : EntityValidatorBase, IArbeidsplasserValidator
+    public class ArbeidsplasserValidatorV2 : EntityValidatorBase, IArbeidsplasserValidator
     {
         private List<string> _attachmentList;
         
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        public ArbeidsplasserValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId) 
+        public ArbeidsplasserValidatorV2(IList<EntityValidatorNode> entityValidatorTree, int nodeId) 
             : base(entityValidatorTree, nodeId)
         {
         }
 
         //TODO: Fix this
-        public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, IEnumerable<SjekklistekravValidationEntity> sjekkliste, List<string> attachments = null)
+        public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, List<string> attachments = null)
         {
             throw new System.NotImplementedException();
         }
-        public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, List<string> attachments = null)
+
+        public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, IEnumerable<SjekklistekravValidationEntity> sjekkliste, List<string> attachments = null)
         {
 
             _attachmentList = attachments;
 
-            ValidateEntityFields(arbeidsplasser);
+            ValidateEntityFields(arbeidsplasser, sjekkliste);
 
             return _validationResult;
         }
@@ -44,7 +45,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             this.AddValidationRule(ArbeidsplasserValidationEnum.beskrivelse, "beskrivelse");
         }
 
-        public void ValidateEntityFields(ArbeidsplasserValidationEntity arbeidsplasserValEntity)
+        public void ValidateEntityFields(ArbeidsplasserValidationEntity arbeidsplasserValEntity, IEnumerable<SjekklistekravValidationEntity> sjekkliste)
         {
             var xpath = arbeidsplasserValEntity.DataModelXpath;
             var arbeidsplasser = arbeidsplasserValEntity.ModelData;
@@ -72,6 +73,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         if (antallVirksomheter <= 0)
                         {
                             AddMessageFromRule(ArbeidsplasserValidationEnum.utleieBygg, xpath);
+                        }
+
+                        foreach (var krav in sjekkliste)
+                        {
+                            if (krav.ModelData.Sjekklistepunkt.ModelData.Kodeverdi.Equals("1.17"))
+                            {
+                                if (string.IsNullOrEmpty(krav.ModelData.Dokumentasjon))
+                                {
+                                    AddMessageFromRule(ATILSjekklistekravEnum.pkt_1_17_dokumentasjon_utfylt, xpath);
+                                }
+                            }
                         }
                     }
 

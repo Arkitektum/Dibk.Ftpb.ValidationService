@@ -18,6 +18,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
         kode_KanIkkeValidere,
         kodeliste_gyldig,
         kommunenummer_utgått,
+        sjekklistepunkt_mangler,
 
         //eiendom
         //eiendom_utfylt,

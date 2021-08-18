@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
@@ -12,14 +13,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
 {
     public class SjekklistekravValidatorLogic
     {
+        private readonly ICodeListService _codeListService; 
         private IList<EntityValidatorNode> _tree;
         private List<EntityValidatorNode> _entityValidatorNodes;
+        private IKodelisteValidator _sjekklistepunktValidator;
+        private ISjekklistekravValidator _sjekklistekravValidator;
         private int _mainNode;
 
-        private ISjekklistekravValidator _sjekklistekravValidator;
-        public SjekklistekravValidatorLogic(int mainNode)
+        public SjekklistekravValidatorLogic(int mainNode, ICodeListService codeListService)
         {
             _mainNode = mainNode;
+            _codeListService = codeListService;
             _entityValidatorNodes = ValidatorEntityNodeList();
         }
 
@@ -40,7 +44,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
         }
         public int LastNodeNumber
         {
-            get => _mainNode + 3;
+            get => _mainNode + 1;
         }
         public List<ValidationRule> ValidationRules
         {
@@ -57,9 +61,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
         {
             if (_sjekklistekravValidator == null)
             {
-                //_sjekklistepunktValidator = new SjekklistepunktValidator(EntityValidatorTree, 23, _codeListService);
-                //_sjekklistekravValidator = new SjekklistekravValidator(EntityValidatorTree, 22, _sjekklistepunktValidator);
-                _sjekklistekravValidator = new ATILSjekklistekravValidator(Tree, 22);
+                //Tree, _mainNode + 2, _codeListService
+                _sjekklistepunktValidator = new ATILSjekklistepunktValidator(Tree, _mainNode + 1, _codeListService);
+                
+                _sjekklistekravValidator = new ATILSjekklistekravValidator(Tree, _mainNode, _sjekklistepunktValidator, _codeListService);
             }
 
             return _sjekklistekravValidator;

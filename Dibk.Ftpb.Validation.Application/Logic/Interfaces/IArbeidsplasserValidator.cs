@@ -8,6 +8,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
     {
         //string ruleXmlElement { get; }
         ValidationResult ValidationResult { get; set; }
+        
+        //TODO: Fix this
         ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, List<string> attachments = null);
+        ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, IEnumerable<SjekklistekravValidationEntity> sjekkliste, List<string> attachments = null);
     }
 }
