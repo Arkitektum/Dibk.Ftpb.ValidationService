@@ -12,10 +12,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
 {
     public class ArbeidsplasserValidatorLogic
     {
-        private IList<EntityValidatorNode> _tree;
-        private List<EntityValidatorNode> _entityValidatorNodes;
+        protected IList<EntityValidatorNode> _tree;
+        protected List<EntityValidatorNode> _entityValidatorNodes;
         private ArbeidsplasserValidator _arbeidsplasserValidator;
-        private int _mainNode;
+        protected int _mainNode;
 
         public ArbeidsplasserValidatorLogic(int mainNode)
         {
@@ -55,21 +55,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
 
         private ArbeidsplasserValidator SetUpClasses()
         {
-            //if (_arbeidsplasserValidator == null)
-            //{
-            //    if (arbeidsplasserValidatorEnum == EntityValidatorEnum.ArbeidsplasserValidator)
-            //    {
-            //        _arbeidsplasserValidator = new ArbeidsplasserValidator(Tree, _mainNode);
-            //    }
-            //    else if (arbeidsplasserValidatorEnum == EntityValidatorEnum.ArbeidsplasserValidatorV2)
-            //    {
-            //        _arbeidsplasserValidator = new ArbeidsplasserValidatorV2(Tree, _mainNode);
-            //    }
-            //    else
-            //    {
-            //        throw new ArgumentOutOfRangeException("Invalid versjon of ArbeidsplasserValidator");
-            //    }
-            //}
             if (_arbeidsplasserValidator == null)
             {
                 _arbeidsplasserValidator = new ArbeidsplasserValidator(Tree, _mainNode);
@@ -86,7 +71,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
             return validatorEntityNodeList;
         }
 
-        private List<ValidationRule> AllValidationRules()
+        protected virtual List<ValidationRule> AllValidationRules()
         {
             var validationResults = new List<ValidationRule>();
             validationResults.AddRange(_arbeidsplasserValidator.ValidationResult.ValidationRules);

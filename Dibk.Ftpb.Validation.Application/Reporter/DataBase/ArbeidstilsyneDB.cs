@@ -368,10 +368,10 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             //Tiltakshavers partstype
             AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.utfylt, "/tiltakshaver/partstype", "Tiltakshavers 'partstype' for foretak må fylles ut.");
             AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_utfylt, "/tiltakshaver/partstype", "Tiltakshavers kodeverdi for 'partstype' for foretak må fylles ut.");
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_utfylt, "/tiltakshaver/partstype/kodeverdi", "Kodeverdien for tiltakshavers 'partstype' for foretak må fylles ut.");
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_gyldig, "/tiltakshaver/partstype/kodeverdi", "Ugyldig kodeverdi '{0}' i henhold til kodeliste for 'partstype' for tiltakshaver. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype");
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodebeskrivelse_utfylt, "/tiltakshaver/partstype/kodebeskrivelse", "Beskrivelse for tiltakshavers 'partstype' for foretak må fylles ut.");
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodebeskrivelse_gyldig, "/tiltakshaver/partstype/kodebeskrivelse", "Ugyldig beskrivelse '{0}' i henhold til kodeliste for 'partstype' for tiltakshaver. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/tiltakshaver/partstype/kodeverdi", "Kodeverdien for tiltakshavers 'partstype' for foretak må fylles ut.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/tiltakshaver/partstype/kodeverdi", "Ugyldig kodeverdi '{0}' i henhold til kodeliste for 'partstype' for tiltakshaver. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/tiltakshaver/partstype/kodebeskrivelse", "Beskrivelse for tiltakshavers 'partstype' for foretak må fylles ut.");
+            //AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodebeskrivelse_gyldig, "/tiltakshaver/partstype/kodebeskrivelse", "Ugyldig beskrivelse '{0}' i henhold til kodeliste for 'partstype' for tiltakshaver. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.kodeliste_gyldig, "/tiltakshaver/partstype", "Ugyldig kodeliste for tiltakshaver.");
 
             //Tiltakshavers kontaktpersjon
@@ -403,19 +403,21 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(null, AktoerValidationEnum.organisasjonsnummer_gyldig, "/ansvarligSoeker/organisasjonsnummer", "Organisasjonsnummeret ('{0}') for ansvarlig søker er ikke gyldig.", ValidationResultSeverityEnum.ERROR);
 
             //Ansvarlig søkers partstype
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.utfylt, "/ansvarligSoeker/partstype", "Ansvarlig søkers 'partstype' for foretak må fylles ut.");
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_utfylt, "/ansvarligSoeker/partstype", "Ansvarlig søkers kodeverdi for 'partstype' for foretak må fylles ut.");
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_utfylt, "/ansvarligSoeker/partstype/kodeverdi", "Kodeverdien for ansvarlig søkers 'partstype' for foretak må fylles ut.");
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_gyldig, "/ansvarligSoeker/partstype/kodeverdi", "Ugyldig kodeverdi '{0}' i henhold til kodeliste for 'partstype' for ansvarlig søker. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype");
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodebeskrivelse_utfylt, "/ansvarligSoeker/partstype/kodebeskrivelse", "Beskrivelse for ansvarlig søkers 'partstype' for foretak må fylles ut.");
-            AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodebeskrivelse_gyldig, "/ansvarligSoeker/partstype/kodebeskrivelse", "Ugyldig beskrivelse '{0}' i henhold til kodeliste for 'partstype' for ansvarlig søker. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarligSoeker/partstype", "Ansvarlig søkers 'partstype' for foretak må fylles ut.");
+            //AddRuleToValidationMessageStorageEntry(null, KodeListValidationEnum.kodeverdi_utfylt, "/ansvarligSoeker/partstype", "Ansvarlig søkers kodeverdi for 'partstype' for foretak må fylles ut.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarligSoeker/partstype/kodeverdi", "Kodeverdien for ansvarlig søkers 'partstype' for foretak må fylles ut.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ansvarligSoeker/partstype/kodeverdi", "Ugyldig kodeverdi '{0}' i henhold til kodeliste for 'partstype' for ansvarlig søker. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarligSoeker/partstype/kodebeskrivelse", "Beskrivelse for ansvarlig søkers 'partstype' for foretak må fylles ut.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ansvarligSoeker/partstype/kodebeskrivelse", "Ugyldig beskrivelse '{0}' i henhold til kodeliste for 'partstype' for ansvarlig søker. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.kodeliste_gyldig, "/ansvarligSoeker/partstype", "Ugyldig kodeliste for ansvarlig søker.");
+            
             //Ansvarlig søkers kontaktpersjon
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarligSoeker/kontaktperson/navn", "Navnet til kontaktperson for ansvarlig søker bør fylles ut.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarligSoeker/kontaktperson/telefonnummer", "Telefonnummer til kontaktperson for ansvarlig søker bør fylles ut.");
 
 
             //fakturamottaker
-            AddRuleToValidationMessageStorageEntry(null, FakturamottakerValidationEnum.utfylt, "/fakturamottaker", "Fakturainformasjon må fylles ut.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/fakturamottaker", "Fakturainformasjon må fylles ut.", ValidationResultSeverityEnum.ERROR);
 
             AddRuleToValidationMessageStorageEntry(null, EnkelAdresseValidationEnum.utfylt, "/fakturamottaker/adresse", "Adresse bør fylles ut for fakturamottaker.", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, EnkelAdresseValidationEnum.adresselinje1_utfylt, "/fakturamottaker/adresse/adresselinje1", "Adresselinje 1 bør fylles ut for fakturamottaker.");
@@ -430,9 +432,9 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(null, EnkelAdresseValidationEnum.postnr_utfylt, "/fakturamottaker/adresse/postnr", "Postnummer for fakturamottaker må fylles ut.", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, EnkelAdresseValidationEnum.postnr_stemmerIkke, "/fakturamottaker/adresse/postnr", "Poststed for fakturamottaker.");
             AddRuleToValidationMessageStorageEntry(null, EnkelAdresseValidationEnum.postnr_4siffer, "/fakturamottaker/adresse/postnr", "Fakturamottakers postnr må bestå av 4 siffer");
-            AddRuleToValidationMessageStorageEntry(null, AktoerValidationEnum.organisasjonsnummer_utfylt, "/fakturamottaker/organisasjonsnummer", "Organisasjonsnummer for fakturamottaker må fylles ut.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/fakturamottaker/organisasjonsnummer", "Organisasjonsnummer for fakturamottaker må fylles ut.", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, AktoerValidationEnum.organisasjonsnummer_kontrollsiffer, "/fakturamottaker/organisasjonsnummer", "Organisasjonsnummeret ('{0}') for fakturamottaker har ikke gyldig kontrollsiffer.", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, AktoerValidationEnum.organisasjonsnummer_gyldig, "/fakturamottaker/organisasjonsnummer", "Organisasjonsnummeret ('{0}') for fakturamottaker er ikke gyldig.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/fakturamottaker/organisasjonsnummer", "Organisasjonsnummeret ('{0}') for fakturamottaker er ikke gyldig.", ValidationResultSeverityEnum.ERROR);
 
             //sjekklistekrav
             //AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.krav_utfylt, "/krav{0}", "Krav må være utfyllt", ValidationResultSeverityEnum.ERROR);

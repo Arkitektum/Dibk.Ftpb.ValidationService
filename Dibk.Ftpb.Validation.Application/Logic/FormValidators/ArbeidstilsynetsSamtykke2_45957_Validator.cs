@@ -37,8 +37,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private readonly ICodeListService _codeListService;
         private readonly IPostalCodeService _postalCodeService;
 
-        //private IKodelisteValidator _sjekklistepunktValidator;
-
         private IBeskrivelseAvTiltakValidator _beskrivelseAvTiltakValidator;
         private IAktoerValidator _tiltakshaverValidator;
         private IEiendomByggestedValidator _eiendomByggestedValidator;
@@ -46,10 +44,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private IFakturamottakerValidator _fakturamottakerValidator;
         private ArbeidsplasserValidatorV2 _arbeidsplasserValidator;
         private ISjekklistekravValidator _sjekklistekravValidator;
-        //private ISjekklistepunktValidator _sjekklistepunktValidator;
-        
-
-
 
         protected override string XPathRoot => "ArbeidstilsynetsSamtykke";
 
@@ -59,10 +53,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _municipalityValidator = municipalityValidator;
             _codeListService = codeListService;
             _postalCodeService = postalCodeService;
-
-
-
-
         }
 
         public override ValidationResult StartValidation(string dataFormatVersion, ValidationInput validationInput)
@@ -74,7 +64,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             ValidationReport.ValidationResult = ValidationResult;
 
             return ValidationResult;
-            //return ValidationReport;
         }
 
         protected override void InitializeValidatorConfig()
@@ -91,19 +80,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         protected override void InstantiateValidators()
         {
-            //BeskrivelseAvTiltak
             _beskrivelseAvTiltakValidator = _beskrivelseAvTiltakValidatorLogic.Validator;
-            //Eiendombyggested
             _eiendomByggestedValidator = _eiendombyggestedLogic.Validator;
-            //Tiltakshaver
             _tiltakshaverValidator = _tiltakshaverValidatorLogic.Validator;
-            //Fakturamottaker
             _fakturamottakerValidator = _fakturamottakerValidatorLogic.Validator;
-            //Arbeidsplasser
             _arbeidsplasserValidator = _arbeidsplasserValidatorLogic.Validator;
-            //AnsvarligSoeker
             _ansvarligSoekerValidator = _ansvarligSoekerValidatorLogic.Validator;
-            //Sjekklistekr
             _sjekklistekravValidator = _sjekklistekravValidatorLogic.Validator;
         }
 

@@ -23,6 +23,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
         private IEiendomByggestedValidator _eiendomByggestedValidator;
         private IList<EntityValidatorNode> _tree;
 
+        public EiendombyggestedValidatorLogic(int startNode, IMunicipalityValidator municipalityValidator)
+        {
+            _mainNode = startNode;
+            _municipalityValidator = municipalityValidator;
+            _entityValidatorNodes = ValidatorEntityNodeList();
+        }
 
         public IList<EntityValidatorNode> Tree
         {
@@ -73,12 +79,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
             return validationResults;
         }
 
-        public EiendombyggestedValidatorLogic(int startNode, IMunicipalityValidator municipalityValidator)
-        {
-            _mainNode = startNode;
-            _municipalityValidator = municipalityValidator;
-            _entityValidatorNodes = ValidatorEntityNodeList();
-        }
+
 
         public List<EntityValidatorNode> ValidatorEntityNodeList()
         {

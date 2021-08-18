@@ -29,10 +29,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(FakturamottakerValidationEnum.utfylt);
-            AddValidationRule(FakturamottakerValidationEnum.organisasjonsnummer_utfylt, "organisasjonsnummer");
+            AddValidationRule(ValidationRuleEnum.utfylt);
+            AddValidationRule(ValidationRuleEnum.utfylt, "organisasjonsnummer");
             AddValidationRule(FakturamottakerValidationEnum.organisasjonsnummer_kontrollsiffer, "organisasjonsnummer");
-            AddValidationRule(FakturamottakerValidationEnum.organisasjonsnummer_ugyldig, "organisasjonsnummer");
+            AddValidationRule(ValidationRuleEnum.gyldig, "organisasjonsnummer");
         }
 
         public ValidationResult Validate(FakturamottakerValidationEntity fakturamottaker = null)
