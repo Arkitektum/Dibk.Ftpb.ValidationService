@@ -6,6 +6,8 @@ using Moq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
+using Dibk.Ftpb.Validation.Application.Services;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Checklist;
 
 namespace Dibk.Ftpb.Validation.Application.Tests.Utils
 {
@@ -47,6 +49,15 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
             return postalCodeService.Object;
 
         }
+        public static IChecklistService GetCheckpoints(string category)
+        {
+            var checklistService = new Mock<IChecklistService>();
+            checklistService.Setup((a => a.GetAtilCheckpoints(It.IsAny<string>())))
+                .Returns(new List<Sjekk> { new Sjekk() { Id = "1.21", SjekkId = 2644, Navn = "Skal søknaden unntas offentilghet?", Prosesskategori = "AT", Rekkefolge = 26 } });
+            return checklistService.Object;
+
+        }
+
 
     }
 }

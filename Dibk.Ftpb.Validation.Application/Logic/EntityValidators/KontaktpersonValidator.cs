@@ -27,10 +27,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             var xpath = kontaktperson?.DataModelXpath;
             if (string.IsNullOrEmpty(kontaktperson?.ModelData?.Navn))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xpath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/navn");
 
             if (string.IsNullOrEmpty(kontaktperson?.ModelData?.Telefonnummer))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xpath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/telefonnummer");
 
             return _validationResult;
         }

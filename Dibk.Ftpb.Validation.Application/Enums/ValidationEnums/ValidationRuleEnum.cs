@@ -18,8 +18,22 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
         kode_KanIkkeValidere,
         kodeliste_gyldig,
         kommunenummer_utgått,
+        
         sjekklistepunkt_mangler,
 
+        sjekklistepunktsvar_utfylt,
+        sjekklistepunkt_dokumentasjon_utfylt,
+        sjekklistepunkt_1_17_dokumentasjon_utfylt,
+
+        postnr_4siffer,
+        postnr_kontrollsiffer,
+        postnr_stemmerIkke,
+        postnr_ikke_validert,
+        tillatte_postnr_i_kommune,
+        
+        kontrollsiffer,
+        dekryptering,
+        telmob_utfylt,
         //eiendom
         //eiendom_utfylt,
 

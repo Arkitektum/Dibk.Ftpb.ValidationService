@@ -31,7 +31,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             AddValidationRule(ValidationRuleEnum.utfylt);
             AddValidationRule(ValidationRuleEnum.utfylt, "organisasjonsnummer");
-            AddValidationRule(FakturamottakerValidationEnum.organisasjonsnummer_kontrollsiffer, "organisasjonsnummer");
+            AddValidationRule(ValidationRuleEnum.kontrollsiffer, "organisasjonsnummer");
             AddValidationRule(ValidationRuleEnum.gyldig, "organisasjonsnummer");
         }
 
@@ -40,13 +40,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var xpath = fakturamottaker.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(fakturamottaker.ModelData))
             {
-                AddMessageFromRule(FakturamottakerValidationEnum.utfylt, xpath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, xpath);
             }
             else
             {
                 if (string.IsNullOrEmpty(fakturamottaker.ModelData.Organisasjonsnummer))
                 {
-                    AddMessageFromRule(FakturamottakerValidationEnum.organisasjonsnummer_utfylt, xpath);
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/organisasjonsnummer");
                 }
                 else
                 {
@@ -54,13 +54,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     switch (organisasjonsnummerValidation)
                     {
                         case OrganisasjonsnummerValidation.Empty:
-                            AddMessageFromRule(FakturamottakerValidationEnum.organisasjonsnummer_utfylt, xpath);
+                            AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/organisasjonsnummer");
                             break;
                         case OrganisasjonsnummerValidation.InvalidDigitsControl:
-                            AddMessageFromRule(FakturamottakerValidationEnum.organisasjonsnummer_kontrollsiffer, xpath);
+                            AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, $"{xpath}/organisasjonsnummer");
                             break;
                         case OrganisasjonsnummerValidation.Invalid:
-                            AddMessageFromRule(FakturamottakerValidationEnum.organisasjonsnummer_ugyldig, xpath);
+                            AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xpath}/organisasjonsnummer");
                             break;
                     }
                 }

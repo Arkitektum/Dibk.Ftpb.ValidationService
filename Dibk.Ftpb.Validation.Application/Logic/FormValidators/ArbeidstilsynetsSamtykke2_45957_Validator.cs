@@ -16,6 +16,7 @@ using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidationTree;
+using Dibk.Ftpb.Validation.Application.Services;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
@@ -36,7 +37,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private readonly IMunicipalityValidator _municipalityValidator;
         private readonly ICodeListService _codeListService;
         private readonly IPostalCodeService _postalCodeService;
-
+        private readonly IChecklistService _checklistService;
         private IBeskrivelseAvTiltakValidator _beskrivelseAvTiltakValidator;
         private IAktoerValidator _tiltakshaverValidator;
         private IEiendomByggestedValidator _eiendomByggestedValidator;
@@ -47,12 +48,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         protected override string XPathRoot => "ArbeidstilsynetsSamtykke";
 
-        public ArbeidstilsynetsSamtykke2_45957_Validator(IValidationMessageComposer validationMessageComposer, IMunicipalityValidator municipalityValidator, ICodeListService codeListService, IPostalCodeService postalCodeService)
+        public ArbeidstilsynetsSamtykke2_45957_Validator(IValidationMessageComposer validationMessageComposer
+                                                        , IMunicipalityValidator municipalityValidator, ICodeListService codeListService
+                                                        , IPostalCodeService postalCodeService, IChecklistService checklistService)
             : base(validationMessageComposer)
         {
             _municipalityValidator = municipalityValidator;
             _codeListService = codeListService;
             _postalCodeService = postalCodeService;
+            _checklistService = checklistService;
         }
 
         public override ValidationResult StartValidation(string dataFormatVersion, ValidationInput validationInput)
@@ -124,7 +128,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var fakturamottakerValidationResult = _fakturamottakerValidator.Validate(_validationForm.ModelData.FakturamottakerValidationEntity);
             AccumulateValidationMessages(fakturamottakerValidationResult.ValidationMessages);
 
-            var sjekklistekravValidationResult = _sjekklistekravValidator.Validate(_validationForm.ModelData.SjekklistekravValidationEntities);
+            var sjekklistekravValidationResult = _sjekklistekravValidator.Validate(_validationForm.ModelData.SjekklistekravValidationEntities, _checklistService);
             AccumulateValidationMessages(sjekklistekravValidationResult.ValidationMessages);
 
             var beskrivelseAvTiltakValidationResult = _beskrivelseAvTiltakValidator.Validate(_validationForm.ModelData.BeskrivelseAvTiltakValidationEntity);

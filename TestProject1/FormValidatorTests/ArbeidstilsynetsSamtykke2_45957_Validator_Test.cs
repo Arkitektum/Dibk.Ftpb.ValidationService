@@ -16,6 +16,7 @@ using System.IO;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Xunit;
+using Dibk.Ftpb.Validation.Application.Services;
 
 namespace Dibk.Ftpb.Validation.Application.Tests
 {
@@ -24,6 +25,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
         IMunicipalityValidator _municipalityValidator;
         private ICodeListService _codeListService;
         private readonly IPostalCodeService _postalCodeService;
+        private IChecklistService _checklistService;
 
         ArbeidstilsynetsSamtykke2_45957_Validator _formValidator;
         private readonly string _rootDirTestResults = @"C:\ATIL_testresults";
@@ -36,9 +38,9 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             _codeListService = MockDataSource.IsCodeListValid(FtbKodeListeEnum.Partstype, true);
             _postalCodeService = MockDataSource.ValidatePostnr(true, "Bø i Telemark", "true");
             FormValidatorConfiguration formValidatorConfiguration = new FormValidatorConfiguration();
-
+            _checklistService = MockDataSource.GetCheckpoints("ATTTT");
             _validationMessageComposer = new ValidationMessageComposer();
-            _formValidator = new ArbeidstilsynetsSamtykke2_45957_Validator(_validationMessageComposer, _municipalityValidator, _codeListService, _postalCodeService);
+            _formValidator = new ArbeidstilsynetsSamtykke2_45957_Validator(_validationMessageComposer, _municipalityValidator, _codeListService, _postalCodeService, _checklistService);
 
             if (WriteValidationResultsToJsonFile && !Directory.Exists(_rootDirTestResults))
             {

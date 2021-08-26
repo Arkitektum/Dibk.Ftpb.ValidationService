@@ -57,7 +57,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             {
                 if (Helpers.ObjectIsNullOrEmpty(kodeEntry.ModelData.Kodeverdi))
                 {
-                    //AddMessageFromRule(ValidationRuleEnum.kodeverdi_utfylt, xpath);
                     AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/kodeverdi");
                 }
                 else
@@ -71,14 +70,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     {
                         if (!isCodeValid.GetValueOrDefault())
                         {
-                            //AddMessageFromRule(KodeListValidationEnum.kodeverdi_gyldig, xpath, new[] { kodeliste.ModelData?.Kodeverdi });
                             AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xpath}/kodeverdi", new[] { kodeEntry.ModelData?.Kodeverdi });
                         }
                     }
 
                     if (string.IsNullOrEmpty(kodeEntry.ModelData.Kodebeskrivelse))
                     {
-                        //AddMessageFromRule(ValidationRuleEnum.kodebeskrivelse_utfylt, xpath);
                         AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/kodebeskrivelse");
                     }
                     else
@@ -88,7 +85,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                             var isCodelistLabelValid = _codeListService.IsCodelistLabelValid(_codeListName,kodeEntry.ModelData?.Kodeverdi, kodeEntry.ModelData?.Kodebeskrivelse, _registryType);
                             if (!isCodelistLabelValid.GetValueOrDefault())
                             {
-                                //AddMessageFromRule(KodeListValidationEnum.kodeverdi_gyldig, xpath, new[] { kodeliste.ModelData?.Kodeverdi, kodeliste.ModelData?.Kodebeskrivelse });
                                 AddMessageFromRule(ValidationRuleEnum.kodeliste_gyldig, xpath, new[] { kodeEntry.ModelData?.Kodeverdi, kodeEntry.ModelData?.Kodebeskrivelse });
                             }
                         }

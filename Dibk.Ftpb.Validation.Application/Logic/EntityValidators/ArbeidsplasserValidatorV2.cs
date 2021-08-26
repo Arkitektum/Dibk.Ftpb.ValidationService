@@ -29,7 +29,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected override void InitializeValidationRules()
         {
             base.InitializeValidationRules();
-            AddValidationRule(ATILSjekklistekravEnum.pkt_1_17_dokumentasjon_utfylt);
+            AddValidationRuleOverideXpath(ValidationRuleEnum.sjekklistepunkt_1_17_dokumentasjon_utfylt, "/krav{0}/dokumentasjon");
         }
 
         public void ValidateEntityFields(ArbeidsplasserValidationEntity arbeidsplasserValEntity, IEnumerable<SjekklistekravValidationEntity> sjekkliste)
@@ -68,7 +68,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                             {
                                 if (string.IsNullOrEmpty(krav.ModelData.Dokumentasjon))
                                 {
-                                    AddMessageFromRule(ATILSjekklistekravEnum.pkt_1_17_dokumentasjon_utfylt, xpath);
+                                    AddMessageFromRule(ValidationRuleEnum.sjekklistepunkt_1_17_dokumentasjon_utfylt, krav.ModelData.Sjekklistepunkt.DataModelXpath);
                                 }
                             }
                         }

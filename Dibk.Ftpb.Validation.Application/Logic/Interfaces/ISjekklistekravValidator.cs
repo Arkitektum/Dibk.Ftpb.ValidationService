@@ -1,5 +1,6 @@
 ﻿using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
+using Dibk.Ftpb.Validation.Application.Services;
 using System.Collections.Generic;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
@@ -8,6 +9,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
     {
         //string ruleXmlElement { get; }
         ValidationResult ValidationResult { get; }
-        ValidationResult Validate(IEnumerable<SjekklistekravValidationEntity> sjekklistekrav);
+        ValidationResult Validate(IEnumerable<SjekklistekravValidationEntity> sjekklistekrav, IChecklistService checklistService);
     }
 }

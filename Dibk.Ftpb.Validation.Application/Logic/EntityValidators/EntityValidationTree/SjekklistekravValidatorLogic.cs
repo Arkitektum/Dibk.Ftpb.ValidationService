@@ -75,7 +75,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
             var validatorEntityNodeList = new List<EntityValidatorNode>()
             {
                 new() {NodeId = _mainNode, EnumId = EntityValidatorEnum.SjekklistekravValidator, ParentID = null},
-                //new() {NodeId = _mainNode + 1, EnumId = EntityValidatorEnum.SjekklistepunktValidator, ParentID = _mainNode}
+                new() {NodeId = _mainNode + 1, EnumId = EntityValidatorEnum.SjekklistepunktValidator, ParentID = _mainNode}
             };
             return validatorEntityNodeList;
         }
@@ -83,6 +83,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
         private List<ValidationRule> AllValidationRules()
         {
             var validationResults = new List<ValidationRule>();
+            validationResults.AddRange(_sjekklistepunktValidator.ValidationResult.ValidationRules);
             validationResults.AddRange(_sjekklistekravValidator.ValidationResult.ValidationRules);
 
 

@@ -19,6 +19,7 @@ using System.Text.Json.Serialization;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
+using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Checklist;
 
 namespace Dibk.Ftpb.Validation
 {
@@ -64,6 +65,12 @@ namespace Dibk.Ftpb.Validation
             services.AddHttpClient<PostalCodeHttpClient>();
             services.AddTransient<IPostalCodeService, PostalCodeService>();
             services.Configure<PostalCodeSettings>(Configuration.GetSection("PostalCodeApi"));
+
+            services.Configure<AtilChecklistSettings>(Configuration.GetSection("AtilCheckListApi"));
+            services.Configure<DibkChecklistSettings>(Configuration.GetSection("DibkCheckListApi"));
+            services.AddHttpClient<AtilChecklistApiHttpClient>();
+            services.AddHttpClient<DibkChecklistApiHttpClient>();
+            
 
 
             services.AddTransient<IValidationService, ValidationService>();

@@ -26,11 +26,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(EnkelAdresseValidationEnum.utfylt);
-            AddValidationRule(EnkelAdresseValidationEnum.adresselinje1_utfylt, "adresselinje1");
-            AddValidationRule(EnkelAdresseValidationEnum.landkode_utfylt, "landkode");
-            AddValidationRule(EnkelAdresseValidationEnum.postnr_utfylt, "postnr");
-            AddValidationRule(EnkelAdresseValidationEnum.postnr_gyldig, "postnr");
+            AddValidationRule(ValidationRuleEnum.utfylt);
+            AddValidationRule(ValidationRuleEnum.utfylt, "adresselinje1");
+            AddValidationRule(ValidationRuleEnum.utfylt, "landkode");
+            AddValidationRule(ValidationRuleEnum.utfylt, "postnr");
+            AddValidationRule(ValidationRuleEnum.gyldig, "postnr");
         }
 
         public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null)
@@ -55,7 +55,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             if (string.IsNullOrEmpty(adresse.Adresselinje1))
             {
-                AddMessageFromRule(EnkelAdresseValidationEnum.adresselinje1_utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/adresselinje1");
             }
             else
             {
@@ -63,7 +63,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 {
                     if (!CountryCodeHandler.VerifyCountryCode(adresse.Landkode))
                     {
-                        AddMessageFromRule(EnkelAdresseValidationEnum.landkode_ugyldug, xPath);
+                        //AddMessageFromRule(EnkelAdresseValidationEnum.landkode_ugyldug, xPath);
+                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/landkode");
                     }
                 }
                 else
@@ -73,36 +74,44 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                     if (string.IsNullOrEmpty(postNr))
                     {
-                        AddMessageFromRule(EnkelAdresseValidationEnum.postnr_utfylt, xPath);
+                        AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/postnr");
                     }
                     else
                     {
                         Match isPostNrValid = Regex.Match(postNr, "^([0-9])([0-9])([0-9])([0-9])$");
                         if (!isPostNrValid.Success)
                         {
-                            AddMessageFromRule(EnkelAdresseValidationEnum.postnr_kontrollsiffer, xPath, new[] { postNr });
+                            AddMessageFromRule(ValidationRuleEnum.postnr_kontrollsiffer, $"{xPath}/postnr", new[] { postNr });
                         }
                         else
                         {
-                            var postnrValidation = _postalCodeService.ValidatePostnr(postNr, landkode);
-                            if (postnrValidation != null)
+                            if (string.IsNullOrEmpty(landkode))
                             {
-                                if (!postnrValidation.Valid)
-                                {
-                                    AddMessageFromRule(EnkelAdresseValidationEnum.postnr_gyldig, xPath, new[] { postNr });
-                                }
-                                else
-                                {
-                                    if (!postnrValidation.Result.Equals(adresse.Poststed, StringComparison.CurrentCultureIgnoreCase))
-                                    {
-                                        AddMessageFromRule(EnkelAdresseValidationEnum.postnr_stemmerIkke, xPath, new[] { postNr, adresse.Poststed, postnrValidation.Result });
-                                    }
-                                }
+                                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/landkode", new[] { postNr });
                             }
                             else
                             {
-                                AddMessageFromRule(EnkelAdresseValidationEnum.postnr_ikke_validert, xPath);
+                                var postnrValidation = _postalCodeService.ValidatePostnr(postNr, landkode);
+                                if (postnrValidation != null)
+                                {
+                                    if (!postnrValidation.Valid)
+                                    {
+                                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/postnr", new[] { postNr });
+                                    }
+                                    else
+                                    {
+                                        if (!postnrValidation.Result.Equals(adresse.Poststed, StringComparison.CurrentCultureIgnoreCase))
+                                        {
+                                            AddMessageFromRule(ValidationRuleEnum.postnr_stemmerIkke, $"{xPath}/postnr", new[] { postNr, adresse.Poststed, postnrValidation.Result });
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    AddMessageFromRule(ValidationRuleEnum.postnr_ikke_validert, $"{xPath}/postnr");
+                                }
                             }
+
                         }
                     }
                 }
