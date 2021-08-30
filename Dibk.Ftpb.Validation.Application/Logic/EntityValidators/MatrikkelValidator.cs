@@ -76,29 +76,29 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 switch (kommunenummerStatus.Status)
                 {
                     case MunicipalityValidationEnum.Empty:
-                        AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
+                        AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/kommunenummer");
                         break;
                     case MunicipalityValidationEnum.Invalid:
-                        AddMessageFromRule(ValidationRuleEnum.gyldig, xPath, new[] { kommunenummer });
+                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/kommunenummer", new[] { kommunenummer });
                         break;
                     case MunicipalityValidationEnum.Expired:
-                        AddMessageFromRule(ValidationRuleEnum.kommunenummer_utgått, xPath, new[] { kommunenummer, kommunenummerStatus.Status.ToString() });
+                        AddMessageFromRule(ValidationRuleEnum.kommunenummer_utgått, $"{xPath}/kommunenummer", new[] { kommunenummer, kommunenummerStatus.Status.ToString() });
                         break;
                 }
             }
 
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Gaardsnummer))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/gaardsnummer");
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Bruksnummer))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/bruksnummer");
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Festenummer))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/festenummer");
 
             if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Seksjonsnummer))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/seksjonsnummer");
         }
     }
 }

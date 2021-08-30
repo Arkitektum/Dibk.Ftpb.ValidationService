@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
-    public enum KontaktpersonValidationEnum
-    {
-        kontaktperson_navn_utfylt
-    }
+    //public enum KontaktpersonValidationEnum
+    //{
+    //    kontaktperson_navn_utfylt
+    //}
 }

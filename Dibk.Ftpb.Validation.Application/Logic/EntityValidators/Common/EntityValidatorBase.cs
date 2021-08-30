@@ -110,7 +110,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             if (rule is Enum)
             {
                 ValidationRuleEnum validationRule = (ValidationRuleEnum)rule;
-                //var xx = nameof(rule);
                 validationRuleTypeId = Helpers.GetEnumValidationRuleType(validationRule);
 
                 if (xmlElement != null)

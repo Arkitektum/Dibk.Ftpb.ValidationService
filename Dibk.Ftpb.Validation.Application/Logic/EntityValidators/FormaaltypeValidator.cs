@@ -78,7 +78,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             if (string.IsNullOrEmpty(formaaltype.BeskrivPlanlagtFormaal))
             {
                 //AddMessageFromRule(ValidationRuleEnum.beskrivelseAvTiltak_formaaltype_utfylt, xPath);
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/beskrivPlanlagtFormaal");
             }
 
         }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
-    public enum FormaaltypeValidationEnum
-    {
-        utfylt,
-        beskrivPlanlagtFormaal_utfylt
-    }
+    //public enum FormaaltypeValidationEnum
+    //{
+    //    utfylt,
+    //    beskrivPlanlagtFormaal_utfylt
+    //}
 }

@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
-    public enum FakturamottakerValidationEnum
-    {
-        utfylt,
-        organisasjonsnummer_utfylt,
-        organisasjonsnummer_kontrollsiffer,
-        organisasjonsnummer_ugyldig,
-        bestillerReferanse_utfylt,
-        fakturareferanser_utfylt,
-        navn_utfylt,
-        prosjektnummer_utfylt,
-        ehfFaktura_utfylt,
-        fakturaPapir_utfylt,
+    //public enum FakturamottakerValidationEnum
+    //{
+    //    utfylt,
+    //    organisasjonsnummer_utfylt,
+    //    organisasjonsnummer_kontrollsiffer,
+    //    organisasjonsnummer_ugyldig,
+    //    bestillerReferanse_utfylt,
+    //    fakturareferanser_utfylt,
+    //    navn_utfylt,
+    //    prosjektnummer_utfylt,
+    //    ehfFaktura_utfylt,
+    //    fakturaPapir_utfylt,
 
-    }
+    //}
 }

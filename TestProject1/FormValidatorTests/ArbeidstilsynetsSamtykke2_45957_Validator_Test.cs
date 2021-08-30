@@ -136,7 +136,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             var dataModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(xmlData);
             var formEntity = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(dataModel);
-            FormValidatorConfiguration formValidatorConfiguration = new FormValidatorConfiguration();
+            //FormValidatorConfiguration formValidatorConfiguration = new FormValidatorConfiguration();
             //IEiendomsAdresseValidator eiendomsAdresseValidator = new EiendomsAdresseValidator(formValidatorConfiguration, EntityValidatorEnum.EiendomByggestedValidator);
             //IMatrikkelValidator matrikkelValidator = new MatrikkelValidator(formValidatorConfiguration, EntityValidatorEnum.EiendomByggestedValidator);
             //var validationResultForEiendom = new EiendomByggestedValidator(formValidatorConfiguration, eiendomsAdresseValidator, matrikkelValidator, _municipalityValidator).Validate(formEntity.ModelData.EiendomValidationEntities);

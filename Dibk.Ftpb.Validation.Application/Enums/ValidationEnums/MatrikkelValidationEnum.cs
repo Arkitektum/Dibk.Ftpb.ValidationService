@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
-    public enum MatrikkelValidationEnum
-    {
-        utfylt,
-        kommunenummer_utfylt,
-        kommunenummer_ugyldig,
-        kommunenummer_utgått,
-        gaardsnummer_utfylt,
-        bruksnummer_utfylt,
-        festenummer_utfylt,
-        seksjonsnummer_utfylt,
-    }
+    //public enum MatrikkelValidationEnum
+    //{
+    //    utfylt,
+    //    kommunenummer_utfylt,
+    //    kommunenummer_ugyldig,
+    //    kommunenummer_utgått,
+    //    gaardsnummer_utfylt,
+    //    bruksnummer_utfylt,
+    //    festenummer_utfylt,
+    //    seksjonsnummer_utfylt,
+    //}
 }

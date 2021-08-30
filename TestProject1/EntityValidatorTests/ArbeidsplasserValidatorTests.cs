@@ -33,7 +33,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         [Fact]
         public void ArbeidsplasserTest()
         {
-            FormValidatorConfiguration formValidatorConfiguration = new FormValidatorConfiguration();
+            //FormValidatorConfiguration formValidatorConfiguration = new FormValidatorConfiguration();
 
             //var arbeidsplasser = new ArbeidsplasserValidator(formValidatorConfiguration);
             //_arbeidsplasser.ModelData.Beskrivelse = null;

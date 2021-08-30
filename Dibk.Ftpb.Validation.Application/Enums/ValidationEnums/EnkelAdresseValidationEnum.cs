@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
-    public enum EnkelAdresseValidationEnum
-    {
-        utfylt,
-        adresselinje1_utfylt,
-        adresselinje2_utfylt,
-        adresselinje3_utfylt,
-        landkode_utfylt,
-        landkode_ugyldug,
-        postnr_utfylt,
-        poststed_utfylt,
-        postnr_4siffer,
-        postnr_kontrollsiffer,
-        postnr_gyldig,
-        postnr_stemmerIkke,
-        postnr_ikke_validert,
-        tillatte_postnr_i_kommune,
-    }
+    //public enum EnkelAdresseValidationEnum
+    //{
+    //    utfylt,
+    //    adresselinje1_utfylt,
+    //    adresselinje2_utfylt,
+    //    adresselinje3_utfylt,
+    //    landkode_utfylt,
+    //    landkode_ugyldug,
+    //    postnr_utfylt,
+    //    poststed_utfylt,
+    //    postnr_4siffer,
+    //    postnr_kontrollsiffer,
+    //    postnr_gyldig,
+    //    postnr_stemmerIkke,
+    //    postnr_ikke_validert,
+    //    tillatte_postnr_i_kommune,
+    //}
 }

@@ -58,7 +58,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var xpath = aktoer.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(aktoer.ModelData))
             {
-                AddMessageFromRule(AktoerValidationEnum.utfylt, xpath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, xpath);
             }
             else
             {

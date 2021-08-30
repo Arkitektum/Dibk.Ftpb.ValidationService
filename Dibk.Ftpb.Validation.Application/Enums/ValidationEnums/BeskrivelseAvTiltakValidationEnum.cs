@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
 {
-    public enum BeskrivelseAvTiltakValidationEnum
-    {
-        utfylt,
-        bra_utfylt,
-    }
+    //public enum BeskrivelseAvTiltakValidationEnum
+    //{
+    //    utfylt,
+    //    bra_utfylt,
+    //}
 }

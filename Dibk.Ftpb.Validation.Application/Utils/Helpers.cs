@@ -119,25 +119,25 @@ namespace Dibk.Ftpb.Validation.Application.Utils
 
         }
 
-        public static List<ATILSjekklistekravEnum> GetSjekklistekravEnumFromIndex(string checklistNumber)
-        {
-            var enumsForChecklistNumber = new List<ATILSjekklistekravEnum>();
+        //public static List<ATILSjekklistekravEnum> GetSjekklistekravEnumFromIndex(string checklistNumber)
+        //{
+        //    var enumsForChecklistNumber = new List<ATILSjekklistekravEnum>();
 
-            var enumList = Enum.GetValues(typeof(ATILSjekklistekravEnum)).OfType<ATILSjekklistekravEnum>().ToList();
-            foreach (var theEnum in enumList)
-            {
-                FieldInfo fieldInfo = theEnum.GetType().GetField(theEnum.ToString());
-                var entityValidatorNumber = string.Empty;
+        //    var enumList = Enum.GetValues(typeof(ATILSjekklistekravEnum)).OfType<ATILSjekklistekravEnum>().ToList();
+        //    foreach (var theEnum in enumList)
+        //    {
+        //        FieldInfo fieldInfo = theEnum.GetType().GetField(theEnum.ToString());
+        //        var entityValidatorNumber = string.Empty;
 
-                if (fieldInfo?.GetCustomAttributes(typeof(SjekklistekravEnumerationAttribute), false) is SjekklistekravEnumerationAttribute[] enumerationAttributes && enumerationAttributes.Any()
-                    && enumerationAttributes.First().SjekklistepunktVerdi.Equals(checklistNumber))
-                {
-                    enumsForChecklistNumber.Add(theEnum);
-                }
-            }
+        //        if (fieldInfo?.GetCustomAttributes(typeof(SjekklistekravEnumerationAttribute), false) is SjekklistekravEnumerationAttribute[] enumerationAttributes && enumerationAttributes.Any()
+        //            && enumerationAttributes.First().SjekklistepunktVerdi.Equals(checklistNumber))
+        //        {
+        //            enumsForChecklistNumber.Add(theEnum);
+        //        }
+        //    }
 
-            return enumsForChecklistNumber;
-        }
+        //    return enumsForChecklistNumber;
+        //}
 
 
 

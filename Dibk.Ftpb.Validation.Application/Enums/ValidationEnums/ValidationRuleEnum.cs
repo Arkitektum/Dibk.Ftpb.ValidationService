@@ -29,59 +29,10 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "17")] kontrollsiffer,
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "18")] dekryptering,
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "19")] telmob_utfylt,
+        [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "20")] beskrivelse,
+        [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "21")] framtidige_eller_eksisterende_utfylt,
+        [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "22")] faste_eller_midlertidige_utfylt,
 
-        //arbeidsplasser
-        //arbeidsplasser_utfylt,
-        //arbeidsplasser_framtidige_eller_eksisterende_utfylt,
-        //arbeidsplasser_faste_eller_midlertidige_utfylt,
-        //arbeidsplasser_type_arbeid_utfylt,
-        //arbeidsplasser_utleieBygg,
-        //arbeidsplasser_beskrivelse,
-
-
-
-
-        //Sjekklistekrav
-        //krav_utfylt,
-        //krav_sjekklistekrav_sjekklistepunktsvar_utfylt,
-        //krav_sjekklistekrav_sjekklistepunktsvar_oppfylt,
-        //krav_sjekklistekrav_sjekklistepunkt_kode_utfylt,
-        //krav_sjekklistekrav_sjekklistepunkt_kode_gyldig,
-        //krav_sjekklistekrav_sjekklistepunkt_beskrivelse_utfylt,
-        //krav_sjekklistekrav_dokumentasjon_utfylt,
-
-        //Partstype
-        //kodeliste_utfylt,
-        //kodeverdi_ugyldig,
-
-        //BeskrivelseAvTiltak
-        //beskrivelseAvTiltak_utfylt,
-        //beskrivelseAvTiltak_formaaltype_utfylt,
-
-        //beskrivelseAvTiltak_anleggstype_kode_utfylt,
-        //beskrivelseAvTiltak_anleggstype_gyldig_kode,
-        //beskrivelseAvTiltak_anleggstype_beskrivelse_utfylt,
-        
-        //beskrivelseAvTiltak_naeringsgruppe_kode_utfylt,
-        //beskrivelseAvTiltak_naeringsgruppe_gyldig_kode,
-        //beskrivelseAvTiltak_naeringsgruppe_beskrivelse_utfylt,
-        
-        //beskrivelseAvTiltak_bygningstype_kode_utfylt,
-        //beskrivelseAvTiltak_bygningstype_gyldig_kode,
-        //beskrivelseAvTiltak_bygningstype_beskrivelse_utfylt,
-        
-        //beskrivelseAvTiltak_tiltakformaal_kode_utfylt,
-        //beskrivelseAvTiltak_tiltakformaal_gyldig_kode,
-        //beskrivelseAvTiltak_tiltakformaal_beskrivelse_utfylt,
-        
-        //beskrivelseAvTiltak_tiltakstype_finnes_ikke,
-        //beskrivelseAvTiltak_tiltakstype_kode_utfylt,
-        //beskrivelseAvTiltak_tiltakstype_gyldig_kode,
-        //beskrivelseAvTiltak_tiltakstype_beskrivelse_utfylt,
-        
-        //beskrivelseAvTiltak_beskrivPlanlagtFormaal_utfylt,
-        
-        //
 
     }
 

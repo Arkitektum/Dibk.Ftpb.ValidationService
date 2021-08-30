@@ -38,7 +38,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             var xpath = enkelAdresse.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(enkelAdresse?.ModelData))
             {
-                AddMessageFromRule(EnkelAdresseValidationEnum.utfylt, xpath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, xpath);
             }
             else
             {
