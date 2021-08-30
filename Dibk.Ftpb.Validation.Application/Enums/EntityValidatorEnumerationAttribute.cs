@@ -25,4 +25,10 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         public string FieldNameId { get; set; }
     }
 
+    [AttributeUsage(AttributeTargets.Field)]
+    public class ValidationRuleTypeEnumerationAttribute : Attribute
+    {
+        public string ValidationRuleTypeId { get; set; }
+    }
+
 }

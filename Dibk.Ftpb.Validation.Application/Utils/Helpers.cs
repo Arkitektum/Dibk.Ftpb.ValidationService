@@ -106,6 +106,19 @@ namespace Dibk.Ftpb.Validation.Application.Utils
 
         }
 
+        public static string GetEnumValidationRuleType(Enum value)
+        {
+            FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
+            var validationRuleNumber = string.Empty;
+
+            if (fieldInfo?.GetCustomAttributes(typeof(ValidationRuleTypeEnumerationAttribute), false) is ValidationRuleTypeEnumerationAttribute[] enumerationAttributes && enumerationAttributes.Any())
+            {
+                validationRuleNumber = enumerationAttributes.First().ValidationRuleTypeId;
+            }
+            return validationRuleNumber;
+
+        }
+
         public static List<ATILSjekklistekravEnum> GetSjekklistekravEnumFromIndex(string checklistNumber)
         {
             var enumsForChecklistNumber = new List<ATILSjekklistekravEnum>();

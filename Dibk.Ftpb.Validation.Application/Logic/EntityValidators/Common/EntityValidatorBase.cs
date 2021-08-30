@@ -105,20 +105,23 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
         protected void AddValidationRule(object rule, string xmlElement, string overrideXpath)
         {
             var separator = "";
-            int? ruleHashCode;
+            string validationRuleTypeId;
             string elementRuleId = null;
             if (rule is Enum)
             {
-                ruleHashCode = rule.GetHashCode();
+                ValidationRuleEnum validationRule = (ValidationRuleEnum)rule;
+                //var xx = nameof(rule);
+                validationRuleTypeId = Helpers.GetEnumValidationRuleType(validationRule);
+
                 if (xmlElement != null)
                 {
                     FieldNameEnum fieldNameEnum = (FieldNameEnum)System.Enum.Parse(typeof(FieldNameEnum), xmlElement);
                     var fieldNameNumber = Helpers.GetEnumFieldNameNumber(fieldNameEnum);  //GetEnumEntityValidatorNumber
-                    elementRuleId = $"{_ruleIdPath}.{fieldNameNumber}.{ruleHashCode}";
+                    elementRuleId = $"{_ruleIdPath}.{fieldNameNumber}.{validationRuleTypeId}";
                 }
                 else
                 {
-                    elementRuleId = $"{_ruleIdPath}.{ruleHashCode}";
+                    elementRuleId = $"{_ruleIdPath}.{validationRuleTypeId}";
                 }
             }
 
