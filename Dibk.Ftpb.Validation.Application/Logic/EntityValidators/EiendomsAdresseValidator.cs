@@ -5,6 +5,7 @@ using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
+using Dibk.Ftpb.Validation.Application.Enums;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -43,25 +44,25 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             else
             {
                 if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Adresselinje1))
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/adresselinje1");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.adresselinje1}");
 
                 if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Landkode))
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/landkode");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.landkode}");
 
                 if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Postnr))
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/postnr");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.postnr}");
 
                 if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Poststed))
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/poststed");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.poststed}");
 
                 if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Gatenavn))
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/gatenavn");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.gatenavn}");
 
                 if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Husnr))
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/husnr");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.husnr}");
 
                 if (!StringIs4digitNumber(eiendomsAdresseValidationEntity.ModelData.Postnr))
-                    AddMessageFromRule(ValidationRuleEnum.postnr_4siffer, $"{xPath}/postnr");
+                    AddMessageFromRule(ValidationRuleEnum.postnr_4siffer, $"{xPath}/{FieldNameEnum.postnr}");
             }
             return _validationResult;
         }
