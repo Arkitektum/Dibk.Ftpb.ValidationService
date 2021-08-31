@@ -38,13 +38,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected override void InitializeValidationRules()
         {
             AddValidationRule(ValidationRuleEnum.utfylt, null);
+
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.foedselsnummer);
-            AddValidationRule(ValidationRuleEnum.dekryptering, FieldNameEnum.foedselsnummer);
-            AddValidationRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.foedselsnummer);
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.foedselsnummer);
+            AddValidationRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.foedselsnummer);
+            AddValidationRule(ValidationRuleEnum.dekryptering, FieldNameEnum.foedselsnummer);
+
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.organisasjonsnummer);
-            AddValidationRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.organisasjonsnummer);
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.organisasjonsnummer);
+            AddValidationRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.organisasjonsnummer);
 
             AddValidationRule(ValidationRuleEnum.telmob_utfylt);
 

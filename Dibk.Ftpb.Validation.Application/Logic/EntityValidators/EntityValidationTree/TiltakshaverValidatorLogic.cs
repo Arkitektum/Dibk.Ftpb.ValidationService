@@ -91,6 +91,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
             validationResults.AddRange(_tiltakshaverKontaktpersonValidator.ValidationResult.ValidationRules);
             validationResults.AddRange(_tiltakshaverPartstypeValidator.ValidationResult.ValidationRules);
             validationResults.AddRange(_tiltakshaverEnkelAdresseValidator.ValidationResult.ValidationRules);
+            validationResults.AddRange(_aktoerValidator.ValidationResult.ValidationRules);
             return validationResults;
         }
     }
