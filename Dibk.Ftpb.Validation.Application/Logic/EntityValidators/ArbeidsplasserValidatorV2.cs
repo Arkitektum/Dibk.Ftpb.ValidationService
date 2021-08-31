@@ -1,10 +1,10 @@
 ﻿using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
-using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
+using Dibk.Ftpb.Validation.Application.Enums;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -57,7 +57,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     int.TryParse(arbeidsplasser.AntallAnsatte, out antallAnsatte);
                     if (antallAnsatte <= 0)
                     {
-                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xpath}/antallAnsatte");
+                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xpath}/{FieldNameEnum.antallAnsatte}");
                     }
 
                     if (arbeidsplasser.UtleieBygg.GetValueOrDefault(false))
@@ -66,7 +66,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         int.TryParse(arbeidsplasser.AntallVirksomheter, out antallVirksomheter);
                         if (antallVirksomheter <= 0)
                         {
-                            AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xpath}/antallVirksomheter");
+                            AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xpath}/{FieldNameEnum.antallVirksomheter}");
                         }
 
                         foreach (var krav in sjekkliste)
@@ -85,7 +85,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     {
                         if (_attachmentList == null || !_attachmentList.Contains("BeskrivelseTypeArbeidProsess"))
                         {
-                            AddMessageFromRule(ValidationRuleEnum.beskrivelse, $"{xpath}/beskrivelse");
+                            AddMessageFromRule(ValidationRuleEnum.beskrivelse, $"{xpath}/{FieldNameEnum.beskrivelse}");
                         }
                     }
                 }

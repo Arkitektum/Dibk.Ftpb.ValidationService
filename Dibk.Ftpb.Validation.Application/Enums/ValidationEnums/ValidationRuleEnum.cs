@@ -32,6 +32,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "20")] beskrivelse,
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "21")] framtidige_eller_eksisterende_utfylt,
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "22")] faste_eller_midlertidige_utfylt,
+        [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "23")] ehf_eller_papir,
 
 
     }

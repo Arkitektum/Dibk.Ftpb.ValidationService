@@ -21,16 +21,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected override void InitializeValidationRules()
         {
             AddValidationRule(ValidationRuleEnum.utfylt);
-            AddValidationRule(ValidationRuleEnum.utfylt, "adresselinje1");
-            AddValidationRule(ValidationRuleEnum.utfylt, "adresselinje2");
-            AddValidationRule(ValidationRuleEnum.utfylt, "adresselinje3");
-            AddValidationRule(ValidationRuleEnum.utfylt, "landkode");
-            AddValidationRule(ValidationRuleEnum.utfylt, "postnr");
-            AddValidationRule(ValidationRuleEnum.utfylt, "poststed");
-            AddValidationRule(ValidationRuleEnum.utfylt, "gatenavn");
-            AddValidationRule(ValidationRuleEnum.utfylt, "husnr");
-            AddValidationRule(ValidationRuleEnum.utfylt, "bokstav");
-            AddValidationRule(ValidationRuleEnum.postnr_4siffer, "postnr");
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.adresselinje1);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.adresselinje2);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.adresselinje3);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.landkode);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.postnr);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.poststed);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.gatenavn);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.husnr);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.bokstav);
+            AddValidationRule(ValidationRuleEnum.postnr_4siffer, FieldNameEnum.postnr);
         }
 
         public ValidationResult Validate(EiendomsAdresseValidationEntity eiendomsAdresseValidationEntity)

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
@@ -37,7 +36,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(ValidationRuleEnum.utfylt, null);
+            AddValidationRule(ValidationRuleEnum.utfylt);
 
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.foedselsnummer);
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.foedselsnummer);

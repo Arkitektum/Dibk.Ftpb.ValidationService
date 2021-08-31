@@ -35,11 +35,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             //AddValidationRule(KodeListValidationEnum.kodebeskrivelse_utfylt, "kodebeskrivelse");
             //AddValidationRule(KodeListValidationEnum.kodebeskrivelse_gyldig, "kodebeskrivelse");
 
-            AddValidationRule(ValidationRuleEnum.utfylt, null);
-            AddValidationRule(ValidationRuleEnum.kodeliste_gyldig, null);
-            AddValidationRule(ValidationRuleEnum.utfylt, "kodeverdi");
-            AddValidationRule(ValidationRuleEnum.gyldig, "kodeverdi");
-            AddValidationRule(ValidationRuleEnum.utfylt, "kodebeskrivelse");
+            AddValidationRule(ValidationRuleEnum.utfylt);
+            AddValidationRule(ValidationRuleEnum.kodeliste_gyldig);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.kodeverdi);
+            AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.kodeverdi);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.kodebeskrivelse);
             
         }
 
@@ -57,26 +57,26 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             {
                 if (Helpers.ObjectIsNullOrEmpty(kodeEntry.ModelData.Kodeverdi))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/kodeverdi");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.kodeverdi}");
                 }
                 else
                 {
                     var isCodeValid = _codeListService.IsCodelistValid(_codeListName, kodeEntry.ModelData?.Kodeverdi, _registryType);
                     if (!isCodeValid.HasValue)
                     {
-                        AddMessageFromRule(ValidationRuleEnum.kode_KanIkkeValidere, $"{xpath}/kodeverdi");
+                        AddMessageFromRule(ValidationRuleEnum.kode_KanIkkeValidere, $"{xpath}/{FieldNameEnum.kodeverdi}");
                     }
                     else
                     {
                         if (!isCodeValid.GetValueOrDefault())
                         {
-                            AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xpath}/kodeverdi", new[] { kodeEntry.ModelData?.Kodeverdi });
+                            AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xpath}/{FieldNameEnum.kodeverdi}", new[] { kodeEntry.ModelData?.Kodeverdi });
                         }
                     }
 
                     if (string.IsNullOrEmpty(kodeEntry.ModelData.Kodebeskrivelse))
                     {
-                        AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/kodebeskrivelse");
+                        AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.kodebeskrivelse}");
                     }
                     else
                     {

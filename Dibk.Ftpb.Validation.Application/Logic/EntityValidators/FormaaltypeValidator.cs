@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Enums;
-using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
@@ -32,11 +30,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-            //AddValidationRule(FormaaltypeValidationEnum.utfylt, null);
-            //AddValidationRule(FormaaltypeValidationEnum.beskrivPlanlagtFormaal_utfylt, "beskrivPlanlagtFormaal");
-            
-            AddValidationRule(ValidationRuleEnum.utfylt, null);
-            AddValidationRule(ValidationRuleEnum.utfylt, "beskrivPlanlagtFormaal");
+            AddValidationRule(ValidationRuleEnum.utfylt);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.beskrivPlanlagtFormaal);
         }
 
         public ValidationResult Validate(FormaaltypeValidationEntity formaaltypeValEntity = null)
@@ -77,10 +72,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             if (string.IsNullOrEmpty(formaaltype.BeskrivPlanlagtFormaal))
             {
-                //AddMessageFromRule(ValidationRuleEnum.beskrivelseAvTiltak_formaaltype_utfylt, xPath);
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/beskrivPlanlagtFormaal");
+                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.beskrivPlanlagtFormaal}");
             }
-
         }
     }
 }

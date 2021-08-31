@@ -38,8 +38,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected override void InitializeValidationRules()
         {
             this.AddValidationRule(ValidationRuleEnum.utfylt);
-            this.AddValidationRule(ValidationRuleEnum.utfylt, "sjekklistepunktsvar");
-            this.AddValidationRule(ValidationRuleEnum.utfylt, "dokumentasjon");
+            this.AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.sjekklistepunktsvar);
+            this.AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.dokumentasjon);
         }        
         
         public ValidationResult Validate(IEnumerable<SjekklistekravValidationEntity> formsSjekkliste, IChecklistService checklistService)
@@ -141,7 +141,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             {
                 if (string.IsNullOrEmpty(kravEntity.ModelData.Dokumentasjon))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/dokumentasjon");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.dokumentasjon}");
                     return false;
                 }
                 return true;

@@ -1,5 +1,4 @@
-﻿using Dibk.Ftpb.Validation.Application.DataSources;
-using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
+﻿using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
@@ -28,14 +27,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-
-            //AddValidationRule(EiendomValidationEnums.utfylt, "adresse");
-
-            AddValidationRule(ValidationRuleEnum.utfylt, null);
-            AddValidationRule(ValidationRuleEnum.utfylt, "bygningsnummer");
-            AddValidationRule(ValidationRuleEnum.gyldig, "bygningsnummer");
-            AddValidationRule(ValidationRuleEnum.utfylt, "bolignummer");
-            AddValidationRule(ValidationRuleEnum.utfylt, "kommunenavn");
+            AddValidationRule(ValidationRuleEnum.utfylt);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.bygningsnummer);
+            AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.bygningsnummer);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.bolignummer);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.kommunenavn);
         }
 
         public ValidationResult Validate(IEnumerable<EiendomValidationEntity> eiendomValidationEntities)
@@ -80,22 +76,22 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 long bygningsnrLong = 0;
                 if (!long.TryParse(eiendomValidationEntity.ModelData?.Bygningsnummer, out bygningsnrLong))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/bygningsnummer", new[] { eiendomValidationEntity.ModelData?.Bygningsnummer });
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.bygningsnummer}", new[] { eiendomValidationEntity.ModelData?.Bygningsnummer });
                 }
                 else
                 {
                     if (bygningsnrLong <= 0)
                     {
-                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/bygningsnummer", new[] { bygningsnrLong.ToString("N") });
+                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/{FieldNameEnum.bygningsnummer}", new[] { bygningsnrLong.ToString("N") });
                     }
                 }
             }
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntity.ModelData?.Bolignummer))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/bolignummer");
+                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.bolignummer}");
 
             if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntity.ModelData?.Kommunenavn))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/kommunenavn");
+                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.kommunenavn}");
         }
     }
 }

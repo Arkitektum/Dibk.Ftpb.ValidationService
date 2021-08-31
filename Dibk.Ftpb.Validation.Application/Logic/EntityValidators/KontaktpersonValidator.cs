@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
@@ -18,8 +19,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(ValidationRuleEnum.utfylt, "navn");
-            AddValidationRule(ValidationRuleEnum.utfylt, "telefonnummer");
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.navn);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.telefonnummer);
         }
 
         public ValidationResult Validate(KontaktpersonValidationEntity kontaktperson = null)
@@ -27,10 +28,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             var xpath = kontaktperson?.DataModelXpath;
             if (string.IsNullOrEmpty(kontaktperson?.ModelData?.Navn))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/navn");
+                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.navn}");
 
             if (string.IsNullOrEmpty(kontaktperson?.ModelData?.Telefonnummer))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/telefonnummer");
+                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.telefonnummer}");
 
             return _validationResult;
         }

@@ -4,12 +4,8 @@ using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
-using System;
-using System.Linq;
-using System.Reflection;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using System.Collections.Generic;
-using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.GeneralValidations;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
@@ -30,9 +26,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected override void InitializeValidationRules()
         {
             AddValidationRule(ValidationRuleEnum.utfylt);
-            AddValidationRule(ValidationRuleEnum.utfylt, "organisasjonsnummer");
-            AddValidationRule(ValidationRuleEnum.kontrollsiffer, "organisasjonsnummer");
-            AddValidationRule(ValidationRuleEnum.gyldig, "organisasjonsnummer");
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.organisasjonsnummer);
+            AddValidationRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.organisasjonsnummer);
+            AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.organisasjonsnummer);
+            AddValidationRule(ValidationRuleEnum.ehf_eller_papir);
         }
 
         public ValidationResult Validate(FakturamottakerValidationEntity fakturamottaker = null)
@@ -44,9 +41,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             else
             {
+                if (Helpers.ObjectIsNullOrEmpty(fakturamottaker.ModelData.EhfFaktura) && Helpers.ObjectIsNullOrEmpty(fakturamottaker.ModelData.FakturaPapir))
+                {
+                    AddValidationRule(ValidationRuleEnum.ehf_eller_papir, xpath);
+                }
+
                 if (string.IsNullOrEmpty(fakturamottaker.ModelData.Organisasjonsnummer))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/organisasjonsnummer");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.organisasjonsnummer}");
                 }
                 else
                 {
@@ -54,13 +56,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     switch (organisasjonsnummerValidation)
                     {
                         case OrganisasjonsnummerValidation.Empty:
-                            AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/organisasjonsnummer");
+                            AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.organisasjonsnummer}");
                             break;
                         case OrganisasjonsnummerValidation.InvalidDigitsControl:
-                            AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, $"{xpath}/organisasjonsnummer");
+                            AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, $"{xpath}/{FieldNameEnum.organisasjonsnummer}");
                             break;
                         case OrganisasjonsnummerValidation.Invalid:
-                            AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xpath}/organisasjonsnummer");
+                            AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xpath}/{FieldNameEnum.organisasjonsnummer}");
                             break;
                     }
                 }

@@ -29,11 +29,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(ValidationRuleEnum.utfylt, null);
-            AddValidationRule(ValidationRuleEnum.kodeliste_gyldig, null);
-            AddValidationRule(ValidationRuleEnum.utfylt, "kodeverdi");
-            AddValidationRule(ValidationRuleEnum.gyldig, "kodeverdi");
-            AddValidationRule(ValidationRuleEnum.utfylt, "kodebeskrivelse");
+            AddValidationRule(ValidationRuleEnum.utfylt);
+            AddValidationRule(ValidationRuleEnum.kodeliste_gyldig);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.kodeverdi);
+            AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.kodeverdi);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.kodebeskrivelse);
         }
 
         public ValidationResult Validate(KodelisteValidationEntity kodeEntry)
@@ -50,7 +50,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             {
                 if (Helpers.ObjectIsNullOrEmpty(kodeEntry.ModelData.Kodeverdi))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/kodeverdi");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.kodeverdi}");
                 }
                 else
                 {

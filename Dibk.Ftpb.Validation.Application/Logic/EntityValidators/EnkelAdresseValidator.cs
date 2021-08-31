@@ -9,6 +9,7 @@ using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using System.Text.RegularExpressions;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Logic.GeneralValidations;
+using Dibk.Ftpb.Validation.Application.Enums;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -27,10 +28,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected override void InitializeValidationRules()
         {
             AddValidationRule(ValidationRuleEnum.utfylt);
-            AddValidationRule(ValidationRuleEnum.utfylt, "adresselinje1");
-            AddValidationRule(ValidationRuleEnum.utfylt, "landkode");
-            AddValidationRule(ValidationRuleEnum.utfylt, "postnr");
-            AddValidationRule(ValidationRuleEnum.gyldig, "postnr");
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.adresselinje1);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.landkode);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.postnr);
+            AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.postnr);
         }
 
         public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null)
@@ -55,7 +56,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             if (string.IsNullOrEmpty(adresse.Adresselinje1))
             {
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/adresselinje1");
+                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.adresselinje1}");
             }
             else
             {
@@ -64,7 +65,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     if (!CountryCodeHandler.VerifyCountryCode(adresse.Landkode))
                     {
                         //AddMessageFromRule(EnkelAdresseValidationEnum.landkode_ugyldug, xPath);
-                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/landkode");
+                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/{FieldNameEnum.landkode}");
                     }
                 }
                 else
@@ -74,20 +75,20 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                     if (string.IsNullOrEmpty(postNr))
                     {
-                        AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/postnr");
+                        AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.postnr}");
                     }
                     else
                     {
                         Match isPostNrValid = Regex.Match(postNr, "^([0-9])([0-9])([0-9])([0-9])$");
                         if (!isPostNrValid.Success)
                         {
-                            AddMessageFromRule(ValidationRuleEnum.postnr_kontrollsiffer, $"{xPath}/postnr", new[] { postNr });
+                            AddMessageFromRule(ValidationRuleEnum.postnr_kontrollsiffer, $"{xPath}/{FieldNameEnum.postnr}", new[] { postNr });
                         }
                         else
                         {
                             if (string.IsNullOrEmpty(landkode))
                             {
-                                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/landkode", new[] { postNr });
+                                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.landkode}", new[] { postNr });
                             }
                             else
                             {
@@ -96,19 +97,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                                 {
                                     if (!postnrValidation.Valid)
                                     {
-                                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/postnr", new[] { postNr });
+                                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/{FieldNameEnum.postnr}", new[] { postNr });
                                     }
                                     else
                                     {
                                         if (!postnrValidation.Result.Equals(adresse.Poststed, StringComparison.CurrentCultureIgnoreCase))
                                         {
-                                            AddMessageFromRule(ValidationRuleEnum.postnr_stemmerIkke, $"{xPath}/postnr", new[] { postNr, adresse.Poststed, postnrValidation.Result });
+                                            AddMessageFromRule(ValidationRuleEnum.postnr_stemmerIkke, $"{xPath}/{FieldNameEnum.postnr}", new[] { postNr, adresse.Poststed, postnrValidation.Result });
                                         }
                                     }
                                 }
                                 else
                                 {
-                                    AddMessageFromRule(ValidationRuleEnum.postnr_ikke_validert, $"{xPath}/postnr");
+                                    AddMessageFromRule(ValidationRuleEnum.postnr_ikke_validert, $"{xPath}/{FieldNameEnum.postnr}");
                                 }
                             }
 

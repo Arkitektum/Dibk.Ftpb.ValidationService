@@ -6,6 +6,7 @@ using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 using System.Linq;
+using Dibk.Ftpb.Validation.Application.Enums;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -28,7 +29,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             //AddValidationRule(BeskrivelseAvTiltakValidationEnum.bra_utfylt, "BRA");
 
             AddValidationRule(ValidationRuleEnum.utfylt);
-            AddValidationRule(ValidationRuleEnum.utfylt, "BRA");
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.BRA);
 
             
         }
@@ -47,7 +48,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                 if (string.IsNullOrEmpty(beskrivelseAvTiltakValidationEntity?.ModelData?.BRA))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/BRA");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.BRA}");
 
                 }
                 
