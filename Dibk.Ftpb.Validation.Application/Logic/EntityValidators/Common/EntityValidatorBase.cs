@@ -102,6 +102,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             AddValidationRule(rule, xmlElement, null);
         }
 
+        protected void AddValidationRule(object rule, FieldNameEnum xmlElement)
+        {
+            AddValidationRule(rule, xmlElement.ToString(), null);
+        }
+
         protected void AddValidationRule(object rule, string xmlElement, string overrideXpath)
         {
             var separator = "";
