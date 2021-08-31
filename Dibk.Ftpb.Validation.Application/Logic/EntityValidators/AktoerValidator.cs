@@ -38,18 +38,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected override void InitializeValidationRules()
         {
             AddValidationRule(ValidationRuleEnum.utfylt, null);
-            AddValidationRule(ValidationRuleEnum.utfylt, "foedselsnummer");
-            AddValidationRule(ValidationRuleEnum.dekryptering, "foedselsnummer");
-            AddValidationRule(ValidationRuleEnum.kontrollsiffer, "foedselsnummer");
-            AddValidationRule(ValidationRuleEnum.gyldig, "foedselsnummer");
-            AddValidationRule(ValidationRuleEnum.utfylt, "organisasjonsnummer");
-            AddValidationRule(ValidationRuleEnum.kontrollsiffer, "organisasjonsnummer");
-            AddValidationRule(ValidationRuleEnum.gyldig, "organisasjonsnummer");
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.foedselsnummer);
+            AddValidationRule(ValidationRuleEnum.dekryptering, FieldNameEnum.foedselsnummer);
+            AddValidationRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.foedselsnummer);
+            AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.foedselsnummer);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.organisasjonsnummer);
+            AddValidationRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.organisasjonsnummer);
+            AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.organisasjonsnummer);
 
             AddValidationRule(ValidationRuleEnum.telmob_utfylt);
 
-            AddValidationRule(ValidationRuleEnum.utfylt, "epost");
-            AddValidationRule(ValidationRuleEnum.utfylt, "navn");
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.epost);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.navn);
         }
 
 
@@ -89,16 +89,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 switch (foedselsnummerValidation)
                 {
                     case FoedselnumerValidation.Empty:
-                        AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/foedselsnummer");
+                        AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.foedselsnummer}");
                         break;
                     case FoedselnumerValidation.InvalidEncryption:
-                        AddMessageFromRule(ValidationRuleEnum.dekryptering, $"{xPath}/foedselsnummer");
+                        AddMessageFromRule(ValidationRuleEnum.dekryptering, $"{xPath}/{FieldNameEnum.foedselsnummer}");
                         break;
                     case FoedselnumerValidation.InvalidDigitsControl:
-                        AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, $"{xPath}/foedselsnummer");
+                        AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, $"{xPath}/{FieldNameEnum.foedselsnummer}");
                         break;
                     case FoedselnumerValidation.Invalid:
-                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/foedselsnummer");
+                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/{FieldNameEnum.foedselsnummer}");
                         break;
                 }
             }
@@ -108,13 +108,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 switch (organisasjonsnummerValidation)
                 {
                     case OrganisasjonsnummerValidation.Empty:
-                        AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/organisasjonsnummer");
+                        AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.organisasjonsnummer}");
                         break;
                     case OrganisasjonsnummerValidation.InvalidDigitsControl:
-                        AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, $"{xPath}/organisasjonsnummer");
+                        AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, $"{xPath}/{FieldNameEnum.organisasjonsnummer}");
                         break;
                     case OrganisasjonsnummerValidation.Invalid:
-                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/organisasjonsnummer");
+                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/{FieldNameEnum.organisasjonsnummer}");
                         break;
                 }
                 var kontaktpersonValidationResult = _kontaktpersonValidator.Validate(aktoer.Kontaktperson);
@@ -125,10 +125,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             UpdateValidationResultWithSubValidations(enkeladressResult);
             
             if (string.IsNullOrEmpty(aktoer.Navn))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/navn");
+                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.navn}");
 
             if (string.IsNullOrEmpty(aktoer.Epost))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/epost");
+                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.epost}");
 
             if (string.IsNullOrEmpty(aktoer.Telefonnummer) && string.IsNullOrEmpty(aktoer.Mobilnummer))
             {
@@ -142,7 +142,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     var isValidTelefonNumber = telefonNumber.All(c => "+0123456789".Contains(c));
                     if (!isValidTelefonNumber)
                     {
-                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/telefonnummer");
+                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/{FieldNameEnum.telefonnummer}");
 
                     }
                 }
@@ -152,7 +152,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     var isValidmobilnummer = mobilNummer.All(c => "+0123456789".Contains(c));
                     if (!isValidmobilnummer)
                     {
-                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/mobilnummer");
+                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/{FieldNameEnum.mobilnummer}");
                     }
                 }
             }
