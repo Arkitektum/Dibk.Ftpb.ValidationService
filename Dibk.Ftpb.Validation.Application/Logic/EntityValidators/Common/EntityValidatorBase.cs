@@ -238,6 +238,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
         //**Add rules with dynamic enum 
         public ValidationRule RuleToValidate(string rule, string xPath)
         {
+            xPath = xPath.Replace("[", "{").Replace("]", "}");
             var validationRule = _validationResult.ValidationRules.Where(r => !string.IsNullOrEmpty(r.Rule)).FirstOrDefault(r => r.Rule.Equals(rule) && (r.Xpath == xPath)) ?? new ValidationRule()
             {
                 Rule = rule,
