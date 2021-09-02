@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
-using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
@@ -13,21 +12,20 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 {
     public abstract class EntityValidatorBase : IEntityValidator
     {
-        protected string EntityName;
         private string _ruleIdPath;
         private string _entityXPath;
         //public abstract string ruleXmlElement { get; set; }
         protected ValidationResult _validationResult;
-
         ValidationResult IEntityValidator.ValidationResult { get => _validationResult; set => _validationResult = value; }
 
-        public EntityValidatorBase(IList<EntityValidatorNode> entityValidatorTree, int? nodeId = null, string xmlElement = null)
+        public EntityValidatorBase(IList<EntityValidatorNode> entityValidatorTree, int? nodeId = null)
         {
-            _validationResult = new ValidationResult();
             _validationResult = new ValidationResult();
             _validationResult.ValidationRules = new List<ValidationRule>();
             _validationResult.ValidationMessages = new List<ValidationMessage>();
-            var validatorName = xmlElement ?? this.GetType().Name;
+
+            var validatorName = this.GetType().Name;
+
             var node = GetEntityValidatorNode(entityValidatorTree, nodeId, validatorName);
             if (node != null)
             {
@@ -37,7 +35,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             else
             {
                 _ruleIdPath = "Can't find the node";
-                _entityXPath = $"Can't find the node:'{validatorName}' with nodeId:'{nodeId}'";
+                _entityXPath = nodeId.HasValue ? $"Can't find Entity validator enum:'{validatorName}' with nodeId:'{nodeId}'" : $"Can't find Entity validator enum:'{validatorName}'.";
             }
             
             InitializeValidationRules();
@@ -243,7 +241,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
         //**Add rules with dynamic enum 
         public ValidationRule RuleToValidate(string rule, string xPath)
         {
-            xPath = xPath.Replace("[", "{").Replace("]", "}");
+            xPath = xPath?.Replace("[", "{").Replace("]", "}");
             var validationRule = _validationResult.ValidationRules.Where(r => !string.IsNullOrEmpty(r.Rule)).FirstOrDefault(r => r.Rule.Equals(rule) && (r.Xpath == xPath)) ?? new ValidationRule()
             {
                 Rule = rule,

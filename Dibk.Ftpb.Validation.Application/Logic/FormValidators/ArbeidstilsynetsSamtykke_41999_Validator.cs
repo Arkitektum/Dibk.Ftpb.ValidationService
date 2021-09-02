@@ -128,28 +128,28 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         protected override void InstantiateValidators()
         {
             //EiendomByggested
-            _matrikkelValidator = new MatrikkelValidator(EntityValidatorTree, 3,_municipalityValidator);
-            _eiendomsAdresseValidator = new EiendomsAdresseValidator(EntityValidatorTree, 2);
-            _eiendomByggestedValidator = new EiendomByggestedValidator(EntityValidatorTree, 1, _eiendomsAdresseValidator, _matrikkelValidator);
+            _matrikkelValidator = new MatrikkelValidator(EntityValidatorTree, _municipalityValidator);
+            _eiendomsAdresseValidator = new EiendomsAdresseValidator(EntityValidatorTree);
+            _eiendomByggestedValidator = new EiendomByggestedValidator(EntityValidatorTree, _eiendomsAdresseValidator, _matrikkelValidator);
 
             //Tiltakshaver
             _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 7, _postalCodeService);
             _tiltakshaverKontaktpersonValidator = new KontaktpersonValidator(EntityValidatorTree, 5);
             _tiltakshaverPartstypeValidator = new PartstypeValidator(EntityValidatorTree, 6, _codeListService);
-            _tiltakshaverValidator = new TiltakshaverValidator(EntityValidatorTree, 4, _tiltakshaverEnkelAdresseValidator, _tiltakshaverKontaktpersonValidator, _tiltakshaverPartstypeValidator, _codeListService);
+            _tiltakshaverValidator = new TiltakshaverValidator(EntityValidatorTree, _tiltakshaverEnkelAdresseValidator, _tiltakshaverKontaktpersonValidator, _tiltakshaverPartstypeValidator, _codeListService);
 
             //AnsvarligSoeker
             _ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 12, _postalCodeService);
             _ansvarligSoekerKontaktpersonValidator = new KontaktpersonValidator(EntityValidatorTree, 13);
             _ansvarligSoekerPartstypeValidator = new PartstypeValidator(EntityValidatorTree, 14, _codeListService);
-            _ansvarligSoekerValidator = new AnsvarligSoekerValidator(EntityValidatorTree, 11, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
+            _ansvarligSoekerValidator = new AnsvarligSoekerValidator(EntityValidatorTree, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
 
             //Fakturamottaker
             _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 9, _postalCodeService);
-            _fakturamottakerValidator = new FakturamottakerValidator(EntityValidatorTree, 8, _fakturamottakerEnkelAdresseValidator);
+            _fakturamottakerValidator = new FakturamottakerValidator(EntityValidatorTree, _fakturamottakerEnkelAdresseValidator);
 
             //Arbeidsplasser
-            _arbeidsplasserValidator = new ArbeidsplasserValidator(EntityValidatorTree, 10);
+            _arbeidsplasserValidator = new ArbeidsplasserValidator(EntityValidatorTree);
 
         }
         protected override void DefineValidationRules()

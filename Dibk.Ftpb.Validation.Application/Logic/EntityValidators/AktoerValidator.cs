@@ -24,9 +24,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected IKodelisteValidator _partstypeValidator;
 
 
-        public AktoerValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, IEnkelAdresseValidator enkelAdresseValidator,
+        public AktoerValidator(IList<EntityValidatorNode> entityValidatorTree, IEnkelAdresseValidator enkelAdresseValidator,
             IKontaktpersonValidator kontaktpersonValidator, IKodelisteValidator partstypeValidator, ICodeListService codeListService)
-            : base(entityValidatorTree, nodeId)
+            : base(entityValidatorTree)
         {
             _codeListService = codeListService;
             _enkelAdresseValidator = enkelAdresseValidator;

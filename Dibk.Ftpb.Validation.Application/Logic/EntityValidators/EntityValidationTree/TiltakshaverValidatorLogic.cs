@@ -67,9 +67,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
 
             _tiltakshaverKontaktpersonValidator = new KontaktpersonValidator(Tree, _mainNode + 1);
             _tiltakshaverPartstypeValidator = new PartstypeValidator(Tree, _mainNode + 2, _codeListService);
-            _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(Tree, _mainNode + 3, _postalCodeService);
+            //_tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(Tree, _mainNode + 3, _postalCodeService);
 
-            _aktoerValidator = new TiltakshaverValidator(Tree, _mainNode, _tiltakshaverEnkelAdresseValidator, _tiltakshaverKontaktpersonValidator, _tiltakshaverPartstypeValidator, _codeListService);
+            //_aktoerValidator = new TiltakshaverValidator(Tree, _mainNode, _tiltakshaverEnkelAdresseValidator, _tiltakshaverKontaktpersonValidator, _tiltakshaverPartstypeValidator, _codeListService);
             return _aktoerValidator;
         }
 

@@ -18,9 +18,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private readonly BygningstypeValidator _bygningstypeValidator;
         private readonly TiltaksformaalValidator _tiltaksformaalValidator;
 
-        public FormaaltypeValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId,
+        public FormaaltypeValidator(IList<EntityValidatorNode> entityValidatorTree,
             AnleggstypeValidator anleggstypeValidator, NaeringsgruppeValidator naeringsgruppeValidator, BygningstypeValidator bygningstypeValidator, TiltaksformaalValidator tiltaksformaalValidator)
-            : base(entityValidatorTree, nodeId)
+            : base(entityValidatorTree)
         {
             _anleggstypeValidator = anleggstypeValidator;
             _naeringsgruppeValidator = naeringsgruppeValidator;

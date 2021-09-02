@@ -17,7 +17,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private readonly RegistryType _registryType;
         protected ICodeListService _codeListService;
 
-        public KodelisteValidatorV2(IList<EntityValidatorNode> entityValidatorTree, int nodeId, object codeListName, RegistryType registryType, ICodeListService codeListService)
+        public KodelisteValidatorV2(IList<EntityValidatorNode> entityValidatorTree, int? nodeId, object codeListName, RegistryType registryType, ICodeListService codeListService)
             : base(entityValidatorTree, nodeId)
         {
             _codeListName = codeListName;

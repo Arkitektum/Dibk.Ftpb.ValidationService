@@ -61,10 +61,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
         {
             if (_sjekklistekravValidator == null)
             {
-                //Tree, _mainNode + 2, _codeListService
-                _sjekklistepunktValidator = new ATILSjekklistepunktValidator(Tree, _mainNode + 1, _codeListService);
+                ////Tree, _mainNode + 2, _codeListService
+                //_sjekklistepunktValidator = new SjekklistepunktValidator(Tree, _mainNode + 1, _codeListService);
                 
-                _sjekklistekravValidator = new ATILSjekklistekravValidator(Tree, _mainNode, _sjekklistepunktValidator, _codeListService);
+                //_sjekklistekravValidator = new SjekklistekravValidator(Tree, _mainNode, _sjekklistepunktValidator, _codeListService);
             }
 
             return _sjekklistekravValidator;

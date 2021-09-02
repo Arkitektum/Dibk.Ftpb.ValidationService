@@ -62,9 +62,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
 
         private IEiendomByggestedValidator SetupCalsses()
         {
-            _eiendomsAdresseValidator = new EiendomsAdresseValidator(Tree, _mainNode + 1);
-            _matrikkelValidator = new MatrikkelValidator(Tree, _mainNode + 2, _municipalityValidator);
-            _eiendomByggestedValidator = new EiendomByggestedValidator(Tree, _mainNode, _eiendomsAdresseValidator, _matrikkelValidator);
+            _eiendomsAdresseValidator = new EiendomsAdresseValidator(Tree);
+            _matrikkelValidator = new MatrikkelValidator(Tree, _municipalityValidator);
+            _eiendomByggestedValidator = new EiendomByggestedValidator(Tree, _eiendomsAdresseValidator, _matrikkelValidator);
 
             return _eiendomByggestedValidator;
         }

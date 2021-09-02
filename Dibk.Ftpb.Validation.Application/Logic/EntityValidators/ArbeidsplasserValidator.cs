@@ -14,8 +14,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        public ArbeidsplasserValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId) 
-            : base(entityValidatorTree, nodeId)
+        public ArbeidsplasserValidator(IList<EntityValidatorNode> entityValidatorTree) 
+            : base(entityValidatorTree)
         { }
 
         public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, List<string> attachments = null)

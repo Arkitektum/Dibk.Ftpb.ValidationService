@@ -64,8 +64,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
         {
             if (_fakturamottakerValidator == null)
             {
-                _enkelAdresseValidator = new EnkelAdresseValidator(Tree, _mainNode + 1, _postalCodeService);
-                _fakturamottakerValidator = new FakturamottakerValidator(Tree, _mainNode, _enkelAdresseValidator);
+                //_enkelAdresseValidator = new EnkelAdresseValidator(Tree,  _postalCodeService);
+                _fakturamottakerValidator = new FakturamottakerValidator(Tree, _enkelAdresseValidator);
             }
             return _fakturamottakerValidator;
         }

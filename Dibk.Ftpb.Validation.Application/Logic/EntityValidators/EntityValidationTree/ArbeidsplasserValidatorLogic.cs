@@ -57,7 +57,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
         {
             if (_arbeidsplasserValidator == null)
             {
-                _arbeidsplasserValidator = new ArbeidsplasserValidator(Tree, _mainNode);
+                //_arbeidsplasserValidator = new ArbeidsplasserValidator(Tree, _mainNode);
             }
             return _arbeidsplasserValidator;
         }
@@ -66,7 +66,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
             var validatorEntityNodeList = new List<EntityValidatorNode>()
             {
                 new() {NodeId = _mainNode, EnumId = EntityValidatorEnum.ArbeidsplasserValidator, ParentID = null}
-
             };
             return validatorEntityNodeList;
         }

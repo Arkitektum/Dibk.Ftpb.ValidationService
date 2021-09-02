@@ -30,5 +30,4 @@ namespace Dibk.Ftpb.Validation.Application.Enums
     {
         public string ValidationRuleTypeId { get; set; }
     }
-
 }

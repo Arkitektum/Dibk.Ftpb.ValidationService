@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
@@ -17,8 +17,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private readonly FormaaltypeValidator _formaaltypeValidator;
         private readonly TiltakstypeValidator _tiltakstypeValidator;
 
-        public BeskrivelseAvTiltakValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, FormaaltypeValidator formaaltypeValidator, TiltakstypeValidator tiltakstypeValidator)
-            : base(entityValidatorTree, nodeId)
+        public BeskrivelseAvTiltakValidator(IList<EntityValidatorNode> entityValidatorTree, FormaaltypeValidator formaaltypeValidator, TiltakstypeValidator tiltakstypeValidator)
+            : base(entityValidatorTree)
         {
             _formaaltypeValidator = formaaltypeValidator;
             _tiltakstypeValidator = tiltakstypeValidator;

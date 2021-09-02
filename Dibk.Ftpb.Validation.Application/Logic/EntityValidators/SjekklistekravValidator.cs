@@ -14,7 +14,7 @@ using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Checklist;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class ATILSjekklistekravValidator : EntityValidatorBase, ISjekklistekravValidator
+    public class SjekklistekravValidator : EntityValidatorBase, ISjekklistekravValidator
     {
         private readonly ICodeListService _codeListService;
 
@@ -22,18 +22,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult ValidationResult { get => _validationResult; }
 
-        public ATILSjekklistekravValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeid, IKodelisteValidator sjekklistepunktValidator, ICodeListService codeListService)
-            : base(entityValidatorTree, nodeid)
+        public SjekklistekravValidator(IList<EntityValidatorNode> entityValidatorTree, IKodelisteValidator sjekklistepunktValidator, ICodeListService codeListService)
+            : base(entityValidatorTree)
         {
             _codeListService = codeListService;
             _sjekklistepunktValidator = sjekklistepunktValidator;
         }
-        public ATILSjekklistekravValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeid)
-            : base(entityValidatorTree, nodeid)
-        {
-        }
-        
-
 
         protected override void InitializeValidationRules()
         {

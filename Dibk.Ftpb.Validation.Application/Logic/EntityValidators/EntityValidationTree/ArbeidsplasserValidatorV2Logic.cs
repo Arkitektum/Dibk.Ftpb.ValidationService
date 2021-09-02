@@ -27,7 +27,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
         {
             if (_arbeidsplasserValidator == null)
             {
-                _arbeidsplasserValidator = new ArbeidsplasserValidatorV2(Tree, _mainNode);
+                //_arbeidsplasserValidator = new ArbeidsplasserValidatorV2(Tree, _mainNode);
             }
             return _arbeidsplasserValidator;
         }

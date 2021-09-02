@@ -81,14 +81,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
 
         private IBeskrivelseAvTiltakValidator SetUpClasses()
         {
-            _anleggstypeValidator = new AnleggstypeValidator(Tree, _mainNode + 2, _codeListService);
-            _naeringsgruppeValidator = new NaeringsgruppeValidator(Tree, _mainNode + 3, _codeListService);
-            _bygningstypeValidator = new BygningstypeValidator(Tree, _mainNode + 4, _codeListService);
-            _tiltaksformaalValidator = new TiltaksformaalValidator(Tree, _mainNode + 5, _codeListService);
-            _formaaltypeValidator = new FormaaltypeValidator(Tree, _mainNode + 1, _anleggstypeValidator, _naeringsgruppeValidator, _bygningstypeValidator, _tiltaksformaalValidator);
-            _tiltakstypeValidator = new TiltakstypeValidator(Tree, _mainNode + 6, _codeListService);
+            //_anleggstypeValidator = new AnleggstypeValidator(Tree, _mainNode + 2, _codeListService);
+            //_naeringsgruppeValidator = new NaeringsgruppeValidator(Tree, _mainNode + 3, _codeListService);
+            //_bygningstypeValidator = new BygningstypeValidator(Tree, _mainNode + 4, _codeListService);
+            //_tiltaksformaalValidator = new TiltaksformaalValidator(Tree, _mainNode + 5, _codeListService);
+            //_formaaltypeValidator = new FormaaltypeValidator(Tree, _mainNode + 1, _anleggstypeValidator, _naeringsgruppeValidator, _bygningstypeValidator, _tiltaksformaalValidator);
+            //_tiltakstypeValidator = new TiltakstypeValidator(Tree, _mainNode + 6, _codeListService);
             
-            _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(Tree, _mainNode, _formaaltypeValidator, _tiltakstypeValidator);
+            //_beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(Tree, _mainNode, _formaaltypeValidator, _tiltakstypeValidator);
 
             return _beskrivelseAvTiltakValidator;
         }

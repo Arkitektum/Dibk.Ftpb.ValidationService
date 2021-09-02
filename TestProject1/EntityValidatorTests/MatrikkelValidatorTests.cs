@@ -49,7 +49,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
                 new () {NodeId = 1, EnumId = EntityValidatorEnum.MatrikkelValidator, ParentID = null},
             };
 
-            _validator = new MatrikkelValidator(EntityValidatiorTree.BuildTree(matrikkelNodeList), 1, _municipalityValidator);
+            _validator = new MatrikkelValidator(EntityValidatiorTree.BuildTree(matrikkelNodeList), _municipalityValidator);
         }
 
         [Fact]

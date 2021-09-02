@@ -15,8 +15,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private readonly IMunicipalityValidator _municipalityValidator;
         ValidationResult IMatrikkelValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        public MatrikkelValidator(IList<EntityValidatorNode> entityValidatorTree, int? nodeId, IMunicipalityValidator municipalityValidator)
-            : base(entityValidatorTree, nodeId)
+        public MatrikkelValidator(IList<EntityValidatorNode> entityValidatorTree, IMunicipalityValidator municipalityValidator)
+            : base(entityValidatorTree)
         {
             _municipalityValidator = municipalityValidator;
         }

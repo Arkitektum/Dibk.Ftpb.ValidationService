@@ -43,9 +43,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
 
             _ansvarligSoekerKontaktpersonValidator = new KontaktpersonValidator(Tree, _mainNode + 1);
             _ansvarligSoekerPartstypeValidator = new PartstypeValidator(Tree, _mainNode + 2, _codeListService);
-            _ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(Tree, _mainNode + 3, _postalCodeService);
+            //_ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(Tree, _mainNode + 3, _postalCodeService);
 
-            _aktoerValidator = new AnsvarligSoekerValidator(Tree, _mainNode, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
+            //_aktoerValidator = new AnsvarligSoekerValidator(Tree, _mainNode, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
             return _aktoerValidator;
         }
         private List<EntityValidatorNode> ValidatorEntityNodeList()
