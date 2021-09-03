@@ -29,6 +29,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected override void InitializeValidationRules()
         {
             base.InitializeValidationRules();
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.veiledning);
             AddValidationRuleOverideXpath(ValidationRuleEnum.sjekklistepunkt_1_17_dokumentasjon_utfylt, "/krav{0}/dokumentasjon");
         }
 
