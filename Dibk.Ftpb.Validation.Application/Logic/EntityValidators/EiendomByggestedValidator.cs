@@ -72,12 +72,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private void ValidateEntityFields(EiendomValidationEntity eiendomValidationEntity)
         {
             var xPath = eiendomValidationEntity.DataModelXpath;
-            if (!Helpers.ObjectIsNullOrEmpty(eiendomValidationEntity.ModelData?.Bygningsnummer))
+            if (!string.IsNullOrEmpty(eiendomValidationEntity?.ModelData?.Bygningsnummer))
             {
                 long bygningsnrLong = 0;
                 if (!long.TryParse(eiendomValidationEntity.ModelData?.Bygningsnummer, out bygningsnrLong))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.bygningsnummer}", new[] { eiendomValidationEntity.ModelData?.Bygningsnummer });
+                    AddMessageFromRule(ValidationRuleEnum.numerisk, $"{xPath}/{FieldNameEnum.bygningsnummer}", new[] { eiendomValidationEntity.ModelData?.Bygningsnummer });
                 }
                 else
                 {
@@ -88,10 +88,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 }
             }
 
-            if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntity.ModelData?.Bolignummer))
+            if (string.IsNullOrEmpty(eiendomValidationEntity?.ModelData?.Bolignummer))
                 AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.bolignummer}");
 
-            if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntity.ModelData?.Kommunenavn))
+            if (string.IsNullOrEmpty(eiendomValidationEntity?.ModelData?.Kommunenavn))
                 AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.kommunenavn}");
         }
     }

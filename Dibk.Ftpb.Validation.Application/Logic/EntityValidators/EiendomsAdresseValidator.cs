@@ -43,22 +43,22 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             else
             {
-                if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Adresselinje1))
+                if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Adresselinje1))
                     AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.adresselinje1}");
 
-                if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Landkode))
+                if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Landkode))
                     AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.landkode}");
 
-                if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Postnr))
+                if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Postnr))
                     AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.postnr}");
 
-                if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Poststed))
+                if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Poststed))
                     AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.poststed}");
 
-                if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Gatenavn))
+                if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Gatenavn))
                     AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.gatenavn}");
 
-                if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Husnr))
+                if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Husnr))
                     AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.husnr}");
 
                 if (!StringIs4digitNumber(eiendomsAdresseValidationEntity.ModelData.Postnr))

@@ -42,53 +42,40 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             if (Helpers.ObjectIsNullOrEmpty(matrikkel?.ModelData))
             {
                 AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
-
             }
             else
             {
-                ValidateEntityFields(matrikkel);
-            }
-
-
-
-            return _validationResult;
-        }
-
-        public void ValidateEntityFields(MatrikkelValidationEntity matrikkel)
-        {
-
-            var xPath = matrikkel.DataModelXpath;
-
-            var kommunenummer = matrikkel?.ModelData?.Kommunenummer;
-            var kommunenummerStatus = _municipalityValidator.Validate_kommunenummerStatus(kommunenummer);
-            if (kommunenummerStatus.Status != MunicipalityValidationEnum.Ok)
-            {
-                switch (kommunenummerStatus.Status)
+                var kommunenummer = matrikkel?.ModelData?.Kommunenummer;
+                var kommunenummerStatus = _municipalityValidator.Validate_kommunenummerStatus(kommunenummer);
+                if (kommunenummerStatus.Status != MunicipalityValidationEnum.Ok)
                 {
-                    case MunicipalityValidationEnum.Empty:
-                        AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.kommunenummer}");
-                        break;
-                    case MunicipalityValidationEnum.Invalid:
-                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/{FieldNameEnum.kommunenummer}", new[] { kommunenummer });
-                        break;
-                    case MunicipalityValidationEnum.Expired:
-                        AddMessageFromRule(ValidationRuleEnum.utgått, $"{xPath}/{FieldNameEnum.kommunenummer}", new[] { kommunenummer, kommunenummerStatus.Status.ToString() });
-                        break;
+                    switch (kommunenummerStatus.Status)
+                    {
+                        case MunicipalityValidationEnum.Empty:
+                            AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.kommunenummer}");
+                            break;
+                        case MunicipalityValidationEnum.Invalid:
+                            AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/{FieldNameEnum.kommunenummer}", new[] { kommunenummer });
+                            break;
+                        case MunicipalityValidationEnum.Expired:
+                            AddMessageFromRule(ValidationRuleEnum.utgått, $"{xPath}/{FieldNameEnum.kommunenummer}", new[] { kommunenummer, kommunenummerStatus.Status.ToString() });
+                            break;
+                    }
                 }
+
+                if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Gaardsnummer))
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.gaardsnummer}");
+
+                if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Bruksnummer))
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.bruksnummer}");
+
+                if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Festenummer))
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.festenummer}");
+
+                if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Seksjonsnummer))
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.seksjonsnummer}");
             }
-
-
-            if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Gaardsnummer))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.gaardsnummer}");
-
-            if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Bruksnummer))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.bruksnummer}");
-
-            if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Festenummer))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.festenummer}");
-
-            if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Seksjonsnummer))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.seksjonsnummer}");
+            return _validationResult;
         }
     }
 }
