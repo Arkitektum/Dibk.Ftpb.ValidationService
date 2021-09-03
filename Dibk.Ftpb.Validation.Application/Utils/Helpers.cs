@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using AutoMapper.Internal;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 
@@ -12,6 +13,12 @@ namespace Dibk.Ftpb.Validation.Application.Utils
 {
     public class Helpers
     {
+        /// <summary>
+        /// check if the object and properties are empty
+        /// it doesn't work with the new mapping structure because the "ModelData" and "DataModelXpath" properties always have data 
+        /// </summary>
+        /// <param name="mainObject"></param>
+        /// <returns></returns>
         public static bool ObjectIsNullOrEmpty(object mainObject)
         {
             if (mainObject == null) return true;
@@ -24,7 +31,7 @@ namespace Dibk.Ftpb.Validation.Application.Utils
             }
 
             //Complex types - Arrays
-            if (mainObject.GetType().IsArray)
+            if (mainObject.GetType().IsArray || mainObject.GetType().IsEnumerableType())
             {
                 foreach (dynamic objectItem in (IEnumerable)mainObject)
                 {
