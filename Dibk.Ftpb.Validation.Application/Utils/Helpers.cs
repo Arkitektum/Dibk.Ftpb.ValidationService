@@ -31,7 +31,7 @@ namespace Dibk.Ftpb.Validation.Application.Utils
             }
 
             //Complex types - Arrays
-            if (mainObject.GetType().IsArray || mainObject.GetType().IsEnumerableType())
+            if (mainObject.GetType().IsArray || mainObject.GetType().IsEnumerableType() || mainObject.GetType().IsListType())
             {
                 foreach (dynamic objectItem in (IEnumerable)mainObject)
                 {
