@@ -1,5 +1,6 @@
 ﻿using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
+using System;
 using System.Collections.Generic;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
@@ -9,5 +10,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
         //string ruleXmlElement { get; }
         ValidationResult ValidationResult { get; set; }
         ValidationResult Validate(IEnumerable<EiendomValidationEntity> eiendomValidationEntities);
+        //event EventHandler<ValidationResult> RulesAdded;
     }
 }

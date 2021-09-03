@@ -27,7 +27,7 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Checklist
                 .Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<IEnumerable<Sjekk>> Get(string category)
+        public async Task<IEnumerable<Sjekk>> GetChecklist(string category)
         {
             if (category == null)
             {
@@ -41,6 +41,30 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Checklist
             if (response.IsSuccessStatusCode)
             {
                 json = await response.Content.ReadAsStringAsync();
+                liste = JsonConvert.DeserializeObject<IEnumerable<Sjekk>>(json);
+            }
+            return liste;
+        }
+
+        public async Task<IEnumerable<Sjekk>> GetPrefillChecklist()
+        {
+            //if (category == null)
+            //{
+            //    throw new ArgumentNullException("Category cannot be null");
+            //}
+
+            var requestUri = $"/prefill";
+            
+            //var json = JsonSerializer.Serialize(formMetadata)
+            var json = "";
+            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PostAsync($"{_requestUrl}{requestUri}", stringContent);
+            IEnumerable<Sjekk> liste = null;
+            string jsonResponse = String.Empty;
+            if (response.IsSuccessStatusCode)
+            {
+                jsonResponse = await response.Content.ReadAsStringAsync();
                 liste = JsonConvert.DeserializeObject<IEnumerable<Sjekk>>(json);
             }
             return liste;

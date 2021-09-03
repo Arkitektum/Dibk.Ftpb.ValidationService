@@ -36,7 +36,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             //AddValidationRule(KodeListValidationEnum.kodebeskrivelse_gyldig, "kodebeskrivelse");
 
             AddValidationRule(ValidationRuleEnum.utfylt);
-            AddValidationRule(ValidationRuleEnum.kodeliste_gyldig);
+            AddValidationRule(ValidationRuleEnum.gyldig);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.kodeverdi);
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.kodeverdi);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.kodebeskrivelse);
@@ -85,7 +85,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                             var isCodelistLabelValid = _codeListService.IsCodelistLabelValid(_codeListName,kodeEntry.ModelData?.Kodeverdi, kodeEntry.ModelData?.Kodebeskrivelse, _registryType);
                             if (!isCodelistLabelValid.GetValueOrDefault())
                             {
-                                AddMessageFromRule(ValidationRuleEnum.kodeliste_gyldig, xpath, new[] { kodeEntry.ModelData?.Kodeverdi, kodeEntry.ModelData?.Kodebeskrivelse });
+                                AddMessageFromRule(ValidationRuleEnum.gyldig, xpath, new[] { kodeEntry.ModelData?.Kodeverdi, kodeEntry.ModelData?.Kodebeskrivelse });
                             }
                         }
                     }

@@ -1,5 +1,6 @@
 ﻿using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
+using System;
 using System.Collections.Generic;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
@@ -12,5 +13,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
         //TODO: Fix this
         ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, List<string> attachments = null);
         ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, IEnumerable<SjekklistekravValidationEntity> sjekkliste, List<string> attachments = null);
+        
+        //event EventHandler<ValidationResult> RulesAdded;
     }
 }

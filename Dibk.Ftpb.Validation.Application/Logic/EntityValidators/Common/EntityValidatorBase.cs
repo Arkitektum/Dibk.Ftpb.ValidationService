@@ -12,6 +12,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 {
     public abstract class EntityValidatorBase : IEntityValidator
     {
+        //public event EventHandler<ValidationResult> RulesAdded;
+
+        //protected virtual void OnRulesAdded(ValidationResult validationResult)
+        //{
+        //    RulesAdded?.Invoke(this, validationResult);
+        //}
+
+        protected string EntityName;
         private string _ruleIdPath;
         private string _entityXPath;
         //public abstract string ruleXmlElement { get; set; }
@@ -39,6 +47,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             }
             
             InitializeValidationRules();
+            //OnRulesAdded(_validationResult);
         }
 
         private static EntityValidatorNode GetEntityValidatorNode(IList<EntityValidatorNode> entityValidationTree, int? treeNodeId, string validatorName)

@@ -13,5 +13,8 @@ namespace Dibk.Ftpb.Validation.Application.Models.FormEntities
         public FakturamottakerValidationEntity FakturamottakerValidationEntity { get; set; }
         public IEnumerable<SjekklistekravValidationEntity> SjekklistekravValidationEntities { get; set; }
         public BeskrivelseAvTiltakValidationEntity BeskrivelseAvTiltakValidationEntity { get; set; }
+        public MetadataValidationEntity MetadataValidationEntity { get; set; }
+        public SaksnummerValidationEntity ArbeidstilsynetsSaksnummerValidationEntity { get; set; }
+        public SaksnummerValidationEntity KommunensSaksnummerValidationEntity { get; set; }
     }
 }

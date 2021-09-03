@@ -17,16 +17,17 @@ namespace Dibk.Ftpb.Validation.Application.Services
         }
         public string GetPrefillChecklist(string soknadsType, ValidationResult validationResult)
         {
-            throw new NotImplementedException();
+            var response = _atilChecklistApiHttpClient.GetPrefillChecklist().Result;
+            return "response";
         }
         public IEnumerable<Sjekk> GetAtilCheckpoints(string category)
         {
-            var response = _atilChecklistApiHttpClient.Get(category).Result;
+            var response = _atilChecklistApiHttpClient.GetChecklist(category).Result;
             return response;
         }
         public IEnumerable<Sjekk> GetDibkCheckpoints(string category)
         {
-            var response = _dibkChecklistApiHttpClient.Get(category).Result;
+            var response = _dibkChecklistApiHttpClient.GetChecklist(category).Result;
             return response;
         }
     }

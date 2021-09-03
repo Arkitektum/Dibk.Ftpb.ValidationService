@@ -17,6 +17,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
             arbeidstilsynetsSamtykke2Form45957.FakturamottakerValidationEntity = new FakturamottakerMapper().Map(dataModel.fakturamottaker, XPathRoot);
             arbeidstilsynetsSamtykke2Form45957.SjekklistekravValidationEntities = new SjekklistekravMapper().Map(dataModel.krav, XPathRoot);
             arbeidstilsynetsSamtykke2Form45957.BeskrivelseAvTiltakValidationEntity = new BeskrivelseAvTiltakMapper().Map(dataModel.beskrivelseAvTiltak, XPathRoot);
+            arbeidstilsynetsSamtykke2Form45957.MetadataValidationEntity = new MetadataMapper().Map(dataModel.metadata, XPathRoot);
+            arbeidstilsynetsSamtykke2Form45957.ArbeidstilsynetsSaksnummerValidationEntity = new ArbeidstilsynetsSaksnummerMapper().Map(dataModel.arbeidstilsynetsSaksnummer, XPathRoot);
+            arbeidstilsynetsSamtykke2Form45957.KommunensSaksnummerValidationEntity = new KommunensSaksnummerMapper().Map(dataModel.kommunensSaksnummer, XPathRoot);
 
             return new ArbeidstilsynetsSamtykke2_45957_ValidationEntity(arbeidstilsynetsSamtykke2Form45957, XPathRoot, null);
         }

@@ -118,6 +118,8 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         [FieldNameEnumerationAttribute(FieldNameId = "108")] saksaar,
         [FieldNameEnumerationAttribute(FieldNameId = "109")] sakssekvensnummer,
         [FieldNameEnumerationAttribute(FieldNameId = "110")] hovedinnsendingsnummer,
+        [FieldNameEnumerationAttribute(FieldNameId = "116")] erNorskSvenskDansk,
+        [FieldNameEnumerationAttribute(FieldNameId = "118")] unntattOffentlighet,
 
 
     }

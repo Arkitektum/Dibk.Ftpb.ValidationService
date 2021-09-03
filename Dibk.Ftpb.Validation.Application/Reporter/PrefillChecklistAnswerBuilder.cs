@@ -24,6 +24,8 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             return prefillChecklist;
         }
 
+
+
         //private void GetCriteriasForAllChecklistItems()
         //{
 

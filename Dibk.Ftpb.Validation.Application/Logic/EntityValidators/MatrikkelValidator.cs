@@ -25,7 +25,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(ValidationRuleEnum.utfylt);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.kommunenummer);
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.kommunenummer);
-            AddValidationRule(ValidationRuleEnum.kommunenummer_utgått, FieldNameEnum.kommunenummer);
+            AddValidationRule(ValidationRuleEnum.utgått, FieldNameEnum.kommunenummer);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.gaardsnummer);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.bruksnummer);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.festenummer);
@@ -72,7 +72,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/{FieldNameEnum.kommunenummer}", new[] { kommunenummer });
                         break;
                     case MunicipalityValidationEnum.Expired:
-                        AddMessageFromRule(ValidationRuleEnum.kommunenummer_utgått, $"{xPath}/{FieldNameEnum.kommunenummer}", new[] { kommunenummer, kommunenummerStatus.Status.ToString() });
+                        AddMessageFromRule(ValidationRuleEnum.utgått, $"{xPath}/{FieldNameEnum.kommunenummer}", new[] { kommunenummer, kommunenummerStatus.Status.ToString() });
                         break;
                 }
             }

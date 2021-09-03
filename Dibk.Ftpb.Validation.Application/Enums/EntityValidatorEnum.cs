@@ -76,5 +76,16 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         [EntityValidatorEnumerationAttribute(XmlNode = "arbeidsplasser", ValidatorId = "22")]
         ArbeidsplasserValidatorV2,
 
+        [EntityValidatorEnumerationAttribute(XmlNode = "metadata", ValidatorId = "23")]
+        MetadataValidator,
+
+        [EntityValidatorEnumerationAttribute(XmlNode = "arbeidstilsynetsSaksnummer", ValidatorId = "24")]
+        ArbeidstilsynetsSaksnummerValidator,
+
+        [EntityValidatorEnumerationAttribute(XmlNode = "kommunensSaksnummer", ValidatorId = "25")]
+        KommunensSaksnummerValidator
+
+
+
     }
 }
