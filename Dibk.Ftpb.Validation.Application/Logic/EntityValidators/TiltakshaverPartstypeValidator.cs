@@ -5,10 +5,10 @@ using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class AnleggstypeValidator : KodelisteValidator
+    public class TiltakshaverPartstypeValidator : KodelisteValidator
     {
-        public AnleggstypeValidator(IList<EntityValidatorNode> entityValidatorTree, ICodeListService codeListService)
-            : base(entityValidatorTree,  FtbKodeListeEnum.Anleggstype, RegistryType.Byggesoknad, codeListService)
+        public TiltakshaverPartstypeValidator(IList<EntityValidatorNode> entityValidatorTree, ICodeListService codeListService)
+            : base(entityValidatorTree, FtbKodeListeEnum.Partstype, RegistryType.Byggesoknad, codeListService)
         {
             _codeListService = codeListService;
         }

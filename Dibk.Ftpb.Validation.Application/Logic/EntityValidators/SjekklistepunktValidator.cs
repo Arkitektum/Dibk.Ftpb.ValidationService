@@ -8,7 +8,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public class SjekklistepunktValidator : KodelisteValidator
     {
         public SjekklistepunktValidator(IList<EntityValidatorNode> entityValidatorTree, ICodeListService codeListService)
-            : base(entityValidatorTree, null, FtbKodeListeEnum.Sjekklistepunkttype, RegistryType.Arbeidstilsynet, codeListService)
+            : base(entityValidatorTree,  FtbKodeListeEnum.Sjekklistepunkttype, RegistryType.Arbeidstilsynet, codeListService)
         {
             _codeListService = codeListService;
         }
