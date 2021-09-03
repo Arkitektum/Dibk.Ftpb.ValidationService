@@ -19,8 +19,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 
-        public KodelisteValidator(IList<EntityValidatorNode> entityValidatorTree,  object codeListName, RegistryType registryType, ICodeListService codeListService)
-                   : base(entityValidatorTree)
+        public KodelisteValidator(IList<EntityValidatorNode> entityValidatorTree, int? nodeId, object codeListName, RegistryType registryType, ICodeListService codeListService)
+                   : base(entityValidatorTree, nodeId)
         {
             _codeListName = codeListName;
             _registryType = registryType;

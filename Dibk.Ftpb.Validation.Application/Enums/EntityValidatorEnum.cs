@@ -35,7 +35,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         EiendomsAdresseValidator,
 
         [EntityValidatorEnumerationAttribute(XmlNode = "adresse", ValidatorId = "9")]
-        TiltakshaverEnkelAdresseValidator,
+        EnkelAdresseValidator,
 
         [EntityValidatorEnumerationAttribute(XmlNode = "adresse", ValidatorId = "10")]
         EnkelAdresseValidatorV2,
@@ -47,7 +47,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         FormaaltypeValidator,
 
         [EntityValidatorEnumerationAttribute(XmlNode = "kontaktperson", ValidatorId = "13")]
-        TiltakshaverKontaktpersonValidator,
+        KontaktpersonValidator,
 
         [EntityValidatorEnumerationAttribute(XmlNode = "eiendomsidentifikasjon", ValidatorId = "14")]
         MatrikkelValidator,
@@ -56,7 +56,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         NaeringsgruppeValidator,
 
         [EntityValidatorEnumerationAttribute(XmlNode = "partstype", ValidatorId = "16")]
-        TiltakshaverPartstypeValidator,
+        PartstypeValidator,
 
         [EntityValidatorEnumerationAttribute(XmlNode = "krav{0}", ValidatorId = "17")]
         SjekklistekravValidator,
@@ -75,21 +75,6 @@ namespace Dibk.Ftpb.Validation.Application.Enums
 
         [EntityValidatorEnumerationAttribute(XmlNode = "arbeidsplasser", ValidatorId = "22")]
         ArbeidsplasserValidatorV2,
-        
-        [EntityValidatorEnumerationAttribute(XmlNode = "kontaktperson", ValidatorId = "23")]
-        AnsvarligSoekerKontaktpersonValidator,
-        
-        [EntityValidatorEnumerationAttribute(XmlNode = "adresse", ValidatorId = "24")]
-        AnsvarligSoekerPartstypeValidator,
-
-        [EntityValidatorEnumerationAttribute(XmlNode = "partstype", ValidatorId = "25")]
-        
-        AnsvarligSoekerEnkelAdresseValidator,
-        
-        [EntityValidatorEnumerationAttribute(XmlNode = "adresse", ValidatorId = "26")]
-        FakturamottakerEnkelAdresseValidator,
-        
-
 
     }
 }

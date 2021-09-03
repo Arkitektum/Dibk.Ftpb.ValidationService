@@ -65,8 +65,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
             if (_aktoerValidator != null)
                 return _aktoerValidator;
 
-            _tiltakshaverKontaktpersonValidator = new TiltakshaverKontaktpersonValidator(Tree);
-            _tiltakshaverPartstypeValidator = new TiltakshaverPartstypeValidator(Tree, _codeListService);
+            _tiltakshaverKontaktpersonValidator = new KontaktpersonValidator(Tree, _mainNode + 1);
+            _tiltakshaverPartstypeValidator = new PartstypeValidator(Tree, _mainNode + 2, _codeListService);
             //_tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(Tree, _mainNode + 3, _postalCodeService);
 
             //_aktoerValidator = new TiltakshaverValidator(Tree, _mainNode, _tiltakshaverEnkelAdresseValidator, _tiltakshaverKontaktpersonValidator, _tiltakshaverPartstypeValidator, _codeListService);
@@ -78,9 +78,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
             var validatorEntityNodeList = new List<EntityValidatorNode>()
             {
                 new () {NodeId = _mainNode, EnumId = EntityValidatorEnum.TiltakshaverValidator, ParentID = null},
-                new () {NodeId = _mainNode + 1, EnumId = EntityValidatorEnum.TiltakshaverKontaktpersonValidator, ParentID = _mainNode},
-                new () {NodeId = _mainNode + 2, EnumId = EntityValidatorEnum.TiltakshaverPartstypeValidator, ParentID = _mainNode},
-                new () {NodeId = _mainNode + 3, EnumId = EntityValidatorEnum.TiltakshaverEnkelAdresseValidator, ParentID = _mainNode}
+                new () {NodeId = _mainNode + 1, EnumId = EntityValidatorEnum.KontaktpersonValidator, ParentID = _mainNode},
+                new () {NodeId = _mainNode + 2, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = _mainNode},
+                new () {NodeId = _mainNode + 3, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = _mainNode}
             };
             return validatorEntityNodeList;
         }

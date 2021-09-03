@@ -78,14 +78,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var tiltakshaverTree = new List<EntityValidatorNode>()
             {
                 new () {NodeId = 4, EnumId = EntityValidatorEnum.TiltakshaverValidator, ParentID = null},
-                new () {NodeId = 5, EnumId = EntityValidatorEnum.TiltakshaverKontaktpersonValidator, ParentID = 4},
-                new () {NodeId = 6, EnumId = EntityValidatorEnum.TiltakshaverPartstypeValidator, ParentID = 4},
-                new () {NodeId = 7, EnumId = EntityValidatorEnum.TiltakshaverEnkelAdresseValidator, ParentID = 4}
+                new () {NodeId = 5, EnumId = EntityValidatorEnum.KontaktpersonValidator, ParentID = 4},
+                new () {NodeId = 6, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 4},
+                new () {NodeId = 7, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 4}
             };
             var fakturamottakerTree = new List<EntityValidatorNode>()
             {
                 new () {NodeId = 8, EnumId = EntityValidatorEnum.FakturamottakerValidator, ParentID = null},
-                new () {NodeId = 9, EnumId = EntityValidatorEnum.FakturamottakerEnkelAdresseValidator, ParentID = 8}
+                new () {NodeId = 9, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 8}
             };
 
             var arbeidsplasserTree = new List<EntityValidatorNode>()
@@ -96,9 +96,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var ansvarligSoekerTree = new List<EntityValidatorNode>()
             {
                 new () {NodeId = 11, EnumId = EntityValidatorEnum.AnsvarligSoekerValidator, ParentID = null},
-                new () {NodeId = 12, EnumId = EntityValidatorEnum.EnkelAdresseValidatorV2, ParentID = 11},
-                new () {NodeId = 13, EnumId = EntityValidatorEnum.AnsvarligSoekerKontaktpersonValidator, ParentID = 11,},
-                new () {NodeId = 14, EnumId = EntityValidatorEnum.AnsvarligSoekerPartstypeValidator, ParentID = 11,}
+                new () {NodeId = 12, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 11},
+                new () {NodeId = 13, EnumId = EntityValidatorEnum.KontaktpersonValidator, ParentID = 11,},
+                new () {NodeId = 14, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 11,}
             };
 
             //Datamodellen for denne skjemaversjon er ulik v.2 - kommenterer derfor ut
@@ -133,19 +133,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _eiendomByggestedValidator = new EiendomByggestedValidator(EntityValidatorTree, _eiendomsAdresseValidator, _matrikkelValidator);
 
             //Tiltakshaver
-            _tiltakshaverEnkelAdresseValidator = new TiltakshaverEnkelAdresseValidator(EntityValidatorTree, _postalCodeService);
-            _tiltakshaverKontaktpersonValidator = new TiltakshaverKontaktpersonValidator(EntityValidatorTree);
-            _tiltakshaverPartstypeValidator = new TiltakshaverPartstypeValidator(EntityValidatorTree, _codeListService);
+            _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 7, _postalCodeService);
+            _tiltakshaverKontaktpersonValidator = new KontaktpersonValidator(EntityValidatorTree, 5);
+            _tiltakshaverPartstypeValidator = new PartstypeValidator(EntityValidatorTree, 6, _codeListService);
             _tiltakshaverValidator = new TiltakshaverValidator(EntityValidatorTree, _tiltakshaverEnkelAdresseValidator, _tiltakshaverKontaktpersonValidator, _tiltakshaverPartstypeValidator, _codeListService);
 
             //AnsvarligSoeker
-            _ansvarligSoekerEnkelAdresseValidator = new AnsvarligSoekerEnkelAdresseValidator(EntityValidatorTree, _postalCodeService);
-            _ansvarligSoekerKontaktpersonValidator = new AnsvarligSoekerKontaktpersonValidator(EntityValidatorTree);
-            _ansvarligSoekerPartstypeValidator = new AnsvarligSoekerPartstypeValidator(EntityValidatorTree, _codeListService);
+            _ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 12, _postalCodeService);
+            _ansvarligSoekerKontaktpersonValidator = new KontaktpersonValidator(EntityValidatorTree, 13);
+            _ansvarligSoekerPartstypeValidator = new PartstypeValidator(EntityValidatorTree, 14, _codeListService);
             _ansvarligSoekerValidator = new AnsvarligSoekerValidator(EntityValidatorTree, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
 
             //Fakturamottaker
-            _fakturamottakerEnkelAdresseValidator = new FakturamottakerEnkelAdresseValidator(EntityValidatorTree, _postalCodeService);
+            _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidator(EntityValidatorTree, 9, _postalCodeService);
             _fakturamottakerValidator = new FakturamottakerValidator(EntityValidatorTree, _fakturamottakerEnkelAdresseValidator);
 
             //Arbeidsplasser

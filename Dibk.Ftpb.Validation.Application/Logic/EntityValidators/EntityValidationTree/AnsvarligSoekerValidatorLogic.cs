@@ -41,8 +41,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
             if (_aktoerValidator != null)
                 return _aktoerValidator;
 
-            _ansvarligSoekerKontaktpersonValidator = new AnsvarligSoekerKontaktpersonValidator(Tree );
-            _ansvarligSoekerPartstypeValidator = new AnsvarligSoekerPartstypeValidator(Tree, _codeListService);
+            _ansvarligSoekerKontaktpersonValidator = new KontaktpersonValidator(Tree, _mainNode + 1);
+            _ansvarligSoekerPartstypeValidator = new PartstypeValidator(Tree, _mainNode + 2, _codeListService);
             //_ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(Tree, _mainNode + 3, _postalCodeService);
 
             //_aktoerValidator = new AnsvarligSoekerValidator(Tree, _mainNode, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
@@ -53,9 +53,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
             var validatorEntityNodeList = new List<EntityValidatorNode>()
             {
                 new () {NodeId = _mainNode, EnumId = EntityValidatorEnum.AnsvarligSoekerValidator, ParentID = null},
-                new () {NodeId = _mainNode + 1, EnumId = EntityValidatorEnum.AnsvarligSoekerKontaktpersonValidator, ParentID = _mainNode},
-                new () {NodeId = _mainNode + 2, EnumId = EntityValidatorEnum.AnsvarligSoekerPartstypeValidator, ParentID = _mainNode},
-                new () {NodeId = _mainNode + 3, EnumId = EntityValidatorEnum.AnsvarligSoekerEnkelAdresseValidator, ParentID = _mainNode}
+                new () {NodeId = _mainNode + 1, EnumId = EntityValidatorEnum.KontaktpersonValidator, ParentID = _mainNode},
+                new () {NodeId = _mainNode + 2, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = _mainNode},
+                new () {NodeId = _mainNode + 3, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = _mainNode}
             };
             return validatorEntityNodeList;
         }

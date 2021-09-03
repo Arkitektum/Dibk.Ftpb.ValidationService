@@ -36,7 +36,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult Validate(IEnumerable<EiendomValidationEntity> eiendomValidationEntities)
         {
-            if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntities) || eiendomValidationEntities?.Count() == 0)
+            if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntities) || eiendomValidationEntities.Count() == 0)
             {
                 AddMessageFromRule(ValidationRuleEnum.utfylt);
             }
