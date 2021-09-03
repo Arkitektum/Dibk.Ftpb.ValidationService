@@ -133,7 +133,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarligSoeker/adresse/landkode", "Ugyldig landkode for ansvarlig søker.");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarligSoeker/adresse/postnr", "Postnummer for ansvarlig søker bør angis.");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ansvarligSoeker/adresse/postnr", "Postnummeret '{0}' for ansvarlig søker er ugyldig. Du kan sjekke riktig postnummer på http://adressesok.bring.no/");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.postnr_kontrollsiffer, "/ansvarligSoeker/adresse/postnr", "Postnummeret '{0}' for ansvarlig søker har ikke gyldig kontrollsiffer.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.kontrollsiffer, "/ansvarligSoeker/adresse/postnr", "Postnummeret '{0}' for ansvarlig søker har ikke gyldig kontrollsiffer.");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.postnr_stemmerIkke, "/ansvarligSoeker/adresse/postnr", "Postnummeret '{0}' for {3} stemmer ikke overens med poststedet '{1}'. Riktig postnummer er '{2}'. Du kan sjekke riktig poststed på http://adressesok.bring.no/");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.postnr_ikke_validert, "/ansvarligSoeker/adresse/postnr", "Postnummeret til ansvarlig søker ble ikke validert.");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.postnr_4siffer, "/ansvarligSoeker/adresse/postnr", "Ansvarlig søkers postnr må bestå av 4 siffer");
@@ -172,7 +172,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/fakturamottaker/adresse/adresselinje1", "Adresselinje 1 bør fylles ut for fakturamottaker.");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/fakturamottaker/adresse/adresselinje2", "Adresselinje 2 bør fylles ut for fakturamottaker.");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/fakturamottaker/adresse/adresselinje3", "Adresselinje 3 bør fylles ut for fakturamottaker.");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.postnr_kontrollsiffer, "/fakturamottaker/adresse/postnr", "Postnummeret '{0}' for fakturamottaker har ikke gyldig kontrollsiffer.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.kontrollsiffer, "/fakturamottaker/adresse/postnr", "Postnummeret '{0}' for fakturamottaker har ikke gyldig kontrollsiffer.");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/fakturamottaker/adresse/postnr", "Postnummeret '{0}' for {1} er ugyldig. Du kan sjekke riktig postnummer på http://adressesok.bring.no/");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.postnr_stemmerIkke, "/fakturamottaker/adresse/postnr", "Postnummeret '{0}' for {3} stemmer ikke overens med poststedet '{1}'. Riktig postnummer er '{2}'. Du kan sjekke riktig poststed på http://adressesok.bring.no/");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.postnr_ikke_validert, "/fakturamottaker/adresse/postnr", "Postnummeret til fakturamottaker ble ikke validert.");

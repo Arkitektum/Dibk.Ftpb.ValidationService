@@ -82,7 +82,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         Match isPostNrValid = Regex.Match(postNr, "^([0-9])([0-9])([0-9])([0-9])$");
                         if (!isPostNrValid.Success)
                         {
-                            AddMessageFromRule(ValidationRuleEnum.postnr_kontrollsiffer, $"{xPath}/{FieldNameEnum.postnr}", new[] { postNr });
+                            AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, $"{xPath}/{FieldNameEnum.postnr}", new[] { postNr });
                         }
                         else
                         {

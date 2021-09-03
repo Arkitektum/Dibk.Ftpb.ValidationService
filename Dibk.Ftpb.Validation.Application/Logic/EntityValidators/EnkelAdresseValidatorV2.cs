@@ -27,7 +27,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.adresselinje3);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.landkode);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.postnr);
-            AddValidationRule(ValidationRuleEnum.postnr_kontrollsiffer, FieldNameEnum.postnr);
+            AddValidationRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.postnr);
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.postnr);
             AddValidationRule(ValidationRuleEnum.postnr_stemmerIkke, FieldNameEnum.postnr);
             AddValidationRule(ValidationRuleEnum.postnr_ikke_validert, FieldNameEnum.postnr);

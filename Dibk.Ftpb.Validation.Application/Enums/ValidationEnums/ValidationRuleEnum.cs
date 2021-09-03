@@ -19,7 +19,6 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "10")] sjekklistepunkt_dokumentasjon_utfylt,
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "11")] sjekklistepunkt_1_17_dokumentasjon_utfylt,
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "12")] postnr_4siffer,
-        [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "13")] postnr_kontrollsiffer,
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "14")] postnr_stemmerIkke,
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "15")] postnr_ikke_validert,
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "16")] tillatte_postnr_i_kommune,
