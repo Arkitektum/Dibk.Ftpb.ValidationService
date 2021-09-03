@@ -13,14 +13,14 @@ using Dibk.Ftpb.Validation.Application.Enums;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class EnkelAdresseValidator : EntityValidatorBase, IEnkelAdresseValidator
+    public abstract class EnkelAdresseValidator : EntityValidatorBase, IEnkelAdresseValidator
     {
         private readonly IPostalCodeService _postalCodeService;
 
         ValidationResult IEnkelAdresseValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        public EnkelAdresseValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, IPostalCodeService postalCodeService)
-            : base(entityValidatorTree, nodeId)
+        public EnkelAdresseValidator(IList<EntityValidatorNode> entityValidatorTree, IPostalCodeService postalCodeService)
+            : base(entityValidatorTree)
         {
             _postalCodeService = postalCodeService;
         }

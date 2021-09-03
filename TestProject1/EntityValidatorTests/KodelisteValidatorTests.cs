@@ -36,13 +36,13 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
                 new()
                 {
                     NodeId = 1,
-                    EnumId = EntityValidatorEnum.PartstypeValidator,
+                    EnumId = EntityValidatorEnum.AnsvarligSoekerPartstypeValidator,
                     ParentID = null,
 
                 }, //root node
             };
             var entityValidationTree = EntityValidatiorTree.BuildTree(entityValidatorNodes);
-            _kodelisteValidator = new PartstypeValidator(entityValidationTree, 1, _codeListService);
+            _kodelisteValidator = new AnsvarligSoekerPartstypeValidator(entityValidationTree, _codeListService);
 
         }
         [Fact(DisplayName = "kodelist utfylt - Error")]

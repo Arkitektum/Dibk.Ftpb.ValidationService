@@ -9,12 +9,12 @@ using Dibk.Ftpb.Validation.Application.Reporter;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class KontaktpersonValidator : EntityValidatorBase, IKontaktpersonValidator
+    public abstract class KontaktpersonValidator : EntityValidatorBase, IKontaktpersonValidator
     {
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 
-        public KontaktpersonValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId)
-            : base(entityValidatorTree, nodeId)
+        public KontaktpersonValidator(IList<EntityValidatorNode> entityValidatorTree)
+            : base(entityValidatorTree)
         {
         }
         protected override void InitializeValidationRules()

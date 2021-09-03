@@ -75,7 +75,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidati
             var validatorEntityNodeList = new List<EntityValidatorNode>()
             {
                 new () {NodeId = _mainNode, EnumId = EntityValidatorEnum.FakturamottakerValidator, ParentID = null},
-                new () {NodeId = _mainNode + 1, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = _mainNode}
+                new () {NodeId = _mainNode + 1, EnumId = EntityValidatorEnum.FakturamottakerEnkelAdresseValidator, ParentID = _mainNode}
             };
             return validatorEntityNodeList;
         }

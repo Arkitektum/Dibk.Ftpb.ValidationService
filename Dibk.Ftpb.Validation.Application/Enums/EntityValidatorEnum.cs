@@ -56,7 +56,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         NaeringsgruppeValidator,
 
         [EntityValidatorEnumerationAttribute(XmlNode = "partstype", ValidatorId = "16")]
-        PartstypeValidator,
+        TiltakshaverPartstypeValidator,
 
         [EntityValidatorEnumerationAttribute(XmlNode = "krav{0}", ValidatorId = "17")]
         SjekklistekravValidator,
@@ -75,6 +75,21 @@ namespace Dibk.Ftpb.Validation.Application.Enums
 
         [EntityValidatorEnumerationAttribute(XmlNode = "arbeidsplasser", ValidatorId = "22")]
         ArbeidsplasserValidatorV2,
+        
+        [EntityValidatorEnumerationAttribute(XmlNode = "kontaktperson", ValidatorId = "23")]
+        AnsvarligSoekerKontaktpersonValidator,
+        
+        [EntityValidatorEnumerationAttribute(XmlNode = "adresse", ValidatorId = "24")]
+        AnsvarligSoekerPartstypeValidator,
+
+        [EntityValidatorEnumerationAttribute(XmlNode = "partstype", ValidatorId = "25")]
+        
+        AnsvarligSoekerEnkelAdresseValidator,
+        
+        [EntityValidatorEnumerationAttribute(XmlNode = "adresse", ValidatorId = "26")]
+        FakturamottakerEnkelAdresseValidator,
+        
+
 
         [EntityValidatorEnumerationAttribute(XmlNode = "metadata", ValidatorId = "23")]
         MetadataValidator,

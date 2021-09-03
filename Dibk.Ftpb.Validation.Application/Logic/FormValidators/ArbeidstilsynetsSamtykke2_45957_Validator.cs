@@ -69,13 +69,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private ISjekklistekravValidator _sjekklistekravValidator;
 
 
-        //Metadata
-        private IMetadataValidator _metadataValidator;
-
-        //Saksnummer
-        private ISaksnummerValidator _arbeidstilsynetsSaksnummerValidator;
-        private ISaksnummerValidator _kommunensSaksnummerValidator;
-
         protected override string XPathRoot => "ArbeidstilsynetsSamtykke";
 
         public ArbeidstilsynetsSamtykke2_45957_Validator(IValidationMessageComposer validationMessageComposer
@@ -167,27 +160,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             };
             _entitiesNodeList.AddRange(sjekklistekravValidatorNodeList);
 
-            //Metadata
-            var metadataValidatorNodeList = new List<EntityValidatorNode>()
-            {
-                new() {NodeId = 24, EnumId = EntityValidatorEnum.MetadataValidator, ParentID = null}
-            };
-            _entitiesNodeList.AddRange(metadataValidatorNodeList);
-
-            //Arbeidstilsynets Saksnummer
-            var arbeidstilsynetsSaksnummerValidatorNodeList = new List<EntityValidatorNode>()
-            {
-                new() {NodeId = 25, EnumId = EntityValidatorEnum.ArbeidstilsynetsSaksnummerValidator, ParentID = null}
-            };
-            _entitiesNodeList.AddRange(arbeidstilsynetsSaksnummerValidatorNodeList);
-
-            //Kommunenes Saksnummer
-            var kommunenesSaksnummerValidatorNodeList = new List<EntityValidatorNode>()
-            {
-                new() {NodeId = 26, EnumId = EntityValidatorEnum.KommunensSaksnummerValidator, ParentID = null}
-            };
-            _entitiesNodeList.AddRange(kommunenesSaksnummerValidatorNodeList);
-
         }
 
         protected override void InstantiateValidators()
@@ -223,31 +195,23 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _partstypeValidator = new PartstypeValidator(tree, 6, _codeListService);
             _enkelAdresseValidator = new EnkelAdresseValidator(tree, 7, _postalCodeService);
             _tiltakshaverValidator = new TiltakshaverValidator(tree, _enkelAdresseValidator, _kontaktpersonValidator, _partstypeValidator, _codeListService);
-            //fakturamottaker
+            //fakturamottake
             _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidator(tree, 9, _postalCodeService);
             _fakturamottakerValidator = new FakturamottakerValidator(tree, _fakturamottakerEnkelAdresseValidator);
-            
-            //Metadata
-            _metadataValidator = new MetadataValidator(tree);
-            //Arbeidstilsynets saksnummer
-            _arbeidstilsynetsSaksnummerValidator = new ArbeidstilsynetsSaksnummerValidator(tree);
-            //Kommunens saksnummer
-            _kommunensSaksnummerValidator = new KommunensSaksnummerValidator(tree);
 
         }
         protected override void DefineValidationRules()
         {
             //TODO create a method to do this automatic, potential error
-
             //Sjekklistekrav
             AccumulateValidationRules(_sjekklistepunktValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_sjekklistekravValidator.ValidationResult.ValidationRules);
-            //EiendomByggested rules
+            ////EiendomByggested rules
             AccumulateValidationRules(_matrikkelValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_eiendomsAdresseValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_eiendomByggestedValidator.ValidationResult.ValidationRules);
             //Tiltashaver
-            AccumulateValidationRules(_kontaktpersonValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_partstypeValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_partstypeValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_enkelAdresseValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_tiltakshaverValidator.ValidationResult.ValidationRules);
@@ -269,14 +233,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             AccumulateValidationRules(_ansvarligSoekerEnkelAdresseValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_ansvarligSoekerPartstypeValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_ansvarligSoekerKontaktpersonValidator.ValidationResult.ValidationRules);
-
-            //Metadata
-            AccumulateValidationRules(_metadataValidator.ValidationResult.ValidationRules);
-            //Arbeidstilsynets saksnummer
-            AccumulateValidationRules(_arbeidstilsynetsSaksnummerValidator.ValidationResult.ValidationRules);
-            //Kommunens saksnummer
-            AccumulateValidationRules(_kommunensSaksnummerValidator.ValidationResult.ValidationRules);
-
         }
 
 
@@ -309,16 +265,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             var beskrivelseAvTiltakValidationResult = _beskrivelseAvTiltakValidator.Validate(_validationForm.ModelData.BeskrivelseAvTiltakValidationEntity);
             AccumulateValidationMessages(beskrivelseAvTiltakValidationResult.ValidationMessages);
-
-            var metadataValidationResult = _metadataValidator.Validate(_validationForm.ModelData.MetadataValidationEntity);
-            AccumulateValidationMessages(metadataValidationResult.ValidationMessages);
-
-            var arbeidstilsynetsSaksnummerValidationResult = _arbeidstilsynetsSaksnummerValidator.Validate(_validationForm.ModelData.ArbeidstilsynetsSaksnummerValidationEntity);
-            AccumulateValidationMessages(arbeidstilsynetsSaksnummerValidationResult.ValidationMessages);
-
-            var kommunensSaksnummerValidationResult = _arbeidstilsynetsSaksnummerValidator.Validate(_validationForm.ModelData.KommunensSaksnummerValidationEntity);
-            AccumulateValidationMessages(kommunensSaksnummerValidationResult.ValidationMessages);
-
         }
 
 
