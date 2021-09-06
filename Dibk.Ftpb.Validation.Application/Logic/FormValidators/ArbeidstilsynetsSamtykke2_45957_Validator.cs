@@ -15,7 +15,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
-using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidationTree;
 using Dibk.Ftpb.Validation.Application.Services;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators

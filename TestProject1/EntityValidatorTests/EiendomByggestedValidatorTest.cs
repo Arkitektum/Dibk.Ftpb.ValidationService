@@ -8,7 +8,6 @@ using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
-using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidationTree;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
@@ -30,7 +29,6 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         private MatrikkelValidator _matrikkelValidator;
 
         private FormValidatorConfiguration _formValidatorConfiguration;
-        private EiendombyggestedValidatorLogic _eiendombyggestedLogic;
 
 
         public EiendomByggestedValidatorTest()
@@ -46,10 +44,6 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             _formValidatorConfiguration.ValidatorFormName = "ArbeidstilsynetsSamtykke2_45957_Validator";
             _formValidatorConfiguration.FormXPathRoot = "ArbeidstilsynetsSamtykke";
 
-            _eiendombyggestedLogic = new EiendombyggestedValidatorLogic(1, _municipalityValidator);
-            _eiendomByggestedValidator = _eiendombyggestedLogic.Validator;
-
-            _formValidatorConfiguration.ValidatorsTree = _eiendombyggestedLogic.Tree;
         }
 
 

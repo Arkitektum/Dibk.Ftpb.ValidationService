@@ -10,7 +10,6 @@ using System.IO;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
-using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.EntityValidationTree;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
@@ -27,7 +26,6 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         private ICodeListService _codeListService;
         private readonly IPostalCodeService _postalCodeService;
 
-        private TiltakshaverValidatorLogic _tiltakshaverValidatorLogic;
         private IAktoerValidator _aktoerValidator;
 
         public TiltakshaverValidatorTests()
@@ -39,15 +37,11 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             _form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
             _tiltakshaver = new Logic.Mappers.ArbeidstilsynetsSamtykke2.AktoerMapper(AktoerEnum.tiltakshaver).Map(_form.tiltakshaver, "UnitTest");
 
-            _tiltakshaverValidatorLogic = new TiltakshaverValidatorLogic(1, _codeListService, _postalCodeService);
-            _aktoerValidator = _tiltakshaverValidatorLogic.Validator;
         }
 
         [Fact]
         public void TestTree()
         {
-            var TiltakshaverTree = _tiltakshaverValidatorLogic.Tree;
-            TiltakshaverTree.Should().NotBeNull();
         }
         [Fact]
         public void TestTilashaver()
