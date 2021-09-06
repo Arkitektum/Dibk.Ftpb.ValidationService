@@ -30,7 +30,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.gatenavn);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.husnr);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.bokstav);
-            AddValidationRule(ValidationRuleEnum.postnr_4siffer, FieldNameEnum.postnr);
+            AddValidationRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.postnr);
         }
 
         public ValidationResult Validate(EiendomsAdresseValidationEntity eiendomsAdresseValidationEntity)
@@ -62,7 +62,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.husnr}");
 
                 if (!StringIs4digitNumber(eiendomsAdresseValidationEntity.ModelData.Postnr))
-                    AddMessageFromRule(ValidationRuleEnum.postnr_4siffer, $"{xPath}/{FieldNameEnum.postnr}");
+                    AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, $"{xPath}/{FieldNameEnum.postnr}");
             }
             return _validationResult;
         }

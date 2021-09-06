@@ -30,8 +30,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.postnr);
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.postnr);
             AddValidationRule(ValidationRuleEnum.postnr_stemmerIkke, FieldNameEnum.postnr);
-            AddValidationRule(ValidationRuleEnum.postnr_ikke_validert, FieldNameEnum.postnr);
-            AddValidationRule(ValidationRuleEnum.postnr_4siffer, FieldNameEnum.postnr);
+            AddValidationRule(ValidationRuleEnum.validert, FieldNameEnum.postnr);
+            AddValidationRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.postnr);
         }
 
         public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null)
@@ -72,7 +72,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.poststed}");
 
             if (!StringIs4digitNumber(adresseValidationEntity.ModelData.Postnr))
-                AddMessageFromRule(ValidationRuleEnum.postnr_4siffer, $"{xPath}/{FieldNameEnum.postnr}");
+                AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, $"{xPath}/{FieldNameEnum.postnr}");
         }
 
         private bool StringIs4digitNumber(string input)

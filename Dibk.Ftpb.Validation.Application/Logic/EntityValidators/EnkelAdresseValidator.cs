@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
@@ -109,7 +109,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                                 }
                                 else
                                 {
-                                    AddMessageFromRule(ValidationRuleEnum.postnr_ikke_validert, $"{xPath}/{FieldNameEnum.postnr}");
+                                AddMessageFromRule(ValidationRuleEnum.validert, $"{xPath}/{FieldNameEnum.postnr}");
                                 }
                             }
 

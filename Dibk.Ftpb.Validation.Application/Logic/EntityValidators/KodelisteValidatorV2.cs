@@ -29,7 +29,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected override void InitializeValidationRules()
         {
             //AddValidationRule(KodeListValidationEnum.utfylt, null);
-            //AddValidationRule(KodeListValidationEnum.kode_KanIkkeValidere, null);
+            //AddValidationRule(KodeListValidationEnum.validert, null);
             //AddValidationRule(KodeListValidationEnum.kodeverdi_utfylt, "kodeverdi");
             //AddValidationRule(KodeListValidationEnum.kodeverdi_gyldig, "kodeverdi");
             //AddValidationRule(KodeListValidationEnum.kodebeskrivelse_utfylt, "kodebeskrivelse");
@@ -64,7 +64,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     var isCodeValid = _codeListService.IsCodelistValid(_codeListName, kodeEntry.ModelData?.Kodeverdi, _registryType);
                     if (!isCodeValid.HasValue)
                     {
-                        AddMessageFromRule(ValidationRuleEnum.kode_KanIkkeValidere, $"{xpath}/{FieldNameEnum.kodeverdi}");
+                        AddMessageFromRule(ValidationRuleEnum.validert, $"{xpath}/{FieldNameEnum.kodeverdi}");
                     }
                     else
                     {

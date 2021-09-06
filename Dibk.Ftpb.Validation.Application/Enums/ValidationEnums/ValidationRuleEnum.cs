@@ -12,8 +12,8 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "0")] XsdValidationErrors,
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "1")] utfylt,
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "2")] gyldig,
-        [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "5")] kode_KanIkkeValidere,
-        [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "7")] utgått,
+        [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "3")] validert,
+        [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "4")] utgått,
         
 
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "16")] tillatte_postnr_i_kommune,
@@ -35,9 +35,8 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
         // potential for improvement
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "11")] sjekklistepunkt_1_17_dokumentasjon_utfylt, // utfylt
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "19")] telmob_utfylt, //utfylt
-        [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "12")] postnr_4siffer, //kontrollsiffer
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "14")] postnr_stemmerIkke, //stemmerIkke
-        [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "15")] postnr_ikke_validert, //ikke_validert
+        
 
 
 
