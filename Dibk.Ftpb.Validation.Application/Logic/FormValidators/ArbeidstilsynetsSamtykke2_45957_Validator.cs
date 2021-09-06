@@ -42,8 +42,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private IEiendomByggestedValidator _eiendomByggestedValidator;
         //Tiltakshaver
         private IAktoerValidator _tiltakshaverValidator;
-        private IEnkelAdresseValidator _enkelAdresseValidator;
-        private IKodelisteValidator _partstypeValidator;
+        private IEnkelAdresseValidator _tiltakshaverEnkelAdresseValidator;
+        private IKodelisteValidator _tiltakshaverPartstypeValidator;
         private IKontaktpersonValidator _tiltakshaverKontaktpersonValidator;
         //Fakturamotaker
         private IFakturamottakerValidator _fakturamottakerValidator;
@@ -206,9 +206,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             //Tiltakshaver
             _tiltakshaverKontaktpersonValidator = new KontaktpersonValidator(tree, 5);
-            _partstypeValidator = new PartstypeValidator(tree, 6, _codeListService);
-            _enkelAdresseValidator = new EnkelAdresseValidator(tree, 7, _postalCodeService);
-            _tiltakshaverValidator = new TiltakshaverValidator(tree, _enkelAdresseValidator, _tiltakshaverKontaktpersonValidator, _partstypeValidator, _codeListService);
+            _tiltakshaverPartstypeValidator = new PartstypeValidator(tree, 6, _codeListService);
+            _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(tree, 7, _postalCodeService);
+            _tiltakshaverValidator = new TiltakshaverValidator(tree, _tiltakshaverEnkelAdresseValidator, _tiltakshaverKontaktpersonValidator, _tiltakshaverPartstypeValidator, _codeListService);
             
             //fakturamottaker
             _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidator(tree, 9, _postalCodeService);
@@ -252,8 +252,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             AccumulateValidationRules(_eiendomByggestedValidator.ValidationResult.ValidationRules);
             //Tiltashaver
             AccumulateValidationRules(_tiltakshaverKontaktpersonValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_partstypeValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_enkelAdresseValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_tiltakshaverPartstypeValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_tiltakshaverEnkelAdresseValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_tiltakshaverValidator.ValidationResult.ValidationRules);
             //fakturamottaker
             AccumulateValidationRules(_fakturamottakerEnkelAdresseValidator.ValidationResult.ValidationRules);
