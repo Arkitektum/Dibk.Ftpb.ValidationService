@@ -89,6 +89,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                             AddMessageFromRule(ValidationRuleEnum.beskrivelse, $"{xpath}/{FieldNameEnum.beskrivelse}");
                         }
                     }
+                    
+                    if (arbeidsplasser.Veiledning.HasValue)
+                    {
+                        AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.veiledning}");
+                    }
                 }
             }
         }

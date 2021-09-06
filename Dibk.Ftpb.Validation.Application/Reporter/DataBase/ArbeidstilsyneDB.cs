@@ -80,6 +80,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/arbeidsplasser/antallVirksomheter", "Er tiltaket knyttet til utleiebygg så skal antall virksomheter angis.");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/arbeidsplasser/antallAnsatte", "Det skal angis hvor mange ansatte som bygget dimensjoneres for.");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.beskrivelse, "/arbeidsplasser/beskrivelse", "Enten skal arbeidsplasser beskrives i søknaden eller det skal være lagt ved vedlegg 2: 'Beskrivelse av type arbeid / prosesser'.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/arbeidsplasser/veiledning", "Veileding bør være utfylt.");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.sjekklistepunkt_1_17_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Kodeverdien for sjekklistepunkt '1.17' må være utfylt", ValidationResultSeverityEnum.ERROR);
 
             //Tiltakshaver

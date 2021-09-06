@@ -16,5 +16,7 @@
         public bool? UtleieBygg { get; set; }
         public string AntallVirksomheter { get; set; }
         public string Beskrivelse { get; set; }
+        public bool? Veiledning { get; set; }
+
     }
 }

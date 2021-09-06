@@ -18,7 +18,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                 Faste = mapFrom.faste,
                 Framtidige = mapFrom.framtidige,
                 Midlertidige = mapFrom.midlertidige,
-                UtleieBygg = mapFrom.utleieBygg
+                UtleieBygg = mapFrom.utleieBygg,
+                Veiledning = mapFrom.veiledning,
             };
 
             return new ArbeidsplasserValidationEntity(arbeidsplasser, "arbeidsplasser", parentElementXpath);
