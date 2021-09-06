@@ -157,41 +157,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             _validationResult.ValidationRules.Add(new ValidationRule() { Rule = rule.ToString(), Xpath = xPath, XmlElement = xmlElement, Id = elementRuleId ?? _ruleIdPath });
         }
 
-
-
-
-        //protected void AddMessageFromRule(ValidationRuleEnum id, string xPath, string[] messageParameters)
-        //{
-        //    var rule = RuleToValidate(id);
-        //    var XmlElement = String.IsNullOrEmpty(rule.XmlElement) ? null : $"/{rule.XmlElement}";
-
-        //    string newXPath;
-        //    newXPath = string.IsNullOrEmpty(xPath) ? rule.Xpath : $"{xPath}{XmlElement}"; // debug XmlElement in rule.Xpath!?
-
-        //    var validationMessage = new ValidationMessage()
-        //    {
-        //        Reference = id,
-        //        XpathField = newXPath,
-        //        MessageParameters = messageParameters
-        //    };
-
-        //    _validationResult.ValidationMessages.Add(validationMessage);
-        //}
-
-        //public void AddMessageFromRule(ValidationRuleEnum id, string xPath)
-        //{
-        //    AddMessageFromRule(id, xPath, null);
-        //}
-        ///// <summary>
-        ///// Use when validating if collection is empty (because modelEntity.DataModelXpath is not present)
-        ///// </summary>
-        ///// <param name="id"></param>
-        public void AddMessageFromRuleIfCollectionIsEmpty(ValidationRuleEnum id)
-        {
-            AddMessageFromRule(id, null, null);
-        }
-
-
+        
         protected void AddMessageFromRule(object id, string xPath, string[] messageParameters = null)
         {
             var idSt = string.Empty;
@@ -200,18 +166,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 
             var rule = RuleToValidate(idSt, xPath);
 
-            //string newXPath;
-            //if (!string.IsNullOrEmpty(xPath))
-            //{
-            //    newXPath = string.IsNullOrEmpty(rule.XmlElement) ? xPath : $"{xPath}/{rule.XmlElement}";
-            //}
-            //else
-            //{
-            //    //If xpath is null or empty, we get the xpath from the rule,  Xpath is build when whe create the entityValidatorTree.-
-            //    newXPath = rule.Xpath;
-            //}
-
-            var validationMessage = new ValidationMessage()
+           var validationMessage = new ValidationMessage()
             {
                 Rule = idSt,
                 Reference = rule.Id ?? _ruleIdPath,
@@ -232,21 +187,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
         }
 
         //**
-
-        public bool? IsAnyValidationMessagesWithXpath(string xpath, string elemetNode = null)
+        public bool? IsAnyValidationMessagesWithXpath(string xpath)
         {
-            if (string.IsNullOrEmpty(xpath))
-                return null;
-
-            if (Helpers.ObjectIsNullOrEmpty(_validationResult.ValidationRules))
-                return null;
-
-            var xpathToFind = string.IsNullOrEmpty(elemetNode) ? xpath : $"{xpath}/{elemetNode}";
-            var ruleFounded = _validationResult.ValidationMessages.Any(r => r.XpathField.Equals(xpathToFind, StringComparison.OrdinalIgnoreCase));
-
+            var ruleFounded = _validationResult.ValidationMessages.Any(r => r.XpathField.Equals(xpath, StringComparison.OrdinalIgnoreCase));
             return ruleFounded;
         }
-
+        
         //**Add rules with dynamic enum 
         public ValidationRule RuleToValidate(string rule, string xPath)
         {
