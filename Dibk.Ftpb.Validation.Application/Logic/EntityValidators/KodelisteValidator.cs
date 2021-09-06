@@ -16,6 +16,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private readonly object _codeListName;
         private readonly RegistryType _registryType;
         protected ICodeListService _codeListService;
+        private string _xpath;
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 
@@ -40,36 +41,41 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             base.ResetValidationMessages();
 
-            var xpath = kodeEntry.DataModelXpath;
+            _xpath = kodeEntry.DataModelXpath;
 
             if (Helpers.ObjectIsNullOrEmpty(kodeEntry?.ModelData))
             {
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xpath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, AddXpathToMessage());
             }
             else
             {
                 if (Helpers.ObjectIsNullOrEmpty(kodeEntry.ModelData.Kodeverdi))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.kodeverdi}");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, AddXpathToMessage(FieldNameEnum.kodeverdi));
                 }
                 else
                 {
                     var isCodeValid = _codeListService.IsCodelistValid(_codeListName, kodeEntry.ModelData?.Kodeverdi, _registryType);
                     if (!isCodeValid.HasValue)
                     {
-                        //AddMessageFromRule(KodeListValidationEnum.kode_KanIkkeValidere, xpath);
-                        AddMessageFromRule(ValidationRuleEnum.gyldig, xpath);
+                        AddMessageFromRule(ValidationRuleEnum.validert, AddXpathToMessage(FieldNameEnum.kodeverdi));
                     }
                     else
                     {
                         if (!isCodeValid.GetValueOrDefault())
                         {
-                            AddMessageFromRule(ValidationRuleEnum.gyldig, xpath, new[] { kodeEntry.ModelData?.Kodeverdi });
+                            AddMessageFromRule(ValidationRuleEnum.gyldig, AddXpathToMessage(FieldNameEnum.kodeverdi), new[] { kodeEntry.ModelData?.Kodeverdi });
                         }
                     }
                 }
             }
+            
             return ValidationResult;
+        }
+        private string AddXpathToMessage(FieldNameEnum? fieldName = null)
+        {
+            var xpathComposed = string.Format("{0}/{1}", new[] { _xpath, fieldName?.ToString() });
+            return xpathComposed;
         }
     }
 }

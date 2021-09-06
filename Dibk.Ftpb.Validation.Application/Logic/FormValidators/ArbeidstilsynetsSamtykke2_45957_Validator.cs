@@ -197,7 +197,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _sjekklistepunktValidator = new SjekklistepunktValidator(tree, _codeListService);
             _sjekklistekravValidator = new SjekklistekravValidator(tree, _sjekklistepunktValidator, _codeListService);
 
-            //AnsvarligSoeker
+            //AnsvarligSoeker TODO not applied in FTB v1
             _ansvarligSoekerKontaktpersonValidator = new KontaktpersonValidator(tree, 19);
             _ansvarligSoekerPartstypeValidator = new PartstypeValidator(tree, 20, _codeListService);
             _ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(tree, 21, _postalCodeService);
@@ -241,7 +241,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         protected override void DefineValidationRules()
         {
             //TODO create a method to do this automatic, potential error
-
             //Sjekklistekrav
             AccumulateValidationRules(_sjekklistepunktValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_sjekklistekravValidator.ValidationResult.ValidationRules);

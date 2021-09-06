@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
@@ -36,7 +36,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null)
         {
-            var xpath = enkelAdresse.DataModelXpath;
+            var xpath = enkelAdresse?.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(enkelAdresse?.ModelData))
             {
                 AddMessageFromRule(ValidationRuleEnum.utfylt, xpath);
@@ -64,7 +64,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 {
                     if (!CountryCodeHandler.VerifyCountryCode(adresse.Landkode))
                     {
-                        //AddMessageFromRule(EnkelAdresseValidationEnum.landkode_ugyldug, xPath);
                         AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/{FieldNameEnum.landkode}");
                     }
                 }
@@ -86,33 +85,25 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         }
                         else
                         {
-                            if (string.IsNullOrEmpty(landkode))
+                            var postnrValidation = _postalCodeService.ValidatePostnr(postNr, landkode);
+                            if (postnrValidation != null)
                             {
-                                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.landkode}", new[] { postNr });
-                            }
-                            else
-                            {
-                                var postnrValidation = _postalCodeService.ValidatePostnr(postNr, landkode);
-                                if (postnrValidation != null)
+                                if (!postnrValidation.Valid)
                                 {
-                                    if (!postnrValidation.Valid)
-                                    {
-                                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/{FieldNameEnum.postnr}", new[] { postNr });
-                                    }
-                                    else
-                                    {
-                                        if (!postnrValidation.Result.Equals(adresse.Poststed, StringComparison.CurrentCultureIgnoreCase))
-                                        {
-                                            AddMessageFromRule(ValidationRuleEnum.postnr_stemmerIkke, $"{xPath}/{FieldNameEnum.postnr}", new[] { postNr, adresse.Poststed, postnrValidation.Result });
-                                        }
-                                    }
+                                    AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/{FieldNameEnum.postnr}", new[] { postNr });
                                 }
                                 else
                                 {
-                                AddMessageFromRule(ValidationRuleEnum.validert, $"{xPath}/{FieldNameEnum.postnr}");
+                                    if (!postnrValidation.Result.Equals(adresse.Poststed, StringComparison.CurrentCultureIgnoreCase))
+                                    {
+                                        AddMessageFromRule(ValidationRuleEnum.postnr_stemmerIkke, $"{xPath}/{FieldNameEnum.postnr}", new[] { postNr, adresse.Poststed, postnrValidation.Result });
+                                    }
                                 }
                             }
-
+                            else
+                            {
+                                AddMessageFromRule(ValidationRuleEnum.validert, $"{xPath}/{FieldNameEnum.postnr}");
+                            }
                         }
                     }
                 }
