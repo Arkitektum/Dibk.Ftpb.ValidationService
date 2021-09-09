@@ -39,11 +39,11 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
             return Ok(messages);
         }
 
-        [Route("api/validationReport")]
+        [Route("api/validationResult")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<ValidationReport> VaalidationReportForm([FromBody] ValidationInput input)
+        public ActionResult<ValidationResult> VaalidationReportForm([FromBody] ValidationInput input)
         {
             //// Authentication?
             if (!VerifyInput(input))
@@ -52,10 +52,10 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
             }
 
             //var validationResult = _validationService.Validate(input);
-            var validationReport = _validationService.GetValidationReport(input);
+            var validationResult = _validationService.GetValidationReport(input);
             //var validationReport = new ValidationReport() { ValidationResult = validationResult, PrefillChecklist = prefillChecklist };
             
-            return Ok(validationReport);
+            return Ok(validationResult);
         }
 
         [Route("api/validate/file")]

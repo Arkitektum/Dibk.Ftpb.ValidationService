@@ -65,9 +65,11 @@ namespace Dibk.Ftpb.Validation
             services.AddHttpClient<PostalCodeHttpClient>();
             services.AddTransient<IPostalCodeService, PostalCodeService>();
             services.Configure<PostalCodeSettings>(Configuration.GetSection("PostalCodeApi"));
-
+            services.Configure<DataFormatVersionSettings>(Configuration.GetSection("DataFormatVersions"));
+            
             services.Configure<AtilChecklistSettings>(Configuration.GetSection("AtilCheckListApi"));
             services.Configure<DibkChecklistSettings>(Configuration.GetSection("DibkCheckListApi"));
+            services.Configure<FormPropertiesSettings>(Configuration.GetSection("FormProperties"));
             services.AddHttpClient<AtilChecklistApiHttpClient>();
             services.AddHttpClient<DibkChecklistApiHttpClient>();
             

@@ -6,8 +6,8 @@ namespace Dibk.Ftpb.Validation.Application.Services
 {
     public interface IChecklistService
     {
-        string GetPrefillChecklist(string soknadsType, ValidationResult validationResult);
-        IEnumerable<Sjekk> GetAtilCheckpoints(string category);
-        IEnumerable<Sjekk> GetDibkCheckpoints(string category);
+        IEnumerable<ChecklistAnswer> GetPrefillChecklistAnswer(string dataFormatVersion, PrefillChecklistInput prefillChecklistInput);
+        IEnumerable<Sjekk> GetChecklist(string dataFormatVersion, string filter);
+        IEnumerable<ValidationMessage> FilterValidationResult(string dataFormatVersion, IEnumerable<ValidationMessage> validationMessages, IEnumerable<string> tiltakstyper);
     }
 }

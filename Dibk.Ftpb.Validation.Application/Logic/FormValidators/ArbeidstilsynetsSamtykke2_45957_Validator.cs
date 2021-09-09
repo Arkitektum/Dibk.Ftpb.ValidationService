@@ -80,7 +80,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         public ArbeidstilsynetsSamtykke2_45957_Validator(IValidationMessageComposer validationMessageComposer
                                                         , IMunicipalityValidator municipalityValidator, ICodeListService codeListService
                                                         , IPostalCodeService postalCodeService, IChecklistService checklistService)
-            : base(validationMessageComposer)
+            : base(validationMessageComposer, checklistService)
         {
             _municipalityValidator = municipalityValidator;
             _codeListService = codeListService;
@@ -95,7 +95,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _validationForm = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(formModel);
 
             base.StartValidation(dataFormatVersion, validationInput);
-            ValidationReport.ValidationResult = ValidationResult;
+            ValidationResult = ValidationResult;
 
             return ValidationResult;
         }
@@ -306,7 +306,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var fakturamottakerValidationResult = _fakturamottakerValidator.Validate(_validationForm.ModelData.FakturamottakerValidationEntity);
             AccumulateValidationMessages(fakturamottakerValidationResult.ValidationMessages);
 
-            var sjekklistekravValidationResult = _sjekklistekravValidator.Validate(_validationForm.ModelData.SjekklistekravValidationEntities, _checklistService);
+            var sjekklistekravValidationResult = _sjekklistekravValidator.Validate(GetDataFormatVersion(typeof(ArbeidstilsynetsSamtykke2_45957_Validator)), _validationForm.ModelData.SjekklistekravValidationEntities, _checklistService);
             AccumulateValidationMessages(sjekklistekravValidationResult.ValidationMessages);
 
             var beskrivelseAvTiltakValidationResult = _beskrivelseAvTiltakValidator.Validate(_validationForm.ModelData.BeskrivelseAvTiltakValidationEntity);
@@ -323,6 +323,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         }
 
+        protected override IEnumerable<string> GetFormTiltakstyper()
+        {
+            List<string> tiltakstyper = new();
+            foreach (var tiltakstype in _validationForm.ModelData.BeskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype)
+            {
+                tiltakstyper.Add(tiltakstype.ModelData.Kodeverdi);
+            }
 
+            return tiltakstyper;
+        }
     }
 }

@@ -121,6 +121,8 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         [FieldNameEnumerationAttribute(FieldNameId = "116")] erNorskSvenskDansk,
         [FieldNameEnumerationAttribute(FieldNameId = "118")] unntattOffentlighet,
         [FieldNameEnumerationAttribute(FieldNameId = "119")] veiledning,
+        [FieldNameEnumerationAttribute(FieldNameId = "120")] type,
+        
     }
 }
 

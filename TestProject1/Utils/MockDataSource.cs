@@ -52,7 +52,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
         public static IChecklistService GetCheckpoints(string category)
         {
             var checklistService = new Mock<IChecklistService>();
-            checklistService.Setup((a => a.GetAtilCheckpoints(It.IsAny<string>())))
+            checklistService.Setup((a => a.GetChecklist("", "")))
                 .Returns(new List<Sjekk> { new Sjekk() { Id = "1.21", SjekkId = 2644, Navn = "Skal søknaden unntas offentilghet?", Prosesskategori = "AT", Rekkefolge = 26 } });
             return checklistService.Object;
 

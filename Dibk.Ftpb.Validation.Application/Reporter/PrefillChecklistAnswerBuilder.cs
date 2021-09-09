@@ -1,4 +1,5 @@
 ﻿using Dibk.Ftpb.Validation.Application.Services;
+using System.Linq;
 using System.Text.Json;
 
 namespace Dibk.Ftpb.Validation.Application.Reporter
@@ -18,10 +19,18 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             //var sjekklisteKrav = new List<ChecklistAnswer>();
             //var xmldata = validationInput.FormData;
             //xml.LoadXml(xmldata); //myXmlString is the xml file in string //copying xml to string: string myXmlString = xmldoc.OuterXml.ToString();
-            var retVal = checklistService.GetPrefillChecklist("", validationResult);
-            var prefillChecklist = JsonSerializer.Deserialize<PrefillChecklist>(retVal);
 
-            return prefillChecklist;
+            PrefillChecklistInput prefillChecklistInput = new();
+            prefillChecklistInput.DataFormatVersion = dataFormatVersion;
+            //prefillChecklistInput.ProcessCategory = processCategory;
+            prefillChecklistInput.Errors = validationResult.messages.Where(x => x.Messagetype == Enums.ValidationResultSeverityEnum.ERROR).Select(y => y.Reference);
+            prefillChecklistInput.Warnings = validationResult.messages.Where(x => x.Messagetype == Enums.ValidationResultSeverityEnum.WARNING).Select(y => y.Reference);
+            prefillChecklistInput.ExecutedValidations = validationResult.rulesChecked.Select(y => y.Id).Distinct();
+
+            var prefillChecklist = checklistService.GetPrefillChecklistAnswer(dataFormatVersion, prefillChecklistInput);
+            //var prefillChecklist = JsonSerializer.Deserialize<PrefillChecklist>(retVal);
+
+            return new PrefillChecklist() { ChecklistAnswers = prefillChecklist };
         }
 
 

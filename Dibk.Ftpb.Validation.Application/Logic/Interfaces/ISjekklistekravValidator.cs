@@ -9,6 +9,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
     {
         //string ruleXmlElement { get; }
         ValidationResult ValidationResult { get; }
-        ValidationResult Validate(IEnumerable<SjekklistekravValidationEntity> sjekklistekrav, IChecklistService checklistService);
+        ValidationResult Validate(string dataFormatVersion, IEnumerable<SjekklistekravValidationEntity> sjekklistekrav, IChecklistService checklistService);
     }
 }

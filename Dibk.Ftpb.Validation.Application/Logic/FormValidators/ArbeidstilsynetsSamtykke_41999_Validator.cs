@@ -199,6 +199,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             AccumulateValidationMessages(fakturamottakerValidationResult.ValidationMessages);
         }
 
-
+        protected override IEnumerable<string> GetFormTiltakstyper()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

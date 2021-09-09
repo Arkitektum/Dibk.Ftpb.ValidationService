@@ -3,6 +3,7 @@
     public enum ValidationResultSeverityEnum
     {
         ERROR,
-        WARNING
+        WARNING,
+        CRITICAL
     }
 }

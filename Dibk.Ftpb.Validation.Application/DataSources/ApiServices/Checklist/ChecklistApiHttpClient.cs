@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Dibk.Ftpb.Validation.Application.Reporter;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Checklist
@@ -27,7 +29,7 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Checklist
                 .Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<IEnumerable<Sjekk>> GetChecklist(string category)
+        public async Task<IEnumerable<Sjekk>> GetChecklist(string category, string filter)
         {
             if (category == null)
             {
@@ -35,6 +37,10 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Checklist
             }
 
             var requestUri = $"/{category}";
+            if (!string.IsNullOrEmpty(filter))
+            {
+                requestUri += $"?{filter}";
+            }
             var response = await _httpClient.GetAsync($"{_requestUrl}{requestUri}");
             IEnumerable<Sjekk> liste = null;
             string json = String.Empty;
@@ -46,26 +52,42 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Checklist
             return liste;
         }
 
-        public async Task<IEnumerable<Sjekk>> GetPrefillChecklist()
+        public async Task<IEnumerable<ChecklistValidationRelations>> GetChecklistValidationRelations()
         {
-            //if (category == null)
-            //{
-            //    throw new ArgumentNullException("Category cannot be null");
-            //}
+            var requestUri = $"/relatedvalidations";
+            var response = await _httpClient.GetAsync($"{_requestUrl}{requestUri}");
+            List<ChecklistValidationRelations> liste = new List<ChecklistValidationRelations>();
+            string json = String.Empty;
+            if (response.IsSuccessStatusCode)
+            {
+                json = await response.Content.ReadAsStringAsync();
+                liste = JsonConvert.DeserializeObject<IEnumerable<ChecklistValidationRelations>>(json).ToList();
+            }
 
+            liste.Add(new ChecklistValidationRelations()
+            {
+                ChecklistReference = "1.3",
+                ProcessCategory = "AT",
+                EnterpriseTerms = new List<string>() { "brannskille", "nyttbyggdriftsbygningover1000m2", "lydskille" },
+                SupportingDataValidationRuleId = new List<string>() { ".7.14.10.1", ".7.14.10.2", ".7.14.10.7", ".20.9.4.2" }
+            });
+
+            return liste;
+        }
+
+        public async Task<IEnumerable<ChecklistAnswer>> GetPrefillChecklistAnswer(PrefillChecklistInput prefillChecklist)
+        {
             var requestUri = $"/prefill";
-            
-            //var json = JsonSerializer.Serialize(formMetadata)
-            var json = "";
-            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var jsonPostRequest = System.Text.Json.JsonSerializer.Serialize(prefillChecklist);
 
+            var stringContent = new StringContent(jsonPostRequest, Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync($"{_requestUrl}{requestUri}", stringContent);
-            IEnumerable<Sjekk> liste = null;
+            IEnumerable<ChecklistAnswer> liste = null;
             string jsonResponse = String.Empty;
             if (response.IsSuccessStatusCode)
             {
                 jsonResponse = await response.Content.ReadAsStringAsync();
-                liste = JsonConvert.DeserializeObject<IEnumerable<Sjekk>>(json);
+                liste = JsonConvert.DeserializeObject<IEnumerable<ChecklistAnswer>>(jsonResponse);
             }
             return liste;
         }

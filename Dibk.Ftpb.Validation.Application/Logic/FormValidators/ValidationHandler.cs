@@ -10,6 +10,7 @@ using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Microsoft.Extensions.Logging;
+using Dibk.Ftpb.Validation.Application.Services;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
@@ -78,8 +79,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //Logge metadata om innsending    
             //_formMetadataService.SaveFormDataToFormMetadataLog(formData);
             //_formMetadataService.UpdateValidationResultToFormMetadata(archiveReference, "Under behandling", 0, validationWarnings);
-                
+
             //_formMetadataService.UpdateValidationResultToFormMetadata(archiveReference, "Ok", 0, validationWarnings);
+
 
 
             return ValidationReport.ValidationResult;

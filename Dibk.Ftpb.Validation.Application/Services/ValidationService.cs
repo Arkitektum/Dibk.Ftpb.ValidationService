@@ -13,11 +13,11 @@ namespace Dibk.Ftpb.Validation.Application.Services
     {
         private readonly IInputDataService _inputDataService;
         private readonly IXsdValidationService _xsdValidationService;
-        private readonly IValidationHandler _validationOrchestrator;
+        private readonly IValidationHandler _validationHandler;
         private readonly IChecklistService _checklistService;
-        private Models.InputData _inputData;
-        private List<string> _errorMessages;
-        private ValidationResult _validationResult;
+        //private Models.InputData _inputData;
+        //private List<string> _errorMessages;
+        //private ValidationResult _validationResult;
 
         public ValidationService(
             IInputDataService inputDataService,
@@ -27,25 +27,29 @@ namespace Dibk.Ftpb.Validation.Application.Services
         {
             _inputDataService = inputDataService;
             _xsdValidationService = xsdValidationService;
-            _validationOrchestrator = validationOrchestrator;
+            _validationHandler = validationOrchestrator;
             _checklistService = checklistService;
         }
 
 
-        public ValidationReport GetValidationReport(ValidationInput validationInput)
+        public ValidationResult GetValidationReport(ValidationInput validationInput)
         {
-            var validationReport = new ValidationReport();
+            var inputData = _inputDataService.GetInputData(validationInput.FormData);
+            //var validationReport = new ValidationReport();
             var validationResult = Validate(validationInput);
-            validationReport.ValidationResult = validationResult;
+            //validationReport.ValidationResult = validationResult;
 
-            if (!validationResult.ValidationMessages.Any(x => x.Messagetype.Equals(ValidationResultSeverityEnum.ERROR)))
+            //if (!validationResult.ValidationMessages.Any(x => x.Messagetype.Equals(ValidationResultSeverityEnum.ERROR)))
+            if (true)
             {
-                if (!Helpers.ObjectIsNullOrEmpty(_inputData?.Config?.DataFormatVersion))
-                {
-                    var prefillChecklist = PrefillChecklistAnswerBuilder.Build(validationResult, _checklistService, _inputData.Config.DataFormatVersion);
-                    validationReport.PrefillChecklist = prefillChecklist;
+                if (!Helpers.ObjectIsNullOrEmpty(inputData?.Config?.DataFormatVersion))
+                { 
+                    //var processCategory = GetProcessCategory(validationInput);
 
-                    return validationReport;
+                    var prefillChecklist = PrefillChecklistAnswerBuilder.Build(validationResult, _checklistService, inputData.Config.DataFormatVersion);
+                    validationResult.PrefillChecklist = prefillChecklist;
+
+                    return validationResult;
                 }
                 else
                 {
@@ -55,9 +59,14 @@ namespace Dibk.Ftpb.Validation.Application.Services
                 throw new System.ArgumentOutOfRangeException("Illegal DataFormatVersion");
             }
 
-            return validationReport;
+            return validationResult;
         }
 
+        //private string GetProcessCategory(ValidationInput validationInput)
+        //{
+
+        //    return "AT";
+        //}
         public ValidationResult Validate(ValidationInput validationInput)
         {
             var inputData = _inputDataService.GetInputData(validationInput.FormData);
@@ -92,7 +101,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
 
             if (!Helpers.ObjectIsNullOrEmpty(inputData?.Config?.DataFormatVersion))
             {
-                validationResult = _validationOrchestrator.ValidateAsync(inputData?.Config?.DataFormatVersion, errorMessages, validationInput).Result;
+                validationResult = _validationHandler.ValidateAsync(inputData?.Config?.DataFormatVersion, errorMessages, validationInput).Result;
             }
             else
             {

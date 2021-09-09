@@ -37,9 +37,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.kodebeskrivelse);
         }
 
-        public ValidationResult Validate(KodelisteValidationEntity kodeEntry)
+        public ValidationResult Validate(KodelisteValidationEntity kodeEntry = null)
         {
             base.ResetValidationMessages();
+
+            if (kodeEntry == null)
+            {
+                AddMessageFromRule(ValidationRuleEnum.utfylt, AddXpathToMessage());
+            }
 
             _xpath = kodeEntry.DataModelXpath;
 
@@ -74,7 +79,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         private string AddXpathToMessage(FieldNameEnum? fieldName = null)
         {
-            var xpathComposed = string.Format("{0}/{1}", new[] { _xpath, fieldName?.ToString() });
+
+            //var xpathComposed = string.Format("{0}/{1}", new[] { _xpath, fieldName?.ToString() });
+
+            string xpathComposed = _xpath;
+            if (fieldName != null)
+            {
+                xpathComposed += $"/{fieldName?.ToString()}";
+            }
             return xpathComposed;
         }
     }

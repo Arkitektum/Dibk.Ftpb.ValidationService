@@ -36,7 +36,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             this.AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.dokumentasjon);
         }        
         
-        public ValidationResult Validate(IEnumerable<SjekklistekravValidationEntity> formsSjekkliste, IChecklistService checklistService)
+        public ValidationResult Validate(string dataFormatVersion, IEnumerable<SjekklistekravValidationEntity> formsSjekkliste, IChecklistService checklistService)
         {
             try
             {
@@ -57,11 +57,20 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     //Note: Validates 1.17 in Arbeidsplasser validator
                     //Validate if all checkpoints in Sjekklisten are present in form
 
-                    var checkpointsFromAPI = checklistService.GetAtilCheckpoints("AT?metadataid=1");
+                    var checkpointsFromAPI = checklistService.GetChecklist(dataFormatVersion, "metadataid=1");
+                    //var checkpointsFromAPI = checklistService.GetChecklist(dataFormatVersion);
 
-                    foreach (var checkpoint in checkpointsFromAPI)
+                    if (checkpointsFromAPI.Count() == 0)
                     {
-                        ValidateCheckpoint(formsSjekkliste, checkpoint);
+                        throw new ArgumentNullException($"Checklist service {checklistService}");
+                    }
+                    else
+                    {
+                        foreach (var checkpoint in checkpointsFromAPI)
+                        {
+                            ValidateCheckpoint(formsSjekkliste, checkpoint);
+                        }
+
                     }
 
                 }

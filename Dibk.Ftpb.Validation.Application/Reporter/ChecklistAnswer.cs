@@ -11,7 +11,8 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         public string ChecklistReference { get; set; }
         public string ChecklistQuestion { get; set; }
         public bool yesNo { get; set; }
-        public string SupportingDataXpathField { get; set; }
+        public IEnumerable<string> SupportingDataValidationRuleId { get; set; }
+        public IEnumerable<string> SupportingDataXpathField { get; set; }
         public string Documentation { get; set; }
 
     }

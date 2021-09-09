@@ -15,14 +15,14 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode
     public class PostalCodeHttpClient
     {
         public HttpClient _httpClient;
-        private readonly IOptions<PostalCodeSettings> _options;
 
         public PostalCodeHttpClient(HttpClient httpClient, IOptions<PostalCodeSettings> options)
         {
-            _options = options;
             _httpClient = httpClient;
-            var url = _options.Value.BaseAddress;
-            var requestUrl = _options.Value.ClientAddress;
+
+            var url = options.Value.BaseAddress;
+            
+            var requestUrl = options.Value.ClientAddress;
             _httpClient.BaseAddress = new Uri(url);
             _httpClient.DefaultRequestHeaders.Accept
                 .Add(new MediaTypeWithQualityHeaderValue("application/json"));

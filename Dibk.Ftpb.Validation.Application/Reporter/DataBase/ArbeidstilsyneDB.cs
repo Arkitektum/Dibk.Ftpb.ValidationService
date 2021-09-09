@@ -200,6 +200,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/krav{0}/sjekklistepunkt", "Kodelisten for sjekklistepunkt må være gyldig", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Kodeverdien for sjekklistepunkt '{0}' må være utfylt", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/krav{0}/sjekklistepunkt/kodeverdi", "Kodeverdien for sjekklistepunkt '{0}' må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.validert, "/krav{0}/sjekklistepunkt/kodeverdi", "Kodeverdien for sjekklistepunkt '{0}' kunne ikke valideres", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Sjekklistepunktet '{0}' må ha kodebeskrivelse utfylt", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/krav{0}/sjekklistepunktsvar", "Sjekklistepunktet '{0}' må være besvart med ja/nei", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon er påkrevd for sjekklistekravet", ValidationResultSeverityEnum.ERROR);
@@ -242,7 +243,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/bruk/tiltaksformaal/kodebeskrivelse", "Beskrivelse for tiltaksformaal må være utfylt", ValidationResultSeverityEnum.ERROR);
             
             
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/type", "Tiltakstype må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/type", "Tiltakstype må være utfylt", ValidationResultSeverityEnum.CRITICAL);
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/beskrivelseAvTiltak/type", "Ugyldig kodeliste for tiltakstype.");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak/type/kodeverdi", "Kode for tiltakstype må være utfylt", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/beskrivelseAvTiltak/type/kodeverdi", "Kode for tiltakstype må være gyldig", ValidationResultSeverityEnum.ERROR);

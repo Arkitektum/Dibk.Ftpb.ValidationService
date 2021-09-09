@@ -7,6 +7,7 @@ using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.Enums;
+using System;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -51,8 +52,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.BRA}");
 
                 }
-                
-                if (!Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity?.ModelData?.Tiltakstype) && !beskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype.Any())
+
+                //TODO: validate if tiltaketype is null
+
+                if (Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity?.ModelData?.Tiltakstype))
+                {
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.type}");
+                }
+                else if (!Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity?.ModelData?.Tiltakstype) && !beskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype.Any())
                 {
                     foreach (var tiltakstypeValidationEntity in beskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype)
                     {
