@@ -14,6 +14,6 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Checklist
     {
         public string DataFormatVersion { get; set; }
         public string ServiceAuthority { get; set; }
-        public string Soknadstype { get; set; }
+        public string ProcessCategory { get; set; }
     }
 }

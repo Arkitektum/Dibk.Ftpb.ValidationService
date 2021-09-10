@@ -19,11 +19,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
         //private List<string> _errorMessages;
         //private ValidationResult _validationResult;
 
-        public ValidationService(
-            IInputDataService inputDataService,
-            IXsdValidationService xsdValidationService,
-            IValidationHandler validationOrchestrator,
-            IChecklistService checklistService)
+        public ValidationService(IInputDataService inputDataService, IXsdValidationService xsdValidationService, IValidationHandler validationOrchestrator, IChecklistService checklistService)
         {
             _inputDataService = inputDataService;
             _xsdValidationService = xsdValidationService;

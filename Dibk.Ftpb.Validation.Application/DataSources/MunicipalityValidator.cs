@@ -28,6 +28,11 @@ namespace Dibk.Ftpb.Validation.Application.DataSources
             var municipality = Task.Run(() => _municipalityApiService.GetMunicipality(kommunenummer)).Result;
 
             var result = new MunicipalityValidationResult();
+
+            //TODO: Denne er kanskje ikke helt riktig validert?
+            //Dersom "<kommunenr></kommunenr>", returnerer den Invalid, dvs gyldig. Den burde returnere "tom"
+
+
             if (municipality == null)
             {
                 result.Status = MunicipalityValidationEnum.Invalid;

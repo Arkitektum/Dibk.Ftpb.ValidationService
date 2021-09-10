@@ -52,10 +52,10 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Checklist
             return liste;
         }
 
-        public async Task<IEnumerable<ChecklistValidationRelations>> GetChecklistValidationRelations()
+        public async Task<IEnumerable<ChecklistValidationRelations>> GetChecklistValidationRelations(string processCategory)
         {
-            var requestUri = $"/relatedvalidations";
-            var response = await _httpClient.GetAsync($"{_requestUrl}{requestUri}");
+            var requestUri = $"/valideringsregler";
+            var response = await _httpClient.GetAsync($"{_requestUrl}{requestUri}/{processCategory}");
             List<ChecklistValidationRelations> liste = new List<ChecklistValidationRelations>();
             string json = String.Empty;
             if (response.IsSuccessStatusCode)
@@ -63,14 +63,6 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Checklist
                 json = await response.Content.ReadAsStringAsync();
                 liste = JsonConvert.DeserializeObject<IEnumerable<ChecklistValidationRelations>>(json).ToList();
             }
-
-            liste.Add(new ChecklistValidationRelations()
-            {
-                ChecklistReference = "1.3",
-                ProcessCategory = "AT",
-                EnterpriseTerms = new List<string>() { "brannskille", "nyttbyggdriftsbygningover1000m2", "lydskille" },
-                SupportingDataValidationRuleId = new List<string>() { ".7.14.10.1", ".7.14.10.2", ".7.14.10.7", ".20.9.4.2" }
-            });
 
             return liste;
         }
