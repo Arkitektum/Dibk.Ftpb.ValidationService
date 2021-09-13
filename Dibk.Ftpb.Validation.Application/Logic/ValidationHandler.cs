@@ -100,7 +100,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic
             try
             {
                 var liste = Assembly.GetExecutingAssembly()
-                    .GetTypes();
+                    .GetTypes().OrderBy(y => y.Name);
 
                 var type = Assembly.GetExecutingAssembly()
                     .GetTypes()
