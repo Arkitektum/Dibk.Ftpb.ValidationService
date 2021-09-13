@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 
-namespace Dibk.Ftpb.Validation.Application.Logic
+namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
     public interface IValidationHandler
     {

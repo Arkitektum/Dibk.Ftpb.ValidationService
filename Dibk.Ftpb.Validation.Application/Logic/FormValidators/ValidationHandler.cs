@@ -8,7 +8,7 @@ using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Microsoft.Extensions.Logging;
 
-namespace Dibk.Ftpb.Validation.Application.Logic
+namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
     public class ValidationHandler : IValidationHandler
     {
