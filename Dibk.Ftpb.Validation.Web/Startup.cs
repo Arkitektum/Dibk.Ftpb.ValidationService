@@ -18,8 +18,8 @@ using System;
 using System.Text.Json.Serialization;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
-using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Checklist;
+using Dibk.Ftpb.Validation.Application.Logic;
 
 namespace Dibk.Ftpb.Validation
 {

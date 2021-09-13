@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Dibk.Ftpb.Validation.Application.Utils;
 using System.Linq;
+using Dibk.Ftpb.Validation.Application.Logic;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.FormValidators;
 
@@ -31,17 +32,14 @@ namespace Dibk.Ftpb.Validation.Application.Services
         public ValidationResult GetValidationReport(ValidationInput validationInput)
         {
             var inputData = _inputDataService.GetInputData(validationInput.FormData);
-            //var validationReport = new ValidationReport();
             var validationResult = Validate(validationInput);
-            //validationReport.ValidationResult = validationResult;
 
-            //if (!validationResult.ValidationMessages.Any(x => x.Messagetype.Equals(ValidationResultSeverityEnum.ERROR)))
-            if (true)
+            var validationResultContainsErrors = validationResult.ValidationMessages.Any(x => x.Messagetype.Equals(ValidationResultSeverityEnum.ERROR));
+
+            if (!Helpers.ObjectIsNullOrEmpty(inputData?.Config?.DataFormatVersion))
             {
-                if (!Helpers.ObjectIsNullOrEmpty(inputData?.Config?.DataFormatVersion))
-                { 
-                    //var processCategory = GetProcessCategory(validationInput);
-
+                if (ValidationResultIsAcceptableForFurtherProcessing(validationResultContainsErrors, inputData?.Config?.DataFormatVersion))
+                {
                     var prefillChecklist = PrefillChecklistAnswerBuilder.Build(validationResult, _checklistService, inputData.Config.DataFormatVersion);
                     validationResult.PrefillChecklist = prefillChecklist;
 
@@ -49,20 +47,23 @@ namespace Dibk.Ftpb.Validation.Application.Services
                 }
                 else
                 {
-                    throw new System.ArgumentOutOfRangeException("Missing DataFormatVersion");
+                    //Abort sending due to not form data is not complete
+                    return null;
                 }
-
-                throw new System.ArgumentOutOfRangeException("Illegal DataFormatVersion");
             }
-
-            return validationResult;
+            else
+            {
+                throw new System.ArgumentOutOfRangeException("Missing DataFormatVersion");
+            }
         }
 
-        //private string GetProcessCategory(ValidationInput validationInput)
-        //{
+        private bool ValidationResultIsAcceptableForFurtherProcessing(bool validationResultContainsErrors, string dataFormatVersion)
+        {
+            var tolerateErrors = _checklistService.GetFormProperties(dataFormatVersion).ServiceAuthority == "DIBK";
 
-        //    return "AT";
-        //}
+            return !validationResultContainsErrors || (tolerateErrors && validationResultContainsErrors);
+        }
+
         public ValidationResult Validate(ValidationInput validationInput)
         {
             var inputData = _inputDataService.GetInputData(validationInput.FormData);

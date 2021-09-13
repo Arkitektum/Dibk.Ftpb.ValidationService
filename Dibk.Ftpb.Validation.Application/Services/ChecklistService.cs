@@ -89,7 +89,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
         }
 
 
-        private FormProperties GetFormProperties(string dataFormatVersion)
+        public FormProperties GetFormProperties(string dataFormatVersion)
         {
             try
             {
