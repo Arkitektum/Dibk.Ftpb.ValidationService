@@ -1,18 +1,14 @@
-﻿using Dibk.Ftpb.Validation.Application.Logic;
-using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
+﻿using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.Reporter;
-using Dibk.Ftpb.Validation.Application.Enums;
-using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Microsoft.Extensions.Logging;
-using Dibk.Ftpb.Validation.Application.Services;
 
-namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
+namespace Dibk.Ftpb.Validation.Application.Logic
 {
     public class ValidationHandler : IValidationHandler
     {
@@ -103,6 +99,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             try
             {
+                var liste = Assembly.GetExecutingAssembly()
+                    .GetTypes();
+
                 var type = Assembly.GetExecutingAssembly()
                     .GetTypes()
                     .Where(t => t.IsDefined(typeof(FormDataAttribute), true))

@@ -5,8 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Logic\Xsd\**" />
+    <Compile Remove="Process\**" />
+    <Compile Remove="Validators\**" />
     <Compile Remove="XSD\**" />
+    <EmbeddedResource Remove="Logic\Xsd\**" />
+    <EmbeddedResource Remove="Process\**" />
+    <EmbeddedResource Remove="Validators\**" />
     <EmbeddedResource Remove="XSD\**" />
+    <None Remove="Logic\Xsd\**" />
+    <None Remove="Process\**" />
+    <None Remove="Validators\**" />
     <None Remove="XSD\**" />
   </ItemGroup>
 
@@ -22,10 +31,7 @@
 
   <ItemGroup>
     <Folder Include="Logic\Mappers\Common\" />
-    <Folder Include="Logic\Xsd\" />
     <Folder Include="Models\DataModels\ArbeidstilsynetSignaturSamtykke\" />
-    <Folder Include="Process\" />
-    <Folder Include="Validators\" />
   </ItemGroup>
 
   <ItemGroup>
