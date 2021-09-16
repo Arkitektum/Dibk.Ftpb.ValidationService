@@ -69,8 +69,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private void FilterValidationMessagesOnTiltakstyper(string dataFormatVersion)
         {
             var tiltakstyper = GetFormTiltakstyper();
-            var result = _checklistService.FilterValidationResult(dataFormatVersion, ValidationResult.ValidationMessages, tiltakstyper);
-            ValidationResult.ValidationMessages = result.ToList();
+            if (tiltakstyper.Count() > 0)
+            {
+                var result = _checklistService.FilterValidationResult(dataFormatVersion, ValidationResult.ValidationMessages, tiltakstyper);
+                ValidationResult.ValidationMessages = result.ToList();
+            }
         }
     }
 

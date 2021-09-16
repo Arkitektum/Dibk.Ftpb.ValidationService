@@ -69,8 +69,6 @@ namespace Dibk.Ftpb.Validation
             services.Configure<DibkChecklistSettings>(Configuration.GetSection("DibkCheckListApi"));
             services.AddHttpClient<AtilChecklistApiHttpClient>();
             services.AddHttpClient<DibkChecklistApiHttpClient>();
-            
-
 
             services.AddTransient<IValidationService, ValidationService>();
             services.AddTransient<IChecklistService, ChecklistService>();

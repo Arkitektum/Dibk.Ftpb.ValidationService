@@ -34,22 +34,9 @@ namespace Dibk.Ftpb.Validation.Application.Services
             var inputData = _inputDataService.GetInputData(validationInput.FormData);
             var validationResult = Validate(validationInput);
 
-            var validationResultContainsErrors = validationResult.ValidationMessages.Any(x => x.Messagetype.Equals(ValidationResultSeverityEnum.ERROR));
-
             if (!Helpers.ObjectIsNullOrEmpty(inputData?.Config?.DataFormatVersion))
             {
-                if (ValidationResultIsAcceptableForFurtherProcessing(validationResultContainsErrors, inputData?.Config?.DataFormatVersion))
-                {
-                    var prefillChecklist = PrefillChecklistAnswerBuilder.Build(validationResult, _checklistService, inputData.Config.DataFormatVersion);
-                    validationResult.PrefillChecklist = prefillChecklist;
-
-                    return validationResult;
-                }
-                else
-                {
-                    //Abort sending due to not form data is not complete
-                    return null;
-                }
+                return _checklistService.GetValidationReport(validationResult, inputData?.Config?.DataFormatVersion);
             }
             else
             {
@@ -57,12 +44,6 @@ namespace Dibk.Ftpb.Validation.Application.Services
             }
         }
 
-        private bool ValidationResultIsAcceptableForFurtherProcessing(bool validationResultContainsErrors, string dataFormatVersion)
-        {
-            var tolerateErrors = _checklistService.GetFormProperties(dataFormatVersion).ServiceAuthority == "DIBK";
-
-            return !validationResultContainsErrors || (tolerateErrors && validationResultContainsErrors);
-        }
 
         public ValidationResult Validate(ValidationInput validationInput)
         {
