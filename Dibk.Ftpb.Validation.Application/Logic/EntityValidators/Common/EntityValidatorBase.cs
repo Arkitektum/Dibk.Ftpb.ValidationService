@@ -171,14 +171,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             var ruleFounded = _validationResult.ValidationMessages.Any(r => r.XpathField.Equals(xpath, StringComparison.OrdinalIgnoreCase));
             return ruleFounded;
         }
-        public bool RuleIsCorrect(ValidationRuleEnum ruleEnum, string xPath)
+        public bool RuleIsValid(ValidationRuleEnum ruleEnum, string xPath)
         {
             var rule = ruleEnum.ToString();
 
             var validationMessage = _validationResult.ValidationMessages.Where(r => !string.IsNullOrEmpty(r.Rule))
                 .FirstOrDefault(r => r.Rule.Equals(rule) && (r.XpathField == xPath));
-            
-            return  validationMessage == null;
+
+            return validationMessage == null;
         }
 
         //**Add rules with dynamic enum 
@@ -187,40 +187,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             xPath = xPath?.Replace("[", "{").Replace("]", "}");
 
             ValidationRule validationRule = _validationResult.ValidationRules.Where(r => !string.IsNullOrEmpty(r.Rule))
-                .FirstOrDefault(r => r.Rule.Equals(rule) && (r.Xpath == xPath));
-
-            if (validationRule == null)
-            {
-                var cleanXpath = xPath?.Substring(xPath.IndexOf("/", StringComparison.Ordinal));
-
-                var validationRules = _validationResult.ValidationRules.Where(r => !string.IsNullOrEmpty(r.Rule))
-                    .Where(r => r.Rule.Equals(rule) && (r.Xpath == cleanXpath)).ToArray();
-
-                if (validationRules.Any())
+                .FirstOrDefault(r => r.Rule.Equals(rule) && (r.Xpath == xPath)) ?? new ValidationRule()
                 {
-                    if (validationRules.Count() == 1)
-                    {
-                        validationRule = validationRules.FirstOrDefault();
-                    }
-                    else
-                    {
-                        validationRule = new ValidationRule()
-                        {
-                            Rule = rule,
-                            Message = $"More than 1 rule found with xpath:'{cleanXpath}'.-"
-                        };
-                    }
-                }
-                else
-                {
-                    validationRule = new ValidationRule()
-                    {
-                        Rule = rule,
-                        Message = $"Can't find rule:'{rule}'.-"
-                    };
-                }
-            }
-
+                    Rule = rule,
+                    Message = $"Can't find rule:'{rule}'.-"
+                };
             return validationRule;
         }
 

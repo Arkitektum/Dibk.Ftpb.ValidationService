@@ -49,7 +49,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             {
                 ValidateEntityFields(fakturamottaker);
 
-                if (RuleIsCorrect(ValidationRuleEnum.ehf_eller_papir, xpath))
+                if (RuleIsValid(ValidationRuleEnum.ehf_eller_papir, xpath))
                 {
                     var adresseValidationResult = _enkelAdresseValidator.Validate(fakturamottaker.ModelData.Adresse);
                     UpdateValidationResultWithSubValidations(adresseValidationResult);
