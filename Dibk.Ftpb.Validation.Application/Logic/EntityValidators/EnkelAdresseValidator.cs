@@ -29,17 +29,20 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             AddValidationRule(ValidationRuleEnum.utfylt);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.adresselinje1);
-            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.landkode);
+            AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.landkode);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.postnr);
+            AddValidationRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.postnr);
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.postnr);
+            AddValidationRule(ValidationRuleEnum.postnr_stemmerIkke, FieldNameEnum.postnr);
+            AddValidationRule(ValidationRuleEnum.validert, FieldNameEnum.postnr);
         }
 
-        public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null)
+        public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse)
         {
-            var xpath = enkelAdresse?.DataModelXpath;
-            if (Helpers.ObjectIsNullOrEmpty(enkelAdresse?.ModelData))
+            var xPath = enkelAdresse?.DataModelXpath;
+            if (Helpers.ObjectIsNullOrEmpty(enkelAdresse))
             {
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xpath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
             }
             else
             {
@@ -49,10 +52,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             return _validationResult;
         }
 
-        public void ValidateEntityFields(EnkelAdresseValidationEntity adresseValidationEntity)
+        public void ValidateEntityFields(EnkelAdresseValidationEntity enkelAdresse)
         {
-            var xPath = adresseValidationEntity.DataModelXpath;
-            var adresse = adresseValidationEntity.ModelData;
+            var adresse = enkelAdresse.ModelData;
+            var xPath = enkelAdresse.DataModelXpath;
 
             if (string.IsNullOrEmpty(adresse.Adresselinje1))
             {
@@ -60,6 +63,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             else
             {
+
                 if (!CountryCodeHandler.IsCountryNorway(adresse.Landkode))
                 {
                     if (!CountryCodeHandler.VerifyCountryCode(adresse.Landkode))
@@ -108,6 +112,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     }
                 }
             }
+
         }
     }
 }
