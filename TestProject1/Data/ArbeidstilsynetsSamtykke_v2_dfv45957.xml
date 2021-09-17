@@ -86,8 +86,8 @@
   </arbeidsplasser>
   <fakturamottaker>
     <organisasjonsnummer>910297937</organisasjonsnummer>
-    <bestillerReferanse xsi:nil="true"/>
-    <fakturareferanser xsi:nil="true"/>
+    <bestillerReferanse>AR154</bestillerReferanse>
+    <fakturareferanser>FA154</fakturareferanser>
     <navn>FANA OG HAFSLO REVISJON</navn>
     <prosjektnummer>12345</prosjektnummer>
     <ehfFaktura>true</ehfFaktura>
@@ -551,4 +551,5 @@
     <klartForSigneringFraSluttbrukersystem>true</klartForSigneringFraSluttbrukersystem>
   </metadata>
 </ArbeidstilsynetsSamtykke>
+
 

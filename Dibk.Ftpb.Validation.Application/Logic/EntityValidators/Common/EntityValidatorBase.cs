@@ -179,7 +179,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
                 .FirstOrDefault(r => r.Rule.Equals(rule) && (r.XpathField == xPath));
             
             return  validationMessage == null;
-
         }
 
         //**Add rules with dynamic enum 
