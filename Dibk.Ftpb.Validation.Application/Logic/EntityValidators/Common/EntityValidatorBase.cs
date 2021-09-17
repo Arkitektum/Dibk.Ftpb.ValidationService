@@ -24,6 +24,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
         private string _entityXPath;
         //public abstract string ruleXmlElement { get; set; }
         protected ValidationResult _validationResult;
+        private EntityValidatorNode _entity;
         ValidationResult IEntityValidator.ValidationResult { get => _validationResult; set => _validationResult = value; }
 
         public EntityValidatorBase(IList<EntityValidatorNode> entityValidatorTree, int? nodeId = null)
@@ -35,6 +36,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             var validatorName = this.GetType().Name;
 
             var node = GetEntityValidatorNode(entityValidatorTree, nodeId, validatorName);
+            _entity = node;
             if (node != null)
             {
                 _ruleIdPath = node.IdPath;
@@ -151,8 +153,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
         {
 
             var idSt = id.ToString();
+            var xpathNew = xPath ?? _entity.EntityXPath;
 
-            var rule = RuleToValidate(idSt, xPath);
+            var rule = RuleToValidate(idSt, xpathNew);
 
             var validationMessage = new ValidationMessage()
             {

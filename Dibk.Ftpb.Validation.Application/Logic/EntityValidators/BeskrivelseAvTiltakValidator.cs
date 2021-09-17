@@ -52,21 +52,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.BRA}");
 
                 }
-
                 //TODO: validate if tiltaketype is null
 
-                if (Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity?.ModelData?.Tiltakstype))
+                var noko = beskrivelseAvTiltakValidationEntity?.ModelData?.Tiltakstype.ToArray();
+                var index = (beskrivelseAvTiltakValidationEntity?.ModelData?.Tiltakstype).Any() ? beskrivelseAvTiltakValidationEntity?.ModelData?.Tiltakstype.Count() : 1;
+
+                for (int i = 0; i < index; i++)
                 {
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.type}");
+                    //var valueNodo = noko?[i] ?? null;
+                    var tiltakstypeValidationResult = _tiltakstypeValidator.Validate(null);
+                    UpdateValidationResultWithSubValidations(tiltakstypeValidationResult);
                 }
-                else if (!Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity?.ModelData?.Tiltakstype) && !beskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype.Any())
-                {
-                    foreach (var tiltakstypeValidationEntity in beskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype)
-                    {
-                        var tiltakstypeValidationResult = _tiltakstypeValidator.Validate(tiltakstypeValidationEntity);
-                        UpdateValidationResultWithSubValidations(tiltakstypeValidationResult);
-                    }
-                }
+               
             }
             return ValidationResult;
         }
