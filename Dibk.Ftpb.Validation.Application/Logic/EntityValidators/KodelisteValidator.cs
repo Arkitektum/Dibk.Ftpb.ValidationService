@@ -41,12 +41,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             base.ResetValidationMessages();
 
-            if (kodeEntry == null)
-            {
-                AddMessageFromRule(ValidationRuleEnum.utfylt, AddXpathToMessage());
-            }
-
-            _xpath = kodeEntry.DataModelXpath;
+            _xpath = kodeEntry?.DataModelXpath;
 
             if (Helpers.ObjectIsNullOrEmpty(kodeEntry?.ModelData))
             {

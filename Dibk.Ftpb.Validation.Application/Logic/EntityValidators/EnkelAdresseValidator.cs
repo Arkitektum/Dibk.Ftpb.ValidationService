@@ -56,7 +56,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             var adresse = enkelAdresse.ModelData;
             var xPath = enkelAdresse.DataModelXpath;
-
+            
             if (string.IsNullOrEmpty(adresse.Adresselinje1))
             {
                 AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.adresselinje1}");
