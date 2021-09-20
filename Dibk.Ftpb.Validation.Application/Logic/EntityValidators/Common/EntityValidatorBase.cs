@@ -161,7 +161,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             {
                 Rule = idSt,
                 Reference = rule.Id ?? _ruleIdPath,
-                XpathField = xPath,
+                XpathField = xpathNew,
                 MessageParameters = messageParameters
             };
 
