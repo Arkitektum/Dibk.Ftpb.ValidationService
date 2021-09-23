@@ -169,7 +169,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
         }
 
         //**
-        public bool? IsAnyValidationMessagesWithXpath(string xpath)
+        public bool IsAnyValidationMessagesWithXpath(string xpath)
         {
             var ruleFounded = _validationResult.ValidationMessages.Any(r => r.XpathField.Equals(xpath, StringComparison.OrdinalIgnoreCase));
             return ruleFounded;

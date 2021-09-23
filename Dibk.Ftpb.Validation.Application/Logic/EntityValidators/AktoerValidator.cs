@@ -69,8 +69,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 var partstypeValidatinResults = _partstypeValidator.Validate(aktoerPartsType);
                 UpdateValidationResultWithSubValidations(partstypeValidatinResults);
 
-                var codeValueHaveError = IsAnyValidationMessagesWithXpath(CombineDataModelXpathAndFieldName(FieldNameEnum.kodeverdi, aktoer?.ModelData?.Partstype?.DataModelXpath)).GetValueOrDefault();
-                var partypeIsNullOrEmpty = IsAnyValidationMessagesWithXpath(aktoerPartsType.DataModelXpath).GetValueOrDefault();
+                var codeValueHaveError = IsAnyValidationMessagesWithXpath(CombineDataModelXpathAndFieldName(FieldNameEnum.kodeverdi, aktoer?.ModelData?.Partstype?.DataModelXpath));
+                var partypeIsNullOrEmpty = IsAnyValidationMessagesWithXpath(aktoerPartsType.DataModelXpath);
 
                 if (!codeValueHaveError && !partypeIsNullOrEmpty)
                 {
