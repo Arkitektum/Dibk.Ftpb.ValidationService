@@ -28,18 +28,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-            //AddValidationRule(KodeListValidationEnum.utfylt, null);
-            //AddValidationRule(KodeListValidationEnum.validert, null);
-            //AddValidationRule(KodeListValidationEnum.kodeverdi_utfylt, "kodeverdi");
-            //AddValidationRule(KodeListValidationEnum.kodeverdi_gyldig, "kodeverdi");
-            //AddValidationRule(KodeListValidationEnum.kodebeskrivelse_utfylt, "kodebeskrivelse");
-            //AddValidationRule(KodeListValidationEnum.kodebeskrivelse_gyldig, "kodebeskrivelse");
-
             AddValidationRule(ValidationRuleEnum.utfylt);
-            AddValidationRule(ValidationRuleEnum.gyldig);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.kodeverdi);
+            AddValidationRule(ValidationRuleEnum.validert, FieldNameEnum.kodeverdi);
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.kodeverdi);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.kodebeskrivelse);
+            AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.kodebeskrivelse);
             
         }
 
@@ -47,7 +41,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             base.ResetValidationMessages();
 
-            var xpath = kodeEntry.DataModelXpath;
+            var xpath = kodeEntry?.DataModelXpath;
 
             if (Helpers.ObjectIsNullOrEmpty(kodeEntry?.ModelData))
             {
@@ -85,7 +79,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                             var isCodelistLabelValid = _codeListService.IsCodelistLabelValid(_codeListName,kodeEntry.ModelData?.Kodeverdi, kodeEntry.ModelData?.Kodebeskrivelse, _registryType);
                             if (!isCodelistLabelValid.GetValueOrDefault())
                             {
-                                AddMessageFromRule(ValidationRuleEnum.gyldig, xpath, new[] { kodeEntry.ModelData?.Kodeverdi, kodeEntry.ModelData?.Kodebeskrivelse });
+                                AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xpath}/{FieldNameEnum.kodebeskrivelse}", new[] { kodeEntry.ModelData?.Kodeverdi, kodeEntry.ModelData?.Kodebeskrivelse });
                             }
                         }
                     }

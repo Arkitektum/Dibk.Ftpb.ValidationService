@@ -31,58 +31,45 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected override void InitializeValidationRules()
         {
             AddValidationRule(ValidationRuleEnum.utfylt);
-            AddValidationRule(ValidationRuleEnum.gyldig);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.kodeverdi);
+            AddValidationRule(ValidationRuleEnum.validert, FieldNameEnum.kodeverdi);
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.kodeverdi);
-            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.kodebeskrivelse);
         }
 
         public ValidationResult Validate(KodelisteValidationEntity kodeEntry = null)
         {
             base.ResetValidationMessages();
 
-            _xpath = kodeEntry?.DataModelXpath;
+            var xpath = kodeEntry?.DataModelXpath;
 
             if (Helpers.ObjectIsNullOrEmpty(kodeEntry?.ModelData))
             {
-                AddMessageFromRule(ValidationRuleEnum.utfylt, AddXpathToMessage());
+                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}");
             }
             else
             {
                 if (Helpers.ObjectIsNullOrEmpty(kodeEntry.ModelData.Kodeverdi))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, AddXpathToMessage(FieldNameEnum.kodeverdi));
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.kodeverdi}"); 
                 }
                 else
                 {
                     var isCodeValid = _codeListService.IsCodelistValid(_codeListName, kodeEntry.ModelData?.Kodeverdi, _registryType);
                     if (!isCodeValid.HasValue)
                     {
-                        AddMessageFromRule(ValidationRuleEnum.validert, AddXpathToMessage(FieldNameEnum.kodeverdi));
+                        AddMessageFromRule(ValidationRuleEnum.validert, $"{xpath}/{FieldNameEnum.kodeverdi}");
                     }
                     else
                     {
                         if (!isCodeValid.GetValueOrDefault())
                         {
-                            AddMessageFromRule(ValidationRuleEnum.gyldig, AddXpathToMessage(FieldNameEnum.kodeverdi), new[] { kodeEntry.ModelData?.Kodeverdi });
+                            AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xpath}/{FieldNameEnum.kodeverdi}", new[] { kodeEntry.ModelData?.Kodeverdi });
                         }
                     }
                 }
             }
             
             return ValidationResult;
-        }
-        private string AddXpathToMessage(FieldNameEnum? fieldName = null)
-        {
-
-            //var xpathComposed = string.Format("{0}/{1}", new[] { _xpath, fieldName?.ToString() });
-
-            string xpathComposed = _xpath;
-            if (fieldName != null)
-            {
-                xpathComposed += $"/{fieldName?.ToString()}";
-            }
-            return xpathComposed;
         }
     }
 }
