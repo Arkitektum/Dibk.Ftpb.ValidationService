@@ -31,7 +31,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
             var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957.xml");
             _form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
-            _fakturamottaker = new FakturamottakerMapper().Map(_form.fakturamottaker, "UnitTest");
+            _fakturamottaker = new FakturamottakerMapper().Map(_form.fakturamottaker, "");
 
             //fakturamottake
             var fakturamottakeNodeList = new List<EntityValidatorNode>()
