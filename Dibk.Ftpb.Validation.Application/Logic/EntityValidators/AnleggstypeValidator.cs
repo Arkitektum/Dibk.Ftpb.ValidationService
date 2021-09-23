@@ -5,7 +5,7 @@ using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class AnleggstypeValidator : KodelisteValidator
+    public class AnleggstypeValidator : KodelisteValidatorV2
     {
         public AnleggstypeValidator(IList<EntityValidatorNode> entityValidatorTree, ICodeListService codeListService)
             : base(entityValidatorTree, null, FtbKodeListeEnum.Anleggstype, RegistryType.Byggesoknad, codeListService)

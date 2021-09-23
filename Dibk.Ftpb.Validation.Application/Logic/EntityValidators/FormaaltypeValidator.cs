@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
@@ -36,43 +37,68 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult Validate(FormaaltypeValidationEntity formaaltypeValEntity = null)
         {
+            ValidateEntityFields(formaaltypeValEntity);
+
             if (Helpers.ObjectIsNullOrEmpty(formaaltypeValEntity?.ModelData))
             {
-                //AddMessageFromRule(ValidationRuleEnum.beskrivelseAvTiltak_formaaltype_utfylt, formaaltypeValEntity?.DataModelXpath);
                 AddMessageFromRule(ValidationRuleEnum.utfylt, formaaltypeValEntity?.DataModelXpath);
             }
             else
             {
-                var anleggstypeValidationResult = _anleggstypeValidator.Validate(formaaltypeValEntity?.ModelData?.Anleggstype);
-                UpdateValidationResultWithSubValidations(anleggstypeValidationResult);
+                var formaaltype = formaaltypeValEntity.ModelData;
 
-                var naeringsgruppeValidationResult = _naeringsgruppeValidator.Validate(formaaltypeValEntity?.ModelData?.Naeringsgruppe);
-                UpdateValidationResultWithSubValidations(naeringsgruppeValidationResult);
+                if (!Helpers.ObjectIsNullOrEmpty(formaaltype.Anleggstype))
+                {
+                    var anleggstypeValidationResult = _anleggstypeValidator.Validate(formaaltypeValEntity?.ModelData?.Anleggstype);
+                    UpdateValidationResultWithSubValidations(anleggstypeValidationResult);
+                }
 
-                var bygningstypeValidationResult = _bygningstypeValidator.Validate(formaaltypeValEntity?.ModelData?.Bygningstype);
-                UpdateValidationResultWithSubValidations(bygningstypeValidationResult);
+                if (!Helpers.ObjectIsNullOrEmpty(formaaltype.Naeringsgruppe))
+                {
+                    var naeringsgruppeValidationResult = _naeringsgruppeValidator.Validate(formaaltypeValEntity?.ModelData?.Naeringsgruppe);
+                    UpdateValidationResultWithSubValidations(naeringsgruppeValidationResult);
+                }
+
+                if (!Helpers.ObjectIsNullOrEmpty(formaaltype.Bygningstype))
+                {
+                    var bygningstypeValidationResult = _bygningstypeValidator.Validate(formaaltypeValEntity?.ModelData?.Bygningstype);
+                    UpdateValidationResultWithSubValidations(bygningstypeValidationResult);
+                }
 
                 if (!Helpers.ObjectIsNullOrEmpty(formaaltypeValEntity?.ModelData?.Tiltaksformaal))
                 {
                     foreach (var tiltaksformaal in formaaltypeValEntity.ModelData.Tiltaksformaal)
                     {
+
                         var tiltaksformaalValidationResult = _tiltaksformaalValidator.Validate(tiltaksformaal);
                         UpdateValidationResultWithSubValidations(tiltaksformaalValidationResult);
+
+                        if (!IsAnyValidationMessagesWithXpath($"{tiltaksformaal.DataModelXpath}/{FieldNameEnum.kodeverdi}"))
+                        {
+                            if (tiltaksformaal.ModelData.Kodeverdi.Equals("Annet"))
+                            {
+                                //TODO add precondition xpath .... *.tiltaksformaal[1].Kodeverdi = "Annet"
+                                if (string.IsNullOrEmpty(formaaltypeValEntity.ModelData.BeskrivPlanlagtFormaal))
+                                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{formaaltypeValEntity.DataModelXpath}/{FieldNameEnum.beskrivPlanlagtFormaal}");
+                            }
+                        }
                     }
                 }
-                ValidateEntityFields(formaaltypeValEntity);
             }
 
             return _validationResult;
         }
-        private void ValidateEntityFields(FormaaltypeValidationEntity formaaltypeValEntity)
+        public void ValidateEntityFields(FormaaltypeValidationEntity formaaltypeValEntity)
         {
-            var xPath = formaaltypeValEntity.DataModelXpath;
-            var formaaltype = formaaltypeValEntity.ModelData;
-
-            if (string.IsNullOrEmpty(formaaltype.BeskrivPlanlagtFormaal))
+            var xPath = formaaltypeValEntity?.DataModelXpath;
+            if (Helpers.ObjectIsNullOrEmpty(formaaltypeValEntity?.ModelData))
             {
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.beskrivPlanlagtFormaal}");
+
+                AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
+            }
+            else
+            {
+                //               
             }
         }
     }

@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using Dibk.Ftpb.Validation.Application.Utils;
@@ -28,20 +30,6 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957.xml");
             _form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
 
-            _formValidatorConfiguration = new FormValidatorConfiguration();
-            _formValidatorConfiguration.ValidatorFormName = "ArbeidstilsynetsSamtykke2_45957_Validator";
-            _formValidatorConfiguration.FormXPathRoot = "ArbeidstilsynetsSamtykke";
-            _formValidatorConfiguration.Validators = new List<EntityValidatorInfo>();
-
-            //BeskrivelseAvTiltak
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.AnleggstypeValidator, EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.NaeringsgruppeValidator, EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.BygningstypeValidator, EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltaksformaalValidator, EntityValidatorEnum.FormaaltypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-            _formValidatorConfiguration.Validators.Add(new EntityValidatorInfo(EntityValidatorEnum.TiltakstypeValidator, EntityValidatorEnum.BeskrivelseAvTiltakValidator));
-
             //Tree
             var flatList = new List<EntityValidatorNode>()
             {
@@ -50,60 +38,17 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
                     NodeId = 1,
                     EnumId = EntityValidatorEnum.BeskrivelseAvTiltakValidator,
                     ParentID = null,
-                }, //root node
-                new ()
-                {
-                    NodeId = 2,
-                    EnumId = EntityValidatorEnum.FormaaltypeValidator,
-                    ParentID = 1,
-                },
-                new ()
-                {
-                    NodeId = 3,
-                    EnumId = EntityValidatorEnum.AnleggstypeValidator,
-                    ParentID = 2,
-                },
-                new ()
-                {
-                    NodeId = 4,
-                    EnumId = EntityValidatorEnum.NaeringsgruppeValidator,
-                    ParentID = 2,
-                },
-                new ()
-                {
-                    NodeId = 5,
-                    EnumId = EntityValidatorEnum.BygningstypeValidator,
-                    ParentID = 2,
-                },
-                new ()
-                {
-                    NodeId = 6,
-                    EnumId = EntityValidatorEnum.TiltaksformaalValidator,
-                    ParentID = 2,
-                },
-                new ()
-                {
-                    NodeId = 7,
-                    EnumId = EntityValidatorEnum.TiltakstypeValidator,
-                    ParentID = 1,
-                }
+                } //root node
+
             };
 
             _tree = EntityValidatiorTree.BuildTree(flatList);
 
-            ICodeListService codeListServiceMock = MockDataSource.IsCodeListValid(FtbKodeListeEnum.Partstype, false);
+            IFormaaltypeValidator formaaltypeValidator = MockDataSource.formaaltypeValidator();
+            IKodelisteValidator tiltakstypeValidator = MockDataSource.KodelisteValidator();
 
-            AnleggstypeValidator anleggstypeValidator = new AnleggstypeValidator(_tree,  codeListServiceMock);
-            NaeringsgruppeValidator naeringsgruppeValidator = new NaeringsgruppeValidator(_tree, codeListServiceMock);
-            BygningstypeValidator bygningstypeValidator = new BygningstypeValidator(_tree,  codeListServiceMock);
-            TiltaksformaalValidator tiltaksformaalValidator = new TiltaksformaalValidator(_tree,  codeListServiceMock);
 
-            FormaaltypeValidator formaaltypeValidator = new FormaaltypeValidator(_tree,  anleggstypeValidator, naeringsgruppeValidator, bygningstypeValidator, tiltaksformaalValidator);
-
-            ICodeListService tiltaksformaalCodeListService = MockDataSource.IsCodeListValid(FtbKodeListeEnum.Partstype, true);
-            TiltakstypeValidator tiltakstypeValidator = new TiltakstypeValidator(_tree,  tiltaksformaalCodeListService);
-
-            _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(_tree,  formaaltypeValidator, tiltakstypeValidator);
+            _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(_tree, formaaltypeValidator, tiltakstypeValidator);
 
         }
 
@@ -112,8 +57,8 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         {
             var formEntity = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(_form);
 
-            var beskrivelseValidationResult = _beskrivelseAvTiltakValidator.Validate(formEntity.ModelData.BeskrivelseAvTiltakValidationEntity);
-            beskrivelseValidationResult.Should().NotBeNull();
+            _beskrivelseAvTiltakValidator.ValidateEntityFields(formEntity.ModelData.BeskrivelseAvTiltakValidationEntity);
+            _beskrivelseAvTiltakValidator.ValidationResult.ValidationRules.Count.Should().Be(2);
 
         }
     }

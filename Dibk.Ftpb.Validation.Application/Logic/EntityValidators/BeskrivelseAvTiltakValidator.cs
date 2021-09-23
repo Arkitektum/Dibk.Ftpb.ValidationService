@@ -37,34 +37,49 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult Validate(BeskrivelseAvTiltakValidationEntity beskrivelseAvTiltakValidationEntity = null)
         {
-            var xpath = beskrivelseAvTiltakValidationEntity?.DataModelXpath;
-            if (Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity?.ModelData))
+            ValidateEntityFields(beskrivelseAvTiltakValidationEntity);
+            if (!Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity))
             {
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xpath);
-            }
-            else
-            {
-                var formaaltypeValidationResult = _formaaltypeValidator.Validate(beskrivelseAvTiltakValidationEntity?.ModelData?.Formaaltype);
-                UpdateValidationResultWithSubValidations(formaaltypeValidationResult);
-
-                if (string.IsNullOrEmpty(beskrivelseAvTiltakValidationEntity?.ModelData?.BRA))
-                {
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.BRA}");
-                }
+                var xpath = beskrivelseAvTiltakValidationEntity?.DataModelXpath;
 
                 var tiltakstypes = beskrivelseAvTiltakValidationEntity?.ModelData?.Tiltakstype?.ToArray();
-                int index = Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity?.ModelData?.Tiltakstype) ? 1 : (tiltakstypes ?? Array.Empty<KodelisteValidationEntity>()).Count();
+                var index = GetArrayIndex(tiltakstypes);
 
                 for (int i = 0; i < index; i++)
                 {
-                    var tiltakstype = Helpers.ObjectIsNullOrEmpty(tiltakstypes) ? null: tiltakstypes[i];
+                    var tiltakstype = Helpers.ObjectIsNullOrEmpty(tiltakstypes) ? null : tiltakstypes[i];
 
                     var tiltakstypeValidationResult = _tiltakstypeValidator.Validate(tiltakstype);
                     UpdateValidationResultWithSubValidations(tiltakstypeValidationResult);
                 }
 
+                if (!Helpers.ObjectIsNullOrEmpty(tiltakstypes))
+                {
+                    var formaalTypeValidationResult = _formaaltypeValidator.Validate(beskrivelseAvTiltakValidationEntity?.ModelData?.Formaaltype);
+                    UpdateValidationResultWithSubValidations(formaalTypeValidationResult);
+                }
+
+
             }
             return ValidationResult;
+        }
+
+
+        public void ValidateEntityFields(BeskrivelseAvTiltakValidationEntity beskrivelseAvTiltakValidationEntity = null)
+        {
+            var xpath = beskrivelseAvTiltakValidationEntity?.DataModelXpath;
+
+            if (Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity))
+            {
+                AddMessageFromRule(ValidationRuleEnum.utfylt, xpath);
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(beskrivelseAvTiltakValidationEntity?.ModelData?.BRA))
+                {
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.BRA}");
+                }
+            }
         }
     }
 }
