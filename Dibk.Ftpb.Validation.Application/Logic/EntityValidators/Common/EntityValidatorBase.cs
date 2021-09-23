@@ -119,7 +119,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
                 {
                     if (TryParse(xmlElement, out FieldNameEnum fieldNameEnum))
                     {
-                        fieldNameEnum = (FieldNameEnum)System.Enum.Parse(typeof(FieldNameEnum), xmlElement);
+                        fieldNameEnum = (FieldNameEnum)Enum.Parse(typeof(FieldNameEnum), xmlElement);
                         var fieldNameNumber = Helpers.GetEnumFieldNameNumber(fieldNameEnum);  //GetEnumEntityValidatorNumber
                         fieldNumberString = $".{fieldNameNumber}";
                     }
@@ -183,6 +183,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 
             return validationMessage == null;
         }
+        public static int GetArrayIndex(object[] objectArray)
+        {
+            int index = Helpers.ObjectIsNullOrEmpty(objectArray)
+                ? 1
+                : (objectArray ?? Array.Empty<object>()).Count();
+            return index;
+        }
 
         //**Add rules with dynamic enum 
         public ValidationRule RuleToValidate(string rule, string xPath)
@@ -197,7 +204,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
                 };
             return validationRule;
         }
-
 
     }
 }
