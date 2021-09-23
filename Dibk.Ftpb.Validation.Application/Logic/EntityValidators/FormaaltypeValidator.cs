@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
@@ -13,13 +13,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public class FormaaltypeValidator : EntityValidatorBase, IFormaaltypeValidator
     {
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
-        private readonly AnleggstypeValidator _anleggstypeValidator;
-        private readonly NaeringsgruppeValidator _naeringsgruppeValidator;
-        private readonly BygningstypeValidator _bygningstypeValidator;
-        private readonly TiltaksformaalValidator _tiltaksformaalValidator;
+        private readonly IKodelisteValidator _anleggstypeValidator;
+        private readonly IKodelisteValidator _naeringsgruppeValidator;
+        private readonly IKodelisteValidator _bygningstypeValidator;
+        private readonly IKodelisteValidator _tiltaksformaalValidator;
 
         public FormaaltypeValidator(IList<EntityValidatorNode> entityValidatorTree,
-            AnleggstypeValidator anleggstypeValidator, NaeringsgruppeValidator naeringsgruppeValidator, BygningstypeValidator bygningstypeValidator, TiltaksformaalValidator tiltaksformaalValidator)
+            IKodelisteValidator anleggstypeValidator, IKodelisteValidator naeringsgruppeValidator, IKodelisteValidator bygningstypeValidator, IKodelisteValidator tiltaksformaalValidator)
             : base(entityValidatorTree)
         {
             _anleggstypeValidator = anleggstypeValidator;

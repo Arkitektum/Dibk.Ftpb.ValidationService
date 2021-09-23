@@ -15,10 +15,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     {
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        private readonly FormaaltypeValidator _formaaltypeValidator;
-        private readonly TiltakstypeValidator _tiltakstypeValidator;
+        private readonly IFormaaltypeValidator _formaaltypeValidator;
+        private readonly IKodelisteValidator _tiltakstypeValidator;
 
-        public BeskrivelseAvTiltakValidator(IList<EntityValidatorNode> entityValidatorTree, FormaaltypeValidator formaaltypeValidator, TiltakstypeValidator tiltakstypeValidator)
+        public BeskrivelseAvTiltakValidator(IList<EntityValidatorNode> entityValidatorTree, IFormaaltypeValidator formaaltypeValidator, IKodelisteValidator tiltakstypeValidator)
             : base(entityValidatorTree)
         {
             _formaaltypeValidator = formaaltypeValidator;
