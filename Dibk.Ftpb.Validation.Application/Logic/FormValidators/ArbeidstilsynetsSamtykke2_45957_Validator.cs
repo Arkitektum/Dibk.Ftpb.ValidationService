@@ -75,6 +75,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private ISaksnummerValidator _arbeidstilsynetsSaksnummerValidator;
         private ISaksnummerValidator _kommunensSaksnummerValidator;
 
+        private string[] _tiltakstypes;
         protected override string XPathRoot => "ArbeidstilsynetsSamtykke";
 
         public ArbeidstilsynetsSamtykke2_45957_Validator(IValidationMessageComposer validationMessageComposer
@@ -161,7 +162,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 new () {NodeId = 9, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 8}
             };
             _entitiesNodeList.AddRange(fakturamottakeNodeList);
-
+            
+            //beskrivelseAvTiltak
             var beskrivelseAvTiltakNodeList = new List<EntityValidatorNode>()
             {
                 new () {NodeId = 10, EnumId = EntityValidatorEnum.BeskrivelseAvTiltakValidator, ParentID = null},
@@ -312,6 +314,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         protected override void Validate(ValidationInput validationInput)
         {
+            var beskrivelseAvTiltakValidationResult = _beskrivelseAvTiltakValidator.Validate(_validationForm.ModelData.BeskrivelseAvTiltakValidationEntity);
+            AccumulateValidationMessages(beskrivelseAvTiltakValidationResult.ValidationMessages);
+
+            _tiltakstypes = _beskrivelseAvTiltakValidator.Tiltakstypes.ToArray();
             var eiendomValidationResult = _eiendomByggestedValidator.Validate(_validationForm.ModelData.EiendomValidationEntities);
             AccumulateValidationMessages(eiendomValidationResult.ValidationMessages);
 
@@ -331,8 +337,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var sjekklistekravValidationResult = _sjekklistekravValidator.Validate(GetDataFormatVersion(typeof(ArbeidstilsynetsSamtykke2_45957_Validator)), _validationForm.ModelData.SjekklistekravValidationEntities, _checklistService);
             AccumulateValidationMessages(sjekklistekravValidationResult.ValidationMessages);
 
-            var beskrivelseAvTiltakValidationResult = _beskrivelseAvTiltakValidator.Validate(_validationForm.ModelData.BeskrivelseAvTiltakValidationEntity);
-            AccumulateValidationMessages(beskrivelseAvTiltakValidationResult.ValidationMessages);
+
 
             var metadataValidationResult = _metadataValidator.Validate(_validationForm.ModelData.MetadataValidationEntity);
             AccumulateValidationMessages(metadataValidationResult.ValidationMessages);

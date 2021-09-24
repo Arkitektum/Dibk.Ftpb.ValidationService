@@ -9,6 +9,7 @@ using Castle.Components.DictionaryAdapter;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Services;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Checklist;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
@@ -73,24 +74,38 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
             return formallTypeValidator.Object;
         }
 
-        public static IKodelisteValidator KodelisteValidator(string xpath = null)
+        public static IKodelisteValidator KodelisteValidator(string xpath = null, ValidationRuleEnum? validationRule = null)
         {
             var kodelisteValidator = new Mock<IKodelisteValidator>();
-            var validationResult = new ValidationResult();
-            validationResult.ValidationRules = new List<ValidationRule>();
-            validationResult.ValidationMessages = new EditableList<ValidationMessage>();
+            kodelisteValidator.Setup((a => a.Validate(It.IsAny<KodelisteValidationEntity>()))).Returns(ValidationResult(xpath, validationRule));
+            return kodelisteValidator.Object;
+        }
 
-            if (!string.IsNullOrEmpty(xpath))
+        public static IEnkelAdresseValidator enkelAdresseValidator(string xpath = null, ValidationRuleEnum? validationRule = null)
+        {
+            var adressValidator = new Mock<IEnkelAdresseValidator>();
+
+            adressValidator.Setup(a => a.Validate(It.IsAny<EnkelAdresseValidationEntity>())).Returns(ValidationResult(xpath, validationRule));
+            return adressValidator.Object;
+        }
+
+        private static ValidationResult ValidationResult(string xpath = null, ValidationRuleEnum? validationRule = null)
+        {
+            var validationResult = new ValidationResult()
+            {
+                ValidationRules = new List<ValidationRule>(),
+                ValidationMessages = new List<ValidationMessage>()
+            };
+
+            if (string.IsNullOrEmpty(xpath)|| validationRule.HasValue)
             {
                 validationResult.ValidationMessages.Add(new ValidationMessage()
                 {
                     XpathField = xpath,
-                    Rule = "*.?."
+                    Rule = validationRule?.ToString() ?? null,
                 });
             }
-            kodelisteValidator.Setup((a => a.Validate(It.IsAny<KodelisteValidationEntity>()))).Returns(validationResult);
-            return kodelisteValidator.Object;
+            return validationResult;
         }
-
     }
 }

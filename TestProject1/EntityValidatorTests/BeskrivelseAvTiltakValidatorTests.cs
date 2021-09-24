@@ -25,6 +25,9 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         private BeskrivelseAvTiltakValidator _beskrivelseAvTiltakValidator;
 
         private IList<EntityValidatorNode> _tree;
+        private IKodelisteValidator _tiltakstypeValidator;
+        private IFormaaltypeValidator _formaaltypeValidator;
+
         public BeskrivelseAvTiltakValidatorTests()
         {
             var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957.xml");
@@ -44,11 +47,11 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
             _tree = EntityValidatiorTree.BuildTree(flatList);
 
-            IFormaaltypeValidator formaaltypeValidator = MockDataSource.formaaltypeValidator();
-            IKodelisteValidator tiltakstypeValidator = MockDataSource.KodelisteValidator();
+            _formaaltypeValidator = MockDataSource.formaaltypeValidator();
+            _tiltakstypeValidator = MockDataSource.KodelisteValidator();
 
 
-            _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(_tree, formaaltypeValidator, tiltakstypeValidator);
+            _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(_tree, _formaaltypeValidator, _tiltakstypeValidator);
 
         }
 
@@ -58,6 +61,32 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             var formEntity = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(_form);
 
             _beskrivelseAvTiltakValidator.ValidateEntityFields(formEntity.ModelData.BeskrivelseAvTiltakValidationEntity);
+            _beskrivelseAvTiltakValidator.ValidationResult.ValidationRules.Count.Should().Be(2);
+
+        }
+
+        [Fact]
+        public void testBeskrivelseAvTiltak_GetTypes()
+        {
+            var formEntity = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(_form);
+
+            var result = _beskrivelseAvTiltakValidator.Validate(formEntity.ModelData.BeskrivelseAvTiltakValidationEntity);
+            var noko = _beskrivelseAvTiltakValidator.Tiltakstypes;
+            _beskrivelseAvTiltakValidator.ValidationResult.ValidationRules.Count.Should().Be(2);
+
+        }
+        [Fact]
+        public void testBeskrivelseAvTiltak_GetTypes_Error()
+        {
+            var formEntity = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(_form);
+
+            var xpath = formEntity.ModelData.BeskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype.FirstOrDefault()
+                .DataModelXpath;
+            _tiltakstypeValidator = MockDataSource.KodelisteValidator($"{xpath}/{FieldNameEnum.kodeverdi}");
+            _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(_tree, _formaaltypeValidator, _tiltakstypeValidator);
+
+            var result = _beskrivelseAvTiltakValidator.Validate(formEntity.ModelData.BeskrivelseAvTiltakValidationEntity);
+            var noko = _beskrivelseAvTiltakValidator.Tiltakstypes;
             _beskrivelseAvTiltakValidator.ValidationResult.ValidationRules.Count.Should().Be(2);
 
         }

@@ -17,13 +17,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         private readonly IFormaaltypeValidator _formaaltypeValidator;
         private readonly IKodelisteValidator _tiltakstypeValidator;
-
+        private List<string> _Tiltakstypes;
         public BeskrivelseAvTiltakValidator(IList<EntityValidatorNode> entityValidatorTree, IFormaaltypeValidator formaaltypeValidator, IKodelisteValidator tiltakstypeValidator)
             : base(entityValidatorTree)
         {
             _formaaltypeValidator = formaaltypeValidator;
             _tiltakstypeValidator = tiltakstypeValidator;
+            _Tiltakstypes = new List<string>();
         }
+        public List<string> Tiltakstypes { get => _Tiltakstypes; }
+
         protected override void InitializeValidationRules()
         {
             //AddValidationRule(BeskrivelseAvTiltakValidationEnum.utfylt, null);
@@ -31,8 +34,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             AddValidationRule(ValidationRuleEnum.utfylt);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.BRA);
-
-
         }
 
         public ValidationResult Validate(BeskrivelseAvTiltakValidationEntity beskrivelseAvTiltakValidationEntity = null)
@@ -47,10 +48,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                 for (int i = 0; i < index; i++)
                 {
+
                     var tiltakstype = Helpers.ObjectIsNullOrEmpty(tiltakstypes) ? null : tiltakstypes[i];
 
                     var tiltakstypeValidationResult = _tiltakstypeValidator.Validate(tiltakstype);
                     UpdateValidationResultWithSubValidations(tiltakstypeValidationResult);
+
+                    if (tiltakstypes != null && !IsAnyValidationMessagesWithXpath($"{tiltakstypes[i].DataModelXpath}/{FieldNameEnum.kodeverdi}"))
+                    {
+                        _Tiltakstypes.Add(tiltakstypes[i].ModelData.Kodeverdi);
+                    }
                 }
 
                 if (!Helpers.ObjectIsNullOrEmpty(tiltakstypes))
@@ -58,12 +65,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     var formaalTypeValidationResult = _formaaltypeValidator.Validate(beskrivelseAvTiltakValidationEntity?.ModelData?.Formaaltype);
                     UpdateValidationResultWithSubValidations(formaalTypeValidationResult);
                 }
-
-
             }
             return ValidationResult;
         }
-
 
         public void ValidateEntityFields(BeskrivelseAvTiltakValidationEntity beskrivelseAvTiltakValidationEntity = null)
         {
