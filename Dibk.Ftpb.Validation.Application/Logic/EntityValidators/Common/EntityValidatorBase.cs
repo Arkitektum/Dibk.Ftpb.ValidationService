@@ -149,7 +149,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
         }
 
 
-        protected void AddMessageFromRule(ValidationRuleEnum id, string xPath = null, string[] messageParameters = null)
+        protected void AddMessageFromRule(ValidationRuleEnum id, string xPath = null, string[] messageParameters = null, string preCondition = null)
         {
 
             var idSt = id.ToString();
@@ -162,6 +162,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
                 Rule = idSt,
                 Reference = rule.Id ?? _ruleIdPath,
                 XpathField = xpathNew,
+                PreCondition = preCondition,
                 MessageParameters = messageParameters
             };
 
