@@ -23,7 +23,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
         private IFakturamottakerValidator _fakturamottakerValidator;
         private FakturamottakerValidationEntity _fakturamottaker;
-        private EnkelAdresseValidator _fakturamottakerEnkelAdresseValidator;
+        private IEnkelAdresseValidator _fakturamottakerEnkelAdresseValidator;
 
         public FakturamottakerValidatorTests()
         {
@@ -36,12 +36,11 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             //fakturamottake
             var fakturamottakeNodeList = new List<EntityValidatorNode>()
             {
-                new () {NodeId = 8, EnumId = EntityValidatorEnum.FakturamottakerValidator, ParentID = null},
-                new () {NodeId = 9, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 8}
+                new () {NodeId = 1, EnumId = EntityValidatorEnum.FakturamottakerValidator, ParentID = null},
             };
             var tree = EntityValidatiorTree.BuildTree(fakturamottakeNodeList);
 
-            _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidator(tree, 9, _postalCodeService);
+            _fakturamottakerEnkelAdresseValidator = MockDataSource.enkelAdresseValidator();
             _fakturamottakerValidator = new FakturamottakerValidator(tree, _fakturamottakerEnkelAdresseValidator);
 
         }

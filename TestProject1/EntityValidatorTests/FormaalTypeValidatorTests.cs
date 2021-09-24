@@ -43,6 +43,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             };
             _tree = EntityValidatiorTree.BuildTree(beskrivelseAvTiltakNodeList);
 
+
             _anleggstypeValidator = MockDataSource.KodelisteValidator();
             _naeringsgruppeValidator = MockDataSource.KodelisteValidator();
             _bygningstypeValidator = MockDataSource.KodelisteValidator();

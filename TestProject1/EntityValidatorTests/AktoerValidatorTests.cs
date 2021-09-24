@@ -40,15 +40,12 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             var tiltakshaverNodeList = new List<EntityValidatorNode>()
             {
                 new () {NodeId = 1, EnumId = EntityValidatorEnum.TiltakshaverValidator, ParentID = null},
-                new () {NodeId = 2, EnumId = EntityValidatorEnum.KontaktpersonValidator, ParentID = 1},
-                new () {NodeId = 3, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 1},
-                new () {NodeId = 4, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 1}
             };
             var tree = EntityValidatiorTree.BuildTree(tiltakshaverNodeList);
 
             //Tiltakshaver
-            var tiltakshaverKontaktpersonValidator = new KontaktpersonValidator(tree, 2);
-            var tiltakshaverPartstypeValidator = new PartstypeValidator(tree, 3, _codeListService);
+            IKontaktpersonValidator tiltakshaverKontaktpersonValidator = new KontaktpersonValidator(tree, 2);
+            IKodelisteValidator tiltakshaverPartstypeValidator = new PartstypeValidator(tree, 3, _codeListService);
             var tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(tree, 4, _postalCodeService);
             _aktoerValidator = new TiltakshaverValidator(tree, tiltakshaverEnkelAdresseValidator, tiltakshaverKontaktpersonValidator, tiltakshaverPartstypeValidator, _codeListService);
 
