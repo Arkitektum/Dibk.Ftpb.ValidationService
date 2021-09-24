@@ -69,7 +69,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 {
                     foreach (var tiltaksformaal in formaaltypeValEntity.ModelData.Tiltaksformaal)
                     {
-
                         var tiltaksformaalValidationResult = _tiltaksformaalValidator.Validate(tiltaksformaal);
                         UpdateValidationResultWithSubValidations(tiltaksformaalValidationResult);
 
@@ -77,9 +76,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         {
                             if (tiltaksformaal.ModelData.Kodeverdi.Equals("Annet"))
                             {
-                                //TODO add precondition xpath .... *.tiltaksformaal[1].Kodeverdi = "Annet"
                                 if (string.IsNullOrEmpty(formaaltypeValEntity.ModelData.BeskrivPlanlagtFormaal))
-                                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{formaaltypeValEntity.DataModelXpath}/{FieldNameEnum.beskrivPlanlagtFormaal}");
+                                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{formaaltypeValEntity.DataModelXpath}/{FieldNameEnum.beskrivPlanlagtFormaal}",null, $"{tiltaksformaal.DataModelXpath}/{FieldNameEnum.kodeverdi}");
                             }
                         }
                     }

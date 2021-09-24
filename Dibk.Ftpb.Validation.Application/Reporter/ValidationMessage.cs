@@ -15,8 +15,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         public ValidationResultSeverityEnum? Messagetype { get; set; }
         
         public string XpathField { get; set; }
-        //[JsonConverter(typeof(StringEnumConverter))]
-        //public string PreCondition { get; set; }
+        public string PreCondition { get; set; }
         public string ChecklistReference { get; set; }
         [JsonIgnore]
         public string[] MessageParameters { get; set; }
