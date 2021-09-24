@@ -1,6 +1,12 @@
 ﻿using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using System.Collections.Generic;
+using System.IO;
+using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
+using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
+using Dibk.Ftpb.Validation.Application.Utils;
+using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 using Xunit;
 
 namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
@@ -9,10 +15,25 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
     {
         private ArbeidsplasserValidationEntity _arbeidsplasser;
         private List<string> _attachemntList;
+        private ArbeidstilsynetsSamtykkeType _form;
+        private ArbeidsplasserValidatorV2 _arbeidsplasserValidator;
 
 
         public ArbeidsplasserValidatorTests()
         {
+
+            var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957.xml");
+            _form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
+            _arbeidsplasser = new ArbeidsplasserMapper().Map(_form.arbeidsplasser, "");
+            var arbeidsplasserValidatorNodeList = new List<EntityValidatorNode>()
+            {
+                new() {NodeId = 17, EnumId = EntityValidatorEnum.ArbeidsplasserValidatorV2, ParentID = null}
+            };
+            var tree = EntityValidatiorTree.BuildTree(arbeidsplasserValidatorNodeList);
+            _arbeidsplasserValidator = new ArbeidsplasserValidatorV2(tree);
+            _attachemntList = new List<string>() { "BeskrivelseTypeArbeidProsess" };
+
+
             var arbeidsplasser = new Arbeidsplasser()
             {
                 AntallAnsatte = "3",
@@ -25,23 +46,12 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
                 UtleieBygg = null
             };
 
-            _arbeidsplasser = new ArbeidsplasserValidationEntity(arbeidsplasser, "Arbeidsplasser");
-
-            _attachemntList = new List<string>() { "BeskrivelseTypeArbeidProsess" };
         }
 
         [Fact]
         public void ArbeidsplasserTest()
         {
-            //FormValidatorConfiguration formValidatorConfiguration = new FormValidatorConfiguration();
-
-            //var arbeidsplasser = new ArbeidsplasserValidator(formValidatorConfiguration);
-            //_arbeidsplasser.ModelData.Beskrivelse = null;
-            //_attachemntList.Remove("BeskrivelseTypeArbeidProsess");
-            //var validationsResult = arbeidsplasser.Validate(_arbeidsplasser, _attachemntList);
-
-            //validationsResult.Any(r => r.ValidationResult == ValidationResultEnum.ValidationFailed).Should().BeFalse();
-            //validationsResult.Should().NotBeEmpty();
+            
         }
     }
 }

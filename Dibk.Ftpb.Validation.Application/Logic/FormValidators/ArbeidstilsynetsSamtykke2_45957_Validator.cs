@@ -24,7 +24,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
     {
         private List<EntityValidatorNode> _entitiesNodeList;
 
-
         private ArbeidstilsynetsSamtykke2_45957_ValidationEntity _validationForm { get; set; }
 
         private readonly IMunicipalityValidator _municipalityValidator;
@@ -32,9 +31,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private readonly IPostalCodeService _postalCodeService;
         private readonly IChecklistService _checklistService;
 
-        private ArbeidsplasserValidatorV2 _arbeidsplasserValidator;
-
-        //**
         //EiendomByggested
         private IMatrikkelValidator _matrikkelValidator;
         private IEiendomsAdresseValidator _eiendomsAdresseValidator;
@@ -75,6 +71,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private ISaksnummerValidator _arbeidstilsynetsSaksnummerValidator;
         private ISaksnummerValidator _kommunensSaksnummerValidator;
 
+        // Arbeidsplasser
+        private ArbeidsplasserValidator _arbeidsplasserValidator;
         private string[] _tiltakstypes;
         protected override string XPathRoot => "ArbeidstilsynetsSamtykke";
 
@@ -176,9 +174,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             };
             _entitiesNodeList.AddRange(beskrivelseAvTiltakNodeList);
 
+            //Arbeidsplasser
             var arbeidsplasserValidatorNodeList = new List<EntityValidatorNode>()
             {
-                new() {NodeId = 17, EnumId = EntityValidatorEnum.ArbeidsplasserValidatorV2, ParentID = null}
+                new() {NodeId = 17, EnumId = EntityValidatorEnum.ArbeidsplasserValidator, ParentID = null}
             };
             _entitiesNodeList.AddRange(arbeidsplasserValidatorNodeList);
 
@@ -238,7 +237,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _fakturamottakerValidator = new FakturamottakerValidator(tree, _fakturamottakerEnkelAdresseValidator);
 
             //Arbaidsplaser
-            _arbeidsplasserValidator = new ArbeidsplasserValidatorV2(tree);
+            _arbeidsplasserValidator = new ArbeidsplasserValidator(tree);
 
             //BeskrivelseAvTiltak
             _anleggstypeValidator = new AnleggstypeValidator(tree, _codeListService);
@@ -295,16 +294,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             AccumulateValidationRules(_ansvarligSoekerEnkelAdresseValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_ansvarligSoekerPartstypeValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_ansvarligSoekerKontaktpersonValidator.ValidationResult.ValidationRules);
-
             //Metadata
             AccumulateValidationRules(_metadataValidator.ValidationResult.ValidationRules);
             //Arbeidstilsynets saksnummer
             AccumulateValidationRules(_arbeidstilsynetsSaksnummerValidator.ValidationResult.ValidationRules);
             //Kommunens saksnummer
             AccumulateValidationRules(_kommunensSaksnummerValidator.ValidationResult.ValidationRules);
-
         }
-
 
         public ArbeidstilsynetsSamtykkeType DeserializeDataForm(string xmlData)
         {
@@ -321,8 +317,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var eiendomValidationResult = _eiendomByggestedValidator.Validate(_validationForm.ModelData.EiendomValidationEntities);
             AccumulateValidationMessages(eiendomValidationResult.ValidationMessages);
 
-            var attachments = Helpers.ObjectIsNullOrEmpty(validationInput.Attachments) ? null : validationInput.Attachments.Select(a => a.AttachmentTypeName).ToList();
-            var arbeidsplasserValidationResult = _arbeidsplasserValidator.Validate(_validationForm.ModelData.ArbeidsplasserValidationEntity, _validationForm.ModelData.SjekklistekravValidationEntities, attachments);
+            var attachments = Helpers.ObjectIsNullOrEmpty(validationInput.Attachments) ? null : validationInput.Attachments.Select(a => a.AttachmentTypeName).ToArray();
+
+            var arbeidsplasserValidationResult = _arbeidsplasserValidator.Validate(_validationForm.ModelData.ArbeidsplasserValidationEntity, attachments);
             AccumulateValidationMessages(arbeidsplasserValidationResult.ValidationMessages);
 
             var tiltakshaverValidationResult = _tiltakshaverValidator.Validate(_validationForm.ModelData.TiltakshaverValidationEntity);
