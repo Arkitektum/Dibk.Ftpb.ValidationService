@@ -20,7 +20,7 @@ using Dibk.Ftpb.Validation.Application.Services;
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
     [FormData(DataFormatVersion = "45957")]
-    public class ArbeidstilsynetsSamtykke2_45957_Validator : FormValidatorBase, IFormValidator
+    public class ArbeidstilsynetsSamtykke2_45957_Validator : FormValidatorBase, IFormValidator, IFormWithChecklistAnswers
     {
         private List<EntityValidatorNode> _entitiesNodeList;
 
@@ -95,9 +95,31 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _validationForm = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(formModel);
 
             base.StartValidation(dataFormatVersion, validationInput);
-            ValidationResult = ValidationResult;
 
+            //Add ChecklistAnswers to validationresult
+            ValidationResult.PrefillChecklist = GetChecklistAnswers();
             return ValidationResult;
+        }
+
+        private PrefillChecklist GetChecklistAnswers()
+        {
+            var prefillChecklist = new PrefillChecklist();
+            List<ChecklistAnswer> list = new List<ChecklistAnswer>();
+            foreach (var sjekklistepkt in _validationForm.ModelData.SjekklistekravValidationEntities)
+            {
+                var checklistAnswer = new ChecklistAnswer()
+                {
+                    checklistQuestion = sjekklistepkt.ModelData.Sjekklistepunkt.ModelData.Kodebeskrivelse,
+                    checklistReference = sjekklistepkt.ModelData.Sjekklistepunkt.ModelData.Kodeverdi,
+                    yesNo = (bool)sjekklistepkt.ModelData.Sjekklistepunktsvar,
+                    documentation = sjekklistepkt.ModelData.Dokumentasjon ?? null
+                };
+
+                list.Add(checklistAnswer);
+            }
+            prefillChecklist.ChecklistAnswers = list;
+
+            return prefillChecklist;
         }
 
         protected override void InitializeValidatorConfig()
@@ -208,14 +230,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _tiltakshaverPartstypeValidator = new PartstypeValidator(tree, 6, _codeListService);
             _tiltakshaverEnkelAdresseValidator = new EnkelAdresseValidator(tree, 7, _postalCodeService);
             _tiltakshaverValidator = new TiltakshaverValidator(tree, _tiltakshaverEnkelAdresseValidator, _tiltakshaverKontaktpersonValidator, _tiltakshaverPartstypeValidator, _codeListService);
-            
+
             //fakturamottaker
             _fakturamottakerEnkelAdresseValidator = new EnkelAdresseValidator(tree, 9, _postalCodeService);
             _fakturamottakerValidator = new FakturamottakerValidator(tree, _fakturamottakerEnkelAdresseValidator);
-            
+
             //Arbaidsplaser
             _arbeidsplasserValidator = new ArbeidsplasserValidatorV2(tree);
-            
+
             //BeskrivelseAvTiltak
             _anleggstypeValidator = new AnleggstypeValidator(tree, _codeListService);
             _naeringsgruppeValidator = new NaeringsgruppeValidator(tree, _codeListService);
@@ -229,7 +251,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _eiendomsAdresseValidator = new EiendomsAdresseValidator(tree);
             _matrikkelValidator = new MatrikkelValidator(tree, _municipalityValidator);
             _eiendomByggestedValidator = new EiendomByggestedValidator(tree, _eiendomsAdresseValidator, _matrikkelValidator);
-            
+
             //Metadata
             _metadataValidator = new MetadataValidator(tree);
             //Arbeidstilsynets saksnummer
@@ -332,6 +354,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             }
 
             return tiltakstyper;
+        }
+
+        public List<ChecklistAnswer> GetChecklistAnswersFromForm(string dataFormatVersion)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

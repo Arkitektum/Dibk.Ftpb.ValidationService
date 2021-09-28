@@ -7,6 +7,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
     {
         public int Errors { get; set; }
         public int Warnings { get; set; }
+        public string Soknadtype { get; set; }
         public ValidationResult()
         { }
         public List<ValidationMessage> messages { get; set; }

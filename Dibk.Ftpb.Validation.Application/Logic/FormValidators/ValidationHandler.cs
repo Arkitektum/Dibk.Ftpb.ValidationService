@@ -16,13 +16,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private readonly ILogger<ValidationHandler> _logger;
 
         public ValidationResult ValidationResult { get; set; }
-        public ValidationReport ValidationReport { get; set; }
+        //public ValidationReport ValidationReport { get; set; }
 
         public ValidationHandler(IServiceProvider services, ILogger<ValidationHandler> logger)
         {
             _services = services;
             _logger = logger;
-            ValidationReport = new ValidationReport();
+            //ValidationReport = new ValidationReport();
         }
 
         public async Task<ValidationResult> ValidateAsync(string dataFormatVersion, List<string> errorMessages, ValidationInput validationInput)
@@ -30,9 +30,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             ValidationResult = new ValidationResult();
             ValidationResult.ValidationRules = new();
             ValidationResult.ValidationMessages = new();
-
-            ValidationReport.ValidationResult = ValidationResult;
-
 
             if (errorMessages.Count > 0)
             {
@@ -48,7 +45,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 ValidationResult.ValidationRules.AddRange(validationXmlMessages);
 
                 ValidateMainForm(dataFormatVersion, validationInput);
-
             }
 
             // Todo: On ERRORS
@@ -68,9 +64,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             ////Logge advarsler
             //_logEntryService.Save(new LogEntry(archiveReference, "Valideringsresultat: " + valResultData.ToString(), "Info"));
 
-
-
-
             //Todo
             //Logge metadata om innsending    
             //_formMetadataService.SaveFormDataToFormMetadataLog(formData);
@@ -78,9 +71,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             //_formMetadataService.UpdateValidationResultToFormMetadata(archiveReference, "Ok", 0, validationWarnings);
 
-
-
-            return ValidationReport.ValidationResult;
+            return ValidationResult;
         }
 
         private void ValidateMainForm(string dataFormatVersion, ValidationInput validationInput)
@@ -90,6 +81,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             ValidationResult.ValidationRules.AddRange(valResult.ValidationRules);
             ValidationResult.ValidationMessages.AddRange(valResult.ValidationMessages);
+            ValidationResult.PrefillChecklist = valResult.PrefillChecklist;
         }
 
         private IFormValidator GetValidator(string dataFormatVersion)

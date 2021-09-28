@@ -52,6 +52,21 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Checklist
             return liste;
         }
 
+        public async Task<string> GetPrefillDemo()
+        {
+            var requestUri = $"/prefill-demo/AT";
+            var response = await _httpClient.GetAsync($"{_requestUrl}{requestUri}");
+            string json = String.Empty;
+            if (response.IsSuccessStatusCode)
+            {
+                json = await response.Content.ReadAsStringAsync();
+            }
+
+            return json;
+        }
+
+
+
         public async Task<IEnumerable<ChecklistValidationRelations>> GetChecklistValidationRelations(string processCategory)
         {
             var requestUri = $"/valideringsregler";

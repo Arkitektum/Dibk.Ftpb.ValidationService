@@ -16,6 +16,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
         private readonly IConfiguration _configuration;
         private List<FormProperties> _forms;
 
+        //TODO: Replace the method below
 //        private bool TolerateErrors(string dataFormatVersion) { return GetFormProperties(dataFormatVersion).ServiceAuthority == "DIBK"; }
         private bool TolerateErrors(string dataFormatVersion) { return true; }
 
@@ -44,17 +45,27 @@ namespace Dibk.Ftpb.Validation.Application.Services
         }
         private IEnumerable<ChecklistAnswer> GetPrefillChecklistAnswer(string dataFormatVersion, PrefillChecklistInput prefillChecklistInput)
         {
-            var formProperties = GetFormProperties(dataFormatVersion);
+            //Hent prefilled sjekklistesvar som IKKE er Arbeidstilsynets krav
+
+            //var formProperties = GetFormProperties(dataFormatVersion);
             var httpClient = GetChecklistApiHttpClient(dataFormatVersion);
             var prefilledChecklist = (List<ChecklistAnswer>)httpClient.GetPrefillChecklistAnswer(prefillChecklistInput).Result;
 
-            if (formProperties.ServiceAuthority.Equals(ServiceOwnerEnum.ATIL))
-            {
-                var AtilSpecificChecklist = AtilSpecificPrefilledChecklist(prefillChecklistInput);
-                prefilledChecklist.AddRange(AtilSpecificChecklist);
-            }
+            //if (formProperties.ServiceAuthority.Equals(Enum.GetName(typeof(ServiceOwnerEnum),ServiceOwnerEnum.ATIL)))
+            //{
+            //    var AtilSpecificChecklist = AtilSpecificPrefilledChecklist(prefillChecklistInput);
+            //    prefilledChecklist.AddRange(AtilSpecificChecklist);
+            //}
             
             return prefilledChecklist;
+        }
+
+
+        public string GetPrefillDemo()
+        {
+            var retValue = GetAtilChecklistApiHttpClient().GetPrefillDemo().Result;
+
+            return retValue;
         }
 
         public IEnumerable<ValidationMessage> FilterValidationResult(string dataFormatVersion, IEnumerable<ValidationMessage> validationMessages, IEnumerable<string> tiltakstyper)
@@ -88,12 +99,15 @@ namespace Dibk.Ftpb.Validation.Application.Services
             return filteredMessages;
         }
 
-        public ValidationResult GetValidationReport(ValidationResult validationResult, string dataFormatVersion)
+        public PrefillChecklist GetPrefillChecklist(ValidationResult validationResult, string dataFormatVersion, string processCategory)
         {
             var validationResultContainsErrors = validationResult.ValidationMessages.Any(x => x.Messagetype.Equals(ValidationResultSeverityEnum.ERROR));
             if (ValidationResultIsAcceptableForFurtherProcessing(validationResultContainsErrors, dataFormatVersion))
             {
                 PrefillChecklistInput prefillChecklistInput = new();
+                prefillChecklistInput.ProcessCategory = processCategory;
+                prefillChecklistInput.DataFormatVersion = dataFormatVersion;
+
                 var errors = validationResult.messages.Where(x => x.Messagetype == Enums.ValidationResultSeverityEnum.ERROR).Select(y => y.Reference).ToList();
                 var warnings = validationResult.messages.Where(x => x.Messagetype == Enums.ValidationResultSeverityEnum.WARNING).Select(y => y.Reference).ToList();
                 prefillChecklistInput.ExecutedValidations = validationResult.ValidationRules.Select(y => y.Id).Distinct();
@@ -102,10 +116,12 @@ namespace Dibk.Ftpb.Validation.Application.Services
                 prefillChecklistInput.Errors = GetRuleChildren(errors, validationResult);
                 prefillChecklistInput.Warnings = GetRuleChildren(warnings, validationResult);
 
-                var prefillChecklist = GetPrefillChecklistAnswer(dataFormatVersion, prefillChecklistInput);
-                validationResult.PrefillChecklist = new PrefillChecklist() { ChecklistAnswers = prefillChecklist };
+                //var prefillChecklist = GetPrefillChecklistAnswer(dataFormatVersion, prefillChecklistInput);
 
-                return validationResult;
+                var httpClient = GetChecklistApiHttpClient(dataFormatVersion);
+                var prefilledChecklist = (List<ChecklistAnswer>)httpClient.GetPrefillChecklistAnswer(prefillChecklistInput).Result;
+
+                return new PrefillChecklist() { ChecklistAnswers = prefilledChecklist };
             }
             else
             {
@@ -119,7 +135,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
             List<string> messagesWithChildren = new();
             foreach (var message in inputMessages)
             {
-                //messagesWithChildren.Add(message);
+                messagesWithChildren.Add(message);
                 if (message.EndsWith(".1"))  //utfylt
                 {
                     var prefix = message.Substring(0, message.Length - 1);
@@ -149,7 +165,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
         }
 
 
-        private FormProperties GetFormProperties(string dataFormatVersion)
+        public FormProperties GetFormProperties(string dataFormatVersion)
         {
             try
             {
@@ -194,12 +210,17 @@ namespace Dibk.Ftpb.Validation.Application.Services
             }
         }
 
-
-
-
-        private IEnumerable<ChecklistAnswer> AtilSpecificPrefilledChecklist(PrefillChecklistInput prefillChecklistInput)
+        private ChecklistApiHttpClient GetAtilChecklistApiHttpClient()
         {
-            throw new NotImplementedException();
+
+            return _atilChecklistApiHttpClient;
         }
+
+
+
+        //private IEnumerable<ChecklistAnswer> AtilSpecificPrefilledChecklist(PrefillChecklistInput prefillChecklistInput)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

@@ -24,7 +24,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.adresselinje1);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.adresselinje2);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.adresselinje3);
-            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.landkode);
+            AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.landkode);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.postnr);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.poststed);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.gatenavn);
@@ -47,7 +47,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.adresselinje1}");
 
                 if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Landkode))
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.landkode}");
+                    AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/{FieldNameEnum.landkode}");
 
                 if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Postnr))
                     AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.postnr}");

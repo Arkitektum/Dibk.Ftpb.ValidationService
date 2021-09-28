@@ -8,6 +8,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
     {
         ValidationResult StartValidation(string dataFormatVersion, ValidationInput validationInput);
     }
+    public interface IFormWithChecklistAnswers
+    {
+        List<ChecklistAnswer> GetChecklistAnswersFromForm(string dataFormatVersion);
+    }
 
     public interface IDataModelMapper<T, U>
     {

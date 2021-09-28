@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Models.Web;
+using System.Collections.Generic;
 
 namespace Dibk.Ftpb.Validation.Web.Controllers
 {
@@ -34,7 +35,7 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
                 return BadRequest();
             }
 
-            var messages = _validationService.Validate(input);
+            var messages = _validationService.GetValidationResult(input);
 
             return Ok(messages);
         }
@@ -52,10 +53,22 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
             }
 
             //var validationResult = _validationService.Validate(input);
-            var validationResult = _validationService.GetValidationReport(input);
+            var validationResult = _validationService.GetValidationResultWithChecklistAnswers(input);
             //var validationReport = new ValidationReport() { ValidationResult = validationResult, PrefillChecklist = prefillChecklist };
-            
+
             return Ok(validationResult);
+        }
+
+        [Route("api/prefill-demo")]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<string> PrefillDemo()
+        {
+
+            var resul = _validationService.PrefillDemo();
+
+            return Ok(resul);
         }
 
         [Route("api/validate/file")]
@@ -68,7 +81,7 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
 
             try
             {
-                var messages = _validationService.Validate(file);
+                var messages = _validationService.ValidateXmlFile(file);
 
                 return Ok(messages);
             }

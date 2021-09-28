@@ -23,7 +23,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             {
                 var validationRuleFromRepo = repo.GetValidationRuleMessage(validationRule, languageCode, dataFormatVersion);
                 validationRule.Message = validationRuleFromRepo.Message;
-                validationRule.ChecklistReference = validationRuleFromRepo.ChecklistReference;
+                //validationRule.ChecklistReference = validationRuleFromRepo.ChecklistReference;
                 validationRule.Messagetype = validationRuleFromRepo.Messagetype;
             }
 
