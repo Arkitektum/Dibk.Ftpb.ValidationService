@@ -3,10 +3,12 @@ using System.IO;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
+using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using Dibk.Ftpb.Validation.Application.Utils;
 using FluentAssertions;
@@ -80,11 +82,12 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         {
             var formEntity = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(_form);
 
-            var xpath = formEntity.ModelData.BeskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype.FirstOrDefault()
-                .DataModelXpath;
-            _tiltakstypeValidator = MockDataSource.KodelisteValidator($"{xpath}/{FieldNameEnum.kodeverdi}");
-            _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(_tree, _formaaltypeValidator, _tiltakstypeValidator);
+            //var xpath = formEntity.ModelData.BeskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype.FirstOrDefault().DataModelXpath;
+            var xpath = "/beskrivelseAvTiltak{0}/type{0}";
 
+            _tiltakstypeValidator = MockDataSource.KodelisteValidator($"{xpath}/{FieldNameEnum.kodeverdi}",ValidationRuleEnum.validert);
+            _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(_tree, _formaaltypeValidator, _tiltakstypeValidator);
+            
             var result = _beskrivelseAvTiltakValidator.Validate(formEntity.ModelData.BeskrivelseAvTiltakValidationEntity);
             var noko = _beskrivelseAvTiltakValidator.Tiltakstypes;
             _beskrivelseAvTiltakValidator.ValidationResult.ValidationRules.Count.Should().Be(2);

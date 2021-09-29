@@ -52,7 +52,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     var tiltakstype = Helpers.ObjectIsNullOrEmpty(tiltakstypes) ? null : tiltakstypes[i];
 
                     var tiltakstypeValidationResult = _tiltakstypeValidator.Validate(tiltakstype);
-                    UpdateValidationResultWithSubValidations(tiltakstypeValidationResult);
+                    UpdateValidationResultWithSubValidations(tiltakstypeValidationResult, i);
 
                     if (tiltakstypes != null && !IsAnyValidationMessagesWithXpath($"{tiltakstypes[i].DataModelXpath}/{FieldNameEnum.kodeverdi}"))
                     {
