@@ -24,13 +24,16 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
     {
         private ArbeidstilsynetsSamtykkeType _form;
         private readonly IEnumerable<EiendomValidationEntity> _eiendomValidationEntities;
-
         IMunicipalityValidator _municipalityValidator;
-        private IEiendomByggestedValidator _eiendomByggestedValidator;
 
-        private MatrikkelValidator _matrikkelValidator;
 
         private FormValidatorConfiguration _formValidatorConfiguration;
+        
+        private IEiendomsAdresseValidator _eiendomsAdresseValidator;
+        private IMatrikkelValidator _matrikkelValidator;
+        private EiendomByggestedValidator _eiendomByggestedValidator;
+
+
 
 
         public EiendomByggestedValidatorTest()
@@ -42,7 +45,22 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
             _eiendomValidationEntities = new Logic.Mappers.ArbeidstilsynetsSamtykke2.EiendomByggestedMapper().Map(_form.eiendomByggested, "ArbeidstilsynetsSamtykke");
 
+
+            List<EntityValidatorNode> eiendombyggestedNodeList = new()
+            {
+                new() { NodeId = 1, EnumId = EntityValidatorEnum.EiendomByggestedValidator, ParentID = null },
+                //new() { NodeId = 2, EnumId = EntityValidatorEnum.EiendomsAdresseValidator, ParentID = 1 },
+                //new() { NodeId = 3, EnumId = EntityValidatorEnum.MatrikkelValidator, ParentID = 1 },
+            };
+            var tree = EntityValidatiorTree.BuildTree(eiendombyggestedNodeList);
+
+
             _municipalityValidator = MockDataSource.MunicipalityValidatorResult(MunicipalityValidationEnum.Ok);
+
+            _eiendomsAdresseValidator = MockDataSource.EiendomsAdresseValidator();
+            _matrikkelValidator = MockDataSource.MatrikkelValidator();
+            _eiendomByggestedValidator = new EiendomByggestedValidator(tree, _eiendomsAdresseValidator, _matrikkelValidator);
+
 
             _formValidatorConfiguration = new FormValidatorConfiguration();
             _formValidatorConfiguration.ValidatorFormName = "ArbeidstilsynetsSamtykke2_45957_Validator";
@@ -54,15 +72,18 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         [Fact]
         public void EiendomTest()
         {
-            
+
             //_eiendomValidationEntities.FirstOrDefault().ModelData.Matrikkel.ModelData.Kommunenummer = "";
             //_eiendomValidationEntities.FirstOrDefault().ModelData.Matrikkel.ModelData.Gaardsnummer = "";
             //_eiendomValidationEntities.FirstOrDefault().ModelData.Matrikkel.ModelData.Bruksnummer = "";
             //_eiendomValidationEntities.FirstOrDefault().ModelData.Matrikkel.ModelData.Festenummer = "";
             //_eiendomValidationEntities.FirstOrDefault().ModelData.Matrikkel.ModelData.Seksjonsnummer = "";
 
+            _eiendomValidationEntities.FirstOrDefault().ModelData.Bygningsnummer = "nokoRara";
 
-            var result = _eiendomByggestedValidator.Validate(_eiendomValidationEntities);
+
+            var result = _eiendomByggestedValidator.Validate(_eiendomValidationEntities.FirstOrDefault());
+
             var ValidationMessages = result.ValidationMessages
                 .Select(r => string.Concat("Rule: ", r.Rule, "- xpath: ", r.XpathField)).ToArray();
 

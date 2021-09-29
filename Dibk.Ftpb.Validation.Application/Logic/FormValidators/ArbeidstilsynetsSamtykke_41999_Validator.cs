@@ -182,8 +182,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         protected override void Validate(ValidationInput validationInput)
         {
-            var eiendomValidationResult = _eiendomByggestedValidator.Validate(_validationForm.ModelData.EiendomValidationEntities);
-            AccumulateValidationMessages(eiendomValidationResult.ValidationMessages);
+
+            var eiendoms = _validationForm?.ModelData?.EiendomValidationEntities?.ToArray();
+            var index = GetArrayIndex(eiendoms);
+
+            for (int i = 0; i < index; i++)
+            {
+                var eiendom = Helpers.ObjectIsNullOrEmpty(eiendoms) ? null : eiendoms[i];
+                var eiendomValidationResult = _eiendomByggestedValidator.Validate(eiendom);
+                AccumulateValidationMessages(eiendomValidationResult.ValidationMessages, i);
+            }
 
             var tiltakshaverValidationResult = _tiltakshaverValidator.Validate(_validationForm.ModelData.TiltakshaverValidationEntity);
             AccumulateValidationMessages(tiltakshaverValidationResult.ValidationMessages);

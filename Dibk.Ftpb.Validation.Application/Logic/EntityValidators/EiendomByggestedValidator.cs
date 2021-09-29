@@ -37,25 +37,28 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult Validate(IEnumerable<EiendomValidationEntity> eiendomValidationEntities)
         {
-            if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntities) || eiendomValidationEntities.Count() == 0)
+            throw new NotImplementedException();
+        }
+
+        public ValidationResult Validate(EiendomValidationEntity eiendomValidationEntity)
+        {
+            base.ResetValidationMessages();
+
+            if (Helpers.ObjectIsNullOrEmpty(eiendomValidationEntity))
             {
                 AddMessageFromRule(ValidationRuleEnum.utfylt);
             }
             else
             {
+                ValidateEntityFields(eiendomValidationEntity);
 
-                foreach (var eiendomValidationEntity in eiendomValidationEntities)
-                {
-                    ValidateEntityFields(eiendomValidationEntity);
+                var matrikkelValidationResult = _matrikkelValidator.Validate(eiendomValidationEntity.ModelData.Matrikkel);
+                _validationResult.ValidationMessages.AddRange(matrikkelValidationResult.ValidationMessages);
 
-                    var matrikkelValidationResult = _matrikkelValidator.Validate(eiendomValidationEntity.ModelData.Matrikkel);
-                    _validationResult.ValidationMessages.AddRange(matrikkelValidationResult.ValidationMessages);
+                var eiendomsAdresseValidationResult = _eiendomsAdresseValidator.Validate(eiendomValidationEntity.ModelData.Adresse);
+                _validationResult.ValidationMessages.AddRange(eiendomsAdresseValidationResult.ValidationMessages);
 
-                    var eiendomsAdresseValidationResult = _eiendomsAdresseValidator.Validate(eiendomValidationEntity.ModelData.Adresse);
-                    _validationResult.ValidationMessages.AddRange(eiendomsAdresseValidationResult.ValidationMessages);
-
-                    ValidateDataRelations(eiendomValidationEntity);
-                }
+                ValidateDataRelations(eiendomValidationEntity);
             }
 
             return _validationResult;
@@ -77,7 +80,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 long bygningsnrLong = 0;
                 if (!long.TryParse(eiendomValidationEntity.ModelData?.Bygningsnummer, out bygningsnrLong))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.numerisk, $"{xPath}/{FieldNameEnum.bygningsnummer}", new[] { eiendomValidationEntity.ModelData?.Bygningsnummer });
+                    AddMessageFromRuleNew(ValidationRuleEnum.numerisk, FieldNameEnum.bygningsnummer, new[] { eiendomValidationEntity.ModelData?.Bygningsnummer });
                 }
                 else
                 {

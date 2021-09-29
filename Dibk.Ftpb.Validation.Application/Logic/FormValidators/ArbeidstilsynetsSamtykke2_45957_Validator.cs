@@ -136,7 +136,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 new() { NodeId = 3, EnumId = EntityValidatorEnum.MatrikkelValidator, ParentID = 1 },
             };
             _entitiesNodeList.AddRange(eiendombyggestedNodeList);
-
+            
+            //** check not implemented in FTB
             //AnsvarligSoeker
             var ansvarligSoekervalidatorNodeList = new List<EntityValidatorNode>()
             {
@@ -146,6 +147,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 new () {NodeId = 21, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 18}
             };
             _entitiesNodeList.AddRange(ansvarligSoekervalidatorNodeList);
+            //**
 
             // Tiltakshaver
             var tiltakshaverNodeList = new List<EntityValidatorNode>()
@@ -322,9 +324,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var fakturamottakerValidationResult = _fakturamottakerValidator.Validate(_validationForm.ModelData.FakturamottakerValidationEntity);
             AccumulateValidationMessages(fakturamottakerValidationResult.ValidationMessages);
 
-            var eiendomValidationResult = _eiendomByggestedValidator.Validate(_validationForm.ModelData.EiendomValidationEntities);
-            AccumulateValidationMessages(eiendomValidationResult.ValidationMessages);
+            var eiendoms = _validationForm?.ModelData?.EiendomValidationEntities?.ToArray();
+            
+            var index =GetArrayIndex(eiendoms);
 
+            for (int i = 0; i < index; i++)
+            {
+                var eiendom = Helpers.ObjectIsNullOrEmpty(eiendoms) ? null : eiendoms[i];
+                var eiendomValidationResult = _eiendomByggestedValidator.Validate(eiendom);
+                AccumulateValidationMessages(eiendomValidationResult.ValidationMessages, i);
+
+            }
             var attachments = Helpers.ObjectIsNullOrEmpty(validationInput.Attachments) ? null : validationInput.Attachments.Select(a => a.AttachmentTypeName).ToArray();
 
             var arbeidsplasserValidationResult = _arbeidsplasserValidator.Validate(_validationForm.ModelData.ArbeidsplasserValidationEntity, attachments);

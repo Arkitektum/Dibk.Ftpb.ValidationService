@@ -74,6 +74,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
             return formallTypeValidator.Object;
         }
 
+        //Validator
         public static IKodelisteValidator KodelisteValidator(string xpath = null, ValidationRuleEnum? validationRule = null)
         {
             var kodelisteValidator = new Mock<IKodelisteValidator>();
@@ -89,6 +90,20 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
             return adressValidator.Object;
         }
 
+        public static IMatrikkelValidator MatrikkelValidator(string xpath = null,
+            ValidationRuleEnum? validationRule = null)
+        {
+            var validator = new Mock<IMatrikkelValidator>();
+            validator.Setup(a => a.Validate(It.IsAny<MatrikkelValidationEntity>())).Returns(ValidationResult(xpath, validationRule));
+            return validator.Object;
+        }
+        public static IEiendomsAdresseValidator EiendomsAdresseValidator(string xpath = null, ValidationRuleEnum? validationRule = null)
+        {
+            var validator = new Mock<IEiendomsAdresseValidator>();
+            validator.Setup(a => a.Validate(It.IsAny<EiendomsAdresseValidationEntity>())).Returns(ValidationResult(xpath, validationRule));
+            return validator.Object;
+        }
+
         private static ValidationResult ValidationResult(string xpath = null, ValidationRuleEnum? validationRule = null)
         {
             var validationResult = new ValidationResult()
@@ -97,7 +112,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
                 ValidationMessages = new List<ValidationMessage>()
             };
 
-            if (string.IsNullOrEmpty(xpath)|| validationRule.HasValue)
+            if (string.IsNullOrEmpty(xpath) || validationRule.HasValue)
             {
                 validationResult.ValidationMessages.Add(new ValidationMessage()
                 {
