@@ -38,7 +38,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
         public ValidationResult GetValidationResult(ValidationInput validationInput)
         {
             var result = ValidateForm(validationInput);
-            //Clearing out prefilled checklist answers before returning the validation result
+            //Clearing out prefilled checklist answers before returning the validation result - not to be part of the response when validating
             result.PrefillChecklist = null;
             return result;
         }
@@ -46,18 +46,13 @@ namespace Dibk.Ftpb.Validation.Application.Services
         {
             var inputData = _inputDataService.GetInputData(validationInput.FormData);
             var validationResult = ValidateForm(validationInput);
-            
+
             if (!Helpers.ObjectIsNullOrEmpty(inputData?.Config?.DataFormatVersion))
             {
                 var formProperties = _checklistService.GetFormProperties(inputData?.Config?.DataFormatVersion);
                 var prefilledAnswersFromChecklist = _checklistService.GetPrefillChecklist(validationResult, inputData?.Config?.DataFormatVersion, formProperties.ProcessCategory);
 
                 validationResult.PrefillChecklist.ChecklistAnswers.AddRange(prefilledAnswersFromChecklist.ChecklistAnswers);
-
-                //Add path to "supportingDataXpathField"
-
-
-
 
                 foreach (var answer in validationResult.PrefillChecklist.ChecklistAnswers)
                 {
@@ -67,9 +62,10 @@ namespace Dibk.Ftpb.Validation.Application.Services
                         foreach (var ruleId in answer.supportingDataValidationRuleId)
                         {
                             var foundXPath = validationResult.ValidationRules.First(x => x.Id.Equals(ruleId)).Xpath;
-                            //answer.supportingDataXpathField.Add(foundXPath);
-                            //answer.supportingDataXpathField.AddRange(validationResult.ValidationRules.Where(x => x.Id.Equals(ruleId)).Where(y => !answer.supportingDataXpathField.Any(z => z.)));
-                            //answer.supportingDataXpathField.AddRange(validationResult.ValidationRules.Any(x => !answer.Any(y => y.s)));
+                            var xPathsIfNotAlreadyExisting = validationResult.ValidationRules.Where
+                                (x => ruleId.Equals(x.Id) && !answer.supportingDataXpathField.Any(y => y.Equals(x.Xpath))).Select(z => z.Xpath).ToList();
+                            
+                            answer.supportingDataXpathField.AddRange(xPathsIfNotAlreadyExisting);
                         }
                     }
                 }
