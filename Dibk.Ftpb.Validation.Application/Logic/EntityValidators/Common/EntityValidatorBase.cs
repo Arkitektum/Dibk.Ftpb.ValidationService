@@ -78,10 +78,22 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             _validationResult.ValidationMessages = new List<ValidationMessage>();
             return _validationResult;
         }
-        protected void UpdateValidationResultWithSubValidations(ValidationResult newValudationResult)
+        protected void UpdateValidationResultWithSubValidations(ValidationResult newValudationResult, int? index = null)
         {
             _validationResult.ValidationRules.AddRange(newValudationResult.ValidationRules);
-            _validationResult.ValidationMessages.AddRange(newValudationResult.ValidationMessages);
+            if (newValudationResult.ValidationMessages != null && index.HasValue)
+            {
+                foreach (var message in newValudationResult.ValidationMessages)
+                {
+                    var newXpath = Helpers.ReplaceCurlyBracketInXPath(index.Value, message.XpathField);
+                    message.XpathField = newXpath;
+                    _validationResult.ValidationMessages.Add(message);
+                }
+            }
+            else
+            {
+                _validationResult.ValidationMessages.AddRange(newValudationResult.ValidationMessages);
+            }
         }
 
         protected void AddValidationRule(object rule)
@@ -149,6 +161,24 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
         }
 
 
+        protected void AddMessageFromRuleNew(ValidationRuleEnum id, FieldNameEnum? fieldName = null, string[] messageParameters = null, string preCondition = null)
+        {
+            var idSt = id.ToString();
+            var xpathNew = fieldName.HasValue ? $"{_entity.EntityXPath}/{fieldName.ToString()}" : _entity.EntityXPath;
+
+            var rule = RuleToValidate(idSt, xpathNew);
+
+            var validationMessage = new ValidationMessage()
+            {
+                Rule = idSt,
+                Reference = rule.Id ?? _ruleIdPath,
+                XpathField = xpathNew,
+                PreCondition = preCondition,
+                MessageParameters = messageParameters
+            };
+
+            _validationResult.ValidationMessages.Add(validationMessage);
+        }
         protected void AddMessageFromRule(ValidationRuleEnum id, string xPath = null, string[] messageParameters = null, string preCondition = null)
         {
 

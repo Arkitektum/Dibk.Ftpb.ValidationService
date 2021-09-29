@@ -6,6 +6,7 @@ using Dibk.Ftpb.Validation.Application.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dibk.Ftpb.Validation.Application.Utils;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
@@ -59,11 +60,23 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             ValidationResult.ValidationRules.AddRange(whereNotAlreadyExists);
         }
 
-        protected void AccumulateValidationMessages(List<ValidationMessage> validationMessages)
+        protected void AccumulateValidationMessages(List<ValidationMessage> validationMessages, int? index = null)
         {
             ValidationResult ??= new ValidationResult();
             ValidationResult.ValidationMessages ??= new List<ValidationMessage>();
-            ValidationResult.ValidationMessages.AddRange(validationMessages);
+            if (validationMessages != null && index.HasValue)
+            {
+                foreach (var message in validationMessages)
+                {
+                    var newXpath = Helpers.ReplaceCurlyBracketInXPath(index.Value, message.XpathField);
+                    message.XpathField = newXpath;
+                    ValidationResult.ValidationMessages.AddRange(validationMessages);
+                }
+            }
+            else
+            {
+                ValidationResult.ValidationMessages.AddRange(validationMessages);
+            }
         }
 
         private void FilterValidationMessagesOnTiltakstyper(string dataFormatVersion)
@@ -74,6 +87,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 var result = _checklistService.FilterValidationResult(dataFormatVersion, ValidationResult.ValidationMessages, tiltakstyper);
                 ValidationResult.ValidationMessages = result.ToList();
             }
+        }
+        public static int GetArrayIndex(object[] objectArray)
+        {
+            int index = Helpers.ObjectIsNullOrEmpty(objectArray)
+                ? 1
+                : (objectArray ?? Array.Empty<object>()).Count();
+            return index;
         }
     }
 
