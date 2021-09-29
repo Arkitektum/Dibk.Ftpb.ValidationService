@@ -125,6 +125,20 @@ namespace Dibk.Ftpb.Validation.Application.Utils
             return validationRuleNumber;
 
         }
+        public static string ReplaceCurlyBracketInXPath(int index, string xPath)
+        {
+            string newXPath = null;
+            if (!string.IsNullOrEmpty(xPath))
+            {
+                var searchText = "{0}";
+                int lastIndex = xPath.LastIndexOf(searchText);
+                if (lastIndex >= 0)
+                {
+                    newXPath = xPath.Remove(lastIndex, searchText.Length).Insert(lastIndex, $"[{index}]");
+                }
+            }
+            return newXPath;
+        }
 
         //public static List<ATILSjekklistekravEnum> GetSjekklistekravEnumFromIndex(string checklistNumber)
         //{
