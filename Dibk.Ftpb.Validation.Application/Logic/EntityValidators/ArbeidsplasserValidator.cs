@@ -3,6 +3,7 @@ using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 using System.Collections.Generic;
+using System.Linq;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Enums;
 
@@ -10,7 +11,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class ArbeidsplasserValidator : EntityValidatorBase
     {
-        private List<string> _attachmentList;
+        private string[] _attachmentList;
         
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
@@ -18,7 +19,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             : base(entityValidatorTree)
         { }
 
-        public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, List<string> attachments = null)
+        public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, string[] attachments = null)
         {
             _attachmentList = attachments;
             ValidateEntityFields(arbeidsplasser);
@@ -31,9 +32,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             this.AddValidationRule(ValidationRuleEnum.utfylt);
             this.AddValidationRule(ValidationRuleEnum.framtidige_eller_eksisterende_utfylt);
             this.AddValidationRule(ValidationRuleEnum.faste_eller_midlertidige_utfylt);
-            this.AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.antallVirksomheter);
             this.AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.antallAnsatte);
-            this.AddValidationRule(ValidationRuleEnum.beskrivelse, FieldNameEnum.beskrivelse);
+            this.AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.antallVirksomheter);
+            this.AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.beskrivelse);
         }
 
         public void ValidateEntityFields(ArbeidsplasserValidationEntity arbeidsplasserValEntity)
@@ -76,7 +77,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                     if (string.IsNullOrEmpty(arbeidsplasser.Beskrivelse))
                     {
-                        if (_attachmentList == null || !_attachmentList.Contains("BeskrivelseTypeArbeidProsess"))
+                        if (_attachmentList == null || _attachmentList.All(i=>!i.Equals("BeskrivelseTypeArbeidProsess")))
                         {
                             AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.beskrivelse}");
                         }
@@ -84,7 +85,5 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 }
             }
         }
-
-
     }
 }

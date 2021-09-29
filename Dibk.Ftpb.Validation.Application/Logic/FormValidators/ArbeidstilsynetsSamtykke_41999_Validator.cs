@@ -191,7 +191,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var ansvarligSoekerValidationResult = _ansvarligSoekerValidator.Validate(_validationForm.ModelData.AnsvarligSoekerValidationEntity);
             AccumulateValidationMessages(ansvarligSoekerValidationResult.ValidationMessages);
 
-            var attachments = Helpers.ObjectIsNullOrEmpty(validationInput.Attachments) ? null : validationInput.Attachments.Select(a => a.AttachmentTypeName).ToList();
+            var attachments = Helpers.ObjectIsNullOrEmpty(validationInput.Attachments) ? null : validationInput.Attachments.Select(a => a.AttachmentTypeName).ToArray();
             var arbeidsplasserValidationResult = _arbeidsplasserValidator.Validate(_validationForm.ModelData.ArbeidsplasserValidationEntity, attachments);
             AccumulateValidationMessages(arbeidsplasserValidationResult.ValidationMessages);
 

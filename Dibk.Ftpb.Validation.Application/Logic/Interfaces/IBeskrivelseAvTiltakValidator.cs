@@ -1,4 +1,5 @@
-﻿using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
+﻿using System.Collections.Generic;
+using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
@@ -9,5 +10,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
         ValidationResult ValidationResult { get; set; }
 
         ValidationResult Validate(BeskrivelseAvTiltakValidationEntity modeldata = null);
+
+        List<string> Tiltakstypes { get; }
     }
 }
