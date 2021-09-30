@@ -121,8 +121,12 @@ namespace Dibk.Ftpb.Validation.Application.Services
 
             validationResult.Errors = validationResult.ValidationMessages.Where(x => x.Messagetype == Enums.ValidationResultSeverityEnum.ERROR).Count();
             validationResult.Warnings = validationResult.ValidationMessages.Where(x => x.Messagetype == Enums.ValidationResultSeverityEnum.WARNING).Count();
-            validationResult.messages = validationResult.ValidationMessages;
-            validationResult.rulesChecked = validationResult.ValidationRules;
+
+            validationResult.messages = new Messages() { ValidationMessage = validationResult.ValidationMessages };
+            validationResult.rulesChecked = new RulesChecked() { ValidationRule = validationResult.ValidationRules };
+
+            //validationResult.messages = validationResult.ValidationMessages;
+            //validationResult.rulesChecked = validationResult.ValidationRules;
 
             return validationResult;
         }

@@ -108,8 +108,8 @@ namespace Dibk.Ftpb.Validation.Application.Services
                 prefillChecklistInput.ProcessCategory = processCategory;
                 prefillChecklistInput.DataFormatVersion = dataFormatVersion;
 
-                var errors = validationResult.messages.Where(x => x.Messagetype == Enums.ValidationResultSeverityEnum.ERROR).Select(y => y.Reference).ToList();
-                var warnings = validationResult.messages.Where(x => x.Messagetype == Enums.ValidationResultSeverityEnum.WARNING).Select(y => y.Reference).ToList();
+                var errors = validationResult.ValidationMessages.Where(x => x.Messagetype == Enums.ValidationResultSeverityEnum.ERROR).Select(y => y.Reference).ToList();
+                var warnings = validationResult.ValidationMessages.Where(x => x.Messagetype == Enums.ValidationResultSeverityEnum.WARNING).Select(y => y.Reference).ToList();
                 prefillChecklistInput.ExecutedValidations = validationResult.ValidationRules.Select(y => y.Id).Distinct();
 
                 //Errors and warnings must be supplemented with all their children
