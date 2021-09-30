@@ -70,7 +70,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         [EntityValidatorEnumerationAttribute(XmlNode = "tiltakshaver", ValidatorId = "20")]
         TiltakshaverValidator,
 
-        [EntityValidatorEnumerationAttribute(XmlNode = "type", ValidatorId = "21")]
+        [EntityValidatorEnumerationAttribute(XmlNode = "type{0}", ValidatorId = "21")]
         TiltakstypeValidator,
 
         [EntityValidatorEnumerationAttribute(XmlNode = "arbeidsplasser", ValidatorId = "22")]
