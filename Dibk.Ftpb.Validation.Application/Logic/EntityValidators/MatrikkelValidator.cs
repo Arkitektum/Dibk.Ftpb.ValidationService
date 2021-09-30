@@ -38,13 +38,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             base.ResetValidationMessages();
 
-            if (Helpers.ObjectIsNullOrEmpty(matrikkel?.ModelData))
+            if (Helpers.ObjectIsNullOrEmpty(matrikkel))
             {
                 AddMessageFromRule(ValidationRuleEnum.utfylt);
             }
             else
             {
-                var kommunenummer = matrikkel?.ModelData?.Kommunenummer;
+                var kommunenummer = matrikkel?.Kommunenummer;
                 var kommunenummerStatus = _municipalityValidator.Validate_kommunenummerStatus(kommunenummer);
                 if (kommunenummerStatus.Status != MunicipalityValidationEnum.Ok)
                 {
@@ -62,16 +62,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     }
                 }
 
-                if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Gaardsnummer))
+                if (Helpers.ObjectIsNullOrEmpty(matrikkel.Gaardsnummer))
                     AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.gaardsnummer);
 
-                if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Bruksnummer))
+                if (Helpers.ObjectIsNullOrEmpty(matrikkel.Bruksnummer))
                     AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.bruksnummer);
 
-                if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Festenummer))
+                if (Helpers.ObjectIsNullOrEmpty(matrikkel.Festenummer))
                     AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.festenummer);
 
-                if (Helpers.ObjectIsNullOrEmpty(matrikkel.ModelData.Seksjonsnummer))
+                if (Helpers.ObjectIsNullOrEmpty(matrikkel.Seksjonsnummer))
                     AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.seksjonsnummer);
             }
             return _validationResult;

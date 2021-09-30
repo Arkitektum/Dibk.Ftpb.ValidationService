@@ -53,7 +53,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         public void testMatrikkel()
         {
             var matrikkelInfo = _eiendomValidationEntities.ToArray();
-            var result = _validator.Validate(matrikkelInfo[0].ModelData.Adresse);
+            var result = _validator.Validate(matrikkelInfo[0].Adresse);
 
             result.Should().NotBeNull();
         }

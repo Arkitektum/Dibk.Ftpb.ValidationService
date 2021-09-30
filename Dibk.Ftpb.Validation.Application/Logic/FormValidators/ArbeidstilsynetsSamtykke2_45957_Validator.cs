@@ -338,17 +338,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //var fakturamottakerValidationResult = _fakturamottakerValidator.Validate(_validationForm.ModelData.FakturamottakerValidationEntity);
             //AccumulateValidationMessages(fakturamottakerValidationResult.ValidationMessages);
 
-            //var eiendoms = _validationForm?.ModelData?.EiendomValidationEntities?.ToArray();
-            
-            //var index =GetArrayIndex(eiendoms);
+            var eiendoms = _validationForm?.EiendomValidationEntities;
 
-            //for (int i = 0; i < index; i++)
-            //{
-            //    var eiendom = Helpers.ObjectIsNullOrEmpty(eiendoms) ? null : eiendoms[i];
-            //    var eiendomValidationResult = _eiendomByggestedValidator.Validate(eiendom);
-            //    AccumulateValidationMessages(eiendomValidationResult.ValidationMessages, i);
+            var index = GetArrayIndex(eiendoms);
 
-            //}
+            for (int i = 0; i < index; i++)
+            {
+                var eiendom = Helpers.ObjectIsNullOrEmpty(eiendoms) ? null : eiendoms[i];
+                var eiendomValidationResult = _eiendomByggestedValidator.Validate(eiendom);
+                AccumulateValidationMessages(eiendomValidationResult.ValidationMessages, i);
+            }
             var attachments = Helpers.ObjectIsNullOrEmpty(validationInput.Attachments) ? null : validationInput.Attachments.Select(a => a.AttachmentTypeName).ToArray();
 
             //var arbeidsplasserValidationResult = _arbeidsplasserValidator.Validate(_validationForm.ModelData.ArbeidsplasserValidationEntity, attachments);

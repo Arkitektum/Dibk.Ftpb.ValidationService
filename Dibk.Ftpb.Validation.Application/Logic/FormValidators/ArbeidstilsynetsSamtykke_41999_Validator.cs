@@ -183,7 +183,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         protected override void Validate(ValidationInput validationInput)
         {
 
-            var eiendoms = _validationForm?.ModelData?.EiendomValidationEntities?.ToArray();
+            var eiendoms = _validationForm?.ModelData?.EiendomValidationEntities;
             var index = GetArrayIndex(eiendoms);
 
             for (int i = 0; i < index; i++)

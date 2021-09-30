@@ -37,31 +37,31 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             base.ResetValidationMessages();
 
-            if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData))
+            if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity))
             {
                 AddMessageFromRule(ValidationRuleEnum.utfylt);
             }
             else
             {
-                if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Adresselinje1))
+                if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.Adresselinje1))
                     AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.adresselinje1);
 
-                if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Landkode))
+                if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.Landkode))
                     AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.landkode);
 
-                if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Postnr))
+                if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.Postnr))
                     AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.postnr);
 
-                if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Poststed))
+                if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.Poststed))
                     AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.poststed);
 
-                if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Gatenavn))
+                if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.Gatenavn))
                     AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.gatenavn);
 
-                if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Husnr))
+                if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.Husnr))
                     AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.husnr);
 
-                if (!StringIs4digitNumber(eiendomsAdresseValidationEntity.ModelData.Postnr))
+                if (!StringIs4digitNumber(eiendomsAdresseValidationEntity.Postnr))
                     AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.postnr);
             }
             return _validationResult;

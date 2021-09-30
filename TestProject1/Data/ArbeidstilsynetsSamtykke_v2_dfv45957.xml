@@ -104,10 +104,10 @@
   <signatur xsi:nil="true"/>
   <ansvarligSoeker>
     <partstype>
-      <kodeverdi>Foretak</kodeverdi>
-      <kodebeskrivelse>Foretak</kodebeskrivelse>
+      <kodeverdi>Privatperson</kodeverdi>
+      <kodebeskrivelse>Privatperson</kodebeskrivelse>
     </partstype>
-    <foedselsnummer xsi:nil="true"/>
+    <foedselsnummer>1234564567</foedselsnummer>
     <organisasjonsnummer>910598023</organisasjonsnummer>
     <navn>HUSNES OG OPPDAL</navn>
     <adresse>
@@ -551,6 +551,7 @@
     <klartForSigneringFraSluttbrukersystem>true</klartForSigneringFraSluttbrukersystem>
   </metadata>
 </ArbeidstilsynetsSamtykke>
+
 
 
 

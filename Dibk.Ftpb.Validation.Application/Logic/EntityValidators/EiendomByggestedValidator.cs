@@ -52,10 +52,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             {
                 ValidateEntityFields(eiendomValidationEntity);
 
-                var matrikkelValidationResult = _matrikkelValidator.Validate(eiendomValidationEntity.ModelData.Matrikkel);
+                var matrikkelValidationResult = _matrikkelValidator.Validate(eiendomValidationEntity.Matrikkel);
                 _validationResult.ValidationMessages.AddRange(matrikkelValidationResult.ValidationMessages);
 
-                var eiendomsAdresseValidationResult = _eiendomsAdresseValidator.Validate(eiendomValidationEntity.ModelData.Adresse);
+                var eiendomsAdresseValidationResult = _eiendomsAdresseValidator.Validate(eiendomValidationEntity.Adresse);
                 _validationResult.ValidationMessages.AddRange(eiendomsAdresseValidationResult.ValidationMessages);
 
                 ValidateDataRelations(eiendomValidationEntity);
@@ -71,12 +71,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         private void ValidateEntityFields(EiendomValidationEntity eiendomValidationEntity)
         {
-            if (!string.IsNullOrEmpty(eiendomValidationEntity?.ModelData?.Bygningsnummer))
+            if (!string.IsNullOrEmpty(eiendomValidationEntity?.Bygningsnummer))
             {
                 long bygningsnrLong = 0;
-                if (!long.TryParse(eiendomValidationEntity.ModelData?.Bygningsnummer, out bygningsnrLong))
+                if (!long.TryParse(eiendomValidationEntity.Bygningsnummer, out bygningsnrLong))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.numerisk, FieldNameEnum.bygningsnummer, new[] { eiendomValidationEntity.ModelData?.Bygningsnummer });
+                    AddMessageFromRule(ValidationRuleEnum.numerisk, FieldNameEnum.bygningsnummer, new[] { eiendomValidationEntity.Bygningsnummer });
                 }
                 else
                 {
@@ -87,10 +87,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 }
             }
 
-            if (string.IsNullOrEmpty(eiendomValidationEntity?.ModelData?.Bolignummer))
+            if (string.IsNullOrEmpty(eiendomValidationEntity?.Bolignummer))
                 AddMessageFromRule(ValidationRuleEnum.utfylt,FieldNameEnum.bolignummer);
 
-            if (string.IsNullOrEmpty(eiendomValidationEntity?.ModelData?.Kommunenavn))
+            if (string.IsNullOrEmpty(eiendomValidationEntity?.Kommunenavn))
                 AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.kommunenavn);
         }
     }

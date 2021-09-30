@@ -199,9 +199,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 
         public static int GetArrayIndex(object[] objectArray)
         {
-            int index = Helpers.ObjectIsNullOrEmpty(objectArray)
-                ? 1
-                : (objectArray ?? Array.Empty<object>()).Count();
+            var index =!(objectArray ?? Array.Empty<object>()).Any() ? 1 : objectArray.Count();
             return index;
         }
 

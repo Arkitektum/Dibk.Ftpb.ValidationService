@@ -2,13 +2,13 @@
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke
 {
-    public class EiendomAdresseMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke.EiendommensAdresseType, EiendomsAdresseValidationEntity>
+    public class EiendomAdresseMapper
     {
-        public override EiendomsAdresseValidationEntity Map(no.kxml.skjema.dibk.arbeidstilsynetsSamtykke.EiendommensAdresseType mapFrom, string parentElementXpath = null)
+        public static EiendomsAdresseValidationEntity Map(no.kxml.skjema.dibk.arbeidstilsynetsSamtykke.EiendommensAdresseType mapFrom)
         {
-            EiendomsAdresse addresse = null;
+            EiendomsAdresseValidationEntity addresse = null;
             if (mapFrom != null)
-                addresse = new EiendomsAdresse()
+                addresse = new EiendomsAdresseValidationEntity()
                 {
                     Adresselinje1 = mapFrom.adresselinje1,
                     Adresselinje2 = mapFrom.adresselinje2,
@@ -21,7 +21,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                     Poststed = mapFrom.poststed
                 };
 
-            return new EiendomsAdresseValidationEntity(addresse, "adresse", parentElementXpath);
+            return addresse;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -23,7 +24,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
     public class EiendomByggestedValidatorTest
     {
         private ArbeidstilsynetsSamtykkeType _form;
-        private readonly IEnumerable<EiendomValidationEntity> _eiendomValidationEntities;
+        private EiendomValidationEntity[] _eiendomValidationEntities;
         IMunicipalityValidator _municipalityValidator;
 
 
@@ -72,14 +73,21 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         [Fact]
         public void EiendomTest()
         {
+            //_eiendomValidationEntities = new EiendomValidationEntity[] { };
 
+           var index1 = !(_eiendomValidationEntities ?? Array.Empty<object>()).Any() ? 1:_eiendomValidationEntities.Count();
+
+            _eiendomValidationEntities = null;
+           var index = !(_eiendomValidationEntities ?? Array.Empty<object>()).Any() ? 1 : _eiendomValidationEntities.Count();
+
+            index = (_eiendomValidationEntities ?? Array.Empty<object>()).Count();
             //_eiendomValidationEntities.FirstOrDefault().ModelData.Matrikkel.ModelData.Kommunenummer = "";
             //_eiendomValidationEntities.FirstOrDefault().ModelData.Matrikkel.ModelData.Gaardsnummer = "";
             //_eiendomValidationEntities.FirstOrDefault().ModelData.Matrikkel.ModelData.Bruksnummer = "";
             //_eiendomValidationEntities.FirstOrDefault().ModelData.Matrikkel.ModelData.Festenummer = "";
             //_eiendomValidationEntities.FirstOrDefault().ModelData.Matrikkel.ModelData.Seksjonsnummer = "";
 
-            _eiendomValidationEntities.FirstOrDefault().ModelData.Bygningsnummer = "nokoRara";
+            _eiendomValidationEntities.FirstOrDefault().Bygningsnummer = "nokoRara";
 
 
             var result = _eiendomByggestedValidator.Validate(_eiendomValidationEntities.FirstOrDefault());
@@ -96,6 +104,8 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         public void TestEiendom()
         {
             var nn = Helpers.GetEnumXmlNodeName(ValidationRuleEnum.utfylt);
+
+           
 
             var description = typeof(ValidationRuleEnum)
                 .GetField(nameof(ValidationRuleEnum.utfylt))
