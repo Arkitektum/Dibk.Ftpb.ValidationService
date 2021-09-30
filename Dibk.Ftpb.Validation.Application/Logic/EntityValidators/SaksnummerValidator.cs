@@ -35,18 +35,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             base.ResetValidationMessages();
 
-            if (Helpers.ObjectIsNullOrEmpty(saksnummerStuff?.ModelData))
+            if (Helpers.ObjectIsNullOrEmpty(saksnummerStuff))
             {
                 AddMessageFromRule(ValidationRuleEnum.utfylt);
             }
             else
             {
-                if (Helpers.ObjectIsNullOrEmpty(saksnummerStuff.ModelData.Saksaar))
+                if (Helpers.ObjectIsNullOrEmpty(saksnummerStuff.Saksaar))
                 {
                     AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.saksaar);
                 }
 
-                if (Helpers.ObjectIsNullOrEmpty(saksnummerStuff.ModelData.Sakssekvensnummer))
+                if (Helpers.ObjectIsNullOrEmpty(saksnummerStuff.Sakssekvensnummer))
                 {
                     AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.sakssekvensnummer);
                 }

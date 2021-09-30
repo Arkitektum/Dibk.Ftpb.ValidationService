@@ -3,19 +3,19 @@ using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykkeV2
 {
-    public class ArbeidstilsynetsSaksnummerMapper : ModelToValidationEntityMapper<SaksnummerType, SaksnummerValidationEntity>
+    public class ArbeidstilsynetsSaksnummerMapper
     {
-        public override SaksnummerValidationEntity Map(SaksnummerType mapFrom, string parentElementXpath = null)
+        public SaksnummerValidationEntity Map(SaksnummerType mapFrom)
         {
-            Saksnummer saksnummer = null;
+            SaksnummerValidationEntity saksnummer = null;
             if (mapFrom != null)
-                saksnummer = new Saksnummer()
+                saksnummer = new SaksnummerValidationEntity()
                 {
                      Saksaar = mapFrom.saksaar,
                      Sakssekvensnummer = mapFrom.sakssekvensnummer
                 };
 
-            return new SaksnummerValidationEntity(saksnummer, "arbeidstilsynetsSaksnummer", parentElementXpath);
+            return saksnummer;
         }
     }
 }

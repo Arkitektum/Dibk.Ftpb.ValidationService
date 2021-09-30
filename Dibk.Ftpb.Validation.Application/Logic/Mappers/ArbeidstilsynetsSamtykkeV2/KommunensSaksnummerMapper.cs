@@ -7,15 +7,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
     {
         public override SaksnummerValidationEntity Map(SaksnummerType mapFrom, string parentElementXpath = null)
         {
-            Saksnummer saksnummer = null;
+            SaksnummerValidationEntity saksnummer = null;
             if (mapFrom != null)
-                saksnummer = new Saksnummer()
+                saksnummer = new SaksnummerValidationEntity()
                 {
                     Saksaar = mapFrom.saksaar,
                     Sakssekvensnummer = mapFrom.sakssekvensnummer
                 };
 
-            return new SaksnummerValidationEntity(saksnummer, "kommunensSaksnummer", parentElementXpath);
+            return saksnummer;
         }
     }
 }
