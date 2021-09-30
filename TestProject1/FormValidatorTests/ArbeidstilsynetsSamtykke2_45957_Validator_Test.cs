@@ -38,7 +38,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             _codeListService = MockDataSource.IsCodeListValid(FtbKodeListeEnum.Partstype, true);
             _postalCodeService = MockDataSource.ValidatePostnr(true, "Bø i Telemark", "true");
             FormValidatorConfiguration formValidatorConfiguration = new FormValidatorConfiguration();
-            _checklistService = MockDataSource.GetCheckpoints("ATTTT");
+            _checklistService = MockDataSource.GetCheckpoints("AT");
             _validationMessageComposer = new ValidationMessageComposer();
             _formValidator = new ArbeidstilsynetsSamtykke2_45957_Validator(_validationMessageComposer, _municipalityValidator, _codeListService, _postalCodeService, _checklistService);
 

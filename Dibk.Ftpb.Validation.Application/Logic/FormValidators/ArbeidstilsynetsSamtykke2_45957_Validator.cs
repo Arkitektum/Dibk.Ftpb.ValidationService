@@ -16,6 +16,7 @@ using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Services;
+using Elasticsearch.Net.Specification.IndicesApi;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
@@ -363,16 +364,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         }
 
-        protected override IEnumerable<string> GetFormTiltakstyper()
-        {
-            List<string> tiltakstyper = new();
-            foreach (var tiltakstype in _validationForm.ModelData.BeskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype)
-            {
-                tiltakstyper.Add(tiltakstype.ModelData.Kodeverdi);
-            }
-
-            return tiltakstyper;
-        }
+        protected override IEnumerable<string> GetFormTiltakstyper() {return _tiltakstypes; }
 
         public List<ChecklistAnswer> GetChecklistAnswersFromForm(string dataFormatVersion)
         {
