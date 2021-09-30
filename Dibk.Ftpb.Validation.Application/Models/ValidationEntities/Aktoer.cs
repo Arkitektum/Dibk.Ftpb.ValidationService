@@ -1,12 +1,6 @@
 ﻿namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class AktoerValidationEntity : ValidationEntityBase<Aktoer>
-    {
-        public AktoerValidationEntity(Aktoer modelData, string xmlElementName, string parentEntityDataModelXpath = null) 
-            : base(modelData, xmlElementName, parentEntityDataModelXpath)
-        {}
-    }
-    public class Aktoer 
+    public class AktoerValidationEntity 
     {
         public KodelisteValidationEntity Partstype { get; set; }
 

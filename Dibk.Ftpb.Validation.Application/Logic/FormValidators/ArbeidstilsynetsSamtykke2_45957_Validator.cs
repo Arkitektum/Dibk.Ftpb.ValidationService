@@ -356,12 +356,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             var betalingValidationResult = _betalingValidator.Validate(_validationForm.ModelData.BetalingValidationEntity);
             AccumulateValidationMessages(betalingValidationResult.ValidationMessages);
-
-            var tiltakshaverValidationResult = _tiltakshaverValidator.Validate(_validationForm.ModelData.TiltakshaverValidationEntity);
+            var tiltakshaverValidationResult = _tiltakshaverValidator.Validate(_validationForm.TiltakshaverValidationEntity);
             AccumulateValidationMessages(tiltakshaverValidationResult.ValidationMessages);
 
-            //var ansvarligSoekerValidationResult = _ansvarligSoekerValidator.Validate(_validationForm.ModelData.AnsvarligSoekerValidationEntity);
-            //AccumulateValidationMessages(ansvarligSoekerValidationResult.ValidationMessages);
+            var ansvarligSoekerValidationResult = _ansvarligSoekerValidator.Validate(_validationForm.AnsvarligSoekerValidationEntity);
+            AccumulateValidationMessages(ansvarligSoekerValidationResult.ValidationMessages);
 
 
             //var sjekklistekravValidationResult = _sjekklistekravValidator.Validate(GetDataFormatVersion(typeof(ArbeidstilsynetsSamtykke2_45957_Validator)), _validationForm.ModelData.SjekklistekravValidationEntities, _checklistService);

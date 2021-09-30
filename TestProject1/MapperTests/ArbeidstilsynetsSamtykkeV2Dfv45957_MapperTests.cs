@@ -48,7 +48,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             var form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
             var postmanXml = TestHelper.GetXmlWithoutSpaces(xmlData);
 
-            var tiltakshaver = new AktoerMapper(AktoerEnum.tiltakshaver).Map(form.tiltakshaver);
+            var tiltakshaver = new AktoerMapper().Map(form.tiltakshaver);
 
             tiltakshaver.Should().NotBeNull();
 

@@ -10,6 +10,7 @@ using System.IO;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
+using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykkeV2;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
@@ -35,7 +36,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
             var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957_Test.xml");
             _form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
-            _aktoerValidationEntity = new Logic.Mappers.ArbeidstilsynetsSamtykkeV2.AktoerMapper(AktoerEnum.tiltakshaver).Map(_form.tiltakshaver, "UnitTest");
+            _aktoerValidationEntity = new AktoerMapper().Map(_form.tiltakshaver);
 
             var tiltakshaverNodeList = new List<EntityValidatorNode>()
             {
