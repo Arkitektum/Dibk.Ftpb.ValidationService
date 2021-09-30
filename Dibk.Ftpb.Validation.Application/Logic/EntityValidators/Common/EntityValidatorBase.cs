@@ -186,15 +186,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             var ruleFounded = _validationResult.ValidationMessages.Any(r => r.XpathField.Equals(xpath, StringComparison.OrdinalIgnoreCase));
             return ruleFounded;
         }
-        public bool RuleIsValid(ValidationRuleEnum ruleEnum, string xPath)
+        public bool RuleIsValid(ValidationRuleEnum ruleEnum, string xPath = null)
         {
             var rule = ruleEnum.ToString();
+            xPath ??= _entityXPath;
 
             var validationMessage = _validationResult.ValidationMessages.Where(r => !string.IsNullOrEmpty(r.Rule))
                 .FirstOrDefault(r => r.Rule.Equals(rule) && (r.XpathField == xPath));
 
             return validationMessage == null;
         }
+
         public static int GetArrayIndex(object[] objectArray)
         {
             int index = Helpers.ObjectIsNullOrEmpty(objectArray)

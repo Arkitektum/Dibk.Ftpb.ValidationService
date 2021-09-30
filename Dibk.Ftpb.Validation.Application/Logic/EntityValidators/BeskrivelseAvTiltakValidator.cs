@@ -46,13 +46,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                 for (int i = 0; i < index; i++)
                 {
-
                     var tiltakstype = Helpers.ObjectIsNullOrEmpty(tiltakstypes) ? null : tiltakstypes[i];
 
                     var tiltakstypeValidationResult = _tiltakstypeValidator.Validate(tiltakstype);
                     UpdateValidationResultWithSubValidations(tiltakstypeValidationResult, i);
 
-                    if (tiltakstypes != null && !IsAnyValidationMessagesWithXpath($"{tiltakstypes[i].DataModelXpath}/{FieldNameEnum.kodeverdi}"))
+                    if (tiltakstypes != null && !IsAnyValidationMessagesWithXpath($"{Helpers.ReplaceCurlyBracketInXPath(i, _tiltakstypeValidator._entityXPath)}/{FieldNameEnum.kodeverdi}"))
                     {
                         _Tiltakstypes.Add(tiltakstypes[i].ModelData.Kodeverdi);
                     }

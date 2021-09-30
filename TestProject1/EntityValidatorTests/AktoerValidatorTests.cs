@@ -40,6 +40,9 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             var tiltakshaverNodeList = new List<EntityValidatorNode>()
             {
                 new () {NodeId = 1, EnumId = EntityValidatorEnum.TiltakshaverValidator, ParentID = null},
+                new () {NodeId = 2, EnumId = EntityValidatorEnum.KontaktpersonValidator, ParentID = 1},
+                new () {NodeId = 3, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 1},
+                new () {NodeId = 4, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 1}
             };
             var tree = EntityValidatiorTree.BuildTree(tiltakshaverNodeList);
 

@@ -16,7 +16,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private readonly object _codeListName;
         private readonly RegistryType _registryType;
         protected ICodeListService _codeListService;
-        private string _xpath;
+        public string _entityXPath { get=> base._entityXPath; }
 
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 

@@ -16,6 +16,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private readonly object _codeListName;
         private readonly RegistryType _registryType;
         protected ICodeListService _codeListService;
+        public string _entityXPath { get => base._entityXPath; }
 
         public KodelisteValidatorV2(IList<EntityValidatorNode> entityValidatorTree, int? nodeId, object codeListName, RegistryType registryType, ICodeListService codeListService)
             : base(entityValidatorTree, nodeId)
@@ -85,5 +86,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             return ValidationResult;
         }
+
+
     }
 }

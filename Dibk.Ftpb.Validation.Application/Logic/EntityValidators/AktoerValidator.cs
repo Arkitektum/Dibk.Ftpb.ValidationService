@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
@@ -16,14 +16,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public abstract class AktoerValidator : EntityValidatorBase, IAktoerValidator
     {
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
-
+        
         protected ICodeListService _codeListService;
 
         protected IEnkelAdresseValidator _enkelAdresseValidator;
         protected IKontaktpersonValidator _kontaktpersonValidator;
         protected IKodelisteValidator _partstypeValidator;
-        private static string _xPath = null;
-
 
         public AktoerValidator(IList<EntityValidatorNode> entityValidatorTree, IEnkelAdresseValidator enkelAdresseValidator,
             IKontaktpersonValidator kontaktpersonValidator, IKodelisteValidator partstypeValidator, ICodeListService codeListService)
@@ -68,8 +66,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 var partstypeValidatinResults = _partstypeValidator.Validate(aktoerPartsType);
                 UpdateValidationResultWithSubValidations(partstypeValidatinResults);
 
-                var codeValueHaveError = IsAnyValidationMessagesWithXpath($"{base._entityXPath}/{FieldNameEnum.kodeverdi}");
-                var partypeIsNullOrEmpty = IsAnyValidationMessagesWithXpath(aktoerPartsType.DataModelXpath);
+                var codeValueHaveError = IsAnyValidationMessagesWithXpath($"{_partstypeValidator._entityXPath}/{FieldNameEnum.kodeverdi}");
+                var partypeIsNullOrEmpty = IsAnyValidationMessagesWithXpath(_partstypeValidator._entityXPath);
 
                 if (!codeValueHaveError && !partypeIsNullOrEmpty)
                 {
