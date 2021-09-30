@@ -6,6 +6,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
     public interface IMetadataValidator
     {
         ValidationResult ValidationResult { get; set; }
-        ValidationResult Validate(MetadataValidationEntity matrikkel);
+        ValidationResult Validate(Models.ValidationEntities.MetadataValidationEntity matrikkel);
     }
 }

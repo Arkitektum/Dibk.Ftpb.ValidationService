@@ -4,7 +4,6 @@ using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
-using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
@@ -35,48 +34,46 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         }
 
-        public ValidationResult Validate(MetadataValidationEntity metadata)
+        public ValidationResult Validate(MetadataValidationEntity metadataValidationEntity)
         {
             base.ResetValidationMessages();
-            if (Helpers.ObjectIsNullOrEmpty(metadata?.ModelData))
+            if (Helpers.ObjectIsNullOrEmpty(metadataValidationEntity))
             {
                 AddMessageFromRule(ValidationRuleEnum.utfylt);
             }
             else
             {
-                ValidateEntityFields(metadata);
+                ValidateEntityFields(metadataValidationEntity);
             }
-
-
 
             return _validationResult;
         }
 
-        public void ValidateEntityFields(MetadataValidationEntity metadata)
+        public void ValidateEntityFields(MetadataValidationEntity metadataValidationEntity)
         {
-            if (Helpers.ObjectIsNullOrEmpty(metadata.ModelData.ErNorskSvenskDansk))
+            if (Helpers.ObjectIsNullOrEmpty(metadataValidationEntity.ErNorskSvenskDansk))
                 AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.erNorskSvenskDansk);
 
-            if (Helpers.ObjectIsNullOrEmpty(metadata.ModelData.FraSluttbrukersystem))
+            if (Helpers.ObjectIsNullOrEmpty(metadataValidationEntity.FraSluttbrukersystem))
                 AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.fraSluttbrukersystem);
 
-            if (Helpers.ObjectIsNullOrEmpty(metadata.ModelData.UnntattOffentlighet))
+            if (Helpers.ObjectIsNullOrEmpty(metadataValidationEntity.UnntattOffentlighet))
                 AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.unntattOffentlighet);
 
             //Usikkert om skal valideres
-            //if (Helpers.ObjectIsNullOrEmpty(metadata.ModelData.FtbId))
+            //if (Helpers.ObjectIsNullOrEmpty(metadataValidationEntity.ModelData.FtbId))
             //    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.ftbId}");
             
-            //if (Helpers.ObjectIsNullOrEmpty(metadata.ModelData.Hovedinnsendingsnummer))
+            //if (Helpers.ObjectIsNullOrEmpty(metadataValidationEntity.ModelData.Hovedinnsendingsnummer))
             //    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.hovedinnsendingsnummer}");
 
-            //if (Helpers.ObjectIsNullOrEmpty(metadata.ModelData.KlartForSigneringFraSluttbrukersystem))
+            //if (Helpers.ObjectIsNullOrEmpty(metadataValidationEntity.ModelData.KlartForSigneringFraSluttbrukersystem))
             //    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.klartForSigneringFraSluttbrukersystem}");
 
-            //if (Helpers.ObjectIsNullOrEmpty(metadata.ModelData.Prosjektnavn))
+            //if (Helpers.ObjectIsNullOrEmpty(metadataValidationEntity.ModelData.Prosjektnavn))
             //    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.prosjektnavn}");
 
-            //if (Helpers.ObjectIsNullOrEmpty(metadata.ModelData.SluttbrukersystemUrl))
+            //if (Helpers.ObjectIsNullOrEmpty(metadataValidationEntity.ModelData.SluttbrukersystemUrl))
             //    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.sluttbrukersystemUrl}");
 
         }

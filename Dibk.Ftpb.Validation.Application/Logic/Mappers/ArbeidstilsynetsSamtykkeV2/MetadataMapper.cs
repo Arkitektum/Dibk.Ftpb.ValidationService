@@ -5,11 +5,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
 {
     public class MetadataMapper
     {
-        public Dibk.Ftpb.Validation.Application.Models.ValidationEntities.Metadata Map(MetadataType mapFrom)
+        public Dibk.Ftpb.Validation.Application.Models.ValidationEntities.MetadataValidationEntity Map(MetadataType mapFrom)
         {
-            Dibk.Ftpb.Validation.Application.Models.ValidationEntities.Metadata metadata = null;
+            Dibk.Ftpb.Validation.Application.Models.ValidationEntities.MetadataValidationEntity metadataValidationEntity = null;
             if (mapFrom != null)
-                metadata = new Dibk.Ftpb.Validation.Application.Models.ValidationEntities.Metadata()
+                metadataValidationEntity = new Dibk.Ftpb.Validation.Application.Models.ValidationEntities.MetadataValidationEntity()
                 {
                     ErNorskSvenskDansk = mapFrom.erNorskSvenskDansk,
                     FraSluttbrukersystem = mapFrom.fraSluttbrukersystem,
@@ -21,7 +21,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                     UnntattOffentlighet = mapFrom.unntattOffentlighet
                 };
 
-            return (metadata);
+            return (metadataValidationEntity);
         }
     }
 }
