@@ -8,6 +8,7 @@ namespace Dibk.Ftpb.Validation.Application.Models.FormEntities
 
         public IEnumerable<EiendomValidationEntity> EiendomValidationEntities { get; set; }
         public ArbeidsplasserValidationEntity ArbeidsplasserValidationEntity { get; set; }
+        public BetalingValidationEntity BetalingValidationEntity { get; set; }
         public AktoerValidationEntity TiltakshaverValidationEntity { get; set; }
         public AktoerValidationEntity AnsvarligSoekerValidationEntity { get; set; }
         public FakturamottakerValidationEntity FakturamottakerValidationEntity { get; set; }

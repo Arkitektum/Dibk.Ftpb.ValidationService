@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.Enums;
-using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 
 namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
@@ -82,6 +77,17 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.beskrivelse, "/arbeidsplasser/beskrivelse", "Enten skal arbeidsplasser beskrives i søknaden eller det skal være lagt ved vedlegg 2: 'Beskrivelse av type arbeid / prosesser'.");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/arbeidsplasser/veiledning", "Veileding bør være utfylt.");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.sjekklistepunkt_1_17_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Kodeverdien for sjekklistepunkt '1.17' må være utfylt", ValidationResultSeverityEnum.ERROR);
+
+            //Betaling
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/betaling", "Betaling må fylles ut", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/betaling/beskrivelse", "Beskrivelse må fylles ut", ValidationResultSeverityEnum.WARNING);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/betaling/sum", "Sum må fylles ut", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/betaling/sum", "Sum må være større enn 0", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.numerisk, "/betaling/sum", "Sum må være en numerisk verdi", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/betaling/gebyrkategori", "Gebyrkategori må fylles ut", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/betaling/gebyrkategori", "Gebyrkategori må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/betaling/skalFaktureres", "SkalFaktureres må fylles ut", ValidationResultSeverityEnum.ERROR);
+
 
             //Tiltakshaver
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/tiltakshaver", "Informasjon om tiltakshaver må fylles ut.", ValidationResultSeverityEnum.ERROR);

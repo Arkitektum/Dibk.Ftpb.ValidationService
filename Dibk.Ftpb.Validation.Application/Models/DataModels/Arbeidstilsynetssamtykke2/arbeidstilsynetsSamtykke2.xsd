@@ -99,7 +99,8 @@
 			<xs:element name="ordreId" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="sum" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="transId" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="betalingslogikk" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="gebyrkategori" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="skalFaktureres" type="xs:boolean" nillable="true" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:element name="Dispensasjon" type="DispensasjonType"/>

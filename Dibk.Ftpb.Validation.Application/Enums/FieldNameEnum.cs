@@ -122,7 +122,12 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         [FieldNameEnumerationAttribute(FieldNameId = "118")] unntattOffentlighet,
         [FieldNameEnumerationAttribute(FieldNameId = "119")] veiledning,
         [FieldNameEnumerationAttribute(FieldNameId = "120")] type,
-        
+        [FieldNameEnumerationAttribute(FieldNameId = "121")] ordreId,
+        [FieldNameEnumerationAttribute(FieldNameId = "122")] sum,
+        [FieldNameEnumerationAttribute(FieldNameId = "123")] transId,
+        [FieldNameEnumerationAttribute(FieldNameId = "124")] gebyrkategori,
+        [FieldNameEnumerationAttribute(FieldNameId = "125")] skalFaktureres,
+
     }
 }
 

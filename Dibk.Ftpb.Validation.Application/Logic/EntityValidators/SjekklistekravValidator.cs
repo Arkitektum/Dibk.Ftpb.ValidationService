@@ -88,16 +88,28 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             if (SjekklistepunktFinnesOgErBesvart(formsSjekkliste, sjekklistepunkt.Id))
             {
-                var yesAction = sjekklistepunkt.Utfall.FirstOrDefault(x => x.Utfallverdi.Equals(true)).Utfalltypekode;
+                string yesOutcome = "";
+                string noOutcome = "";
+
+                var yesAction = sjekklistepunkt.Utfall.Where(x => x.Utfallverdi.Equals(true)).FirstOrDefault();
+                if (yesAction != null)
+                {
+                    yesOutcome = yesAction.Utfalltypekode;
+                }
+
                 var noAction = sjekklistepunkt.Utfall.Where(x => x.Utfallverdi.Equals(false)).FirstOrDefault();
+                if (noAction != null)
+                {
+                    noOutcome = noAction.Utfalltypekode;
+                }
 
                 if (SjekklistepunktBesvartMedJa(formsSjekkliste, sjekklistepunkt.Id))
                 {
-                    if (yesAction.Equals("DOK"))
+                    if (yesAction != null && yesOutcome.Equals("DOK"))
                     {
                         SjekklistepunktDokumentasjonFinnes(formsSjekkliste, sjekklistepunkt.Id);
                     }
-                    else if (yesAction.Equals("SU"))
+                    else if (yesAction != null && yesOutcome.Equals("SU"))
                     {
                         foreach (var undersjekkpunkt in sjekklistepunkt.Undersjekkpunkter)
                         {
@@ -107,11 +119,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 }
                 else
                 {
-                    if (noAction.Equals("DOK"))
+                    if (noAction != null && noOutcome.Equals("DOK"))
                     {
                         SjekklistepunktDokumentasjonFinnes(formsSjekkliste, sjekklistepunkt.Id);
                     }
-                    else if (noAction.Equals("SU"))
+                    else if (noAction != null && noOutcome.Equals("SU"))
                     {
                         foreach (var undersjekkpunkt in sjekklistepunkt.Undersjekkpunkter)
                         {

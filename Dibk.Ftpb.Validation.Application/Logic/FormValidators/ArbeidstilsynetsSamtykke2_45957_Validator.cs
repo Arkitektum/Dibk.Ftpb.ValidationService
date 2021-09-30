@@ -76,6 +76,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         // Arbeidsplasser
         private ArbeidsplasserValidator _arbeidsplasserValidator;
 
+        // Betaling
+        private BetalingValidator _betalingValidator;
+
         private string[] _tiltakstypes;
 
         protected override string XPathRoot => "ArbeidstilsynetsSamtykke";
@@ -188,7 +191,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             };
             _entitiesNodeList.AddRange(arbeidsplasserValidatorNodeList);
 
-
             //Sjekklistekrav
             var sjekklistekravValidatorNodeList = new List<EntityValidatorNode>()
             {
@@ -218,6 +220,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             };
             _entitiesNodeList.AddRange(kommunenesSaksnummerValidatorNodeList);
 
+            //Betaling
+            var betalingValidatorNodeList = new List<EntityValidatorNode>()
+            {
+                new() {NodeId = 27, EnumId = EntityValidatorEnum.BetalingValidator, ParentID = null}
+            };
+            _entitiesNodeList.AddRange(betalingValidatorNodeList);
         }
 
         protected override void InstantiateValidators()
@@ -245,6 +253,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             //Arbaidsplaser
             _arbeidsplasserValidator = new ArbeidsplasserValidator(tree);
+
+            //Arbaidsplaser
+            _betalingValidator = new BetalingValidator(tree);
 
             //BeskrivelseAvTiltak
             _anleggstypeValidator = new AnleggstypeValidator(tree, _codeListService);
@@ -296,6 +307,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             AccumulateValidationRules(_beskrivelseAvTiltakValidator.ValidationResult.ValidationRules);
             //Arbeidsplasser
             AccumulateValidationRules(_arbeidsplasserValidator.ValidationResult.ValidationRules);
+            //Arbeidsplasser
+            AccumulateValidationRules(_betalingValidator.ValidationResult.ValidationRules);
             //AnsvarligSoeker
             AccumulateValidationRules(_ansvarligSoekerValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_ansvarligSoekerEnkelAdresseValidator.ValidationResult.ValidationRules);
@@ -340,6 +353,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             var arbeidsplasserValidationResult = _arbeidsplasserValidator.Validate(_validationForm.ModelData.ArbeidsplasserValidationEntity, attachments);
             AccumulateValidationMessages(arbeidsplasserValidationResult.ValidationMessages);
+
+            var betalingValidationResult = _betalingValidator.Validate(_validationForm.ModelData.BetalingValidationEntity);
+            AccumulateValidationMessages(betalingValidationResult.ValidationMessages);
 
             var tiltakshaverValidationResult = _tiltakshaverValidator.Validate(_validationForm.ModelData.TiltakshaverValidationEntity);
             AccumulateValidationMessages(tiltakshaverValidationResult.ValidationMessages);

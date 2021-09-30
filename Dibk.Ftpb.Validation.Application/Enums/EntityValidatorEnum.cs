@@ -83,7 +83,10 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         ArbeidstilsynetsSaksnummerValidator,
 
         [EntityValidatorEnumerationAttribute(XmlNode = "kommunensSaksnummer", ValidatorId = "25")]
-        KommunensSaksnummerValidator
+        KommunensSaksnummerValidator,
+
+        [EntityValidatorEnumerationAttribute(XmlNode = "betaling", ValidatorId = "26")]
+        BetalingValidator
 
 
 

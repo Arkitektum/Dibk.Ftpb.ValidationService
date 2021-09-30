@@ -12,6 +12,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
             string parentPath = "";
             arbeidstilsynetsSamtykke2Form45957.EiendomValidationEntities = new EiendomByggestedMapper().Map(dataModel.eiendomByggested, parentPath);
             arbeidstilsynetsSamtykke2Form45957.ArbeidsplasserValidationEntity = new ArbeidsplasserMapper().Map(dataModel.arbeidsplasser, parentPath);
+            arbeidstilsynetsSamtykke2Form45957.BetalingValidationEntity = new BetalingMapper().Map(dataModel.betaling, parentPath);
             arbeidstilsynetsSamtykke2Form45957.TiltakshaverValidationEntity = new AktoerMapper(AktoerEnum.tiltakshaver).Map(dataModel.tiltakshaver, parentPath);
             arbeidstilsynetsSamtykke2Form45957.AnsvarligSoekerValidationEntity = new AktoerMapper(AktoerEnum.ansvarligSoeker).Map(dataModel.ansvarligSoeker, parentPath);
             arbeidstilsynetsSamtykke2Form45957.FakturamottakerValidationEntity = new FakturamottakerMapper().Map(dataModel.fakturamottaker, parentPath);
