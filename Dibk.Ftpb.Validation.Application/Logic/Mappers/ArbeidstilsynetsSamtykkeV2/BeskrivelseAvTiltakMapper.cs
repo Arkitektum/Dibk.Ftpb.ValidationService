@@ -3,24 +3,24 @@ using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykkeV2
 {
-    public class BeskrivelseAvTiltakMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.TiltakType, BeskrivelseAvTiltakValidationEntity>
+    public class BeskrivelseAvTiltakMapper
     {
 
-        public override BeskrivelseAvTiltakValidationEntity Map(TiltakType mapFrom, string parentElementXpath = null)
+        public BeskrivelseAvTiltakValidationEntity Map(TiltakType mapFrom, string parentElementXpath = null)
         {
-            BeskrivelseAvTiltak beskrivelseAvTiltak = null;
+            BeskrivelseAvTiltakValidationEntity beskrivelseAvTiltak = null;
             if (mapFrom != null)
             {
-                beskrivelseAvTiltak = new BeskrivelseAvTiltak()
+                beskrivelseAvTiltak = new BeskrivelseAvTiltakValidationEntity()
                 {
                      BRA = mapFrom.BRA
                 };
 
-                beskrivelseAvTiltak.Formaaltype = new FormaaltypeMapper().Map(mapFrom.bruk, $"{parentElementXpath}/beskrivelseAvTiltak");
+                beskrivelseAvTiltak.Formaaltype = FormaaltypeMapper.Map(mapFrom.bruk);
                 beskrivelseAvTiltak.Tiltakstype = KodelisteValidationEntitiesMapper.Map(mapFrom.type);
             }
 
-            return new BeskrivelseAvTiltakValidationEntity(beskrivelseAvTiltak, "beskrivelseAvTiltak", parentElementXpath);
+            return beskrivelseAvTiltak;
         }
 
 

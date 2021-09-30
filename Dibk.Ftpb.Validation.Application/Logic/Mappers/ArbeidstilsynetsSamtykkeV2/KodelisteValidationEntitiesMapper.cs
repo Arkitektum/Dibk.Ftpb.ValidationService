@@ -11,7 +11,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
 {
     public class KodelisteValidationEntitiesMapper
     {
-        public static IEnumerable<KodelisteValidationEntity> Map(KodeType[] mapFrom)
+        public static KodelisteValidationEntity[] Map(KodeType[] mapFrom)
         {
             if (mapFrom == null) return null;
             var retVal = new List<KodelisteValidationEntity>();
@@ -28,7 +28,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                 retVal.Add(kodeliste);
             }
 
-            return retVal;
+            return retVal.ToArray();
         }
     }
 }

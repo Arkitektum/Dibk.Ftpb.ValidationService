@@ -74,11 +74,11 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             var beskrivelseAvTiltak = new BeskrivelseAvTiltakMapper().Map(form.beskrivelseAvTiltak);
             var beskrivelseAvTiltak1 = new BeskrivelseAvTiltakMapper().Map(form1.beskrivelseAvTiltak);
-            if (Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltak.ModelData))
+            if (Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltak))
             {
                 //
             }
-            if (Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltak1.ModelData))
+            if (Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltak1))
             {
                 //
             }

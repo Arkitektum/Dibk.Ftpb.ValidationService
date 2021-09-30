@@ -35,7 +35,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         {
             var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957.xml");
             _form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
-            _beskrivelseAvTiltak = new FormaaltypeMapper().Map(_form.beskrivelseAvTiltak.bruk, "");
+            _beskrivelseAvTiltak = FormaaltypeMapper.Map(_form.beskrivelseAvTiltak.bruk);
 
             var beskrivelseAvTiltakNodeList = new List<EntityValidatorNode>()
             {
@@ -62,7 +62,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         [Fact]
         public void Annet_Test()
         {
-            _beskrivelseAvTiltak.ModelData.Tiltaksformaal.FirstOrDefault().Kodeverdi =null;
+            _beskrivelseAvTiltak.Tiltaksformaal.FirstOrDefault().Kodeverdi =null;
             var xpath = " _beskrivelseAvTiltak.ModelData.Tiltaksformaal.FirstOrDefault().DataModelXpath";
             _tiltaksformaalValidator = MockDataSource.KodelisteValidator($"{xpath}/{FieldNameEnum.kodeverdi}");
             _formaaltypeValidator = new FormaaltypeValidator(_tree, _anleggstypeValidator, _naeringsgruppeValidator, _bygningstypeValidator, _tiltaksformaalValidator);
@@ -74,8 +74,8 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         public void Annet_Test_Error()
         {
 
-            _beskrivelseAvTiltak.ModelData.Tiltaksformaal.LastOrDefault().Kodeverdi = "Annet";
-            _beskrivelseAvTiltak.ModelData.BeskrivPlanlagtFormaal = null;
+            _beskrivelseAvTiltak.Tiltaksformaal.LastOrDefault().Kodeverdi = "Annet";
+            _beskrivelseAvTiltak.BeskrivPlanlagtFormaal = null;
             var result = _formaaltypeValidator.Validate(_beskrivelseAvTiltak);
             result.ValidationMessages?.FirstOrDefault()?.Rule.Should().Be(ValidationRuleEnum.utfylt.ToString());
         }

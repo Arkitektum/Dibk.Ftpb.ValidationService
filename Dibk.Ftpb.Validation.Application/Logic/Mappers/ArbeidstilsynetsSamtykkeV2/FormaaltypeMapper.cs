@@ -7,26 +7,24 @@ using System.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykkeV2
 {
-    public class FormaaltypeMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.FormaalType, FormaaltypeValidationEntity>
+    public class FormaaltypeMapper
     {
-        public override FormaaltypeValidationEntity Map(FormaalType mapFrom, string parentElementXpath = null)
+        public static FormaaltypeValidationEntity Map(FormaalType mapFrom)
         {
-            Formaaltype formaaltype = null;
+            FormaaltypeValidationEntity formaaltype = null;
             if (mapFrom != null)
             {
-                formaaltype = new Formaaltype()
+                formaaltype = new FormaaltypeValidationEntity
                 {
-                    BeskrivPlanlagtFormaal = mapFrom.beskrivPlanlagtFormaal
+                    BeskrivPlanlagtFormaal = mapFrom.beskrivPlanlagtFormaal,
+                    Anleggstype = KodelisteValidationEntityMapper.Map(mapFrom.anleggstype),
+                    Naeringsgruppe = KodelisteValidationEntityMapper.Map(mapFrom.naeringsgruppe),
+                    Bygningstype = KodelisteValidationEntityMapper.Map(mapFrom.bygningstype),
+                    Tiltaksformaal = KodelisteValidationEntitiesMapper.Map(mapFrom.tiltaksformaal)
                 };
-
-                formaaltype.Anleggstype = KodelisteValidationEntityMapper.Map(mapFrom.anleggstype);
-                formaaltype.Naeringsgruppe = KodelisteValidationEntityMapper.Map(mapFrom.naeringsgruppe);
-                
-                formaaltype.Bygningstype = KodelisteValidationEntityMapper.Map(mapFrom.bygningstype);
-                formaaltype.Tiltaksformaal = KodelisteValidationEntitiesMapper.Map(mapFrom.tiltaksformaal);
             }
 
-            return new FormaaltypeValidationEntity(formaaltype, "bruk", parentElementXpath);
+            return formaaltype;
         }
     }
 }

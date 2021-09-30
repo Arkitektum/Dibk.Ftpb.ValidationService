@@ -41,7 +41,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             ValidateEntityFields(beskrivelseAvTiltakValidationEntity);
             if (!Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity))
             {
-                var tiltakstypes = beskrivelseAvTiltakValidationEntity?.ModelData?.Tiltakstype?.ToArray();
+                var tiltakstypes = beskrivelseAvTiltakValidationEntity?.Tiltakstype?.ToArray();
                 var index = GetArrayIndex(tiltakstypes);
 
                 for (int i = 0; i < index; i++)
@@ -59,7 +59,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                 if (!Helpers.ObjectIsNullOrEmpty(tiltakstypes))
                 {
-                    var formaalTypeValidationResult = _formaaltypeValidator.Validate(beskrivelseAvTiltakValidationEntity?.ModelData?.Formaaltype);
+                    var formaalTypeValidationResult = _formaaltypeValidator.Validate(beskrivelseAvTiltakValidationEntity?.Formaaltype);
                     UpdateValidationResultWithSubValidations(formaalTypeValidationResult);
                 }
             }
@@ -74,7 +74,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             else
             {
-                if (string.IsNullOrEmpty(beskrivelseAvTiltakValidationEntity?.ModelData?.BRA))
+                if (string.IsNullOrEmpty(beskrivelseAvTiltakValidationEntity?.BRA))
                 {
                     AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.BRA);
                 }
