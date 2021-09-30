@@ -61,7 +61,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             else
             {
-                var aktoerPartsType = aktoer.ModelData.Partstype;
+                var aktoerPartsType = aktoer.Partstype;
 
                 var partstypeValidatinResults = _partstypeValidator.Validate(aktoerPartsType);
                 UpdateValidationResultWithSubValidations(partstypeValidatinResults);
@@ -79,9 +79,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         private void ValidateEntityFields(AktoerValidationEntity aktoerValidationEntity)
         {
-            var aktoer = aktoerValidationEntity.ModelData;
-
-            if (aktoer.Partstype?.ModelData?.Kodeverdi == "Privatperson")
+            if (aktoerValidationEntity.Partstype?.Kodeverdi == "Privatperson")
             {
                 var foedselsnummerValidation = NorskStandardValidator.Validate_foedselsnummer(aktoer.Foedselsnummer);
                 switch (foedselsnummerValidation)

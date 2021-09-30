@@ -28,10 +28,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
 
                 aktoerType.Adresse = EnkelAdresseMapper.Map(mapFrom.adresse);
                 aktoerType.Kontaktperson = new KontaktpersonMapper().Map(mapFrom.kontaktperson, $"{parentElementXpath}/{Enum.GetName(typeof(AktoerEnum), _aktoerEnum)}");
-                aktoerType.Partstype = new PartstypeMapper().Map(mapFrom.partstype, $"{parentElementXpath}/{Enum.GetName(typeof(AktoerEnum), _aktoerEnum)}");
+                aktoerType.Partstype = PartstypeMapper.Map(mapFrom.partstype);
             }
 
-            return new AktoerValidationEntity(aktoerType, Enum.GetName(typeof(AktoerEnum), _aktoerEnum), parentElementXpath);
+            return aktoerType;
         }
 
         private class KontaktpersonMapper : ModelToValidationEntityMapper<KontaktpersonType, KontaktpersonValidationEntity>

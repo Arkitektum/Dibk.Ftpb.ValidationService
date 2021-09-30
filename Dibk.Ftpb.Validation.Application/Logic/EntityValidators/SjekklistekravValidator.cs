@@ -136,7 +136,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         private bool SjekklistepunktBesvartMedJa(IEnumerable<SjekklistekravValidationEntity> kravliste, string sjekklistepunktnr)
         {
-            var kravEntity = kravliste.FirstOrDefault(x => x.ModelData.Sjekklistepunkt.ModelData.Kodeverdi.Equals(sjekklistepunktnr));
+            var kravEntity = kravliste.FirstOrDefault(x => x.ModelData.Sjekklistepunkt.Kodeverdi.Equals(sjekklistepunktnr));
             //var xPath = kravEntity.DataModelXpath;
             if (kravEntity != null)
             {
@@ -150,7 +150,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         private bool SjekklistepunktDokumentasjonFinnes(IEnumerable<SjekklistekravValidationEntity> kravliste, string sjekklistepunktnr)
         {
-            var kravEntity = kravliste.FirstOrDefault(x => x.ModelData.Sjekklistepunkt.ModelData.Kodeverdi.Equals(sjekklistepunktnr));
+            var kravEntity = kravliste.FirstOrDefault(x => x.ModelData.Sjekklistepunkt.Kodeverdi.Equals(sjekklistepunktnr));
             //var xPath = kravEntity.DataModelXpath;
             if (kravEntity != null)
             {
@@ -170,7 +170,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         private bool SjekklistepunktFinnesOgErBesvart(IEnumerable<SjekklistekravValidationEntity> formsKravliste, string sjekklistepunktnr)
         {
-            var kravEntity = formsKravliste.FirstOrDefault(x => x.ModelData.Sjekklistepunkt.ModelData.Kodeverdi.Equals(sjekklistepunktnr));
+            var kravEntity = formsKravliste.FirstOrDefault(x => x.ModelData.Sjekklistepunkt.Kodeverdi.Equals(sjekklistepunktnr));
             //var xPath = formsKravliste.First().DataModelXpath;
             if (kravEntity == null)
             {
@@ -181,7 +181,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             else
             {
                 var kravet = kravEntity.ModelData;
-                var xPath2 = kravet.Sjekklistepunkt.DataModelXpath;
+                //var xPath2 = kravet.Sjekklistepunkt.DataModelXpath;
                 if (kravet.Sjekklistepunktsvar == null)
                 {
                     //AddMessageFromRule(ValidationRuleEnum.utfylt, xPath.Replace("krav[0]", "krav[]") + "/sjekklistepunktsvar", new[] { sjekklistepunktnr });

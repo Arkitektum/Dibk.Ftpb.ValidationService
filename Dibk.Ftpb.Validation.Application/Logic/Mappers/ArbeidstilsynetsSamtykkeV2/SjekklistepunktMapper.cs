@@ -3,7 +3,7 @@ using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykkeV2
 {
-    public class SjekklistepunktMapper : ModelToValidationEntityMapper<KodeType, KodelisteValidationEntity>
+    public class SjekklistepunktMapper 
     {
         //public override SjekklistepunktValidationEntity Map(KodeType mapFrom, string parentElementXpath = null)
         //{
@@ -18,17 +18,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
         //    return new SjekklistepunktValidationEntity(sjekklistepunkt, "sjekklistepunkt", parentElementXpath);
         //}
 
-        public override KodelisteValidationEntity Map(KodeType mapFrom, string parentElementXpath = null)
+        public  KodelisteValidationEntity Map(KodeType mapFrom)
         {
-            Kodeliste sjekklistepunkt = null;
+            KodelisteValidationEntity sjekklistepunkt = null;
             if (mapFrom != null)
-                sjekklistepunkt = new Kodeliste()
+                sjekklistepunkt = new KodelisteValidationEntity()
                 {
                     Kodebeskrivelse = mapFrom.kodebeskrivelse,
                     Kodeverdi = mapFrom.kodeverdi
                 };
 
-            return new KodelisteValidationEntity(sjekklistepunkt, "sjekklistepunkt", parentElementXpath);
+            return sjekklistepunkt;
         }
     }
 }

@@ -42,19 +42,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             base.ResetValidationMessages();
 
-            if (Helpers.ObjectIsNullOrEmpty(kodeEntry?.ModelData))
+            if (Helpers.ObjectIsNullOrEmpty(kodeEntry))
             {
                 AddMessageFromRule(ValidationRuleEnum.utfylt);
             }
             else
             {
-                if (Helpers.ObjectIsNullOrEmpty(kodeEntry.ModelData.Kodeverdi))
+                if (Helpers.ObjectIsNullOrEmpty(kodeEntry.Kodeverdi))
                 {
                     AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.kodeverdi);
                 }
                 else
                 {
-                    var isCodeValid = _codeListService.IsCodelistValid(_codeListName, kodeEntry.ModelData?.Kodeverdi, _registryType);
+                    var isCodeValid = _codeListService.IsCodelistValid(_codeListName, kodeEntry.Kodeverdi, _registryType);
                     if (!isCodeValid.HasValue)
                     {
                         AddMessageFromRule(ValidationRuleEnum.validert, FieldNameEnum.kodeverdi);
@@ -63,11 +63,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     {
                         if (!isCodeValid.GetValueOrDefault())
                         {
-                            AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.kodeverdi, new[] { kodeEntry.ModelData?.Kodeverdi });
+                            AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.kodeverdi, new[] { kodeEntry.Kodeverdi });
                         }
                     }
 
-                    if (string.IsNullOrEmpty(kodeEntry.ModelData.Kodebeskrivelse))
+                    if (string.IsNullOrEmpty(kodeEntry.Kodebeskrivelse))
                     {
                         AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.kodebeskrivelse);
                     }
@@ -75,10 +75,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     {
                         if (isCodeValid.GetValueOrDefault())
                         {
-                            var isCodelistLabelValid = _codeListService.IsCodelistLabelValid(_codeListName,kodeEntry.ModelData?.Kodeverdi, kodeEntry.ModelData?.Kodebeskrivelse, _registryType);
+                            var isCodelistLabelValid = _codeListService.IsCodelistLabelValid(_codeListName,kodeEntry.Kodeverdi, kodeEntry.Kodebeskrivelse, _registryType);
                             if (!isCodelistLabelValid.GetValueOrDefault())
                             {
-                                AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.kodebeskrivelse, new[] { kodeEntry.ModelData?.Kodeverdi, kodeEntry.ModelData?.Kodebeskrivelse });
+                                AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.kodebeskrivelse, new[] { kodeEntry.Kodeverdi, kodeEntry.Kodebeskrivelse });
                             }
                         }
                     }

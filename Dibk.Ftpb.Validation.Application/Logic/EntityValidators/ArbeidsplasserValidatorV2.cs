@@ -71,7 +71,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                         foreach (var krav in sjekkliste)
                         {
-                            if (krav.ModelData.Sjekklistepunkt.ModelData.Kodeverdi.Equals("1.17"))
+                            if (krav.ModelData.Sjekklistepunkt.Kodeverdi.Equals("1.17"))
                             {
                                 if (string.IsNullOrEmpty(krav.ModelData.Dokumentasjon))
                                 {

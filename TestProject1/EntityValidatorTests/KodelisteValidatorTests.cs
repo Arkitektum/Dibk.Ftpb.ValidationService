@@ -24,12 +24,12 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         public KodelisteValidatorTests()
         {
             _codeListService = MockDataSource.IsCodeListValid(FtbKodeListeEnum.Partstype, true);
-            Kodeliste kodeliste = new Kodeliste()
+
+            _kodelisteValidationEntity = new KodelisteValidationEntity()
             {
                 Kodeverdi = "kodeverdi Value",
                 Kodebeskrivelse = "kodebeskrivelse value"
             };
-            _kodelisteValidationEntity = new KodelisteValidationEntity(kodeliste, "unitTest");
 
             var entityValidatorNodes = new List<EntityValidatorNode>()
             {
@@ -48,7 +48,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         [Fact(DisplayName = "kodelist utfylt - Error")]
         public void KodelistyeUtfylt()
         {
-            _kodelisteValidationEntity.ModelData = null;
+            _kodelisteValidationEntity = null;
             var result = _kodelisteValidator.Validate(_kodelisteValidationEntity);
             result.ValidationMessages.Count.Should().Be(1);
         }

@@ -70,7 +70,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                         if (!IsAnyValidationMessagesWithXpath($"{base._entityXPath}/{FieldNameEnum.kodeverdi}"))
                         {
-                            if (tiltaksformaal.ModelData.Kodeverdi.Equals("Annet"))
+                            if (tiltaksformaal.Kodeverdi.Equals("Annet"))
                             {
                                 if (string.IsNullOrEmpty(formaaltypeValEntity.ModelData.BeskrivPlanlagtFormaal))
                                     AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.beskrivPlanlagtFormaal, null, $"{base._entityXPath}/{FieldNameEnum.kodeverdi}");

@@ -15,9 +15,13 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             var codeListService = MockDataSource.IsCodeListValid(ArbeidstilsynetCodeListNames.arbeidstilsynets_krav, true);
             FormValidatorConfiguration formValidatorConfiguration = new FormValidatorConfiguration();
 
-            var partsType = new Kodeliste() { Kodeverdi = "*Privatperson" };
-            var ptValEntity = new KodelisteValidationEntity(partsType, "PartsType");
-            //var result = new PartstypeValidator(formValidatorConfiguration, EntityValidatorEnum.FakturamottakerValidator, codeListService).Validate(ptValEntity);
+            
+            var partstype = new KodelisteValidationEntity()
+            {
+                Kodeverdi = "Privatperson",
+                Kodebeskrivelse = "Privatperson"
+            };
+            //var result = new PartstypeValidator(formValidatorConfiguration, EntityValidatorEnum.FakturamottakerValidator, codeListService).Validate(partstype);
             //result.Should().NotBeNull();
         }
     }

@@ -53,7 +53,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                     if (tiltakstypes != null && !IsAnyValidationMessagesWithXpath($"{Helpers.ReplaceCurlyBracketInXPath(i, _tiltakstypeValidator._entityXPath)}/{FieldNameEnum.kodeverdi}"))
                     {
-                        _Tiltakstypes.Add(tiltakstypes[i].ModelData.Kodeverdi);
+                        _Tiltakstypes.Add(tiltakstypes[i].Kodeverdi);
                     }
                 }
 

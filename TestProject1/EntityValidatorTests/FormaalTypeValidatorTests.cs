@@ -62,7 +62,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         [Fact]
         public void Annet_Test()
         {
-            _beskrivelseAvTiltak.ModelData.Tiltaksformaal.FirstOrDefault().ModelData.Kodeverdi =null;
+            _beskrivelseAvTiltak.ModelData.Tiltaksformaal.FirstOrDefault().Kodeverdi =null;
             var xpath = " _beskrivelseAvTiltak.ModelData.Tiltaksformaal.FirstOrDefault().DataModelXpath";
             _tiltaksformaalValidator = MockDataSource.KodelisteValidator($"{xpath}/{FieldNameEnum.kodeverdi}");
             _formaaltypeValidator = new FormaaltypeValidator(_tree, _anleggstypeValidator, _naeringsgruppeValidator, _bygningstypeValidator, _tiltaksformaalValidator);
@@ -74,7 +74,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         public void Annet_Test_Error()
         {
 
-            _beskrivelseAvTiltak.ModelData.Tiltaksformaal.LastOrDefault().ModelData.Kodeverdi = "Annet";
+            _beskrivelseAvTiltak.ModelData.Tiltaksformaal.LastOrDefault().Kodeverdi = "Annet";
             _beskrivelseAvTiltak.ModelData.BeskrivPlanlagtFormaal = null;
             var result = _formaaltypeValidator.Validate(_beskrivelseAvTiltak);
             result.ValidationMessages?.FirstOrDefault()?.Rule.Should().Be(ValidationRuleEnum.utfylt.ToString());

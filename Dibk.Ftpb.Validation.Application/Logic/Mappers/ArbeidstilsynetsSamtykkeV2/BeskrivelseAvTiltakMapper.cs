@@ -17,7 +17,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                 };
 
                 beskrivelseAvTiltak.Formaaltype = new FormaaltypeMapper().Map(mapFrom.bruk, $"{parentElementXpath}/beskrivelseAvTiltak");
-                beskrivelseAvTiltak.Tiltakstype = new TiltakstypeMapper().Map(mapFrom.type, $"{parentElementXpath}/beskrivelseAvTiltak");
+                beskrivelseAvTiltak.Tiltakstype = KodelisteValidationEntitiesMapper.Map(mapFrom.type);
             }
 
             return new BeskrivelseAvTiltakValidationEntity(beskrivelseAvTiltak, "beskrivelseAvTiltak", parentElementXpath);
