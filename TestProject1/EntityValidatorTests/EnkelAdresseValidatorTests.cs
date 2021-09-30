@@ -23,7 +23,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         private readonly ArbeidstilsynetsSamtykkeType _form;
         private readonly EnkelAdresseValidator _enkelAdresseValidator;
         private readonly IPostalCodeService _postalCodeService;
-        private readonly EnkelAdresseValidationEntity _enkelAdresse;
+        private EnkelAdresseValidationEntity _enkelAdresse;
 
         public EnkelAdresseValidatorTests()
         {
@@ -31,7 +31,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
             var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957.xml");
             _form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
-            _enkelAdresse = new EnkelAdresseMapper().Map(_form.fakturamottaker.adresse, "");
+            _enkelAdresse = EnkelAdresseMapper.Map(_form.fakturamottaker.adresse);
 
             //fakturamottake
             var enkelAdresseNodeList = new List<EntityValidatorNode>()
@@ -46,21 +46,21 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         [Fact]
         public void EnkelAdressTest()
         {
-            _enkelAdresse.ModelData = null;
+            _enkelAdresse = null;
             var result = _enkelAdresseValidator.Validate(_enkelAdresse);
             result.ValidationMessages.Count.Should().Be(1);
         }
         [Fact]
         public void AdresseLinje1_utfylt()
         {
-            _enkelAdresse.ModelData.Adresselinje1 = null;
+            _enkelAdresse.Adresselinje1 = null;
             var result = _enkelAdresseValidator.Validate(_enkelAdresse);
             result.ValidationMessages.Count.Should().Be(1);
         }
         [Fact]
         public void Landkode_Ugyldig()
         {
-            _enkelAdresse.ModelData.Landkode = "NOKO";
+            _enkelAdresse.Landkode = "NOKO";
             var result = _enkelAdresseValidator.Validate(_enkelAdresse);
             result.ValidationMessages.Count.Should().Be(1);
         }

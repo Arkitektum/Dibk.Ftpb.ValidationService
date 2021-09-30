@@ -53,26 +53,24 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public void ValidateEntityFields(EnkelAdresseValidationEntity enkelAdresse)
         {
-            var adresse = enkelAdresse.ModelData;
-            
-            if (string.IsNullOrEmpty(adresse.Adresselinje1))
+            if (string.IsNullOrEmpty(enkelAdresse.Adresselinje1))
             {
                 AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.adresselinje1);
             }
             else
             {
 
-                if (!CountryCodeHandler.IsCountryNorway(adresse.Landkode))
+                if (!CountryCodeHandler.IsCountryNorway(enkelAdresse.Landkode))
                 {
-                    if (!CountryCodeHandler.VerifyCountryCode(adresse.Landkode))
+                    if (!CountryCodeHandler.VerifyCountryCode(enkelAdresse.Landkode))
                     {
                         AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.landkode);
                     }
                 }
                 else
                 {
-                    var postNr = adresse.Postnr;
-                    var landkode = adresse.Landkode;
+                    var postNr = enkelAdresse.Postnr;
+                    var landkode = enkelAdresse.Landkode;
 
                     if (string.IsNullOrEmpty(postNr))
                     {
@@ -96,9 +94,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                                 }
                                 else
                                 {
-                                    if (!postnrValidation.Result.Equals(adresse.Poststed, StringComparison.CurrentCultureIgnoreCase))
+                                    if (!postnrValidation.Result.Equals(enkelAdresse.Poststed, StringComparison.CurrentCultureIgnoreCase))
                                     {
-                                        AddMessageFromRule(ValidationRuleEnum.postnr_stemmerIkke, FieldNameEnum.postnr, new[] { postNr, adresse.Poststed, postnrValidation.Result });
+                                        AddMessageFromRule(ValidationRuleEnum.postnr_stemmerIkke, FieldNameEnum.postnr, new[] { postNr, enkelAdresse.Poststed, postnrValidation.Result });
                                     }
                                 }
                             }

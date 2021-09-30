@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
@@ -119,7 +119,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 UpdateValidationResultWithSubValidations(kontaktpersonValidationResult);
             }
 
-            var enkeladressResult = _enkelAdresseValidator.Validate(aktoer.Adresse);
+            var enkeladressResult = _enkelAdresseValidator.Validate(aktoerValidationEntity.Adresse);
             UpdateValidationResultWithSubValidations(enkeladressResult);
 
             if (string.IsNullOrEmpty(aktoer.Navn))

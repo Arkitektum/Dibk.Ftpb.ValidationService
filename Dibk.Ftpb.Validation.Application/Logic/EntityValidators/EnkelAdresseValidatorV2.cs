@@ -51,25 +51,25 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public void ValidateEntityFields(EnkelAdresseValidationEntity adresseValidationEntity)
         {
 
-            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Adresselinje1))
+            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.Adresselinje1))
                 AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.adresselinje1);
 
-            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Adresselinje2))
+            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.Adresselinje2))
                 AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.adresselinje2);
 
-            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Adresselinje3))
+            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.Adresselinje3))
                 AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.adresselinje3);
 
-            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Landkode))
+            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.Landkode))
                 AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.landkode);
 
-            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Postnr))
+            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.Postnr))
                 AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.postnr);
 
-            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Poststed))
+            if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.Poststed))
                 AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.poststed);
 
-            if (!StringIs4digitNumber(adresseValidationEntity.ModelData.Postnr))
+            if (!StringIs4digitNumber(adresseValidationEntity.Postnr))
                 AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.postnr);
         }
 

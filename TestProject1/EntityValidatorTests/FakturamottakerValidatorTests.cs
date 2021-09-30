@@ -69,7 +69,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             _fakturamottaker.ModelData.EhfFaktura = null;
             _fakturamottaker.ModelData.FakturaPapir = true;
             
-            _fakturamottaker.ModelData.Adresse.ModelData.Adresselinje1 = null;
+            _fakturamottaker.ModelData.Adresse.Adresselinje1 = null;
 
            var result =  _fakturamottakerValidator.Validate(_fakturamottaker);
 

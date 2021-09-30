@@ -3,13 +3,13 @@ using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke
 {
-    public class EnkelAdresseMapper : ModelToValidationEntityMapper<EnkelAdresseType, EnkelAdresseValidationEntity>
+    public class EnkelAdresseMapper
     {
-        public override EnkelAdresseValidationEntity Map(EnkelAdresseType mapFrom, string parentElementXpath = null)
+        public static EnkelAdresseValidationEntity Map(EnkelAdresseType mapFrom)
         {
-            EnkelAdresse enkelAdresse = null;
+            EnkelAdresseValidationEntity enkelAdresse = null;
             if (mapFrom != null)
-                enkelAdresse = new EnkelAdresse()
+                enkelAdresse = new EnkelAdresseValidationEntity()
                 {
                     Adresselinje1 = mapFrom.adresselinje1,
                     Adresselinje2 = mapFrom.adresselinje2,
@@ -19,7 +19,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                     Poststed = mapFrom.poststed
                 };
 
-            return new EnkelAdresseValidationEntity(enkelAdresse, "adresse", parentElementXpath);
+            return enkelAdresse;
         }
     }
 }
