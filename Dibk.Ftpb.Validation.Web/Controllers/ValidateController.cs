@@ -40,7 +40,7 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
             return Ok(messages);
         }
 
-        [Route("api/validationResult")]
+        [Route("api/validationReport")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -52,9 +52,7 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
                 return BadRequest();
             }
 
-            //var validationResult = _validationService.Validate(input);
             var validationResult = _validationService.GetValidationResultWithChecklistAnswers(input);
-            //var validationReport = new ValidationReport() { ValidationResult = validationResult, PrefillChecklist = prefillChecklist };
 
             return Ok(validationResult);
         }
