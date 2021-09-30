@@ -39,10 +39,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse)
         {
-            var xPath = enkelAdresse?.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(enkelAdresse))
             {
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt);
             }
             else
             {
@@ -55,11 +54,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public void ValidateEntityFields(EnkelAdresseValidationEntity enkelAdresse)
         {
             var adresse = enkelAdresse.ModelData;
-            var xPath = enkelAdresse.DataModelXpath;
             
             if (string.IsNullOrEmpty(adresse.Adresselinje1))
             {
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.adresselinje1}");
+                AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.adresselinje1);
             }
             else
             {
@@ -68,7 +66,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 {
                     if (!CountryCodeHandler.VerifyCountryCode(adresse.Landkode))
                     {
-                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/{FieldNameEnum.landkode}");
+                        AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.landkode);
                     }
                 }
                 else
@@ -78,14 +76,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                     if (string.IsNullOrEmpty(postNr))
                     {
-                        AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.postnr}");
+                        AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.postnr);
                     }
                     else
                     {
                         Match isPostNrValid = Regex.Match(postNr, "^([0-9])([0-9])([0-9])([0-9])$");
                         if (!isPostNrValid.Success)
                         {
-                            AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, $"{xPath}/{FieldNameEnum.postnr}", new[] { postNr });
+                            AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.postnr, new[] { postNr });
                         }
                         else
                         {
@@ -94,19 +92,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                             {
                                 if (!postnrValidation.Valid)
                                 {
-                                    AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/{FieldNameEnum.postnr}", new[] { postNr });
+                                    AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.postnr, new[] { postNr });
                                 }
                                 else
                                 {
                                     if (!postnrValidation.Result.Equals(adresse.Poststed, StringComparison.CurrentCultureIgnoreCase))
                                     {
-                                        AddMessageFromRule(ValidationRuleEnum.postnr_stemmerIkke, $"{xPath}/{FieldNameEnum.postnr}", new[] { postNr, adresse.Poststed, postnrValidation.Result });
+                                        AddMessageFromRule(ValidationRuleEnum.postnr_stemmerIkke, FieldNameEnum.postnr, new[] { postNr, adresse.Poststed, postnrValidation.Result });
                                     }
                                 }
                             }
                             else
                             {
-                                AddMessageFromRule(ValidationRuleEnum.validert, $"{xPath}/{FieldNameEnum.postnr}");
+                                AddMessageFromRule(ValidationRuleEnum.validert, FieldNameEnum.postnr);
                             }
                         }
                     }

@@ -41,8 +41,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             ValidateEntityFields(beskrivelseAvTiltakValidationEntity);
             if (!Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity))
             {
-                var xpath = beskrivelseAvTiltakValidationEntity?.DataModelXpath;
-
                 var tiltakstypes = beskrivelseAvTiltakValidationEntity?.ModelData?.Tiltakstype?.ToArray();
                 var index = GetArrayIndex(tiltakstypes);
 
@@ -71,17 +69,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public void ValidateEntityFields(BeskrivelseAvTiltakValidationEntity beskrivelseAvTiltakValidationEntity = null)
         {
-            var xpath = beskrivelseAvTiltakValidationEntity?.DataModelXpath;
-
             if (Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity))
             {
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xpath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt);
             }
             else
             {
                 if (string.IsNullOrEmpty(beskrivelseAvTiltakValidationEntity?.ModelData?.BRA))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.BRA}");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.BRA);
                 }
             }
         }

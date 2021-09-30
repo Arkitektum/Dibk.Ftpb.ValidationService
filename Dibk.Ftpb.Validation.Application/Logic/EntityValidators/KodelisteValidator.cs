@@ -40,30 +40,28 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             base.ResetValidationMessages();
 
-            var xpath = kodeEntry?.DataModelXpath;
-
             if (Helpers.ObjectIsNullOrEmpty(kodeEntry?.ModelData))
             {
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}");
+                AddMessageFromRule(ValidationRuleEnum.utfylt);
             }
             else
             {
                 if (Helpers.ObjectIsNullOrEmpty(kodeEntry.ModelData.Kodeverdi))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.kodeverdi}"); 
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.kodeverdi); 
                 }
                 else
                 {
                     var isCodeValid = _codeListService.IsCodelistValid(_codeListName, kodeEntry.ModelData?.Kodeverdi, _registryType);
                     if (!isCodeValid.HasValue)
                     {
-                        AddMessageFromRule(ValidationRuleEnum.validert, $"{xpath}/{FieldNameEnum.kodeverdi}");
+                        AddMessageFromRule(ValidationRuleEnum.validert, FieldNameEnum.kodeverdi);
                     }
                     else
                     {
                         if (!isCodeValid.GetValueOrDefault())
                         {
-                            AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xpath}/{FieldNameEnum.kodeverdi}", new[] { kodeEntry.ModelData?.Kodeverdi });
+                            AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.kodeverdi, new[] { kodeEntry.ModelData?.Kodeverdi });
                         }
                     }
                 }

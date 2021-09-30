@@ -125,7 +125,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private bool SjekklistepunktBesvartMedJa(IEnumerable<SjekklistekravValidationEntity> kravliste, string sjekklistepunktnr)
         {
             var kravEntity = kravliste.FirstOrDefault(x => x.ModelData.Sjekklistepunkt.ModelData.Kodeverdi.Equals(sjekklistepunktnr));
-            var xPath = kravEntity.DataModelXpath;
+            //var xPath = kravEntity.DataModelXpath;
             if (kravEntity != null)
             {
                 return (bool)kravEntity.ModelData.Sjekklistepunktsvar;
@@ -139,12 +139,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private bool SjekklistepunktDokumentasjonFinnes(IEnumerable<SjekklistekravValidationEntity> kravliste, string sjekklistepunktnr)
         {
             var kravEntity = kravliste.FirstOrDefault(x => x.ModelData.Sjekklistepunkt.ModelData.Kodeverdi.Equals(sjekklistepunktnr));
-            var xPath = kravEntity.DataModelXpath;
+            //var xPath = kravEntity.DataModelXpath;
             if (kravEntity != null)
             {
                 if (string.IsNullOrEmpty(kravEntity.ModelData.Dokumentasjon))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.dokumentasjon}");
+                    //AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.dokumentasjon}");
                     return false;
                 }
                 return true;
@@ -159,10 +159,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         private bool SjekklistepunktFinnesOgErBesvart(IEnumerable<SjekklistekravValidationEntity> formsKravliste, string sjekklistepunktnr)
         {
             var kravEntity = formsKravliste.FirstOrDefault(x => x.ModelData.Sjekklistepunkt.ModelData.Kodeverdi.Equals(sjekklistepunktnr));
-            var xPath = formsKravliste.First().DataModelXpath;
+            //var xPath = formsKravliste.First().DataModelXpath;
             if (kravEntity == null)
             {
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xPath.Replace("krav[0]", "krav[]") + "/sjekklistepunkt/kodeverdi", new[] { sjekklistepunktnr });
+                //AddMessageFromRule(ValidationRuleEnum.utfylt, xPath.Replace("krav[0]", "krav[]") + "/sjekklistepunkt/kodeverdi", new[] { sjekklistepunktnr });
                 
                 return false;
             }
@@ -172,7 +172,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 var xPath2 = kravet.Sjekklistepunkt.DataModelXpath;
                 if (kravet.Sjekklistepunktsvar == null)
                 {
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, xPath.Replace("krav[0]", "krav[]") + "/sjekklistepunktsvar", new[] { sjekklistepunktnr });
+                    //AddMessageFromRule(ValidationRuleEnum.utfylt, xPath.Replace("krav[0]", "krav[]") + "/sjekklistepunktsvar", new[] { sjekklistepunktnr });
                     return false;
                 }
 

@@ -38,12 +38,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public ValidationResult Validate(MetadataValidationEntity metadata)
         {
             base.ResetValidationMessages();
-            var xPath = metadata.DataModelXpath;
-
             if (Helpers.ObjectIsNullOrEmpty(metadata?.ModelData))
             {
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
-
+                AddMessageFromRule(ValidationRuleEnum.utfylt);
             }
             else
             {
@@ -57,17 +54,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public void ValidateEntityFields(MetadataValidationEntity metadata)
         {
-
-            var xPath = metadata.DataModelXpath;
-
             if (Helpers.ObjectIsNullOrEmpty(metadata.ModelData.ErNorskSvenskDansk))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.erNorskSvenskDansk}");
+                AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.erNorskSvenskDansk);
 
             if (Helpers.ObjectIsNullOrEmpty(metadata.ModelData.FraSluttbrukersystem))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.fraSluttbrukersystem}");
+                AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.fraSluttbrukersystem);
 
             if (Helpers.ObjectIsNullOrEmpty(metadata.ModelData.UnntattOffentlighet))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.unntattOffentlighet}");
+                AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.unntattOffentlighet);
 
             //Usikkert om skal valideres
             //if (Helpers.ObjectIsNullOrEmpty(metadata.ModelData.FtbId))

@@ -40,29 +40,25 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult Validate(FakturamottakerValidationEntity fakturamottaker = null)
         {
-            var xpath = fakturamottaker.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(fakturamottaker.ModelData))
             {
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xpath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt);
             }
             else
             {
                 ValidateEntityFields(fakturamottaker);
 
-                if (RuleIsValid(ValidationRuleEnum.ehf_eller_papir, xpath))
+                if (RuleIsValid(ValidationRuleEnum.ehf_eller_papir))
                 {
                     var adresseValidationResult = _enkelAdresseValidator.Validate(fakturamottaker.ModelData.Adresse);
                     UpdateValidationResultWithSubValidations(adresseValidationResult);
                 }
-
             }
             return ValidationResult;
         }
 
         public void ValidateEntityFields(FakturamottakerValidationEntity fakturamottaker = null)
         {
-            var xpath = fakturamottaker.DataModelXpath;
-
             var booleans = new[]
             {
                 fakturamottaker.ModelData.EhfFaktura.GetValueOrDefault(),
@@ -70,7 +66,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             };
             var trueCount = booleans.Count(c => c);
             if (trueCount != 1)
-                AddMessageFromRule(ValidationRuleEnum.ehf_eller_papir, xpath);
+                AddMessageFromRule(ValidationRuleEnum.ehf_eller_papir);
             else
             {
                 if (fakturamottaker.ModelData.EhfFaktura.GetValueOrDefault())
@@ -79,13 +75,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     switch (organisasjonsnummerValidation)
                     {
                         case OrganisasjonsnummerValidation.Empty:
-                            AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.organisasjonsnummer}");
+                            AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.organisasjonsnummer);
                             break;
                         case OrganisasjonsnummerValidation.InvalidDigitsControl:
-                            AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, $"{xpath}/{FieldNameEnum.organisasjonsnummer}");
+                            AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.organisasjonsnummer);
                             break;
                         case OrganisasjonsnummerValidation.Invalid:
-                            AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xpath}/{FieldNameEnum.organisasjonsnummer}");
+                            AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.organisasjonsnummer);
                             break;
                     }
                 }
@@ -94,15 +90,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 {
                     if (string.IsNullOrEmpty(fakturamottaker.ModelData.Navn))
                     {
-                        AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.navn}");
+                        AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.navn);
                     }
                 }
 
                 if (string.IsNullOrEmpty(fakturamottaker.ModelData.BestillerReferanse))
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.bestillerReferanse}");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.bestillerReferanse);
 
                 if (string.IsNullOrEmpty(fakturamottaker.ModelData.Fakturareferanser))
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.fakturareferanser}");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.fakturareferanser);
 
             }
 

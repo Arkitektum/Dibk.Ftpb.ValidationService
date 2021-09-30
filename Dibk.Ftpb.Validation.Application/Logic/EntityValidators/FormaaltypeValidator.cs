@@ -39,11 +39,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             ValidateEntityFields(formaaltypeValEntity);
 
-            if (Helpers.ObjectIsNullOrEmpty(formaaltypeValEntity?.ModelData))
-            {
-                AddMessageFromRule(ValidationRuleEnum.utfylt, formaaltypeValEntity?.DataModelXpath);
-            }
-            else
+            if (!Helpers.ObjectIsNullOrEmpty(formaaltypeValEntity?.ModelData))
             {
                 var formaaltype = formaaltypeValEntity.ModelData;
 
@@ -72,12 +68,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         var tiltaksformaalValidationResult = _tiltaksformaalValidator.Validate(tiltaksformaal);
                         UpdateValidationResultWithSubValidations(tiltaksformaalValidationResult);
 
-                        if (!IsAnyValidationMessagesWithXpath($"{tiltaksformaal.DataModelXpath}/{FieldNameEnum.kodeverdi}"))
+                        if (!IsAnyValidationMessagesWithXpath($"{base._entityXPath}/{FieldNameEnum.kodeverdi}"))
                         {
                             if (tiltaksformaal.ModelData.Kodeverdi.Equals("Annet"))
                             {
                                 if (string.IsNullOrEmpty(formaaltypeValEntity.ModelData.BeskrivPlanlagtFormaal))
-                                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{formaaltypeValEntity.DataModelXpath}/{FieldNameEnum.beskrivPlanlagtFormaal}",null, $"{tiltaksformaal.DataModelXpath}/{FieldNameEnum.kodeverdi}");
+                                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.beskrivPlanlagtFormaal, null, $"{base._entityXPath}/{FieldNameEnum.kodeverdi}");
                             }
                         }
                     }
@@ -88,11 +84,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
         public void ValidateEntityFields(FormaaltypeValidationEntity formaaltypeValEntity)
         {
-            var xPath = formaaltypeValEntity?.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(formaaltypeValEntity?.ModelData))
             {
-
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt);
             }
             else
             {

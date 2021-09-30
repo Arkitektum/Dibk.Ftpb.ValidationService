@@ -36,33 +36,33 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public ValidationResult Validate(EiendomsAdresseValidationEntity eiendomsAdresseValidationEntity)
         {
             base.ResetValidationMessages();
-            var xPath = eiendomsAdresseValidationEntity.DataModelXpath;
+
             if (Helpers.ObjectIsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData))
             {
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xPath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt);
             }
             else
             {
                 if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Adresselinje1))
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.adresselinje1}");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.adresselinje1);
 
                 if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Landkode))
-                    AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/{FieldNameEnum.landkode}");
+                    AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.landkode);
 
                 if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Postnr))
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.postnr}");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.postnr);
 
                 if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Poststed))
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.poststed}");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.poststed);
 
                 if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Gatenavn))
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.gatenavn}");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.gatenavn);
 
                 if (string.IsNullOrEmpty(eiendomsAdresseValidationEntity.ModelData.Husnr))
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.husnr}");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.husnr);
 
                 if (!StringIs4digitNumber(eiendomsAdresseValidationEntity.ModelData.Postnr))
-                    AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, $"{xPath}/{FieldNameEnum.postnr}");
+                    AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.postnr);
             }
             return _validationResult;
         }

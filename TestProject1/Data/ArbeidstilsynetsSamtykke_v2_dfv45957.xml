@@ -20,7 +20,7 @@
 			<festenummer>0</festenummer>
 			<seksjonsnummer>0</seksjonsnummer>
 		</eiendomsidentifikasjon>
-		<bygningsnummer>80466985</bygningsnummer>
+		<bygningsnummer>nokoRar</bygningsnummer>
 		<bolignummer>H0102</bolignummer>
 		<kommunenavn>Midt Telemark</kommunenavn>
 	</eiendom>
@@ -551,5 +551,6 @@
     <klartForSigneringFraSluttbrukersystem>true</klartForSigneringFraSluttbrukersystem>
   </metadata>
 </ArbeidstilsynetsSamtykke>
+
 
 

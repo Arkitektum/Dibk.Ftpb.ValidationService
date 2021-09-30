@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
@@ -57,10 +57,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult Validate(AktoerValidationEntity aktoer = null)
         {
-            var xpath = aktoer?.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(aktoer?.ModelData))
             {
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xpath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt);
             }
             else
             {
@@ -69,7 +68,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 var partstypeValidatinResults = _partstypeValidator.Validate(aktoerPartsType);
                 UpdateValidationResultWithSubValidations(partstypeValidatinResults);
 
-                var codeValueHaveError = IsAnyValidationMessagesWithXpath(CombineDataModelXpathAndFieldName(FieldNameEnum.kodeverdi, aktoer?.ModelData?.Partstype?.DataModelXpath));
+                var codeValueHaveError = IsAnyValidationMessagesWithXpath($"{base._entityXPath}/{FieldNameEnum.kodeverdi}");
                 var partypeIsNullOrEmpty = IsAnyValidationMessagesWithXpath(aktoerPartsType.DataModelXpath);
 
                 if (!codeValueHaveError && !partypeIsNullOrEmpty)
@@ -82,7 +81,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         private void ValidateEntityFields(AktoerValidationEntity aktoerValidationEntity)
         {
-           _xPath = aktoerValidationEntity.DataModelXpath;
             var aktoer = aktoerValidationEntity.ModelData;
 
             if (aktoer.Partstype?.ModelData?.Kodeverdi == "Privatperson")
@@ -91,16 +89,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 switch (foedselsnummerValidation)
                 {
                     case FoedselnumerValidation.Empty:
-                        AddMessageFromRule(ValidationRuleEnum.utfylt, CombineDataModelXpathAndFieldName(FieldNameEnum.foedselsnummer));
+                        AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.foedselsnummer);
                         break;
                     case FoedselnumerValidation.InvalidEncryption:
-                        AddMessageFromRule(ValidationRuleEnum.dekryptering, CombineDataModelXpathAndFieldName(FieldNameEnum.foedselsnummer));
+                        AddMessageFromRule(ValidationRuleEnum.dekryptering, FieldNameEnum.foedselsnummer);
                         break;
                     case FoedselnumerValidation.InvalidDigitsControl:
-                        AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, CombineDataModelXpathAndFieldName(FieldNameEnum.foedselsnummer));
+                        AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.foedselsnummer);
                         break;
                     case FoedselnumerValidation.Invalid:
-                        AddMessageFromRule(ValidationRuleEnum.gyldig, CombineDataModelXpathAndFieldName(FieldNameEnum.foedselsnummer));
+                        AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.foedselsnummer);
                         break;
                 }
             }
@@ -110,13 +108,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 switch (organisasjonsnummerValidation)
                 {
                     case OrganisasjonsnummerValidation.Empty:
-                        AddMessageFromRule(ValidationRuleEnum.utfylt, CombineDataModelXpathAndFieldName(FieldNameEnum.organisasjonsnummer));
+                        AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.organisasjonsnummer);
                         break;
                     case OrganisasjonsnummerValidation.InvalidDigitsControl:
-                        AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, CombineDataModelXpathAndFieldName(FieldNameEnum.organisasjonsnummer));
+                        AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.organisasjonsnummer);
                         break;
                     case OrganisasjonsnummerValidation.Invalid:
-                        AddMessageFromRule(ValidationRuleEnum.gyldig, CombineDataModelXpathAndFieldName(FieldNameEnum.organisasjonsnummer));
+                        AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.organisasjonsnummer);
                         break;
                 }
                 var kontaktpersonValidationResult = _kontaktpersonValidator.Validate(aktoer.Kontaktperson);
@@ -127,14 +125,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             UpdateValidationResultWithSubValidations(enkeladressResult);
 
             if (string.IsNullOrEmpty(aktoer.Navn))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, CombineDataModelXpathAndFieldName(FieldNameEnum.navn));
+                AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.navn);
 
             if (string.IsNullOrEmpty(aktoer.Epost))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, CombineDataModelXpathAndFieldName(FieldNameEnum.epost));
+                AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.epost);
 
             if (string.IsNullOrEmpty(aktoer.Telefonnummer) && string.IsNullOrEmpty(aktoer.Mobilnummer))
             {
-                AddMessageFromRule(ValidationRuleEnum.telmob_utfylt, CombineDataModelXpathAndFieldName());
+                AddMessageFromRule(ValidationRuleEnum.telmob_utfylt, FieldNameEnum.mobilnummer);
             }
             else
             {
@@ -144,7 +142,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     var isValidTelefonNumber = telefonNumber.All(c => "+0123456789".Contains(c));
                     if (!isValidTelefonNumber)
                     {
-                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{_xPath}/{FieldNameEnum.telefonnummer}");
+                        AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.telefonnummer);
                     }
                 }
                 if (!string.IsNullOrEmpty(aktoer.Mobilnummer))
@@ -153,17 +151,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     var isValidmobilnummer = mobilNummer.All(c => "+0123456789".Contains(c));
                     if (!isValidmobilnummer)
                     {
-                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{_xPath}/{FieldNameEnum.mobilnummer}");
+                        AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.mobilnummer);
                     }
                 }
             }
         }
-        private static string CombineDataModelXpathAndFieldName(FieldNameEnum? fieldName = null, string entityXpath = null)
-        {
-            var xpath = entityXpath ?? _xPath;
-            var xpathComposed = string.Format("{0}/{1}",new [] { xpath, fieldName?.ToString()});
-            return xpathComposed;
-        }
-
     }
 }

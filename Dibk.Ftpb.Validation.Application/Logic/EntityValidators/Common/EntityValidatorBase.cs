@@ -21,7 +21,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 
         protected string EntityName;
         private string _ruleIdPath;
-        private string _entityXPath;
+        public string _entityXPath;
         //public abstract string ruleXmlElement { get; set; }
         protected ValidationResult _validationResult;
         private EntityValidatorNode _entity;
@@ -161,7 +161,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
         }
 
 
-        protected void AddMessageFromRuleNew(ValidationRuleEnum id, FieldNameEnum? fieldName = null, string[] messageParameters = null, string preCondition = null)
+        protected void AddMessageFromRule(ValidationRuleEnum id, FieldNameEnum? fieldName = null, string[] messageParameters = null, string preConditionField = null)
         {
             var idSt = id.ToString();
             var xpathNew = fieldName.HasValue ? $"{_entity.EntityXPath}/{fieldName.ToString()}" : _entity.EntityXPath;
@@ -173,26 +173,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
                 Rule = idSt,
                 Reference = rule.Id ?? _ruleIdPath,
                 XpathField = xpathNew,
-                PreCondition = preCondition,
-                MessageParameters = messageParameters
-            };
-
-            _validationResult.ValidationMessages.Add(validationMessage);
-        }
-        protected void AddMessageFromRule(ValidationRuleEnum id, string xPath = null, string[] messageParameters = null, string preCondition = null)
-        {
-
-            var idSt = id.ToString();
-            var xpathNew = xPath ?? _entity.EntityXPath;
-
-            var rule = RuleToValidate(idSt, xpathNew);
-
-            var validationMessage = new ValidationMessage()
-            {
-                Rule = idSt,
-                Reference = rule.Id ?? _ruleIdPath,
-                XpathField = xpathNew,
-                PreCondition = preCondition,
+                PreCondition = preConditionField,
                 MessageParameters = messageParameters
             };
 

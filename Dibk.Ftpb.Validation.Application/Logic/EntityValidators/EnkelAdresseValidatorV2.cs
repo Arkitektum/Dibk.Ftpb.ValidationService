@@ -36,10 +36,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult Validate(EnkelAdresseValidationEntity enkelAdresse = null)
         {
-            var xpath = enkelAdresse.DataModelXpath;
             if (Helpers.ObjectIsNullOrEmpty(enkelAdresse))
             {
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xpath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt);
             }
             else
             {
@@ -51,28 +50,27 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public void ValidateEntityFields(EnkelAdresseValidationEntity adresseValidationEntity)
         {
-            var xPath = adresseValidationEntity.DataModelXpath;
 
             if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Adresselinje1))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.adresselinje1}");
+                AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.adresselinje1);
 
             if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Adresselinje2))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.adresselinje2}");
+                AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.adresselinje2);
 
             if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Adresselinje3))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.adresselinje3}");
+                AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.adresselinje3);
 
             if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Landkode))
-                AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/{FieldNameEnum.landkode}");
+                AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.landkode);
 
             if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Postnr))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.postnr}");
+                AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.postnr);
 
             if (Helpers.ObjectIsNullOrEmpty(adresseValidationEntity.ModelData.Poststed))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.poststed}");
+                AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.poststed);
 
             if (!StringIs4digitNumber(adresseValidationEntity.ModelData.Postnr))
-                AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, $"{xPath}/{FieldNameEnum.postnr}");
+                AddMessageFromRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.postnr);
         }
 
         private bool StringIs4digitNumber(string input)

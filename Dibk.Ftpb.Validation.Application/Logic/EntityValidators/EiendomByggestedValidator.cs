@@ -66,36 +66,32 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         private void ValidateDataRelations(EiendomValidationEntity eiendomValidationEntity)
         {
-            var xPath = eiendomValidationEntity.DataModelXpath;
-
             //TODO Implement Matrikkel services, if Arbeidstilsynet har tilgang til Matrikkel API
-
         }
 
         private void ValidateEntityFields(EiendomValidationEntity eiendomValidationEntity)
         {
-            var xPath = eiendomValidationEntity.DataModelXpath;
             if (!string.IsNullOrEmpty(eiendomValidationEntity?.ModelData?.Bygningsnummer))
             {
                 long bygningsnrLong = 0;
                 if (!long.TryParse(eiendomValidationEntity.ModelData?.Bygningsnummer, out bygningsnrLong))
                 {
-                    AddMessageFromRuleNew(ValidationRuleEnum.numerisk, FieldNameEnum.bygningsnummer, new[] { eiendomValidationEntity.ModelData?.Bygningsnummer });
+                    AddMessageFromRule(ValidationRuleEnum.numerisk, FieldNameEnum.bygningsnummer, new[] { eiendomValidationEntity.ModelData?.Bygningsnummer });
                 }
                 else
                 {
                     if (bygningsnrLong <= 0)
                     {
-                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xPath}/{FieldNameEnum.bygningsnummer}", new[] { bygningsnrLong.ToString("N") });
+                        AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.bygningsnummer, new[] { bygningsnrLong.ToString("N") });
                     }
                 }
             }
 
             if (string.IsNullOrEmpty(eiendomValidationEntity?.ModelData?.Bolignummer))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.bolignummer}");
+                AddMessageFromRule(ValidationRuleEnum.utfylt,FieldNameEnum.bolignummer);
 
             if (string.IsNullOrEmpty(eiendomValidationEntity?.ModelData?.Kommunenavn))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.kommunenavn}");
+                AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.kommunenavn);
         }
     }
 }

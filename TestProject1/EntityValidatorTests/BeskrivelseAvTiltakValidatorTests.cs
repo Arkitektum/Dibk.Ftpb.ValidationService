@@ -82,7 +82,6 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         {
             var formEntity = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(_form);
 
-            //var xpath = formEntity.ModelData.BeskrivelseAvTiltakValidationEntity.ModelData.Tiltakstype.FirstOrDefault().DataModelXpath;
             var xpath = "/beskrivelseAvTiltak{0}/type{0}";
 
             _tiltakstypeValidator = MockDataSource.KodelisteValidator($"{xpath}/{FieldNameEnum.kodeverdi}",ValidationRuleEnum.validert);

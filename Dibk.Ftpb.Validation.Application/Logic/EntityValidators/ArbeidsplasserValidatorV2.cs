@@ -35,30 +35,29 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public void ValidateEntityFields(ArbeidsplasserValidationEntity arbeidsplasserValEntity, IEnumerable<SjekklistekravValidationEntity> sjekkliste)
         {
-            var xpath = arbeidsplasserValEntity.DataModelXpath;
             var arbeidsplasser = arbeidsplasserValEntity.ModelData;
             if (Helpers.ObjectIsNullOrEmpty(arbeidsplasser))
             {
-                AddMessageFromRule(ValidationRuleEnum.utfylt, xpath);
+                AddMessageFromRule(ValidationRuleEnum.utfylt);
             }
             else
             {
                 if (!arbeidsplasser.Eksisterende.GetValueOrDefault(false) && !arbeidsplasser.Framtidige.GetValueOrDefault(false))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.framtidige_eller_eksisterende_utfylt, xpath);
+                    //AddMessageFromRule(ValidationRuleEnum.framtidige_eller_eksisterende_utfylt, xpath);
                 }
                 else
                 {
                     if (!arbeidsplasser.Faste.GetValueOrDefault(false) && !arbeidsplasser.Midlertidige.GetValueOrDefault(false))
                     {
-                        AddMessageFromRule(ValidationRuleEnum.faste_eller_midlertidige_utfylt, xpath);
+                        //AddMessageFromRule(ValidationRuleEnum.faste_eller_midlertidige_utfylt, xpath);
                     }
                     
                     int antallAnsatte;
                     int.TryParse(arbeidsplasser.AntallAnsatte, out antallAnsatte);
                     if (antallAnsatte <= 0)
                     {
-                        AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xpath}/{FieldNameEnum.antallAnsatte}");
+                        AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.antallAnsatte);
                     }
 
                     if (arbeidsplasser.UtleieBygg.GetValueOrDefault(false))
@@ -67,7 +66,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         int.TryParse(arbeidsplasser.AntallVirksomheter, out antallVirksomheter);
                         if (antallVirksomheter <= 0)
                         {
-                            AddMessageFromRule(ValidationRuleEnum.gyldig, $"{xpath}/{FieldNameEnum.antallVirksomheter}");
+                            AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.antallVirksomheter);
                         }
 
                         foreach (var krav in sjekkliste)
@@ -76,7 +75,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                             {
                                 if (string.IsNullOrEmpty(krav.ModelData.Dokumentasjon))
                                 {
-                                    AddMessageFromRule(ValidationRuleEnum.sjekklistepunkt_1_17_dokumentasjon_utfylt, krav.ModelData.Sjekklistepunkt.DataModelXpath);
+                                    //AddMessageFromRule(ValidationRuleEnum.sjekklistepunkt_1_17_dokumentasjon_utfylt, krav.ModelData.Sjekklistepunkt.DataModelXpath);
                                 }
                             }
                         }
@@ -86,13 +85,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     {
                         if (_attachmentList == null || !_attachmentList.Contains("BeskrivelseTypeArbeidProsess"))
                         {
-                            AddMessageFromRule(ValidationRuleEnum.beskrivelse, $"{xpath}/{FieldNameEnum.beskrivelse}");
+                            AddMessageFromRule(ValidationRuleEnum.beskrivelse, FieldNameEnum.beskrivelse);
                         }
                     }
                     
                     if (arbeidsplasser.Veiledning.HasValue)
                     {
-                        AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xpath}/{FieldNameEnum.veiledning}");
+                        AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.veiledning);
                     }
                 }
             }
