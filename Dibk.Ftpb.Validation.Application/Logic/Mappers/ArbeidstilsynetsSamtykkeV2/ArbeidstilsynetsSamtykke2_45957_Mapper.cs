@@ -1,15 +1,19 @@
-﻿using Dibk.Ftpb.Validation.Application.Enums;
+﻿using AutoMapper;
+using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 
-namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2
+namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykkeV2
 {
     public class ArbeidstilsynetsSamtykke2_45957_Mapper
     {
-        public ArbeidstilsynetsSamtykke2_45957_ValidationEntity GetFormEntity(ArbeidstilsynetsSamtykkeType dataModel)
+        public ArbeidstilsynetsSamtykke2_45957_Form GetFormEntity(ArbeidstilsynetsSamtykkeType dataModel)
         {
             var arbeidstilsynetsSamtykke2Form45957 = new ArbeidstilsynetsSamtykke2_45957_Form();
             string parentPath = "";
+            arbeidstilsynetsSamtykke2Form45957.MetadataValidationEntity = new MetadataMapper().Map(dataModel.metadata);
+
+
             arbeidstilsynetsSamtykke2Form45957.EiendomValidationEntities = new EiendomByggestedMapper().Map(dataModel.eiendomByggested, parentPath);
             arbeidstilsynetsSamtykke2Form45957.ArbeidsplasserValidationEntity = new ArbeidsplasserMapper().Map(dataModel.arbeidsplasser, parentPath);
             arbeidstilsynetsSamtykke2Form45957.BetalingValidationEntity = new BetalingMapper().Map(dataModel.betaling, parentPath);
@@ -18,11 +22,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
             arbeidstilsynetsSamtykke2Form45957.FakturamottakerValidationEntity = new FakturamottakerMapper().Map(dataModel.fakturamottaker, parentPath);
             arbeidstilsynetsSamtykke2Form45957.SjekklistekravValidationEntities = new SjekklistekravMapper().Map(dataModel.krav, parentPath);
             arbeidstilsynetsSamtykke2Form45957.BeskrivelseAvTiltakValidationEntity = new BeskrivelseAvTiltakMapper().Map(dataModel.beskrivelseAvTiltak, parentPath);
-            arbeidstilsynetsSamtykke2Form45957.MetadataValidationEntity = new MetadataMapper().Map(dataModel.metadata, parentPath);
             arbeidstilsynetsSamtykke2Form45957.ArbeidstilsynetsSaksnummerValidationEntity = new ArbeidstilsynetsSaksnummerMapper().Map(dataModel.arbeidstilsynetsSaksnummer, parentPath);
             arbeidstilsynetsSamtykke2Form45957.KommunensSaksnummerValidationEntity = new KommunensSaksnummerMapper().Map(dataModel.kommunensSaksnummer, parentPath);
 
-            return new ArbeidstilsynetsSamtykke2_45957_ValidationEntity(arbeidstilsynetsSamtykke2Form45957, parentPath, null);
+            return arbeidstilsynetsSamtykke2Form45957;
+            //return new ArbeidstilsynetsSamtykke2_45957_ValidationEntity(arbeidstilsynetsSamtykke2Form45957, parentPath, null);
         }
+
     }
 }

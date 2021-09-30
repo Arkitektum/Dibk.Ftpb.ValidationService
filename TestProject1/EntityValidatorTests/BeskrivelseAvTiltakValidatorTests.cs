@@ -7,7 +7,7 @@ using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
+using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykkeV2;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using Dibk.Ftpb.Validation.Application.Utils;
@@ -62,7 +62,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         {
             var formEntity = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(_form);
 
-            _beskrivelseAvTiltakValidator.ValidateEntityFields(formEntity.ModelData.BeskrivelseAvTiltakValidationEntity);
+            _beskrivelseAvTiltakValidator.ValidateEntityFields(formEntity.BeskrivelseAvTiltakValidationEntity);
             _beskrivelseAvTiltakValidator.ValidationResult.ValidationRules.Count.Should().Be(2);
 
         }
@@ -72,7 +72,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         {
             var formEntity = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(_form);
 
-            var result = _beskrivelseAvTiltakValidator.Validate(formEntity.ModelData.BeskrivelseAvTiltakValidationEntity);
+            var result = _beskrivelseAvTiltakValidator.Validate(formEntity.BeskrivelseAvTiltakValidationEntity);
             var noko = _beskrivelseAvTiltakValidator.Tiltakstypes;
             _beskrivelseAvTiltakValidator.ValidationResult.ValidationRules.Count.Should().Be(2);
 
@@ -87,7 +87,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             _tiltakstypeValidator = MockDataSource.KodelisteValidator($"{xpath}/{FieldNameEnum.kodeverdi}",ValidationRuleEnum.validert);
             _beskrivelseAvTiltakValidator = new BeskrivelseAvTiltakValidator(_tree, _formaaltypeValidator, _tiltakstypeValidator);
             
-            var result = _beskrivelseAvTiltakValidator.Validate(formEntity.ModelData.BeskrivelseAvTiltakValidationEntity);
+            var result = _beskrivelseAvTiltakValidator.Validate(formEntity.BeskrivelseAvTiltakValidationEntity);
             var noko = _beskrivelseAvTiltakValidator.Tiltakstypes;
             _beskrivelseAvTiltakValidator.ValidationResult.ValidationRules.Count.Should().Be(2);
 

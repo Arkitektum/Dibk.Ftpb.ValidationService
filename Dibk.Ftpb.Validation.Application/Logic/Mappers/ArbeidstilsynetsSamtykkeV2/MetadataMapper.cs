@@ -1,11 +1,11 @@
 ﻿using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 
-namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2
+namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykkeV2
 {
-    public class MetadataMapper : ModelToValidationEntityMapper<MetadataType, MetadataValidationEntity>
+    public class MetadataMapper
     {
-        public override MetadataValidationEntity Map(MetadataType mapFrom, string parentElementXpath = null)
+        public Dibk.Ftpb.Validation.Application.Models.ValidationEntities.Metadata Map(MetadataType mapFrom)
         {
             Dibk.Ftpb.Validation.Application.Models.ValidationEntities.Metadata metadata = null;
             if (mapFrom != null)
@@ -21,7 +21,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                     UnntattOffentlighet = mapFrom.unntattOffentlighet
                 };
 
-            return new MetadataValidationEntity(metadata, "metadata", parentElementXpath);
+            return (metadata);
         }
     }
 }

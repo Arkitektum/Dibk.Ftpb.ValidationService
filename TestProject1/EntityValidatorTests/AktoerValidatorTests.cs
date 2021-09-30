@@ -35,7 +35,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
             var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957_Test.xml");
             _form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
-            _aktoerValidationEntity = new Logic.Mappers.ArbeidstilsynetsSamtykke2.AktoerMapper(AktoerEnum.tiltakshaver).Map(_form.tiltakshaver, "UnitTest");
+            _aktoerValidationEntity = new Logic.Mappers.ArbeidstilsynetsSamtykkeV2.AktoerMapper(AktoerEnum.tiltakshaver).Map(_form.tiltakshaver, "UnitTest");
 
             var tiltakshaverNodeList = new List<EntityValidatorNode>()
             {

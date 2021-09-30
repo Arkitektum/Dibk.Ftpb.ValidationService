@@ -1,6 +1,6 @@
 ﻿using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 
-namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2
+namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykkeV2
 {
     public class EiendomAdresseMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.EiendommensAdresseType, EiendomsAdresseValidationEntity>
     {

@@ -43,7 +43,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             //var xmlData = File.ReadAllText(@"C:\Temp\FTB - TestXML\ArbeidstilsynetsSamtykke_v2_empty.xml");
             _form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
 
-            _eiendomValidationEntities = new Logic.Mappers.ArbeidstilsynetsSamtykke2.EiendomByggestedMapper().Map(_form.eiendomByggested, "ArbeidstilsynetsSamtykke");
+            _eiendomValidationEntities = new Logic.Mappers.ArbeidstilsynetsSamtykkeV2.EiendomByggestedMapper().Map(_form.eiendomByggested, "ArbeidstilsynetsSamtykke");
 
 
             List<EntityValidatorNode> eiendombyggestedNodeList = new()

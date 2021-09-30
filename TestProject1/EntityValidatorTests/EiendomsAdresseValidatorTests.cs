@@ -35,7 +35,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             _municipalityValidator = MockDataSource.MunicipalityValidatorResult(MunicipalityValidationEnum.Ok);
 
 
-            _eiendomValidationEntities = new Logic.Mappers.ArbeidstilsynetsSamtykke2.EiendomByggestedMapper().Map(_form.eiendomByggested, "ArbeidstilsynetsSamtykke");
+            _eiendomValidationEntities = new Logic.Mappers.ArbeidstilsynetsSamtykkeV2.EiendomByggestedMapper().Map(_form.eiendomByggested, "ArbeidstilsynetsSamtykke");
 
             _formValidatorConfiguration = new FormValidatorConfiguration();
             _formValidatorConfiguration.ValidatorFormName = "ArbeidstilsynetsSamtykke2_45957_Validator";

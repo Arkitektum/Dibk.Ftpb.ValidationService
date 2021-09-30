@@ -5,7 +5,7 @@ using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.Deserializers;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
+using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykkeV2;
 using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Dibk.Ftpb.Validation.Application.Reporter;
@@ -25,7 +25,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
     {
         private List<EntityValidatorNode> _entitiesNodeList;
 
-        private ArbeidstilsynetsSamtykke2_45957_ValidationEntity _validationForm { get; set; }
+        private ArbeidstilsynetsSamtykke2_45957_Form _validationForm { get; set; }
 
         private readonly IMunicipalityValidator _municipalityValidator;
         private readonly ICodeListService _codeListService;
