@@ -3,14 +3,14 @@ using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke
 {
-    public class FakturamottakerMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke.FakturamottakerType, FakturamottakerValidationEntity>
+    public class FakturamottakerMapper
     {
-        public override FakturamottakerValidationEntity Map(FakturamottakerType mapFrom, string parentElementXpath = null)
+        public FakturamottakerValidationEntity Map(FakturamottakerType mapFrom)
         {
-            Fakturamottaker fakturamottaker = null;
+            FakturamottakerValidationEntity fakturamottaker = null;
             if (mapFrom != null)
             {
-                fakturamottaker = new Fakturamottaker()
+                fakturamottaker = new FakturamottakerValidationEntity
                 {
                     BestillerReferanse = mapFrom.bestillerReferanse,
                     EhfFaktura = mapFrom.ehfFaktura,
@@ -18,13 +18,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                     Fakturareferanser = mapFrom.fakturareferanser,
                     Navn = mapFrom.navn,
                     Organisasjonsnummer = mapFrom.organisasjonsnummer,
-                    Prosjektnummer = mapFrom.prosjektnummer
+                    Prosjektnummer = mapFrom.prosjektnummer,
+                    Adresse = EnkelAdresseMapper.Map(mapFrom.adresse)
                 };
-                
-                fakturamottaker.Adresse = EnkelAdresseMapper.Map(mapFrom.adresse);
             }
 
-            return new FakturamottakerValidationEntity(fakturamottaker, "fakturamottaker", parentElementXpath);
+            return fakturamottaker;
         }
     }
 }

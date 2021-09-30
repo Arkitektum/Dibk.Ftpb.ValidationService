@@ -24,7 +24,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
             var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957.xml");
             _form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
-            _arbeidsplasser = new ArbeidsplasserMapper().Map(_form.arbeidsplasser, "");
+            _arbeidsplasser = new ArbeidsplasserMapper().Map(_form.arbeidsplasser);
             var arbeidsplasserValidatorNodeList = new List<EntityValidatorNode>()
             {
                 new() {NodeId = 17, EnumId = EntityValidatorEnum.ArbeidsplasserValidatorV2, ParentID = null}
@@ -34,7 +34,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             _attachemntList = new List<string>() { "BeskrivelseTypeArbeidProsess" };
 
 
-            var arbeidsplasser = new Arbeidsplasser()
+            var arbeidsplasser = new ArbeidsplasserValidationEntity()
             {
                 AntallAnsatte = "3",
                 AntallVirksomheter = "2",

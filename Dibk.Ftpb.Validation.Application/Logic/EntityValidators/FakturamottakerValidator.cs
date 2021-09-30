@@ -40,7 +40,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult Validate(FakturamottakerValidationEntity fakturamottaker = null)
         {
-            if (Helpers.ObjectIsNullOrEmpty(fakturamottaker.ModelData))
+            if (Helpers.ObjectIsNullOrEmpty(fakturamottaker))
             {
                 AddMessageFromRule(ValidationRuleEnum.utfylt);
             }
@@ -50,7 +50,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                 if (RuleIsValid(ValidationRuleEnum.ehf_eller_papir))
                 {
-                    var adresseValidationResult = _enkelAdresseValidator.Validate(fakturamottaker.ModelData.Adresse);
+                    var adresseValidationResult = _enkelAdresseValidator.Validate(fakturamottaker.Adresse);
                     UpdateValidationResultWithSubValidations(adresseValidationResult);
                 }
             }
@@ -61,17 +61,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             var booleans = new[]
             {
-                fakturamottaker.ModelData.EhfFaktura.GetValueOrDefault(),
-                fakturamottaker.ModelData.FakturaPapir.GetValueOrDefault(),
+                fakturamottaker.EhfFaktura.GetValueOrDefault(),
+                fakturamottaker.FakturaPapir.GetValueOrDefault(),
             };
             var trueCount = booleans.Count(c => c);
             if (trueCount != 1)
                 AddMessageFromRule(ValidationRuleEnum.ehf_eller_papir);
             else
             {
-                if (fakturamottaker.ModelData.EhfFaktura.GetValueOrDefault())
+                if (fakturamottaker.EhfFaktura.GetValueOrDefault())
                 {
-                    var organisasjonsnummerValidation = NorskStandardValidator.Validate_OrgnummerEnum(fakturamottaker.ModelData.Organisasjonsnummer);
+                    var organisasjonsnummerValidation = NorskStandardValidator.Validate_OrgnummerEnum(fakturamottaker.Organisasjonsnummer);
                     switch (organisasjonsnummerValidation)
                     {
                         case OrganisasjonsnummerValidation.Empty:
@@ -86,18 +86,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     }
                 }
 
-                if (fakturamottaker.ModelData.FakturaPapir.GetValueOrDefault())
+                if (fakturamottaker.FakturaPapir.GetValueOrDefault())
                 {
-                    if (string.IsNullOrEmpty(fakturamottaker.ModelData.Navn))
+                    if (string.IsNullOrEmpty(fakturamottaker.Navn))
                     {
                         AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.navn);
                     }
                 }
 
-                if (string.IsNullOrEmpty(fakturamottaker.ModelData.BestillerReferanse))
+                if (string.IsNullOrEmpty(fakturamottaker.BestillerReferanse))
                     AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.bestillerReferanse);
 
-                if (string.IsNullOrEmpty(fakturamottaker.ModelData.Fakturareferanser))
+                if (string.IsNullOrEmpty(fakturamottaker.Fakturareferanser))
                     AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.fakturareferanser);
 
             }
