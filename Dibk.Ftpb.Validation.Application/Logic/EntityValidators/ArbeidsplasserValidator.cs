@@ -12,14 +12,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public class ArbeidsplasserValidator : EntityValidatorBase
     {
         private string[] _attachmentList;
-        
+
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        public ArbeidsplasserValidator(IList<EntityValidatorNode> entityValidatorTree) 
+        public ArbeidsplasserValidator(IList<EntityValidatorNode> entityValidatorTree)
             : base(entityValidatorTree)
         { }
 
-        public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, string[] attachments = null)
+        public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser = null, string[] attachments = null)
         {
             _attachmentList = attachments;
             ValidateEntityFields(arbeidsplasser);
@@ -55,7 +55,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                     {
                         AddMessageFromRule(ValidationRuleEnum.faste_eller_midlertidige_utfylt);
                     }
-                    
+
                     int antallAnsatte;
                     int.TryParse(arbeidsplasserValEntity.AntallAnsatte, out antallAnsatte);
                     if (antallAnsatte <= 0)
@@ -75,7 +75,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                     if (string.IsNullOrEmpty(arbeidsplasserValEntity.Beskrivelse))
                     {
-                        if (_attachmentList == null || _attachmentList.All(i=>!i.Equals("BeskrivelseTypeArbeidProsess")))
+                        if (_attachmentList == null || _attachmentList.All(i => !i.Equals("BeskrivelseTypeArbeidProsess")))
                         {
                             AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.beskrivelse);
                         }

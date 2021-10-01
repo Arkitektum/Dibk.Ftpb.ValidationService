@@ -18,7 +18,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     {
         private readonly ICodeListService _codeListService;
 
-        private readonly IKodelisteValidator _sjekklistepunktValidator; 
+        private readonly IKodelisteValidator _sjekklistepunktValidator;
 
         public ValidationResult ValidationResult { get => _validationResult; }
 
@@ -34,46 +34,46 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             this.AddValidationRule(ValidationRuleEnum.utfylt);
             this.AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.sjekklistepunktsvar);
             this.AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.dokumentasjon);
-        }        
-        
-        public ValidationResult Validate(string dataFormatVersion, IEnumerable<SjekklistekravValidationEntity> formsSjekkliste, IChecklistService checklistService)
+        }
+
+        public ValidationResult Validate(string dataFormatVersion, SjekklistekravValidationEntity formsSjekkliste, IChecklistService checklistService)
         {
             try
             {
-                if (Helpers.ObjectIsNullOrEmpty(formsSjekkliste) || formsSjekkliste.Count() == 0)
-                {
-                    AddMessageFromRule(ValidationRuleEnum.utfylt);
-                }
-                else
-                {
-                    //Validate if all checkpoints in form is valid
-                    foreach (var sjekklisteKrav in formsSjekkliste)
-                    {
-                        var sjekklistepunktValidationResult = _sjekklistepunktValidator.Validate(sjekklisteKrav.Sjekklistepunkt);
-                        UpdateValidationResultWithSubValidations(sjekklistepunktValidationResult);
-                    }
+                //if (Helpers.ObjectIsNullOrEmpty(formsSjekkliste) || formsSjekkliste.Count() == 0)
+                //{
+                //    AddMessageFromRule(ValidationRuleEnum.utfylt);
+                //}
+                //else
+                //{
+                //    //Validate if all checkpoints in form is valid
+                //    foreach (var sjekklisteKrav in formsSjekkliste)
+                //    {
+                //        var sjekklistepunktValidationResult = _sjekklistepunktValidator.Validate(sjekklisteKrav.Sjekklistepunkt);
+                //        UpdateValidationResultWithSubValidations(sjekklistepunktValidationResult);
+                //    }
 
 
-                    //Note: Validates 1.17 in Arbeidsplasser validator
-                    //Validate if all checkpoints in Sjekklisten are present in form
+                //    //Note: Validates 1.17 in Arbeidsplasser validator
+                //    //Validate if all checkpoints in Sjekklisten are present in form
 
-                    var checkpointsFromAPI = checklistService.GetChecklist(dataFormatVersion, "metadataid=1");
-                    //var checkpointsFromAPI = checklistService.GetChecklist(dataFormatVersion);
+                //    var checkpointsFromAPI = checklistService.GetChecklist(dataFormatVersion, "metadataid=1");
+                //    //var checkpointsFromAPI = checklistService.GetChecklist(dataFormatVersion);
 
-                    if (checkpointsFromAPI.Count() == 0)
-                    {
-                        throw new ArgumentNullException($"Checklist service {checklistService}");
-                    }
-                    else
-                    {
-                        foreach (var checkpoint in checkpointsFromAPI)
-                        {
-                            ValidateCheckpoint(formsSjekkliste, checkpoint);
-                        }
+                //    if (checkpointsFromAPI.Count() == 0)
+                //    {
+                //        throw new ArgumentNullException($"Checklist service {checklistService}");
+                //    }
+                //    else
+                //    {
+                //        foreach (var checkpoint in checkpointsFromAPI)
+                //        {
+                //            ValidateCheckpoint(formsSjekkliste, checkpoint);
+                //        }
 
-                    }
+                //    }
 
-                }
+                //}
 
                 return _validationResult;
             }
@@ -84,113 +84,113 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
 
 
-        private void ValidateCheckpoint(IEnumerable<SjekklistekravValidationEntity> formsSjekkliste, Sjekk sjekklistepunkt)
+        private void ValidateCheckpoint(SjekklistekravValidationEntity formsSjekkliste, Sjekk sjekklistepunkt)
         {
             if (SjekklistepunktFinnesOgErBesvart(formsSjekkliste, sjekklistepunkt.Id))
             {
-                string yesOutcome = "";
-                string noOutcome = "";
+                //string yesOutcome = "";
+                //string noOutcome = "";
 
-                var yesAction = sjekklistepunkt.Utfall.Where(x => x.Utfallverdi.Equals(true)).FirstOrDefault();
-                if (yesAction != null)
-                {
-                    yesOutcome = yesAction.Utfalltypekode;
-                }
+                //var yesAction = sjekklistepunkt.Utfall.Where(x => x.Utfallverdi.Equals(true)).FirstOrDefault();
+                //if (yesAction != null)
+                //{
+                //    yesOutcome = yesAction.Utfalltypekode;
+                //}
 
-                var noAction = sjekklistepunkt.Utfall.Where(x => x.Utfallverdi.Equals(false)).FirstOrDefault();
-                if (noAction != null)
-                {
-                    noOutcome = noAction.Utfalltypekode;
-                }
+                //var noAction = sjekklistepunkt.Utfall.Where(x => x.Utfallverdi.Equals(false)).FirstOrDefault();
+                //if (noAction != null)
+                //{
+                //    noOutcome = noAction.Utfalltypekode;
+                //}
 
-                if (SjekklistepunktBesvartMedJa(formsSjekkliste, sjekklistepunkt.Id))
-                {
-                    if (yesAction != null && yesOutcome.Equals("DOK"))
-                    {
-                        SjekklistepunktDokumentasjonFinnes(formsSjekkliste, sjekklistepunkt.Id);
-                    }
-                    else if (yesAction != null && yesOutcome.Equals("SU"))
-                    {
-                        foreach (var undersjekkpunkt in sjekklistepunkt.Undersjekkpunkter)
-                        {
-                            ValidateCheckpoint(formsSjekkliste, undersjekkpunkt);
-                        }
-                    }
-                }
-                else
-                {
-                    if (noAction != null && noOutcome.Equals("DOK"))
-                    {
-                        SjekklistepunktDokumentasjonFinnes(formsSjekkliste, sjekklistepunkt.Id);
-                    }
-                    else if (noAction != null && noOutcome.Equals("SU"))
-                    {
-                        foreach (var undersjekkpunkt in sjekklistepunkt.Undersjekkpunkter)
-                        {
-                            ValidateCheckpoint(formsSjekkliste, undersjekkpunkt);
-                        }
-                    }
-                }
+                //if (SjekklistepunktBesvartMedJa(formsSjekkliste, sjekklistepunkt.Id))
+                //{
+                //    if (yesAction != null && yesOutcome.Equals("DOK"))
+                //    {
+                //        SjekklistepunktDokumentasjonFinnes(formsSjekkliste, sjekklistepunkt.Id);
+                //    }
+                //    else if (yesAction != null && yesOutcome.Equals("SU"))
+                //    {
+                //        foreach (var undersjekkpunkt in sjekklistepunkt.Undersjekkpunkter)
+                //        {
+                //            ValidateCheckpoint(formsSjekkliste, undersjekkpunkt);
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //if (noAction != null && noOutcome.Equals("DOK"))
+                //{
+                //    SjekklistepunktDokumentasjonFinnes(formsSjekkliste, sjekklistepunkt.Id);
+                //}
+                //else if (noAction != null && noOutcome.Equals("SU"))
+                //{
+                //    foreach (var undersjekkpunkt in sjekklistepunkt.Undersjekkpunkter)
+                //    {
+                //        ValidateCheckpoint(formsSjekkliste, undersjekkpunkt);
+                //    }
+                //}
+                //}
+                //}
             }
+
+            //private bool SjekklistepunktBesvartMedJa(SjekklistekravValidationEntity kravliste, string sjekklistepunktnr)
+            //{
+            //    var kravEntity = kravliste.FirstOrDefault(x => x.Sjekklistepunkt.Kodeverdi.Equals(sjekklistepunktnr));
+            //    //var xPath = kravEntity.DataModelXpath;
+            //    if (kravEntity != null)
+            //    {
+            //        return (bool)kravEntity.Sjekklistepunktsvar;
+            //    }
+            //    else
+            //    {
+            //        throw new ArgumentNullException($"Checklist number {sjekklistepunktnr} doesn't exist.");
+            //    }
+            //}
+
+            //private bool SjekklistepunktDokumentasjonFinnes(SjekklistekravValidationEntity kravliste, string sjekklistepunktnr)
+            //{
+            //    var kravEntity = kravliste.FirstOrDefault(x => x.Sjekklistepunkt.Kodeverdi.Equals(sjekklistepunktnr));
+            //    //var xPath = kravEntity.DataModelXpath;
+            //    if (kravEntity != null)
+            //    {
+            //        if (string.IsNullOrEmpty(kravEntity.Dokumentasjon))
+            //        {
+            //            //AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.dokumentasjon}");
+            //            return false;
+            //        }
+            //        return true;
+            //    }
+            //    else
+            //    {
+            //        throw new ArgumentNullException($"Checklist number {sjekklistepunktnr} doesn't exist.");
+            //    }
         }
 
-        private bool SjekklistepunktBesvartMedJa(IEnumerable<SjekklistekravValidationEntity> kravliste, string sjekklistepunktnr)
+
+        private bool SjekklistepunktFinnesOgErBesvart(SjekklistekravValidationEntity formsKravliste, string sjekklistepunktnr)
         {
-            var kravEntity = kravliste.FirstOrDefault(x => x.Sjekklistepunkt.Kodeverdi.Equals(sjekklistepunktnr));
-            //var xPath = kravEntity.DataModelXpath;
-            if (kravEntity != null)
-            {
-                return (bool)kravEntity.Sjekklistepunktsvar;
-            }
-            else
-            {
-                throw new ArgumentNullException($"Checklist number {sjekklistepunktnr} doesn't exist.");
-            }
-        }
+            //var kravEntity = formsKravliste.FirstOrDefault(x => x.Sjekklistepunkt.Kodeverdi.Equals(sjekklistepunktnr));
+            ////var xPath = formsKravliste.First().DataModelXpath;
+            //if (kravEntity == null)
+            //{
+            //    //AddMessageFromRule(ValidationRuleEnum.utfylt, xPath.Replace("krav[0]", "krav[]") + "/sjekklistepunkt/kodeverdi", new[] { sjekklistepunktnr });
 
-        private bool SjekklistepunktDokumentasjonFinnes(IEnumerable<SjekklistekravValidationEntity> kravliste, string sjekklistepunktnr)
-        {
-            var kravEntity = kravliste.FirstOrDefault(x => x.Sjekklistepunkt.Kodeverdi.Equals(sjekklistepunktnr));
-            //var xPath = kravEntity.DataModelXpath;
-            if (kravEntity != null)
-            {
-                if (string.IsNullOrEmpty(kravEntity.Dokumentasjon))
-                {
-                    //AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.dokumentasjon}");
-                    return false;
-                }
-                return true;
-            }
-            else
-            {
-                throw new ArgumentNullException($"Checklist number {sjekklistepunktnr} doesn't exist.");
-            }
-        }
+            //    return false;
+            //}
+            //else
+            //{
+            //    var kravet = kravEntity;
+            //    //var xPath2 = kravet.Sjekklistepunkt.DataModelXpath;
+            //    if (kravet.Sjekklistepunktsvar == null)
+            //    {
+            //        //AddMessageFromRule(ValidationRuleEnum.utfylt, xPath.Replace("krav[0]", "krav[]") + "/sjekklistepunktsvar", new[] { sjekklistepunktnr });
+            //        return false;
+            //    }
 
-
-        private bool SjekklistepunktFinnesOgErBesvart(IEnumerable<SjekklistekravValidationEntity> formsKravliste, string sjekklistepunktnr)
-        {
-            var kravEntity = formsKravliste.FirstOrDefault(x => x.Sjekklistepunkt.Kodeverdi.Equals(sjekklistepunktnr));
-            //var xPath = formsKravliste.First().DataModelXpath;
-            if (kravEntity == null)
-            {
-                //AddMessageFromRule(ValidationRuleEnum.utfylt, xPath.Replace("krav[0]", "krav[]") + "/sjekklistepunkt/kodeverdi", new[] { sjekklistepunktnr });
-                
-                return false;
-            }
-            else
-            {
-                var kravet = kravEntity;
-                //var xPath2 = kravet.Sjekklistepunkt.DataModelXpath;
-                if (kravet.Sjekklistepunktsvar == null)
-                {
-                    //AddMessageFromRule(ValidationRuleEnum.utfylt, xPath.Replace("krav[0]", "krav[]") + "/sjekklistepunktsvar", new[] { sjekklistepunktnr });
-                    return false;
-                }
-
-                //TODO: Maybe not: Use sjekklistepunktValidator to verfy correct description from GeoNorge ?? Necessary ???
-                //Here......
-            }
+            //    //TODO: Maybe not: Use sjekklistepunktValidator to verfy correct description from GeoNorge ?? Necessary ???
+            //    //Here......
+            //}
 
             return true;
         }

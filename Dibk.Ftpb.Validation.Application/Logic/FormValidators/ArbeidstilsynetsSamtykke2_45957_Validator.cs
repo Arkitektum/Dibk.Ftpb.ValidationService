@@ -363,10 +363,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var ansvarligSoekerValidationResult = _ansvarligSoekerValidator.Validate(_validationForm.AnsvarligSoekerValidationEntity);
             AccumulateValidationMessages(ansvarligSoekerValidationResult.ValidationMessages);
 
-            var eiendoms = _validationForm?.EiendomValidationEntities;
+            var sjekklisteKravEntities = _validationForm?.SjekklistekravValidationEntities;
+            var sjekklistKravIndex = GetArrayIndex(sjekklisteKravEntities);
 
-            //var sjekklistekravValidationResult = _sjekklistekravValidator.Validate(GetDataFormatVersion(typeof(ArbeidstilsynetsSamtykke2_45957_Validator)), _validationForm.ModelData.SjekklistekravValidationEntities, _checklistService);
-            //AccumulateValidationMessages(sjekklistekravValidationResult.ValidationMessages);
+            for (int i = 0; i < sjekklistKravIndex; i++)
+            {
+                var sjekklistekravValidationEntity = Helpers.ObjectIsNullOrEmpty(sjekklisteKravEntities) ? null : sjekklisteKravEntities[i];
+
+                var sjekklistekravValidationResult = _sjekklistekravValidator.Validate(GetDataFormatVersion(typeof(ArbeidstilsynetsSamtykke2_45957_Validator)), sjekklistekravValidationEntity, _checklistService);
+                AccumulateValidationMessages(sjekklistekravValidationResult.ValidationMessages, i);
+            }
 
             var metadataValidationResult = _metadataValidator.Validate(_validationForm.MetadataValidationEntity);
             AccumulateValidationMessages(metadataValidationResult.ValidationMessages);
