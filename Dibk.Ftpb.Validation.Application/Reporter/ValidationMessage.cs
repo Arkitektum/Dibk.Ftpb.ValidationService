@@ -1,7 +1,4 @@
 ﻿using Dibk.Ftpb.Validation.Application.Enums;
-using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
-using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Dibk.Ftpb.Validation.Application.Reporter
@@ -16,6 +13,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         
         public string XpathField { get; set; }
         public string PreCondition { get; set; }
+        [JsonIgnore] 
         public string ChecklistReference { get; set; }
         [JsonIgnore]
         public string[] MessageParameters { get; set; }

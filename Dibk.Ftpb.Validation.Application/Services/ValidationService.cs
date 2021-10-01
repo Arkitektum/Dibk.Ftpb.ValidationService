@@ -40,6 +40,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
             var result = ValidateForm(validationInput);
             //Clearing out prefilled checklist answers before returning the validation result - not to be part of the response when validating
             result.PrefillChecklist = null;
+
             return result;
         }
         public ValidationResult GetValidationResultWithChecklistAnswers(ValidationInput validationInput)
@@ -113,6 +114,9 @@ namespace Dibk.Ftpb.Validation.Application.Services
             if (!Helpers.ObjectIsNullOrEmpty(inputData?.Config?.DataFormatVersion))
             {
                 validationResult = _validationHandler.ValidateAsync(inputData?.Config?.DataFormatVersion, errorMessages, validationInput).Result;
+
+                var formProperties = _checklistService.GetFormProperties(inputData?.Config?.DataFormatVersion);
+                validationResult.Soknadtype = formProperties.ProcessCategory;
             }
             else
             {
