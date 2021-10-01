@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Models.Web;
-using System.Collections.Generic;
 
 namespace Dibk.Ftpb.Validation.Web.Controllers
 {
@@ -40,6 +39,7 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
             return Ok(messages);
         }
 
+
         [Route("api/validationReport")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -55,18 +55,6 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
             var validationResult = _validationService.GetValidationResultWithChecklistAnswers(input);
 
             return Ok(validationResult);
-        }
-
-        [Route("api/prefill-demo")]
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<string> PrefillDemo()
-        {
-
-            var resul = _validationService.PrefillDemo();
-
-            return Ok(resul);
         }
 
         [Route("api/validate/file")]
