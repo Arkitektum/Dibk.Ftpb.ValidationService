@@ -13,7 +13,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         
         public string XpathField { get; set; }
         public string PreCondition { get; set; }
-        [JsonIgnore] 
+        //[JsonIgnore] 
         public string ChecklistReference { get; set; }
         [JsonIgnore]
         public string[] MessageParameters { get; set; }
