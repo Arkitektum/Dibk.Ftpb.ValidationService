@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykkeV2
 {
-    public class SjekklistekravMapper : ModelToValidationEntityMapper<no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.SjekklisteKravType[], IEnumerable<SjekklistekravValidationEntity>>
+    public class SjekklistekravMapper
     {
-        public override IEnumerable<SjekklistekravValidationEntity> Map(no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.SjekklisteKravType[] sjekklistekraver, string parentElementXpath = null)
+        public SjekklistekravValidationEntity[] Map(no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.SjekklisteKravType[] sjekklistekraver)
         {
             if (sjekklistekraver == null) return null;
             var retVal = new List<SjekklistekravValidationEntity>();
@@ -14,20 +14,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
             for (int i = 0; i < sjekklistekraver.Count(); i++)
             {
                 var sjekklistekrav = sjekklistekraver[i];
-                
-                var krav = new Sjekklistekrav()
+
+                var krav = new SjekklistekravValidationEntity
                 {
                     Sjekklistepunktsvar = sjekklistekrav.sjekklistepunktsvar,
-                    Dokumentasjon = sjekklistekrav.dokumentasjon
+                    Dokumentasjon = sjekklistekrav.dokumentasjon,
+                    Sjekklistepunkt = KodelisteValidationEntityMapper.Map(sjekklistekrav.sjekklistepunkt)
                 };
-
-                var sjekklistekravValEntity = new SjekklistekravValidationEntity(krav, $"krav[{i}]", parentElementXpath);
-                krav.Sjekklistepunkt = KodelisteValidationEntityMapper.Map(sjekklistekrav.sjekklistepunkt);
-
-                retVal.Add(sjekklistekravValEntity);
+                retVal.Add(krav);
             }
 
-            return retVal;
+            return retVal.ToArray();
         }
     }
 }

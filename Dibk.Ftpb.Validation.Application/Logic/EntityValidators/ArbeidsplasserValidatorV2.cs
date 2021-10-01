@@ -70,9 +70,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                         foreach (var krav in sjekkliste)
                         {
-                            if (krav.ModelData.Sjekklistepunkt.Kodeverdi.Equals("1.17"))
+                            if (krav.Sjekklistepunkt.Kodeverdi.Equals("1.17"))
                             {
-                                if (string.IsNullOrEmpty(krav.ModelData.Dokumentasjon))
+                                if (string.IsNullOrEmpty(krav.Dokumentasjon))
                                 {
                                     //AddMessageFromRule(ValidationRuleEnum.sjekklistepunkt_1_17_dokumentasjon_utfylt, krav.ModelData.Sjekklistepunkt.DataModelXpath);
                                 }
