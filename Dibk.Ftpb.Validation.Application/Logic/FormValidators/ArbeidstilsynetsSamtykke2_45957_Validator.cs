@@ -330,13 +330,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         protected override void Validate(ValidationInput validationInput)
         {
-            //var beskrivelseAvTiltakValidationResult = _beskrivelseAvTiltakValidator.Validate(_validationForm.ModelData.BeskrivelseAvTiltakValidationEntity);
-            //AccumulateValidationMessages(beskrivelseAvTiltakValidationResult.ValidationMessages);
+            var beskrivelseAvTiltakValidationResult = _beskrivelseAvTiltakValidator.Validate(_validationForm.BeskrivelseAvTiltakValidationEntity);
+            AccumulateValidationMessages(beskrivelseAvTiltakValidationResult.ValidationMessages);
 
             _tiltakstypes = _beskrivelseAvTiltakValidator.Tiltakstypes.ToArray();
 
-            //var fakturamottakerValidationResult = _fakturamottakerValidator.Validate(_validationForm.ModelData.FakturamottakerValidationEntity);
-            //AccumulateValidationMessages(fakturamottakerValidationResult.ValidationMessages);
+            var fakturamottakerValidationResult = _fakturamottakerValidator.Validate(_validationForm.FakturamottakerValidationEntity);
+            AccumulateValidationMessages(fakturamottakerValidationResult.ValidationMessages);
 
             var eiendoms = _validationForm?.EiendomValidationEntities;
 
@@ -348,33 +348,34 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 var eiendomValidationResult = _eiendomByggestedValidator.Validate(eiendom);
                 AccumulateValidationMessages(eiendomValidationResult.ValidationMessages, i);
             }
+
             var attachments = Helpers.ObjectIsNullOrEmpty(validationInput.Attachments) ? null : validationInput.Attachments.Select(a => a.AttachmentTypeName).ToArray();
 
-            //var arbeidsplasserValidationResult = _arbeidsplasserValidator.Validate(_validationForm.ModelData.ArbeidsplasserValidationEntity, attachments);
-            //AccumulateValidationMessages(arbeidsplasserValidationResult.ValidationMessages);
+            var arbeidsplasserValidationResult = _arbeidsplasserValidator.Validate(_validationForm?.ArbeidsplasserValidationEntity, attachments);
+            AccumulateValidationMessages(arbeidsplasserValidationResult.ValidationMessages);
 
             var betalingValidationResult = _betalingValidator.Validate(_validationForm.BetalingValidationEntity);
             AccumulateValidationMessages(betalingValidationResult.ValidationMessages);
+
             var tiltakshaverValidationResult = _tiltakshaverValidator.Validate(_validationForm.TiltakshaverValidationEntity);
             AccumulateValidationMessages(tiltakshaverValidationResult.ValidationMessages);
 
             var ansvarligSoekerValidationResult = _ansvarligSoekerValidator.Validate(_validationForm.AnsvarligSoekerValidationEntity);
             AccumulateValidationMessages(ansvarligSoekerValidationResult.ValidationMessages);
 
+            var eiendoms = _validationForm?.EiendomValidationEntities;
 
             //var sjekklistekravValidationResult = _sjekklistekravValidator.Validate(GetDataFormatVersion(typeof(ArbeidstilsynetsSamtykke2_45957_Validator)), _validationForm.ModelData.SjekklistekravValidationEntities, _checklistService);
             //AccumulateValidationMessages(sjekklistekravValidationResult.ValidationMessages);
 
-
-
             var metadataValidationResult = _metadataValidator.Validate(_validationForm.MetadataValidationEntity);
             AccumulateValidationMessages(metadataValidationResult.ValidationMessages);
 
-            //var arbeidstilsynetsSaksnummerValidationResult = _arbeidstilsynetsSaksnummerValidator.Validate(_validationForm.ModelData.ArbeidstilsynetsSaksnummerValidationEntity);
-            //AccumulateValidationMessages(arbeidstilsynetsSaksnummerValidationResult.ValidationMessages);
+            var arbeidstilsynetsSaksnummerValidationResult = _arbeidstilsynetsSaksnummerValidator.Validate(_validationForm.ArbeidstilsynetsSaksnummerValidationEntity);
+            AccumulateValidationMessages(arbeidstilsynetsSaksnummerValidationResult.ValidationMessages);
 
-            //var kommunensSaksnummerValidationResult = _arbeidstilsynetsSaksnummerValidator.Validate(_validationForm.ModelData.KommunensSaksnummerValidationEntity);
-            //AccumulateValidationMessages(kommunensSaksnummerValidationResult.ValidationMessages);
+            var kommunensSaksnummerValidationResult = _arbeidstilsynetsSaksnummerValidator.Validate(_validationForm.KommunensSaksnummerValidationEntity);
+            AccumulateValidationMessages(kommunensSaksnummerValidationResult.ValidationMessages);
 
         }
 
