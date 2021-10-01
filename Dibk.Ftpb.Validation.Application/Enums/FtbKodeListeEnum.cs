@@ -7,7 +7,7 @@
         Naeringsgruppe,
         tiltaksformal,
         Bygningstype,
-        Tiltakstype,
+        tiltaktype,
         Sjekklistepunkttype
     }
 }
