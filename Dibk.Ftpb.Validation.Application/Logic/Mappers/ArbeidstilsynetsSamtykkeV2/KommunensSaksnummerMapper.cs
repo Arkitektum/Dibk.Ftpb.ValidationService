@@ -3,9 +3,9 @@ using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykkeV2
 {
-    public class KommunensSaksnummerMapper : ModelToValidationEntityMapper<SaksnummerType, SaksnummerValidationEntity>
+    public class KommunensSaksnummerMapper
     {
-        public override SaksnummerValidationEntity Map(SaksnummerType mapFrom, string parentElementXpath = null)
+        public SaksnummerValidationEntity Map(SaksnummerType mapFrom)
         {
             SaksnummerValidationEntity saksnummer = null;
             if (mapFrom != null)
