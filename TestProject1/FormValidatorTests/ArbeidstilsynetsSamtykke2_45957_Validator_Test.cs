@@ -5,7 +5,6 @@ using Dibk.Ftpb.Validation.Application.Logic.Deserializers;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Logic.FormValidators;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykkeV2;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
@@ -15,6 +14,7 @@ using System;
 using System.IO;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
+using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
 using Xunit;
 using Dibk.Ftpb.Validation.Application.Services;
 

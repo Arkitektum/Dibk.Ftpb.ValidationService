@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykkeV2;
 using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 using System.IO;
@@ -8,6 +7,7 @@ using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
+using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using FluentAssertions;

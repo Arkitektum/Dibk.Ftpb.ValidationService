@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykkeV2;
+using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
 using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 using Xunit;
