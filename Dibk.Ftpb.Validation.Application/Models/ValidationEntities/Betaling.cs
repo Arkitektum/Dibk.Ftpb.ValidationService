@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class BetalingValidationEntity : ValidationEntityBase<Betaling>
-    {
-        public BetalingValidationEntity(Betaling modelData, string xmlElementName, string parentEntityDataModelXpath = null) : base(modelData, xmlElementName, parentEntityDataModelXpath)
-        { }
-    }
-    public class Betaling
+    public class BetalingValidationEntity 
     {
         public bool? SkalFaktureres { get; set; }
         public string Beskrivelse { get; set; }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
 using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 
@@ -19,9 +20,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
             arbeidstilsynetsSamtykke2Form45957.FakturamottakerValidationEntity = new FakturamottakerMapper().Map(dataModel.fakturamottaker);
             arbeidstilsynetsSamtykke2Form45957.BeskrivelseAvTiltakValidationEntity = new BeskrivelseAvTiltakMapper().Map(dataModel.beskrivelseAvTiltak);
             arbeidstilsynetsSamtykke2Form45957.ArbeidstilsynetsSaksnummerValidationEntity = new ArbeidstilsynetsSaksnummerMapper().Map(dataModel.arbeidstilsynetsSaksnummer);
+            arbeidstilsynetsSamtykke2Form45957.BetalingValidationEntity = new BetalingMapper().Map(dataModel.betaling);
 
 
-            arbeidstilsynetsSamtykke2Form45957.BetalingValidationEntity = new BetalingMapper().Map(dataModel.betaling, parentPath);
             arbeidstilsynetsSamtykke2Form45957.KommunensSaksnummerValidationEntity = new KommunensSaksnummerMapper().Map(dataModel.kommunensSaksnummer, parentPath);
 
             arbeidstilsynetsSamtykke2Form45957.SjekklistekravValidationEntities = new SjekklistekravMapper().Map(dataModel.krav, parentPath);

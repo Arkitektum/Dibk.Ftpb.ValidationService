@@ -3,13 +3,13 @@ using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2
 {
-    public class BetalingMapper : ModelToValidationEntityMapper<BetalingType, BetalingValidationEntity>
+    public class BetalingMapper
     {
-        public override BetalingValidationEntity Map(BetalingType mapFrom, string parentElementXpath = null)
+        public BetalingValidationEntity Map(BetalingType mapFrom)
         {
-            Betaling betaling = null;
+            BetalingValidationEntity betaling = null;
             if (mapFrom != null)
-                betaling = new Betaling()
+                betaling = new BetalingValidationEntity()
                 {
                     Beskrivelse = mapFrom.beskrivelse,
                     GebyrKategori = mapFrom.gebyrkategori,
@@ -19,7 +19,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
                     TransId = mapFrom.transId
                 };
 
-            return new BetalingValidationEntity(betaling, "betaling", parentElementXpath);
+            return betaling;
         }
     }
 }

@@ -353,7 +353,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //var arbeidsplasserValidationResult = _arbeidsplasserValidator.Validate(_validationForm.ModelData.ArbeidsplasserValidationEntity, attachments);
             //AccumulateValidationMessages(arbeidsplasserValidationResult.ValidationMessages);
 
-            var betalingValidationResult = _betalingValidator.Validate(_validationForm.ModelData.BetalingValidationEntity);
+            var betalingValidationResult = _betalingValidator.Validate(_validationForm.BetalingValidationEntity);
             AccumulateValidationMessages(betalingValidationResult.ValidationMessages);
             var tiltakshaverValidationResult = _tiltakshaverValidator.Validate(_validationForm.TiltakshaverValidationEntity);
             AccumulateValidationMessages(tiltakshaverValidationResult.ValidationMessages);

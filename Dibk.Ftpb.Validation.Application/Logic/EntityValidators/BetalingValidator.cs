@@ -38,7 +38,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public void ValidateEntityFields(BetalingValidationEntity betalingValEntity)
         {
-            var betaling = betalingValEntity.ModelData;
+            var betaling = betalingValEntity;
             if (Helpers.ObjectIsNullOrEmpty((object)betaling))
             {
                 AddMessageFromRule(ValidationRuleEnum.utfylt);
