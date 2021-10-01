@@ -112,18 +112,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         {
             var prefillChecklist = new PrefillChecklist();
             List<ChecklistAnswer> list = new List<ChecklistAnswer>();
-            //foreach (var sjekklistepkt in _validationForm.ModelData.SjekklistekravValidationEntities)
-            //{
-            //    var checklistAnswer = new ChecklistAnswer()
-            //    {
-            //        checklistQuestion = sjekklistepkt.ModelData.Sjekklistepunkt.ModelData.Kodebeskrivelse,
-            //        checklistReference = sjekklistepkt.ModelData.Sjekklistepunkt.ModelData.Kodeverdi,
-            //        yesNo = (bool)sjekklistepkt.ModelData.Sjekklistepunktsvar,
-            //        documentation = sjekklistepkt.ModelData.Dokumentasjon ?? null
-            //    };
+            foreach (var sjekklistepkt in _validationForm.SjekklistekravValidationEntities)
+            {
+                var checklistAnswer = new ChecklistAnswer()
+                {
+                    checklistQuestion = sjekklistepkt.Sjekklistepunkt.Kodebeskrivelse,
+                    checklistReference = sjekklistepkt.Sjekklistepunkt.Kodeverdi,
+                    yesNo = (bool)sjekklistepkt.Sjekklistepunktsvar,
+                    documentation = sjekklistepkt.Dokumentasjon ?? null
+                };
 
-            //    list.Add(checklistAnswer);
-            //}
+                list.Add(checklistAnswer);
+            }
             prefillChecklist.ChecklistAnswers = list;
 
             return prefillChecklist;
