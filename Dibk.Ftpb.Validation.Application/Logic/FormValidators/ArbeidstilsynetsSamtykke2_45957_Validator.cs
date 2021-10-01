@@ -36,13 +36,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private IMatrikkelValidator _matrikkelValidator;
         private IEiendomsAdresseValidator _eiendomsAdresseValidator;
         private IEiendomByggestedValidator _eiendomByggestedValidator;
-        
+
         //Tiltakshaver
         private IAktoerValidator _tiltakshaverValidator;
         private IEnkelAdresseValidator _tiltakshaverEnkelAdresseValidator;
         private IKodelisteValidator _tiltakshaverPartstypeValidator;
         private IKontaktpersonValidator _tiltakshaverKontaktpersonValidator;
-        
+
         //Fakturamotaker
         private IFakturamottakerValidator _fakturamottakerValidator;
         private IEnkelAdresseValidator _fakturamottakerEnkelAdresseValidator;
@@ -140,7 +140,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 new() { NodeId = 3, EnumId = EntityValidatorEnum.MatrikkelValidator, ParentID = 1 },
             };
             _entitiesNodeList.AddRange(eiendombyggestedNodeList);
-            
+
             //** check not implemented in FTB
             //AnsvarligSoeker
             var ansvarligSoekervalidatorNodeList = new List<EntityValidatorNode>()
@@ -170,7 +170,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 new () {NodeId = 9, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 8}
             };
             _entitiesNodeList.AddRange(fakturamottakeNodeList);
-            
+
             //beskrivelseAvTiltak
             var beskrivelseAvTiltakNodeList = new List<EntityValidatorNode>()
             {
@@ -362,17 +362,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             var ansvarligSoekerValidationResult = _ansvarligSoekerValidator.Validate(_validationForm.AnsvarligSoekerValidationEntity);
             AccumulateValidationMessages(ansvarligSoekerValidationResult.ValidationMessages);
-
-            var sjekklisteKravEntities = _validationForm?.SjekklistekravValidationEntities;
-            var sjekklistKravIndex = GetArrayIndex(sjekklisteKravEntities);
-
-            for (int i = 0; i < sjekklistKravIndex; i++)
-            {
-                var sjekklistekravValidationEntity = Helpers.ObjectIsNullOrEmpty(sjekklisteKravEntities) ? null : sjekklisteKravEntities[i];
-
-                var sjekklistekravValidationResult = _sjekklistekravValidator.Validate(GetDataFormatVersion(typeof(ArbeidstilsynetsSamtykke2_45957_Validator)), sjekklistekravValidationEntity, _checklistService);
-                AccumulateValidationMessages(sjekklistekravValidationResult.ValidationMessages, i);
-            }
+            
+            var sjekklistekravValidationResult = _sjekklistekravValidator.Validate(GetDataFormatVersion(typeof(ArbeidstilsynetsSamtykke2_45957_Validator)), _validationForm?.SjekklistekravValidationEntities, _checklistService);
+            AccumulateValidationMessages(sjekklistekravValidationResult.ValidationMessages);
 
             var metadataValidationResult = _metadataValidator.Validate(_validationForm.MetadataValidationEntity);
             AccumulateValidationMessages(metadataValidationResult.ValidationMessages);
@@ -385,7 +377,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         }
 
-        protected override IEnumerable<string> GetFormTiltakstyper() {return _tiltakstypes; }
+        protected override IEnumerable<string> GetFormTiltakstyper() { return _tiltakstypes; }
 
         public List<ChecklistAnswer> GetChecklistAnswersFromForm(string dataFormatVersion)
         {
