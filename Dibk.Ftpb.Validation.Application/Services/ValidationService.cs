@@ -35,13 +35,20 @@ namespace Dibk.Ftpb.Validation.Application.Services
             _checklistService = checklistService;
         }
 
-        public ValidationResult GetValidationResult(ValidationInput validationInput)
+        public Validations GetValidationResult(ValidationInput validationInput)
         {
             var result = ValidateForm(validationInput);
             //Clearing out prefilled checklist answers before returning the validation result - not to be part of the response when validating
-            result.PrefillChecklist = null;
+            //result.PrefillChecklist = null;
 
-            return result;
+            var validations = new Validations();
+            validations.messages = result.ValidationMessages;
+            validations.rulesChecked = result.ValidationRules;
+            validations.Warnings = result.Warnings;
+            validations.Errors = result.Errors;
+            validations.Soknadtype = result.Soknadtype;
+
+            return validations;
         }
         public ValidationResult GetValidationResultWithChecklistAnswers(ValidationInput validationInput)
         {

@@ -30,7 +30,7 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<ValidationResult_45957> ValidateForm_45957([FromBody] ValidationInput input)
+        public ActionResult<Validations_45957> ValidateForm_45957([FromBody] ValidationInput input)
         {
             //// Authentication?
             if (!VerifyInput(input))
@@ -40,7 +40,7 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
 
             var messages = _validationService.GetValidationResult(input);
             ArbeidstilsynetsSamtykkeType formModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(input.FormData);
-            ValidationResult_45957 res = new ValidationResult_45957() { ValidationResult = messages, ArbeidstilsynetsSamtykkeType = formModel };
+            Validations_45957 res = new Validations_45957() { Validations = messages, ArbeidstilsynetsSamtykkeType = formModel };
 
 
             return Ok(res);

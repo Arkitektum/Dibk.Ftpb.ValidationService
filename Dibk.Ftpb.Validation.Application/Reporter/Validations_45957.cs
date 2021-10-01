@@ -4,9 +4,9 @@ using System.Text.Json.Serialization;
 
 namespace Dibk.Ftpb.Validation.Application.Reporter
 {
-    public class ValidationResult_45957
+    public class Validations_45957
     {
-        public ValidationResult ValidationResult { get; set; }
+        public Validations Validations { get; set; }
         public ArbeidstilsynetsSamtykkeType ArbeidstilsynetsSamtykkeType { get; set; }
     }
 

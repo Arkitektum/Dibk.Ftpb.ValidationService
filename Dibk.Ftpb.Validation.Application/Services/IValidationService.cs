@@ -8,7 +8,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
     public interface IValidationService
     {
         //ValidationResult Validate(string xmlString, List<string> attachments = null, List<string> subForms = null);
-        ValidationResult GetValidationResult(ValidationInput validationInput);
+        Validations GetValidationResult(ValidationInput validationInput);
         ValidationResult GetValidationResultWithChecklistAnswers(ValidationInput validationInput);
         List<string> ValidateXmlFile(IFormFile xmlFile);
         //IEnumerable<PrefillDemo> PrefillDemo();

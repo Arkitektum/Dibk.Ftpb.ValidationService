@@ -26,7 +26,7 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<ValidationResult> ValidateForm([FromBody] ValidationInput input)
+        public ActionResult<Validations> ValidateForm([FromBody] ValidationInput input)
         {
             //// Authentication?
             if (!VerifyInput(input))
@@ -35,6 +35,9 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
             }
 
             var messages = _validationService.GetValidationResult(input);
+
+
+
 
             return Ok(messages);
         }
