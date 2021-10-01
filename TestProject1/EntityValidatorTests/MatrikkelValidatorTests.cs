@@ -5,6 +5,7 @@ using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
+using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using Dibk.Ftpb.Validation.Application.Utils;
@@ -33,7 +34,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             _municipalityValidator = MockDataSource.MunicipalityValidatorResult(MunicipalityValidationEnum.Ok);
 
 
-            _eiendomValidationEntities = new Logic.Mappers.ArbeidstilsynetsSamtykkeV2.EiendomByggestedMapper().Map(_form.eiendomByggested, "ArbeidstilsynetsSamtykke");
+            _eiendomValidationEntities = new EiendomByggestedMapper().Map(_form.eiendomByggested, "ArbeidstilsynetsSamtykke");
 
             _formValidatorConfiguration = new FormValidatorConfiguration();
             _formValidatorConfiguration.ValidatorFormName = "ArbeidstilsynetsSamtykke2_45957_Validator";

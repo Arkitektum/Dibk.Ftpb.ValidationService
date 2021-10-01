@@ -1,10 +1,7 @@
-﻿using AutoMapper;
-using Dibk.Ftpb.Validation.Application.Enums;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
-using Dibk.Ftpb.Validation.Application.Models.FormEntities;
+﻿using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 
-namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykkeV2
+namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2
 {
     public class ArbeidstilsynetsSamtykke2_45957_Mapper
     {

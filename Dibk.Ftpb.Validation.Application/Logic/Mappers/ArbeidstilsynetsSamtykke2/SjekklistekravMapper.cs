@@ -1,8 +1,8 @@
-﻿using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 
-namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykkeV2
+namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2
 {
     public class SjekklistekravMapper
     {
