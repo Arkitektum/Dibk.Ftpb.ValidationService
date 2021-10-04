@@ -35,6 +35,10 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList
 
                     if (response.IsSuccessStatusCode)
                         jsonCodeList = await response.Content.ReadAsStringAsync();
+                    else
+                    {
+                        //TODO do something 
+                    }
                 }
             }
             catch (Exception e)

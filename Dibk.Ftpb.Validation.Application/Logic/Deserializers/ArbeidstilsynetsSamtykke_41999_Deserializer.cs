@@ -1,4 +1,5 @@
-﻿using Dibk.Ftpb.Validation.Application.Utils;
+﻿using Dibk.Ftpb.Validation.Application.Models.FormEntities;
+using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke;
 
 
@@ -9,9 +10,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Deserializers
         public ArbeidstilsynetsSamtykke_41999_Deserializer()
         {
         }
-        public ArbeidstilsynetsSamtykkeType Deserialize(string xmlData)
+        public ArbeidstilsynetsSamtykke_41999_Form Deserialize(string xmlData)
         {
-            return SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
+            return SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke_41999_Form>(xmlData); ;
         }
     }
 }

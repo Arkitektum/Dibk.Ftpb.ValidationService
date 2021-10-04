@@ -11,6 +11,7 @@ using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
+using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
@@ -20,7 +21,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 {
     public class AktoerValidatorTests
     {
-        private ArbeidstilsynetsSamtykkeType _form;
+        private ArbeidstilsynetsSamtykke2_45957_Form _form;
 
         private AktoerValidationEntity _aktoerValidationEntity;
 
@@ -34,9 +35,10 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             _postalCodeService = MockDataSource.ValidatePostnr(true, "Bø i telemark", "true");
             _codeListService = MockDataSource.IsCodeListValid(FtbKodeListeEnum.Partstype, false);
 
-            var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957_Test.xml");
-            _form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
-            _aktoerValidationEntity = new AktoerMapper().Map(_form.tiltakshaver);
+            var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_dfv41999.xml");
+            var nn = TestHelper.GetJsonForPostman(xmlData);
+
+            _form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke2_45957_Form>(xmlData);
 
             var tiltakshaverNodeList = new List<EntityValidatorNode>()
             {
@@ -60,7 +62,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         {
             //_aktoerValidationEntity.ModelData.Partstype.ModelData = null;
 
-            var tiltakshaverResult = _aktoerValidator.Validate(_aktoerValidationEntity);
+            var tiltakshaverResult = _aktoerValidator.Validate(_form.Tiltakshaver);
 
             tiltakshaverResult.Should().NotBeNull();
         }

@@ -11,6 +11,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
 
         ValidationResult Validate(BeskrivelseAvTiltakValidationEntity modeldata = null);
 
-        List<string> Tiltakstypes { get; }
+        string[] Tiltakstypes { get; }
     }
 }

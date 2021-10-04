@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Logic\Mappers\Common\" />
     <Folder Include="Models\DataModels\ArbeidstilsynetSignaturSamtykke\" />
   </ItemGroup>
 

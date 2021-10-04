@@ -9,17 +9,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
         {
             var arbeidstilsynetsSamtykke2Form45957 = new ArbeidstilsynetsSamtykke2_45957_Form();
             string parentPath = "";
-            arbeidstilsynetsSamtykke2Form45957.MetadataValidationEntity = new MetadataMapper().Map(dataModel.metadata);
-            arbeidstilsynetsSamtykke2Form45957.TiltakshaverValidationEntity = new AktoerMapper().Map(dataModel.tiltakshaver);
-            arbeidstilsynetsSamtykke2Form45957.AnsvarligSoekerValidationEntity = new AktoerMapper().Map(dataModel.ansvarligSoeker);
-            arbeidstilsynetsSamtykke2Form45957.EiendomValidationEntities = new EiendomByggestedMapper().Map(dataModel.eiendomByggested);
-            arbeidstilsynetsSamtykke2Form45957.ArbeidsplasserValidationEntity = new ArbeidsplasserMapper().Map(dataModel.arbeidsplasser);
-            arbeidstilsynetsSamtykke2Form45957.FakturamottakerValidationEntity = new FakturamottakerMapper().Map(dataModel.fakturamottaker);
-            arbeidstilsynetsSamtykke2Form45957.BeskrivelseAvTiltakValidationEntity = new BeskrivelseAvTiltakMapper().Map(dataModel.beskrivelseAvTiltak);
-            arbeidstilsynetsSamtykke2Form45957.ArbeidstilsynetsSaksnummerValidationEntity = new ArbeidstilsynetsSaksnummerMapper().Map(dataModel.arbeidstilsynetsSaksnummer);
-            arbeidstilsynetsSamtykke2Form45957.BetalingValidationEntity = new BetalingMapper().Map(dataModel.betaling);
-            arbeidstilsynetsSamtykke2Form45957.KommunensSaksnummerValidationEntity = new KommunensSaksnummerMapper().Map(dataModel.kommunensSaksnummer);
-            arbeidstilsynetsSamtykke2Form45957.SjekklistekravValidationEntities = new SjekklistekravMapper().Map(dataModel.krav);
+            arbeidstilsynetsSamtykke2Form45957.Metadata = new MetadataMapper().Map(dataModel.metadata);
+            arbeidstilsynetsSamtykke2Form45957.Tiltakshaver = new AktoerMapper().Map(dataModel.tiltakshaver);
+            arbeidstilsynetsSamtykke2Form45957.AnsvarligSoeker = new AktoerMapper().Map(dataModel.ansvarligSoeker);
+            arbeidstilsynetsSamtykke2Form45957.EiendomByggested = new EiendomByggestedMapper().Map(dataModel.eiendomByggested);
+            arbeidstilsynetsSamtykke2Form45957.Arbeidsplasser = new ArbeidsplasserMapper().Map(dataModel.arbeidsplasser);
+            arbeidstilsynetsSamtykke2Form45957.Fakturamottaker = new FakturamottakerMapper().Map(dataModel.fakturamottaker);
+            arbeidstilsynetsSamtykke2Form45957.BeskrivelseAvTiltak = new BeskrivelseAvTiltakMapper().Map(dataModel.beskrivelseAvTiltak);
+            arbeidstilsynetsSamtykke2Form45957.ArbeidstilsynetsSaksnummer = new ArbeidstilsynetsSaksnummerMapper().Map(dataModel.arbeidstilsynetsSaksnummer);
+            arbeidstilsynetsSamtykke2Form45957.Betaling = new BetalingMapper().Map(dataModel.betaling);
+            arbeidstilsynetsSamtykke2Form45957.KommunensSaksnummer = new KommunensSaksnummerMapper().Map(dataModel.kommunensSaksnummer);
+            arbeidstilsynetsSamtykke2Form45957.Sjekklistekrav = new SjekklistekravMapper().Map(dataModel.krav);
 
             return arbeidstilsynetsSamtykke2Form45957;
         }

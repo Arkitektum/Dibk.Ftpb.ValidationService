@@ -25,7 +25,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _tiltakstypeValidator = tiltakstypeValidator;
             _Tiltakstypes = new List<string>();
         }
-        public List<string> Tiltakstypes { get => _Tiltakstypes; }
+        public string[] Tiltakstypes { get => _Tiltakstypes?.ToArray(); }
 
         protected override void InitializeValidationRules()
         {
@@ -41,7 +41,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             ValidateEntityFields(beskrivelseAvTiltakValidationEntity);
             if (!Helpers.ObjectIsNullOrEmpty(beskrivelseAvTiltakValidationEntity))
             {
-                var tiltakstypes = beskrivelseAvTiltakValidationEntity?.Tiltakstype?.ToArray();
+                var tiltakstypes = beskrivelseAvTiltakValidationEntity?.Tiltakstype;
                 var index = GetArrayIndex(tiltakstypes);
 
                 for (int i = 0; i < index; i++)

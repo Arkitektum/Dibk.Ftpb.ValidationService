@@ -10,12 +10,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykk
         {
             var arbeidstilsynetsSamtykkeForm41999 = new ArbeidstilsynetsSamtykke_41999_Form();
             string XPathRoot = "";
-            arbeidstilsynetsSamtykkeForm41999.TiltakshaverValidationEntity = new AktoerMapper().Map(dataModel.tiltakshaver);
+            arbeidstilsynetsSamtykkeForm41999.Tiltakshaver = new AktoerMapper().Map(dataModel.tiltakshaver);
             arbeidstilsynetsSamtykkeForm41999.AnsvarligSoekerValidationEntity = new AktoerMapper().Map(dataModel.ansvarligSoeker);
-            arbeidstilsynetsSamtykkeForm41999.EiendomValidationEntities = new EiendomByggestedMapper().Map(dataModel.eiendomByggested);
+            arbeidstilsynetsSamtykkeForm41999.EiendomByggested = new EiendomByggestedMapper().Map(dataModel.eiendomByggested);
             arbeidstilsynetsSamtykkeForm41999.ArbeidsplasserValidationEntity = new ArbeidsplasserMapper().Map(dataModel.arbeidsplasser);
             arbeidstilsynetsSamtykkeForm41999.FakturamottakerValidationEntity = new FakturamottakerMapper().Map(dataModel.fakturamottaker);
-
 
             return new ArbeidstilsynetsSamtykke_41999_ValidationEntity(arbeidstilsynetsSamtykkeForm41999, XPathRoot, null);
         }

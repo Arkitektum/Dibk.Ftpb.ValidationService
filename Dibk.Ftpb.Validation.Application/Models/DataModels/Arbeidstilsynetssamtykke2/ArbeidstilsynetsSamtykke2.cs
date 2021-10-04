@@ -20,8 +20,10 @@ namespace no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2 {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
-    [System.Xml.Serialization.XmlRootAttribute("ArbeidstilsynetsSamtykke", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
+    //[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0")]
+    //[System.Xml.Serialization.XmlRootAttribute("ArbeidstilsynetsSamtykke", Namespace="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0", IsNullable=false)]
+    [XmlRoot("ArbeidstilsynetsSamtykke"), XmlType("ArbeidstilsynetsSamtykke")]
+
     public partial class ArbeidstilsynetsSamtykkeType {
         
         private EiendomType[] eiendomByggestedField;

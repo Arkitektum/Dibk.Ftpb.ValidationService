@@ -25,7 +25,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private readonly IMunicipalityValidator _municipalityValidator;
         private readonly ICodeListService _codeListService;
         private readonly IPostalCodeService _postalCodeService;
-        private ArbeidstilsynetsSamtykke_41999_ValidationEntity _validationForm { get; set; }
+        private ArbeidstilsynetsSamtykke_41999_Form _validationForm { get; set; }
         
         private IEiendomsAdresseValidator _eiendomsAdresseValidator;
         private IMatrikkelValidator _matrikkelValidator;
@@ -58,8 +58,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         public override ValidationResult StartValidation(string dataFormatVersion, ValidationInput validationInput)
         {
-            ArbeidstilsynetsSamtykkeType formModel = new ArbeidstilsynetsSamtykke_41999_Deserializer().Deserialize(validationInput.FormData);
-            _validationForm = new ArbeidstilsynetsSamtykke_41999_Mapper().GetFormEntity(formModel);
+            _validationForm = new ArbeidstilsynetsSamtykke_41999_Deserializer().Deserialize(validationInput.FormData);
 
             base.StartValidation(dataFormatVersion, validationInput);
             //ValidationReport.ValidationResult = ValidationResult;
@@ -183,7 +182,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         protected override void Validate(ValidationInput validationInput)
         {
 
-            var eiendoms = _validationForm?.ModelData?.EiendomValidationEntities;
+            var eiendoms = _validationForm?.EiendomByggested;
             var index = GetArrayIndex(eiendoms);
 
             for (int i = 0; i < index; i++)
@@ -193,23 +192,24 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 AccumulateValidationMessages(eiendomValidationResult.ValidationMessages, i);
             }
 
-            var tiltakshaverValidationResult = _tiltakshaverValidator.Validate(_validationForm.ModelData.TiltakshaverValidationEntity);
+            var tiltakshaverValidationResult = _tiltakshaverValidator.Validate(_validationForm.Tiltakshaver);
             AccumulateValidationMessages(tiltakshaverValidationResult.ValidationMessages);
 
-            var ansvarligSoekerValidationResult = _ansvarligSoekerValidator.Validate(_validationForm.ModelData.AnsvarligSoekerValidationEntity);
+            var ansvarligSoekerValidationResult = _ansvarligSoekerValidator.Validate(_validationForm.AnsvarligSoekerValidationEntity);
             AccumulateValidationMessages(ansvarligSoekerValidationResult.ValidationMessages);
 
             var attachments = Helpers.ObjectIsNullOrEmpty(validationInput.Attachments) ? null : validationInput.Attachments.Select(a => a.AttachmentTypeName).ToArray();
-            var arbeidsplasserValidationResult = _arbeidsplasserValidator.Validate(_validationForm.ModelData.ArbeidsplasserValidationEntity, attachments);
+            var arbeidsplasserValidationResult = _arbeidsplasserValidator.Validate(_validationForm.ArbeidsplasserValidationEntity, attachments);
             AccumulateValidationMessages(arbeidsplasserValidationResult.ValidationMessages);
 
-            var fakturamottakerValidationResult = _fakturamottakerValidator.Validate(_validationForm.ModelData.FakturamottakerValidationEntity);
+            var fakturamottakerValidationResult = _fakturamottakerValidator.Validate(_validationForm.FakturamottakerValidationEntity);
             AccumulateValidationMessages(fakturamottakerValidationResult.ValidationMessages);
         }
 
         protected override IEnumerable<string> GetFormTiltakstyper()
         {
-            throw new System.NotImplementedException();
+            //Read comment in line 103
+            return new List<string>();
         }
     }
 }
