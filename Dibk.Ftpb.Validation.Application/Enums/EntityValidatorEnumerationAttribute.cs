@@ -30,4 +30,10 @@ namespace Dibk.Ftpb.Validation.Application.Enums
     {
         public string ValidationRuleTypeId { get; set; }
     }
+
+    [AttributeUsage(AttributeTargets.Field)]
+    public class CodelistEnumerationAttribute : Attribute
+    {
+        public string CodelistUrl { get; set; }
+    }
 }

@@ -125,6 +125,23 @@ namespace Dibk.Ftpb.Validation.Application.Utils
             return validationRuleNumber;
 
         }
+
+        public static string GetCodelistUrl(Enum value)
+        {
+            FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
+            var codelistUrl = string.Empty;
+
+            if (fieldInfo?.GetCustomAttributes(typeof(CodelistEnumerationAttribute), false) is CodelistEnumerationAttribute[] enumerationAttributes && enumerationAttributes.Any())
+            {
+                codelistUrl = enumerationAttributes.First().CodelistUrl;
+            }
+            return codelistUrl;
+
+        }
+
+
+
+
         public static string ReplaceCurlyBracketInXPath(int index, string xPath)
         {
             string newXPath = null;

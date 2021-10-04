@@ -8,6 +8,6 @@
         tiltaksformal,
         Bygningstype,
         tiltaktype,
-        Sjekklistepunkttype
+        [CodelistEnumerationAttribute(CodelistUrl = "arbeidstilsynets-krav")]  Arbeidstilsynets_krav
     }
 }
