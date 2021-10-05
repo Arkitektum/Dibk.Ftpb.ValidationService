@@ -39,8 +39,7 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
             }
 
             var messages = _validationService.GetValidationResult(input);
-            ArbeidstilsynetsSamtykkeType formModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(input.FormData);
-            Validations_45957 res = new Validations_45957() { Validations = messages, ArbeidstilsynetsSamtykkeType = formModel };
+            Validations_45957 res = new Validations_45957() { Validations = messages, ArbeidstilsynetsSamtykkeXml = input.FormData };
 
 
             return Ok(res);
