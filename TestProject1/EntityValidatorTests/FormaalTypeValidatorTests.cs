@@ -11,7 +11,6 @@ using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using Dibk.Ftpb.Validation.Application.Utils;
 using FluentAssertions;
-using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 using Xunit;
 
 namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
@@ -58,19 +57,22 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         [Fact]
         public void Annet_Test()
         {
-            _beskrivelseAvTiltak.Tiltaksformaal.FirstOrDefault().Kodeverdi =null;
-            var xpath = " _beskrivelseAvTiltak.ModelData.Tiltaksformaal.FirstOrDefault().DataModelXpath";
-            _tiltaksformaalValidator = MockDataSource.KodelisteValidator($"{xpath}/{FieldNameEnum.kodeverdi}");
+            var xpath = @"/beskrivelseAvTiltak/bruk/tiltaksformaal{0}/kodeverdi";
+            var entityXPath = "/beskrivelseAvTiltak/bruk/tiltaksformaal{0}";
+
+            _tiltaksformaalValidator = MockDataSource.KodelisteValidator(xpath,ValidationRuleEnum.gyldig, entityXPath);
+
+            _beskrivelseAvTiltak.BeskrivPlanlagtFormaal = null;
             _formaaltypeValidator = new FormaaltypeValidator(_tree, _anleggstypeValidator, _naeringsgruppeValidator, _bygningstypeValidator, _tiltaksformaalValidator);
 
             var result = _formaaltypeValidator.Validate(_beskrivelseAvTiltak);
-            result.ValidationMessages.Count.Should().Be(1);
+            result.ValidationMessages.Count.Should().Be(3);
         }
         [Fact]
         public void Annet_Test_Error()
         {
 
-            _beskrivelseAvTiltak.Tiltaksformaal.LastOrDefault().Kodeverdi = "Annet";
+            _beskrivelseAvTiltak.Tiltaksformaal[1].Kodeverdi = "Annet";
             _beskrivelseAvTiltak.BeskrivPlanlagtFormaal = null;
             var result = _formaaltypeValidator.Validate(_beskrivelseAvTiltak);
             result.ValidationMessages?.FirstOrDefault()?.Rule.Should().Be(ValidationRuleEnum.utfylt.ToString());

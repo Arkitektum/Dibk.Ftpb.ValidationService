@@ -153,6 +153,10 @@ namespace Dibk.Ftpb.Validation.Application.Utils
                 {
                     newXPath = xPath.Remove(lastIndex, searchText.Length).Insert(lastIndex, $"[{index}]");
                 }
+                else
+                {
+                    newXPath = xPath;
+                }
             }
             return newXPath;
         }

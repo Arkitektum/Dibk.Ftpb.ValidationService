@@ -62,17 +62,22 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
                 if (!Helpers.ObjectIsNullOrEmpty(formaaltypeValEntity?.Tiltaksformaal))
                 {
-                    foreach (var tiltaksformaal in formaaltypeValEntity.Tiltaksformaal)
-                    {
-                        var tiltaksformaalValidationResult = _tiltaksformaalValidator.Validate(tiltaksformaal);
-                        UpdateValidationResultWithSubValidations(tiltaksformaalValidationResult);
 
-                        if (!IsAnyValidationMessagesWithXpath($"{base._entityXPath}/{FieldNameEnum.kodeverdi}"))
+                    var index = GetArrayIndex(formaaltypeValEntity?.Tiltaksformaal);
+                    for (int i = 0; i < index; i++)
+                    {
+                        var tiltaksformaal = formaaltypeValEntity?.Tiltaksformaal[i];
+
+                        var tiltaksformaalValidationResult = _tiltaksformaalValidator.Validate(tiltaksformaal);
+                        UpdateValidationResultWithSubValidations(tiltaksformaalValidationResult,i);
+
+                        var tiltaksformaalXpath = Helpers.ReplaceCurlyBracketInXPath(i, $"{_tiltaksformaalValidator._entityXPath}/{FieldNameEnum.kodeverdi}");
+                        if (!IsAnyValidationMessagesWithXpath(tiltaksformaalXpath))
                         {
-                            if (tiltaksformaal.Kodeverdi.Equals("Annet"))
+                            if (tiltaksformaal.Kodeverdi is "Annet")
                             {
                                 if (string.IsNullOrEmpty(formaaltypeValEntity.BeskrivPlanlagtFormaal))
-                                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.beskrivPlanlagtFormaal, null, $"{base._entityXPath}/{FieldNameEnum.kodeverdi}");
+                                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.beskrivPlanlagtFormaal, null, tiltaksformaalXpath);
                             }
                         }
                     }

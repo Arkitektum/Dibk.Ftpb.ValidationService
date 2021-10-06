@@ -75,10 +75,12 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
         }
 
         //Validator
-        public static IKodelisteValidator KodelisteValidator(string xpath = null, ValidationRuleEnum? validationRule = null)
+        public static IKodelisteValidator KodelisteValidator(string xpath = null, ValidationRuleEnum? validationRule = null, string entityXPath = null)
         {
             var kodelisteValidator = new Mock<IKodelisteValidator>();
-            kodelisteValidator.Setup((a => a.Validate(It.IsAny<KodelisteValidationEntity>()))).Returns(ValidationResult(xpath, validationRule));
+            kodelisteValidator.Setup((a =>a.Validate(It.IsAny<KodelisteValidationEntity>())))
+                .Returns(ValidationResult(xpath, validationRule));
+            kodelisteValidator.SetupGet(e => e._entityXPath).Returns(entityXPath);
             return kodelisteValidator.Object;
         }
 
@@ -112,7 +114,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
                 ValidationMessages = new List<ValidationMessage>()
             };
 
-            if (string.IsNullOrEmpty(xpath) || validationRule.HasValue)
+            if (!string.IsNullOrEmpty(xpath) || validationRule.HasValue)
             {
                 validationResult.ValidationMessages.Add(new ValidationMessage()
                 {

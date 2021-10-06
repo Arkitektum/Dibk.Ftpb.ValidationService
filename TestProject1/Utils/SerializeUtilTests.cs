@@ -18,16 +18,12 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
         {
             var xmlData_45957 = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957.xml");
             var xmlData_41999 = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_dfv41999.xml");
-            var xmlData_10000 = File.ReadAllText(@"Data\Ansako\ErklaeringAnsvarsrett_1.xml");
 
             var xmlData_41999_Common = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke_41999_Common>(xmlData_41999);
             var xmlData_45957_Common = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke_45957_Common>(xmlData_45957);
-            var xmlData_10000_Common = SerializeUtil.DeserializeFromString<AnsvarsrettAnsako_ANSAKO_10000_Common>(xmlData_10000);
 
-
-            xmlData_10000_Common.Should().NotBeNull();
-
-
+            xmlData_41999_Common.Should().NotBeNull();
+            xmlData_45957_Common.Should().NotBeNull();
         }
     }
 }

@@ -6,7 +6,6 @@ using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using Dibk.Ftpb.Validation.Application.Utils;
-using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 using Xunit;
 
 namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests

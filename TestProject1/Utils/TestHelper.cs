@@ -12,6 +12,9 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
     {
         public static string GetXmlWithoutSpaces(string formAsXml)
         {
+            if (string.IsNullOrEmpty(formAsXml))
+                return null;
+
             Regex Parser = new Regex(@">\s*<");
             var xml = Parser.Replace(formAsXml, "><");
             xml.Trim();

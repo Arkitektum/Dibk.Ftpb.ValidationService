@@ -64,7 +64,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         [EntityValidatorEnumerationAttribute(XmlNode = "sjekklistepunkt", ValidatorId = "18")]
         SjekklistepunktValidator,
 
-        [EntityValidatorEnumerationAttribute(XmlNode = "tiltaksformaal", ValidatorId = "19")]
+        [EntityValidatorEnumerationAttribute(XmlNode = "tiltaksformaal{0}", ValidatorId = "19")]
         TiltaksformaalValidator,
 
         [EntityValidatorEnumerationAttribute(XmlNode = "tiltakshaver", ValidatorId = "20")]

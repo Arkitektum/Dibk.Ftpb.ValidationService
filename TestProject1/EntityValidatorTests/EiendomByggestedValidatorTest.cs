@@ -72,21 +72,14 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         [Fact]
         public void EiendomTest()
         {
-            //_eiendomValidationEntities = new EiendomValidationEntity[] { };
-
-           var index1 = !(_eiendomValidationEntities ?? Array.Empty<object>()).Any() ? 1:_eiendomValidationEntities.Count();
-
-            _eiendomValidationEntities = null;
-           var index = !(_eiendomValidationEntities ?? Array.Empty<object>()).Any() ? 1 : _eiendomValidationEntities.Count();
-
-            index = (_eiendomValidationEntities ?? Array.Empty<object>()).Count();
+         
             //_eiendomValidationEntities.FirstOrDefault().ModelData.Matrikkel.ModelData.Kommunenummer = "";
             //_eiendomValidationEntities.FirstOrDefault().ModelData.Matrikkel.ModelData.Gaardsnummer = "";
             //_eiendomValidationEntities.FirstOrDefault().ModelData.Matrikkel.ModelData.Bruksnummer = "";
             //_eiendomValidationEntities.FirstOrDefault().ModelData.Matrikkel.ModelData.Festenummer = "";
             //_eiendomValidationEntities.FirstOrDefault().ModelData.Matrikkel.ModelData.Seksjonsnummer = "";
 
-            _eiendomValidationEntities.FirstOrDefault().Bygningsnummer = "nokoRara";
+            _eiendomValidationEntities[0].Bygningsnummer = "nokoRara";
 
 
             var result = _eiendomByggestedValidator.Validate(_eiendomValidationEntities.FirstOrDefault());

@@ -181,9 +181,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
         }
 
         //**
-        public bool IsAnyValidationMessagesWithXpath(string xpath)
+        public bool IsAnyValidationMessagesWithXpath(string xpath, int? index = null)
         {
-            var ruleFounded = _validationResult.ValidationMessages.Any(r => r.XpathField.Equals(xpath, StringComparison.OrdinalIgnoreCase));
+            var newXpath = index.HasValue ? Helpers.ReplaceCurlyBracketInXPath(index.Value, xpath) : xpath;
+
+            var ruleFounded = _validationResult.ValidationMessages.Any(r => !string.IsNullOrEmpty(r.XpathField) && r.XpathField.Equals(newXpath, StringComparison.OrdinalIgnoreCase));
             return ruleFounded;
         }
         public bool RuleIsValid(ValidationRuleEnum ruleEnum, string xPath = null)
@@ -199,7 +201,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 
         public static int GetArrayIndex(object[] objectArray)
         {
-            var index =!(objectArray ?? Array.Empty<object>()).Any() ? 1 : objectArray.Count();
+            var index = !(objectArray ?? Array.Empty<object>()).Any() ? 1 : objectArray.Count();
             return index;
         }
 
