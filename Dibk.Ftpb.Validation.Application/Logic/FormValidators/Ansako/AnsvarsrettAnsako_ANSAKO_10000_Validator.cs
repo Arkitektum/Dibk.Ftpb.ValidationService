@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dibk.Ftpb.Validation.Application.Logic.Deserializers.Ansako;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers.Ansako.AnsvarsrettAnsako;
 using Dibk.Ftpb.Validation.Application.Models.FormEntities.Ansako;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Services;
-using no.kxml.skjema.dibk.ansvarsrettAnsako;
+using Dibk.Ftpb.Validation.Application.Utils;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
 {
@@ -30,8 +25,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
 
         public override ValidationResult StartValidation(string dataFormatVersion, ValidationInput validationInput)
         {
-            ErklaeringAnsvarsrettType formModel = new AnsvarsrettAnsako_ANSAKO_10000__Deserializer().Deserialize(validationInput.FormData);
-            _validationForm = new AnsvarsrettAnsako_ANSAKO_10000_Mapper().GetFormEntity(formModel);
+            _validationForm = SerializeUtil.DeserializeFromString<AnsvarsrettAnsako_ANSAKO_10000_Form>(validationInput.FormData);
             base.StartValidation(dataFormatVersion, validationInput);
 
             return ValidationResult;
