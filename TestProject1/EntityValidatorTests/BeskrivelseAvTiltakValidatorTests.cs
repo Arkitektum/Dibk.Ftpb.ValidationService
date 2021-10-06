@@ -6,7 +6,7 @@ using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers.Common;
+using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using Dibk.Ftpb.Validation.Application.Utils;
 using FluentAssertions;
@@ -20,7 +20,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         private FormValidatorConfiguration _formValidatorConfiguration;
         private ICodeListService _codeListService;
 
-        private ArbeidstilsynetsSamtykke_45957_Common _form;
+        private ArbeidstilsynetsSamtykke2_45957_Form _form;
         private BeskrivelseAvTiltakValidator _beskrivelseAvTiltakValidator;
 
         private IList<EntityValidatorNode> _tree;
@@ -30,7 +30,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         public BeskrivelseAvTiltakValidatorTests()
         {
             var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957.xml");
-            _form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke_45957_Common>(xmlData);
+            _form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke2_45957_Form>(xmlData);
 
             //Tree
             var flatList = new List<EntityValidatorNode>()

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers.Common;
+﻿using System.IO;
+using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using Dibk.Ftpb.Validation.Application.Utils;
 using FluentAssertions;
 using Xunit;
@@ -19,8 +14,8 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
             var xmlData_45957 = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957.xml");
             var xmlData_41999 = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_dfv41999.xml");
 
-            var xmlData_41999_Common = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke_41999_Common>(xmlData_41999);
-            var xmlData_45957_Common = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke_45957_Common>(xmlData_45957);
+            var xmlData_41999_Common = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke_41999_Form>(xmlData_41999);
+            var xmlData_45957_Common = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke2_45957_Form>(xmlData_45957);
 
             xmlData_41999_Common.Should().NotBeNull();
             xmlData_45957_Common.Should().NotBeNull();
