@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ErklaeringAnsvarsrett xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" dataFormatProvider="ANSAKO" dataFormatId="ErklaeringAnsvarsrett" dataFormatVersion="1" xmlns="http://skjema.kxml.no/dibk/ansakoAnsvarsrett/v1.0">
+  <fraSluttbrukersystem>Fellestjenester bygg testmotor</fraSluttbrukersystem>
+  <hovedinnsendingsnummer>44556677</hovedinnsendingsnummer>
+  <eiendomByggested>
+    <eiendom>
+      <eiendomsidentifikasjon>
+        <kommunenummer>9999</kommunenummer>
+        <gaardsnummer>462</gaardsnummer>
+        <bruksnummer>65</bruksnummer>
+        <festenummer>0</festenummer>
+        <seksjonsnummer>0</seksjonsnummer>
+      </eiendomsidentifikasjon>
+      <adresse>
+        <adresselinje1>Bøgata 1</adresselinje1>
+        <adresselinje2 xsi:nil="true" />
+        <adresselinje3 xsi:nil="true" />
+        <postnr>3800</postnr>
+        <poststed>Bø i Telemark</poststed>
+        <landkode>NO</landkode>
+        <gatenavn xsi:nil="true" />
+        <husnr xsi:nil="true" />
+        <bokstav xsi:nil="true" />
+      </adresse>
+      <bygningsnummer>80466985</bygningsnummer>
+      <bolignummer>H0102</bolignummer>
+    </eiendom>
+  </eiendomByggested>
+  <kommunensSaksnummer>
+    <saksaar>2016</saksaar>
+    <sakssekvensnummer>231</sakssekvensnummer>
+  </kommunensSaksnummer>
+  <ansvarsrett>
+    <foretak>
+      <partstype>
+        <kodeverdi>Foretak</kodeverdi>
+        <kodebeskrivelse>Foretak</kodebeskrivelse>
+      </partstype>
+      <foedselsnummer xsi:nil="true" />
+      <kontaktperson>
+        <navn>Jens Jensen</navn>
+        <telefonnummer>12345678</telefonnummer>
+        <mobilnummer>98765432</mobilnummer>
+        <epost>tor@arkitektum.no</epost>
+      </kontaktperson>
+      <organisasjonsnummer>974760223</organisasjonsnummer>
+      <navn>Nordmann Bygg og Anlegg AS</navn>
+      <adresse>
+        <adresselinje1>Bøgata 16</adresselinje1>
+        <adresselinje2 xsi:nil="true" />
+        <adresselinje3 xsi:nil="true" />
+        <postnr>3802</postnr>
+        <poststed>Bø i Telemark</poststed>
+        <landkode>NO</landkode>
+      </adresse>
+      <telefonnummer>12345678</telefonnummer>
+      <mobilnummer>98765432</mobilnummer>
+      <epost>tor@arkitektum.no</epost>
+      <signaturdato>2016-12-05</signaturdato>
+      <harSentralGodkjenning>true</harSentralGodkjenning>
+    </foretak>
+    <ansvarsomraader>
+      <ansvarsomraade>
+        <beskrivelseAvAnsvarsomraade>Overordnet ansvar for kontroll</beskrivelseAvAnsvarsomraade>
+        <dekkesOmraadeAvSentralGodkjenning>false</dekkesOmraadeAvSentralGodkjenning>
+        <funksjon>
+          <kodeverdi>KONTROLL</kodeverdi>
+          <kodebeskrivelse>Ansvarlig kontroll</kodebeskrivelse>
+        </funksjon>
+        <samsvarKontrollVedFerdigattest>true</samsvarKontrollVedFerdigattest>
+        <samsvarKontrollVedIgangsettingstillatelse>true</samsvarKontrollVedIgangsettingstillatelse>
+        <samsvarKontrollVedMidlertidigBrukstillatelse>true</samsvarKontrollVedMidlertidigBrukstillatelse>
+        <samsvarKontrollVedRammetillatelse>false</samsvarKontrollVedRammetillatelse>
+        <tiltaksklasse>
+          <kodeverdi>2</kodeverdi>
+          <kodebeskrivelse>Tiltaksklasse 2</kodebeskrivelse>
+        </tiltaksklasse>
+        <soeknadssystemetsReferanse>20afb7d0-4ac5-4622-9e85-6978bd002cc1</soeknadssystemetsReferanse>
+      </ansvarsomraade>
+      <ansvarsomraade>
+        <beskrivelseAvAnsvarsomraade>Overordnet ansvar for utførelse (bygning, anlegg eller konstruksjon, tekniske installasjoner)</beskrivelseAvAnsvarsomraade>
+        <dekkesOmraadeAvSentralGodkjenning>false</dekkesOmraadeAvSentralGodkjenning>
+        <funksjon>
+          <kodeverdi>UTF</kodeverdi>
+          <kodebeskrivelse>Ansvarlig utførelse</kodebeskrivelse>
+        </funksjon>
+        <samsvarKontrollVedFerdigattest>true</samsvarKontrollVedFerdigattest>
+        <samsvarKontrollVedIgangsettingstillatelse>true</samsvarKontrollVedIgangsettingstillatelse>
+        <samsvarKontrollVedMidlertidigBrukstillatelse>false</samsvarKontrollVedMidlertidigBrukstillatelse>
+        <samsvarKontrollVedRammetillatelse>false</samsvarKontrollVedRammetillatelse>
+        <tiltaksklasse>
+          <kodeverdi>2</kodeverdi>
+          <kodebeskrivelse>Tiltaksklasse 2</kodebeskrivelse>
+        </tiltaksklasse>
+        <soeknadssystemetsReferanse>c39bee8c-eab4-4fd7-8da0-dfbca23e56a1</soeknadssystemetsReferanse>
+      </ansvarsomraade>
+      <ansvarsomraade>
+        <beskrivelseAvAnsvarsomraade>Andre</beskrivelseAvAnsvarsomraade>
+        <dekkesOmraadeAvSentralGodkjenning>false</dekkesOmraadeAvSentralGodkjenning>
+        <funksjon>
+          <kodeverdi>SØK</kodeverdi>
+          <kodebeskrivelse>Ansvarlig søker</kodebeskrivelse>
+        </funksjon>
+        <samsvarKontrollVedFerdigattest>false</samsvarKontrollVedFerdigattest>
+        <samsvarKontrollVedIgangsettingstillatelse>false</samsvarKontrollVedIgangsettingstillatelse>
+        <samsvarKontrollVedMidlertidigBrukstillatelse>false</samsvarKontrollVedMidlertidigBrukstillatelse>
+        <samsvarKontrollVedRammetillatelse>false</samsvarKontrollVedRammetillatelse>
+        <tiltaksklasse>
+          <kodeverdi>2</kodeverdi>
+          <kodebeskrivelse>Tiltaksklasse 2</kodebeskrivelse>
+        </tiltaksklasse>
+        <soeknadssystemetsReferanse>26257cf3-41ab-4337-8ca9-9fe925ed4c56</soeknadssystemetsReferanse>
+      </ansvarsomraade>
+      <ansvarsomraade>
+        <beskrivelseAvAnsvarsomraade>Overordnet ansvar for prosjektering (bygning, anlegg eller konstruksjon, tekniske installasjoner)</beskrivelseAvAnsvarsomraade>
+        <dekkesOmraadeAvSentralGodkjenning>false</dekkesOmraadeAvSentralGodkjenning>
+        <funksjon>
+          <kodeverdi>PRO</kodeverdi>
+          <kodebeskrivelse>Ansvarlig prosjektering</kodebeskrivelse>
+        </funksjon>
+        <samsvarKontrollVedFerdigattest>true</samsvarKontrollVedFerdigattest>
+        <samsvarKontrollVedIgangsettingstillatelse>true</samsvarKontrollVedIgangsettingstillatelse>
+        <samsvarKontrollVedMidlertidigBrukstillatelse>true</samsvarKontrollVedMidlertidigBrukstillatelse>
+        <samsvarKontrollVedRammetillatelse>true</samsvarKontrollVedRammetillatelse>
+        <tiltaksklasse>
+          <kodeverdi>2</kodeverdi>
+          <kodebeskrivelse>Tiltaksklasse 2</kodebeskrivelse>
+        </tiltaksklasse>
+        <soeknadssystemetsReferanse>6efad928-359d-40ee-b21c-2177ccb2f4ce</soeknadssystemetsReferanse>
+      </ansvarsomraade>
+      <ansvarsomraade>
+        <beskrivelseAvAnsvarsomraade>Overordnet ansvar for prosjektering (bygning, anlegg eller konstruksjon, tekniske installasjoner)</beskrivelseAvAnsvarsomraade>
+        <dekkesOmraadeAvSentralGodkjenning>true</dekkesOmraadeAvSentralGodkjenning>
+        <funksjon>
+          <kodeverdi>PRO</kodeverdi>
+          <kodebeskrivelse>Ansvarlig prosjektering</kodebeskrivelse>
+        </funksjon>
+        <samsvarKontrollVedFerdigattest>true</samsvarKontrollVedFerdigattest>
+        <samsvarKontrollVedIgangsettingstillatelse>true</samsvarKontrollVedIgangsettingstillatelse>
+        <samsvarKontrollVedMidlertidigBrukstillatelse>true</samsvarKontrollVedMidlertidigBrukstillatelse>
+        <samsvarKontrollVedRammetillatelse>true</samsvarKontrollVedRammetillatelse>
+        <tiltaksklasse>
+          <kodeverdi>2</kodeverdi>
+          <kodebeskrivelse>Tiltaksklasse 2</kodebeskrivelse>
+        </tiltaksklasse>
+        <soeknadssystemetsReferanse>83922f95-4f2a-40e7-bbcd-bac5c41a5758</soeknadssystemetsReferanse>
+      </ansvarsomraade>
+    </ansvarsomraader>
+    <erklaeringAnsvarligProsjekterende>true</erklaeringAnsvarligProsjekterende>
+    <erklaeringAnsvarligUtfoerende>true</erklaeringAnsvarligUtfoerende>
+    <erklaeringAnsvarligKontrollerende>true</erklaeringAnsvarligKontrollerende>
+  </ansvarsrett>
+  <ansvarligSoeker>
+    <partstype>
+      <kodeverdi>Foretak</kodeverdi>
+      <kodebeskrivelse>Foretak</kodebeskrivelse>
+    </partstype>
+    <foedselsnummer xsi:nil="true" />
+    <kontaktperson>
+      <navn>Siv. Ing. Borge</navn>
+      <telefonnummer>12345678</telefonnummer>
+      <mobilnummer>98765432</mobilnummer>
+      <epost>tor@arkitektum.no</epost>
+    </kontaktperson>
+    <organisasjonsnummer>910297937</organisasjonsnummer>
+    <navn>FANA OG HAFSLO REVISJON</navn>
+    <adresse>
+      <adresselinje1>Bøgata 16</adresselinje1>
+      <adresselinje2 xsi:nil="true" />
+      <adresselinje3 xsi:nil="true" />
+      <postnr>3802</postnr>
+      <poststed>Bø i Telemark</poststed>
+      <landkode>NO</landkode>
+    </adresse>
+    <telefonnummer>11223344</telefonnummer>
+    <mobilnummer>99887766</mobilnummer>
+    <epost>tor@arkitektum.no</epost>
+  </ansvarligSoeker>
+  <signatur>
+    <signaturdato>2016-09-08T00:00:00</signaturdato>
+    <signertAv />
+    <signertPaaVegneAv />
+    <signeringssteg />
+  </signatur>
+  <prosjektnavn xsi:nil="true" />
+</ErklaeringAnsvarsrett>
