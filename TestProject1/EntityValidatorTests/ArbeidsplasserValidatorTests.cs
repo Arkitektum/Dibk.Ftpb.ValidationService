@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
+using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
 using Xunit;
@@ -15,7 +15,6 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
     {
         private ArbeidsplasserValidationEntity _arbeidsplasser;
         private List<string> _attachemntList;
-        private ArbeidstilsynetsSamtykkeType _form;
         private ArbeidsplasserValidatorV2 _arbeidsplasserValidator;
 
 
@@ -23,8 +22,8 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         {
 
             var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957.xml");
-            _form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
-            _arbeidsplasser = new ArbeidsplasserMapper().Map(_form.arbeidsplasser);
+            var form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke2_45957_Form>(xmlData);
+            _arbeidsplasser =form.Arbeidsplasser;
             var arbeidsplasserValidatorNodeList = new List<EntityValidatorNode>()
             {
                 new() {NodeId = 17, EnumId = EntityValidatorEnum.ArbeidsplasserValidatorV2, ParentID = null}
@@ -45,7 +44,6 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
                 Midlertidige = false,
                 UtleieBygg = null
             };
-
         }
 
         [Fact]

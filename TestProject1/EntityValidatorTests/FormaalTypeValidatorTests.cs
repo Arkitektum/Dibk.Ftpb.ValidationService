@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
+using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using Dibk.Ftpb.Validation.Application.Utils;
@@ -21,7 +18,6 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 {
     public class FormaalTypeValidatorTests
     {
-        private ArbeidstilsynetsSamtykkeType _form;
         private readonly FormaaltypeValidationEntity _beskrivelseAvTiltak;
         private  FormaaltypeValidator _formaaltypeValidator;
         private IKodelisteValidator _tiltaksformaalValidator;
@@ -34,8 +30,8 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         public FormaalTypeValidatorTests()
         {
             var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957.xml");
-            _form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
-            _beskrivelseAvTiltak = FormaaltypeMapper.Map(_form.beskrivelseAvTiltak.bruk);
+            var form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke2_45957_Form>(xmlData);
+            _beskrivelseAvTiltak = form.BeskrivelseAvTiltak.Formaaltype;
 
             var beskrivelseAvTiltakNodeList = new List<EntityValidatorNode>()
             {

@@ -4,13 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Dibk.Ftpb.Validation.Application.DataSources;
-using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Municipality;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
-using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
+using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using Dibk.Ftpb.Validation.Application.Utils;
@@ -24,7 +23,6 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 {
     public class EiendomByggestedValidatorTest
     {
-        private ArbeidstilsynetsSamtykkeType _form;
         private EiendomValidationEntity[] _eiendomValidationEntities;
         IMunicipalityValidator _municipalityValidator;
 
@@ -43,9 +41,9 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             // Test data shoud be 
             var xmlData = File.ReadAllText(@"Data\ArbeidstilsynetsSamtykke_v2_dfv45957_Test.xml");
             //var xmlData = File.ReadAllText(@"C:\Temp\FTB - TestXML\ArbeidstilsynetsSamtykke_v2_empty.xml");
-            _form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
+            var form = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke2_45957_Form>(xmlData);
 
-            _eiendomValidationEntities = new EiendomByggestedMapper().Map(_form.eiendomByggested, "ArbeidstilsynetsSamtykke");
+            _eiendomValidationEntities = form.EiendomByggested;
 
 
             List<EntityValidatorNode> eiendombyggestedNodeList = new()
