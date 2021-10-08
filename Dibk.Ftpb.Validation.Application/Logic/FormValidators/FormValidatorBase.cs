@@ -1,4 +1,4 @@
-﻿using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Dibk.Ftpb.Validation.Application.Reporter;
@@ -12,7 +12,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
     public abstract class FormValidatorBase
     {
-        protected ValidationResult ValidationResult;
+        protected ValidationResult _validationResult;
         protected IList<EntityValidatorNode> EntityValidatorTree;
         private readonly IValidationMessageComposer _validationMessageComposer;
         private readonly IChecklistService _checklistService;
@@ -41,20 +41,20 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             InstantiateValidators();
             DefineValidationRules();
             Validate(validationInput);
-            ValidationResult = _validationMessageComposer.ComposeValidationResult(XPathRoot, dataFormatVersion, ValidationResult, "NO");
+            _validationResult = _validationMessageComposer.ComposeValidationResult(XPathRoot, dataFormatVersion, _validationResult, "NO");
 
-            if (!ValidationResult.ValidationMessages.Any(x => x.Messagetype.Equals(ValidationResultSeverityEnum.CRITICAL)))
+            if (!_validationResult.ValidationMessages.Any(x => x.Messagetype.Equals(ValidationResultSeverityEnum.CRITICAL)))
             {
                 FilterValidationMessagesOnTiltakstyper(dataFormatVersion);
             }
 
-            return ValidationResult;
+            return _validationResult;
         }
 
         protected void AccumulateValidationRules(List<ValidationRule> validationRules)
         {
             ValidationResult ??= new ValidationResult();
-            ValidationResult.ValidationRules ??= new List<ValidationRule>();
+            _validationResult.ValidationRules.AddRange(whereNotAlreadyExists);
 
             var whereNotAlreadyExists = validationRules.Where(x => !ValidationResult.ValidationRules.Any(y => y.Xpath == x.Xpath && y.Rule == x.Rule));
             ValidationResult.ValidationRules.AddRange(whereNotAlreadyExists);
@@ -70,12 +70,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 {
                     var newXpath = Helpers.ReplaceCurlyBracketInXPath(index.Value, message.XpathField);
                     message.XpathField = newXpath;
-                    ValidationResult.ValidationMessages.AddRange(validationMessages);
+                    _validationResult.ValidationMessages.AddRange(validationMessages);
                 }
             }
             else
             {
-                ValidationResult.ValidationMessages.AddRange(validationMessages);
+                _validationResult.ValidationMessages.AddRange(validationMessages);
             }
         }
 
@@ -84,8 +84,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var tiltakstyper = GetFormTiltakstyper();
             if (tiltakstyper.Count() > 0)
             {
-                var result = _checklistService.FilterValidationResult(dataFormatVersion, ValidationResult.ValidationMessages, tiltakstyper);
-                ValidationResult.ValidationMessages = result.ToList();
+                var result = _checklistService.FilterValidationResult(dataFormatVersion, _validationResult.ValidationMessages, tiltakstyper);
+                _validationResult.ValidationMessages = result.ToList();
             }
         }
         public static int GetArrayIndex(object[] objectArray)

@@ -100,8 +100,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             base.StartValidation(dataFormatVersion, validationInput);
 
             //Add ChecklistAnswers to validationresult
-            ValidationResult.PrefillChecklist = GetChecklistAnswers();
-            return ValidationResult;
+            _validationResult.PrefillChecklist = GetChecklistAnswers();
+            return _validationResult;
         }
 
         private PrefillChecklist GetChecklistAnswers()
