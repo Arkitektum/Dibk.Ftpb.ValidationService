@@ -1,4 +1,4 @@
-using Dibk.Ftpb.Validation.Application.Enums;
+﻿using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Dibk.Ftpb.Validation.Application.Reporter;
@@ -6,6 +6,7 @@ using Dibk.Ftpb.Validation.Application.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Utils;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
@@ -27,6 +28,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         {
             _validationMessageComposer = validationMessageComposer;
             _checklistService = checklistService;
+            _validationResult = new ValidationResult
+            {
+                ValidationMessages = new List<ValidationMessage>(),
+                ValidationRules = new List<ValidationRule>()
+            };
+
         }
 
         protected string GetDataFormatVersion(Type t)
@@ -53,17 +60,34 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         protected void AccumulateValidationRules(List<ValidationRule> validationRules)
         {
-            ValidationResult ??= new ValidationResult();
+            var whereNotAlreadyExists = validationRules.Where(x => !_validationResult.ValidationRules.Any(y => y.Xpath == x.Xpath && y.Rule == x.Rule));
             _validationResult.ValidationRules.AddRange(whereNotAlreadyExists);
+        }
+        protected void AddValidationRule(ValidationRuleEnum rule, FieldNameEnum? xmlElement = null, string overrideXpath = null)
+        {
+            var validationRuleTypeId = Helpers.GetEnumValidationRuleType(rule);
+            var fieldNumberString = String.Empty;
 
-            var whereNotAlreadyExists = validationRules.Where(x => !ValidationResult.ValidationRules.Any(y => y.Xpath == x.Xpath && y.Rule == x.Rule));
-            ValidationResult.ValidationRules.AddRange(whereNotAlreadyExists);
+            if (xmlElement != null)
+            {
+                var fieldNameNumber = Helpers.GetEnumFieldNameNumber(xmlElement);  //GetEnumEntityValidatorNumber
+                fieldNumberString = $".{fieldNameNumber}";
+
+            }
+
+            var elementRuleId = $"{fieldNumberString}.{validationRuleTypeId}";
+
+
+            //TODO Is this relevant now?
+            var separator = xmlElement.HasValue ? "/" : "";
+
+            string xPath = $"{overrideXpath}{separator}{xmlElement?.ToString()}";
+            //**
+            _validationResult.ValidationRules.Add(new ValidationRule() { Rule = rule.ToString(), Xpath = xPath, XmlElement = xmlElement?.ToString(), Id = elementRuleId });
         }
 
         protected void AccumulateValidationMessages(List<ValidationMessage> validationMessages, int? index = null)
         {
-            ValidationResult ??= new ValidationResult();
-            ValidationResult.ValidationMessages ??= new List<ValidationMessage>();
             if (validationMessages != null && index.HasValue)
             {
                 foreach (var message in validationMessages)
