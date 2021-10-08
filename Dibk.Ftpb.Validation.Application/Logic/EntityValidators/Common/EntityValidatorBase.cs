@@ -96,68 +96,45 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             }
         }
 
-        protected void AddValidationRule(object rule)
-        {
-            AddValidationRule(rule, null, null);
-        }
-
-        protected void AddValidationRuleOverideXpath(object rule, string overrideXpath)
-        {
-            AddValidationRule(rule, null, overrideXpath);
-        }
-
-
-        protected void AddValidationRule(object rule, string xmlElement)
-        {
-            AddValidationRule(rule, xmlElement, null);
-        }
-
-        protected void AddValidationRule(object rule, FieldNameEnum xmlElement)
-        {
-            AddValidationRule(rule, xmlElement.ToString(), null);
-        }
-
-        protected void AddValidationRule(object rule, string xmlElement, string overrideXpath)
+        protected void AddValidationRule(ValidationRuleEnum rule, FieldNameEnum? xmlElement = null, string overrideXpath = null)
         {
             var separator = "";
             string elementRuleId = null;
-            if (rule is Enum)
+            ValidationRuleEnum validationRule = (ValidationRuleEnum)rule;
+            var validationRuleTypeId = Helpers.GetEnumValidationRuleType(validationRule);
+            var fieldNumberString = String.Empty;
+
+            if (xmlElement != null)
             {
-                ValidationRuleEnum validationRule = (ValidationRuleEnum)rule;
-                var validationRuleTypeId = Helpers.GetEnumValidationRuleType(validationRule);
-                var fieldNumberString = String.Empty;
+                var fieldNameNumber = Helpers.GetEnumFieldNameNumber(xmlElement);  //GetEnumEntityValidatorNumber
+                fieldNumberString = $".{fieldNameNumber}";
 
-                if (xmlElement != null)
-                {
-                    if (TryParse(xmlElement, out FieldNameEnum fieldNameEnum))
-                    {
-                        fieldNameEnum = (FieldNameEnum)Enum.Parse(typeof(FieldNameEnum), xmlElement);
-                        var fieldNameNumber = Helpers.GetEnumFieldNameNumber(fieldNameEnum);  //GetEnumEntityValidatorNumber
-                        fieldNumberString = $".{fieldNameNumber}";
-                    }
-                }
-
-                elementRuleId = $"{_ruleIdPath}{fieldNumberString}.{validationRuleTypeId}";
             }
+
+            elementRuleId = $"{_ruleIdPath}{fieldNumberString}.{validationRuleTypeId}";
+
 
             if (!string.IsNullOrEmpty(overrideXpath))
             {
                 _entityXPath = overrideXpath;
             }
 
-            if (!string.IsNullOrEmpty(xmlElement))
+            //TODO Is this relevant now?
+            //**
+            var xmlElementString = xmlElement?.ToString();
+            if (!string.IsNullOrEmpty(xmlElementString))
             {
                 separator = "/";
             }
 
-            string xPath = $"{_entityXPath}{separator}{xmlElement}";
+            string xPath = $"{_entityXPath}{separator}{xmlElementString}";
 
             if (xPath.Contains("sjekklistepunkt/kodebeskrivelse"))
             {
                 var xx = "";
             }
-
-            _validationResult.ValidationRules.Add(new ValidationRule() { Rule = rule.ToString(), Xpath = xPath, XmlElement = xmlElement, Id = elementRuleId ?? _ruleIdPath });
+            //**
+            _validationResult.ValidationRules.Add(new ValidationRule() { Rule = rule.ToString(), Xpath = xPath, XmlElement = xmlElementString, Id = elementRuleId ?? _ruleIdPath });
         }
 
 

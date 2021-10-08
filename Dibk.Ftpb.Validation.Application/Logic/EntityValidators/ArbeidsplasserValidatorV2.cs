@@ -30,7 +30,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             base.InitializeValidationRules();
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.veiledning);
-            AddValidationRuleOverideXpath(ValidationRuleEnum.sjekklistepunkt_1_17_dokumentasjon_utfylt, "/krav{0}/dokumentasjon");
+            //AddValidationRuleOverideXpath(ValidationRuleEnum.sjekklistepunkt_1_17_dokumentasjon_utfylt, "/krav{0}/dokumentasjon");
         }
 
         public void ValidateEntityFields(ArbeidsplasserValidationEntity arbeidsplasserValEntity, IEnumerable<SjekklistekravValidationEntity> sjekkliste)
