@@ -24,7 +24,6 @@ namespace Dibk.Ftpb.Validation.Application.Utils
             try
             {
                 var xmlString = RemoveNamespaces(objectData);
-                //var xmlString = objectData;
 
                 using var stringReader = new StringReader(xmlString);
                 var serializer = new XmlSerializer(type);

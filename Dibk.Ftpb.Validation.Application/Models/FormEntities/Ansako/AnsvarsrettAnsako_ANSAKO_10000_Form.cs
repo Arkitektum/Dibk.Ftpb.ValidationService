@@ -7,6 +7,9 @@ namespace Dibk.Ftpb.Validation.Application.Models.FormEntities.Ansako
     public class AnsvarsrettAnsako_ANSAKO_10000_Form
     {
         [XmlElement("ansvarligSoeker")]
-        public AktoerValidationEntity AnsvarligSoekerValidationEntity { get; set; }
+        public Aktoer AnsvarligSoeker { get; set; }
+
+        [XmlElement("ansvarsrett")]
+        public Ansvarsrett[] Ansvarsretts { get; set; }
     }
 }
