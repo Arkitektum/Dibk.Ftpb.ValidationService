@@ -39,7 +39,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.kodeverdi);
         }
 
-        public ValidationResult Validate(KodelisteValidationEntity kodeEntry = null)
+        public ValidationResult Validate(Kodeliste kodeEntry = null)
         {
             base.ResetValidationMessages();
 

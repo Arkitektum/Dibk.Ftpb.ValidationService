@@ -78,7 +78,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
         public static IKodelisteValidator KodelisteValidator(string xpath = null, ValidationRuleEnum? validationRule = null, string entityXPath = null)
         {
             var kodelisteValidator = new Mock<IKodelisteValidator>();
-            kodelisteValidator.Setup((a =>a.Validate(It.IsAny<KodelisteValidationEntity>())))
+            kodelisteValidator.Setup((a =>a.Validate(It.IsAny<Kodeliste>())))
                 .Returns(ValidationResult(xpath, validationRule));
             kodelisteValidator.SetupGet(e => e._entityXPath).Returns(entityXPath);
             return kodelisteValidator.Object;

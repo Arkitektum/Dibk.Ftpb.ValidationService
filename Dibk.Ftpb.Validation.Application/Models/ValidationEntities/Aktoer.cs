@@ -2,10 +2,10 @@
 
 namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class AktoerValidationEntity 
+    public class Aktoer 
     {
         [XmlElement("partstype", IsNullable = true)]
-        public KodelisteValidationEntity Partstype { get; set; }
+        public Kodeliste Partstype { get; set; }
         [XmlElement("foedselsnummer", IsNullable = true)]
         public string Foedselsnummer { get; set; }
         [XmlElement("organisasjonsnummer", IsNullable = true)]

@@ -6,13 +6,13 @@ namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
     public class FormaaltypeValidationEntity 
     {
         [XmlElement("anleggstype")]
-        public KodelisteValidationEntity Anleggstype { get; set; }
+        public Kodeliste Anleggstype { get; set; }
         [XmlElement("naeringsgruppe")]
-        public KodelisteValidationEntity Naeringsgruppe { get; set; }
+        public Kodeliste Naeringsgruppe { get; set; }
         [XmlElement("bygningstype")]
-        public KodelisteValidationEntity Bygningstype { get; set; }
+        public Kodeliste Bygningstype { get; set; }
         [XmlElement("tiltaksformaal")]
-        public KodelisteValidationEntity[] Tiltaksformaal { get; set; }
+        public Kodeliste[] Tiltaksformaal { get; set; }
         [XmlElement("beskrivPlanlagtFormaal")]
         public string BeskrivPlanlagtFormaal {  get; set; }
     }

@@ -53,7 +53,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         }
 
 
-        public ValidationResult Validate(AktoerValidationEntity aktoer = null)
+        public ValidationResult Validate(Aktoer aktoer = null)
         {
             if (Helpers.ObjectIsNullOrEmpty(aktoer))
             {
@@ -77,11 +77,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             return _validationResult;
         }
 
-        private void ValidateEntityFields(AktoerValidationEntity aktoerValidationEntity)
+        private void ValidateEntityFields(Aktoer aktoer)
         {
-            if (aktoerValidationEntity.Partstype?.Kodeverdi == "Privatperson")
+            if (aktoer.Partstype?.Kodeverdi == "Privatperson")
             {
-                var foedselsnummerValidation = NorskStandardValidator.Validate_foedselsnummer(aktoerValidationEntity.Foedselsnummer);
+                var foedselsnummerValidation = NorskStandardValidator.Validate_foedselsnummer(aktoer.Foedselsnummer);
                 switch (foedselsnummerValidation)
                 {
                     case FoedselnumerValidation.Empty:
@@ -100,7 +100,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             else
             {
-                var organisasjonsnummerValidation = NorskStandardValidator.Validate_OrgnummerEnum(aktoerValidationEntity.Organisasjonsnummer);
+                var organisasjonsnummerValidation = NorskStandardValidator.Validate_OrgnummerEnum(aktoer.Organisasjonsnummer);
                 switch (organisasjonsnummerValidation)
                 {
                     case OrganisasjonsnummerValidation.Empty:
@@ -113,37 +113,37 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.organisasjonsnummer);
                         break;
                 }
-                var kontaktpersonValidationResult = _kontaktpersonValidator.Validate(aktoerValidationEntity.Kontaktperson);
+                var kontaktpersonValidationResult = _kontaktpersonValidator.Validate(aktoer.Kontaktperson);
                 UpdateValidationResultWithSubValidations(kontaktpersonValidationResult);
             }
 
-            var enkeladressResult = _enkelAdresseValidator.Validate(aktoerValidationEntity.Adresse);
+            var enkeladressResult = _enkelAdresseValidator.Validate(aktoer.Adresse);
             UpdateValidationResultWithSubValidations(enkeladressResult);
 
-            if (string.IsNullOrEmpty(aktoerValidationEntity.Navn))
+            if (string.IsNullOrEmpty(aktoer.Navn))
                 AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.navn);
 
-            if (string.IsNullOrEmpty(aktoerValidationEntity.Epost))
+            if (string.IsNullOrEmpty(aktoer.Epost))
                 AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.epost);
 
-            if (string.IsNullOrEmpty(aktoerValidationEntity.Telefonnummer) && string.IsNullOrEmpty(aktoerValidationEntity.Mobilnummer))
+            if (string.IsNullOrEmpty(aktoer.Telefonnummer) && string.IsNullOrEmpty(aktoer.Mobilnummer))
             {
                 AddMessageFromRule(ValidationRuleEnum.telmob_utfylt, FieldNameEnum.mobilnummer);
             }
             else
             {
-                if (!string.IsNullOrEmpty(aktoerValidationEntity.Telefonnummer))
+                if (!string.IsNullOrEmpty(aktoer.Telefonnummer))
                 {
-                    var telefonNumber = aktoerValidationEntity?.Telefonnummer;
+                    var telefonNumber = aktoer?.Telefonnummer;
                     var isValidTelefonNumber = telefonNumber.All(c => "+0123456789".Contains(c));
                     if (!isValidTelefonNumber)
                     {
                         AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.telefonnummer);
                     }
                 }
-                if (!string.IsNullOrEmpty(aktoerValidationEntity.Mobilnummer))
+                if (!string.IsNullOrEmpty(aktoer.Mobilnummer))
                 {
-                    var mobilNummer = aktoerValidationEntity.Mobilnummer;
+                    var mobilNummer = aktoer.Mobilnummer;
                     var isValidmobilnummer = mobilNummer.All(c => "+0123456789".Contains(c));
                     if (!isValidmobilnummer)
                     {

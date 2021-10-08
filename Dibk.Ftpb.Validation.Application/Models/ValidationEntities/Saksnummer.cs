@@ -2,7 +2,7 @@
 
 namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class SaksnummerValidationEntity 
+    public class Saksnummer 
     {
         [XmlElement("saksaar")]
         public string Saksaar { get; set; }

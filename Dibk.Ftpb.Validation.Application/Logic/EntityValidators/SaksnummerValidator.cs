@@ -31,7 +31,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.sakssekvensnummer);
         }
 
-        public ValidationResult Validate(SaksnummerValidationEntity saksnummerStuff)
+        public ValidationResult Validate(Saksnummer saksnummerStuff)
         {
             base.ResetValidationMessages();
 

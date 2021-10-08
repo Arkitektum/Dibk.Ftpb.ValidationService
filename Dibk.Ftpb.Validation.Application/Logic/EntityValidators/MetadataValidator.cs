@@ -34,7 +34,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         }
 
-        public ValidationResult Validate(MetadataValidationEntity metadataValidationEntity)
+        public ValidationResult Validate(Models.ValidationEntities.Metadata metadataValidationEntity)
         {
             base.ResetValidationMessages();
             if (Helpers.ObjectIsNullOrEmpty(metadataValidationEntity))
@@ -49,7 +49,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             return _validationResult;
         }
 
-        public void ValidateEntityFields(MetadataValidationEntity metadataValidationEntity)
+        public void ValidateEntityFields(Models.ValidationEntities.Metadata metadataValidationEntity)
         {
             if (Helpers.ObjectIsNullOrEmpty(metadataValidationEntity.ErNorskSvenskDansk))
                 AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.erNorskSvenskDansk);

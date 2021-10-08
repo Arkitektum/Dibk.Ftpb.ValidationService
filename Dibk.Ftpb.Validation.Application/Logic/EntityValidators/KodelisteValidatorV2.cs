@@ -38,7 +38,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             
         }
 
-        public ValidationResult Validate(KodelisteValidationEntity kodeEntry)
+        public ValidationResult Validate(Kodeliste kodeEntry)
         {
             base.ResetValidationMessages();
 

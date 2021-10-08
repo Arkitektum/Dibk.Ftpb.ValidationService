@@ -12,7 +12,7 @@ namespace Dibk.Ftpb.Validation.Application.Models.FormEntities
         public EiendomValidationEntity[] EiendomByggested { get; set; }
 
         [XmlElement("tiltakshaver")]
-        public AktoerValidationEntity Tiltakshaver { get; set; }
+        public Aktoer Tiltakshaver { get; set; }
 
         [XmlElement("arbeidsplasser")]
         public ArbeidsplasserValidationEntity Arbeidsplasser { get; set; }
@@ -21,7 +21,7 @@ namespace Dibk.Ftpb.Validation.Application.Models.FormEntities
         public FakturamottakerValidationEntity Fakturamottaker { get; set; }
 
         [XmlElement("ansvarligSoeker")]
-        public AktoerValidationEntity AnsvarligSoeker { get; set; }
+        public Aktoer AnsvarligSoeker { get; set; }
 
         [XmlElement("betaling")]
         public BetalingValidationEntity Betaling
@@ -35,12 +35,12 @@ namespace Dibk.Ftpb.Validation.Application.Models.FormEntities
         public BeskrivelseAvTiltakValidationEntity BeskrivelseAvTiltak { get; set; }
 
         [XmlElement("kommunensSaksnummer")]
-        public SaksnummerValidationEntity KommunensSaksnummer { get; set; }
+        public Saksnummer KommunensSaksnummer { get; set; }
 
         [XmlElement("arbeidstilsynetsSaksnummer")]
-        public SaksnummerValidationEntity ArbeidstilsynetsSaksnummer { get; set; }
+        public Saksnummer ArbeidstilsynetsSaksnummer { get; set; }
 
         [XmlElement("metadata")]
-        public MetadataValidationEntity Metadata { get; set; }
+        public Metadata Metadata { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace Dibk.Ftpb.Validation.Application.Models.FormEntities
         public EiendomValidationEntity[] EiendomByggested { get; set; }
        
         [XmlElement("tiltakshaver")]
-        public AktoerValidationEntity Tiltakshaver { get; set; }
+        public Aktoer Tiltakshaver { get; set; }
         
         [XmlElement("arbeidsplasser")]
         public ArbeidsplasserValidationEntity ArbeidsplasserValidationEntity { get; set; }
@@ -21,7 +21,7 @@ namespace Dibk.Ftpb.Validation.Application.Models.FormEntities
         public FakturamottakerValidationEntity FakturamottakerValidationEntity { get; set; }
 
         [XmlElement("ansvarligSoeker")]
-        public AktoerValidationEntity AnsvarligSoekerValidationEntity { get; set; }
+        public Aktoer AnsvarligSoeker { get; set; }
 
     }
 }

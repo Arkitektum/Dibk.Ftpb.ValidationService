@@ -19,7 +19,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
     {
         private ArbeidstilsynetsSamtykke2_45957_Form _form;
 
-        private AktoerValidationEntity _aktoerValidationEntity;
+        private Aktoer _aktoer;
 
         private ICodeListService _codeListService;
         private readonly IPostalCodeService _postalCodeService;
@@ -56,7 +56,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         [Fact]
         public void TestTilashaver()
         {
-            //_aktoerValidationEntity.ModelData.Partstype.ModelData = null;
+            //_aktoer.ModelData.Partstype.ModelData = null;
 
             var tiltakshaverResult = _aktoerValidator.Validate(_form.Tiltakshaver);
 

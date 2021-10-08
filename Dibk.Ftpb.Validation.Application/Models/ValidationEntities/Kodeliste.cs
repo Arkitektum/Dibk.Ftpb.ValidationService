@@ -2,7 +2,7 @@
 
 namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class KodelisteValidationEntity
+    public class Kodeliste
     {
         [XmlElement("kodeverdi")]
         public string Kodeverdi { get; set; }

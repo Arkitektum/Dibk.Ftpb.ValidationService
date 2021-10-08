@@ -14,7 +14,7 @@ namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
         [XmlElement("BRA")]
         public string BRA { get; set; }
         [XmlElement("type")]
-        public KodelisteValidationEntity[] Tiltakstype { get; set; }
+        public Kodeliste[] Tiltakstype { get; set; }
 
         [XmlElement("foelgebrev", IsNullable = true)]
         public string Foelgebrev { get; set; }

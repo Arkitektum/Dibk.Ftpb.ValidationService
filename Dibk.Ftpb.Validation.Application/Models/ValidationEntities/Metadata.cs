@@ -2,7 +2,7 @@
 
 namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class MetadataValidationEntity
+    public class Metadata
     {
         [XmlElement("fraSluttbrukersystem")]
         public string FraSluttbrukersystem { get; set; }

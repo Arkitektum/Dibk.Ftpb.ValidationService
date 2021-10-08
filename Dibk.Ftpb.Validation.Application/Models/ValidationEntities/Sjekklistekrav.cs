@@ -13,7 +13,7 @@ namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
         public bool? Sjekklistepunktsvar { get; set; }
         
         [XmlElement("sjekklistepunkt")]
-        public KodelisteValidationEntity Sjekklistepunkt { get; set; }
+        public Kodeliste Sjekklistepunkt { get; set; }
 
         [XmlElement("dokumentasjon")]
         public string Dokumentasjon { get; set; }

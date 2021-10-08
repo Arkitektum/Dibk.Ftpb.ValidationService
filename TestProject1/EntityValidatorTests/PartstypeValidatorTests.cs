@@ -16,7 +16,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             FormValidatorConfiguration formValidatorConfiguration = new FormValidatorConfiguration();
 
             
-            var partstype = new KodelisteValidationEntity()
+            var partstype = new Kodeliste()
             {
                 Kodeverdi = "Privatperson",
                 Kodebeskrivelse = "Privatperson"

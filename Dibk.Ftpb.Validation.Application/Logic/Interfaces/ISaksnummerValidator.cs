@@ -7,6 +7,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
     public interface ISaksnummerValidator
     {
         ValidationResult ValidationResult { get; set; }
-        ValidationResult Validate(SaksnummerValidationEntity kodelistetype);
+        ValidationResult Validate(Saksnummer kodelistetype);
     }
 }

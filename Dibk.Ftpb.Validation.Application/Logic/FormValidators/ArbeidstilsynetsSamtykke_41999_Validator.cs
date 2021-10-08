@@ -194,7 +194,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var tiltakshaverValidationResult = _tiltakshaverValidator.Validate(_validationForm.Tiltakshaver);
             AccumulateValidationMessages(tiltakshaverValidationResult.ValidationMessages);
 
-            var ansvarligSoekerValidationResult = _ansvarligSoekerValidator.Validate(_validationForm.AnsvarligSoekerValidationEntity);
+            var ansvarligSoekerValidationResult = _ansvarligSoekerValidator.Validate(_validationForm.AnsvarligSoeker);
             AccumulateValidationMessages(ansvarligSoekerValidationResult.ValidationMessages);
 
             var attachments = Helpers.ObjectIsNullOrEmpty(validationInput.Attachments) ? null : validationInput.Attachments.Select(a => a.AttachmentTypeName).ToArray();
