@@ -13,5 +13,6 @@ namespace Dibk.Ftpb.Validation.Application.Services
         List<string> ValidateXmlFile(IFormFile xmlFile);
         //IEnumerable<PrefillDemo> PrefillDemo();
         string PrefillDemo();
+        //FormProperties GetFormProperties(string dataFormatVersion);
     }
 }

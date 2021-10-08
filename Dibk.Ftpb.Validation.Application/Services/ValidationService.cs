@@ -21,18 +21,22 @@ namespace Dibk.Ftpb.Validation.Application.Services
         private readonly IXsdValidationService _xsdValidationService;
         private readonly IValidationHandler _validationHandler;
         private readonly IChecklistService _checklistService;
+        private FormPropertyService _formPropertyService;
+
         //private Models.InputData _inputData;
         //private List<string> _errorMessages;
         //private ValidationResult _validationResult;
         private List<ChecklistAnswer> _outputlist = new List<ChecklistAnswer>();
         private IEnumerable<PrefillDemo> _alleSjekklistepunkter;
 
-        public ValidationService(IInputDataService inputDataService, IXsdValidationService xsdValidationService, IValidationHandler validationOrchestrator, IChecklistService checklistService)
+        public ValidationService(IInputDataService inputDataService, IXsdValidationService xsdValidationService, 
+            IValidationHandler validationOrchestrator, IChecklistService checklistService, FormPropertyService formPropertyService)
         {
             _inputDataService = inputDataService;
             _xsdValidationService = xsdValidationService;
             _validationHandler = validationOrchestrator;
             _checklistService = checklistService;
+            _formPropertyService = formPropertyService;
         }
 
         public Validations GetValidationResult(ValidationInput validationInput)
@@ -57,12 +61,12 @@ namespace Dibk.Ftpb.Validation.Application.Services
 
             if (!Helpers.ObjectIsNullOrEmpty(inputData?.Config?.DataFormatVersion))
             {
-                var formProperties = _checklistService.GetFormProperties(inputData?.Config?.DataFormatVersion);
+                var formProperties = _formPropertyService.GetFormProperties(inputData?.Config?.DataFormatVersion);
                 var prefilledAnswersFromChecklist = _checklistService.GetPrefillChecklist(validationResult, inputData?.Config?.DataFormatVersion, formProperties.ProcessCategory);
 
-                validationResult.PrefillChecklist.ChecklistAnswers.AddRange(prefilledAnswersFromChecklist.ChecklistAnswers);
+                validationResult.PrefillChecklist.ChecklistAnswer.AddRange(prefilledAnswersFromChecklist.ChecklistAnswer);
 
-                foreach (var answer in validationResult.PrefillChecklist.ChecklistAnswers)
+                foreach (var answer in validationResult.PrefillChecklist.ChecklistAnswer)
                 {
                     if (answer.supportingDataValidationRuleId != null)
                     {
@@ -122,7 +126,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
             {
                 validationResult = _validationHandler.ValidateAsync(inputData?.Config?.DataFormatVersion, errorMessages, validationInput).Result;
 
-                var formProperties = _checklistService.GetFormProperties(inputData?.Config?.DataFormatVersion);
+                var formProperties = _formPropertyService.GetFormProperties(inputData?.Config?.DataFormatVersion);
                 validationResult.Soknadtype = formProperties.ProcessCategory;
             }
             else
@@ -237,6 +241,12 @@ namespace Dibk.Ftpb.Validation.Application.Services
             return input;
         }
 
-
+        //public FormProperties GetFormProperties(string dataFormatVersion)
+        //{
+            
+            
+            
+        //    throw new NotImplementedException();
+        //}
     }
 }

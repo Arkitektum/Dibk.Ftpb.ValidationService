@@ -11,6 +11,6 @@ namespace Dibk.Ftpb.Validation.Application.Services
         IEnumerable<ValidationMessage> FilterValidationResult(string dataFormatVersion, IEnumerable<ValidationMessage> validationMessages, IEnumerable<string> tiltakstyper);
         PrefillChecklist GetPrefillChecklist(ValidationResult validationResult, string dataFormatVersion, string processCategory);
         string GetPrefillDemo();
-        FormProperties GetFormProperties(string dataFormatVersion);
+        //FormProperties GetFormProperties(string dataFormatVersion);
     }
 }

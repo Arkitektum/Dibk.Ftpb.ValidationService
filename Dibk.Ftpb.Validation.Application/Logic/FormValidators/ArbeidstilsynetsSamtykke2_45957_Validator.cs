@@ -124,7 +124,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
                 list.Add(checklistAnswer);
             }
-            prefillChecklist.ChecklistAnswers = list;
+            prefillChecklist.ChecklistAnswer = list;
 
             return prefillChecklist;
         }

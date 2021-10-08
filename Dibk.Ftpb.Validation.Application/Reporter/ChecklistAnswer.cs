@@ -22,7 +22,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
     }
     public class PrefillChecklist
     {
-        public List<ChecklistAnswer> ChecklistAnswers { get; set; }
+        public List<ChecklistAnswer> ChecklistAnswer { get; set; }
     }
 
     //public class SupportingDataXpathFields

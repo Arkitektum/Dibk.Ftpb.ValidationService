@@ -13,34 +13,39 @@ namespace Dibk.Ftpb.Validation.Application.Services
     {
         private readonly AtilChecklistApiHttpClient _atilChecklistApiHttpClient;
         private readonly DibkChecklistApiHttpClient _dibkChecklistApiHttpClient;
-        private readonly IConfiguration _configuration;
-        private List<FormProperties> _forms;
+        private FormPropertyService _formPropertyService;
+        //private FormProperties _formProperties;
+
+        //private readonly IConfiguration _configuration;
+        //private List<FormProperties> _forms;
 
         //TODO: Replace the method below
-//        private bool TolerateErrors(string dataFormatVersion) { return GetFormProperties(dataFormatVersion).ServiceAuthority == "DIBK"; }
+        //        private bool TolerateErrors(string dataFormatVersion) { return GetFormProperties(dataFormatVersion).ServiceAuthority == "DIBK"; }
         private bool TolerateErrors(string dataFormatVersion) { return true; }
 
-        public ChecklistService(AtilChecklistApiHttpClient atilChecklistApiHttpClient, DibkChecklistApiHttpClient dibkChecklistApiHttpClient, IConfiguration configuration)
+        public ChecklistService(AtilChecklistApiHttpClient atilChecklistApiHttpClient, DibkChecklistApiHttpClient dibkChecklistApiHttpClient, FormPropertyService formPropertyService)
         {
             _atilChecklistApiHttpClient = atilChecklistApiHttpClient;
             _dibkChecklistApiHttpClient = dibkChecklistApiHttpClient;
-            _configuration = configuration;
-
-            var formPropertiesFromConfig = _configuration.GetSection("FormProperties").GetChildren().ToList()
-                .Select(x =>
-                                 (
-                                      x.GetValue<string>("DataFormatVersion"),
-                                      x.GetValue<string>("ServiceAuthority"),
-                                      x.GetValue<string>("ProcessCategory")
-                                  )
-                            ).ToList<(string DataFormatVersion, string ServiceAuthority, string ProcessCategory)>();
+            _formPropertyService = formPropertyService;
             
-            _forms = formPropertiesFromConfig.Select(x => new FormProperties() 
-            { 
-                DataFormatVersion = x.DataFormatVersion, 
-                ProcessCategory = x.ProcessCategory,  
-                ServiceAuthority = x.ServiceAuthority 
-            }).ToList();
+            //_configuration = configuration;
+
+            //var formPropertiesFromConfig = _configuration.GetSection("FormProperties").GetChildren().ToList()
+            //    .Select(x =>
+            //                     (
+            //                          x.GetValue<string>("DataFormatVersion"),
+            //                          x.GetValue<string>("ServiceAuthority"),
+            //                          x.GetValue<string>("ProcessCategory")
+            //                      )
+            //                ).ToList<(string DataFormatVersion, string ServiceAuthority, string ProcessCategory)>();
+
+            //_forms = formPropertiesFromConfig.Select(x => new FormProperties() 
+            //{ 
+            //    DataFormatVersion = x.DataFormatVersion, 
+            //    ProcessCategory = x.ProcessCategory,  
+            //    ServiceAuthority = x.ServiceAuthority 
+            //}).ToList();
 
         }
         private IEnumerable<ChecklistAnswer> GetPrefillChecklistAnswer(string dataFormatVersion, PrefillChecklistInput prefillChecklistInput)
@@ -70,7 +75,8 @@ namespace Dibk.Ftpb.Validation.Application.Services
 
         public IEnumerable<ValidationMessage> FilterValidationResult(string dataFormatVersion, IEnumerable<ValidationMessage> validationMessages, IEnumerable<string> tiltakstyper)
         {
-            var formProperties = GetFormProperties(dataFormatVersion);
+
+            var formProperties = _formPropertyService.GetFormProperties(dataFormatVersion);
             var httpClient = GetChecklistApiHttpClient(dataFormatVersion);
             var checklistRelatedValidations = (List<ChecklistValidationRelations>)httpClient.GetChecklistValidationRelations(formProperties.ProcessCategory).Result;
 
@@ -121,7 +127,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
                 var httpClient = GetChecklistApiHttpClient(dataFormatVersion);
                 var prefilledChecklist = (List<ChecklistAnswer>)httpClient.GetPrefillChecklistAnswer(prefillChecklistInput).Result;
 
-                return new PrefillChecklist() { ChecklistAnswers = prefilledChecklist };
+                return new PrefillChecklist() { ChecklistAnswer = prefilledChecklist };
             }
             else
             {
@@ -156,7 +162,8 @@ namespace Dibk.Ftpb.Validation.Application.Services
 
         public IEnumerable<Sjekk> GetChecklist(string dataFormatVersion, string filter)
         {
-            var formProperties = GetFormProperties(dataFormatVersion);
+            var formProperties = _formPropertyService.GetFormProperties(dataFormatVersion);
+            
             var httpClient = GetChecklistApiHttpClient(dataFormatVersion);
 
             var checkPoints = (List<Sjekk>)httpClient.GetChecklist(formProperties.ProcessCategory, filter).Result;
@@ -165,41 +172,40 @@ namespace Dibk.Ftpb.Validation.Application.Services
         }
 
 
-        public FormProperties GetFormProperties(string dataFormatVersion)
-        {
-            try
-            {
-                foreach (var form in _forms)
-                {
-                    if (form.DataFormatVersion.Equals(dataFormatVersion))
-                    {
-                        return form;
-                    }
-                }
+        //public FormProperties GetFormProperties(string dataFormatVersion)
+        //{
+        //    try
+        //    {
+        //        foreach (var form in _forms)
+        //        {
+        //            if (form.DataFormatVersion.Equals(dataFormatVersion))
+        //            {
+        //                return form;
+        //            }
+        //        }
 
-                throw new NullReferenceException($"Illegal dataFormatVersion '{dataFormatVersion}'");
-            }
-            catch (Exception)
-            {
-                throw new ArgumentOutOfRangeException($"Illegal dataFormatVersion '{dataFormatVersion}'");
-            }
-        }
+        //        throw new NullReferenceException($"Illegal dataFormatVersion '{dataFormatVersion}'");
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw new ArgumentOutOfRangeException($"Illegal dataFormatVersion '{dataFormatVersion}'");
+        //    }
+        //}
 
 
         private ChecklistApiHttpClient GetChecklistApiHttpClient(string dataFormatVersion)
         {
             try
             {
-                foreach (var form in _forms)
+                var formProperties = _formPropertyService.GetFormProperties(dataFormatVersion);
+
+                if (formProperties.DataFormatVersion.Equals(dataFormatVersion))
                 {
-                    if (form.DataFormatVersion.Equals(dataFormatVersion))
-                    {
-                        if (form.ServiceAuthority.Equals(Enum.GetName(ServiceOwnerEnum.ATIL)))
-                            return _atilChecklistApiHttpClient;
-                        else
-                            return _dibkChecklistApiHttpClient;
+                    if (formProperties.ServiceAuthority.Equals(Enum.GetName(ServiceOwnerEnum.ATIL)))
+                        return _atilChecklistApiHttpClient;
+                    else
+                        return _dibkChecklistApiHttpClient;
                         
-                    }
                 }
 
                 throw new NullReferenceException($"Illegal dataFormatVersion '{dataFormatVersion}'");
@@ -216,11 +222,5 @@ namespace Dibk.Ftpb.Validation.Application.Services
             return _atilChecklistApiHttpClient;
         }
 
-
-
-        //private IEnumerable<ChecklistAnswer> AtilSpecificPrefilledChecklist(PrefillChecklistInput prefillChecklistInput)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

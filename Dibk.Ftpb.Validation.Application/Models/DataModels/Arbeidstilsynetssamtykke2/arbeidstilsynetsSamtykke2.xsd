@@ -6,7 +6,7 @@
 			<xs:attribute name="XSLT-skriptnavn" fixed="METATRANS_SERES_XSD_GEN"/>
 			<xs:attribute name="XSD-generatorversjon" fixed="2.0.13"/>
 			<xs:attribute name="XSLT-prosessor" fixed="SAXON versjon 9.1.0.7"/>
-			<xs:attribute name="generert" fixed="11.06.2021 11:08:27"/>
+			<xs:attribute name="generert" fixed="08.10.2021 11:11:45"/>
 			<xs:attribute name="navneromprefix" fixed="http://seres.no/xsd"/>
 			<xs:attribute name="namespace" fixed="http://skjema.kxml.no/dibk/arbeidstilsynetsSamtykke/2.0"/>
 			<xs:attribute name="meldingsnavn" fixed="Melding"/>
@@ -29,7 +29,7 @@
 			<xs:attribute name="XSD-transformatorversjon" fixed="1.2"/>
 		</xs:documentation>
 	</xs:annotation>
-	<!-- Generert av MetaTrans(1.1.0.0) - 11.06.2021 11:08:27-->
+	<!-- Generert av MetaTrans(1.1.0.0) - 08.10.2021 11:11:45-->
 	<xs:element name="ArbeidstilsynetsSamtykke" type="ArbeidstilsynetsSamtykkeType"/>
 	<xs:complexType name="ArbeidstilsynetsSamtykkeListe">
 		<xs:sequence>
@@ -198,6 +198,7 @@
 			<xs:element name="erNorskSvenskDansk" type="xs:boolean" nillable="true" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="klartForSigneringFraSluttbrukersystem" type="xs:boolean" nillable="true" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="unntattOffentlighet" type="xs:boolean" nillable="true" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="kommunensOrganisasjonsnummer" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:element name="Saksnummer" type="SaksnummerType"/>

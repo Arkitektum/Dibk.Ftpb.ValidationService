@@ -13,13 +13,15 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
     public class ValidateController : BaseController
     {
         private readonly IValidationService _validationService;
-        private readonly ICodeListService _codeListService;
+        //private readonly ICodeListService _codeListService;
+        private FormPropertyService _formPropertyService;
 
-        public ValidateController(IValidationService validationService, ILogger<ValidateController> logger, ICodeListService codeListService)
+        public ValidateController(IValidationService validationService, ILogger<ValidateController> logger, ICodeListService codeListService, FormPropertyService formPropertyService)
             : base(logger)
         {
             _validationService = validationService;
-            _codeListService = codeListService;
+            //_codeListService = codeListService;
+            _formPropertyService = formPropertyService;
         }
 
         [Route("api/validate")]
@@ -36,12 +38,8 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
 
             var messages = _validationService.GetValidationResult(input);
 
-
-
-
             return Ok(messages);
         }
-
 
         [Route("api/validationReport")]
         [HttpPost]
@@ -84,6 +82,24 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
                 throw;
             }
         }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [Route("api/formproperties")]
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<FormProperties> ChecklistUrlInfo([FromBody] string dataFormatVersion)
+        {
+            if (string.IsNullOrEmpty(dataFormatVersion))
+            {
+                return BadRequest();
+            }
+
+            var props = _formPropertyService.GetFormProperties(dataFormatVersion);
+
+            return Ok(props);
+        }
+
 
         private bool VerifyInput(ValidationInput input)
         {
