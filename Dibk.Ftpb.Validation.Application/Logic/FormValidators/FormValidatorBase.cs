@@ -48,6 +48,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 FilterValidationMessagesOnTiltakstyper(dataFormatVersion);
             }
 
+            ValidationResult.tiltakstyperISoeknad = GetFormTiltakstyper().ToList();
+
             return ValidationResult;
         }
 
