@@ -64,9 +64,9 @@ namespace Dibk.Ftpb.Validation.Application.Services
                 var formProperties = _formPropertyService.GetFormProperties(inputData?.Config?.DataFormatVersion);
                 var prefilledAnswersFromChecklist = _checklistService.GetPrefillChecklist(validationResult, inputData?.Config?.DataFormatVersion, formProperties.ProcessCategory);
 
-                validationResult.PrefillChecklist.ChecklistAnswer.AddRange(prefilledAnswersFromChecklist.ChecklistAnswer);
+                validationResult.PrefillChecklist.AddRange(prefilledAnswersFromChecklist.ChecklistAnswer);
 
-                foreach (var answer in validationResult.PrefillChecklist.ChecklistAnswer)
+                foreach (var answer in validationResult.PrefillChecklist)
                 {
                     if (answer.supportingDataValidationRuleId != null)
                     {
@@ -137,8 +137,8 @@ namespace Dibk.Ftpb.Validation.Application.Services
             validationResult.Errors = validationResult.ValidationMessages.Where(x => x.Messagetype == Enums.ValidationResultSeverityEnum.ERROR).Count();
             validationResult.Warnings = validationResult.ValidationMessages.Where(x => x.Messagetype == Enums.ValidationResultSeverityEnum.WARNING).Count();
 
-            validationResult.messages = new Messages() { ValidationMessage = validationResult.ValidationMessages };
-            validationResult.rulesChecked = new RulesChecked() { ValidationRule = validationResult.ValidationRules };
+            validationResult.messages = validationResult.ValidationMessages;
+            validationResult.rulesChecked = validationResult.ValidationRules;
 
             //validationResult.messages = validationResult.ValidationMessages;
             //validationResult.rulesChecked = validationResult.ValidationRules;

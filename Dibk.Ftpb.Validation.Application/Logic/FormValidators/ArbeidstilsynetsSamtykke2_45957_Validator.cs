@@ -108,9 +108,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             return ValidationResult;
         }
 
-        private PrefillChecklist GetChecklistAnswers()
+        private List<ChecklistAnswer> GetChecklistAnswers()
         {
-            var prefillChecklist = new PrefillChecklist();
+            //var prefillChecklist = new PrefillChecklist();
             List<ChecklistAnswer> list = new List<ChecklistAnswer>();
             foreach (var sjekklistepkt in _validationForm.SjekklistekravValidationEntities)
             {
@@ -124,9 +124,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
                 list.Add(checklistAnswer);
             }
-            prefillChecklist.ChecklistAnswer = list;
+            //prefillChecklist.ChecklistAnswer = list;
 
-            return prefillChecklist;
+            return list;
         }
 
         protected override void InitializeValidatorConfig()
