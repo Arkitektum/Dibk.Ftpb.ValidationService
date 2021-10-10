@@ -82,6 +82,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             ValidationResult.ValidationRules.AddRange(valResult.ValidationRules);
             ValidationResult.ValidationMessages.AddRange(valResult.ValidationMessages);
             ValidationResult.PrefillChecklist = valResult.PrefillChecklist;
+            ValidationResult.tiltakstyperISoeknad = valResult.tiltakstyperISoeknad;
         }
 
         private IFormValidator GetValidator(string dataFormatVersion)

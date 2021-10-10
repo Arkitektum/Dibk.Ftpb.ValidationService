@@ -8,6 +8,8 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
     {
         public int Errors { get; set; }
         public int Warnings { get; set; }
+        public List<string> tiltakstyperISoeknad { get; set; }
+
         public string Soknadtype { get; set; }
         public Validations()
         { }

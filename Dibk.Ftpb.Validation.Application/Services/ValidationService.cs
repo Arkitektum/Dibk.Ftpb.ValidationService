@@ -51,6 +51,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
             validations.Warnings = result.Warnings;
             validations.Errors = result.Errors;
             validations.Soknadtype = result.Soknadtype;
+            validations.tiltakstyperISoeknad = result.tiltakstyperISoeknad;
 
             return validations;
         }
