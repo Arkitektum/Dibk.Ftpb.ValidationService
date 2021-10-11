@@ -72,8 +72,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 {
                     var newXpath = Helpers.ReplaceCurlyBracketInXPath(index.Value, message.XpathField);
                     message.XpathField = newXpath;
-                    ValidationResult.ValidationMessages.AddRange(validationMessages);
                 }
+                ValidationResult.ValidationMessages.AddRange(validationMessages);
             }
             else
             {
