@@ -65,9 +65,9 @@ namespace Dibk.Ftpb.Validation.Application.Services
                 var formProperties = _formPropertyService.GetFormProperties(inputData?.Config?.DataFormatVersion);
                 var prefilledAnswersFromChecklist = _checklistService.GetPrefillChecklist(validationResult, inputData?.Config?.DataFormatVersion, formProperties.ProcessCategory);
 
-                validationResult.PrefillChecklist.AddRange(prefilledAnswersFromChecklist.ChecklistAnswer);
+                validationResult.prefillChecklist.AddRange(prefilledAnswersFromChecklist.ChecklistAnswer);
 
-                foreach (var answer in validationResult.PrefillChecklist)
+                foreach (var answer in validationResult.prefillChecklist)
                 {
                     if (answer.supportingDataValidationRuleId != null)
                     {

@@ -12,7 +12,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
 
         public List<ValidationMessage> messages { get; set; }
         public List<ValidationRule> rulesChecked { get; set; }
-        public List<ChecklistAnswer> PrefillChecklist { get; set; }
+        public List<ChecklistAnswer> prefillChecklist { get; set; }
 
         [JsonIgnore]
         public List<ValidationMessage> ValidationMessages { get; set; }
