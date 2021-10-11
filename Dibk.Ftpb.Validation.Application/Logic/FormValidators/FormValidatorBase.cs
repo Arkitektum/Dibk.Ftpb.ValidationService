@@ -58,7 +58,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             ValidationResult ??= new ValidationResult();
             ValidationResult.ValidationRules ??= new List<ValidationRule>();
 
-            var whereNotAlreadyExists = validationRules.Where(x => !ValidationResult.ValidationRules.Any(y => y.Xpath == x.Xpath && y.Rule == x.Rule));
+            var whereNotAlreadyExists = validationRules.Where(x => !ValidationResult.ValidationRules.Any(y => y.XpathField == x.XpathField && y.Rule == x.Rule));
             ValidationResult.ValidationRules.AddRange(whereNotAlreadyExists);
         }
 

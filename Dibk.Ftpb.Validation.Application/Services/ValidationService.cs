@@ -74,9 +74,9 @@ namespace Dibk.Ftpb.Validation.Application.Services
                         answer.supportingDataXpathField = new List<string>();
                         foreach (var ruleId in answer.supportingDataValidationRuleId)
                         {
-                            var foundXPath = validationResult.ValidationRules.First(x => x.Id.Equals(ruleId)).Xpath;
+                            var foundXPath = validationResult.ValidationRules.First(x => x.Id.Equals(ruleId)).XpathField;
                             var xPathsIfNotAlreadyExisting = validationResult.ValidationRules.Where
-                                (x => ruleId.Equals(x.Id) && !answer.supportingDataXpathField.Any(y => y.Equals(x.Xpath))).Select(z => z.Xpath).ToList();
+                                (x => ruleId.Equals(x.Id) && !answer.supportingDataXpathField.Any(y => y.Equals(x.XpathField))).Select(z => z.XpathField).ToList();
                             
                             answer.supportingDataXpathField.AddRange(xPathsIfNotAlreadyExisting);
                         }

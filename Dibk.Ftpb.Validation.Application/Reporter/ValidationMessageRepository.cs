@@ -19,15 +19,15 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         public ValidationRule GetValidationRuleMessage(ValidationRule validationRule, string languageCode, string dataFormatVersion)
         {
             ValidationMessageStorageEntry theStorageEntry;
-            theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => dataFormatVersion.Equals(x.DataFormatVersion) && x.Rule.Equals(validationRule.Rule) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.Xpath));
+            theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => dataFormatVersion.Equals(x.DataFormatVersion) && x.Rule.Equals(validationRule.Rule) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.XpathField));
             if (theStorageEntry == null)
             {
-                theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.DataFormatVersion == null && x.Rule.Equals(validationRule.Rule) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.Xpath));
+                theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.DataFormatVersion == null && x.Rule.Equals(validationRule.Rule) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.XpathField));
             }
 
             if (theStorageEntry == null)
             {
-                validationRule.Message = $"Could not find validation message with reference: '{validationRule.Rule}', xpath: '{validationRule.Xpath}' and languageCode:'{languageCode}'.-";
+                validationRule.Message = $"Could not find validation message with reference: '{validationRule.Rule}', xpath: '{validationRule.XpathField}' and languageCode:'{languageCode}'.-";
             }
             else
             {

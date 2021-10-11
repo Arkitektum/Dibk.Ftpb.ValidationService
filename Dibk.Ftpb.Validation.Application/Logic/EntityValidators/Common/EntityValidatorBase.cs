@@ -157,7 +157,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
                 var xx = "";
             }
 
-            _validationResult.ValidationRules.Add(new ValidationRule() { Rule = rule.ToString(), Xpath = xPath, XmlElement = xmlElement, Id = elementRuleId ?? _ruleIdPath });
+            _validationResult.ValidationRules.Add(new ValidationRule() { Rule = rule.ToString(), XpathField = xPath, XmlElement = xmlElement, Id = elementRuleId ?? _ruleIdPath });
         }
 
 
@@ -209,7 +209,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             xPath = xPath?.Replace("[", "{").Replace("]", "}");
 
             ValidationRule validationRule = _validationResult.ValidationRules.Where(r => !string.IsNullOrEmpty(r.Rule))
-                .FirstOrDefault(r => r.Rule.Equals(rule) && (r.Xpath == xPath)) ?? new ValidationRule()
+                .FirstOrDefault(r => r.Rule.Equals(rule) && (r.XpathField == xPath)) ?? new ValidationRule()
                 {
                     Rule = rule,
                     Message = $"Can't find rule:'{rule}'.-"
