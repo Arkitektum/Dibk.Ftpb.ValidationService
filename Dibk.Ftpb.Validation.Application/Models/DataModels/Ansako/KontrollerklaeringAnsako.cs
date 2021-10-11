@@ -781,7 +781,7 @@ namespace no.kxml.skjema.dibk.kontrollerklaeringAnsako {
         
         public KontrollerklaeringType() {
             this.dataFormatProviderField = "ANSAKO";
-            this.dataFormatIdField = "Kontrollerklaering";
+            this.dataFormatIdField = "10002";
             this.dataFormatVersionField = "1";
         }
         

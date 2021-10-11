@@ -145,7 +145,7 @@
 			<xs:element name="prosjektnr" type="xs:string" nillable="true" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute name="dataFormatProvider" type="xs:string" use="required" fixed="ANSAKO"/>
-		<xs:attribute name="dataFormatId" type="xs:string" use="required" fixed="ErklaeringAnsvarsrett"/>
+		<xs:attribute name="dataFormatId" type="xs:string" use="required" fixed="10000"/>
 		<xs:attribute name="dataFormatVersion" type="xs:string" use="required" fixed="1"/>
 	</xs:complexType>
 	<xs:element name="Foretak" type="ForetakType"/>

@@ -1127,7 +1127,7 @@ namespace no.kxml.skjema.dibk.samsvarserklaeringAnsako {
         
         public SamsvarserklaeringType() {
             this.dataFormatProviderField = "ANSAKO";
-            this.dataFormatIdField = "Samsvarserklaering";
+            this.dataFormatIdField = "10001";
             this.dataFormatVersionField = "1";
         }
         

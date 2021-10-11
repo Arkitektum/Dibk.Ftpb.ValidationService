@@ -1009,7 +1009,7 @@ namespace no.kxml.skjema.dibk.ansvarsrettAnsako {
         
         public ErklaeringAnsvarsrettType() {
             this.dataFormatProviderField = "ANSAKO";
-            this.dataFormatIdField = "ErklaeringAnsvarsrett";
+            this.dataFormatIdField = "10000";
             this.dataFormatVersionField = "1";
         }
         
