@@ -7,6 +7,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
     {
         //string ruleXmlElement { get; }
         ValidationResult ValidationResult { get; set; }
-        ValidationResult Validate(MatrikkelValidationEntity matrikkel);
+        ValidationResult Validate(Matrikkel matrikkel);
     }
 }

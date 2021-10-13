@@ -7,7 +7,7 @@ namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
         [XmlElement("adresse")]
         public EiendomsAdresseValidationEntity Adresse { get; set; }
         [XmlElement("eiendomsidentifikasjon")]
-        public MatrikkelValidationEntity Matrikkel { get; set; }
+        public Matrikkel Matrikkel { get; set; }
         [XmlElement("bygningsnummer")]
         public string Bygningsnummer { get; set; }
         [XmlElement("bolignummer")]

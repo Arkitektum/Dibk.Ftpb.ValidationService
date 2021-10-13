@@ -7,11 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.test.json" />
     <None Remove="Data\ArbeidstilsynetsSamtykke2.xml" />
     <None Remove="Data\ArbeidstilsynetsSamtykke_v2_dfv45957_Test.xml" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="appsettings.test.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\ArbeidstilsynetsSamtykke2.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

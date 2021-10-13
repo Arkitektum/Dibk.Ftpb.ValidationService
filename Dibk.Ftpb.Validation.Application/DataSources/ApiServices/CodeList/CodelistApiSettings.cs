@@ -4,5 +4,6 @@
     {
         public string ArbeidstilsynetUrl { get; set; }
         public string ByggesoknadUrl { get; set; }
+        public string SosiKodelisterUrl { get; set; }
     }
 }

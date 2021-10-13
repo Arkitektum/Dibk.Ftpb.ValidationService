@@ -135,7 +135,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 
         protected void AddMessageFromRule(ValidationRuleEnum id, FieldNameEnum? fieldName = null, string[] messageParameters = null, string preConditionField = null)
         {
-            var xpathNew = fieldName.HasValue ? $"{_entity.EntityXPath}/{fieldName.ToString()}" : null;
+            var xpathNew = fieldName.HasValue ? $"{_entity?.EntityXPath}/{fieldName.ToString()}" : null;
             AddMessageFromRule(id, xpathNew, messageParameters, preConditionField);
         }
 
@@ -143,7 +143,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
         public void AddMessageFromRule(ValidationRuleEnum id, string overrideXpath, string[] messageParameters = null, string preConditionField = null)
         {
             var idSt = id.ToString();
-            var xpathNew = overrideXpath ?? _entity.EntityXPath;
+            var xpathNew = overrideXpath ?? _entity?.EntityXPath;
 
             var rule = RuleToValidate(idSt, xpathNew);
 

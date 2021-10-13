@@ -14,6 +14,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "2")] gyldig,
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "3")] validert,
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "4")] utgått,
+        [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "5")] status,
         
 
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "16")] tillatte_postnr_i_kommune,

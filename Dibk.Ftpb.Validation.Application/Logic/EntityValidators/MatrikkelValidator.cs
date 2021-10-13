@@ -34,7 +34,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         }
 
-        public ValidationResult Validate(MatrikkelValidationEntity matrikkel)
+        public ValidationResult Validate(Matrikkel matrikkel)
         {
             base.ResetValidationMessages();
 
@@ -54,6 +54,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                             AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.kommunenummer);
                             break;
                         case MunicipalityValidationEnum.Invalid:
+                        case MunicipalityValidationEnum.TooSoon:
                             AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.kommunenummer, new[] { kommunenummer });
                             break;
                         case MunicipalityValidationEnum.Expired:

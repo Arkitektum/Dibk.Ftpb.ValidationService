@@ -55,6 +55,34 @@ namespace Dibk.Ftpb.Validation.Application.Logic.GeneralValidations
             }
             return OrganisasjonsnummerValidation.Ok;
         }
+        public static string GetDecryptedFoedselnummer(string fodselsnummer)
+        {
+            try
+            {
+                if (fodselsnummer.Length > 11)
+                {
+                    //TODO Decryption
+                    //fodselsnummer = Decryption.Instance.DecryptText(fodselsnummer);
+                }
+
+                return fodselsnummer;
+            }
+            catch
+            {
+                //TODO loger - Fødselsnummer kan ikke dekrypteres
+                return null;
+            }
+        }
+        public static GeneralValidationResultEnum Bruksenhetsnummer_StandardValidator(string bruksenhetsnr)
+        { 
+            if (string.IsNullOrEmpty(bruksenhetsnr))
+                return GeneralValidationResultEnum.Empty;
+
+            if (!Regex.Match(bruksenhetsnr, @"^[HKLU]\d{4}$").Success)
+                return GeneralValidationResultEnum.Invalid;
+
+            return GeneralValidationResultEnum.Ok;
+        }
 
         //Orgnummer methods
         private static Match OrgnummerDigitsValidation(string orgnum)
@@ -122,7 +150,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.GeneralValidations
             for (int i = 1; i <= weightCoefficients.Length; i++)
             {
                 products += Convert.ToInt32(isNumberValid.Groups[i].Value) * weightCoefficients[i - 1];
-
             }
 
             if (coefficientForFirstControlNumber != 0)
@@ -130,25 +157,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.GeneralValidations
                 products += productsFirstControlDigit * coefficientForFirstControlNumber;
             }
             return products;
-        }
-        public static string GetDecryptedFoedselnummer(string fodselsnummer)
-        {
-            try
-            {
-
-                if (fodselsnummer.Length > 11)
-                {
-                    //TODO Decryption
-                    //fodselsnummer = Decryption.Instance.DecryptText(fodselsnummer);
-                }
-
-                return fodselsnummer;
-            }
-            catch
-            {
-                //TODO loger - Fødselsnummer kan ikke dekrypteres
-                return null;
-            }
         }
     }
 }

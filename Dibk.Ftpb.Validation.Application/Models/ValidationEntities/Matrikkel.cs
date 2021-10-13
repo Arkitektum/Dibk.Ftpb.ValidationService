@@ -2,7 +2,7 @@
 
 namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class MatrikkelValidationEntity
+    public class Matrikkel
     {
         [XmlElement("kommunenummer")]
         public string Kommunenummer { get; set; }

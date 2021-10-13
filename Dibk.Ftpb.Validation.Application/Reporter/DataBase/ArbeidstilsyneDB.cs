@@ -40,10 +40,27 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
         {
             //Eiendombyggested
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}", "Eiendom må være utfyllt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/bygningsnummer", "Bygningsnr må være utfyllt");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/eiendomByggested{0}/bygningsnummer", "Bygningsnr '{0}' må være gyldig");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/bolignummer", "Bolignummer må være utfyllt");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/kommunenavn", "Kommunenavn må være utfyllt");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/bygningsnummer", "Du må oppgitt bygningsnummer for eiendom/byggested.",ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/eiendomByggested{0}/bygningsnummer", "Du har oppgitt følgende bygningsnummer for eiendom/byggested: ‘{0}'. Bygningsnummeret må være et tall.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/eiendomByggested{0}/bygningsnummer", "Bygningsnummer for eiendom/byggested må være større enn '0'.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/eiendomByggested{0}/bolignummer", "Når bruksenhetsnummer/bolignummer er fylt ut for eiendom/byggested, må det følge riktig format (for eksempel H0101). Se https://www.kartverket.no/eiendom/adressering/bruksenhetsnummer/ ", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/kommunenavn", "Navnet på kommunen bør fylles ut for eiendom/byggested.");
+
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon", "Du må oppgitt eiendomsidentifikasjon for eiendom/byggested.", ValidationResultSeverityEnum.ERROR, null, "1.2");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/kommunenummer", "Kommunenummer må fylles ut for eiendom/byggested.", ValidationResultSeverityEnum.ERROR, null, "1.2");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/kommunenummer", "En teknisk feil gjør at vi ikke kan bekrefte Kommunenummer du har oppgitt. Vi anbefaler at du sjekke følgende Kommunenummer:'{0}' er riktig. Du kan sjekke riktig kommunenummer på https://register.geonorge.no/sosi-kodelister/kommunenummer",ValidationResultSeverityEnum.WARNING,null,"1.2");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/eiendomByggested{0}/eiendomsidentifikasjon/kommunenummer", "Kommunenummeret '{0}' for eiendom/byggested finnes ikke i kodelisten. Du kan sjekke riktig kommunenummer på https://register.geonorge.no/sosi-kodelister/kommunenummer", ValidationResultSeverityEnum.ERROR, null, "1.2");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/eiendomByggested{0}/eiendomsidentifikasjon/kommunenummer", "Kommunenummeret '{0}' for eiendom/byggested har ugyldig status ({1}). Du kan sjekke status på https://register.geonorge.no/sosi-kodelister/kommunenummer ", ValidationResultSeverityEnum.ERROR, null, "1.2");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/gaardsnummer", "Gårdsnummer må fylles ut for eiendom/byggested.", ValidationResultSeverityEnum.ERROR, null, "1.3");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/gaardsnummer", "Gårdsnummer '{0}' for eiendom/byggested må være '0' eller større.", ValidationResultSeverityEnum.ERROR, null, "1.3");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/bruksnummer", "Bruksnummer må fylles ut for eiendom/byggested.", ValidationResultSeverityEnum.ERROR, null, "1.4");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/bruksnummer", "Bruksnummer '{0}' for eiendom/byggested må være '0' eller større.", ValidationResultSeverityEnum.ERROR, null, "1.4");
+
+
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/festenummer", "Eiendommens FNR i Matrikkelen må være utfyllt", ValidationResultSeverityEnum.ERROR, null, "1.555555");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/seksjonsnummer", "Eiendommens SNR i Matrikkelen må være utfyllt", ValidationResultSeverityEnum.ERROR, null, "1.6");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utgått, "/eiendomByggested{0}/eiendomsidentifikasjon/kommunenummer", "Eiendommens kommunenr i Matrikkelen er utgått", ValidationResultSeverityEnum.ERROR, null, "1.3");
+
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.tillatte_postnr_i_kommune, "/eiendomByggested{0}/postnr", "Postnr {0} ligger ikke i {1} kommune", ValidationResultSeverityEnum.ERROR, null, "2.3");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/adresse", "Eiendommens adresse må være utfyllt", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/adresse/adresselinje1", "Eiendommens adresselinje1 må være utfyllt");
@@ -57,14 +74,6 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/adresse/bokstav", "Eiendommens bokstav må være utfyllt");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.kontrollsiffer, "/eiendomByggested{0}/adresse/postnr", "Eiendommens postnr må bestå av 4 siffer");
             
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon", "Eiendommen må være utfyllt i Matrikkelen", ValidationResultSeverityEnum.ERROR, null, "1.2");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/kommunenummer", "Eiendommens kommunenr i Matrikkelen må være utfyllt", ValidationResultSeverityEnum.ERROR, null, "1.3");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/eiendomByggested{0}/eiendomsidentifikasjon/kommunenummer", "Eiendommens kommunenr i Matrikkelen må være gyldig", ValidationResultSeverityEnum.ERROR, null, "1.3");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/gaardsnummer", "Eiendommens GNR i Matrikkelen må være utfyllt", ValidationResultSeverityEnum.ERROR, null, "1.4");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/bruksnummer", "Eiendommens BNR i Matrikkelen må være utfyllt", ValidationResultSeverityEnum.ERROR, null, "1.5");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/festenummer", "Eiendommens FNR i Matrikkelen må være utfyllt", ValidationResultSeverityEnum.ERROR, null, "1.555555");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon/seksjonsnummer", "Eiendommens SNR i Matrikkelen må være utfyllt", ValidationResultSeverityEnum.ERROR, null, "1.6");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utgått, "/eiendomByggested{0}/eiendomsidentifikasjon/kommunenummer", "Eiendommens kommunenr i Matrikkelen er utgått", ValidationResultSeverityEnum.ERROR, null, "1.3");
 
 
             //arbeidsplasser

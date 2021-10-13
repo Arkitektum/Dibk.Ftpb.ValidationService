@@ -30,13 +30,46 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList
         public bool? IsCodelistValid(object codeListName, string codeValue, RegistryType registryType)
         {
             if (String.IsNullOrEmpty(codeValue)) return false;
+
             Dictionary<string, CodelistFormat> codelist = GetCodeList(codeListName, registryType).Result;
-            
+
             if (codelist == null)
                 return null;
 
-            return codelist.ContainsKey(codeValue);
+            CodelistFormat result;
+            if (codelist.TryGetValue(codeValue, out result))
+                return result.Status.Equals("Gyldig", StringComparison.CurrentCultureIgnoreCase);
+
+            return false;
         }
+
+        public CodelistFormat GetCodelistTagValue(object codeListName, string codeValue, RegistryType registryType)
+        {
+            CodelistFormat result = new CodelistFormat(null,null,null);
+
+            if (String.IsNullOrEmpty(codeValue))
+            {
+                result.Status = "Utfylt";
+            }
+            else
+            {
+                result.Name = codeListName.ToString();
+                Dictionary<string, CodelistFormat> codelist = GetCodeList(codeListName, registryType).Result;
+                if (codelist == null)
+                {
+                    result.Status = "IkkeValidert";
+                }
+                else
+                {
+                    if (!codelist.TryGetValue(codeValue, out result))
+                    {
+                        result.Status = "ugyldig";
+                    }
+                }
+            }
+            return result;
+        }
+
 
         public bool? IsCodelistLabelValid(object codeListName, string codeValue, string codeName, RegistryType registryType)
         {
@@ -49,11 +82,10 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList
 
             CodelistFormat result;
             if (codelist.TryGetValue(codeValue, out result))
-            {
-                if (result.Name.Equals(codeName)) return true;
-                else return false;
-            }
-            else return false;
+                if (result.Name.Equals(codeName) && result.Status.Equals("Gyldig", StringComparison.CurrentCultureIgnoreCase))
+                    return true;
+
+            return false;
         }
 
 

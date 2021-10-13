@@ -8,6 +8,7 @@ using System.Linq;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using System;
+using Dibk.Ftpb.Validation.Application.Logic.GeneralValidations;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -43,14 +44,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public ValidationResult Validate(Eiendom eiendom)
         {
             base.ResetValidationMessages();
+            ValidateEntityFields(eiendom);
 
-            if (Helpers.ObjectIsNullOrEmpty(eiendom))
+            if (!Helpers.ObjectIsNullOrEmpty(eiendom))
             {
-                AddMessageFromRule(ValidationRuleEnum.utfylt);
-            }
-            else
-            {
-                ValidateEntityFields(eiendom);
 
                 var matrikkelValidationResult = _matrikkelValidator.Validate(eiendom.Matrikkel);
                 _validationResult.ValidationMessages.AddRange(matrikkelValidationResult.ValidationMessages);
@@ -69,29 +66,38 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             //TODO Implement Matrikkel services, if Arbeidstilsynet har tilgang til Matrikkel API
         }
 
-        private void ValidateEntityFields(Eiendom eiendom)
+        public void ValidateEntityFields(Eiendom eiendom)
         {
-            if (!string.IsNullOrEmpty(eiendom?.Bygningsnummer))
+            if (Helpers.ObjectIsNullOrEmpty(eiendom))
             {
-                long bygningsnrLong = 0;
-                if (!long.TryParse(eiendom.Bygningsnummer, out bygningsnrLong))
+                AddMessageFromRule(ValidationRuleEnum.utfylt);
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(eiendom?.Bygningsnummer))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.numerisk, FieldNameEnum.bygningsnummer, new[] { eiendom.Bygningsnummer });
-                }
-                else
-                {
-                    if (bygningsnrLong <= 0)
+                    long bygningsnrLong = 0;
+                    if (!long.TryParse(eiendom.Bygningsnummer, out bygningsnrLong))
                     {
-                        AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.bygningsnummer, new[] { bygningsnrLong.ToString("N") });
+                        AddMessageFromRule(ValidationRuleEnum.numerisk, FieldNameEnum.bygningsnummer, new[] { eiendom.Bygningsnummer });
+                    }
+                    else
+                    {
+                        if (bygningsnrLong <= 0)
+                        {
+                            AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.bygningsnummer, new[] { bygningsnrLong.ToString("N") });
+                        }
                     }
                 }
+
+                var bolignummerStandardValidation = NorskStandardValidator.Bruksenhetsnummer_StandardValidator(eiendom?.Bolignummer);
+                if (bolignummerStandardValidation == GeneralValidationResultEnum.Invalid)
+                    AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.bolignummer);
+
+                if (string.IsNullOrEmpty(eiendom?.Kommunenavn))
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.kommunenavn);
+
             }
-
-            if (string.IsNullOrEmpty(eiendom?.Bolignummer))
-                AddMessageFromRule(ValidationRuleEnum.utfylt,FieldNameEnum.bolignummer);
-
-            if (string.IsNullOrEmpty(eiendom?.Kommunenavn))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.kommunenavn);
         }
     }
 }

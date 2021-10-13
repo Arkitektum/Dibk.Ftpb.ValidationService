@@ -91,21 +91,23 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         //FTB
         [EntityValidatorEnumerationAttribute(XmlNode = "ansvarsrett", ValidatorId = "27")]
         AnsvarsrettValidator,
-        
+
         [EntityValidatorEnumerationAttribute(XmlNode = "foretak", ValidatorId = "28")]
         ForetakValidator,
-       
+
         [EntityValidatorEnumerationAttribute(XmlNode = "ansvarsomraade{0}", ValidatorId = "29")]
         AnsvarsomraadeValidator,
 
         [EntityValidatorEnumerationAttribute(XmlNode = "funksjon", ValidatorId = "30")]
         FunksjonValidator,
-        
+
         [EntityValidatorEnumerationAttribute(XmlNode = "tiltaksklasse", ValidatorId = "31")]
         TiltaksklasseValidator,
 
         [EntityValidatorEnumerationAttribute(XmlNode = "kontaktperson", ValidatorId = "32")]
+        
         KontaktpersonValidatorV2,
-
+        [EntityValidatorEnumerationAttribute(XmlNode = "eiendomsidentifikasjon", ValidatorId = "33")]
+        MatrikkelValidatorV2,
     }
 }

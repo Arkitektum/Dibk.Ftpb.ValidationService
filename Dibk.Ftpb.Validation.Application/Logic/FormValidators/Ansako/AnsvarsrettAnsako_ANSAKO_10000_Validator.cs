@@ -104,11 +104,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             };
             _entitiesNodeList.AddRange(soeknadssystemetsReferanseNodeList);
             // EiendomByggested
-            List<EntityValidatorNode> eiendombyggestedNodeList = new()
+            var eiendombyggestedNodeList = new List<EntityValidatorNode>()
             {
                 new() { NodeId = 13, EnumId = EntityValidatorEnum.EiendomByggestedValidator, ParentID = null },
                 new() { NodeId = 14, EnumId = EntityValidatorEnum.EiendomsAdresseValidator, ParentID = 13 },
-                new() { NodeId = 15, EnumId = EntityValidatorEnum.MatrikkelValidator, ParentID = 13 },
+                new() { NodeId = 15, EnumId = EntityValidatorEnum.MatrikkelValidatorV2, ParentID = 13 },
             };
             _entitiesNodeList.AddRange(eiendombyggestedNodeList);
         }
@@ -143,7 +143,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
 
             //EiendomByggested
             _eiendomsAdresseValidator = new EiendomsAdresseValidator(tree);
-            _matrikkelValidator = new MatrikkelValidator(tree, _municipalityValidator);
+            _matrikkelValidator = new MatrikkelValidatorV2(tree, _codeListService);
             _eiendomByggestedValidator = new EiendomByggestedValidator(tree, _eiendomsAdresseValidator, _matrikkelValidator);
 
         }
@@ -163,7 +163,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             {
                 Eiendom eiendom = Helpers.ObjectIsNullOrEmpty(_validationForm.eiendomByggested) ? null : _validationForm.eiendomByggested[i];
                 var eiendomsResult = _eiendomByggestedValidator.Validate(eiendom);
-                AccumulateValidationMessages(eiendomsResult.ValidationMessages,i);
+                AccumulateValidationMessages(eiendomsResult.ValidationMessages, i);
             }
         }
 

@@ -45,6 +45,12 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
             codelistClient.Setup(a => a.IsCodelistValid(It.IsAny<object>(), It.IsAny<string>(), It.IsAny<RegistryType>())).Returns(valid);
             return codelistClient.Object;
         }
+        public static ICodeListService GetCodelistTagValue(object CodeListName, string name = null, string description = null, string status = "gyldig")
+        {
+            var codelistClient = new Mock<ICodeListService>();
+            codelistClient.Setup(a => a.GetCodelistTagValue(It.IsAny<object>(), It.IsAny<string>(), It.IsAny<RegistryType>())).Returns(new CodelistFormat(name, description, status));
+            return codelistClient.Object;
+        }
 
         public static IPostalCodeService ValidatePostnr(bool valid, string result, string postalCodeType)
         {
@@ -78,7 +84,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
         public static IKodelisteValidator KodelisteValidator(string xpath = null, ValidationRuleEnum? validationRule = null, string entityXPath = null)
         {
             var kodelisteValidator = new Mock<IKodelisteValidator>();
-            kodelisteValidator.Setup((a =>a.Validate(It.IsAny<Kodeliste>())))
+            kodelisteValidator.Setup((a => a.Validate(It.IsAny<Kodeliste>())))
                 .Returns(ValidationResult(xpath, validationRule));
             kodelisteValidator.SetupGet(e => e._entityXPath).Returns(entityXPath);
             return kodelisteValidator.Object;
@@ -96,7 +102,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
             ValidationRuleEnum? validationRule = null)
         {
             var validator = new Mock<IMatrikkelValidator>();
-            validator.Setup(a => a.Validate(It.IsAny<MatrikkelValidationEntity>())).Returns(ValidationResult(xpath, validationRule));
+            validator.Setup(a => a.Validate(It.IsAny<Matrikkel>())).Returns(ValidationResult(xpath, validationRule));
             return validator.Object;
         }
         public static IEiendomsAdresseValidator EiendomsAdresseValidator(string xpath = null, ValidationRuleEnum? validationRule = null)

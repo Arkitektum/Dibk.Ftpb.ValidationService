@@ -8,9 +8,12 @@ using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.Enums
 {
-    //public enum ValidationResultEnum
-    //{
-    //    Error,
-    //    Warning
-    //}
+    public enum GeneralValidationResultEnum
+    {
+        Empty,
+        Invalid,
+        Error,
+        Warning,
+        Ok,
+    }
 }

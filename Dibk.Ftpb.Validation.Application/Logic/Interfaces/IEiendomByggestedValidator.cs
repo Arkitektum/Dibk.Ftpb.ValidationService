@@ -9,5 +9,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
     {
         ValidationResult ValidationResult { get; set; }
         ValidationResult Validate(Eiendom eiendom);
+        void ValidateEntityFields(Eiendom eiendom);
     }
 }

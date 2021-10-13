@@ -4,12 +4,21 @@ using System.Text.RegularExpressions;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Dibk.Ftpb.Validation.Application.Utils;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.Tests.Utils
 {
     public class TestHelper
     {
+        public static IConfiguration InitConfiguration()
+        {
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.test.json")
+                .Build();
+            return config;
+        }
+
         public static string GetXmlWithoutSpaces(string formAsXml)
         {
             if (string.IsNullOrEmpty(formAsXml))
@@ -89,5 +98,6 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
             var validateFormv2JObject = JObject.FromObject(validationInput);
             return validateFormv2JObject;
         }
+
     }
 }

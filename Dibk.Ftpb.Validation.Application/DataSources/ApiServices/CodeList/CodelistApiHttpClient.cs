@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 
 namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList
 {
-    public class CodelistApiHttpClient 
+    public class CodelistApiHttpClient
     {
         private readonly IOptions<CodelistApiSettings> _options;
 
@@ -57,6 +57,8 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList
                     return _options.Value.ArbeidstilsynetUrl;
                 case RegistryType.Byggesoknad:
                     return _options.Value.ByggesoknadUrl;
+                case RegistryType.SosiKodelister:
+                    return _options.Value.SosiKodelisterUrl;
                 default:
                     throw new ArgumentException($"No URL registered for '{registryType}'.");
             }

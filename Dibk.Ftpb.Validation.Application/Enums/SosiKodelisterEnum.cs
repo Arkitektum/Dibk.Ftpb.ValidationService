@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace Dibk.Ftpb.Validation.Application.Enums
 {
-    public enum MunicipalityValidationEnum
+    public enum SosiKodelisterEnum
     {
-        Ok,
-        Empty,
-        Invalid,
-        Expired,
-        TooSoon,
-        unverified
+        kommunenummer,
     }
 }

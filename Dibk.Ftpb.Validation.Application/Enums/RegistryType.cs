@@ -10,7 +10,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums
     {
         Byggesoknad,
         Arbeidstilsynet,
-        Kommunenummer,
+        SosiKodelister,
         NabovarselPlan
     }
 }
