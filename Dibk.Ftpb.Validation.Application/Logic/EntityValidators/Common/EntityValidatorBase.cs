@@ -113,11 +113,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 
             elementRuleId = $"{_ruleIdPath}{fieldNumberString}.{validationRuleTypeId}";
 
-
-            if (!string.IsNullOrEmpty(overrideXpath))
-            {
-                _entityXPath = overrideXpath;
-            }
+            var ruleXpath = overrideXpath?? _entityXPath;
 
             //TODO Is this relevant now?
             //**
@@ -127,7 +123,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
                 separator = "/";
             }
 
-            string xPath = $"{_entityXPath}{separator}{xmlElementString}";
+            string xPath = $"{ruleXpath}{separator}{xmlElementString}";
 
             if (xPath.Contains("sjekklistepunkt/kodebeskrivelse"))
             {
@@ -137,11 +133,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             _validationResult.ValidationRules.Add(new ValidationRule() { Rule = rule.ToString(), Xpath = xPath, XmlElement = xmlElementString, Id = elementRuleId ?? _ruleIdPath });
         }
 
-
         protected void AddMessageFromRule(ValidationRuleEnum id, FieldNameEnum? fieldName = null, string[] messageParameters = null, string preConditionField = null)
         {
+            var xpathNew = fieldName.HasValue ? $"{_entity.EntityXPath}/{fieldName.ToString()}" : null;
+            AddMessageFromRule(id, xpathNew, messageParameters, preConditionField);
+        }
+
+        //Add this method to override xPath if the validation value is not from the same 'entity'
+        public void AddMessageFromRule(ValidationRuleEnum id, string overrideXpath, string[] messageParameters = null, string preConditionField = null)
+        {
             var idSt = id.ToString();
-            var xpathNew = fieldName.HasValue ? $"{_entity.EntityXPath}/{fieldName.ToString()}" : _entity.EntityXPath;
+            var xpathNew = overrideXpath ?? _entity.EntityXPath;
 
             var rule = RuleToValidate(idSt, xpathNew);
 
@@ -156,6 +158,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 
             _validationResult.ValidationMessages.Add(validationMessage);
         }
+
 
         //**
         public bool IsAnyValidationMessagesWithXpath(string xpath, int? index = null)

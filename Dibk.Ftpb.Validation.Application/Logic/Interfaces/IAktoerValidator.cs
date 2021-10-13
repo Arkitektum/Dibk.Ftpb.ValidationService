@@ -5,7 +5,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
 {
     public interface IAktoerValidator
     {
-        //string ruleXmlElement { get; }
         ValidationResult ValidationResult { get; set; }
         ValidationResult Validate(Aktoer tiltakshaver = null);
     }

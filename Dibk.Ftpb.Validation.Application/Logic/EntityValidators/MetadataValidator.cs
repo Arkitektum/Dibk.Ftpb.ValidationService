@@ -57,7 +57,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             if (Helpers.ObjectIsNullOrEmpty(metadataValidationEntity.FraSluttbrukersystem))
                 AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.fraSluttbrukersystem);
 
-            if (Helpers.ObjectIsNullOrEmpty(metadataValidationEntity.UnntattOffentlighet))
+            if (metadataValidationEntity.UnntattOffentlighet.HasValue)
                 AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.unntattOffentlighet);
 
             //Usikkert om skal valideres

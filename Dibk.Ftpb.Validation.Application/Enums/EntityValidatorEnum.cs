@@ -86,9 +86,26 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         KommunensSaksnummerValidator,
 
         [EntityValidatorEnumerationAttribute(XmlNode = "betaling", ValidatorId = "26")]
-        BetalingValidator
+        BetalingValidator,
 
+        //FTB
+        [EntityValidatorEnumerationAttribute(XmlNode = "ansvarsrett", ValidatorId = "27")]
+        AnsvarsrettValidator,
+        
+        [EntityValidatorEnumerationAttribute(XmlNode = "foretak", ValidatorId = "28")]
+        ForetakValidator,
+       
+        [EntityValidatorEnumerationAttribute(XmlNode = "ansvarsomraade{0}", ValidatorId = "29")]
+        AnsvarsomraadeValidator,
 
+        [EntityValidatorEnumerationAttribute(XmlNode = "funksjon", ValidatorId = "30")]
+        FunksjonValidator,
+        
+        [EntityValidatorEnumerationAttribute(XmlNode = "tiltaksklasse", ValidatorId = "31")]
+        TiltaksklasseValidator,
+
+        [EntityValidatorEnumerationAttribute(XmlNode = "kontaktperson", ValidatorId = "32")]
+        KontaktpersonValidatorV2,
 
     }
 }

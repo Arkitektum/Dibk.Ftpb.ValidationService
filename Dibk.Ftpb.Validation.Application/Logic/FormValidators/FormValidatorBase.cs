@@ -63,29 +63,57 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var whereNotAlreadyExists = validationRules.Where(x => !_validationResult.ValidationRules.Any(y => y.Xpath == x.Xpath && y.Rule == x.Rule));
             _validationResult.ValidationRules.AddRange(whereNotAlreadyExists);
         }
-        protected void AddValidationRule(ValidationRuleEnum rule, FieldNameEnum? xmlElement = null, string overrideXpath = null)
+        protected void AddValidationRule(ValidationRuleEnum rule, FieldNameEnum? xmlElementName = null, string overrideXpath = null)
         {
             var validationRuleTypeId = Helpers.GetEnumValidationRuleType(rule);
             var fieldNumberString = String.Empty;
 
-            if (xmlElement != null)
+            if (xmlElementName != null)
             {
-                var fieldNameNumber = Helpers.GetEnumFieldNameNumber(xmlElement);  //GetEnumEntityValidatorNumber
+                var fieldNameNumber = Helpers.GetEnumFieldNameNumber(xmlElementName);  //GetEnumEntityValidatorNumber
                 fieldNumberString = $".{fieldNameNumber}";
-
             }
 
             var elementRuleId = $"{fieldNumberString}.{validationRuleTypeId}";
 
+            var separator = xmlElementName.HasValue ? "/" : "";
+            string xPath = $"{overrideXpath}{separator}{xmlElementName?.ToString()}";
 
-            //TODO Is this relevant now?
-            var separator = xmlElement.HasValue ? "/" : "";
-
-            string xPath = $"{overrideXpath}{separator}{xmlElement?.ToString()}";
-            //**
-            _validationResult.ValidationRules.Add(new ValidationRule() { Rule = rule.ToString(), Xpath = xPath, XmlElement = xmlElement?.ToString(), Id = elementRuleId });
+            _validationResult.ValidationRules.Add(new ValidationRule() { Rule = rule.ToString(), Xpath = xPath, XmlElement = xmlElementName?.ToString(), Id = elementRuleId });
         }
+        protected void AddMessageFromRule(ValidationRuleEnum id, FieldNameEnum? xmlElementName = null, string[] messageParameters = null, string preConditionField = null)
+        {
+            var idSt = id.ToString();
+            
+            string xmlElementXpath = xmlElementName.HasValue ? $"/{xmlElementName}" : "/";
 
+            var xpathNew =$"{xmlElementXpath}";
+
+            var rule = RuleToValidate(idSt, xpathNew);
+
+            var validationMessage = new ValidationMessage()
+            {
+                Rule = idSt,
+                Reference = rule.Id,
+                XpathField = xpathNew,
+                PreCondition = preConditionField,
+                MessageParameters = messageParameters
+            };
+
+            _validationResult.ValidationMessages.Add(validationMessage);
+        }
+        public ValidationRule RuleToValidate(string rule, string xPath)
+        {
+            xPath = xPath?.Replace("[", "{").Replace("]", "}");
+
+            ValidationRule validationRule = _validationResult.ValidationRules.Where(r => !string.IsNullOrEmpty(r.Rule))
+                .FirstOrDefault(r => r.Rule.Equals(rule) && (r.Xpath == xPath)) ?? new ValidationRule()
+            {
+                Rule = rule,
+                Message = $"Can't find rule:'{rule}'.-"
+            };
+            return validationRule;
+        }
         protected void AccumulateValidationMessages(List<ValidationMessage> validationMessages, int? index = null)
         {
             if (validationMessages != null && index.HasValue)

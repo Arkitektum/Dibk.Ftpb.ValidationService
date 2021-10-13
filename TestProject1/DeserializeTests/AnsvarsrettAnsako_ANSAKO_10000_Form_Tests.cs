@@ -28,7 +28,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.DeserializeTests
             var xmlData_10000 = File.ReadAllText(@"Data\Ansako\ErklaeringAnsvarsrett_1.xml");
 
             var xmlData_10000_Common = SerializeUtil.DeserializeFromString<AnsvarsrettAnsako_ANSAKO_10000_Form>(xmlData_10000);
-            var foretak = xmlData_10000_Common.Ansvarsretts.FirstOrDefault().Foretak;
+            var foretak = xmlData_10000_Common.Ansvarsretts.Foretak;
             foretak.Should().NotBeNull();
         }
         [Fact]
@@ -37,7 +37,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.DeserializeTests
             var xmlData_10000 = File.ReadAllText(@"Data\Ansako\ErklaeringAnsvarsrett_1.xml");
 
             var xmlData_10000_Common = SerializeUtil.DeserializeFromString<AnsvarsrettAnsako_ANSAKO_10000_Form>(xmlData_10000);
-            var ansvarsomraades = xmlData_10000_Common.Ansvarsretts.FirstOrDefault().Ansvarsomraades;
+            var ansvarsomraades = xmlData_10000_Common.Ansvarsretts.Ansvarsomraades;
             ansvarsomraades.Should().NotBeNull();
         }
     }
