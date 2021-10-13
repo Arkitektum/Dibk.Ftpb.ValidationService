@@ -5,6 +5,7 @@ using Dibk.Ftpb.Validation.Application.Utils;
 using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Enums;
+using System.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -21,7 +22,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public ValidationResult Validate(ArbeidsplasserValidationEntity arbeidsplasser, IEnumerable<SjekklistekravValidationEntity> sjekkliste, List<string> attachments = null)
         {
             _attachmentList = attachments;
-            ValidateEntityFields(arbeidsplasser, sjekkliste);
+            ValidateEntityFields(arbeidsplasser);
 
             return _validationResult;
         }
@@ -30,10 +31,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             base.InitializeValidationRules();
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.veiledning);
-            AddValidationRuleOverideXpath(ValidationRuleEnum.sjekklistepunkt_1_17_dokumentasjon_utfylt, "/krav{0}/dokumentasjon");
         }
 
-        public void ValidateEntityFields(ArbeidsplasserValidationEntity arbeidsplasserValEntity, IEnumerable<SjekklistekravValidationEntity> sjekkliste)
+        public void ValidateEntityFields(ArbeidsplasserValidationEntity arbeidsplasserValEntity)
         {
             if (Helpers.ObjectIsNullOrEmpty(arbeidsplasserValEntity))
             {
@@ -43,15 +43,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             {
                 if (!arbeidsplasserValEntity.Eksisterende.GetValueOrDefault(false) && !arbeidsplasserValEntity.Framtidige.GetValueOrDefault(false))
                 {
-                    //AddMessageFromRule(ValidationRuleEnum.framtidige_eller_eksisterende_utfylt, xpath);
+                    AddMessageFromRule(ValidationRuleEnum.framtidige_eller_eksisterende_utfylt);
                 }
                 else
                 {
                     if (!arbeidsplasserValEntity.Faste.GetValueOrDefault(false) && !arbeidsplasserValEntity.Midlertidige.GetValueOrDefault(false))
                     {
-                        //AddMessageFromRule(ValidationRuleEnum.faste_eller_midlertidige_utfylt, xpath);
+                        AddMessageFromRule(ValidationRuleEnum.faste_eller_midlertidige_utfylt);
                     }
-                    
+
                     int antallAnsatte;
                     int.TryParse(arbeidsplasserValEntity.AntallAnsatte, out antallAnsatte);
                     if (antallAnsatte <= 0)
@@ -67,35 +67,22 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         {
                             AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.antallVirksomheter);
                         }
-
-                        foreach (var krav in sjekkliste)
-                        {
-                            if (krav.Sjekklistepunkt.Kodeverdi.Equals("1.17"))
-                            {
-                                if (string.IsNullOrEmpty(krav.Dokumentasjon))
-                                {
-                                    //AddMessageFromRule(ValidationRuleEnum.sjekklistepunkt_1_17_dokumentasjon_utfylt, krav.ModelData.Sjekklistepunkt.DataModelXpath);
-                                }
-                            }
-                        }
                     }
 
                     if (string.IsNullOrEmpty(arbeidsplasserValEntity.Beskrivelse))
                     {
-                        if (_attachmentList == null || !_attachmentList.Contains("BeskrivelseTypeArbeidProsess"))
+                        if (_attachmentList == null || _attachmentList.All(i => !i.Equals("BeskrivelseTypeArbeidProsess")))
                         {
-                            AddMessageFromRule(ValidationRuleEnum.beskrivelse, FieldNameEnum.beskrivelse);
+                            AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.beskrivelse);
                         }
                     }
-                    
-                    if (arbeidsplasserValEntity.Veiledning.HasValue)
-                    {
-                        AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.veiledning);
-                    }
                 }
+                if (arbeidsplasserValEntity.Veiledning == null)
+                {
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.veiledning);
+                }
+
             }
         }
-
-
     }
 }

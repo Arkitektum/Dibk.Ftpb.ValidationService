@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Utils;
+using System.Text.RegularExpressions;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
@@ -33,7 +34,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 ValidationMessages = new List<ValidationMessage>(),
                 ValidationRules = new List<ValidationRule>()
             };
-
         }
 
         protected string GetDataFormatVersion(Type t)
@@ -65,28 +65,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var whereNotAlreadyExists = validationRules.Where(x => !ValidationResult.ValidationRules.Any(y => y.XpathField == x.XpathField && y.Rule == x.Rule));
             ValidationResult.ValidationRules.AddRange(whereNotAlreadyExists);
         }
-        protected void AddValidationRule(ValidationRuleEnum rule, FieldNameEnum? xmlElement = null, string overrideXpath = null)
-        {
-            var validationRuleTypeId = Helpers.GetEnumValidationRuleType(rule);
-            var fieldNumberString = String.Empty;
 
-            if (xmlElement != null)
-            {
-                var fieldNameNumber = Helpers.GetEnumFieldNameNumber(xmlElement);  //GetEnumEntityValidatorNumber
-                fieldNumberString = $".{fieldNameNumber}";
-
-            }
-
-            var elementRuleId = $"{fieldNumberString}.{validationRuleTypeId}";
-
-
-            //TODO Is this relevant now?
-            var separator = xmlElement.HasValue ? "/" : "";
-
-            string xPath = $"{overrideXpath}{separator}{xmlElement?.ToString()}";
-            //**
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Rule = rule.ToString(), XpathField = xPath, XmlElement = xmlElement?.ToString(), Id = elementRuleId });
-        }
 
         protected void AccumulateValidationMessages(List<ValidationMessage> validationMessages, int? index = null)
         {
@@ -119,6 +98,61 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var index = !(objectArray ?? Array.Empty<object>()).Any() ? 1 : objectArray.Count();
             return index;
         }
+
+        protected void AddValidationRule(ValidationRuleEnum rule, FieldNameEnum? xmlElement = null, string overrideXpath = null)
+        {
+            //Note: different implementationthan than in the EntityValidatorBase
+            var validationRuleTypeId = Helpers.GetEnumValidationRuleType(rule);
+            var fieldNumberString = String.Empty;
+
+            if (xmlElement != null)
+            {
+                var fieldNameNumber = Helpers.GetEnumFieldNameNumber(xmlElement);  //GetEnumEntityValidatorNumber
+                fieldNumberString = $".{fieldNameNumber}";
+
+            }
+
+            var elementRuleId = $"{fieldNumberString}.{validationRuleTypeId}";
+
+
+            //TODO Is this relevant now?
+            var separator = xmlElement.HasValue ? "/" : "";
+
+            string xPath = $"{overrideXpath}{separator}{xmlElement?.ToString()}";
+            //**
+            ValidationResult.ValidationRules.Add(new ValidationRule() { Rule = rule.ToString(), XpathField = xPath, XmlElement = xmlElement?.ToString(), Id = elementRuleId });
+        }
+
+        protected void AddMessageFromRule(ValidationRuleEnum id, string xmlElementPathName, string[] messageParameters = null, string preConditionField = null)
+        {
+            var idSt = id.ToString();
+            var rule = RuleToValidate(idSt, xmlElementPathName);
+            var validationMessage = new ValidationMessage()
+            {
+                Rule = idSt,
+                Reference = rule.Id,
+                XpathField = xmlElementPathName,
+                PreCondition = preConditionField,
+                MessageParameters = messageParameters
+            };
+            ValidationResult.ValidationMessages.Add(validationMessage);
+        }
+
+
+        public ValidationRule RuleToValidate(string rule, string xPath)
+        {
+            //Note: different regex implementationthan than in the EntityValidatorBase
+            xPath = Regex.Replace(xPath, @"\[\d{1,}\]", "{0}");
+            ValidationRule validationRule = ValidationResult.ValidationRules.Where(r => !string.IsNullOrEmpty(r.Rule))
+                .FirstOrDefault(r => r.Rule.Equals(rule) && (r.XpathField == xPath)) ?? new ValidationRule()
+                {
+                    Rule = rule,
+                    Message = $"Can't find rule:'{rule}'.-"
+                };
+            return validationRule;
+        }
+
+
     }
 
     public class FormDataAttribute : Attribute

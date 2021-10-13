@@ -17,5 +17,6 @@ namespace Dibk.Ftpb.Validation.Application.Models.FormEntities
         public MetadataValidationEntity MetadataValidationEntity { get; set; }
         public SaksnummerValidationEntity ArbeidstilsynetsSaksnummerValidationEntity { get; set; }
         public SaksnummerValidationEntity KommunensSaksnummerValidationEntity { get; set; }
+        public SignaturValidationEntity SignaturValidationEntity { get; set; }
     }
 }

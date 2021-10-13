@@ -127,6 +127,9 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         [FieldNameEnumerationAttribute(FieldNameId = "123")] transId,
         [FieldNameEnumerationAttribute(FieldNameId = "124")] gebyrkategori,
         [FieldNameEnumerationAttribute(FieldNameId = "125")] skalFaktureres,
+        [FieldNameEnumerationAttribute(FieldNameId = "126")] signaturdato,
+        [FieldNameEnumerationAttribute(FieldNameId = "127")] signertAv,
+        [FieldNameEnumerationAttribute(FieldNameId = "128")] signertPaaVegneAv,
 
     }
 }

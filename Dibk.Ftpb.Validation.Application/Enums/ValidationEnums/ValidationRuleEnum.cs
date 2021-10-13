@@ -33,7 +33,7 @@ namespace Dibk.Ftpb.Validation.Application.Enums.ValidationEnums
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "10")] sjekklistepunkt_dokumentasjon_utfylt,
 
         // potential for improvement
-        [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "11")] sjekklistepunkt_1_17_dokumentasjon_utfylt, // utfylt
+        [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "11")] sjekklistepunkt_1_18_dokumentasjon_utfylt, // utfylt
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "19")] telmob_utfylt, //utfylt
         [ValidationRuleTypeEnumerationAttribute(ValidationRuleTypeId = "14")] postnr_stemmerIkke, //stemmerIkke
         

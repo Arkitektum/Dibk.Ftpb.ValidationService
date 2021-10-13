@@ -17,6 +17,8 @@ using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Logic.Mappers.ArbeidstilsynetsSamtykke2;
 using Dibk.Ftpb.Validation.Application.Services;
 using Elasticsearch.Net.Specification.IndicesApi;
+using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
+using System;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
@@ -74,7 +76,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private ISaksnummerValidator _kommunensSaksnummerValidator;
 
         // Arbeidsplasser
-        private ArbeidsplasserValidator _arbeidsplasserValidator;
+        private ArbeidsplasserValidatorV2 _arbeidsplasserValidator;
 
         // Betaling
         private BetalingValidator _betalingValidator;
@@ -105,12 +107,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             //Add ChecklistAnswers to validationresult
             ValidationResult.prefillChecklist = GetChecklistAnswers();
+            var formChecklistAnswers = GetChecklistAnswersFromForm(validationInput);
+            ValidationResult.prefillChecklist.AddRange(formChecklistAnswers);
+
             return ValidationResult;
         }
 
         private List<ChecklistAnswer> GetChecklistAnswers()
         {
-            //var prefillChecklist = new PrefillChecklist();
             List<ChecklistAnswer> list = new List<ChecklistAnswer>();
             foreach (var sjekklistepkt in _validationForm.SjekklistekravValidationEntities)
             {
@@ -124,10 +128,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
                 list.Add(checklistAnswer);
             }
-            //prefillChecklist.ChecklistAnswer = list;
+
+
 
             return list;
         }
+
+
+
 
         protected override void InitializeValidatorConfig()
         {
@@ -187,7 +195,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //Arbeidsplasser
             var arbeidsplasserValidatorNodeList = new List<EntityValidatorNode>()
             {
-                new() {NodeId = 17, EnumId = EntityValidatorEnum.ArbeidsplasserValidator, ParentID = null}
+                new() {NodeId = 17, EnumId = EntityValidatorEnum.ArbeidsplasserValidatorV2, ParentID = null}
             };
             _entitiesNodeList.AddRange(arbeidsplasserValidatorNodeList);
 
@@ -252,7 +260,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _fakturamottakerValidator = new FakturamottakerValidator(tree, _fakturamottakerEnkelAdresseValidator);
 
             //Arbaidsplaser
-            _arbeidsplasserValidator = new ArbeidsplasserValidator(tree);
+            _arbeidsplasserValidator = new ArbeidsplasserValidatorV2(tree);
 
             //Arbaidsplaser
             _betalingValidator = new BetalingValidator(tree);
@@ -375,13 +383,84 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var kommunensSaksnummerValidationResult = _arbeidstilsynetsSaksnummerValidator.Validate(_validationForm.KommunensSaksnummerValidationEntity);
             AccumulateValidationMessages(kommunensSaksnummerValidationResult.ValidationMessages);
 
+            CustomSjekklisteValidations(_validationForm?.ArbeidsplasserValidationEntity, _validationForm?.SjekklistekravValidationEntities);
+
         }
 
         protected override IEnumerable<string> GetFormTiltakstyper() { return _tiltakstypes; }
 
-        public List<ChecklistAnswer> GetChecklistAnswersFromForm(string dataFormatVersion)
+        private void CustomSjekklisteValidations(ArbeidsplasserValidationEntity arbeidsplasser, SjekklistekravValidationEntity[] sjekklistekrav)
         {
-            throw new System.NotImplementedException();
+            AddValidationRule(ValidationRuleEnum.sjekklistepunkt_1_18_dokumentasjon_utfylt, FieldNameEnum.dokumentasjon, "/krav{0}");
+
+            if (arbeidsplasser.UtleieBygg.GetValueOrDefault(false))
+            {
+                var pt_1_18 = sjekklistekrav.FirstOrDefault(x => x.Sjekklistepunkt.Kodeverdi != null && x.Sjekklistepunkt.Kodeverdi.Equals("1.18"));
+
+                if (pt_1_18 == null)
+                {
+                    AddMessageFromRule(ValidationRuleEnum.sjekklistepunkt_1_18_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", new string[] { "1.18" });
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(pt_1_18.Dokumentasjon))
+                    {
+                        //Find element number
+                        var numberInArray = Array.IndexOf(sjekklistekrav, pt_1_18);
+                        AddMessageFromRule(ValidationRuleEnum.sjekklistepunkt_1_18_dokumentasjon_utfylt, $"/krav[{numberInArray}]/dokumentasjon", new string[] { "1.18" });
+                    }
+                }
+            }
+        }
+
+        public List<ChecklistAnswer> GetChecklistAnswersFromForm(ValidationInput validationInput)
+        {
+            //Add prefilled checklist answers for data not part of the validation errors and warnings
+
+            ArbeidstilsynetsSamtykkeType formModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(validationInput.FormData);
+            var form = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(formModel);
+
+            List<ChecklistAnswer> list = new List<ChecklistAnswer>();
+
+            var checklistAnswer1_17 = new ChecklistAnswer()
+            {
+                checklistQuestion = "Er det utleiebygg?",
+                checklistReference = "1.17",
+                yesNo = form.ArbeidsplasserValidationEntity.UtleieBygg.GetValueOrDefault(false)
+            };
+
+            list.Add(checklistAnswer1_17);
+
+            var checklistAnswer1_20 = new ChecklistAnswer()
+            {
+                //TODO: Must get the real yesNO answer based on validation of attachment
+                checklistQuestion = "Er søknaden signert av tiltakshaver?",
+                checklistReference = "1.20",
+                yesNo = true
+            };
+
+            list.Add(checklistAnswer1_20);
+
+
+            var checklistAnswer1_21 = new ChecklistAnswer()
+            {
+                checklistQuestion = "Er det gjennomført veiledning?",
+                checklistReference = "1.21",
+                yesNo = form.ArbeidsplasserValidationEntity.Veiledning.GetValueOrDefault(false)
+            };
+
+            list.Add(checklistAnswer1_21);
+
+            var checklistAnswer1_22 = new ChecklistAnswer()
+            {
+                checklistQuestion = "Skal søknaden unntas offentilghet?",
+                checklistReference = "1.22",
+                yesNo = form.MetadataValidationEntity.UnntattOffentlighet.GetValueOrDefault(false)
+            };
+
+            list.Add(checklistAnswer1_22);
+
+            return list;
         }
     }
 }

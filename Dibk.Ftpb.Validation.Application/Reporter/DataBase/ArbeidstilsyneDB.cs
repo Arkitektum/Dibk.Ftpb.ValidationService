@@ -76,7 +76,6 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/arbeidsplasser/antallAnsatte", "Det skal angis hvor mange ansatte som bygget dimensjoneres for.");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/arbeidsplasser/beskrivelse", "Enten skal arbeidsplasser beskrives i søknaden eller det skal være lagt ved vedlegg 2: 'Beskrivelse av type arbeid / prosesser'.");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/arbeidsplasser/veiledning", "Veileding bør være utfylt.");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.sjekklistepunkt_1_17_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Kodeverdien for sjekklistepunkt '1.17' må være utfylt", ValidationResultSeverityEnum.ERROR);
 
             //Betaling
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/betaling", "Betaling må fylles ut", ValidationResultSeverityEnum.ERROR);
@@ -204,7 +203,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             //AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.krav_sjekklistekrav_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Kravet må være dokumentert", ValidationResultSeverityEnum.ERROR);
 
 
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/krav{0}", "Kravet må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/krav{0}", "Kravet '{0}' må være utfylt", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/krav{0}/sjekklistepunkt", "Kravet må være utfylt", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/krav{0}/sjekklistepunkt", "Kodelisten for sjekklistepunkt må være gyldig", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Kodeverdien for sjekklistepunkt '{0}' må være utfylt", ValidationResultSeverityEnum.ERROR);
@@ -212,7 +211,8 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.validert, "/krav{0}/sjekklistepunkt/kodeverdi", "Kodeverdien for sjekklistepunkt '{0}' kunne ikke valideres", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Sjekklistepunktet '{0}' må ha kodebeskrivelse utfylt", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/krav{0}/sjekklistepunktsvar", "Sjekklistepunktet '{0}' må være besvart med ja/nei", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon er påkrevd for sjekklistekravet", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon er påkrevd for sjekklistekravet '{0}'", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.sjekklistepunkt_1_18_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon er påkrevd for sjekklistekravet '{0}'", ValidationResultSeverityEnum.ERROR);
             
  
 
