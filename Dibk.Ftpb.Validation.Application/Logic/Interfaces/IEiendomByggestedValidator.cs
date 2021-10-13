@@ -7,9 +7,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
 {
     public interface IEiendomByggestedValidator
     {
-        //string ruleXmlElement { get; }
         ValidationResult ValidationResult { get; set; }
-        ValidationResult Validate(EiendomValidationEntity eiendomValidationEntity);
-        //event EventHandler<ValidationResult> RulesAdded;
+        ValidationResult Validate(Eiendom eiendom);
     }
 }

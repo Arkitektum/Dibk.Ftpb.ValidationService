@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Enums;
@@ -22,6 +23,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
         private AnsvarsrettAnsako_ANSAKO_10000_Form _validationForm;
 
         private readonly IValidationMessageComposer _validationMessageComposer;
+        private readonly IMunicipalityValidator _municipalityValidator;
         private readonly IChecklistService _checklistService;
         private readonly ICodeListService _codeListService;
         private readonly IPostalCodeService _postalCodeService;
@@ -42,17 +44,22 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
         private IKontaktpersonValidator _foretakKontaktpersonValidator;
         private IKodelisteValidator _foretakPartstypeValidator;
         private IEnkelAdresseValidator _foretakEnkelAdresseValidator;
-        //Ansavarområde        
+        //**Ansavarområde        
         private IAnsvarsomraadeValidator _ansvarsomraadeValidator;
         private IKodelisteValidator _funksjonValidator;
         private IKodelisteValidator _tiltaksklasseValidator;
 
+        //EiendomByggested
+        private IMatrikkelValidator _matrikkelValidator;
+        private IEiendomsAdresseValidator _eiendomsAdresseValidator;
+        private IEiendomByggestedValidator _eiendomByggestedValidator;
 
-        public AnsvarsrettAnsako_ANSAKO_10000_Validator(IValidationMessageComposer validationMessageComposer, IChecklistService checklistService,
-                                                        ICodeListService codeListService, IPostalCodeService postalCodeService)
+        public AnsvarsrettAnsako_ANSAKO_10000_Validator(IValidationMessageComposer validationMessageComposer, IMunicipalityValidator municipalityValidator, ICodeListService codeListService
+            , IPostalCodeService postalCodeService, IChecklistService checklistService)
             : base(validationMessageComposer, checklistService)
         {
             _validationMessageComposer = validationMessageComposer;
+            _municipalityValidator = municipalityValidator;
             _checklistService = checklistService;
             _codeListService = codeListService;
             _postalCodeService = postalCodeService;
@@ -94,11 +101,16 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
                 new () {NodeId = 10, EnumId = EntityValidatorEnum.AnsvarsomraadeValidator, ParentID = 05},
                 new () {NodeId = 11, EnumId = EntityValidatorEnum.FunksjonValidator, ParentID = 10},
                 new () {NodeId = 12, EnumId = EntityValidatorEnum.TiltaksklasseValidator, ParentID = 10},
-
-
             };
             _entitiesNodeList.AddRange(soeknadssystemetsReferanseNodeList);
-
+            // EiendomByggested
+            List<EntityValidatorNode> eiendombyggestedNodeList = new()
+            {
+                new() { NodeId = 13, EnumId = EntityValidatorEnum.EiendomByggestedValidator, ParentID = null },
+                new() { NodeId = 14, EnumId = EntityValidatorEnum.EiendomsAdresseValidator, ParentID = 13 },
+                new() { NodeId = 15, EnumId = EntityValidatorEnum.MatrikkelValidator, ParentID = 13 },
+            };
+            _entitiesNodeList.AddRange(eiendombyggestedNodeList);
         }
 
         protected override IEnumerable<string> GetFormTiltakstyper()
@@ -129,6 +141,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
 
             _AnsvarsrettValidator = new AnsvarsrettValidator(tree, _foretakValidator, _ansvarsomraadeValidator);
 
+            //EiendomByggested
+            _eiendomsAdresseValidator = new EiendomsAdresseValidator(tree);
+            _matrikkelValidator = new MatrikkelValidator(tree, _municipalityValidator);
+            _eiendomByggestedValidator = new EiendomByggestedValidator(tree, _eiendomsAdresseValidator, _matrikkelValidator);
+
         }
 
         protected override void Validate(ValidationInput validationInput)
@@ -140,6 +157,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
 
             var ansvarligSoekerValidationResult = _ansvarligSoekerValidator.Validate(_validationForm.AnsvarligSoeker);
             AccumulateValidationMessages(ansvarligSoekerValidationResult.ValidationMessages);
+
+            var index = GetArrayIndex(_validationForm.eiendomByggested);
+            for (int i = 0; i < index; i++)
+            {
+                Eiendom eiendom = Helpers.ObjectIsNullOrEmpty(_validationForm.eiendomByggested) ? null : _validationForm.eiendomByggested[i];
+                var eiendomsResult = _eiendomByggestedValidator.Validate(eiendom);
+                AccumulateValidationMessages(eiendomsResult.ValidationMessages,i);
+            }
         }
 
         private void ValidateEntityFields()
@@ -159,6 +184,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             AccumulateValidationRules(_ansvarligSoekerEnkelAdresseValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_ansvarligSoekerPartstypeValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_ansvarligSoekerKontaktpersonValidator.ValidationResult.ValidationRules);
+            //EiendomByggested
+            AccumulateValidationRules(_matrikkelValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_eiendomsAdresseValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_eiendomByggestedValidator.ValidationResult.ValidationRules);
+
         }
     }
 }

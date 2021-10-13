@@ -23,7 +23,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 {
     public class EiendomByggestedValidatorTest
     {
-        private EiendomValidationEntity[] _eiendomValidationEntities;
+        private Eiendom[] _eiendomValidationEntities;
         IMunicipalityValidator _municipalityValidator;
 
 

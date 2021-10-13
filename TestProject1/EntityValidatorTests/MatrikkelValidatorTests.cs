@@ -18,7 +18,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
     public class MatrikkelValidatorTests
     {
         private ArbeidstilsynetsSamtykkeType _form;
-        private readonly IEnumerable<EiendomValidationEntity> _eiendomValidationEntities;
+        private readonly IEnumerable<Eiendom> _eiendomValidationEntities;
 
         IMunicipalityValidator _municipalityValidator;
         

@@ -40,5 +40,14 @@ namespace Dibk.Ftpb.Validation.Application.Tests.DeserializeTests
             var ansvarsomraades = xmlData_10000_Common.Ansvarsretts.Ansvarsomraades;
             ansvarsomraades.Should().NotBeNull();
         }
+        [Fact]
+        public void EiendomByggestedTest()
+        {
+            var xmlData_10000 = File.ReadAllText(@"Data\Ansako\ErklaeringAnsvarsrett_1.xml");
+
+            var xmlData_10000_Common = SerializeUtil.DeserializeFromString<AnsvarsrettAnsako_ANSAKO_10000_Form>(xmlData_10000);
+            var eiendomByggested = xmlData_10000_Common.eiendomByggested;
+            eiendomByggested.Should().NotBeNull();
+        }
     }
 }

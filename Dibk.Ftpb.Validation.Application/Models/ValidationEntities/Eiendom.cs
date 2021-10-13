@@ -2,7 +2,7 @@
 
 namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class EiendomValidationEntity 
+    public class Eiendom 
     {
         [XmlElement("adresse")]
         public EiendomsAdresseValidationEntity Adresse { get; set; }

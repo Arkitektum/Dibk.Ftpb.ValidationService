@@ -17,7 +17,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 {
     public class EiendomsAdresseValidatorTests
     {
-        private readonly EiendomValidationEntity[] _eiendomValidationEntities;
+        private readonly Eiendom[] _eiendomValidationEntities;
 
         IMunicipalityValidator _municipalityValidator;
 

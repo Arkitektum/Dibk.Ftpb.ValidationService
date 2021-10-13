@@ -9,7 +9,7 @@ namespace Dibk.Ftpb.Validation.Application.Models.FormEntities
     {
         [XmlArray("eiendomByggested", IsNullable = false)]
         [XmlArrayItem("eiendom")]
-        public EiendomValidationEntity[] EiendomByggested { get; set; }
+        public Eiendom[] EiendomByggested { get; set; }
        
         [XmlElement("tiltakshaver")]
         public Aktoer Tiltakshaver { get; set; }

@@ -15,7 +15,11 @@ namespace Dibk.Ftpb.Validation.Application.Models.FormEntities.Ansako
         
         [XmlElement("fraSluttbrukersystem")]
         public string FraSluttbrukersystem { get; set; }
-        
+
+
+        [XmlArray("eiendomByggested", IsNullable = false)]
+        [XmlArrayItem("eiendom", IsNullable = true)]
+        public Eiendom[] eiendomByggested { get; set; }
 
     }
 }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Enums;
@@ -25,18 +26,20 @@ namespace Dibk.Ftpb.Validation.Application.Tests.FormValidatorTests
 
         private ICodeListService _codeListService;
         private IPostalCodeService _postalCodeService;
-
+        private readonly IMunicipalityValidator _municipalityValidator;
 
 
         public AnsvarsrettAnsako_ANSAKO_10000_Validator_Tests()
         {
             _validationMessageComposer = new ValidationMessageComposer();
+            _municipalityValidator = MockDataSource.MunicipalityValidatorResult(MunicipalityValidationEnum.Ok);
+
             _checklistService = MockDataSource.GetCheckpoints("AT");
 
             _codeListService = MockDataSource.IsCodeListValid(FtbKodeListeEnum.Partstype, true);
             _postalCodeService = MockDataSource.ValidatePostnr(true, "Bø i Telemark", "true");
 
-            _formValidator = new AnsvarsrettAnsako_ANSAKO_10000_Validator(_validationMessageComposer, _checklistService,_codeListService,_postalCodeService);
+            _formValidator = new AnsvarsrettAnsako_ANSAKO_10000_Validator(_validationMessageComposer, _municipalityValidator, _codeListService, _postalCodeService, _checklistService);
         }
          [Fact]
         public void ValidatortestFor2Eiendommer()
