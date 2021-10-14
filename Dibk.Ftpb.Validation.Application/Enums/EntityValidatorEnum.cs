@@ -105,8 +105,8 @@ namespace Dibk.Ftpb.Validation.Application.Enums
         TiltaksklasseValidator,
 
         [EntityValidatorEnumerationAttribute(XmlNode = "kontaktperson", ValidatorId = "32")]
-        
         KontaktpersonValidatorV2,
+
         [EntityValidatorEnumerationAttribute(XmlNode = "eiendomsidentifikasjon", ValidatorId = "33")]
         EiendomsidentifikasjonValidatorV2,
 
