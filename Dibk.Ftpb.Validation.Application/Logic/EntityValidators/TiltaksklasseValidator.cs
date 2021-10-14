@@ -9,7 +9,7 @@ using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class tiltaksklasseValidator : KodelisteValidatorV2
+    public class tiltaksklasseValidator : KodelisteValidatorV3
     {
         public tiltaksklasseValidator(IList<EntityValidatorNode> entityValidatorTree, int nodeId, ICodeListService codeListService)
             : base(entityValidatorTree, nodeId, FtbKodeListeEnum.tiltaksklasse, RegistryType.Byggesoknad, codeListService)
