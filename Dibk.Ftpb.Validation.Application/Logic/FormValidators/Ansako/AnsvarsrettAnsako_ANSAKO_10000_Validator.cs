@@ -107,8 +107,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             var eiendombyggestedNodeList = new List<EntityValidatorNode>()
             {
                 new() { NodeId = 13, EnumId = EntityValidatorEnum.EiendomByggestedValidator, ParentID = null },
-                new() { NodeId = 14, EnumId = EntityValidatorEnum.EiendomsAdresseValidator, ParentID = 13 },
-                new() { NodeId = 15, EnumId = EntityValidatorEnum.MatrikkelValidatorV2, ParentID = 13 },
+                new() { NodeId = 14, EnumId = EntityValidatorEnum.EiendomsAdresseValidatorV2, ParentID = 13 },
+                new() { NodeId = 15, EnumId = EntityValidatorEnum.EiendomsidentifikasjonValidatorV2, ParentID = 13 },
             };
             _entitiesNodeList.AddRange(eiendombyggestedNodeList);
         }
@@ -142,8 +142,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             _AnsvarsrettValidator = new AnsvarsrettValidator(tree, _foretakValidator, _ansvarsomraadeValidator);
 
             //EiendomByggested
-            _eiendomsAdresseValidator = new EiendomsAdresseValidator(tree);
-            _matrikkelValidator = new MatrikkelValidatorV2(tree, _codeListService);
+            _eiendomsAdresseValidator = new EiendomsAdresseValidatorV2(tree);
+            _matrikkelValidator = new EiendomsidentifikasjonValidatorV2(tree, _codeListService);
             _eiendomByggestedValidator = new EiendomByggestedValidator(tree, _eiendomsAdresseValidator, _matrikkelValidator);
 
         }

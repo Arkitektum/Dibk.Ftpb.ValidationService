@@ -11,12 +11,12 @@ using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public class MatrikkelValidatorV2 : EntityValidatorBase, IMatrikkelValidator
+    public class EiendomsidentifikasjonValidatorV2 : EntityValidatorBase, IMatrikkelValidator
     {
         private readonly ICodeListService _codeListService;
         ValidationResult IMatrikkelValidator.ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        public MatrikkelValidatorV2(IList<EntityValidatorNode> entityValidatorTree, ICodeListService codeListService)
+        public EiendomsidentifikasjonValidatorV2(IList<EntityValidatorNode> entityValidatorTree, ICodeListService codeListService)
             : base(entityValidatorTree)
         {
             _codeListService = codeListService;

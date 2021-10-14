@@ -15,7 +15,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 {
     public class MatrikkelValidatorV2Tests
     {
-        private MatrikkelValidatorV2 _validator;
+        private EiendomsidentifikasjonValidatorV2 _validator;
         private Matrikkel _matrikkel;
 
         private ICodeListService _codeListService;
@@ -31,19 +31,19 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
           var matrikkelNodeList = new List<EntityValidatorNode>()
             {
-                new () {NodeId = 1, EnumId = EntityValidatorEnum.MatrikkelValidatorV2, ParentID = null},
+                new () {NodeId = 1, EnumId = EntityValidatorEnum.EiendomsidentifikasjonValidatorV2, ParentID = null},
             };
 
             _tree = EntityValidatiorTree.BuildTree(matrikkelNodeList);
             _codeListService = MockDataSource.GetCodelistTagValue(SosiKodelisterEnum.kommunenummer);
-            _validator = new MatrikkelValidatorV2(_tree, _codeListService);
+            _validator = new EiendomsidentifikasjonValidatorV2(_tree, _codeListService);
         }
 
         [Fact]
         public void testMatrikkel()
         {
             _codeListService = MockDataSource.GetCodelistTagValue(SosiKodelisterEnum.kommunenummer,"3817", "Midt-Telemark","dgrt");
-            _validator = new MatrikkelValidatorV2(_tree, _codeListService);
+            _validator = new EiendomsidentifikasjonValidatorV2(_tree, _codeListService);
             var result = _validator.Validate(_matrikkel);
             result.Should().NotBeNull();
         }
