@@ -73,7 +73,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
            var result =  _fakturamottakerValidator.Validate(_fakturamottaker);
 
-           result.messages.Should().NotBeNull();
+           result.Messages.Should().NotBeNull();
         }
     }
 }

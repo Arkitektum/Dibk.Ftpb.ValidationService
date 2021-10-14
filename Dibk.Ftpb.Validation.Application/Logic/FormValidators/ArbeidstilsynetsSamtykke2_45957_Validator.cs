@@ -106,9 +106,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             base.StartValidation(dataFormatVersion, validationInput);
 
             //Add ChecklistAnswers to validationresult
-            ValidationResult.prefillChecklist = GetChecklistAnswers();
+            ValidationResult.PrefillChecklist = GetChecklistAnswers();
             var formChecklistAnswers = GetChecklistAnswersFromForm(validationInput);
-            ValidationResult.prefillChecklist.AddRange(formChecklistAnswers);
+            ValidationResult.PrefillChecklist.AddRange(formChecklistAnswers);
 
             return ValidationResult;
         }
@@ -120,10 +120,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             {
                 var checklistAnswer = new ChecklistAnswer()
                 {
-                    checklistQuestion = sjekklistepkt.Sjekklistepunkt.Kodebeskrivelse,
-                    checklistReference = sjekklistepkt.Sjekklistepunkt.Kodeverdi,
-                    yesNo = (bool)sjekklistepkt.Sjekklistepunktsvar,
-                    documentation = sjekklistepkt.Dokumentasjon ?? null
+                    ChecklistQuestion = sjekklistepkt.Sjekklistepunkt.Kodebeskrivelse,
+                    ChecklistReference = sjekklistepkt.Sjekklistepunkt.Kodeverdi,
+                    YesNo = (bool)sjekklistepkt.Sjekklistepunktsvar,
+                    Documentation = sjekklistepkt.Dokumentasjon ?? null
                 };
 
                 list.Add(checklistAnswer);
@@ -424,9 +424,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             var checklistAnswer1_17 = new ChecklistAnswer()
             {
-                checklistQuestion = "Er det utleiebygg?",
-                checklistReference = "1.17",
-                yesNo = form.ArbeidsplasserValidationEntity.UtleieBygg.GetValueOrDefault(false)
+                ChecklistQuestion = "Er det utleiebygg?",
+                ChecklistReference = "1.17",
+                YesNo = form.ArbeidsplasserValidationEntity.UtleieBygg.GetValueOrDefault(false)
             };
 
             list.Add(checklistAnswer1_17);
@@ -434,9 +434,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var checklistAnswer1_20 = new ChecklistAnswer()
             {
                 //TODO: Must get the real yesNO answer based on validation of attachment
-                checklistQuestion = "Er søknaden signert av tiltakshaver?",
-                checklistReference = "1.20",
-                yesNo = true
+                ChecklistQuestion = "Er søknaden signert av tiltakshaver?",
+                ChecklistReference = "1.20",
+                YesNo = true
             };
 
             list.Add(checklistAnswer1_20);
@@ -444,18 +444,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             var checklistAnswer1_21 = new ChecklistAnswer()
             {
-                checklistQuestion = "Er det gjennomført veiledning?",
-                checklistReference = "1.21",
-                yesNo = form.ArbeidsplasserValidationEntity.Veiledning.GetValueOrDefault(false)
+                ChecklistQuestion = "Er det gjennomført veiledning?",
+                ChecklistReference = "1.21",
+                YesNo = form.ArbeidsplasserValidationEntity.Veiledning.GetValueOrDefault(false)
             };
 
             list.Add(checklistAnswer1_21);
 
             var checklistAnswer1_22 = new ChecklistAnswer()
             {
-                checklistQuestion = "Skal søknaden unntas offentilghet?",
-                checklistReference = "1.22",
-                yesNo = form.MetadataValidationEntity.UnntattOffentlighet.GetValueOrDefault(false)
+                ChecklistQuestion = "Skal søknaden unntas offentilghet?",
+                ChecklistReference = "1.22",
+                YesNo = form.MetadataValidationEntity.UnntattOffentlighet.GetValueOrDefault(false)
             };
 
             list.Add(checklistAnswer1_22);

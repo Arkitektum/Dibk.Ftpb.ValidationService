@@ -8,13 +8,13 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
     {
         public int Errors { get; set; }
         public int Warnings { get; set; }
-        public List<string> tiltakstyperISoeknad { get; set; }
+        public List<string> TiltakstyperISoeknad { get; set; }
 
         public string Soknadtype { get; set; }
         public Validations()
         { }
-        public List<ValidationMessage> messages { get; set; }
-        public List<ValidationRule> rulesChecked { get; set; }
+        public List<ValidationMessage> Messages { get; set; }
+        public List<ValidationRule> RulesChecked { get; set; }
 
         [JsonIgnore]
         public List<ValidationMessage> ValidationMessages { get; set; }
