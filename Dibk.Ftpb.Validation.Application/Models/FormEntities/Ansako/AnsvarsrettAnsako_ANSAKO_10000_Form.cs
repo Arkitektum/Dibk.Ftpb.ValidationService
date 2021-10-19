@@ -12,10 +12,18 @@ namespace Dibk.Ftpb.Validation.Application.Models.FormEntities.Ansako
 
         [XmlElement("ansvarsrett")]
         public Ansvarsrett Ansvarsretts { get; set; }
-        
+
         [XmlElement("fraSluttbrukersystem")]
         public string FraSluttbrukersystem { get; set; }
 
+        [XmlElement("prosjektnavn")]
+        public string Prosjektnavn { get; set; }
+
+        [XmlElement("prosjektnr")]
+        public string Prosjektnr { get; set; }
+
+        [XmlElement("kommunensSaksnummer")]
+        public Saksnummer KommunensSaksnummer { get; set; }
 
         [XmlArray("eiendomByggested", IsNullable = false)]
         [XmlArrayItem("eiendom", IsNullable = true)]

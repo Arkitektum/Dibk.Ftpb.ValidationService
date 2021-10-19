@@ -39,11 +39,12 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
         private List<ValidationMessageStorageEntry> InitiateATIL()
         {
             //Eiendombyggested
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}", "Eiendom må være utfyllt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/bygningsnummer", "Du må oppgitt bygningsnummer for eiendom/byggested.", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/eiendomByggested{0}/bygningsnummer", "Du har oppgitt følgende bygningsnummer for eiendom/byggested: ‘{0}'. Bygningsnummeret må være et tall.");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/eiendomByggested{0}/bygningsnummer", "Bygningsnummer for eiendom/byggested må være større enn '0'.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}", "Du må oppgi hvilken eiendom/hvilke eiendommer byggesøknaden gjelder.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/eiendomByggested{0}/bygningsnummer", "Du har oppgitt følgende bygningsnummer for eiendom/byggested: ‘{0}'. Bygningsnummeret må være et tall.", ValidationResultSeverityEnum.ERROR,null,"1.6");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/eiendomByggested{0}/bygningsnummer", "Bygningsnummer for eiendom/byggested må være større enn '0'.",ValidationResultSeverityEnum.ERROR, null,"1.6");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/eiendomByggested{0}/bygningsnummer", "Når bygningsnummer [{0}] er oppgitt for eiendom/byggested, bør det være gyldig i matrikkelen på aktuelt matrikkelnummer. Du kan sjekke riktig bygningsnummer på https://seeiendom.no", ValidationResultSeverityEnum.WARNING, null,"1.6"); //Kommer
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/eiendomByggested{0}/bolignummer", "Når bruksenhetsnummer/bolignummer er fylt ut for eiendom/byggested, må det følge riktig format (for eksempel H0101). Se https://www.kartverket.no/eiendom/adressering/bruksenhetsnummer/ ", ValidationResultSeverityEnum.ERROR);
+            
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/kommunenavn", "Navnet på kommunen bør fylles ut for eiendom/byggested.");
 
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/eiendomsidentifikasjon", "Du må oppgitt eiendomsidentifikasjon for eiendom/byggested.", ValidationResultSeverityEnum.ERROR, null, "1.2");
@@ -58,9 +59,9 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
 
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/adresse", "Postadresse for eiendom/byggested bør fylles ut.", ValidationResultSeverityEnum.WARNING, null, "1.8");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/adresse/adresselinje1", "Adresselinje 1 for eiendom/byggested bør fylles ut.", ValidationResultSeverityEnum.WARNING, null, "1.8");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/adresse", "Du bør oppgi gatenavn, husnummer og eventuell bokstav for eiendom/byggested slik at adressen kan valideres mot matrikkelen. Du kan sjekke riktig adresse på https://seeiendom.no", ValidationResultSeverityEnum.WARNING, null, "1.8");
-
-
+            //AddRuleToValidationMessageStorageEntry("10000", ValidationRuleEnum.utfylt, "/eiendomByggested{0}/adresse/gatenavn", "Du bør oppgi gatenavn, husnummer og eventuell bokstav for eiendom/byggested slik at adressen kan valideres mot matrikkelen. Du kan sjekke riktig adresse på https://seeiendom.no", ValidationResultSeverityEnum.WARNING, null, "1.8");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/adresse/gatenavn", "Du bør oppgi gatenavn for eiendom/byggested slik at adressen kan valideres mot matrikkelen. Du kan sjekke riktig adresse på https://seeiendom.no ", ValidationResultSeverityEnum.WARNING, null, "1.8");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/adresse/husnr", "Du bør oppgi husnummer og eventuell bokstav for eiendom/byggested slik at adressen kan valideres mot matrikkelen. Du kan sjekke riktig adresse på https://seeiendom.no",ValidationResultSeverityEnum.WARNING,null,"1.8");
 
             //**Not in standard validation from FTB
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/adresse/adresselinje2", "Eiendommens adresselinje2 må være utfyllt", ValidationResultSeverityEnum.WARNING);
@@ -68,8 +69,6 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/eiendomByggested{0}/adresse/landkode", "Ugyldig landkode for eiendom.");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/adresse/postnr", "Eiendommens postnr må være utfyllt");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/adresse/poststed", "Eiendommens poststed må være utfyllt");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/adresse/gatenavn", "Eiendommens gatenavn må være utfyllt");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/adresse/husnr", "Eiendommens husnr må være utfyllt");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/eiendomByggested{0}/adresse/bokstav", "Eiendommens bokstav må være utfyllt");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.kontrollsiffer, "/eiendomByggested{0}/adresse/postnr", "Eiendommens postnr må bestå av 4 siffer");
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.tillatte_postnr_i_kommune, "/eiendomByggested{0}/postnr", "Postnr {0} ligger ikke i {1} kommune", ValidationResultSeverityEnum.ERROR, null, "2.3");
@@ -315,66 +314,66 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/arbeidstilsynetsSaksnummer/sakssekvensnummer", "Arbeidstilsynets sakssekvensnummer bør fylles ut.", ValidationResultSeverityEnum.WARNING);
 
             //KommunensSaksnummer
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/kommunensSaksnummer", "Informasjon om 'KommunensSaksnummer' bør fylles ut.", ValidationResultSeverityEnum.WARNING);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/kommunensSaksnummer/saksaar", "Kommunens saksår bør fylles ut.", ValidationResultSeverityEnum.WARNING);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/kommunensSaksnummer/sakssekvensnummer", "Kommunens sakssekvensnummer bør fylles ut.", ValidationResultSeverityEnum.WARNING);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/kommunensSaksnummer", "Hvis du har mottatt kommunens saksnummer, må du oppgi dette.", ValidationResultSeverityEnum.WARNING);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/kommunensSaksnummer/saksaar", "Du må oppgi kommunens saksnummer med saksår.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/kommunensSaksnummer/sakssekvensnummer", "Du må oppgi kommunens saksnummer med sekvensnummer.", ValidationResultSeverityEnum.ERROR);
 
             //TODO "ArbeidstilsynetsSamtykke" to "ArbeidstilsynetsSamtykkeV2"/"ArbeidstilsynetsSamtykkeDfv45957"??  rule may need to have dfv in the first "node" in order to connect the text to the correct version and correct schema.
 
             //**ANSAKO
             //Foretak
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/foretak", "Du må fylle ut informasjon om det ansvarlige foretaket.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak", "Du må fylle ut informasjon om det ansvarlige foretaket.", ValidationResultSeverityEnum.ERROR);
             //foretak partstype
             //Kan ikke validere hvis det er bare 'Foretal' bare det?
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/partstype", "‘partstype’ til foretaket må fylles ut.", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/partstype/kodeverdi", "Kodeverdien for ‘partstype’ til foretaket må fylles ut.", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/partstype/kodeverdi", "'{0}' er en ugyldig kodeverdi for partstypen til foretaket. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype ", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/partstype/kodeverdi", "Ansvarlig foretak sin partstype må være 'Foretak'.", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/partstype/kodeverdi", "Kodeverdien for ‘partstype’ kan ikke valideres", ValidationResultSeverityEnum.WARNING);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/partstype", "‘partstype’ til foretaket må fylles ut.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/partstype/kodeverdi", "Kodeverdien for ‘partstype’ til foretaket må fylles ut.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ansvarsrett/foretak/partstype/kodeverdi", "'{0}' er en ugyldig kodeverdi for partstypen til foretaket. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype ", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/partstype/kodeverdi", "Ansvarlig foretak sin partstype må være 'Foretak'.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/partstype/kodeverdi", "Kodeverdien for ‘partstype’ kan ikke valideres", ValidationResultSeverityEnum.WARNING);
 
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/organisasjonsnummer", "Organisasjonsnummeret til foretaket må fylles ut.", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/organisasjonsnummer", "Organisasjonsnummeret ('{0}') til foretaket er ikke gyldig.", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.kontrollsiffer, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/organisasjonsnummer", "Organisasjonsnummeret ('{0}') til foretaket har ikke gyldig kontrollsiffer.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/organisasjonsnummer", "Organisasjonsnummeret til foretaket må fylles ut.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ansvarsrett/foretak/organisasjonsnummer", "Organisasjonsnummeret ('{0}') til foretaket er ikke gyldig.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.kontrollsiffer, "/ansvarsrett/foretak/organisasjonsnummer", "Organisasjonsnummeret ('{0}') til foretaket har ikke gyldig kontrollsiffer.", ValidationResultSeverityEnum.ERROR);
 
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/navn", "Navnet til foretaket må fylles ut.", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.telmob_utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/mobilnummer", "Telefonnummeret eller mobilnummeret til foretaket bør fylles ut.");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/mobilnummer", "Mobilnummeret til foretaket må kun inneholde tall og '+'.");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/telefonnummer", "Telefonnummeret til foretaket må kun inneholde tall og '+'.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/navn", "Navnet til foretaket må fylles ut.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.telmob_utfylt, "/ansvarsrett/foretak/mobilnummer", "Telefonnummeret eller mobilnummeret til foretaket bør fylles ut.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ansvarsrett/foretak/mobilnummer", "Mobilnummeret til foretaket må kun inneholde tall og '+'.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ansvarsrett/foretak/telefonnummer", "Telefonnummeret til foretaket må kun inneholde tall og '+'.");
 
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/epost", "E-postadressen til foretaket bør fylles ut.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/epost", "E-postadressen til foretaket bør fylles ut.");
 
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/adresse", "Adressen til foretaket bør fylles ut.");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/adresse/adresselinje1", "Adresselinje 1 bør fylles ut for foretaket.");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/adresse/landkode", "Ugyldig landkode til foretaket");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/adresse/postnr", "Postnummeret til foretaket bør fylles ut.");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.kontrollsiffer, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/adresse/postnr", "Postnummeret '{0}' til foretaket har ikke gyldig kontrollsiffer. Du kan sjekke riktig postnummer på http://adressesok.bring.no/", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/adresse/postnr", "Postnummeret '{0}' til foretaket er ikke gyldig. Du kan sjekke riktig postnummer på http://adressesok.bring.no/", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.postnr_stemmerIkke, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/adresse/poststed", "Postnummeret '{0}' til foretaket stemmer ikke overens med poststedet '{1}'. Postnummeret er fra '{2}'. Du kan sjekke riktig postnummer/poststed på http://adressesok.bring.no/");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.validert, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/adresse/postnr", "Postnummeret '{0}' til foretaket ble ikke validert. Postnummeret kan være riktig, men en teknisk feil gjør at vi ikke kan bekrefte det.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/adresse", "Adressen til foretaket bør fylles ut.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/adresse/adresselinje1", "Adresselinje 1 bør fylles ut for foretaket.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ansvarsrett/foretak/adresse/landkode", "Ugyldig landkode til foretaket");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/adresse/postnr", "Postnummeret til foretaket bør fylles ut.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.kontrollsiffer, "/ansvarsrett/foretak/adresse/postnr", "Postnummeret '{0}' til foretaket har ikke gyldig kontrollsiffer. Du kan sjekke riktig postnummer på http://adressesok.bring.no/", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ansvarsrett/foretak/adresse/postnr", "Postnummeret '{0}' til foretaket er ikke gyldig. Du kan sjekke riktig postnummer på http://adressesok.bring.no/", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.postnr_stemmerIkke, "/ansvarsrett/foretak/adresse/poststed", "Postnummeret '{0}' til foretaket stemmer ikke overens med poststedet '{1}'. Postnummeret er fra '{2}'. Du kan sjekke riktig postnummer/poststed på http://adressesok.bring.no/");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.validert, "/ansvarsrett/foretak/adresse/postnr", "Postnummeret '{0}' til foretaket ble ikke validert. Postnummeret kan være riktig, men en teknisk feil gjør at vi ikke kan bekrefte det.");
 
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/kontaktperson", "Kontaktpersonen til foretaket må fylles ut.", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/kontaktperson/navn", "Navnet til kontaktpersonen for foretaket må fylles ut.", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.telmob_utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/kontaktperson/mobilnummer", "Telefonnummeret eller mobilnummeret til foretakets kontaktperson bør fylles ut.");
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/kontaktperson/mobilnummer", "Mobilnummer til foretakets kontaktperson må kun inneholde tall og '+'.", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/kontaktperson/telefonnummeret ", "Telefonnummeret  til foretakets kontaktperson må kun inneholde tall og '+'.", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/foretak/kontaktperson/epost ", "E-postadressen til foretakets kontaktperson bør fylles ut.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/kontaktperson", "Kontaktpersonen til foretaket må fylles ut.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/kontaktperson/navn", "Navnet til kontaktpersonen for foretaket må fylles ut.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.telmob_utfylt, "/ansvarsrett/foretak/kontaktperson/mobilnummer", "Telefonnummeret eller mobilnummeret til foretakets kontaktperson bør fylles ut.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ansvarsrett/foretak/kontaktperson/mobilnummer", "Mobilnummer til foretakets kontaktperson må kun inneholde tall og '+'.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ansvarsrett/foretak/kontaktperson/telefonnummeret ", "Telefonnummeret  til foretakets kontaktperson må kun inneholde tall og '+'.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/kontaktperson/epost ", "E-postadressen til foretakets kontaktperson bør fylles ut.");
             //ansvarsområde
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/ansvarsomraader", "Du må definere minst ett ansvarsområde.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/ansvarsomraader", "Du må definere minst ett ansvarsområde.", ValidationResultSeverityEnum.ERROR);
             //KodeverdiValidatorV2 - funksjon
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/funksjon", "Du må oppgi en funksjon for ansvarsområdet. Du kan sjekke gyldige funksjoner på https://register.geonorge.no/kodelister/byggesoknad/funksjon", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/funksjon/kodeverdi", "Kodeverdien for ‘funksjon’ for ansvarsområdet må fylles ut. Du kan sjekke gyldige funksjoner på https://register.geonorge.no/kodelister/byggesoknad/funksjon", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.validert, "/ErklaeringAnsvarsrett/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/funksjon/kodeverdi", "Kodeverdien for ‘funksjon’ kan ikke valideres", ValidationResultSeverityEnum.WARNING);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ErklaeringAnsvarsrett/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/funksjon/kodeverdi", "'{0}' er en ugyldig kodeverdi for funksjon. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/kodelister/byggesoknad/funksjon", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/funksjon/kodebeskrivelse", "Når funksjon er valgt, må kodebeskrivelse fylles ut.Du kan sjekke riktig godebeskrivelse på https://register.geonorge.no/kodelister/byggesoknad/funksjon", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ErklaeringAnsvarsrett/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/funksjon/kodebeskrivelse", "Kodebeskrivelsen '{0}' stemmer ikke med den valgte kodeverdien for funksjon. Du kan sjekke riktig kodebeskrivelse på https://register.geonorge.no/byggesoknad/funksjon");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/funksjon", "Du må oppgi en funksjon for ansvarsområdet. Du kan sjekke gyldige funksjoner på https://register.geonorge.no/kodelister/byggesoknad/funksjon", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/funksjon/kodeverdi", "Kodeverdien for ‘funksjon’ for ansvarsområdet må fylles ut. Du kan sjekke gyldige funksjoner på https://register.geonorge.no/kodelister/byggesoknad/funksjon", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.validert, "/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/funksjon/kodeverdi", "Kodeverdien for ‘funksjon’ kan ikke valideres", ValidationResultSeverityEnum.WARNING);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/funksjon/kodeverdi", "'{0}' er en ugyldig kodeverdi for funksjon. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/kodelister/byggesoknad/funksjon", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/funksjon/kodebeskrivelse", "Når funksjon er valgt, må kodebeskrivelse fylles ut.Du kan sjekke riktig godebeskrivelse på https://register.geonorge.no/kodelister/byggesoknad/funksjon", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/funksjon/kodebeskrivelse", "Kodebeskrivelsen '{0}' stemmer ikke med den valgte kodeverdien for funksjon. Du kan sjekke riktig kodebeskrivelse på https://register.geonorge.no/byggesoknad/funksjon");
 
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/beskrivelseAvAnsvarsomraade", "Du må fylle ut en beskrivelse av ansvarsområdet. Ansvarlig foretak kan endre beskrivelsen senere.");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/beskrivelseAvAnsvarsomraade", "Du må fylle ut en beskrivelse av ansvarsområdet. Ansvarlig foretak kan endre beskrivelsen senere.");
 
             //KodeverdiValidatorV3 - tiltaksklasse
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.validert, "/ErklaeringAnsvarsrett/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/tiltaksklasse/kodeverdi", "Kodeverdien for ‘tiltaksklasse’ kan ikke valideres", ValidationResultSeverityEnum.WARNING);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ErklaeringAnsvarsrett/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/tiltaksklasse/kodeverdi", "'{0}' er en ugyldig kodeverdi for tiltaksklasse. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/kodelister/byggesoknad/tiltaksklasse ", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ErklaeringAnsvarsrett/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/tiltaksklasse/kodebeskrivelse", "Når tiltaksklasse er valgt, må kodebeskrivelse fylles ut. Du kan sjekke riktig godebeskrivelse på https://register.geonorge.no/kodelister/byggesoknad/tiltaksklasse ", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ErklaeringAnsvarsrett/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/tiltaksklasse/kodebeskrivelse", "Kodebeskrivelsen '{0}' stemmer ikke med den valgte kodeverdien for tiltaksklasse. Du kan sjekke riktig kodebeskrivelse på https://register.geonorge.no/kodelister/byggesoknad/tiltaksklasse");
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.validert, "/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/tiltaksklasse/kodeverdi", "Kodeverdien for ‘tiltaksklasse’ kan ikke valideres", ValidationResultSeverityEnum.WARNING);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/tiltaksklasse/kodeverdi", "'{0}' er en ugyldig kodeverdi for tiltaksklasse. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/kodelister/byggesoknad/tiltaksklasse ", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.utfylt, "/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/tiltaksklasse/kodebeskrivelse", "Når tiltaksklasse er valgt, må kodebeskrivelse fylles ut. Du kan sjekke riktig godebeskrivelse på https://register.geonorge.no/kodelister/byggesoknad/tiltaksklasse ", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, ValidationRuleEnum.gyldig, "/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/tiltaksklasse/kodebeskrivelse", "Kodebeskrivelsen '{0}' stemmer ikke med den valgte kodeverdien for tiltaksklasse. Du kan sjekke riktig kodebeskrivelse på https://register.geonorge.no/kodelister/byggesoknad/tiltaksklasse");
 
             return _validationMessageStorageEntry;
         }

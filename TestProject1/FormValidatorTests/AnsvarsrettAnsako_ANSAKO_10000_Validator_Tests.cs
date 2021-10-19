@@ -50,5 +50,11 @@ namespace Dibk.Ftpb.Validation.Application.Tests.FormValidatorTests
             var newValidationReport = _formValidator.StartValidation("10000", validationInput);
             newValidationReport.Should().NotBeNull();
         }
+
+        [Fact]
+        public void testInternal()
+        {
+
+        }
     }
 }

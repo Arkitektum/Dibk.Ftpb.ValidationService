@@ -53,6 +53,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
         private IMatrikkelValidator _matrikkelValidator;
         private IEiendomsAdresseValidator _eiendomsAdresseValidator;
         private IEiendomByggestedValidator _eiendomByggestedValidator;
+        
+        //KommuneSaksnummer
+        private ISaksnummerValidator _kommunensSaksnummerValidator;
 
         public AnsvarsrettAnsako_ANSAKO_10000_Validator(IValidationMessageComposer validationMessageComposer, IMunicipalityValidator municipalityValidator, ICodeListService codeListService
             , IPostalCodeService postalCodeService, IChecklistService checklistService)
@@ -111,6 +114,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
                 new() { NodeId = 15, EnumId = EntityValidatorEnum.EiendomsidentifikasjonValidatorV2, ParentID = 13 },
             };
             _entitiesNodeList.AddRange(eiendombyggestedNodeList);
+
+            //Kommunenes Saksnummer
+            var kommunenesSaksnummerValidatorNodeList = new List<EntityValidatorNode>()
+            {
+                new() {NodeId = 16, EnumId = EntityValidatorEnum.KommunensSaksnummerValidator, ParentID = null}
+            };
+            _entitiesNodeList.AddRange(kommunenesSaksnummerValidatorNodeList);
         }
 
         protected override IEnumerable<string> GetFormTiltakstyper()
@@ -146,11 +156,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             _matrikkelValidator = new EiendomsidentifikasjonValidatorV2(tree, _codeListService);
             _eiendomByggestedValidator = new EiendomByggestedValidator(tree, _eiendomsAdresseValidator, _matrikkelValidator);
 
+            //Kommunens saksnummer
+            _kommunensSaksnummerValidator = new KommunensSaksnummerValidator(tree);
+
         }
 
         protected override void Validate(ValidationInput validationInput)
         {
-            ValidateEntityFields();
+            ValidateEntityFields(_validationForm);
 
             var ansvarsrettResult = _AnsvarsrettValidator.Validate(_validationForm.Ansvarsretts);
             AccumulateValidationMessages(ansvarsrettResult.ValidationMessages);
@@ -165,12 +178,31 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
                 var eiendomsResult = _eiendomByggestedValidator.Validate(eiendom);
                 AccumulateValidationMessages(eiendomsResult.ValidationMessages, i);
             }
+
+            var kommunensSaksnummerValidatorResult = _kommunensSaksnummerValidator.Validate(_validationForm.KommunensSaksnummer);
+            AccumulateValidationMessages(kommunensSaksnummerValidatorResult.ValidationMessages);
+
         }
 
-        private void ValidateEntityFields()
+        public void ValidateEntityFields(AnsvarsrettAnsako_ANSAKO_10000_Form form)
         {
-            if (string.IsNullOrEmpty(_validationForm.FraSluttbrukersystem))
+            if (string.IsNullOrEmpty(form.FraSluttbrukersystem))
+            {
                 AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.fraSluttbrukersystem);
+            }
+            else
+            {
+                if (!Guid.TryParse(form.FraSluttbrukersystem, out var referenceGuid))
+                {
+                    AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.fraSluttbrukersystem);
+                }
+            }
+
+            if (string.IsNullOrEmpty(form.Prosjektnavn))
+                AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.prosjektnavn);
+
+            if (string.IsNullOrEmpty(form.Prosjektnr))
+                AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.prosjektnavn);
         }
 
 
@@ -178,16 +210,32 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
         {
             // Local
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.fraSluttbrukersystem);
+            AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.fraSluttbrukersystem);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.prosjektnavn);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.prosjektnummer);
 
             //AnsvarligSoeker
             AccumulateValidationRules(_ansvarligSoekerValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_ansvarligSoekerEnkelAdresseValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_ansvarligSoekerPartstypeValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_ansvarligSoekerKontaktpersonValidator.ValidationResult.ValidationRules);
+            //*Ansvarsrett
+            AccumulateValidationRules(_AnsvarsrettValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_foretakValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_foretakKontaktpersonValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_foretakPartstypeValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_foretakEnkelAdresseValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_ansvarsomraadeValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_funksjonValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_tiltaksklasseValidator.ValidationResult.ValidationRules);
+
             //EiendomByggested
             AccumulateValidationRules(_matrikkelValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_eiendomsAdresseValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_eiendomByggestedValidator.ValidationResult.ValidationRules);
+
+            //Kommunens saksnummer
+            AccumulateValidationRules(_kommunensSaksnummerValidator.ValidationResult.ValidationRules);
 
         }
     }
