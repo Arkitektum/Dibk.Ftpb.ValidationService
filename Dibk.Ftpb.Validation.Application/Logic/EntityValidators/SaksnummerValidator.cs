@@ -41,12 +41,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
             else
             {
-                if (Helpers.ObjectIsNullOrEmpty(saksnummerStuff.Saksaar))
+                if (!saksnummerStuff.Saksaar.HasValue)
                 {
                     AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.saksaar);
                 }
 
-                if (Helpers.ObjectIsNullOrEmpty(saksnummerStuff.Sakssekvensnummer))
+                if (!saksnummerStuff.Sakssekvensnummer.HasValue)
                 {
                     AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.sakssekvensnummer);
                 }

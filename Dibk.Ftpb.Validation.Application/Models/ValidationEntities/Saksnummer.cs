@@ -5,8 +5,8 @@ namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
     public class Saksnummer 
     {
         [XmlElement("saksaar")]
-        public string Saksaar { get; set; }
+        public int? Saksaar { get; set; }
         [XmlElement("sakssekvensnummer")]
-        public string Sakssekvensnummer { get; set; }
+        public int? Sakssekvensnummer { get; set; }
     }
 }
