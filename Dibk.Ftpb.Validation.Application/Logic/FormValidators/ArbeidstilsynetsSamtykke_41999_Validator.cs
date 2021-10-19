@@ -62,7 +62,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             base.StartValidation(dataFormatVersion, validationInput);
             //ValidationReport.ValidationResult = ValidationResult;
 
-            return _validationResult;
+            return ValidationResult;
         }
 
         protected override void InitializeValidatorConfig()

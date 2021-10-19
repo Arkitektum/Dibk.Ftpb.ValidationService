@@ -73,7 +73,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             _validationForm = SerializeUtil.DeserializeFromString<AnsvarsrettAnsako_ANSAKO_10000_Form>(validationInput.FormData);
             base.StartValidation(dataFormatVersion, validationInput);
 
-            return _validationResult;
+            return ValidationResult;
         }
 
         protected override string XPathRoot { get; }
