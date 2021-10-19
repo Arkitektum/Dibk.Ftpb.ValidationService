@@ -31,7 +31,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
         private string[] _tiltakstypes;
 
         //AnsvarligSoeker
-        private IAktoerValidator _ansvarligSoekerValidator;
+        private IAktoerValidatorV2 _ansvarligSoekerValidator;
         private IEnkelAdresseValidator _ansvarligSoekerEnkelAdresseValidator;
         private IKodelisteValidator _ansvarligSoekerPartstypeValidator;
         private IKontaktpersonValidator _ansvarligSoekerKontaktpersonValidator;
@@ -82,9 +82,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             //AnsvarligSoeker
             var ansvarligSoekervalidatorNodeList = new List<EntityValidatorNode>()
             {
-                new () {NodeId = 01, EnumId = EntityValidatorEnum.AnsvarligSoekerValidator, ParentID = null},
+                new () {NodeId = 01, EnumId = EntityValidatorEnum.AnsvarligSoekerValidatorV2, ParentID = null},
                 new () {NodeId = 02, EnumId = EntityValidatorEnum.KontaktpersonValidator, ParentID = 01},
-                new () {NodeId = 03, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 01},
+                //new () {NodeId = 03, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 01},
                 new () {NodeId = 04, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 01}
             };
             _entitiesNodeList.AddRange(ansvarligSoekervalidatorNodeList);
@@ -124,9 +124,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
 
             //*AnsvarligSoeker
             _ansvarligSoekerKontaktpersonValidator = new KontaktpersonValidator(tree, 02);
-            _ansvarligSoekerPartstypeValidator = new PartstypeValidator(tree, 03, _codeListService);
+            //_ansvarligSoekerPartstypeValidator = new PartstypeValidator(tree, 03, _codeListService);
             _ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(tree, 04, _postalCodeService);
-            _ansvarligSoekerValidator = new AnsvarligSoekerValidator(tree, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
+            _ansvarligSoekerValidator = new AnsvarligSoekerValidatorV2(tree, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
 
             //*Ansvarsrett
             //**Ansvarsområde

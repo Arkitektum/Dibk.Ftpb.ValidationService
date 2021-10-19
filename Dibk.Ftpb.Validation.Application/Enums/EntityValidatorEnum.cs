@@ -112,5 +112,8 @@ namespace Dibk.Ftpb.Validation.Application.Enums
 
         [EntityValidatorEnumerationAttribute(XmlNode = "adresse", ValidatorId = "34")]
         EiendomsAdresseValidatorV2,
+
+        [EntityValidatorEnumerationAttribute(XmlNode = "ansvarligSoeker", ValidatorId = "35")]
+        AnsvarligSoekerValidatorV2,
     }
 }
