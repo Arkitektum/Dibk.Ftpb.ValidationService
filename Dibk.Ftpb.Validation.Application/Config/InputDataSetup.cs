@@ -13,6 +13,7 @@ namespace Dibk.Ftpb.Validation.Application.Config
         {
             new InputDataConfig(DataType.ArbeidstilsynetsSamtykke, "5547", "41999", typeof(no.kxml.skjema.dibk.arbeidstilsynetsSamtykke.ArbeidstilsynetsSamtykkeType)),
             new InputDataConfig(DataType.ArbeidstilsynetsSamtykke2, "6821", "45957", typeof(no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2.ArbeidstilsynetsSamtykkeType)),
+            new InputDataConfig(DataType.AnsvarsrettAnsako, "10000", "1", typeof(no.kxml.skjema.dibk.ansvarsrettAnsako.ErklaeringAnsvarsrettType)),
         };
     }
 }

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ErklaeringAnsvarsrett xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" dataFormatProvider="ANSAKO" dataFormatId="ErklaeringAnsvarsrett" dataFormatVersion="1" xmlns="http://skjema.kxml.no/dibk/ansakoAnsvarsrett/v1.0">
+<ErklaeringAnsvarsrett xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" dataFormatProvider="ANSAKO" dataFormatId="10000" dataFormatVersion="1" xmlns="http://skjema.kxml.no/dibk/ansakoAnsvarsrett/v1.0">
   <fraSluttbrukersystem>Fellestjenester bygg testmotor</fraSluttbrukersystem>
   <hovedinnsendingsnummer>44556677</hovedinnsendingsnummer>
   <eiendomByggested>

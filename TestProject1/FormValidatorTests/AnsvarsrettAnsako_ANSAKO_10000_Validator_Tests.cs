@@ -47,14 +47,18 @@ namespace Dibk.Ftpb.Validation.Application.Tests.FormValidatorTests
             var xmlData = File.ReadAllText(@"Data\Ansako\ErklaeringAnsvarsrett_1.xml");
             ValidationInput validationInput = new();
             validationInput.FormData = xmlData;
-            var newValidationReport = _formValidator.StartValidation("10000", validationInput);
+            var newValidationReport = _formValidator.StartValidation(validationInput);
             newValidationReport.Should().NotBeNull();
         }
 
         [Fact]
         public void testInternal()
         {
+            var xmlData = File.ReadAllText(@"Data\Ansako\ErklaeringAnsvarsrett_1.xml");
 
+            var noko = TestHelper.GetJsonForPostman(xmlData);
+
+            noko.Should().NotBeEmpty();
         }
     }
 }

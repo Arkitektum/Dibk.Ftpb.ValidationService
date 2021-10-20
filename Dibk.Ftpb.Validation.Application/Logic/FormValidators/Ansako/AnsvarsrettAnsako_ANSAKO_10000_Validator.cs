@@ -17,7 +17,7 @@ using Dibk.Ftpb.Validation.Application.Utils;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
 {
-    [FormData(DataFormatVersion = "10000")]
+    [FormData(DataFormatId = "10000", DataFormatVersion = "1")]
     public class AnsvarsrettAnsako_ANSAKO_10000_Validator : FormValidatorBase, IFormValidator
     {
         private AnsvarsrettAnsako_ANSAKO_10000_Form _validationForm;
@@ -29,7 +29,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
         private readonly IPostalCodeService _postalCodeService;
 
         private string[] _tiltakstypes;
-
         //AnsvarligSoeker
         private IAktoerValidatorV2 _ansvarligSoekerValidator;
         private IEnkelAdresseValidator _ansvarligSoekerEnkelAdresseValidator;
@@ -53,7 +52,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
         private IMatrikkelValidator _matrikkelValidator;
         private IEiendomsAdresseValidator _eiendomsAdresseValidator;
         private IEiendomByggestedValidator _eiendomByggestedValidator;
-        
+
         //KommuneSaksnummer
         private ISaksnummerValidator _kommunensSaksnummerValidator;
 
@@ -71,10 +70,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             _tiltakstypes = new string[] { };
         }
 
-        public override ValidationResult StartValidation(string dataFormatVersion, ValidationInput validationInput)
+        public override ValidationResult StartValidation(ValidationInput validationInput)
         {
             _validationForm = SerializeUtil.DeserializeFromString<AnsvarsrettAnsako_ANSAKO_10000_Form>(validationInput.FormData);
-            base.StartValidation(dataFormatVersion, validationInput);
+            base.StartValidation(validationInput);
 
             return ValidationResult;
         }
@@ -217,7 +216,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             //AnsvarligSoeker
             AccumulateValidationRules(_ansvarligSoekerValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_ansvarligSoekerEnkelAdresseValidator.ValidationResult.ValidationRules);
-            AccumulateValidationRules(_ansvarligSoekerPartstypeValidator.ValidationResult.ValidationRules);
+            //AccumulateValidationRules(_ansvarligSoekerPartstypeValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_ansvarligSoekerKontaktpersonValidator.ValidationResult.ValidationRules);
             //*Ansvarsrett
             AccumulateValidationRules(_AnsvarsrettValidator.ValidationResult.ValidationRules);

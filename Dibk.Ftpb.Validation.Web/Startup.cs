@@ -20,6 +20,7 @@ using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Checklist;
 using Dibk.Ftpb.Validation.Application.Logic;
+using Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako;
 
 namespace Dibk.Ftpb.Validation
 {
@@ -81,6 +82,7 @@ namespace Dibk.Ftpb.Validation
             services.AddTransient<IMunicipalityValidator, MunicipalityValidator>();
             services.AddScoped<ArbeidstilsynetsSamtykke_41999_Validator>();
             services.AddScoped<ArbeidstilsynetsSamtykke2_45957_Validator>();
+            services.AddScoped<AnsvarsrettAnsako_ANSAKO_10000_Validator>();
 
             services.AddAzureAppConfiguration();
         }

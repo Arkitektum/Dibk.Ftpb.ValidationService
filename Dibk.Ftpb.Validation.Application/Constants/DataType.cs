@@ -3,6 +3,7 @@
     public enum DataType
     {
         ArbeidstilsynetsSamtykke = 1,
-        ArbeidstilsynetsSamtykke2 = 2
+        ArbeidstilsynetsSamtykke2 = 2,
+        AnsvarsrettAnsako=3,
     }
 }
