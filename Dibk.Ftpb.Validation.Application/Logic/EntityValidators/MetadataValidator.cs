@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
@@ -24,14 +25,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.erNorskSvenskDansk);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.unntattOffentlighet);
             
-            //Usikkert om skal valideres
             //AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.ftbId);
             //AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.prosjektnavn);
             //AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.sluttbrukersystemUrl);
             //AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.hovedinnsendingsnummer);
             //AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.klartForSigneringFraSluttbrukersystem);
-
-
         }
 
         public ValidationResult Validate(Models.ValidationEntities.Metadata metadataValidationEntity)
@@ -54,11 +52,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             if (Helpers.ObjectIsNullOrEmpty(metadataValidationEntity.ErNorskSvenskDansk))
                 AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.erNorskSvenskDansk);
 
+            if (Helpers.ObjectIsNullOrEmpty(metadataValidationEntity.UnntattOffentlighet))
+                AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.unntattOffentlighet);
+
             if (Helpers.ObjectIsNullOrEmpty(metadataValidationEntity.FraSluttbrukersystem))
                 AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.fraSluttbrukersystem);
-
-            if (metadataValidationEntity.UnntattOffentlighet.HasValue)
-                AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.unntattOffentlighet);
 
             //Usikkert om skal valideres
             //if (Helpers.ObjectIsNullOrEmpty(metadataValidationEntity.ModelData.FtbId))

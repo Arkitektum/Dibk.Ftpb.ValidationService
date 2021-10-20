@@ -191,7 +191,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             xPath = xPath?.Replace("[", "{").Replace("]", "}");
 
             ValidationRule validationRule = _validationResult.ValidationRules.Where(r => !string.IsNullOrEmpty(r.Rule))
-                .FirstOrDefault(r => r.Rule.Equals(rule) && (r.Xpath == xPath)) ?? new ValidationRule()
+                .FirstOrDefault(r => r.Rule.Equals(rule) && (r.XpathField == xPath)) ?? new ValidationRule()
                 {
                     Rule = rule,
                     Message = $"Can't find rule:'{rule}'.-"

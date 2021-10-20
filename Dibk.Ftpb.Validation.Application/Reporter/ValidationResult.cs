@@ -7,11 +7,11 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
     {
         public int Errors { get; set; }
         public int Warnings { get; set; }
+        public List<string> TiltakstyperISoeknad { get; set; }
         public string Soknadtype { get; set; }
-
-        public Messages messages { get; set; }
-        public RulesChecked rulesChecked { get; set; }
-        public PrefillChecklist PrefillChecklist { get; set; }
+        public List<ValidationMessage> Messages { get; set; }
+        public List<ValidationRule> RulesChecked { get; set; }
+        public List<ChecklistAnswer> PrefillChecklist { get; set; }
 
         [JsonIgnore]
         public List<ValidationMessage> ValidationMessages { get; set; }
@@ -20,14 +20,5 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         
         public ValidationResult()
         { }
-    }
-
-    public class Messages
-    {
-        public List<ValidationMessage> ValidationMessage { get; set; }
-    }
-    public class RulesChecked
-    {
-        public List<ValidationRule> ValidationRule { get; set; }
     }
 }

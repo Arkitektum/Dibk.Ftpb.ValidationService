@@ -29,7 +29,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
 
             foreach (var rule in validationResult.ValidationRules)
             {
-                rule.Xpath = $"{xPathRoot}{rule.Xpath}";
+                rule.XpathField = $"{xPathRoot}{rule.XpathField}";
                 rule.Id = $"{dataFormatVersion}{rule.Id}";
             }
             foreach (var message in validationResult.ValidationMessages)

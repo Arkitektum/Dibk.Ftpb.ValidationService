@@ -55,7 +55,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                         UpdateValidationResultWithSubValidations(sjekklistepunktValidationResult, i);
                     }
 
-                    //Note: Validates 1.17 in Arbeidsplasser validator
+                    //Note: Validates 1.18 in Form validator
                     //Validate if all checkpoints in Sjekklisten are present in form
 
                     var checkpointsFromAPI = checklistService.GetChecklist(dataFormatId, dataFormatVersion, "metadataid=1");
@@ -155,9 +155,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             //var xPath = kravEntity.DataModelXpath;
             if (kravEntity != null)
             {
+                //int xx = Array.IndexOf(kravliste, kravEntity);
+
                 if (string.IsNullOrEmpty(kravEntity.Dokumentasjon))
                 {
                     //AddMessageFromRule(ValidationRuleEnum.utfylt, $"{xPath}/{FieldNameEnum.dokumentasjon}");
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.dokumentasjon, new string[] { sjekklistepunktnr });
+                    
                     return false;
                 }
                 return true;
@@ -176,7 +180,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             if (kravEntity == null)
             {
                 //AddMessageFromRule(ValidationRuleEnum.utfylt, xPath.Replace("krav[0]", "krav[]") + "/sjekklistepunkt/kodeverdi", new[] { sjekklistepunktnr });
-
+                AddMessageFromRule(ValidationRuleEnum.utfylt, null, new string[] { sjekklistepunktnr });
                 return false;
             }
             else
@@ -186,6 +190,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                 if (kravet.Sjekklistepunktsvar == null)
                 {
                     //AddMessageFromRule(ValidationRuleEnum.utfylt, xPath.Replace("krav[0]", "krav[]") + "/sjekklistepunktsvar", new[] { sjekklistepunktnr });
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.sjekklistepunktsvar, new string[] { sjekklistepunktnr });
+
                     return false;
                 }
 

@@ -21,18 +21,22 @@ namespace Dibk.Ftpb.Validation.Application.Services
         private readonly IXsdValidationService _xsdValidationService;
         private readonly IValidationHandler _validationHandler;
         private readonly IChecklistService _checklistService;
+        private FormPropertyService _formPropertyService;
+
         //private Models.InputData _inputData;
         //private List<string> _errorMessages;
         //private ValidationResult _validationResult;
         private List<ChecklistAnswer> _outputlist = new List<ChecklistAnswer>();
         private IEnumerable<PrefillDemo> _alleSjekklistepunkter;
 
-        public ValidationService(IInputDataService inputDataService, IXsdValidationService xsdValidationService, IValidationHandler validationOrchestrator, IChecklistService checklistService)
+        public ValidationService(IInputDataService inputDataService, IXsdValidationService xsdValidationService, 
+            IValidationHandler validationOrchestrator, IChecklistService checklistService, FormPropertyService formPropertyService)
         {
             _inputDataService = inputDataService;
             _xsdValidationService = xsdValidationService;
             _validationHandler = validationOrchestrator;
             _checklistService = checklistService;
+            _formPropertyService = formPropertyService;
         }
 
         public Validations GetValidationResult(ValidationInput validationInput)
@@ -42,11 +46,12 @@ namespace Dibk.Ftpb.Validation.Application.Services
             //result.PrefillChecklist = null;
 
             var validations = new Validations();
-            validations.messages = result.ValidationMessages;
-            validations.rulesChecked = result.ValidationRules;
+            validations.Messages = result.ValidationMessages;
+            validations.RulesChecked = result.ValidationRules;
             validations.Warnings = result.Warnings;
             validations.Errors = result.Errors;
             validations.Soknadtype = result.Soknadtype;
+            validations.TiltakstyperISoeknad = result.TiltakstyperISoeknad;
 
             return validations;
         }
@@ -60,20 +65,20 @@ namespace Dibk.Ftpb.Validation.Application.Services
                 var formProperties = _checklistService.GetFormProperties(inputData?.Config?.DataFormatId,inputData?.Config?.DataFormatVersion);
                 var prefilledAnswersFromChecklist = _checklistService.GetPrefillChecklist(validationResult, inputData?.Config?.DataFormatId,inputData?.Config?.DataFormatVersion, formProperties.ProcessCategory);
 
-                validationResult.PrefillChecklist.ChecklistAnswers.AddRange(prefilledAnswersFromChecklist.ChecklistAnswers);
+                validationResult.PrefillChecklist.AddRange(prefilledAnswersFromChecklist.ChecklistAnswer);
 
-                foreach (var answer in validationResult.PrefillChecklist.ChecklistAnswers)
+                foreach (var answer in validationResult.PrefillChecklist)
                 {
-                    if (answer.supportingDataValidationRuleId != null)
+                    if (answer.SupportingDataValidationRuleId != null)
                     {
-                        answer.supportingDataXpathField = new List<string>();
-                        foreach (var ruleId in answer.supportingDataValidationRuleId)
+                        answer.SupportingDataXpathField = new List<string>();
+                        foreach (var ruleId in answer.SupportingDataValidationRuleId)
                         {
-                            var foundXPath = validationResult.ValidationRules.First(x => x.Id.Equals(ruleId)).Xpath;
+                            var foundXPath = validationResult.ValidationRules.First(x => x.Id.Equals(ruleId)).XpathField;
                             var xPathsIfNotAlreadyExisting = validationResult.ValidationRules.Where
-                                (x => ruleId.Equals(x.Id) && !answer.supportingDataXpathField.Any(y => y.Equals(x.Xpath))).Select(z => z.Xpath).ToList();
-
-                            answer.supportingDataXpathField.AddRange(xPathsIfNotAlreadyExisting);
+                                (x => ruleId.Equals(x.Id) && !answer.SupportingDataXpathField.Any(y => y.Equals(x.XpathField))).Select(z => z.XpathField).ToList();
+                            
+                            answer.SupportingDataXpathField.AddRange(xPathsIfNotAlreadyExisting);
                         }
                     }
                 }
@@ -135,8 +140,8 @@ namespace Dibk.Ftpb.Validation.Application.Services
             validationResult.Errors = validationResult.ValidationMessages.Where(x => x.Messagetype == Enums.ValidationResultSeverityEnum.ERROR).Count();
             validationResult.Warnings = validationResult.ValidationMessages.Where(x => x.Messagetype == Enums.ValidationResultSeverityEnum.WARNING).Count();
 
-            validationResult.messages = new Messages() { ValidationMessage = validationResult.ValidationMessages };
-            validationResult.rulesChecked = new RulesChecked() { ValidationRule = validationResult.ValidationRules };
+            validationResult.Messages = validationResult.ValidationMessages;
+            validationResult.RulesChecked = validationResult.ValidationRules;
 
             //validationResult.messages = validationResult.ValidationMessages;
             //validationResult.rulesChecked = validationResult.ValidationRules;
@@ -167,6 +172,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
             var xx = MakeValidationreport(_outputlist);
             return xx;
         }
+
         private void LagDings(string checklistReference)
         {
             var outputpt = new ChecklistAnswer();
@@ -174,15 +180,15 @@ namespace Dibk.Ftpb.Validation.Application.Services
             var hovedpktSomHarDok = _alleSjekklistepunkter.FirstOrDefault(x => x.ChecklistReference.Equals(checklistReference) && x.ActionTypeCode.Equals("DOK"));
             var hovedpkt = _alleSjekklistepunkter.FirstOrDefault(x => x.ChecklistReference.Equals(checklistReference));
 
-            var sjekkpktHaandert = _outputlist.FirstOrDefault(x => x.checklistReference.Equals(checklistReference)) != null;
+            var sjekkpktHaandert = _outputlist.FirstOrDefault(x => x.ChecklistReference.Equals(checklistReference)) != null;
             if (!sjekkpktHaandert)
             {
                 outputpt = AddStuff(outputpt);
                 if (hovedpktSomHarUnderpkt != null)
                 {
-                    outputpt.checklistReference = hovedpktSomHarUnderpkt.ChecklistReference;
-                    outputpt.checklistQuestion = hovedpktSomHarUnderpkt.ChecklistQuestion;
-                    outputpt.yesNo = hovedpktSomHarUnderpkt.YesNo;
+                    outputpt.ChecklistReference = hovedpktSomHarUnderpkt.ChecklistReference;
+                    outputpt.ChecklistQuestion = hovedpktSomHarUnderpkt.ChecklistQuestion;
+                    outputpt.YesNo = hovedpktSomHarUnderpkt.YesNo;
                     _outputlist.Add(outputpt);
 
                     foreach (var underpkt in _alleSjekklistepunkter.Where(x => hovedpktSomHarUnderpkt.ChecklistReference.Equals(x.ParentActivityAction)))
@@ -192,18 +198,18 @@ namespace Dibk.Ftpb.Validation.Application.Services
                 }
                 else if (hovedpktSomHarDok != null)
                 {
-                    outputpt.checklistReference = hovedpktSomHarDok.ChecklistReference;
-                    outputpt.checklistQuestion = hovedpktSomHarDok.ChecklistQuestion;
-                    outputpt.yesNo = hovedpktSomHarDok.YesNo;
-                    outputpt.documentation = $"Dette er dokumentasjon for sjekklistepunkt {hovedpktSomHarDok.ChecklistReference}";
+                    outputpt.ChecklistReference = hovedpktSomHarDok.ChecklistReference;
+                    outputpt.ChecklistQuestion = hovedpktSomHarDok.ChecklistQuestion;
+                    outputpt.YesNo = hovedpktSomHarDok.YesNo;
+                    outputpt.Documentation = $"Dette er dokumentasjon for sjekklistepunkt {hovedpktSomHarDok.ChecklistReference}";
                     _outputlist.Add(outputpt);
                 }
                 else
                 {
-                    outputpt.checklistReference = hovedpkt.ChecklistReference;
-                    outputpt.checklistQuestion = hovedpkt.ChecklistQuestion;
+                    outputpt.ChecklistReference = hovedpkt.ChecklistReference;
+                    outputpt.ChecklistQuestion = hovedpkt.ChecklistQuestion;
                     var randomBool = new Random().Next(2) == 1; // 0 = false, 1 = true;
-                    outputpt.yesNo = randomBool;
+                    outputpt.YesNo = randomBool;
                     _outputlist.Add(outputpt);
                 }
             }
@@ -228,17 +234,23 @@ namespace Dibk.Ftpb.Validation.Application.Services
         }
         private ChecklistAnswer AddStuff(ChecklistAnswer input)
         {
-            input.supportingDataValidationRuleId = new List<string>();
-            input.supportingDataValidationRuleId.Add("999.99");
-            input.supportingDataValidationRuleId.Add("999.66");
+            input.SupportingDataValidationRuleId = new List<string>();
+            input.SupportingDataValidationRuleId.Add("999.99");
+            input.SupportingDataValidationRuleId.Add("999.66");
 
-            input.supportingDataXpathField = new List<string>();
-            input.supportingDataXpathField.Add("ArbeidstilsynetsSamtykke/aaa");
-            input.supportingDataXpathField.Add("ArbeidstilsynetsSamtykke/bbb");
+            input.SupportingDataXpathField = new List<string>();
+            input.SupportingDataXpathField.Add("ArbeidstilsynetsSamtykke/aaa");
+            input.SupportingDataXpathField.Add("ArbeidstilsynetsSamtykke/bbb");
 
             return input;
         }
 
-
+        //public FormProperties GetFormProperties(string dataFormatVersion)
+        //{
+            
+            
+            
+        //    throw new NotImplementedException();
+        //}
     }
 }
