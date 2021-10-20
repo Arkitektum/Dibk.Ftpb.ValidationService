@@ -45,25 +45,24 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList
 
         public CodelistFormat GetCodelistTagValue(object codeListName, string codeValue, RegistryType registryType)
         {
-            CodelistFormat result = new CodelistFormat(null,null,null);
+            CodelistFormat result = null;
 
             if (String.IsNullOrEmpty(codeValue))
             {
-                result.Status = "Utfylt";
+                return new CodelistFormat(codeListName.ToString(), null, "Utfylt");
             }
             else
             {
-                result.Name = codeListName.ToString();
                 Dictionary<string, CodelistFormat> codelist = GetCodeList(codeListName, registryType).Result;
                 if (codelist == null)
                 {
-                    result.Status = "IkkeValidert";
+                    return new CodelistFormat(codeListName.ToString(), null, "IkkeValidert");
                 }
                 else
                 {
                     if (!codelist.TryGetValue(codeValue, out result))
                     {
-                        result.Status = "ugyldig";
+                        return new CodelistFormat(codeListName.ToString(), null, "ugyldig");
                     }
                 }
             }

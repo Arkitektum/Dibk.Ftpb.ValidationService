@@ -18,7 +18,7 @@ using Dibk.Ftpb.Validation.Application.Utils;
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
 {
     [FormData(DataFormatId = "10000", DataFormatVersion = "1")]
-    public class AnsvarsrettAnsako_ANSAKO_10000_Validator : FormValidatorBase, IFormValidator
+    public class AnsvarsrettAnsako_ANSAKO_10000_Validator : FormValidatorBase, IFormValidator, IFormWithChecklistAnswers
     {
         private AnsvarsrettAnsako_ANSAKO_10000_Form _validationForm;
 
@@ -236,6 +236,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             //Kommunens saksnummer
             AccumulateValidationRules(_kommunensSaksnummerValidator.ValidationResult.ValidationRules);
 
+        }
+
+        public List<ChecklistAnswer> GetChecklistAnswersFromForm(string dataFormatVersion)
+        {
+            //throw new NotImplementedException();
+            return new List<ChecklistAnswer>();
         }
     }
 }
