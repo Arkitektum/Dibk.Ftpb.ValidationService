@@ -19,6 +19,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         protected IList<EntityValidatorNode> EntityValidatorTree;
         private readonly IValidationMessageComposer _validationMessageComposer;
         private readonly IChecklistService _checklistService;
+
+        public string DataFormatId;
+        public string DataFormatVersion;
         protected abstract string XPathRoot { get; }
         protected abstract void InitializeValidatorConfig();
         protected abstract IEnumerable<string> GetFormTiltakstyper();
@@ -48,18 +51,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             var customAttributes = this.GetType().GetCustomAttributes(typeof(FormDataAttribute), true).FirstOrDefault() as FormDataAttribute;
 
-            string dataFormatId = customAttributes?.DataFormatId;
-            string dataFormatVersion = customAttributes?.DataFormatVersion;
+            DataFormatId = customAttributes?.DataFormatId;
+            DataFormatVersion = customAttributes?.DataFormatVersion;
 
             InitializeValidatorConfig();
             InstantiateValidators();
             DefineValidationRules();
             Validate(validationInput);
-            ValidationResult = _validationMessageComposer.ComposeValidationResult(XPathRoot, dataFormatVersion, ValidationResult, "NO");
+            ValidationResult = _validationMessageComposer.ComposeValidationResult(XPathRoot, DataFormatVersion, ValidationResult, "NO");
 
             if (!ValidationResult.ValidationMessages.Any(x => x.Messagetype.Equals(ValidationResultSeverityEnum.CRITICAL)))
             {
-                FilterValidationMessagesOnTiltakstyper(dataFormatVersion);
+                FilterValidationMessagesOnTiltakstyper();
             }
 
             return ValidationResult;
@@ -138,12 +141,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             }
         }
 
-        private void FilterValidationMessagesOnTiltakstyper(string dataFormatVersion)
+        private void FilterValidationMessagesOnTiltakstyper()
         {
             var tiltakstyper = GetFormTiltakstyper();
             if (tiltakstyper.Count() > 0)
             {
-                var result = _checklistService.FilterValidationResult(dataFormatVersion, ValidationResult.ValidationMessages, tiltakstyper);
+                var result = _checklistService.FilterValidationResult(DataFormatId, DataFormatVersion, ValidationResult.ValidationMessages, tiltakstyper);
                 ValidationResult.ValidationMessages = result.ToList();
             }
         }

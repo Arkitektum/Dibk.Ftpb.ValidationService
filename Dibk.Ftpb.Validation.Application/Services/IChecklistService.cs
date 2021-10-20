@@ -7,10 +7,10 @@ namespace Dibk.Ftpb.Validation.Application.Services
 {
     public interface IChecklistService
     {
-        IEnumerable<Sjekk> GetChecklist(string dataFormatVersion, string filter);
-        IEnumerable<ValidationMessage> FilterValidationResult(string dataFormatVersion, IEnumerable<ValidationMessage> validationMessages, IEnumerable<string> tiltakstyper);
-        PrefillChecklist GetPrefillChecklist(ValidationResult validationResult, string dataFormatVersion, string processCategory);
+        IEnumerable<Sjekk> GetChecklist(string dataFormatId, string dataFormatVersion, string filter);
+        IEnumerable<ValidationMessage> FilterValidationResult(string dataFormatId, string dataFormatVersion, IEnumerable<ValidationMessage> validationMessages, IEnumerable<string> tiltakstyper);
+        PrefillChecklist GetPrefillChecklist(ValidationResult validationResult, string dataFormatId, string dataFormatVersion, string processCategory);
         string GetPrefillDemo();
-        FormProperties GetFormProperties(string dataFormatVersion);
+        FormProperties GetFormProperties(string dataFormatId, string dataFormatVersion);
     }
 }

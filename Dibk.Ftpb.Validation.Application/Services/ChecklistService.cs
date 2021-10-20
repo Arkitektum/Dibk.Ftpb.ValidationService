@@ -17,7 +17,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
         private List<FormProperties> _forms;
 
         //TODO: Replace the method below
-//        private bool TolerateErrors(string dataFormatVersion) { return GetFormProperties(dataFormatVersion).ServiceAuthority == "DIBK"; }
+        //        private bool TolerateErrors(string dataFormatVersion) { return GetFormProperties(dataFormatVersion).ServiceAuthority == "DIBK"; }
         private bool TolerateErrors(string dataFormatVersion) { return true; }
 
         public ChecklistService(AtilChecklistApiHttpClient atilChecklistApiHttpClient, DibkChecklistApiHttpClient dibkChecklistApiHttpClient, IConfiguration configuration)
@@ -29,26 +29,28 @@ namespace Dibk.Ftpb.Validation.Application.Services
             var formPropertiesFromConfig = _configuration.GetSection("FormProperties").GetChildren().ToList()
                 .Select(x =>
                                  (
+                                      x.GetValue<string>("DataFormatId"),
                                       x.GetValue<string>("DataFormatVersion"),
                                       x.GetValue<string>("ServiceAuthority"),
                                       x.GetValue<string>("ProcessCategory")
                                   )
-                            ).ToList<(string DataFormatVersion, string ServiceAuthority, string ProcessCategory)>();
-            
-            _forms = formPropertiesFromConfig.Select(x => new FormProperties() 
-            { 
-                DataFormatVersion = x.DataFormatVersion, 
-                ProcessCategory = x.ProcessCategory,  
-                ServiceAuthority = x.ServiceAuthority 
+                            ).ToList<(string DataFormatId, string DataFormatVersion, string ServiceAuthority, string ProcessCategory)>();
+
+            _forms = formPropertiesFromConfig.Select(x => new FormProperties()
+            {
+                DataFormatId = x.DataFormatId,
+                DataFormatVersion = x.DataFormatVersion,
+                ProcessCategory = x.ProcessCategory,
+                ServiceAuthority = x.ServiceAuthority
             }).ToList();
 
         }
-        private IEnumerable<ChecklistAnswer> GetPrefillChecklistAnswer(string dataFormatVersion, PrefillChecklistInput prefillChecklistInput)
+        private IEnumerable<ChecklistAnswer> GetPrefillChecklistAnswer(string dataFormatId, string dataFormatVersion, PrefillChecklistInput prefillChecklistInput)
         {
             //Hent prefilled sjekklistesvar som IKKE er Arbeidstilsynets krav
 
             //var formProperties = GetFormProperties(dataFormatVersion);
-            var httpClient = GetChecklistApiHttpClient(dataFormatVersion);
+            var httpClient = GetChecklistApiHttpClient(dataFormatId,dataFormatVersion);
             var prefilledChecklist = (List<ChecklistAnswer>)httpClient.GetPrefillChecklistAnswer(prefillChecklistInput).Result;
 
             //if (formProperties.ServiceAuthority.Equals(Enum.GetName(typeof(ServiceOwnerEnum),ServiceOwnerEnum.ATIL)))
@@ -56,7 +58,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
             //    var AtilSpecificChecklist = AtilSpecificPrefilledChecklist(prefillChecklistInput);
             //    prefilledChecklist.AddRange(AtilSpecificChecklist);
             //}
-            
+
             return prefilledChecklist;
         }
 
@@ -68,10 +70,10 @@ namespace Dibk.Ftpb.Validation.Application.Services
             return retValue;
         }
 
-        public IEnumerable<ValidationMessage> FilterValidationResult(string dataFormatVersion, IEnumerable<ValidationMessage> validationMessages, IEnumerable<string> tiltakstyper)
+        public IEnumerable<ValidationMessage> FilterValidationResult(string dataFormatId, string dataFormatVersion, IEnumerable<ValidationMessage> validationMessages, IEnumerable<string> tiltakstyper)
         {
-            var formProperties = GetFormProperties(dataFormatVersion);
-            var httpClient = GetChecklistApiHttpClient(dataFormatVersion);
+            var formProperties = GetFormProperties(dataFormatId,dataFormatVersion);
+            var httpClient = GetChecklistApiHttpClient(dataFormatId,dataFormatVersion);
             var checklistRelatedValidations = (List<ChecklistValidationRelations>)httpClient.GetChecklistValidationRelations(formProperties.ProcessCategory).Result;
 
             List<ValidationMessage> filteredMessages = new List<ValidationMessage>();
@@ -99,7 +101,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
             return filteredMessages;
         }
 
-        public PrefillChecklist GetPrefillChecklist(ValidationResult validationResult, string dataFormatVersion, string processCategory)
+        public PrefillChecklist GetPrefillChecklist(ValidationResult validationResult, string dataFormatId, string dataFormatVersion, string processCategory)
         {
             var validationResultContainsErrors = validationResult.ValidationMessages.Any(x => x.Messagetype.Equals(ValidationResultSeverityEnum.ERROR));
             if (ValidationResultIsAcceptableForFurtherProcessing(validationResultContainsErrors, dataFormatVersion))
@@ -118,7 +120,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
 
                 //var prefillChecklist = GetPrefillChecklistAnswer(dataFormatVersion, prefillChecklistInput);
 
-                var httpClient = GetChecklistApiHttpClient(dataFormatVersion);
+                var httpClient = GetChecklistApiHttpClient(dataFormatId, dataFormatVersion);
                 var prefilledChecklist = (List<ChecklistAnswer>)httpClient.GetPrefillChecklistAnswer(prefillChecklistInput).Result;
 
                 return new PrefillChecklist() { ChecklistAnswers = prefilledChecklist };
@@ -154,10 +156,10 @@ namespace Dibk.Ftpb.Validation.Application.Services
             return !validationResultContainsErrors || (tolerateErrors && validationResultContainsErrors);
         }
 
-        public IEnumerable<Sjekk> GetChecklist(string dataFormatVersion, string filter)
+        public IEnumerable<Sjekk> GetChecklist(string dataFormatId, string dataFormatVersion, string filter)
         {
-            var formProperties = GetFormProperties(dataFormatVersion);
-            var httpClient = GetChecklistApiHttpClient(dataFormatVersion);
+            var formProperties = GetFormProperties(dataFormatId, dataFormatVersion);
+            var httpClient = GetChecklistApiHttpClient(dataFormatId, dataFormatVersion);
 
             var checkPoints = (List<Sjekk>)httpClient.GetChecklist(formProperties.ProcessCategory, filter).Result;
 
@@ -165,48 +167,48 @@ namespace Dibk.Ftpb.Validation.Application.Services
         }
 
 
-        public FormProperties GetFormProperties(string dataFormatVersion)
+        public FormProperties GetFormProperties(string dataFormatId, string dataFormatVersion)
         {
             try
             {
                 foreach (var form in _forms)
                 {
-                    if (form.DataFormatVersion.Equals(dataFormatVersion))
+                    if (form.DataFormatId == dataFormatId && form.DataFormatVersion == dataFormatVersion)
                     {
                         return form;
                     }
                 }
 
-                throw new NullReferenceException($"Illegal dataFormatVersion '{dataFormatVersion}'");
+                throw new NullReferenceException($"Illegal dataFormatVersion '{dataFormatId}':'{dataFormatVersion}'");
             }
             catch (Exception)
             {
-                throw new ArgumentOutOfRangeException($"Illegal dataFormatVersion '{dataFormatVersion}'");
+                throw new ArgumentOutOfRangeException($"Illegal dataFormatVersion '{dataFormatId}':'{dataFormatVersion}'");
             }
         }
 
 
-        private ChecklistApiHttpClient GetChecklistApiHttpClient(string dataFormatVersion)
+        private ChecklistApiHttpClient GetChecklistApiHttpClient(string dataFormatId, string dataFormatVersion)
         {
             try
             {
                 foreach (var form in _forms)
                 {
-                    if (form.DataFormatVersion.Equals(dataFormatVersion))
+                    if (form.DataFormatId == dataFormatId && form.DataFormatVersion == dataFormatVersion)
                     {
                         if (form.ServiceAuthority.Equals(Enum.GetName(ServiceOwnerEnum.ATIL)))
                             return _atilChecklistApiHttpClient;
                         else
                             return _dibkChecklistApiHttpClient;
-                        
+
                     }
                 }
 
-                throw new NullReferenceException($"Illegal dataFormatVersion '{dataFormatVersion}'");
+                throw new NullReferenceException($"Illegal dataFormatVersion '{dataFormatId}':'{dataFormatVersion}'");
             }
             catch (Exception)
             {
-                throw new ArgumentOutOfRangeException($"Illegal dataFormatVersion '{dataFormatVersion}'");
+                throw new ArgumentOutOfRangeException($"Illegal dataFormatVersion '{dataFormatId}':'{dataFormatVersion}'");
             }
         }
 

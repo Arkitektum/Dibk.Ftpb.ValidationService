@@ -17,7 +17,7 @@ using Dibk.Ftpb.Validation.Application.Services;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
-    [FormData(DataFormatVersion = "45957",DataFormatId = "6821")]
+    [FormData(DataFormatId = "6821",DataFormatVersion = "45957")]
     public class ArbeidstilsynetsSamtykke2_45957_Validator : FormValidatorBase, IFormValidator, IFormWithChecklistAnswers
     {
         private List<EntityValidatorNode> _entitiesNodeList;
@@ -358,8 +358,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             var ansvarligSoekerValidationResult = _ansvarligSoekerValidator.Validate(_validationForm.AnsvarligSoeker);
             AccumulateValidationMessages(ansvarligSoekerValidationResult.ValidationMessages);
-            
-            var sjekklistekravValidationResult = _sjekklistekravValidator.Validate(GetDataFormatVersion(typeof(ArbeidstilsynetsSamtykke2_45957_Validator)), _validationForm?.Sjekklistekrav, _checklistService);
+
+            var sjekklistekravValidationResult = _sjekklistekravValidator.Validate(DataFormatId, DataFormatVersion, _validationForm?.Sjekklistekrav, _checklistService);
             AccumulateValidationMessages(sjekklistekravValidationResult.ValidationMessages);
 
             var metadataValidationResult = _metadataValidator.Validate(_validationForm.Metadata);
