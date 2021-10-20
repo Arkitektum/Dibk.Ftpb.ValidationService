@@ -160,7 +160,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             ValidationInput validationInput = new();
             validationInput.FormData = xmlData;
-            var newValidationReport = _formValidator.StartValidation("45957", validationInput);
+            var newValidationReport = _formValidator.StartValidation(validationInput);
 
             if (WriteValidationResultsToJsonFile)
             {

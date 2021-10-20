@@ -1,11 +1,11 @@
-﻿using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Dibk.Ftpb.Validation.Application.Reporter;
+using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.Web;
+using Dibk.Ftpb.Validation.Application.Reporter;
 using Microsoft.Extensions.Logging;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
@@ -25,7 +25,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //ValidationReport = new ValidationReport();
         }
 
-        public async Task<ValidationResult> ValidateAsync(string dataFormatVersion, List<string> errorMessages, ValidationInput validationInput)
+        public async Task<ValidationResult> ValidateAsync(string dataFormatId, string dataFormatVersion, List<string> errorMessages, ValidationInput validationInput)
         {
             ValidationResult = new ValidationResult();
             ValidationResult.ValidationRules = new();
@@ -44,7 +44,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 List<ValidationRule> validationXmlMessages = new List<ValidationRule>();
                 ValidationResult.ValidationRules.AddRange(validationXmlMessages);
 
-                ValidateMainForm(dataFormatVersion, validationInput);
+                ValidateMainForm(dataFormatId, dataFormatVersion, validationInput);
             }
 
             // Todo: On ERRORS
@@ -74,17 +74,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             return ValidationResult;
         }
 
-        private void ValidateMainForm(string dataFormatVersion, ValidationInput validationInput)
+        private void ValidateMainForm(string dataFormatId, string dataFormatVersion, ValidationInput validationInput)
         {
-            IFormValidator formValidator = GetValidator(dataFormatVersion); //45957
-            ValidationResult valResult = formValidator.StartValidation(dataFormatVersion, validationInput);
+            IFormValidator formValidator = GetValidator(dataFormatId, dataFormatVersion); //45957
+            ValidationResult valResult = formValidator.StartValidation(validationInput);
 
             ValidationResult.ValidationRules.AddRange(valResult.ValidationRules);
             ValidationResult.ValidationMessages.AddRange(valResult.ValidationMessages);
             ValidationResult.PrefillChecklist = valResult.PrefillChecklist;
         }
 
-        private IFormValidator GetValidator(string dataFormatVersion)
+        private IFormValidator GetValidator(string dataFormatId, string dataFormatVersion)
         {
             //Retrieves classes implementing IForm, having FormDataFormatAttribute and filtering by its DataFormatId
             object formLogicInstance = null;
@@ -95,16 +95,21 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                     .GetTypes().OrderBy(y => y.Name);
 
                 var type = Assembly.GetExecutingAssembly()
-                    .GetTypes()
-                    .Where(t => t.IsDefined(typeof(FormDataAttribute), true))
-                    .Where(t => t.GetCustomAttribute<FormDataAttribute>().DataFormatVersion == dataFormatVersion)
-                    .SingleOrDefault();
+                                    .GetTypes()
+                                    .Where(t => t.IsDefined(typeof(FormDataAttribute), true)).SingleOrDefault(t => t.GetCustomAttribute<FormDataAttribute>()?.DataFormatVersion == dataFormatVersion && t.GetCustomAttribute<FormDataAttribute>()?.DataFormatId == dataFormatId);
 
-                formLogicInstance = _services.GetService(type);
+                if (type != null)
+                {
+                    formLogicInstance = _services.GetService(type);
+                }
+                else
+                {
+                    _logger.LogError("No validator found for {DataFormatVersion}:{DataFormatId}", dataFormatVersion, dataFormatId);
+                }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred when attempting to find validator for {DataFormatVersion}", dataFormatVersion);
+                _logger.LogError(ex, "Error occurred when attempting to find validator for {DataFormatVersion}:{DataFormatId}", dataFormatVersion, dataFormatId);
                 throw;
             }
 

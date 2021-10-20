@@ -7,6 +7,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
     public interface IValidationHandler
     {
-        Task<ValidationResult> ValidateAsync(string dataFormatVersion, List<string> errorMessages, ValidationInput validationInput);
+        Task<ValidationResult> ValidateAsync(string dataFormatId, string dataFormatVersion, List<string> errorMessages, ValidationInput validationInput);
     }
 }

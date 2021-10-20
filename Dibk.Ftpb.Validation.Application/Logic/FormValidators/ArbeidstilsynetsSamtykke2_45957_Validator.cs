@@ -17,7 +17,7 @@ using Dibk.Ftpb.Validation.Application.Services;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
-    [FormData(DataFormatVersion = "45957")]
+    [FormData(DataFormatVersion = "45957",DataFormatId = "6821")]
     public class ArbeidstilsynetsSamtykke2_45957_Validator : FormValidatorBase, IFormValidator, IFormWithChecklistAnswers
     {
         private List<EntityValidatorNode> _entitiesNodeList;
@@ -93,11 +93,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //SetTitaksTypeIsøknad();
         }
 
-        public override ValidationResult StartValidation(string dataFormatVersion, ValidationInput validationInput)
+        public override ValidationResult StartValidation(ValidationInput validationInput)
         {
             //TODO log feil
             _validationForm = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(validationInput.FormData);
-            base.StartValidation(dataFormatVersion, validationInput);
+            base.StartValidation(validationInput);
 
             //Add ChecklistAnswers to validationresult
             ValidationResult.PrefillChecklist = GetChecklistAnswers();

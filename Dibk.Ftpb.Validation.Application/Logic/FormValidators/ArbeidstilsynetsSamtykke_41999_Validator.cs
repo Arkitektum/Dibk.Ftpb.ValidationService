@@ -16,7 +16,7 @@ using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
-    [FormData(DataFormatVersion = "41999")]
+    [FormData(DataFormatId = "5547", DataFormatVersion = "41999")]
     public class ArbeidstilsynetsSamtykke_41999_Validator : FormValidatorBase, IFormValidator
     {
         private IList<EntityValidatorNode> _entityValidatorTree;
@@ -25,13 +25,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private readonly ICodeListService _codeListService;
         private readonly IPostalCodeService _postalCodeService;
         private ArbeidstilsynetsSamtykke_41999_Form _validationForm { get; set; }
-        
+
         private IEiendomsAdresseValidator _eiendomsAdresseValidator;
         private IMatrikkelValidator _matrikkelValidator;
         private IEiendomByggestedValidator _eiendomByggestedValidator;
-        
+
         private ArbeidsplasserValidator _arbeidsplasserValidator;
-        
+
         private IEnkelAdresseValidator _tiltakshaverEnkelAdresseValidator;
         private IKontaktpersonValidator _tiltakshaverKontaktpersonValidator;
         private IKodelisteValidator _tiltakshaverPartstypeValidator;
@@ -55,11 +55,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _postalCodeService = postalCodeService;
         }
 
-        public override ValidationResult StartValidation(string dataFormatVersion, ValidationInput validationInput)
+        public override ValidationResult StartValidation(ValidationInput validationInput)
         {
             _validationForm = new ArbeidstilsynetsSamtykke_41999_Deserializer().Deserialize(validationInput.FormData);
 
-            base.StartValidation(dataFormatVersion, validationInput);
+            base.StartValidation(validationInput);
             //ValidationReport.ValidationResult = ValidationResult;
 
             return ValidationResult;
@@ -155,9 +155,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             AccumulateValidationRules(_eiendomByggestedValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_eiendomsAdresseValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_matrikkelValidator.ValidationResult.ValidationRules);
-            
+
             AccumulateValidationRules(_arbeidsplasserValidator.ValidationResult.ValidationRules);
-            
+
             AccumulateValidationRules(_tiltakshaverValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_tiltakshaverPartstypeValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_tiltakshaverEnkelAdresseValidator.ValidationResult.ValidationRules);

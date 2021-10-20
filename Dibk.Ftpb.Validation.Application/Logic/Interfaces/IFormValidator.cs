@@ -6,7 +6,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.Interfaces
 {
     public interface IFormValidator
     {
-        ValidationResult StartValidation(string dataFormatVersion, ValidationInput validationInput);
+        ValidationResult StartValidation(ValidationInput validationInput);
     }
     public interface IFormWithChecklistAnswers
     {

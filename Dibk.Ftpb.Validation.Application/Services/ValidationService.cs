@@ -72,7 +72,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
                             var foundXPath = validationResult.ValidationRules.First(x => x.Id.Equals(ruleId)).Xpath;
                             var xPathsIfNotAlreadyExisting = validationResult.ValidationRules.Where
                                 (x => ruleId.Equals(x.Id) && !answer.supportingDataXpathField.Any(y => y.Equals(x.Xpath))).Select(z => z.Xpath).ToList();
-                            
+
                             answer.supportingDataXpathField.AddRange(xPathsIfNotAlreadyExisting);
                         }
                     }
@@ -118,16 +118,18 @@ namespace Dibk.Ftpb.Validation.Application.Services
 
             //**************         END             *************************************************************************************
 
-            if (!Helpers.ObjectIsNullOrEmpty(inputData?.Config?.DataFormatVersion))
+            if (!string.IsNullOrEmpty(inputData?.Config?.DataFormatId) || !string.IsNullOrEmpty(inputData?.Config?.DataFormatVersion))
             {
-                validationResult = _validationHandler.ValidateAsync(inputData?.Config?.DataFormatVersion, errorMessages, validationInput).Result;
+                var dataFormatVersion = inputData?.Config?.DataFormatVersion;
+                var dataFormatId = inputData?.Config?.DataFormatId;
+                validationResult = _validationHandler.ValidateAsync(dataFormatId, dataFormatVersion, errorMessages, validationInput).Result;
 
                 var formProperties = _checklistService.GetFormProperties(inputData?.Config?.DataFormatVersion);
                 validationResult.Soknadtype = formProperties.ProcessCategory;
             }
             else
             {
-                validationResult.ValidationMessages = new List<ValidationMessage> { new() { Message = "Can't Get DataFormatId" } };
+                validationResult.ValidationMessages = new List<ValidationMessage> { new() { Message = "Can't Get DataFormatId, DataFormatVersion from xml data" } };
             }
 
             validationResult.Errors = validationResult.ValidationMessages.Where(x => x.Messagetype == Enums.ValidationResultSeverityEnum.ERROR).Count();

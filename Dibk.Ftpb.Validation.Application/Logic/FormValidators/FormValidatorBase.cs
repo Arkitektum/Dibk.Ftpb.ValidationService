@@ -6,8 +6,10 @@ using Dibk.Ftpb.Validation.Application.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Utils;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
@@ -41,9 +43,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             FormDataAttribute myAtt = (FormDataAttribute)Attribute.GetCustomAttribute(t, typeof(FormDataAttribute));
             return myAtt.DataFormatVersion;
         }
-
-        public virtual ValidationResult StartValidation(string dataFormatVersion, ValidationInput validationInput)
+        public virtual ValidationResult StartValidation(ValidationInput validationInput)
         {
+
+            var customAttributes = this.GetType().GetCustomAttributes(typeof(FormDataAttribute), true).FirstOrDefault() as FormDataAttribute;
+
+            string dataFormatId = customAttributes?.DataFormatId;
+            string dataFormatVersion = customAttributes?.DataFormatVersion;
+
             InitializeValidatorConfig();
             InstantiateValidators();
             DefineValidationRules();
@@ -84,10 +91,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         protected void AddMessageFromRule(ValidationRuleEnum id, FieldNameEnum? xmlElementName = null, string[] messageParameters = null, string preConditionField = null)
         {
             var idSt = id.ToString();
-            
+
             string xmlElementXpath = xmlElementName.HasValue ? $"/{xmlElementName}" : "/";
 
-            var xpathNew =$"{xmlElementXpath}";
+            var xpathNew = $"{xmlElementXpath}";
 
             var rule = RuleToValidate(idSt, xpathNew);
 
@@ -108,10 +115,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             ValidationRule validationRule = ValidationResult.ValidationRules.Where(r => !string.IsNullOrEmpty(r.Rule))
                 .FirstOrDefault(r => r.Rule.Equals(rule) && (r.Xpath == xPath)) ?? new ValidationRule()
-            {
-                Rule = rule,
-                Message = $"Can't find rule:'{rule}'.-"
-            };
+                {
+                    Rule = rule,
+                    Message = $"Can't find rule:'{rule}'.-"
+                };
             return validationRule;
         }
         protected void AccumulateValidationMessages(List<ValidationMessage> validationMessages, int? index = null)
@@ -150,5 +157,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
     public class FormDataAttribute : Attribute
     {
         public string DataFormatVersion { get; set; }
+        public string DataFormatId { get; set; }
     }
 }
