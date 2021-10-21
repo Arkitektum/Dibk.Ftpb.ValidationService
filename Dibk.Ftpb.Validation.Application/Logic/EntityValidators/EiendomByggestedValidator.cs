@@ -35,11 +35,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.kommunenavn);
         }
 
-        public ValidationResult Validate(IEnumerable<Eiendom> eiendomValidationEntities)
-        {
-            throw new NotImplementedException();
-        }
-
         public ValidationResult Validate(Eiendom eiendom)
         {
             base.ResetValidationMessages();
