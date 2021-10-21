@@ -25,7 +25,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
         private AnsvarsrettValidator _AnsvarsrettValidator;
         //**foretak
-        private IForetakValidator _foretakValidator;
+        private IAktoerValidatorV2 _foretakValidator;
         private IKontaktpersonValidator _foretakKontaktpersonValidator;
         private IKodelisteValidator _foretakPartstypeValidator;
         private IEnkelAdresseValidator _foretakEnkelAdresseValidator;

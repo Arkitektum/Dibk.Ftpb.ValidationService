@@ -10,11 +10,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
     public class AnsvarsrettValidator : EntityValidatorBase
     {
-        private readonly IForetakValidator _foretakValidator;
+        private readonly IAktoerValidatorV2 _foretakValidator;
         private readonly IAnsvarsomraadeValidator _ansvarsomraadeValidator;
         public ValidationResult ValidationResult { get => _validationResult; set => throw new System.NotImplementedException(); }
 
-        public AnsvarsrettValidator(IList<EntityValidatorNode> entityValidatorTree, IForetakValidator foretakValidator, IAnsvarsomraadeValidator ansvarsomraadeValidator) : base(entityValidatorTree)
+        public AnsvarsrettValidator(IList<EntityValidatorNode> entityValidatorTree, IAktoerValidatorV2 foretakValidator, IAnsvarsomraadeValidator ansvarsomraadeValidator) : base(entityValidatorTree)
         {
             _foretakValidator = foretakValidator;
             _ansvarsomraadeValidator = ansvarsomraadeValidator;

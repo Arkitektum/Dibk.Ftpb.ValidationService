@@ -25,7 +25,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         private IPostalCodeService _postalCodeService;
 
         //**foretak
-        private IForetakValidator _foretakValidator;
+        private IAktoerValidatorV2 _foretakValidator;
         private IKontaktpersonValidator _foretakKontaktpersonValidator;
         private IKodelisteValidator _foretakPartstypeValidator;
         private IEnkelAdresseValidator _foretakEnkelAdresseValidator;
@@ -55,7 +55,8 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
             _foretakPartstypeValidator = new PartstypeValidator(tree, 02, _codeListService);
             _foretakEnkelAdresseValidator = new EnkelAdresseValidator(tree, 03, _postalCodeService);
             _foretakKontaktpersonValidator = new KontaktpersonValidatorV2(tree, 04);
-            _foretakValidator = new ForetakValidator(tree, _foretakEnkelAdresseValidator, _foretakKontaktpersonValidator, _foretakPartstypeValidator, _codeListService);
+            var foretakPartstypes = new[] { "Foretak" };
+            _foretakValidator = new ForetakValidator(tree, _foretakEnkelAdresseValidator, _foretakKontaktpersonValidator, _foretakPartstypeValidator, _codeListService, foretakPartstypes);
 
         }
 
@@ -71,7 +72,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         {
             //_form.Ansvarsretts.Foretak.Organisasjonsnummer  = "910297937" //Gyldig
             _form.Ansvarsretts.Foretak.Organisasjonsnummer = null;
-            _foretakValidator.ValidateEntityFields(_form.Ansvarsretts.Foretak);
+            //_foretakValidator.ValidateEntityFields(_form.Ansvarsretts.Foretak);
             var errorMessages = _foretakValidator?.ValidationResult?.ValidationMessages;
             errorMessages.Should().NotBeNullOrEmpty();
         }
@@ -79,7 +80,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         public void Foretak_Organisasjonsnummer_kontrollsiffer()
         {
             _form.Ansvarsretts.Foretak.Organisasjonsnummer = "123456789321654";
-            _foretakValidator.ValidateEntityFields(_form.Ansvarsretts.Foretak);
+            //_foretakValidator.ValidateEntityFields(_form.Ansvarsretts.Foretak);
             var errorMessages = _foretakValidator?.ValidationResult?.ValidationMessages;
             errorMessages.Should().NotBeNullOrEmpty();
         }
@@ -87,7 +88,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         public void Foretak_Organisasjonsnummer_gyldig()
         {
             _form.Ansvarsretts.Foretak.Organisasjonsnummer = "123456789";
-            _foretakValidator.ValidateEntityFields(_form.Ansvarsretts.Foretak);
+            //_foretakValidator.ValidateEntityFields(_form.Ansvarsretts.Foretak);
             var errorMessages = _foretakValidator?.ValidationResult?.ValidationMessages;
             errorMessages.Should().NotBeNullOrEmpty();
         }
@@ -95,7 +96,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         public void Foretak_Navn_Utfylt()
         {
             _form.Ansvarsretts.Foretak.Navn = null;
-            _foretakValidator.ValidateEntityFields(_form.Ansvarsretts.Foretak);
+            //_foretakValidator.ValidateEntityFields(_form.Ansvarsretts.Foretak);
             var errorMessages = _foretakValidator?.ValidationResult?.ValidationMessages;
             errorMessages.Should().NotBeNullOrEmpty();
         }
@@ -103,7 +104,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         public void Foretak_Epost_Utfylt()
         {
             _form.Ansvarsretts.Foretak.Epost = null;
-            _foretakValidator.ValidateEntityFields(_form.Ansvarsretts.Foretak);
+            //_foretakValidator.ValidateEntityFields(_form.Ansvarsretts.Foretak);
             var errorMessages = _foretakValidator?.ValidationResult?.ValidationMessages;
             errorMessages.Should().NotBeNullOrEmpty();
         }
@@ -112,7 +113,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         {
             _form.Ansvarsretts.Foretak.Mobilnummer = null;
             _form.Ansvarsretts.Foretak.Telefonnummer = null;
-            _foretakValidator.ValidateEntityFields(_form.Ansvarsretts.Foretak);
+            //_foretakValidator.ValidateEntityFields(_form.Ansvarsretts.Foretak);
             var errorMessages = _foretakValidator?.ValidationResult?.ValidationMessages;
             errorMessages.Should().NotBeNullOrEmpty();
         }
@@ -120,7 +121,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         public void Foretak_telefonnummer_gyldig()
         {
             _form.Ansvarsretts.Foretak.Telefonnummer = "-4445sdf";
-            _foretakValidator.ValidateEntityFields(_form.Ansvarsretts.Foretak);
+            //_foretakValidator.ValidateEntityFields(_form.Ansvarsretts.Foretak);
             var errorMessages = _foretakValidator?.ValidationResult?.ValidationMessages;
             errorMessages.Should().NotBeNullOrEmpty();
         }
@@ -128,7 +129,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         public void Foretak_mobilnummer_gyldig()
         {
             _form.Ansvarsretts.Foretak.Mobilnummer = "-4445sdf";
-            _foretakValidator.ValidateEntityFields(_form.Ansvarsretts.Foretak);
+            //_foretakValidator.ValidateEntityFields(_form.Ansvarsretts.Foretak);
             var errorMessages = _foretakValidator?.ValidationResult?.ValidationMessages;
             errorMessages.Should().NotBeNullOrEmpty();
         }

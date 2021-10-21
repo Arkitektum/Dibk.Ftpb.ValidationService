@@ -8,13 +8,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
     public class AnsvarligSoekerValidatorV2 : AktoerValidatorV2
     {
         public AnsvarligSoekerValidatorV2(IList<EntityValidatorNode> entityValidatorTree, IEnkelAdresseValidator enkelAdresseValidator,
-                IKontaktpersonValidator kontaktpersonValidator, IKodelisteValidator partstypeValidator, ICodeListService codeListService)
-            : base(entityValidatorTree, enkelAdresseValidator, kontaktpersonValidator, partstypeValidator, codeListService)
+                IKontaktpersonValidator kontaktpersonValidator, IKodelisteValidator partstypeValidator, ICodeListService codeListService, string[] partstypes = null)
+            : base(entityValidatorTree, enkelAdresseValidator, kontaktpersonValidator, partstypeValidator, codeListService, partstypes)
         {
-            _codeListService = codeListService;
-            _enkelAdresseValidator = enkelAdresseValidator;
-            _kontaktpersonValidator = kontaktpersonValidator;
-            _partstypeValidator = partstypeValidator;
         }
     }
 }

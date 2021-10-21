@@ -46,12 +46,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.organisasjonsnummer);
             AddValidationRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.organisasjonsnummer);
 
-            AddValidationRule(ValidationRuleEnum.telmob_utfylt);
-
-            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.epost);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.navn);
-        }
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.epost);
 
+            AddValidationRule(ValidationRuleEnum.telmob_utfylt);
+            AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.telefonnummer);
+            AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.mobilnummer);
+
+        }
 
         public ValidationResult Validate(Aktoer aktoer = null)
         {

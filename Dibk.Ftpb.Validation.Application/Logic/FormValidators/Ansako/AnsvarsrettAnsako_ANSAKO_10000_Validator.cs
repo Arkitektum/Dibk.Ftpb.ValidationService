@@ -39,7 +39,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
         //*Ansvarsrett
         private AnsvarsrettValidator _AnsvarsrettValidator;
         //**foretak
-        private IForetakValidator _foretakValidator;
+        private IAktoerValidatorV2 _foretakValidator;
         private IKontaktpersonValidator _foretakKontaktpersonValidator;
         private IKodelisteValidator _foretakPartstypeValidator;
         private IEnkelAdresseValidator _foretakEnkelAdresseValidator;
@@ -133,9 +133,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
 
             //*AnsvarligSoeker
             _ansvarligSoekerKontaktpersonValidator = new KontaktpersonValidator(tree, 02);
-            //_ansvarligSoekerPartstypeValidator = new PartstypeValidator(tree, 03, _codeListService);
+            _ansvarligSoekerPartstypeValidator = new PartstypeValidator(tree, 03, _codeListService);
             _ansvarligSoekerEnkelAdresseValidator = new EnkelAdresseValidator(tree, 04, _postalCodeService);
-            _ansvarligSoekerValidator = new AnsvarligSoekerValidatorV2(tree, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService);
+            var ansvarligSoekerPartstypes = new[] { "Foretak", "Organisasjon" };
+            _ansvarligSoekerValidator = new AnsvarligSoekerValidatorV2(tree, _ansvarligSoekerEnkelAdresseValidator, _ansvarligSoekerKontaktpersonValidator, _ansvarligSoekerPartstypeValidator, _codeListService, ansvarligSoekerPartstypes);
 
             //*Ansvarsrett
             //**Ansvarsområde
@@ -146,7 +147,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             _foretakPartstypeValidator = new PartstypeValidator(tree, 07, _codeListService);
             _foretakEnkelAdresseValidator = new EnkelAdresseValidator(tree, 08, _postalCodeService);
             _foretakKontaktpersonValidator = new KontaktpersonValidatorV2(tree, 09);
-            _foretakValidator = new ForetakValidator(tree, _foretakEnkelAdresseValidator, _foretakKontaktpersonValidator, _foretakPartstypeValidator, _codeListService);
+           
+            var foretakPartstypes = new[] { "Foretak"};
+            _foretakValidator = new ForetakValidator(tree, _foretakEnkelAdresseValidator, _foretakKontaktpersonValidator, _foretakPartstypeValidator, _codeListService, foretakPartstypes);
 
             _AnsvarsrettValidator = new AnsvarsrettValidator(tree, _foretakValidator, _ansvarsomraadeValidator);
 
@@ -237,7 +240,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             AccumulateValidationRules(_kommunensSaksnummerValidator.ValidationResult.ValidationRules);
 
         }
-        
+
         public List<ChecklistAnswer> GetChecklistAnswersFromForm(ValidationInput validationInput)
         {
             //throw new NotImplementedException();
