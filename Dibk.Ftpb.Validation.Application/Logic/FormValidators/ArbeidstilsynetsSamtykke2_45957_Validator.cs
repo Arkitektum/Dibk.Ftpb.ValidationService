@@ -14,7 +14,6 @@ using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Services;
-using Elasticsearch.Net.Specification.IndicesApi;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using System;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;

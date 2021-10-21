@@ -3,9 +3,7 @@ using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 using System.Collections.Generic;
-using System.Linq;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
-using Dibk.Ftpb.Validation.Application.Enums;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
@@ -19,9 +17,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected override void InitializeValidationRules()
         {
             this.AddValidationRule(ValidationRuleEnum.utfylt);
-            this.AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.signaturdato);
-            this.AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.signertAv);
-            this.AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.signertPaaVegneAv);
+            //this.AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.signaturdato);
+            //this.AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.signertAv);
+            //this.AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.signertPaaVegneAv);
         }
 
         public ValidationResult Validate(SignaturValidationEntity signatur = null, string[] attachments = null)
@@ -41,15 +39,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             {
                 if (signaturValEntity.Signaturdato == null)
                 {
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.signaturdato);
+                    //AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.signaturdato);
                 }
                 if (string.IsNullOrEmpty(signaturValEntity.SignertAv))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.signertAv);
+                    //AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.signertAv);
                 }
                 if (string.IsNullOrEmpty(signaturValEntity.SignertPaaVegneAv))
                 {
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.signertPaaVegneAv);
+                    //AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.signertPaaVegneAv);
                 }
             }
         }

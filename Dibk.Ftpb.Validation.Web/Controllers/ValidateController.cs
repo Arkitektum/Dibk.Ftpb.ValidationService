@@ -88,20 +88,17 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<FormProperties> ChecklistUrlInfo([FromBody] string dataFormatVersion)
+        public ActionResult<FormProperties> ChecklistUrlInfo([FromBody] string dataFormatId, string dataFormatVersion)
         {
-            if (string.IsNullOrEmpty(dataFormatVersion))
+            if (string.IsNullOrEmpty(dataFormatVersion) && string.IsNullOrEmpty(dataFormatVersion))
             {
                 return BadRequest();
             }
 
-            //var props = _formPropertyService.GetFormProperties(dataFormatVersion);
+            var props = _formPropertyService.GetFormProperties(dataFormatId, dataFormatVersion);
 
-            //return Ok(props);
-            return NotFound("mangler dataFormId, må endres API parameter");
-            
+            return Ok(props);
         }
-
 
         private bool VerifyInput(ValidationInput input)
         {

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Dibk.Ftpb.Validation.Application.Reporter
+﻿namespace Dibk.Ftpb.Validation.Application.Reporter
 {
     public class ValidationMessageComposer : IValidationMessageComposer
     {

@@ -7,11 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
-using System.Runtime.CompilerServices;
-using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Utils;
 using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {

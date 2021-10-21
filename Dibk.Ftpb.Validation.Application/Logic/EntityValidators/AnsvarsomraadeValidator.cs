@@ -6,7 +6,6 @@ using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
-using Microsoft.Extensions.Logging;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {

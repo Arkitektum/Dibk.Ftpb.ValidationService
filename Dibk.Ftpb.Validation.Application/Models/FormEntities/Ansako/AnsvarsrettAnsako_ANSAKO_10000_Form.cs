@@ -1,5 +1,4 @@
-﻿using System;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 
 namespace Dibk.Ftpb.Validation.Application.Models.FormEntities.Ansako

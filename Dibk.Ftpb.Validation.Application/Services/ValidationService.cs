@@ -2,10 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using Dibk.Ftpb.Validation.Application.Models.Web;
-using Dibk.Ftpb.Validation.Application.Utils;
 using System.Linq;
-using Dibk.Ftpb.Validation.Application.Logic;
-using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.FormValidators;
 using Newtonsoft.Json;
 using System;

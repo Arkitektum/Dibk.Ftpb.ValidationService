@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Dibk.Ftpb.Validation.Application.DataSources.Models;
+﻿using Dibk.Ftpb.Validation.Application.DataSources.Models;
 
 namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode
 {

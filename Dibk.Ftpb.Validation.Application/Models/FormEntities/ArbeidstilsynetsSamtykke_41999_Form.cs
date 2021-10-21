@@ -1,5 +1,4 @@
 ﻿using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace Dibk.Ftpb.Validation.Application.Models.FormEntities

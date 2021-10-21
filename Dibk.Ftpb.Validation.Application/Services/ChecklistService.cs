@@ -1,8 +1,6 @@
 ﻿using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Checklist;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Reporter;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;

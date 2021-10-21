@@ -1,8 +1,5 @@
 ﻿using Dibk.Ftpb.Validation.Application.Constants;
 using Dibk.Ftpb.Validation.Application.Models;
-using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke;
-using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
-using System;
 using System.Collections.Generic;
 
 namespace Dibk.Ftpb.Validation.Application.Config

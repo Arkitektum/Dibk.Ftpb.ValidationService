@@ -1,5 +1,4 @@
 ﻿using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Checklist;
-using Dibk.Ftpb.Validation.Application.Models.Web;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using System.Collections.Generic;
 

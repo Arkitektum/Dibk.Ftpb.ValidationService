@@ -1,5 +1,4 @@
 ﻿using Dibk.Ftpb.Validation.Application.Enums;
-using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using System.Text.Json.Serialization;
 
 namespace Dibk.Ftpb.Validation.Application.Reporter
