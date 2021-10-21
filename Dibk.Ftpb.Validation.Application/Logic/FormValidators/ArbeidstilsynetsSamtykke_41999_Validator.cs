@@ -1,7 +1,6 @@
 ﻿using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Enums;
-using Dibk.Ftpb.Validation.Application.Logic.Deserializers;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.FormEntities;
@@ -57,7 +56,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         public override ValidationResult StartValidation(ValidationInput validationInput)
         {
-            _validationForm = new ArbeidstilsynetsSamtykke_41999_Deserializer().Deserialize(validationInput.FormData);
+            _validationForm = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke_41999_Form>(validationInput.FormData);
 
             base.StartValidation(validationInput);
             //ValidationReport.ValidationResult = ValidationResult;

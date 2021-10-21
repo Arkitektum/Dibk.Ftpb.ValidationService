@@ -1,7 +1,6 @@
 using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Enums;
-using Dibk.Ftpb.Validation.Application.Logic.Deserializers;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
 using Dibk.Ftpb.Validation.Application.Logic.Interfaces;
 using Dibk.Ftpb.Validation.Application.Models.FormEntities;
@@ -98,8 +97,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         public override ValidationResult StartValidation(ValidationInput validationInput)
         {
-            //TODO log feil
-            _validationForm = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(validationInput.FormData);
+            _validationForm = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke2_45957_Form>(validationInput.FormData);
+
             base.StartValidation(validationInput);
 
             //Add ChecklistAnswers to validationresult
@@ -326,13 +325,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //Kommunens saksnummer
             AccumulateValidationRules(_kommunensSaksnummerValidator.ValidationResult.ValidationRules);
         }
-
-        public ArbeidstilsynetsSamtykkeType DeserializeDataForm(string xmlData)
-        {
-            //TODO add error massages if.... :thinkingFace
-            return SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykkeType>(xmlData);
-        }
-
         protected override void Validate(ValidationInput validationInput)
         {
             var beskrivelseAvTiltakValidationResult = _beskrivelseAvTiltakValidator.Validate(_validationForm.BeskrivelseAvTiltak);
@@ -414,8 +406,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         {
             //Add prefilled checklist answers for data not part of the validation errors and warnings
 
-            _validationForm = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(validationInput.FormData);
-            
+            _validationForm = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke2_45957_Form>(validationInput.FormData);
+
+
 
             List<ChecklistAnswer> list = new List<ChecklistAnswer>();
 

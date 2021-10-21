@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Models.Web;
-using System.Collections.Generic;
-using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke2;
-using Dibk.Ftpb.Validation.Application.Logic.Deserializers;
 using Dibk.Ftpb.Validation.Application.Services;
 using Dibk.Ftpb.Validation.Application.Reporter;
 
