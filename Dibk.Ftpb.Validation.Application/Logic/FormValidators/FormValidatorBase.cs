@@ -9,6 +9,7 @@ using System.Linq;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Utils;
 using System.Text.RegularExpressions;
+using System.Xml.Serialization;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
@@ -21,7 +22,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         public string DataFormatId;
         public string DataFormatVersion;
-        protected abstract string XPathRoot { get; }
+        protected string XPathRoot;
         protected abstract void InitializeValidatorConfig();
         protected abstract IEnumerable<string> GetFormTiltakstyper();
         protected abstract void InstantiateValidators();
@@ -80,7 +81,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var whereNotAlreadyExists = validationRules.Where(x => !ValidationResult.ValidationRules.Any(y => y.XpathField == x.XpathField && y.Rule == x.Rule));
             ValidationResult.ValidationRules.AddRange(whereNotAlreadyExists);
         }
-       
+
         protected void AddMessageFromRule(ValidationRuleEnum id, FieldNameEnum? xmlElementName = null, string[] messageParameters = null, string preConditionField = null)
         {
             var idSt = id.ToString();
@@ -102,7 +103,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             ValidationResult.ValidationMessages.Add(validationMessage);
         }
-       
+
         protected void AccumulateValidationMessages(List<ValidationMessage> validationMessages, int? index = null)
         {
             if (validationMessages != null && index.HasValue)
@@ -173,7 +174,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             ValidationResult.ValidationMessages.Add(validationMessage);
         }
 
-       public ValidationRule RuleToValidate(string rule, string xPath)
+        public ValidationRule RuleToValidate(string rule, string xPath)
         {
             //Note: different regex implementationthan than in the EntityValidatorBase
             xPath = Regex.Replace(xPath, @"\[\d{1,}\]", "{0}");

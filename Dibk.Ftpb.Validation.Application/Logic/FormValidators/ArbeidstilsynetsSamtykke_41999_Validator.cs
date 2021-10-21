@@ -1,4 +1,4 @@
-﻿using Dibk.Ftpb.Validation.Application.DataSources;
+using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators;
@@ -10,6 +10,7 @@ using Dibk.Ftpb.Validation.Application.Utils;
 using no.kxml.skjema.dibk.arbeidstilsynetsSamtykke;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Serialization;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 
@@ -44,8 +45,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private IEnkelAdresseValidator _fakturamottakerEnkelAdresseValidator;
         private IFakturamottakerValidator _fakturamottakerValidator;
 
-        protected override string XPathRoot => "ArbeidstilsynetsSamtykke";
-
         public ArbeidstilsynetsSamtykke_41999_Validator(IValidationMessageComposer validationMessageComposer, IMunicipalityValidator municipalityValidator, ICodeListService codeListService, IPostalCodeService postalCodeService)
             : base(validationMessageComposer)
         {
@@ -57,6 +56,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         public override ValidationResult StartValidation(ValidationInput validationInput)
         {
             _validationForm = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke_41999_Form>(validationInput.FormData);
+            
+            //GetRootXmlNode name
+            var xmlRootElelement = _validationForm.GetType().GetCustomAttributes(typeof(XmlRootAttribute), true)?.SingleOrDefault() as XmlRootAttribute;
+            base.XPathRoot = xmlRootElelement?.ElementName;
 
             base.StartValidation(validationInput);
             //ValidationReport.ValidationResult = ValidationResult;

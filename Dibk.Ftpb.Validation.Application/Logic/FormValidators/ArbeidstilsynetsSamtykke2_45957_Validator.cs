@@ -15,6 +15,7 @@ using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Services;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using System;
+using System.Xml.Serialization;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
@@ -80,8 +81,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         private string[] _tiltakstypes;
 
-        protected override string XPathRoot => "ArbeidstilsynetsSamtykke";
-
         public ArbeidstilsynetsSamtykke2_45957_Validator(IValidationMessageComposer validationMessageComposer
                                                         , IMunicipalityValidator municipalityValidator, ICodeListService codeListService
                                                         , IPostalCodeService postalCodeService, IChecklistService checklistService)
@@ -98,7 +97,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         public override ValidationResult StartValidation(ValidationInput validationInput)
         {
             _validationForm = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke2_45957_Form>(validationInput.FormData);
-
+            
+            //GetRootXmlNode name
+            var xmlRootElelement = _validationForm.GetType().GetCustomAttributes(typeof(XmlRootAttribute), true)?.SingleOrDefault() as XmlRootAttribute;
+            base.XPathRoot = xmlRootElelement?.ElementName;
             base.StartValidation(validationInput);
 
             //Add ChecklistAnswers to validationresult

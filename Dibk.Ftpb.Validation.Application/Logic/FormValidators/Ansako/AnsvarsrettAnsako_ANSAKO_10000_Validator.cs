@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Serialization;
 using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
@@ -73,12 +75,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
         public override ValidationResult StartValidation(ValidationInput validationInput)
         {
             _validationForm = SerializeUtil.DeserializeFromString<AnsvarsrettAnsako_ANSAKO_10000_Form>(validationInput.FormData);
+            
+            //GetRootXmlNode name
+            var xmlRootElelement = _validationForm.GetType().GetCustomAttributes(typeof(XmlRootAttribute), true)?.SingleOrDefault() as XmlRootAttribute;
+            base.XPathRoot = xmlRootElelement?.ElementName;
             base.StartValidation(validationInput);
 
             return ValidationResult;
         }
 
-        protected override string XPathRoot { get; }
         protected override void InitializeValidatorConfig()
         {
             //AnsvarligSoeker

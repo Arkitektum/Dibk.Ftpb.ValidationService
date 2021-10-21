@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace Dibk.Ftpb.Validation.Application.Models.FormEntities
 {
-    [XmlRoot("ArbeidstilsynetsSamtykke"), XmlType("ArbeidstilsynetsSamtykke")]
+    [XmlRoot("ArbeidstilsynetsSamtykke")]
     public class ArbeidstilsynetsSamtykke2_45957_Form
     {
         [XmlArray("eiendomByggested", IsNullable = false)]
