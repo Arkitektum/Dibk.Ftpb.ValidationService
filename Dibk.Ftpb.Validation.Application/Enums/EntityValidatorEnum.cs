@@ -22,7 +22,7 @@
         [EntityValidatorEnumerationAttribute(XmlNode = "dispensasjon", ValidatorId = "6")]
         DispensasjonValidator,
 
-        [EntityValidatorEnumerationAttribute(XmlNode = "eiendomByggested{0}", ValidatorId = "7")]
+        [EntityValidatorEnumerationAttribute(XmlNode = "eiendomByggested/eiendom{0}", ValidatorId = "7")]
         EiendomByggestedValidator,
 
         [EntityValidatorEnumerationAttribute(XmlNode = "adresse", ValidatorId = "8")]

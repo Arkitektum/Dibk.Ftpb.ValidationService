@@ -17,14 +17,16 @@ namespace Dibk.Ftpb.Validation.Application.Services
             var formPropertiesFromConfig = _configuration.GetSection("FormProperties").GetChildren().ToList()
                 .Select(x =>
                                  (
+                                      x.GetValue<string>("DataFormatId"),
                                       x.GetValue<string>("DataFormatVersion"),
                                       x.GetValue<string>("ServiceAuthority"),
                                       x.GetValue<string>("ProcessCategory")
                                   )
-                            ).ToList<(string DataFormatVersion, string ServiceAuthority, string ProcessCategory)>();
+                            ).ToList<(string DataFormatId, string DataFormatVersion, string ServiceAuthority, string ProcessCategory)>();
 
             _forms = formPropertiesFromConfig.Select(x => new FormProperties()
             {
+                DataFormatId = x.DataFormatId,
                 DataFormatVersion = x.DataFormatVersion,
                 ProcessCategory = x.ProcessCategory,
                 ServiceAuthority = x.ServiceAuthority
