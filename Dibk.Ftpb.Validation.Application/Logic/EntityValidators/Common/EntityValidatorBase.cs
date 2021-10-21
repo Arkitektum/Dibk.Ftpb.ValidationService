@@ -130,7 +130,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
                 var xx = "";
             }
             //**
-            _validationResult.ValidationRules.Add(new ValidationRule() { Rule = rule.ToString(), Xpath = xPath, XmlElement = xmlElementString, Id = elementRuleId ?? _ruleIdPath });
+            _validationResult.ValidationRules.Add(new ValidationRule() { Rule = rule.ToString(), XpathField = xPath, XmlElement = xmlElementString, Id = elementRuleId ?? _ruleIdPath });
         }
 
         protected void AddMessageFromRule(ValidationRuleEnum id, FieldNameEnum? fieldName = null, string[] messageParameters = null, string preConditionField = null)

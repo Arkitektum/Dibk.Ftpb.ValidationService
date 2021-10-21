@@ -180,7 +180,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             if (kravEntity == null)
             {
                 //AddMessageFromRule(ValidationRuleEnum.utfylt, xPath.Replace("krav[0]", "krav[]") + "/sjekklistepunkt/kodeverdi", new[] { sjekklistepunktnr });
-                AddMessageFromRule(ValidationRuleEnum.utfylt, null, new string[] { sjekklistepunktnr });
+                AddMessageFromRule(ValidationRuleEnum.utfylt, _entityXPath, new string[] { sjekklistepunktnr });
                 return false;
             }
             else

@@ -82,24 +82,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var whereNotAlreadyExists = validationRules.Where(x => !ValidationResult.ValidationRules.Any(y => y.XpathField == x.XpathField && y.Rule == x.Rule));
             ValidationResult.ValidationRules.AddRange(whereNotAlreadyExists);
         }
-        protected void AddValidationRule(ValidationRuleEnum rule, FieldNameEnum? xmlElementName = null, string overrideXpath = null)
-        {
-            var validationRuleTypeId = Helpers.GetEnumValidationRuleType(rule);
-            var fieldNumberString = String.Empty;
-
-            if (xmlElementName != null)
-            {
-                var fieldNameNumber = Helpers.GetEnumFieldNameNumber(xmlElementName);  //GetEnumEntityValidatorNumber
-                fieldNumberString = $".{fieldNameNumber}";
-            }
-
-            var elementRuleId = $"{fieldNumberString}.{validationRuleTypeId}";
-
-            var separator = xmlElementName.HasValue ? "/" : "";
-            string xPath = $"{overrideXpath}{separator}{xmlElementName?.ToString()}";
-
-            ValidationResult.ValidationRules.Add(new ValidationRule() { Rule = rule.ToString(), Xpath = xPath, XmlElement = xmlElementName?.ToString(), Id = elementRuleId });
-        }
+       
         protected void AddMessageFromRule(ValidationRuleEnum id, FieldNameEnum? xmlElementName = null, string[] messageParameters = null, string preConditionField = null)
         {
             var idSt = id.ToString();
@@ -121,18 +104,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             ValidationResult.ValidationMessages.Add(validationMessage);
         }
-        public ValidationRule RuleToValidate(string rule, string xPath)
-        {
-            xPath = xPath?.Replace("[", "{").Replace("]", "}");
-
-            ValidationRule validationRule = ValidationResult.ValidationRules.Where(r => !string.IsNullOrEmpty(r.Rule))
-                .FirstOrDefault(r => r.Rule.Equals(rule) && (r.Xpath == xPath)) ?? new ValidationRule()
-                {
-                    Rule = rule,
-                    Message = $"Can't find rule:'{rule}'.-"
-                };
-            return validationRule;
-        }
+       
         protected void AccumulateValidationMessages(List<ValidationMessage> validationMessages, int? index = null)
         {
             if (validationMessages != null && index.HasValue)
@@ -164,7 +136,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var index = !(objectArray ?? Array.Empty<object>()).Any() ? 1 : objectArray.Count();
             return index;
         }
-
         protected void AddValidationRule(ValidationRuleEnum rule, FieldNameEnum? xmlElement = null, string overrideXpath = null)
         {
             //Note: different implementationthan than in the EntityValidatorBase
@@ -204,8 +175,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             ValidationResult.ValidationMessages.Add(validationMessage);
         }
 
-
-        public ValidationRule RuleToValidate(string rule, string xPath)
+       public ValidationRule RuleToValidate(string rule, string xPath)
         {
             //Note: different regex implementationthan than in the EntityValidatorBase
             xPath = Regex.Replace(xPath, @"\[\d{1,}\]", "{0}");

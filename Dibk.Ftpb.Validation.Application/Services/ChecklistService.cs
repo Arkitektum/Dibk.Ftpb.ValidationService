@@ -28,7 +28,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
             _atilChecklistApiHttpClient = atilChecklistApiHttpClient;
             _dibkChecklistApiHttpClient = dibkChecklistApiHttpClient;
             _formPropertyService = formPropertyService;
-            
+
             //_configuration = configuration;
 
             //var formPropertiesFromConfig = _configuration.GetSection("FormProperties").GetChildren().ToList()
@@ -53,7 +53,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
             //Hent prefilled sjekklistesvar som IKKE er Arbeidstilsynets krav
 
             //var formProperties = GetFormProperties(dataFormatVersion);
-            var httpClient = GetChecklistApiHttpClient(dataFormatId,dataFormatVersion);
+            var httpClient = GetChecklistApiHttpClient(dataFormatId, dataFormatVersion);
             var prefilledChecklist = (List<ChecklistAnswer>)httpClient.GetPrefillChecklistAnswer(prefillChecklistInput).Result;
 
             //if (formProperties.ServiceAuthority.Equals(Enum.GetName(typeof(ServiceOwnerEnum),ServiceOwnerEnum.ATIL)))
@@ -76,8 +76,8 @@ namespace Dibk.Ftpb.Validation.Application.Services
         public IEnumerable<ValidationMessage> FilterValidationResult(string dataFormatId, string dataFormatVersion, IEnumerable<ValidationMessage> validationMessages, IEnumerable<string> tiltakstyper)
         {
 
-            var formProperties = _formPropertyService.GetFormProperties(dataFormatVersion);
-            var httpClient = GetChecklistApiHttpClient(dataFormatVersion);
+            var formProperties = _formPropertyService.GetFormProperties(dataFormatId, dataFormatVersion);
+            var httpClient = GetChecklistApiHttpClient(dataFormatId, dataFormatVersion);
             var checklistRelatedValidations = (List<ChecklistValidationRelations>)httpClient.GetChecklistValidationRelations(formProperties.ProcessCategory).Result;
 
             List<ValidationMessage> filteredMessages = new List<ValidationMessage>();
@@ -162,9 +162,9 @@ namespace Dibk.Ftpb.Validation.Application.Services
 
         public IEnumerable<Sjekk> GetChecklist(string dataFormatId, string dataFormatVersion, string filter)
         {
-            var formProperties = _formPropertyService.GetFormProperties(dataFormatVersion);
-            
-            var httpClient = GetChecklistApiHttpClient(dataFormatVersion);
+            var formProperties = _formPropertyService.GetFormProperties(dataFormatId,dataFormatVersion);
+
+            var httpClient = GetChecklistApiHttpClient(dataFormatId,dataFormatVersion);
 
             var checkPoints = (List<Sjekk>)httpClient.GetChecklist(formProperties.ProcessCategory, filter).Result;
 
@@ -197,7 +197,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
         {
             try
             {
-                var formProperties = _formPropertyService.GetFormProperties(dataFormatVersion);
+                var formProperties = _formPropertyService.GetFormProperties(dataFormatId,dataFormatVersion);
 
                 if (formProperties.DataFormatVersion.Equals(dataFormatVersion))
                 {
@@ -205,7 +205,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
                         return _atilChecklistApiHttpClient;
                     else
                         return _dibkChecklistApiHttpClient;
-                        
+
                 }
 
                 throw new NullReferenceException($"Illegal dataFormatVersion '{dataFormatId}':'{dataFormatVersion}'");

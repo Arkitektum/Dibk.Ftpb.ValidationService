@@ -62,7 +62,8 @@ namespace Dibk.Ftpb.Validation.Application.Services
 
             if (!string.IsNullOrEmpty(inputData?.Config?.DataFormatVersion)&& !string.IsNullOrEmpty(inputData?.Config?.DataFormatId))
             {
-                var formProperties = _checklistService.GetFormProperties(inputData?.Config?.DataFormatId,inputData?.Config?.DataFormatVersion);
+                var formProperties = _formPropertyService.GetFormProperties(inputData?.Config?.DataFormatId,inputData?.Config?.DataFormatVersion);
+
                 var prefilledAnswersFromChecklist = _checklistService.GetPrefillChecklist(validationResult, inputData?.Config?.DataFormatId,inputData?.Config?.DataFormatVersion, formProperties.ProcessCategory);
 
                 validationResult.PrefillChecklist.AddRange(prefilledAnswersFromChecklist.ChecklistAnswer);
@@ -129,7 +130,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
                 var dataFormatId = inputData?.Config?.DataFormatId;
                 validationResult = _validationHandler.ValidateAsync(dataFormatId, dataFormatVersion, errorMessages, validationInput).Result;
 
-                var formProperties = _checklistService.GetFormProperties(dataFormatId, dataFormatVersion);
+                var formProperties = _formPropertyService.GetFormProperties(dataFormatId, dataFormatVersion);
                 validationResult.Soknadtype = formProperties.ProcessCategory;
             }
             else

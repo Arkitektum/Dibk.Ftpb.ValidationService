@@ -237,11 +237,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             AccumulateValidationRules(_kommunensSaksnummerValidator.ValidationResult.ValidationRules);
 
         }
-
-        public List<ChecklistAnswer> GetChecklistAnswersFromForm(string dataFormatVersion)
+        
+        public List<ChecklistAnswer> GetChecklistAnswersFromForm(ValidationInput validationInput)
         {
             //throw new NotImplementedException();
             return new List<ChecklistAnswer>();
+
         }
     }
 }

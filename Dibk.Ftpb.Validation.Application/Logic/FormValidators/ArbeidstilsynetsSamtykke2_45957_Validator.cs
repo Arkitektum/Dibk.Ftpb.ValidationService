@@ -17,6 +17,7 @@ using Dibk.Ftpb.Validation.Application.Services;
 using Elasticsearch.Net.Specification.IndicesApi;
 using Dibk.Ftpb.Validation.Application.Models.ValidationEntities;
 using System;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
@@ -380,7 +381,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             var kommunensSaksnummerValidationResult = _arbeidstilsynetsSaksnummerValidator.Validate(_validationForm.KommunensSaksnummer);
             AccumulateValidationMessages(kommunensSaksnummerValidationResult.ValidationMessages);
 
-            CustomSjekklisteValidations(_validationForm?.ArbeidsplasserValidationEntity, _validationForm?.SjekklistekravValidationEntities);
+            CustomSjekklisteValidations(_validationForm?.Arbeidsplasser, _validationForm?.Sjekklistekrav);
 
         }
 
@@ -414,8 +415,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         {
             //Add prefilled checklist answers for data not part of the validation errors and warnings
 
-            ArbeidstilsynetsSamtykkeType formModel = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(validationInput.FormData);
-            var form = new ArbeidstilsynetsSamtykke2_45957_Mapper().GetFormEntity(formModel);
+            _validationForm = new ArbeidstilsynetsSamtykke2_45957_Deserializer().Deserialize(validationInput.FormData);
+            
 
             List<ChecklistAnswer> list = new List<ChecklistAnswer>();
 
@@ -423,7 +424,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             {
                 ChecklistQuestion = "Er det utleiebygg?",
                 ChecklistReference = "1.17",
-                YesNo = form.ArbeidsplasserValidationEntity.UtleieBygg.GetValueOrDefault(false)
+                YesNo = _validationForm.Arbeidsplasser.UtleieBygg.GetValueOrDefault(false)
             };
 
             list.Add(checklistAnswer1_17);
@@ -443,7 +444,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             {
                 ChecklistQuestion = "Er det gjennomført veiledning?",
                 ChecklistReference = "1.21",
-                YesNo = form.ArbeidsplasserValidationEntity.Veiledning.GetValueOrDefault(false)
+                YesNo = _validationForm.Arbeidsplasser.Veiledning.GetValueOrDefault(false)
             };
 
             list.Add(checklistAnswer1_21);
@@ -452,7 +453,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             {
                 ChecklistQuestion = "Skal søknaden unntas offentilghet?",
                 ChecklistReference = "1.22",
-                YesNo = form.MetadataValidationEntity.UnntattOffentlighet.GetValueOrDefault(false)
+                YesNo = _validationForm.Metadata.UnntattOffentlighet.GetValueOrDefault(false)
             };
 
             list.Add(checklistAnswer1_22);

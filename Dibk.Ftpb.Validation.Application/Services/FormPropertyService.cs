@@ -34,23 +34,23 @@ namespace Dibk.Ftpb.Validation.Application.Services
 
         }
 
-        public FormProperties GetFormProperties(string dataFormatVersion)
+        public FormProperties GetFormProperties(string dataFormatId, string dataFormatVersion)
         {
             try
             {
                 foreach (var form in _forms)
                 {
-                    if (form.DataFormatVersion.Equals(dataFormatVersion))
+                    if (form.DataFormatId == dataFormatId && form.DataFormatVersion == dataFormatVersion)
                     {
                         return form;
                     }
                 }
 
-                throw new NullReferenceException($"Illegal dataFormatVersion '{dataFormatVersion}'");
+                throw new NullReferenceException($"Illegal dataFormatVersion '{dataFormatId}' : '{dataFormatVersion}'");
             }
             catch (Exception)
             {
-                throw new ArgumentOutOfRangeException($"Illegal dataFormatVersion '{dataFormatVersion}'");
+                throw new ArgumentOutOfRangeException($"Illegal dataFormatVersion '{dataFormatId}':'{dataFormatVersion}'");
             }
         }
 

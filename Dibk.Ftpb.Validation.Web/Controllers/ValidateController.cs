@@ -95,9 +95,11 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
                 return BadRequest();
             }
 
-            var props = _formPropertyService.GetFormProperties(dataFormatVersion);
+            //var props = _formPropertyService.GetFormProperties(dataFormatVersion);
 
-            return Ok(props);
+            //return Ok(props);
+            return NotFound("mangler dataFormId, må endres API parameter");
+            
         }
 
 
