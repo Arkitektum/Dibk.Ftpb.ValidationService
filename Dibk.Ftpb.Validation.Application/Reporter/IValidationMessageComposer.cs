@@ -2,6 +2,6 @@
 {
     public interface IValidationMessageComposer
     {
-        ValidationResult ComposeValidationResult(string xPathRoot, string dataFormatVersion, ValidationResult validationResult, string languageCode);
+        ValidationResult ComposeValidationResult(string xPathRoot, string dataFormatId,string dataFormatVersion, ValidationResult validationResult, string languageCode);
     }
 }

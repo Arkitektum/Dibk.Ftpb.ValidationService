@@ -1,4 +1,4 @@
-﻿using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Dibk.Ftpb.Validation.Application.Reporter;
@@ -62,7 +62,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             InstantiateValidators();
             DefineValidationRules();
             Validate(validationInput);
-            ValidationResult = _validationMessageComposer.ComposeValidationResult(XPathRoot, DataFormatVersion, ValidationResult, "NO");
+
+            ValidationResult = _validationMessageComposer.ComposeValidationResult(XPathRoot, DataFormatId, DataFormatVersion, ValidationResult, "NO");
 
             if (!ValidationResult.ValidationMessages.Any(x => x.Messagetype.Equals(ValidationResultSeverityEnum.CRITICAL)))
             {

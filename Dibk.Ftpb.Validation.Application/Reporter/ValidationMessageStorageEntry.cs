@@ -12,7 +12,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         public ValidationResultSeverityEnum? Messagetype { get; set; }
         public string ChecklistReference { get; set; }
         public string DataFormatVersion { get; set; }
-        public string DataForm { get; set; }
+        public string DataFormatId { get; set; }
         
         //public ValidationResultSeverityEnum ValidationResultSeverity { get; set; }
     }

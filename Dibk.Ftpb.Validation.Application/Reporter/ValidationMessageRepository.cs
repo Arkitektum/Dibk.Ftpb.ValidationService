@@ -15,18 +15,19 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             _validationMessageStorageEntry = new List<ValidationMessageStorageEntry>();
             InitiateMessageRepository();
         }
-        public ValidationRule GetValidationRuleMessage(ValidationRule validationRule, string languageCode, string dataFormatVersion)
+        public ValidationRule GetValidationRuleMessage(ValidationRule validationRule, string languageCode, string dataFormatId, string dataFormatVersion)
         {
             ValidationMessageStorageEntry theStorageEntry;
-            theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => dataFormatVersion.Equals(x.DataFormatVersion) && x.Rule.Equals(validationRule.Rule) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.XpathField));
+
+            theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => dataFormatId.Equals(x.DataFormatId) && dataFormatVersion.Equals(x.DataFormatVersion) && x.Rule.Equals(validationRule.Rule) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.XpathField));
+
             if (theStorageEntry == null)
-            {
-                theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.DataFormatVersion == null && x.Rule.Equals(validationRule.Rule) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.XpathField));
-            }
+                theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.DataFormatId == null && x.DataFormatVersion == null && x.Rule.Equals(validationRule.Rule) && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(validationRule.XpathField));
+
 
             if (theStorageEntry == null)
             {
-                validationRule.Message = $"Could not find validation message with reference: '{validationRule.Rule}', xpath: '{validationRule.XpathField}' and languageCode:'{languageCode}'.-";
+                validationRule.Message = $"Could not find validation message in DB with reference: '{validationRule.Rule}', xpath: '{validationRule.XpathField}' and languageCode:'{languageCode}'.-";
             }
             else
             {
@@ -38,7 +39,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             return validationRule;
         }
 
-        public ValidationMessage GetComposedValidationMessage(string dataFormatVersion, ValidationMessage validationMessage, string languageCode)
+        public ValidationMessage GetComposedValidationMessage(string dataFormatId, string dataFormatVersion, ValidationMessage validationMessage, string languageCode)
         {
 
             if (string.IsNullOrEmpty(validationMessage.XpathField))
@@ -50,16 +51,16 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
                 string xPath = Regex.Replace(validationMessage.XpathField, @"\[([0-9]*)\]", "{0}"); ;
 
                 ValidationMessageStorageEntry theStorageEntry;
-                theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => dataFormatVersion.Equals(x.DataFormatVersion) && x.Rule == validationMessage.Rule && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath, StringComparison.OrdinalIgnoreCase));
+                theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => dataFormatId.Equals(x.DataFormatId) && dataFormatVersion.Equals(x.DataFormatVersion) && x.Rule == validationMessage.Rule && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath, StringComparison.OrdinalIgnoreCase));
 
                 if (theStorageEntry == null)
                 {
-                    theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.DataFormatVersion == null && x.Rule == validationMessage.Rule && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath, StringComparison.OrdinalIgnoreCase));
+                    theStorageEntry = _validationMessageStorageEntry.FirstOrDefault(x => x.DataFormatId == null && x.DataFormatVersion == null && x.Rule == validationMessage.Rule && x.LanguageCode.Equals(languageCode) && x.XPath.Equals(xPath, StringComparison.OrdinalIgnoreCase));
                 }
 
                 if (theStorageEntry == null)
                 {
-                    validationMessage.Message = $"Could not find validation message with reference: '{validationMessage.Rule}', xpath: '{validationMessage.XpathField}' and languageCode:'{languageCode}'.-";
+                    validationMessage.Message = $"Could not find validation message in DB with reference: '{validationMessage.Rule}', xpath: '{validationMessage.XpathField}' and languageCode:'{languageCode}'.-";
                 }
                 else
                 {
