@@ -144,7 +144,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
 
             //Ansvarlig søker
             AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/ansvarligSoeker", "Du må fylle ut informasjon om ansvarlig søker.", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry("10000", "1",ValidationRuleEnum.tillat, "/ansvarligSoeker/partstype/kodeverdi", "Partstypen for ansvarlig søker må være et foretak eller en organisasjon.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry("10000", "1",ValidationRuleEnum.tillatt, "/ansvarligSoeker/partstype/kodeverdi", "Partstypen for ansvarlig søker må være et foretak eller en organisasjon.", ValidationResultSeverityEnum.ERROR);
 
             //Ansvarlig søkers partstype
             AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/ansvarligSoeker/partstype", "Du må oppgi ‘partstype’. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype.",ValidationResultSeverityEnum.ERROR);
@@ -322,7 +322,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
 
             //Foretak
             AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak", "Du må fylle ut informasjon om det ansvarlige foretaket.", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.tillat, "/ansvarsrett/foretak/partstype/kodeverdi", "Kodeverdien for ‘partstype’ til foretaket må fylles ut. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.tillatt, "/ansvarsrett/foretak/partstype/kodeverdi", "Kodeverdien for ‘partstype’ til foretaket må fylles ut. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype.", ValidationResultSeverityEnum.ERROR);
             //foretak partstype
             //Kan ikke validere hvis det er bare 'Foretal' bare det?
             AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/partstype", "Du må oppgi ‘partstype’ for foretak. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype.", ValidationResultSeverityEnum.ERROR);
