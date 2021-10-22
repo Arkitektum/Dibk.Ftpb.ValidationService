@@ -122,6 +122,7 @@
         [FieldNameEnumerationAttribute(FieldNameId = "124")] gebyrkategori,
         [FieldNameEnumerationAttribute(FieldNameId = "125")] skalFaktureres,
         [FieldNameEnumerationAttribute(FieldNameId = "126")] beskrivelseAvAnsvarsomraade,
+        [FieldNameEnumerationAttribute(FieldNameId = "127")] prosjektnr,
     }
 }
 

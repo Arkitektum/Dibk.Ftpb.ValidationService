@@ -209,7 +209,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
                 AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.prosjektnavn);
 
             if (string.IsNullOrEmpty(form.Prosjektnr))
-                AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.prosjektnavn);
+                AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.prosjektnr);
         }
 
 
@@ -219,7 +219,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.fraSluttbrukersystem);
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.fraSluttbrukersystem);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.prosjektnavn);
-            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.prosjektnummer);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.prosjektnr);
 
             //AnsvarligSoeker
             AccumulateValidationRules(_ansvarligSoekerValidator.ValidationResult.ValidationRules);

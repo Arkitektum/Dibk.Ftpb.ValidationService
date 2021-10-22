@@ -14,6 +14,8 @@ using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Services;
 using Dibk.Ftpb.Validation.Application.Tests.Utils;
 using FluentAssertions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Dibk.Ftpb.Validation.Application.Tests.FormValidatorTests
@@ -42,13 +44,24 @@ namespace Dibk.Ftpb.Validation.Application.Tests.FormValidatorTests
             _formValidator = new AnsvarsrettAnsako_ANSAKO_10000_Validator(_validationMessageComposer, _municipalityValidator, _codeListService, _postalCodeService, _checklistService);
         }
          [Fact]
-        public void ValidatortestFor2Eiendommer()
+        public void ErklaeringAnsvarsrett_IntegrationTest()
         {
             var xmlData = File.ReadAllText(@"Data\Ansako\ErklaeringAnsvarsrett_1.xml");
             ValidationInput validationInput = new();
             validationInput.FormData = xmlData;
             var newValidationReport = _formValidator.StartValidation(validationInput);
             newValidationReport.Should().NotBeNull();
+        }
+        [Fact]
+        public void ErklaeringAnsvarsrett_RuleTest()
+        {
+            var xmlData = File.ReadAllText(@"Data\Ansako\ErklaeringAnsvarsrett_1.xml");
+            ValidationInput validationInput = new();
+            validationInput.FormData = xmlData;
+            var report = _formValidator.StartValidation(validationInput);
+            var textNotFound = report.ValidationRules.Where(r => r.Message.Contains("Could not find")).ToArray();
+            var rulesWithoutTextJson = JArray.FromObject(textNotFound);
+            report.Should().NotBeNull();
         }
 
         [Fact]
