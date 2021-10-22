@@ -9,6 +9,15 @@
         public ValidationResult ComposeValidationResult(string xPathRoot, string dataFormatId, string dataFormatVersion, ValidationResult validationResult, string languageCode)
         {
             ValidationMessageRepository repo = new ValidationMessageRepository();
+            foreach (var validationRule in validationResult.ValidationRules)
+            {
+                var validationRuleFromRepo = repo.GetValidationRuleMessage(validationRule, languageCode, dataFormatId, dataFormatVersion);
+                validationRule.Message = validationRuleFromRepo.Message;
+                //validationRule.ChecklistReference = validationRuleFromRepo.ChecklistReference;
+                validationRule.Messagetype = validationRuleFromRepo.Messagetype;
+            }
+
+            //TODO get validationMessages form ValidationRule
             foreach (var validationMessage in validationResult.ValidationMessages)
             {
                 var composedValidationMessage = repo.GetComposedValidationMessage(dataFormatId, dataFormatVersion, validationMessage, languageCode);
@@ -17,13 +26,7 @@
                 validationMessage.Messagetype = composedValidationMessage.Messagetype;
             }
 
-            foreach (var validationRule in validationResult.ValidationRules)
-            {
-                var validationRuleFromRepo = repo.GetValidationRuleMessage(validationRule, languageCode, dataFormatId, dataFormatVersion);
-                validationRule.Message = validationRuleFromRepo.Message;
-                //validationRule.ChecklistReference = validationRuleFromRepo.ChecklistReference;
-                validationRule.Messagetype = validationRuleFromRepo.Messagetype;
-            }
+            
 
             foreach (var rule in validationResult.ValidationRules)
             {

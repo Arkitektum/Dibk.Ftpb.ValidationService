@@ -324,11 +324,14 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             //TODO "ArbeidstilsynetsSamtykke" to "ArbeidstilsynetsSamtykkeV2"/"ArbeidstilsynetsSamtykkeDfv45957"??  rule may need to have dfv in the first "node" in order to connect the text to the correct version and correct schema.
 
             //**ANSAKO
-          
+            // ErklaeringAnsvarsrett
             
+            AddRuleToValidationMessageStorageEntry(null, null, ValidationRuleEnum.utfylt, "/fraSluttbrukersystem", "Feltet 'soeknadssystemetsReferanse' må være fylt ut. Ta kontakt med søknadssystemet du bruker.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, null, ValidationRuleEnum.gyldig, "/fraSluttbrukersystem", "Feltet 'soeknadssystemetsReferanse' må være en GUID. Ta kontakt med søknadssystemet du bruker.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null, null, ValidationRuleEnum.utfylt, "/prosjektnavn", "Hvis det er et prosjektnavn på byggesøknaden, bør du oppgi dette.", ValidationResultSeverityEnum.WARNING);
+            AddRuleToValidationMessageStorageEntry(null, null, ValidationRuleEnum.utfylt, "/prosjektnr", "Hvis det er et prosjektnummer på byggesøknaden, bør du oppgi dette.", ValidationResultSeverityEnum.WARNING);
+
             //Foretak
-            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/fraSluttbrukersystem", "Feltet 'soeknadssystemetsReferanse' må være fylt ut. Ta kontakt med søknadssystemet du bruker.", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.gyldig, "/fraSluttbrukersystem", "Feltet 'soeknadssystemetsReferanse' må være en GUID. Ta kontakt med søknadssystemet du bruker.", ValidationResultSeverityEnum.ERROR);
 
             AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak", "Du må fylle ut informasjon om det ansvarlige foretaket.", ValidationResultSeverityEnum.ERROR);
             //foretak partstype
