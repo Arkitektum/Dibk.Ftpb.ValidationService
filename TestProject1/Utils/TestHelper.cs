@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Dibk.Ftpb.Validation.Application.Enums;
+using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Models.Web;
+using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
@@ -30,34 +34,66 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
             return xml;
         }
 
+        public static Dictionary<string,string> DebugValidatorFormReference(List<ValidationRule> reference)
+        {
+            var validatorXpathList = new Dictionary<string, string>();
+            foreach (var validationRule in reference)
+            {
+                var validtorXpath = DebugValidatorFormReference(validationRule.Id);
+                validatorXpathList.Add(validationRule.Id,$"{validtorXpath} -'XmlElement':{validationRule.XmlElement}, 'XpathField':{validationRule.XpathField}, 'Rule':{validationRule.Rule}");
+            }
+            return validatorXpathList;
+        }
         public static string DebugValidatorFormReference(string reference)
         {
             var validatorPath = string.Empty;
 
             if (reference.Contains("."))
             {
-                var ValidationEnumsNumber = reference.Split(".");
+                var validationEnumsNumber = reference.Split(".");
 
-                for (int i = 0; i < ValidationEnumsNumber.Length; i++)
+                string[] ruleIdNumber = new string[] { };
+
+                if (int.TryParse(validationEnumsNumber[0], out int number))
                 {
-                    if (int.TryParse(ValidationEnumsNumber[i], out int enumNumber))
-                    {
-                        if (enumNumber < 100)
-                        {
-                            string validatorText;
-                            var validatorEnum = GetEnumFromValidationId<EntityValidatorEnum>(enumNumber.ToString());
-                            string stringValue = validatorEnum.ToString();
-                            if (!int.TryParse(stringValue, out int theNumber))
-                            {
-                                validatorText = ValidationEnumsNumber.Length == i + 1 ? $"/({stringValue})?" : $"/{stringValue}";
-                            }
-                            else
-                            {
-                                validatorText = $"/Enum:'{theNumber}'";
-                            }
+                    ruleIdNumber = number >= 10000 ? validationEnumsNumber.Skip(2).ToArray() : validationEnumsNumber;
+                }
 
-                            validatorPath = $"{validatorPath}{validatorText}";
+                var index = ruleIdNumber.Length;
+
+                for (int i = 0; i < index; i++)
+                {
+                    if (int.TryParse(ruleIdNumber[i], out int enumNumber))
+                    {
+                        string validatorText;
+                        string stringValue;
+
+                        if (index == i + 2)
+                        {
+                            var validatorEnum = (FieldNameEnum)enumNumber;
+                            stringValue = validatorEnum.ToString();
                         }
+                        else if (index == i + 1)
+                        {
+                            var validatorEnum = (ValidationRuleEnum)enumNumber;
+                            stringValue = validatorEnum.ToString();
+                        }
+                        else
+                        {
+                            var validatorEnum = GetEnumFromValidationId<EntityValidatorEnum>(enumNumber.ToString());
+                            stringValue = validatorEnum.ToString();
+                        }
+
+                        if (!int.TryParse(stringValue, out int theNumber))
+                        {
+                            validatorText = ruleIdNumber.Length == i + 1 ? $" rule: {stringValue}" : $"/{stringValue}";
+                        }
+                        else
+                        {
+                            validatorText = $"/Enum:'{theNumber}'";
+                        }
+
+                        validatorPath = $"{validatorPath}{validatorText}";
                     }
                 }
             }
@@ -82,8 +118,8 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
                 }
             }
 
-            throw new ArgumentException("Not found.", nameof(validatorId));
-            // Or return default(T);
+            //throw new ArgumentException("Not found.", nameof(validatorId));
+            return default(T);
         }
         //TODO how to convert new entities to main XML/parse to the main class?
         public static JObject GetJsonForPostman(string xmlData, object form = null)

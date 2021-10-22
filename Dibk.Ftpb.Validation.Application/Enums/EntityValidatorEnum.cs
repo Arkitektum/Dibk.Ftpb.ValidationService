@@ -89,7 +89,7 @@
         [EntityValidatorEnumerationAttribute(XmlNode = "foretak", ValidatorId = "28")]
         ForetakValidator,
 
-        [EntityValidatorEnumerationAttribute(XmlNode = "ansvarsomraade{0}", ValidatorId = "29")]
+        [EntityValidatorEnumerationAttribute(XmlNode = "ansvarsomraader/ansvarsomraade{0}", ValidatorId = "29")]
         AnsvarsomraadeValidator,
 
         [EntityValidatorEnumerationAttribute(XmlNode = "funksjon", ValidatorId = "30")]

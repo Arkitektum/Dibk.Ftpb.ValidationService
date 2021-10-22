@@ -97,6 +97,13 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
             adressValidator.Setup(a => a.Validate(It.IsAny<EnkelAdresseValidationEntity>())).Returns(ValidationResult(xpath, validationRule));
             return adressValidator.Object;
         }
+        public static IKontaktpersonValidator KontaktpersonValidator(string xpath = null, ValidationRuleEnum? validationRule = null)
+        {
+            var kontaktpersjon = new Mock<IKontaktpersonValidator>();
+
+            kontaktpersjon.Setup(a => a.Validate(It.IsAny<KontaktpersonValidationEntity>())).Returns(ValidationResult(xpath, validationRule));
+            return kontaktpersjon.Object;
+        }
 
         public static IMatrikkelValidator MatrikkelValidator(string xpath = null,
             ValidationRuleEnum? validationRule = null)

@@ -59,8 +59,20 @@ namespace Dibk.Ftpb.Validation.Application.Tests.FormValidatorTests
             ValidationInput validationInput = new();
             validationInput.FormData = xmlData;
             var report = _formValidator.StartValidation(validationInput);
-            var textNotFound = report.ValidationRules.Where(r => r.Message.Contains("Could not find")).ToArray();
-            var rulesWithoutTextJson = JArray.FromObject(textNotFound);
+            
+            //Get Text not found
+            var textNotFound = report.ValidationRules.Where(r => r.Message.Contains("Could not find")).ToList();
+            var resultRulesText = TestHelper.DebugValidatorFormReference(textNotFound);
+            var rulesWithoutTextJson = JObject.FromObject(resultRulesText);
+
+            var validatorRules = report.ValidationRules;
+            var validatorRulesJson = JArray.FromObject(validatorRules);
+
+            var validatorMessages = report.ValidationMessages;
+            var validatorMessagesJson = JArray.FromObject(validatorMessages.Where(m=>m.XpathField.Contains("ansvarligSoeker")));
+
+
+
             report.Should().NotBeNull();
         }
 

@@ -22,7 +22,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         protected override void InitializeValidationRules()
         {
-            AddValidationRule(ValidationRuleEnum.utfylt);
         }
 
         public ValidationResult Validate(Ansvarsrett ansvarsrett)

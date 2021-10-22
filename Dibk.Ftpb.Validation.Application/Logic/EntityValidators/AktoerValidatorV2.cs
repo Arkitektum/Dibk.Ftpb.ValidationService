@@ -18,7 +18,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 
         protected ICodeListService _codeListService;
-        protected string[] _partstypes;
+        protected string[] _allowedPartstypes;
 
         protected IEnkelAdresseValidator _enkelAdresseValidator;
         protected IKontaktpersonValidator _kontaktpersonValidator;
@@ -32,15 +32,15 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _enkelAdresseValidator = enkelAdresseValidator;
             _kontaktpersonValidator = kontaktpersonValidator;
             _partstypeValidator = partstypeValidator;
-            _partstypes = partypes;
+            _allowedPartstypes = partypes;
             InitializeConditionalValidationRules();
         }
 
         private void InitializeConditionalValidationRules()
         {
-            if (_partstypes != null && _partstypes.Any())
+            if (_allowedPartstypes != null && _allowedPartstypes.Any())
             {
-                AddValidationRule(ValidationRuleEnum.gyldig, null, $"{_entityXPath}/partstype/{FieldNameEnum.kodeverdi}");
+                AddValidationRule(ValidationRuleEnum.tillatt, null, $"{_entityXPath}/partstype/{FieldNameEnum.kodeverdi}");
             }
 
             if (IncludePrivatperson())
@@ -62,7 +62,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.navn);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.epost);
 
-            AddValidationRule(ValidationRuleEnum.telmob_utfylt);
+            AddValidationRule(ValidationRuleEnum.telmob_utfylt, FieldNameEnum.telefonnummer);
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.telefonnummer);
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.mobilnummer);
 
@@ -96,9 +96,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         private void ValidateDataRelations(Aktoer aktoer)
         {
-            if (_partstypes != null && _partstypes.All(p => !p.Equals(aktoer.Partstype.Kodeverdi)))
+            if (_allowedPartstypes != null && _allowedPartstypes.All(p => !p.Equals(aktoer.Partstype.Kodeverdi)))
             {
-                AddMessageFromRule(ValidationRuleEnum.gyldig, $"{_entityXPath}/partstype/{FieldNameEnum.kodeverdi}");
+                AddMessageFromRule(ValidationRuleEnum.tillatt, $"{_entityXPath}/partstype/{FieldNameEnum.kodeverdi}");
                 return;
             }
 
@@ -150,7 +150,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
             if (string.IsNullOrEmpty(aktoer.Telefonnummer) && string.IsNullOrEmpty(aktoer.Mobilnummer))
             {
-                AddMessageFromRule(ValidationRuleEnum.telmob_utfylt, FieldNameEnum.mobilnummer);
+                AddMessageFromRule(ValidationRuleEnum.telmob_utfylt, FieldNameEnum.telefonnummer);
             }
             else
             {
@@ -177,20 +177,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         private void ValidateEntityFields(Aktoer aktoer)
         {
-
             if (Helpers.ObjectIsNullOrEmpty(aktoer))
-            {
                 AddMessageFromRule(ValidationRuleEnum.utfylt);
-            }
 
         }
 
         private bool IncludePrivatperson()
         {
-            if (_partstypes == null || !_partstypes.Any())
+            if (_allowedPartstypes == null || !_allowedPartstypes.Any())
                 return true;
 
-            if (_partstypes.Any(p => p.Equals("Privatperson")))
+            if (_allowedPartstypes.Any(p => p.Equals("Privatperson")))
                 return true;
 
             return false;

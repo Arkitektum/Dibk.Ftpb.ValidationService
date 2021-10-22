@@ -103,7 +103,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
                 new () {NodeId = 06, EnumId = EntityValidatorEnum.ForetakValidator, ParentID = 05},
                 new () {NodeId = 07, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 06},
                 new () {NodeId = 08, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 06},
-                new () {NodeId = 09, EnumId = EntityValidatorEnum.KontaktpersonValidatorV2, ParentID = 06},
+                new () {NodeId = 09, EnumId = EntityValidatorEnum.KontaktpersonValidator, ParentID = 06},
                 //ansvarsområde
                 new () {NodeId = 10, EnumId = EntityValidatorEnum.AnsvarsomraadeValidator, ParentID = 05},
                 new () {NodeId = 11, EnumId = EntityValidatorEnum.FunksjonValidator, ParentID = 10},
@@ -152,7 +152,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             //**foretak
             _foretakPartstypeValidator = new PartstypeValidator(tree, 07, _codeListService);
             _foretakEnkelAdresseValidator = new EnkelAdresseValidator(tree, 08, _postalCodeService);
-            _foretakKontaktpersonValidator = new KontaktpersonValidatorV2(tree, 09);
+            _foretakKontaktpersonValidator = new KontaktpersonValidator(tree, 09);
            
             var foretakPartstypes = new[] { "Foretak"};
             _foretakValidator = new ForetakValidator(tree, _foretakEnkelAdresseValidator, _foretakKontaktpersonValidator, _foretakPartstypeValidator, _codeListService, foretakPartstypes);
@@ -225,7 +225,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             //AnsvarligSoeker
             AccumulateValidationRules(_ansvarligSoekerValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_ansvarligSoekerEnkelAdresseValidator.ValidationResult.ValidationRules);
-            //AccumulateValidationRules(_ansvarligSoekerPartstypeValidator.ValidationResult.ValidationRules);
+            AccumulateValidationRules(_ansvarligSoekerPartstypeValidator.ValidationResult.ValidationRules);
             AccumulateValidationRules(_ansvarligSoekerKontaktpersonValidator.ValidationResult.ValidationRules);
             //*Ansvarsrett
             AccumulateValidationRules(_AnsvarsrettValidator.ValidationResult.ValidationRules);

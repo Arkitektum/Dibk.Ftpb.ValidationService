@@ -29,9 +29,9 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected override void InitializeValidationRules()
         {
             AddValidationRule(ValidationRuleEnum.utfylt);
-            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.bygningsnummer);
+            AddValidationRule(ValidationRuleEnum.numerisk, FieldNameEnum.bygningsnummer);
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.bygningsnummer);
-            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.bolignummer);
+            AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.bolignummer);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.kommunenavn);
         }
 

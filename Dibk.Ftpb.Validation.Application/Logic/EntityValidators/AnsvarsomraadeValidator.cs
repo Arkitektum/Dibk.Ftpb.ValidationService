@@ -24,7 +24,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         protected override void InitializeValidationRules()
         {
             AddValidationRule(ValidationRuleEnum.utfylt);
-            AddValidationRule(ValidationRuleEnum.utfylt,FieldNameEnum.beskrivelse);
+            AddValidationRule(ValidationRuleEnum.utfylt,FieldNameEnum.beskrivelseAvAnsvarsomraade);
 
         }
 

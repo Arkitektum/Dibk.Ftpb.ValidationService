@@ -52,10 +52,14 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
             //*Ansvarsrett
             //**foretak
-            _foretakPartstypeValidator = new PartstypeValidator(tree, 02, _codeListService);
-            _foretakEnkelAdresseValidator = new EnkelAdresseValidator(tree, 03, _postalCodeService);
-            _foretakKontaktpersonValidator = new KontaktpersonValidatorV2(tree, 04);
-            var foretakPartstypes = new[] { "Foretak" };
+            _foretakPartstypeValidator = MockDataSource.KodelisteValidator();
+            _foretakEnkelAdresseValidator = MockDataSource.enkelAdresseValidator();
+            _foretakKontaktpersonValidator = MockDataSource.KontaktpersonValidator();
+
+            //_foretakPartstypeValidator = new PartstypeValidator(tree, 02, _codeListService);
+            //_foretakEnkelAdresseValidator = new EnkelAdresseValidator(tree, 03, _postalCodeService);
+            //_foretakKontaktpersonValidator = new KontaktpersonValidatorV2(tree, 04);
+            var foretakPartstypes = new[] { "Foretaks" };
             _foretakValidator = new ForetakValidator(tree, _foretakEnkelAdresseValidator, _foretakKontaktpersonValidator, _foretakPartstypeValidator, _codeListService, foretakPartstypes);
 
         }

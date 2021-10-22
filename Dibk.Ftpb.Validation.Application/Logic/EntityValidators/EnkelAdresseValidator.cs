@@ -33,7 +33,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.postnr);
             AddValidationRule(ValidationRuleEnum.kontrollsiffer, FieldNameEnum.postnr);
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.postnr);
-            AddValidationRule(ValidationRuleEnum.postnr_stemmerIkke, FieldNameEnum.postnr);
+            AddValidationRule(ValidationRuleEnum.postnr_stemmerIkke, FieldNameEnum.poststed);
             AddValidationRule(ValidationRuleEnum.validert, FieldNameEnum.postnr);
         }
 
@@ -95,7 +95,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                                     {
                                         if (!postnrValidation.Result.Equals(enkelAdresse.Poststed, StringComparison.CurrentCultureIgnoreCase))
                                         {
-                                            AddMessageFromRule(ValidationRuleEnum.postnr_stemmerIkke, FieldNameEnum.postnr, new[] { postNr, enkelAdresse.Poststed, postnrValidation.Result });
+                                            AddMessageFromRule(ValidationRuleEnum.postnr_stemmerIkke, FieldNameEnum.poststed, new[] { postNr, enkelAdresse.Poststed, postnrValidation.Result },$"{_entityXPath}.{FieldNameEnum.postnr}");
                                         }
                                     }
                                 }
