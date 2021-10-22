@@ -25,7 +25,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
         private IPostalCodeService _postalCodeService;
 
         //**foretak
-        private IAktoerValidatorV2 _foretakValidator;
+        private IAktoerValidator _foretakValidator;
         private IKontaktpersonValidator _foretakKontaktpersonValidator;
         private IKodelisteValidator _foretakPartstypeValidator;
         private IEnkelAdresseValidator _foretakEnkelAdresseValidator;

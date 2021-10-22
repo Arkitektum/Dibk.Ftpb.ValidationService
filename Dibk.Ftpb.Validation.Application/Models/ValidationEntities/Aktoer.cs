@@ -2,7 +2,7 @@
 
 namespace Dibk.Ftpb.Validation.Application.Models.ValidationEntities
 {
-    public class AktoerV2 
+    public class Aktoer
     {
         [XmlElement("partstype", IsNullable = true)]
         public Kodeliste Partstype { get; set; }

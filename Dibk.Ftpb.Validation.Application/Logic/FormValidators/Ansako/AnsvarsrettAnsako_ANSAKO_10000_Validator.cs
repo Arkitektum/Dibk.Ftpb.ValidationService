@@ -32,7 +32,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
 
         private string[] _tiltakstypes;
         //AnsvarligSoeker
-        private IAktoerValidatorV2 _ansvarligSoekerValidator;
+        private IAktoerValidator _ansvarligSoekerValidator;
         private IEnkelAdresseValidator _ansvarligSoekerEnkelAdresseValidator;
         private IKodelisteValidator _ansvarligSoekerPartstypeValidator;
         private IKontaktpersonValidator _ansvarligSoekerKontaktpersonValidator;
@@ -41,7 +41,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
         //*Ansvarsrett
         private AnsvarsrettValidator _AnsvarsrettValidator;
         //**foretak
-        private IAktoerValidatorV2 _foretakValidator;
+        private IAktoerValidator _foretakValidator;
         private IKontaktpersonValidator _foretakKontaktpersonValidator;
         private IKodelisteValidator _foretakPartstypeValidator;
         private IEnkelAdresseValidator _foretakEnkelAdresseValidator;
@@ -91,7 +91,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             {
                 new () {NodeId = 01, EnumId = EntityValidatorEnum.AnsvarligSoekerValidatorV2, ParentID = null},
                 new () {NodeId = 02, EnumId = EntityValidatorEnum.KontaktpersonValidator, ParentID = 01},
-                //new () {NodeId = 03, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 01},
+                new () {NodeId = 03, EnumId = EntityValidatorEnum.PartstypeValidator, ParentID = 01},
                 new () {NodeId = 04, EnumId = EntityValidatorEnum.EnkelAdresseValidator, ParentID = 01}
             };
             _entitiesNodeList.AddRange(ansvarligSoekervalidatorNodeList);
@@ -126,6 +126,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             };
             _entitiesNodeList.AddRange(kommunenesSaksnummerValidatorNodeList);
         }
+
 
         protected override IEnumerable<string> GetFormTiltakstyper()
         {

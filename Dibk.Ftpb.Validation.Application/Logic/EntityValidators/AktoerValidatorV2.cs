@@ -13,7 +13,7 @@ using Dibk.Ftpb.Validation.Application.Utils;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 {
-    public abstract class AktoerValidatorV2 : EntityValidatorBase, IAktoerValidatorV2
+    public abstract class AktoerValidatorV2 : EntityValidatorBase, IAktoerValidator
     {
         public ValidationResult ValidationResult { get => _validationResult; set => throw new NotImplementedException(); }
 
@@ -69,8 +69,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         }
 
-
-        public ValidationResult Validate(AktoerV2 aktoer = null)
+        public ValidationResult Validate(Aktoer aktoer = null)
         {
             ValidateEntityFields(aktoer);
             if (!Helpers.ObjectIsNullOrEmpty(aktoer))
@@ -95,7 +94,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             return _validationResult;
         }
 
-        private void ValidateDataRelations(AktoerV2 aktoer)
+        private void ValidateDataRelations(Aktoer aktoer)
         {
             if (_partstypes != null && _partstypes.All(p => !p.Equals(aktoer.Partstype.Kodeverdi)))
             {
@@ -176,7 +175,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             }
         }
 
-        private void ValidateEntityFields(AktoerV2 aktoer)
+        private void ValidateEntityFields(Aktoer aktoer)
         {
 
             if (Helpers.ObjectIsNullOrEmpty(aktoer))
