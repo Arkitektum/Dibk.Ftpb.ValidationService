@@ -38,7 +38,9 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList
 
             CodelistFormat result;
             if (codelist.TryGetValue(codeValue, out result))
-                return result.Status.Equals("Gyldig", StringComparison.CurrentCultureIgnoreCase);
+                return result.Status.Equals("Gyldig", StringComparison.CurrentCultureIgnoreCase)
+                    ||
+                    result.Status.Equals("Sendt inn", StringComparison.CurrentCultureIgnoreCase);
 
             return false;
         }
