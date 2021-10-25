@@ -26,12 +26,18 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             _naeringsgruppeValidator = naeringsgruppeValidator;
             _bygningstypeValidator = bygningstypeValidator;
             _tiltaksformaalValidator = tiltaksformaalValidator;
+            InitializeConditionalValidationRules();
+
         }
 
+        private void InitializeConditionalValidationRules()
+        {
+            var tiltaksformaalXpath = $"{_tiltaksformaalValidator._entityXPath}/{FieldNameEnum.kodeverdi}";
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.beskrivPlanlagtFormaal, tiltaksformaalXpath);
+        }
         protected override void InitializeValidationRules()
         {
             AddValidationRule(ValidationRuleEnum.utfylt);
-            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.beskrivPlanlagtFormaal);
         }
 
         public ValidationResult Validate(FormaaltypeValidationEntity formaaltypeValEntity = null)

@@ -34,8 +34,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             AddValidationRule(ValidationRuleEnum.validert, FieldNameEnum.kodeverdi);
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.kodeverdi);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.kodebeskrivelse);
-            AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.kodebeskrivelse);
-            
+            AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.kodebeskrivelse,$"{_entityXPath}/{FieldNameEnum.kodeverdi}");
         }
 
         public ValidationResult Validate(Kodeliste kodeEntry)

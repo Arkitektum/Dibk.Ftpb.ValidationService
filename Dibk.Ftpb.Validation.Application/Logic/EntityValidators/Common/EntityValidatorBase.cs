@@ -96,7 +96,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             }
         }
 
-        protected void AddValidationRule(ValidationRuleEnum rule, FieldNameEnum? xmlElement = null, string overrideXpath = null)
+        protected void AddValidationRule(ValidationRuleEnum rule, FieldNameEnum? xmlElement = null, string xpathPrecondition = null, string overrideXpath = null)
         {
             var separator = "";
             string elementRuleId = null;
@@ -113,7 +113,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
 
             elementRuleId = $"{_ruleIdPath}{fieldNumberString}.{validationRuleTypeId}";
 
-            var ruleXpath = overrideXpath?? _entityXPath;
+            var ruleXpath = overrideXpath ?? _entityXPath;
 
             //TODO Is this relevant now?
             //**
@@ -130,7 +130,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
                 var xx = "";
             }
             //**
-            _validationResult.ValidationRules.Add(new ValidationRule() { Rule = rule.ToString(), XpathField = xPath, XmlElement = xmlElementString, Id = elementRuleId ?? _ruleIdPath });
+            _validationResult.ValidationRules.Add(new ValidationRule()
+            {
+                Rule = rule.ToString(),
+                XpathField = xPath,
+                XmlElement = xmlElementString,
+                Id = elementRuleId ?? _ruleIdPath,
+                PreCondition = xpathPrecondition
+            });
         }
 
         protected void AddMessageFromRule(ValidationRuleEnum id, FieldNameEnum? fieldName = null, string[] messageParameters = null, string preConditionField = null)

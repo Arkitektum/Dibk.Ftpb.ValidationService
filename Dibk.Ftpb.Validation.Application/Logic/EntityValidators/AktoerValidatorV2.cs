@@ -40,7 +40,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             if (_allowedPartstypes != null && _allowedPartstypes.Any())
             {
-                AddValidationRule(ValidationRuleEnum.tillatt, null, $"{_entityXPath}/partstype/{FieldNameEnum.kodeverdi}");
+                AddValidationRule(ValidationRuleEnum.tillatt, null, null, $"{_entityXPath}/partstype/{FieldNameEnum.kodeverdi}");
             }
 
             if (IncludePrivatperson())
