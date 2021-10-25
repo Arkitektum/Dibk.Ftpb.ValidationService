@@ -83,7 +83,7 @@ namespace Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList
 
             CodelistFormat result;
             if (codelist.TryGetValue(codeValue, out result))
-                if (result.Name.Equals(codeName) && result.Status.Equals("Gyldig", StringComparison.CurrentCultureIgnoreCase))
+                if (result.Name.Equals(codeName) && (result.Status.Equals("Gyldig", StringComparison.CurrentCultureIgnoreCase) || result.Status.Equals("Sendt inn", StringComparison.CurrentCultureIgnoreCase)))
                     return true;
 
             return false;
