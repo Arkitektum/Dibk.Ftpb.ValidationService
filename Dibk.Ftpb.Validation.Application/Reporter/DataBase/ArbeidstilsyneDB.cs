@@ -224,16 +224,16 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             //AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.krav_sjekklistekrav_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Kravet må være dokumentert", ValidationResultSeverityEnum.ERROR);
 
 
-            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/krav{0}", "Kravet '{0}' må være utfylt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/krav{0}/sjekklistepunkt", "Kravet må være utfylt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.gyldig, "/krav{0}/sjekklistepunkt", "Kodelisten for sjekklistepunkt må være gyldig", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/krav{0}/sjekklistepunkt/kodeverdi", "Kodeverdien for sjekklistepunkt '{0}' må være utfylt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.gyldig, "/krav{0}/sjekklistepunkt/kodeverdi", "Kodeverdien for sjekklistepunkt '{0}' må være gyldig", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.validert, "/krav{0}/sjekklistepunkt/kodeverdi", "Kodeverdien for sjekklistepunkt '{0}' kunne ikke valideres", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/krav{0}/sjekklistepunkt/kodebeskrivelse", "Sjekklistepunktet '{0}' må ha kodebeskrivelse utfylt", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/krav{0}/sjekklistepunktsvar", "Sjekklistepunktet '{0}' må være besvart med ja/nei", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon er påkrevd for sjekklistekravet '{0}'", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.sjekklistepunkt_1_18_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", "Dokumentasjon er påkrevd for sjekklistekravet '{0}'", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/krav/sjekklistekrav{0}", "Kravet '{0}' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/krav/sjekklistekrav{0}/sjekklistepunkt", "Kravet må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.gyldig, "/krav/sjekklistekrav{0}/sjekklistepunkt", "Kodelisten for sjekklistepunkt må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/krav/sjekklistekrav{0}/sjekklistepunkt/kodeverdi", "Kodeverdien for sjekklistepunkt '{0}' må være utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.gyldig, "/krav/sjekklistekrav{0}/sjekklistepunkt/kodeverdi", "Kodeverdien for sjekklistepunkt '{0}' må være gyldig", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.validert, "/krav/sjekklistekrav{0}/sjekklistepunkt/kodeverdi", "Kodeverdien for sjekklistepunkt '{0}' kunne ikke valideres", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/krav/sjekklistekrav{0}/sjekklistepunkt/kodebeskrivelse", "Sjekklistepunktet '{0}' må ha kodebeskrivelse utfylt", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/krav/sjekklistekrav{0}/sjekklistepunktsvar", "Sjekklistepunktet '{0}' må være besvart med ja/nei", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/krav/sjekklistekrav{0}/dokumentasjon", "Dokumentasjon er påkrevd for sjekklistekravet '{0}'", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.sjekklistepunkt_1_18_dokumentasjon_utfylt, "/krav/sjekklistekrav{0}/dokumentasjon", "Dokumentasjon er påkrevd for sjekklistekravet '{0}'", ValidationResultSeverityEnum.ERROR);
             
             //Beskrivelse av tiltak
             AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/beskrivelseAvTiltak", "Tiltak må være utfylt", ValidationResultSeverityEnum.ERROR);

@@ -52,7 +52,7 @@
         [EntityValidatorEnumerationAttribute(XmlNode = "partstype", ValidatorId = "16")]
         PartstypeValidator,
 
-        [EntityValidatorEnumerationAttribute(XmlNode = "krav{0}", ValidatorId = "17")]
+        [EntityValidatorEnumerationAttribute(XmlNode = "krav/sjekklistekrav{0}", ValidatorId = "17")]
         SjekklistekravValidator,
 
         [EntityValidatorEnumerationAttribute(XmlNode = "sjekklistepunkt", ValidatorId = "18")]
