@@ -17,7 +17,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             var reference = "45957.4.12.15.2";
             var reference1 = "10000.1.35.21.2";
-            var reference2 = "35.21.2";
+            var reference2 = "10000.1.27.29.126.1";
             var validatorEnums2 = TestHelper.DebugValidatorFormReference(reference2);
 
             var validatorEnums = TestHelper.DebugValidatorFormReference(reference);

@@ -1,10 +1,11 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
+using Dibk.Ftpb.Validation.Application.Logic.GeneralValidations;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
@@ -34,13 +35,13 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
             return xml;
         }
 
-        public static Dictionary<string,string> DebugValidatorFormReference(List<ValidationRule> reference)
+        public static Dictionary<string, string> DebugValidatorFormReference(List<ValidationRule> reference)
         {
             var validatorXpathList = new Dictionary<string, string>();
             foreach (var validationRule in reference)
             {
                 var validtorXpath = DebugValidatorFormReference(validationRule.Id);
-                validatorXpathList.Add(validationRule.Id,$"{validtorXpath} -'XmlElement':{validationRule.XmlElement}, 'XpathField':{validationRule.XpathField}, 'Rule':{validationRule.Rule}");
+                validatorXpathList.Add(validationRule.Id, $"{validtorXpath} -'XmlElement':{validationRule.XmlElement}, 'XpathField':{validationRule.XpathField}, 'Rule':{validationRule.Rule}");
             }
             return validatorXpathList;
         }
@@ -70,12 +71,12 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
 
                         if (index == i + 2)
                         {
-                            var validatorEnum = (FieldNameEnum)enumNumber;
+                            var validatorEnum = GetEnumFromFieldNameId<FieldNameEnum>(enumNumber.ToString());
                             stringValue = validatorEnum.ToString();
                         }
                         else if (index == i + 1)
                         {
-                            var validatorEnum = (ValidationRuleEnum)enumNumber;
+                            var validatorEnum = GetEnumFromValidationRuleTypeId<ValidationRuleEnum>(enumNumber.ToString());
                             stringValue = validatorEnum.ToString();
                         }
                         else
@@ -114,6 +115,46 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
                 else
                 {
                     if (field.Name == validatorId)
+                        return (T)field.GetValue(null);
+                }
+            }
+
+            //throw new ArgumentException("Not found.", nameof(validatorId));
+            return default(T);
+        }
+        public static T GetEnumFromFieldNameId<T>(string FieldNameId) where T : Enum
+        {
+            foreach (var field in typeof(T).GetFields())
+            {
+                if (Attribute.GetCustomAttribute(field,
+                    typeof(FieldNameEnumerationAttribute)) is FieldNameEnumerationAttribute attribute)
+                {
+                    if (attribute.FieldNameId == FieldNameId)
+                        return (T)field.GetValue(null);
+                }
+                else
+                {
+                    if (field.Name == FieldNameId)
+                        return (T)field.GetValue(null);
+                }
+            }
+
+            //throw new ArgumentException("Not found.", nameof(validatorId));
+            return default(T);
+        }
+        public static T GetEnumFromValidationRuleTypeId<T>(string validationRuleTypeId) where T : Enum
+        {
+            foreach (var field in typeof(T).GetFields())
+            {
+                if (Attribute.GetCustomAttribute(field,
+                    typeof(ValidationRuleTypeEnumerationAttribute)) is ValidationRuleTypeEnumerationAttribute attribute)
+                {
+                    if (attribute.ValidationRuleTypeId == validationRuleTypeId)
+                        return (T)field.GetValue(null);
+                }
+                else
+                {
+                    if (field.Name == validationRuleTypeId)
                         return (T)field.GetValue(null);
                 }
             }
