@@ -70,7 +70,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.GeneralValidations
             }
         }
         public static GeneralValidationResultEnum Bruksenhetsnummer_StandardValidator(string bruksenhetsnr)
-        { 
+        {
             if (string.IsNullOrEmpty(bruksenhetsnr))
                 return GeneralValidationResultEnum.Empty;
 
@@ -153,6 +153,19 @@ namespace Dibk.Ftpb.Validation.Application.Logic.GeneralValidations
                 products += productsFirstControlDigit * coefficientForFirstControlNumber;
             }
             return products;
+        }
+
+        public static string NorskFeilmeldingType(ValidationResultSeverityEnum? ruleEnum)
+        {
+            switch (ruleEnum)
+            {
+                case ValidationResultSeverityEnum.ERROR:
+                    return "Feil";
+                case ValidationResultSeverityEnum.WARNING:
+                    return "Advarsel";
+                default: 
+                    return "";
+            }
         }
     }
 }

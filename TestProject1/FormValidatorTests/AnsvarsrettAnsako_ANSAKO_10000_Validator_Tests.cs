@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Dibk.Ftpb.Validation.Application.DataSources;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
@@ -17,6 +18,7 @@ using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace Dibk.Ftpb.Validation.Application.Tests.FormValidatorTests
 {
@@ -68,9 +70,12 @@ namespace Dibk.Ftpb.Validation.Application.Tests.FormValidatorTests
             var validatorRules = report.ValidationRules;
             var validatorRulesJson = JArray.FromObject(validatorRules);
 
+            var rulesForDocument = TestHelper.GetRuleDocumentationModel(validatorRules);
+            var noko = rulesForDocument.OrderBy(x => x.RuleId).ThenByDescending(y => y.XpathCondition).ToArray();
+            var ruleJson1 = JArray.FromObject(noko);
+
             var validatorMessages = report.ValidationMessages;
             var validatorMessagesJson = JArray.FromObject(validatorMessages.Where(m=>m.XpathField.Contains("ansvarligSoeker")));
-
 
 
             report.Should().NotBeNull();

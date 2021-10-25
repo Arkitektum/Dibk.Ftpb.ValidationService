@@ -14,6 +14,7 @@ using Dibk.Ftpb.Validation.Application.Models.FormEntities;
 using Xunit;
 using Dibk.Ftpb.Validation.Application.Services;
 using Dibk.Ftpb.Validation.Application.Utils;
+using Newtonsoft.Json.Linq;
 
 namespace Dibk.Ftpb.Validation.Application.Tests
 {
@@ -160,11 +161,16 @@ namespace Dibk.Ftpb.Validation.Application.Tests
 
             ValidationInput validationInput = new();
             validationInput.FormData = xmlData;
-            var newValidationReport = _formValidator.StartValidation(validationInput);
+            var report = _formValidator.StartValidation(validationInput);
+
+            var validatorRules = report.ValidationRules;
+            var validatorRulesJson = JArray.FromObject(validatorRules);
+
+            var ruleJson = JArray.FromObject(TestHelper.GetRuleDocumentationModel(validatorRules));
 
             if (WriteValidationResultsToJsonFile)
             {
-                var jsonString = JsonConvert.SerializeObject(newValidationReport);
+                var jsonString = JsonConvert.SerializeObject(report);
                 File.WriteAllText(_rootDirTestResults + @"\validatortest_for_eiendom_2_eiendommer_" + DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss") + ".json", jsonString);
             }
         }

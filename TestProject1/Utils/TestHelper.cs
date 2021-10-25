@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -135,5 +135,27 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
             return validateFormv2JObject;
         }
 
+        public static List<RuleDocumentationModel> GetRuleDocumentationModel(List<ValidationRule> validationRules)
+        {
+            var formRules = new List<RuleDocumentationModel>();
+
+            if (validationRules != null)
+            {
+
+                foreach (var rule in validationRules)
+                {
+                    formRules.Add(new RuleDocumentationModel()
+                    {
+                        RuleId = rule.Id,
+                        CheckListPt = "",
+                        Description = rule.Message,
+                        XpathCondition = rule.XpathField,
+                        XpathPrecondition = rule.PreCondition,
+                        RuleType = NorskStandardValidator.NorskFeilmeldingType(rule.Messagetype)
+                    });
+                }
+            }
+            return formRules;
+        }
     }
 }
