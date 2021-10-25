@@ -23,6 +23,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
         {
             AddValidationRule(ValidationRuleEnum.utfylt);
             AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.navn);
+            AddValidationRule(ValidationRuleEnum.utfylt, FieldNameEnum.epost);
             AddValidationRule(ValidationRuleEnum.telmob_utfylt, FieldNameEnum.telefonnummer);
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.telefonnummer);
             AddValidationRule(ValidationRuleEnum.gyldig, FieldNameEnum.mobilnummer);
@@ -37,7 +38,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
             else
             {
                 if (string.IsNullOrEmpty(kontaktperson?.Navn))
-                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.navn);
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.navn); 
+
+                if (string.IsNullOrEmpty(kontaktperson?.Epost))
+                    AddMessageFromRule(ValidationRuleEnum.utfylt, FieldNameEnum.epost);
 
                 if (string.IsNullOrEmpty(kontaktperson?.Telefonnummer) && string.IsNullOrEmpty(kontaktperson?.Mobilnummer))
                 {

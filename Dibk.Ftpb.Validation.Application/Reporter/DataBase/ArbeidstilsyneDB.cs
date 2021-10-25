@@ -322,7 +322,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
 
             //Foretak
             AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak", "Du må fylle ut informasjon om det ansvarlige foretaket.", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.tillatt, "/ansvarsrett/foretak/partstype/kodeverdi", "Kodeverdien for ‘partstype’ til foretaket må fylles ut. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.tillatt, "/ansvarsrett/foretak/partstype/kodeverdi", "Ansvarlig foretak sin partstype må være 'Foretak'.", ValidationResultSeverityEnum.ERROR);
             //foretak partstype
             //Kan ikke validere hvis det er bare 'Foretal' bare det?
             AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/partstype", "Du må oppgi ‘partstype’ for foretak. Du kan sjekke riktig kodeverdi på https://register.geonorge.no/byggesoknad/partstype.", ValidationResultSeverityEnum.ERROR);
@@ -338,8 +338,8 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
             AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/epost", "E-postadressen til foretaket bør fylles ut.");
 
             AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.telmob_utfylt, "/ansvarsrett/foretak/telefonnummer", "Telefonnummeret eller mobilnummeret til foretaket bør fylles ut.");
-            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.gyldig, "/ansvarsrett/foretak/telefonnummer", "Telefonnummeret til foretaket må kun inneholde tall og '+'.");
-            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.gyldig, "/ansvarsrett/foretak/mobilnummer", "Mobilnummeret til foretaket må kun inneholde tall og '+'.");
+            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.gyldig, "/ansvarsrett/foretak/telefonnummer", "Telefonnummeret til foretaket må kun inneholde tall og '+'.", ValidationResultSeverityEnum.ERROR);
+            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.gyldig, "/ansvarsrett/foretak/mobilnummer", "Mobilnummeret til foretaket må kun inneholde tall og '+'.",ValidationResultSeverityEnum.ERROR);
 
 
             AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/adresse", "Adressen til foretaket bør fylles ut.");
@@ -354,14 +354,13 @@ namespace Dibk.Ftpb.Validation.Application.Reporter.DataBase
 
             AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/kontaktperson", "Kontaktpersonen til foretaket må fylles ut.", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/kontaktperson/navn", "Navnet til kontaktpersonen for foretaket må fylles ut.", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/kontaktperson/epost ", "E-postadressen til foretakets kontaktperson bør fylles ut.");
+            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/ansvarsrett/foretak/kontaktperson/epost", "E-postadressen til foretakets kontaktperson bør fylles ut.");
             
             AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.telmob_utfylt, "/ansvarsrett/foretak/kontaktperson/telefonnummer", "Telefonnummeret eller mobilnummeret til foretakets kontaktperson bør fylles ut.");
             AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.gyldig, "/ansvarsrett/foretak/kontaktperson/telefonnummer", "Telefonnummeret  til foretakets kontaktperson må kun inneholde tall og '+'.", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.gyldig, "/ansvarsrett/foretak/kontaktperson/mobilnummer", "Mobilnummer til foretakets kontaktperson må kun inneholde tall og '+'.", ValidationResultSeverityEnum.ERROR);
             //ansvarsområde
             AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/ansvarsrett/ansvarsomraader/ansvarsomraade{0}", "Du må definere minst ett ansvarsområde.", ValidationResultSeverityEnum.ERROR);
-            AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/beskrivelseAvAnsvarsomraade", "Du må definere minst ett ansvarsområde.", ValidationResultSeverityEnum.ERROR);
             //KodeverdiValidatorV2 - funksjon
             AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/funksjon", "Du må oppgi en funksjon for ansvarsområdet. Du kan sjekke gyldige funksjoner på https://register.geonorge.no/kodelister/byggesoknad/funksjon", ValidationResultSeverityEnum.ERROR);
             AddRuleToValidationMessageStorageEntry(null,null, ValidationRuleEnum.utfylt, "/ansvarsrett/ansvarsomraader/ansvarsomraade{0}/funksjon/kodeverdi", "Kodeverdien for ‘funksjon’ for ansvarsområdet må fylles ut. Du kan sjekke gyldige funksjoner på https://register.geonorge.no/kodelister/byggesoknad/funksjon", ValidationResultSeverityEnum.ERROR);
