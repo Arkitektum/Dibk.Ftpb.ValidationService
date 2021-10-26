@@ -61,7 +61,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.FormValidatorTests
             ValidationInput validationInput = new();
             validationInput.FormData = xmlData;
             var report = _formValidator.StartValidation(validationInput);
-            
+            var nn = _formValidator.FormValidationRules;
             //Get Text not found
             var textNotFound = report.ValidationRules.Where(r => r.Message.Contains("Could not find")).ToList();
             var resultRulesText = TestHelper.DebugValidatorFormReference(textNotFound);

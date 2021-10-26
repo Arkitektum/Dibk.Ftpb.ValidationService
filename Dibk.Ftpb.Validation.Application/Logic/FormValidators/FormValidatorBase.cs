@@ -29,6 +29,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         protected abstract void Validate(ValidationInput validationInput);
         protected abstract void DefineValidationRules();
 
+        public ValidationRule[] FormValidationRules;
+
         public FormValidatorBase(IValidationMessageComposer validationMessageComposer, IChecklistService checklistService = null)
         {
             _validationMessageComposer = validationMessageComposer;
@@ -46,11 +48,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         }
 
-        protected string GetDataFormatVersion(Type t)
-        {
-            FormDataAttribute myAtt = (FormDataAttribute)Attribute.GetCustomAttribute(t, typeof(FormDataAttribute));
-            return myAtt.DataFormatVersion;
-        }
         public virtual ValidationResult StartValidation(ValidationInput validationInput)
         {
 
@@ -62,9 +59,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             InitializeValidatorConfig();
             InstantiateValidators();
             DefineValidationRules();
-            Validate(validationInput);
+            FormValidationRules = _validationMessageComposer.ComposeValidationRules(XPathRoot, DataFormatId, DataFormatVersion, ValidationResult?.ValidationRules, "NO");
 
+
+            Validate(validationInput);
             ValidationResult = _validationMessageComposer.ComposeValidationResult(XPathRoot, DataFormatId, DataFormatVersion, ValidationResult, "NO");
+
 
             if (!ValidationResult.ValidationMessages.Any(x => x.Messagetype.Equals(ValidationResultSeverityEnum.CRITICAL)))
             {
@@ -80,28 +80,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         {
             var whereNotAlreadyExists = validationRules.Where(x => !ValidationResult.ValidationRules.Any(y => y.XpathField == x.XpathField && y.Rule == x.Rule));
             ValidationResult.ValidationRules.AddRange(whereNotAlreadyExists);
-        }
-
-        protected void AddMessageFromRule(ValidationRuleEnum id, FieldNameEnum? xmlElementName = null, string[] messageParameters = null, string preConditionField = null)
-        {
-            var idSt = id.ToString();
-
-            string xmlElementXpath = xmlElementName.HasValue ? $"/{xmlElementName}" : "/";
-
-            var xpathNew = $"{xmlElementXpath}";
-
-            var rule = RuleToValidate(idSt, xpathNew);
-
-            var validationMessage = new ValidationMessage()
-            {
-                Rule = idSt,
-                Reference = rule.Id,
-                XpathField = xpathNew,
-                PreCondition = preConditionField,
-                MessageParameters = messageParameters
-            };
-
-            ValidationResult.ValidationMessages.Add(validationMessage);
         }
 
         protected void AccumulateValidationMessages(List<ValidationMessage> validationMessages, int? index = null)
@@ -158,7 +136,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //**
             ValidationResult.ValidationRules.Add(new ValidationRule() { Rule = rule.ToString(), XpathField = xPath, XmlElement = xmlElement?.ToString(), Id = elementRuleId });
         }
-
+        protected void AddMessageFromRule(ValidationRuleEnum id, FieldNameEnum? fieldName = null, string[] messageParameters = null, string preConditionField = null)
+        {
+            var xpathNew = fieldName.HasValue ? $"/{fieldName}" : null;
+            AddMessageFromRule(id, xpathNew, messageParameters, preConditionField);
+        }
         protected void AddMessageFromRule(ValidationRuleEnum id, string xmlElementPathName, string[] messageParameters = null, string preConditionField = null)
         {
             var idSt = id.ToString();
@@ -178,12 +160,17 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         {
             //Note: different regex implementationthan than in the EntityValidatorBase
             xPath = Regex.Replace(xPath, @"\[\d{1,}\]", "{0}");
+            var formxPath = $"{XPathRoot}{xPath}";
             ValidationRule validationRule = ValidationResult.ValidationRules.Where(r => !string.IsNullOrEmpty(r.Rule))
-                .FirstOrDefault(r => r.Rule.Equals(rule) && (r.XpathField == xPath)) ?? new ValidationRule()
+                .FirstOrDefault(r => r.Rule.Equals(rule) && (r.XpathField == formxPath));
+            if (validationRule == null)
+            {
+                validationRule = new ValidationRule()
                 {
                     Rule = rule,
                     Message = $"Can't find rule:'{rule}'.-"
                 };
+            }
             return validationRule;
         }
 
