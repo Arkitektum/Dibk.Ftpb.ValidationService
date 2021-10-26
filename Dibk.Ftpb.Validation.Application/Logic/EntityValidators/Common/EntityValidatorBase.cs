@@ -159,7 +159,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
                 Rule = idSt,
                 Reference = rule.Id ?? _ruleIdPath,
                 XpathField = xpathNew,
-                PreCondition = preConditionField,
+                PreCondition = preConditionField?? rule.PreCondition,
                 MessageParameters = messageParameters
             };
 

@@ -30,6 +30,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
 
         public ValidationResult Validate(Ansvarsomraade ansvarsomraade = null)
         {
+            base.ResetValidationMessages();
+
             ValidateEntityFields(ansvarsomraade);
             var funksjonResult = _funksjonValidator.Validate(ansvarsomraade.Funksjon);
             UpdateValidationResultWithSubValidations(funksjonResult);
