@@ -77,7 +77,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators
                             var isCodelistLabelValid = _codeListService.IsCodelistLabelValid(_codeListName,kodeEntry.Kodeverdi, kodeEntry.Kodebeskrivelse, _registryType);
                             if (!isCodelistLabelValid.GetValueOrDefault())
                             {
-                                AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.kodebeskrivelse, new[] { kodeEntry.Kodeverdi, kodeEntry.Kodebeskrivelse });
+                                AddMessageFromRule(ValidationRuleEnum.gyldig, FieldNameEnum.kodebeskrivelse, new[] { kodeEntry.Kodebeskrivelse });
                             }
                         }
                     }

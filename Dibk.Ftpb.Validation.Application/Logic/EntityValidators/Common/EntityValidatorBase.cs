@@ -47,8 +47,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
                 _ruleIdPath = "Can't find the node";
                 _entityXPath = nodeId.HasValue ? $"Can't find Entity validator enum:'{validatorName}' with nodeId:'{nodeId}'" : $"Can't find Entity validator enum:'{validatorName}'.";
             }
+
             InitializeValidationRules();
-            //OnRulesAdded(_validationResult);
         }
 
         private static EntityValidatorNode GetEntityValidatorNode(IList<EntityValidatorNode> entityValidationTree, int? treeNodeId, string validatorName)
