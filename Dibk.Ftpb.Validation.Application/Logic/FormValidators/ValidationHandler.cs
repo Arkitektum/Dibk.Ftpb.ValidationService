@@ -15,6 +15,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         private readonly IServiceProvider _services;
         private readonly ILogger<ValidationHandler> _logger;
 
+        private IFormValidator _formValidator;
         public ValidationResult ValidationResult { get; set; }
         //public ValidationReport ValidationReport { get; set; }
 
@@ -25,6 +26,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             //ValidationReport = new ValidationReport();
         }
 
+        public async Task<ValidationRule[]> GetformRulesAsync(string dataFormatId, string dataFormatVersion)
+        {
+            GetFormValidator(dataFormatId, dataFormatVersion);
+            return _formValidator.formValidationRules();
+        }
         public async Task<ValidationResult> ValidateAsync(string dataFormatId, string dataFormatVersion, List<string> errorMessages, ValidationInput validationInput)
         {
             ValidationResult = new ValidationResult();
@@ -43,8 +49,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 //TODO Validate Xml structure 
                 List<ValidationRule> validationXmlMessages = new List<ValidationRule>();
                 ValidationResult.ValidationRules.AddRange(validationXmlMessages);
-
-                ValidateMainForm(dataFormatId, dataFormatVersion, validationInput);
+                GetFormValidator(dataFormatId, dataFormatVersion);
+                ValidateMainForm(validationInput);
             }
 
             // Todo: On ERRORS
@@ -74,10 +80,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             return ValidationResult;
         }
 
-        private void ValidateMainForm(string dataFormatId, string dataFormatVersion, ValidationInput validationInput)
+        private void GetFormValidator(string dataFormatId, string dataFormatVersion)
         {
-            IFormValidator formValidator = GetValidator(dataFormatId, dataFormatVersion); //45957
-            ValidationResult valResult = formValidator.StartValidation(validationInput);
+            _formValidator = GetValidator(dataFormatId, dataFormatVersion); //45957
+        }
+
+        private void ValidateMainForm(ValidationInput validationInput)
+        {
+            ValidationResult valResult = _formValidator.StartValidation(validationInput);
 
             ValidationResult.ValidationRules.AddRange(valResult.ValidationRules);
             ValidationResult.ValidationMessages.AddRange(valResult.ValidationMessages);

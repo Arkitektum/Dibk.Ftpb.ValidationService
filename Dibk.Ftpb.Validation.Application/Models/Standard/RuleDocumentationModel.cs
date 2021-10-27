@@ -1,26 +1,26 @@
-﻿using Dibk.Ftpb.Validation.Application.Enums;
+﻿using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 
-namespace Dibk.Ftpb.Validation.Application.Reporter
+namespace Dibk.Ftpb.Validation.Application.Models.Standard
 {
     public class RuleDocumentationModel
     {
-        [JsonProperty("Regelnr")]
+        [JsonPropertyName("Regelnr")]
         public string RuleId { get; set; }
 
-        [JsonProperty("sjkPkt")]
+        [JsonPropertyName("sjkPkt")]
         public string CheckListPt { get; set; }
 
-        [JsonProperty("Beskrivelse")]
+        [JsonPropertyName("Beskrivelse")]
         public string Description { get; set; }
 
-        [JsonProperty("Valideringsresultat")]
+        [JsonPropertyName("Valideringsresultat")]
         public string RuleType { get; set; }
 
-        [JsonProperty("Betingelse")]
+        [JsonPropertyName("Betingelse")]
         public string XpathCondition { get; set; }
         
-        [JsonProperty("Forutsetning")]
+        [JsonPropertyName("Forutsetning")]
         public string XpathPrecondition { get; set; }
     }
 }

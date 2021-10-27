@@ -83,6 +83,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako
             return ValidationResult;
         }
 
+        public ValidationRule[] formValidationRules()
+        {
+            return FormValidationRules;
+        }
+
         protected override void InitializeValidatorConfig()
         {
             //AnsvarligSoeker

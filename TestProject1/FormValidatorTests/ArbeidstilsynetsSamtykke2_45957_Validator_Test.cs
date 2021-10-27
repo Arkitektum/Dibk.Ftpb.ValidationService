@@ -166,7 +166,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests
             var validatorRules = report.ValidationRules;
             var validatorRulesJson = JArray.FromObject(validatorRules);
 
-            var ruleJson = JArray.FromObject(TestHelper.GetRuleDocumentationModel(validatorRules));
+            var ruleJson = JArray.FromObject(RuleDocumentationComposer.GetRuleDocumentationModel(validatorRules));
 
             if (WriteValidationResultsToJsonFile)
             {

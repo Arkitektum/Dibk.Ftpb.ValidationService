@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using Dibk.Ftpb.Validation.Application.Enums;
 using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 using Dibk.Ftpb.Validation.Application.Logic.GeneralValidations;
+using Dibk.Ftpb.Validation.Application.Models.Standard;
 using Dibk.Ftpb.Validation.Application.Models.Web;
 using Dibk.Ftpb.Validation.Application.Reporter;
 using Dibk.Ftpb.Validation.Application.Utils;
@@ -174,29 +175,6 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
             };
             var validateFormv2JObject = JObject.FromObject(validationInput);
             return validateFormv2JObject;
-        }
-
-        public static List<RuleDocumentationModel> GetRuleDocumentationModel(List<ValidationRule> validationRules)
-        {
-            var formRules = new List<RuleDocumentationModel>();
-
-            if (validationRules != null)
-            {
-
-                foreach (var rule in validationRules)
-                {
-                    formRules.Add(new RuleDocumentationModel()
-                    {
-                        RuleId = rule.Id,
-                        CheckListPt = "",
-                        Description = rule.Message,
-                        XpathCondition = rule.XpathField,
-                        XpathPrecondition = rule.PreCondition,
-                        RuleType = NorskStandardValidator.NorskFeilmeldingType(rule.Messagetype)
-                    });
-                }
-            }
-            return formRules;
         }
     }
 }

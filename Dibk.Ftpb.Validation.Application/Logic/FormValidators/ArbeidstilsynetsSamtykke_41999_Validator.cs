@@ -62,6 +62,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             return ValidationResult;
         }
 
+        public ValidationRule[] formValidationRules()
+        {
+            return FormValidationRules;
+        }
+
         protected override void InitializeValidatorConfig()
         {
             var eiendombyggestedTree = new List<EntityValidatorNode>()

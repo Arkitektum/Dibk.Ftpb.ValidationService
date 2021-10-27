@@ -26,7 +26,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
         private List<ChecklistAnswer> _outputlist = new List<ChecklistAnswer>();
         private IEnumerable<PrefillDemo> _alleSjekklistepunkter;
 
-        public ValidationService(IInputDataService inputDataService, IXsdValidationService xsdValidationService, 
+        public ValidationService(IInputDataService inputDataService, IXsdValidationService xsdValidationService,
             IValidationHandler validationOrchestrator, IChecklistService checklistService, FormPropertyService formPropertyService)
         {
             _inputDataService = inputDataService;
@@ -57,11 +57,11 @@ namespace Dibk.Ftpb.Validation.Application.Services
             var inputData = _inputDataService.GetInputData(validationInput.FormData);
             var validationResult = ValidateForm(validationInput);
 
-            if (!string.IsNullOrEmpty(inputData?.Config?.DataFormatVersion)&& !string.IsNullOrEmpty(inputData?.Config?.DataFormatId))
+            if (!string.IsNullOrEmpty(inputData?.Config?.DataFormatVersion) && !string.IsNullOrEmpty(inputData?.Config?.DataFormatId))
             {
-                var formProperties = _formPropertyService.GetFormProperties(inputData?.Config?.DataFormatId,inputData?.Config?.DataFormatVersion);
+                var formProperties = _formPropertyService.GetFormProperties(inputData?.Config?.DataFormatId, inputData?.Config?.DataFormatVersion);
 
-                var prefilledAnswersFromChecklist = _checklistService.GetPrefillChecklist(validationResult, inputData?.Config?.DataFormatId,inputData?.Config?.DataFormatVersion, formProperties.ProcessCategory);
+                var prefilledAnswersFromChecklist = _checklistService.GetPrefillChecklist(validationResult, inputData?.Config?.DataFormatId, inputData?.Config?.DataFormatVersion, formProperties.ProcessCategory);
 
                 validationResult.PrefillChecklist.AddRange(prefilledAnswersFromChecklist.ChecklistAnswer);
 
@@ -75,7 +75,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
                             var foundXPath = validationResult.ValidationRules.First(x => x.Id.Equals(ruleId)).XpathField;
                             var xPathsIfNotAlreadyExisting = validationResult.ValidationRules.Where
                                 (x => ruleId.Equals(x.Id) && !answer.SupportingDataXpathField.Any(y => y.Equals(x.XpathField))).Select(z => z.XpathField).ToList();
-                            
+
                             answer.SupportingDataXpathField.AddRange(xPathsIfNotAlreadyExisting);
                         }
                     }
@@ -89,6 +89,11 @@ namespace Dibk.Ftpb.Validation.Application.Services
             return validationResult;
         }
 
+        public ValidationRule[] GetFormValidationRules(string dataFormatId, string dataFormVersion)
+        {
+            var rules =_validationHandler.GetformRulesAsync(dataFormatId, dataFormVersion).Result;
+            return rules;
+        }
         private ValidationResult ValidateForm(ValidationInput validationInput)
         {
             var inputData = _inputDataService.GetInputData(validationInput.FormData);
@@ -245,9 +250,9 @@ namespace Dibk.Ftpb.Validation.Application.Services
 
         //public FormProperties GetFormProperties(string dataFormatVersion)
         //{
-            
-            
-            
+
+
+
         //    throw new NotImplementedException();
         //}
     }

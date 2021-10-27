@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
+using Dibk.Ftpb.Validation.Application.Models.Standard;
 using Dibk.Ftpb.Validation.Application.Models.Web;
+using Newtonsoft.Json.Linq;
 
 namespace Dibk.Ftpb.Validation.Web.Controllers
 {
@@ -56,6 +59,26 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
             var validationResult = _validationService.GetValidationResultWithChecklistAnswers(input);
 
             return Ok(validationResult);
+        }
+        [Route("api/formrules/{dataFormatId}/{dataFormatVersion}")]
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<RuleDocumentationModel[]> FormDocumentation(string dataFormatId, string dataFormatVersion)
+        {
+            //// Authentication?
+            if (string.IsNullOrEmpty(dataFormatId) || string.IsNullOrEmpty(dataFormatVersion))
+            {
+                return BadRequest();
+            }
+
+            var formValidationRules = _validationService.GetFormValidationRules(dataFormatId,dataFormatVersion);
+            if (!formValidationRules.Any())
+            {
+                return BadRequest($"No rules found for '{dataFormatId}'.'{dataFormatVersion}'");
+            }
+            var documentationModel = RuleDocumentationComposer.GetRuleDocumentationModel(formValidationRules.ToList());
+            return Ok(documentationModel);
         }
 
         [Route("api/validate/file")]

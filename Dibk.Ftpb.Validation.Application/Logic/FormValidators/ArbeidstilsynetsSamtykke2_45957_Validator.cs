@@ -110,6 +110,11 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             return ValidationResult;
         }
 
+        public ValidationRule[] formValidationRules()
+        {
+            return FormValidationRules;
+        }
+
         private List<ChecklistAnswer> GetChecklistAnswers()
         {
             List<ChecklistAnswer> list = new List<ChecklistAnswer>();

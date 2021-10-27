@@ -60,8 +60,9 @@ namespace Dibk.Ftpb.Validation.Application.Tests.FormValidatorTests
             var xmlData = File.ReadAllText(@"Data\Ansako\ErklaeringAnsvarsrett_1.xml");
             ValidationInput validationInput = new();
             validationInput.FormData = xmlData;
-            var report = _formValidator.StartValidation(validationInput);
             var nn = _formValidator.FormValidationRules;
+            var report = _formValidator.StartValidation(validationInput);
+
             //Get Text not found
             var textNotFound = report.ValidationRules.Where(r => r.Message.Contains("Could not find")).ToList();
             var resultRulesText = TestHelper.DebugValidatorFormReference(textNotFound);
@@ -70,7 +71,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.FormValidatorTests
             var validatorRules = report.ValidationRules;
             var validatorRulesJson = JArray.FromObject(validatorRules);
 
-            var rulesForDocument = TestHelper.GetRuleDocumentationModel(validatorRules);
+            var rulesForDocument = RuleDocumentationComposer.GetRuleDocumentationModel(validatorRules);
             var noko = rulesForDocument.OrderBy(x => x.RuleId).ThenByDescending(y => y.XpathCondition).ToArray();
             var ruleJson1 = JArray.FromObject(noko);
 

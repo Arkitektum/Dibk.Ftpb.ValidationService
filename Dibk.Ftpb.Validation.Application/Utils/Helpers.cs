@@ -135,9 +135,6 @@ namespace Dibk.Ftpb.Validation.Application.Utils
 
         }
 
-
-
-
         public static string ReplaceCurlyBracketInXPath(int index, string xPath)
         {
             string newXPath = null;

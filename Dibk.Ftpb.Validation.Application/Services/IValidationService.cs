@@ -10,6 +10,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
         //ValidationResult Validate(string xmlString, List<string> attachments = null, List<string> subForms = null);
         Validations GetValidationResult(ValidationInput validationInput);
         ValidationResult GetValidationResultWithChecklistAnswers(ValidationInput validationInput);
+        ValidationRule[] GetFormValidationRules(string dataFormatId, string dataFormVersion);
         List<string> ValidateXmlFile(IFormFile xmlFile);
         //IEnumerable<PrefillDemo> PrefillDemo();
         string PrefillDemo();
