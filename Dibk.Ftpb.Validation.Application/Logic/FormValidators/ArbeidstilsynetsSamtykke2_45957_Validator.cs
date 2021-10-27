@@ -20,7 +20,7 @@ using Dibk.Ftpb.Validation.Application.Enums.ValidationEnums;
 
 namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 {
-    [FormData(DataFormatId = "6821",DataFormatVersion = "45957")]
+    [FormData(DataFormatId = "6821", DataFormatVersion = "45957")]
     public class ArbeidstilsynetsSamtykke2_45957_Validator : FormValidatorBase, IFormValidator, IFormWithChecklistAnswers
     {
         private List<EntityValidatorNode> _entitiesNodeList;
@@ -92,15 +92,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _checklistService = checklistService;
             _entitiesNodeList = new List<EntityValidatorNode>();
             //SetTitaksTypeIsøknad();
+
+            base.InitializeFormValidator<ArbeidstilsynetsSamtykke2_45957_Form>();
         }
 
         public override ValidationResult StartValidation(ValidationInput validationInput)
         {
             _validationForm = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke2_45957_Form>(validationInput.FormData);
-            
-            //GetRootXmlNode name
-            var xmlRootElelement = _validationForm.GetType().GetCustomAttributes(typeof(XmlRootAttribute), true)?.SingleOrDefault() as XmlRootAttribute;
-            base.XPathRoot = xmlRootElelement?.ElementName;
+
             base.StartValidation(validationInput);
 
             //Add ChecklistAnswers to validationresult
@@ -126,14 +125,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
                 list.Add(checklistAnswer);
             }
-
-
-
             return list;
         }
-
-
-
 
         protected override void InitializeValidatorConfig()
         {
@@ -283,7 +276,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _arbeidstilsynetsSaksnummerValidator = new ArbeidstilsynetsSaksnummerValidator(tree);
             //Kommunens saksnummer
             _kommunensSaksnummerValidator = new KommunensSaksnummerValidator(tree);
-
         }
         protected override void DefineValidationRules()
         {
@@ -375,7 +367,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             AccumulateValidationMessages(kommunensSaksnummerValidationResult.ValidationMessages);
 
             CustomSjekklisteValidations(_validationForm?.Arbeidsplasser, _validationForm?.Sjekklistekrav);
-
         }
 
         protected override IEnumerable<string> GetFormTiltakstyper() { return _tiltakstypes; }

@@ -51,19 +51,14 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             _municipalityValidator = municipalityValidator;
             _codeListService = codeListService;
             _postalCodeService = postalCodeService;
+
+            base.InitializeFormValidator<ArbeidstilsynetsSamtykke_41999_Form>();
         }
 
         public override ValidationResult StartValidation(ValidationInput validationInput)
         {
             _validationForm = SerializeUtil.DeserializeFromString<ArbeidstilsynetsSamtykke_41999_Form>(validationInput.FormData);
-            
-            //GetRootXmlNode name
-            var xmlRootElelement = _validationForm.GetType().GetCustomAttributes(typeof(XmlRootAttribute), true)?.SingleOrDefault() as XmlRootAttribute;
-            base.XPathRoot = xmlRootElelement?.ElementName;
-
             base.StartValidation(validationInput);
-            //ValidationReport.ValidationResult = ValidationResult;
-
             return ValidationResult;
         }
 

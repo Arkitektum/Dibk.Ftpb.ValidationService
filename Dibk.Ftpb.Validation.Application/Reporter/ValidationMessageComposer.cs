@@ -11,7 +11,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             _repo = new ValidationMessageRepository();
         }
 
-        public ValidationResult ComposeValidationResult(string xPathRoot, string dataFormatId, string dataFormatVersion, ValidationResult validationResult, string languageCode)
+        public ValidationResult ComposeValidationMessages(string xPathRoot, string dataFormatId, string dataFormatVersion, ValidationResult validationResult, string languageCode)
         {
             ValidationMessageRepository repo = new ValidationMessageRepository();
 

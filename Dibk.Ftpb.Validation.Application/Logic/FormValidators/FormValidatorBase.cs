@@ -48,23 +48,29 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         }
 
-        public virtual ValidationResult StartValidation(ValidationInput validationInput)
+        protected virtual void InitializeFormValidator<T>()
         {
 
+            //Get 'DataFormatId' and 'DataFormatVersion' info from validator
             var customAttributes = this.GetType().GetCustomAttributes(typeof(FormDataAttribute), true).FirstOrDefault() as FormDataAttribute;
-
             DataFormatId = customAttributes?.DataFormatId;
             DataFormatVersion = customAttributes?.DataFormatVersion;
+
+            //GetRootXmlNode name
+            var xmlRootElelement = typeof(T).GetCustomAttributes(typeof(XmlRootAttribute), true)?.SingleOrDefault() as XmlRootAttribute;
+            XPathRoot = xmlRootElelement?.ElementName;
 
             InitializeValidatorConfig();
             InstantiateValidators();
             DefineValidationRules();
+
             FormValidationRules = _validationMessageComposer.ComposeValidationRules(XPathRoot, DataFormatId, DataFormatVersion, ValidationResult?.ValidationRules, "NO");
 
-
+        }
+        public virtual ValidationResult StartValidation(ValidationInput validationInput)
+        {
             Validate(validationInput);
-            ValidationResult = _validationMessageComposer.ComposeValidationResult(XPathRoot, DataFormatId, DataFormatVersion, ValidationResult, "NO");
-
+            ValidationResult = _validationMessageComposer.ComposeValidationMessages(XPathRoot, DataFormatId, DataFormatVersion, ValidationResult, "NO");
 
             if (!ValidationResult.ValidationMessages.Any(x => x.Messagetype.Equals(ValidationResultSeverityEnum.CRITICAL)))
             {
