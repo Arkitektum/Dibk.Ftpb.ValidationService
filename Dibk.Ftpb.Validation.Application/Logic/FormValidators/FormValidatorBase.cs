@@ -70,7 +70,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         public virtual ValidationResult StartValidation(ValidationInput validationInput)
         {
             Validate(validationInput);
-            ValidationResult = _validationMessageComposer.ComposeValidationMessages(XPathRoot, DataFormatId, DataFormatVersion, ValidationResult, "NO");
+            ValidationResult = AddValidationMessageFromFormRules();
 
             if (!ValidationResult.ValidationMessages.Any(x => x.Messagetype.Equals(ValidationResultSeverityEnum.CRITICAL)))
             {
@@ -134,7 +134,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
             var elementRuleId = $"{fieldNumberString}.{validationRuleTypeId}";
 
-
             //TODO Is this relevant now?
             var separator = xmlElement.HasValue ? "/" : "";
 
@@ -180,7 +179,24 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
             return validationRule;
         }
 
+        public ValidationResult AddValidationMessageFromFormRules()
+        {
+            foreach (var validationMessage in ValidationResult.ValidationMessages)
+            {
+                var composedValidationMessage = RuleToValidate(validationMessage.Rule, validationMessage.XpathField);
+                validationMessage.Message = composedValidationMessage.Message;
+                validationMessage.ChecklistReference = composedValidationMessage.ChecklistReference;
+                validationMessage.Messagetype = composedValidationMessage.Messagetype;
 
+                if (!validationMessage.XpathField.StartsWith(XPathRoot))
+                    validationMessage.XpathField = $"{XPathRoot}{validationMessage.XpathField}";
+
+                if (!validationMessage.Reference.StartsWith($"{DataFormatId}.{DataFormatVersion}"))
+                    validationMessage.Reference = $"{DataFormatId}.{DataFormatVersion}{validationMessage.Reference}";
+            }
+
+            return ValidationResult;
+        }
     }
 
     public class FormDataAttribute : Attribute
