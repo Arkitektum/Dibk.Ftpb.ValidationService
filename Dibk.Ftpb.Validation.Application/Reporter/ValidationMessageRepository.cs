@@ -31,7 +31,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
             {
                 validationRule.Message = theStorageEntry.Message;
                 validationRule.Messagetype = theStorageEntry.Messagetype;
-                //validationRule.ChecklistReference = theStorageEntry.ChecklistReference;
+                validationRule.ChecklistReference = theStorageEntry.ChecklistReference;
             }
 
             return validationRule;

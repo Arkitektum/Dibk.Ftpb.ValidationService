@@ -13,5 +13,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
         [JsonIgnore] 
         public string XmlElement { get; set; }
         public string PreCondition { get; set; }
+        public string ChecklistReference { get; set; }
+
     }
 }

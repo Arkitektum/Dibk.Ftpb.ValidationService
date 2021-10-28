@@ -19,7 +19,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
                     formRules.Add(new RuleDocumentationModel()
                     {
                         RuleId = rule.Id,
-                        CheckListPt = "",
+                        CheckListPt = rule.ChecklistReference,
                         Description = rule.Message,
                         XpathCondition = rule.XpathField,
                         XpathPrecondition = rule.PreCondition,
