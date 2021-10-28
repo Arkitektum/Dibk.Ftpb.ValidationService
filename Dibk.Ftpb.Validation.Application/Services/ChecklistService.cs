@@ -81,7 +81,7 @@ namespace Dibk.Ftpb.Validation.Application.Services
             List<ValidationMessage> filteredMessages = new List<ValidationMessage>();
             foreach (var message in validationMessages)
             {
-                var messageWODataFormatVersion = message.Reference.Substring(6);
+                var messageWODataFormatVersion = message?.Reference?.Substring(6);
                 if (!checklistRelatedValidations.Any(x => x.SupportingDataValidationRuleId.Any(y => y.ValidationRuleIds.Any(z => z.Equals(messageWODataFormatVersion)))))
                 {
                     //ValidationID does not exist in sjekklist

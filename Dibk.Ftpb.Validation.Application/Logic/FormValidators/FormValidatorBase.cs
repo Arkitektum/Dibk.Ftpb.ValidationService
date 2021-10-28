@@ -188,10 +188,10 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                 validationMessage.ChecklistReference = composedValidationMessage.ChecklistReference;
                 validationMessage.Messagetype = composedValidationMessage.Messagetype;
 
-                if (!validationMessage.XpathField.StartsWith(XPathRoot))
+                if (validationMessage.XpathField != null && !validationMessage.XpathField.StartsWith(XPathRoot))
                     validationMessage.XpathField = $"{XPathRoot}{validationMessage.XpathField}";
 
-                if (!validationMessage.Reference.StartsWith($"{DataFormatId}.{DataFormatVersion}"))
+                if (validationMessage.Reference != null && !validationMessage.Reference.StartsWith($"{DataFormatId}.{DataFormatVersion}"))
                     validationMessage.Reference = $"{DataFormatId}.{DataFormatVersion}{validationMessage.Reference}";
             }
 
