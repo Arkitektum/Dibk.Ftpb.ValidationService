@@ -21,6 +21,7 @@ using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.PostalCode;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.Checklist;
 using Dibk.Ftpb.Validation.Application.Logic;
 using Dibk.Ftpb.Validation.Application.Logic.FormValidators.Ansako;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace Dibk.Ftpb.Validation
 {
@@ -38,6 +39,7 @@ namespace Dibk.Ftpb.Validation
         {
 
             services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Dibk.Ftpb.Api.Validation", Version = "v1" });

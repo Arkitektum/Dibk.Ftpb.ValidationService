@@ -88,7 +88,62 @@ namespace Dibk.Ftpb.Validation.Application.Utils
             }
             return newXPath;
         }
-       
+
+        public static string DebugValidatorFormReference(string reference)
+        {
+            var validatorPath = string.Empty;
+
+            if (reference.Contains("."))
+            {
+                var validationEnumsNumber = reference.Split(".");
+
+                string[] ruleIdNumber = new string[] { };
+
+                if (int.TryParse(validationEnumsNumber[0], out int number))
+                {
+                    ruleIdNumber = number >= 10000 ? validationEnumsNumber.Skip(2).ToArray() : validationEnumsNumber;
+                }
+
+                var index = ruleIdNumber.Length;
+
+                for (int i = 0; i < index; i++)
+                {
+                    if (int.TryParse(ruleIdNumber[i], out int enumNumber))
+                    {
+                        string validatorText;
+                        string stringValue;
+
+                        if (index == i + 2)
+                        {
+                            var validatorEnum = EnumHelper.GetEnumFromFieldNameId(enumNumber.ToString());
+                            stringValue = validatorEnum.ToString();
+                        }
+                        else if (index == i + 1)
+                        {
+                            var validatorEnum = EnumHelper.GetEnumFromValidationRuleId(enumNumber.ToString());
+                            stringValue = validatorEnum.ToString();
+                        }
+                        else
+                        {
+                            var validatorEnum = EnumHelper.GetEnumFromValidationId(enumNumber.ToString());
+                            stringValue = validatorEnum.ToString();
+                        }
+
+                        if (!int.TryParse(stringValue, out int theNumber))
+                        {
+                            validatorText = ruleIdNumber.Length == i + 1 ? $" rule: {stringValue}" : $"/{stringValue}";
+                        }
+                        else
+                        {
+                            validatorText = $"/Enum:'{theNumber}'";
+                        }
+
+                        validatorPath = $"{validatorPath}{validatorText}";
+                    }
+                }
+            }
+            return validatorPath;
+        }
 
         //public static List<ATILSjekklistekravEnum> GetSjekklistekravEnumFromIndex(string checklistNumber)
         //{

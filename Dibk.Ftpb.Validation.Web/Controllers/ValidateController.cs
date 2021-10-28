@@ -4,11 +4,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using Dibk.Ftpb.Validation.Application.DataSources.ApiServices.CodeList;
 using Dibk.Ftpb.Validation.Application.Models.Standard;
 using Dibk.Ftpb.Validation.Application.Models.Web;
+using Dibk.Ftpb.Validation.Application.Utils;
 using Newtonsoft.Json.Linq;
+using Debugging = Dibk.Ftpb.Validation.Application.Models.Web.Debugging;
 
 namespace Dibk.Ftpb.Validation.Web.Controllers
 {
@@ -106,6 +110,27 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
             var documentationModel = RuleDocumentationComposer.GetRuleDocumentationModel(formValidationRules.ToList());
             return Ok(documentationModel);
         }
+
+        //[ApiExplorerSettings(IgnoreApi = true)]
+        [Route("api/debuggrulenumber")]
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Dictionary<string, string>> DebuggRuleNumber([FromBody] Debugging[] body)
+        {
+            if (body== null || !body.Any())
+                return BadRequest();
+
+            var validatorXpathList = new Dictionary<string, string>();
+            foreach (var validationRule in body)
+            {
+                var validtorXpath =Helpers.DebugValidatorFormReference(validationRule.RuleId);
+                validatorXpathList.Add(validationRule.RuleId, $"{validtorXpath}");
+            }
+            
+            return Ok(validatorXpathList);
+        }
+        
         [ApiExplorerSettings(IgnoreApi = true)]
         [Route("api/formproperties")]
         [HttpPost]
