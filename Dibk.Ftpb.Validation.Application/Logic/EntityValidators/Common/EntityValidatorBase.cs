@@ -101,14 +101,13 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             var separator = "";
             string elementRuleId = null;
             ValidationRuleEnum validationRule = (ValidationRuleEnum)rule;
-            var validationRuleTypeId = Helpers.GetEnumValidationRuleType(validationRule);
+            var validationRuleTypeId = EnumHelper.GetRuleNumberFromValidationRuleEmum(validationRule);
             var fieldNumberString = String.Empty;
 
             if (xmlElement != null)
             {
-                var fieldNameNumber = Helpers.GetEnumFieldNameNumber(xmlElement);  //GetEnumEntityValidatorNumber
+                var fieldNameNumber = EnumHelper.GetEnumFieldNameNumber(xmlElement);  //GetEnumEntityValidatorNumber
                 fieldNumberString = $".{fieldNameNumber}";
-
             }
 
             elementRuleId = $"{_ruleIdPath}{fieldNumberString}.{validationRuleTypeId}";

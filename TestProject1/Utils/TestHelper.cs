@@ -72,12 +72,12 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
 
                         if (index == i + 2)
                         {
-                            var validatorEnum = GetEnumFromFieldNameId<FieldNameEnum>(enumNumber.ToString());
+                            var validatorEnum = EnumHelper.GetEnumFromFieldNameId(enumNumber.ToString());
                             stringValue = validatorEnum.ToString();
                         }
                         else if (index == i + 1)
                         {
-                            var validatorEnum = GetEnumFromValidationRuleTypeId<ValidationRuleEnum>(enumNumber.ToString());
+                            var validatorEnum = EnumHelper.GetEnumFromValidationRuleId(enumNumber.ToString());
                             stringValue = validatorEnum.ToString();
                         }
                         else
@@ -123,46 +123,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.Utils
             //throw new ArgumentException("Not found.", nameof(validatorId));
             return default(T);
         }
-        public static T GetEnumFromFieldNameId<T>(string FieldNameId) where T : Enum
-        {
-            foreach (var field in typeof(T).GetFields())
-            {
-                if (Attribute.GetCustomAttribute(field,
-                    typeof(FieldNameEnumerationAttribute)) is FieldNameEnumerationAttribute attribute)
-                {
-                    if (attribute.FieldNameId == FieldNameId)
-                        return (T)field.GetValue(null);
-                }
-                else
-                {
-                    if (field.Name == FieldNameId)
-                        return (T)field.GetValue(null);
-                }
-            }
 
-            //throw new ArgumentException("Not found.", nameof(validatorId));
-            return default(T);
-        }
-        public static T GetEnumFromValidationRuleTypeId<T>(string validationRuleTypeId) where T : Enum
-        {
-            foreach (var field in typeof(T).GetFields())
-            {
-                if (Attribute.GetCustomAttribute(field,
-                    typeof(ValidationRuleTypeEnumerationAttribute)) is ValidationRuleTypeEnumerationAttribute attribute)
-                {
-                    if (attribute.ValidationRuleTypeId == validationRuleTypeId)
-                        return (T)field.GetValue(null);
-                }
-                else
-                {
-                    if (field.Name == validationRuleTypeId)
-                        return (T)field.GetValue(null);
-                }
-            }
-
-            //throw new ArgumentException("Not found.", nameof(validatorId));
-            return default(T);
-        }
         //TODO how to convert new entities to main XML/parse to the main class?
         public static JObject GetJsonForPostman(string xmlData, object form = null)
         {

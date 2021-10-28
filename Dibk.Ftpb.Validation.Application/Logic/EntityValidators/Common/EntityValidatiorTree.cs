@@ -43,7 +43,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
         private static string AddXPathToNode(string entityXpath, EntityValidatorEnum EnumId)
         {
 
-            var xmlNode = Helpers.GetEnumXmlNodeName(EnumId);
+            var xmlNode = EnumHelper.GetEnumXmlNodeName(EnumId);
             var entityName = xmlNode ?? EnumId.ToString();
 
             if (string.IsNullOrEmpty(entityName))
@@ -56,7 +56,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.EntityValidators.Common
             if (!entityValidatorEnum.HasValue)
                 return entityXpath;
             
-            var enumValidatorNumber = Helpers.GetEnumEntityValidatorNumber(entityValidatorEnum);
+            var enumValidatorNumber = EnumHelper.GetEnumEntityValidatorNumber(entityValidatorEnum);
             var newXpath = $"{entityXpath}.{enumValidatorNumber}";
             return newXpath;
         }

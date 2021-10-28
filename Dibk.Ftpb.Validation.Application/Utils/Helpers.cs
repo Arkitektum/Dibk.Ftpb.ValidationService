@@ -69,71 +69,6 @@ namespace Dibk.Ftpb.Validation.Application.Utils
                    || type == typeof(string)
                    || type == typeof(decimal);
         }
-        public static string GetEnumXmlNodeName(Enum value)
-        {
-            FieldInfo fi = value.GetType().GetField(value.ToString());
-
-            var enumerationAttributes = fi.GetCustomAttributes(typeof(EntityValidatorEnumerationAttribute), false) as EntityValidatorEnumerationAttribute[];
-
-            var xmlNode = string.Empty;
-            if (enumerationAttributes != null && enumerationAttributes.Any())
-            {
-                xmlNode = enumerationAttributes.First().XmlNode;
-            }
-
-            return xmlNode;
-        }
-        public static string GetEnumEntityValidatorNumber(Enum value)
-        {
-            FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
-            var entityValidatorNumber = string.Empty;
-
-            if (fieldInfo?.GetCustomAttributes(typeof(EntityValidatorEnumerationAttribute), false) is EntityValidatorEnumerationAttribute[] enumerationAttributes && enumerationAttributes.Any())
-            {
-                entityValidatorNumber = enumerationAttributes.First().ValidatorId;
-            }
-            return entityValidatorNumber;
-
-        }
-
-        public static string GetEnumFieldNameNumber(Enum value)
-        {
-            FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
-            var entityValidatorNumber = string.Empty;
-
-            if (fieldInfo?.GetCustomAttributes(typeof(FieldNameEnumerationAttribute), false) is FieldNameEnumerationAttribute[] enumerationAttributes && enumerationAttributes.Any())
-            {
-                entityValidatorNumber = enumerationAttributes.First().FieldNameId;
-            }
-            return entityValidatorNumber;
-
-        }
-
-        public static string GetEnumValidationRuleType(Enum value)
-        {
-            FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
-            var validationRuleNumber = string.Empty;
-
-            if (fieldInfo?.GetCustomAttributes(typeof(ValidationRuleTypeEnumerationAttribute), false) is ValidationRuleTypeEnumerationAttribute[] enumerationAttributes && enumerationAttributes.Any())
-            {
-                validationRuleNumber = enumerationAttributes.First().ValidationRuleTypeId;
-            }
-            return validationRuleNumber;
-
-        }
-
-        public static string GetCodelistUrl(Enum value)
-        {
-            FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
-            var codelistUrl = string.Empty;
-
-            if (fieldInfo?.GetCustomAttributes(typeof(CodelistEnumerationAttribute), false) is CodelistEnumerationAttribute[] enumerationAttributes && enumerationAttributes.Any())
-            {
-                codelistUrl = enumerationAttributes.First().CodelistUrl;
-            }
-            return codelistUrl;
-
-        }
 
         public static string ReplaceCurlyBracketInXPath(int index, string xPath)
         {
@@ -153,6 +88,7 @@ namespace Dibk.Ftpb.Validation.Application.Utils
             }
             return newXPath;
         }
+       
 
         //public static List<ATILSjekklistekravEnum> GetSjekklistekravEnumFromIndex(string checklistNumber)
         //{
@@ -173,6 +109,5 @@ namespace Dibk.Ftpb.Validation.Application.Utils
 
         //    return enumsForChecklistNumber;
         //}
-
     }
 }

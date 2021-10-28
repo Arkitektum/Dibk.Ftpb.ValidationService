@@ -122,12 +122,12 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         protected void AddValidationRule(ValidationRuleEnum rule, FieldNameEnum? xmlElement = null, string overrideXpath = null)
         {
             //Note: different implementationthan than in the EntityValidatorBase
-            var validationRuleTypeId = Helpers.GetEnumValidationRuleType(rule);
+            var validationRuleTypeId = EnumHelper.GetRuleNumberFromValidationRuleEmum(rule);
             var fieldNumberString = String.Empty;
 
             if (xmlElement != null)
             {
-                var fieldNameNumber = Helpers.GetEnumFieldNameNumber(xmlElement);  //GetEnumEntityValidatorNumber
+                var fieldNameNumber = EnumHelper.GetEnumFieldNameNumber(xmlElement);  //GetEnumEntityValidatorNumber
                 fieldNumberString = $".{fieldNameNumber}";
 
             }

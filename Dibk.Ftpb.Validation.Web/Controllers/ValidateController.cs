@@ -60,26 +60,6 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
 
             return Ok(validationResult);
         }
-        [Route("api/formrules/{dataFormatId}/{dataFormatVersion}")]
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<RuleDocumentationModel[]> FormDocumentation(string dataFormatId, string dataFormatVersion)
-        {
-            //// Authentication?
-            if (string.IsNullOrEmpty(dataFormatId) || string.IsNullOrEmpty(dataFormatVersion))
-            {
-                return BadRequest();
-            }
-
-            var formValidationRules = _validationService.GetFormValidationRules(dataFormatId,dataFormatVersion);
-            if (!formValidationRules.Any())
-            {
-                return BadRequest($"No rules found for '{dataFormatId}'.'{dataFormatVersion}'");
-            }
-            var documentationModel = RuleDocumentationComposer.GetRuleDocumentationModel(formValidationRules.ToList());
-            return Ok(documentationModel);
-        }
 
         [Route("api/validate/file")]
         [HttpPost]
@@ -105,7 +85,27 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
                 throw;
             }
         }
+        
+        [Route("api/formrules/{dataFormatId}/{dataFormatVersion}")]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<RuleDocumentationModel[]> FormDocumentation(string dataFormatId, string dataFormatVersion)
+        {
+            //// Authentication?
+            if (string.IsNullOrEmpty(dataFormatId) || string.IsNullOrEmpty(dataFormatVersion))
+            {
+                return BadRequest();
+            }
 
+            var formValidationRules = _validationService.GetFormValidationRules(dataFormatId, dataFormatVersion);
+            if (!formValidationRules.Any())
+            {
+                return BadRequest($"No rules found for '{dataFormatId}'.'{dataFormatVersion}'");
+            }
+            var documentationModel = RuleDocumentationComposer.GetRuleDocumentationModel(formValidationRules.ToList());
+            return Ok(documentationModel);
+        }
         [ApiExplorerSettings(IgnoreApi = true)]
         [Route("api/formproperties")]
         [HttpPost]

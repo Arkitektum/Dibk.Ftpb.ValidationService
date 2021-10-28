@@ -95,7 +95,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.EntityValidatorTests
 
         public void TestEiendom()
         {
-            var nn = Helpers.GetEnumXmlNodeName(ValidationRuleEnum.utfylt);
+            var nn = EnumHelper.GetEnumXmlNodeName(ValidationRuleEnum.utfylt);
 
            
 
