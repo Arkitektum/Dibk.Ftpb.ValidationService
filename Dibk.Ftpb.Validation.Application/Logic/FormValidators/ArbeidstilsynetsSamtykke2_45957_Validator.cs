@@ -284,6 +284,8 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         }
         protected override void DefineValidationRules()
         {
+            AddValidationRule(ValidationRuleEnum.sjekklistepunkt_1_18_dokumentasjon_utfylt, FieldNameEnum.dokumentasjon, "/krav/sjekklistekrav{0}/dokumentasjon");
+
             //TODO create a method to do this automatic, potential error
             //Sjekklistekrav
             AccumulateValidationRules(_sjekklistepunktValidator.ValidationResult.ValidationRules);
@@ -378,7 +380,6 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
         private void CustomSjekklisteValidations(ArbeidsplasserValidationEntity arbeidsplasser, SjekklistekravValidationEntity[] sjekklistekrav)
         {
-            AddValidationRule(ValidationRuleEnum.sjekklistepunkt_1_18_dokumentasjon_utfylt, FieldNameEnum.dokumentasjon, "/krav{0}");
 
             if (arbeidsplasser.UtleieBygg.GetValueOrDefault(false))
             {
