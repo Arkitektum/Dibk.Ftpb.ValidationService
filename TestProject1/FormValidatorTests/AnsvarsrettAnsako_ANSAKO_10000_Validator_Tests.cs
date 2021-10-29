@@ -72,7 +72,7 @@ namespace Dibk.Ftpb.Validation.Application.Tests.FormValidatorTests
             var validatorRulesJson = JArray.FromObject(validatorRules);
 
             var rulesForDocument = RuleDocumentationComposer.GetRuleDocumentationModel(validatorRules);
-            var noko = rulesForDocument.OrderBy(x => x.RuleId).ThenByDescending(y => y.XpathCondition).ToArray();
+            var noko = rulesForDocument.OrderBy(x => x.RuleId).ThenByDescending(y => y.Xpath).ToArray();
             var ruleJson1 = JArray.FromObject(noko);
 
             var validatorMessages = report.ValidationMessages;

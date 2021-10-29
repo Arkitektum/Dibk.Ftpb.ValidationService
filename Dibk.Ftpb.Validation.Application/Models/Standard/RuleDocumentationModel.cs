@@ -18,7 +18,7 @@ namespace Dibk.Ftpb.Validation.Application.Models.Standard
         public string RuleType { get; set; }
 
         [JsonPropertyName("Betingelse")]
-        public string XpathCondition { get; set; }
+        public string Xpath { get; set; }
         
         [JsonPropertyName("Forutsetning")]
         public string XpathPrecondition { get; set; }

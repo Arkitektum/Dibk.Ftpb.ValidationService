@@ -21,7 +21,7 @@ namespace Dibk.Ftpb.Validation.Application.Reporter
                         RuleId = rule.Id,
                         CheckListPt = rule.ChecklistReference,
                         Description = rule.Message,
-                        XpathCondition = rule.XpathField,
+                        Xpath = rule.XpathField,
                         XpathPrecondition = rule.PreCondition,
                         RuleType = NorskStandardValidator.NorskFeilmeldingType(rule.Messagetype)
                     });
