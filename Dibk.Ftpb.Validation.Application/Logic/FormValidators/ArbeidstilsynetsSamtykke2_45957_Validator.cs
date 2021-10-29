@@ -386,7 +386,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
 
                 if (pt_1_18 == null)
                 {
-                    AddMessageFromRule(ValidationRuleEnum.sjekklistepunkt_1_18_dokumentasjon_utfylt, "/krav{0}/dokumentasjon", new string[] { "1.18" });
+                    AddMessageFromRule(ValidationRuleEnum.sjekklistepunkt_1_18_dokumentasjon_utfylt, "/krav/sjekklistekrav{0}/dokumentasjon", new string[] { "1.18" });
                 }
                 else
                 {
@@ -394,7 +394,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
                     {
                         //Find element number
                         var numberInArray = Array.IndexOf(sjekklistekrav, pt_1_18);
-                        AddMessageFromRule(ValidationRuleEnum.sjekklistepunkt_1_18_dokumentasjon_utfylt, $"/krav[{numberInArray}]/dokumentasjon", new string[] { "1.18" });
+                        AddMessageFromRule(ValidationRuleEnum.sjekklistepunkt_1_18_dokumentasjon_utfylt, $"/krav/sjekklistekrav[{numberInArray}]/dokumentasjon", new string[] { "1.18" });
                     }
                 }
             }
