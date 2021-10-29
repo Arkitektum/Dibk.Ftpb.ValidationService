@@ -111,7 +111,7 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
             return Ok(documentationModel);
         }
 
-        //[ApiExplorerSettings(IgnoreApi = true)]
+        [ApiExplorerSettings(IgnoreApi = true)]
         [Route("api/debuggrulenumber")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
