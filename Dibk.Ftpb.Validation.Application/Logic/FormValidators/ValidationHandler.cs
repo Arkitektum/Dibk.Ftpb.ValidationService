@@ -29,7 +29,7 @@ namespace Dibk.Ftpb.Validation.Application.Logic.FormValidators
         public async Task<ValidationRule[]> GetformRulesAsync(string dataFormatId, string dataFormatVersion)
         {
             GetFormValidator(dataFormatId, dataFormatVersion);
-            return _formValidator.formValidationRules();
+            return _formValidator?.formValidationRules();
         }
         public async Task<ValidationResult> ValidateAsync(string dataFormatId, string dataFormatVersion, List<string> errorMessages, ValidationInput validationInput)
         {

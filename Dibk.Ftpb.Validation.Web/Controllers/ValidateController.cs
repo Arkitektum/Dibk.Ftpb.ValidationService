@@ -89,7 +89,7 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
                 throw;
             }
         }
-        
+
         [Route("api/formrules/{dataFormatId}/{dataFormatVersion}")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -103,9 +103,9 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
             }
 
             var formValidationRules = _validationService.GetFormValidationRules(dataFormatId, dataFormatVersion);
-            if (!formValidationRules.Any())
+            if (formValidationRules == null || !formValidationRules.Any())
             {
-                return BadRequest($"No rules found for '{dataFormatId}'.'{dataFormatVersion}'");
+                return BadRequest($"No rules found for dataFormatId: {dataFormatId}, dataFormatVersion: {dataFormatVersion}");
             }
             var documentationModel = RuleDocumentationComposer.GetRuleDocumentationModel(formValidationRules.ToList());
             return Ok(documentationModel);
@@ -118,19 +118,19 @@ namespace Dibk.Ftpb.Validation.Web.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<Dictionary<string, string>> DebuggRuleNumber([FromBody] Debugging[] body)
         {
-            if (body== null || !body.Any())
+            if (body == null || !body.Any())
                 return BadRequest();
 
             var validatorXpathList = new Dictionary<string, string>();
             foreach (var validationRule in body)
             {
-                var validtorXpath =Helpers.DebugValidatorFormReference(validationRule.RuleId);
+                var validtorXpath = Helpers.DebugValidatorFormReference(validationRule.RuleId);
                 validatorXpathList.Add(validationRule.RuleId, $"{validtorXpath}");
             }
-            
+
             return Ok(validatorXpathList);
         }
-        
+
         [ApiExplorerSettings(IgnoreApi = true)]
         [Route("api/formproperties")]
         [HttpPost]
